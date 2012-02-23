@@ -1,4 +1,4 @@
-(function(ittecoOembed) {
+(function(iframelyOembed) {
 
 var httpLink = {};
 (function(httpLink) {
@@ -215,7 +215,7 @@ ServerProvider.prototype.getOembed = function(url, options, callback) {
 /**
  * Get oembed object for the given url
  */
-ittecoOembed.getOembed = function(originalUrl, callback) {
+iframelyOembed.getOembed = function(originalUrl, callback) {
     new TwoStepProvider().getOembed(originalUrl, function(error, oembed) {
         if (error) {
             new ServerProvider().getOembed(originalUrl, callback);
@@ -241,7 +241,7 @@ var htmlProviders = {
         }
 };
 
-ittecoOembed.getOembedHtml = function(url, data) {
+iframelyOembed.getOembedHtml = function(url, data) {
     return htmlProviders[data.type](url, data)
 }
 
@@ -266,4 +266,4 @@ function request(method, url, callback) {
     req.send();
 }
 
-})(ittecoOembed = {});
+})(iframelyOembed = {});
