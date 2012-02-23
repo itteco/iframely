@@ -25,14 +25,14 @@ $(document).ready(function() {
         });
 });
 
-window.addEventListener('popstate', function(e) {
+window.onpopstate = function(e) {
     var value = location.hash.substr(1);
     document.getElementById('info').value = value;
     
     if (value) {
         embed(value);
     }
-});
+};
 //]]>
 </script>
 </head>
