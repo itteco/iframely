@@ -147,7 +147,12 @@ function byHttpLink(originalUrl, callback) {
 
 function TwoStepProvider() {}
 
-TwoStepProvider.prototype.getOembed = function(url, callback) {
+TwoStepProvider.prototype.getOembed = function(url, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = null;
+    }
+    
     byHttpLink(url, function(err, oembedUrl) {
         if (err) {
             callback(err);
@@ -163,15 +168,62 @@ TwoStepProvider.prototype.getOembed = function(url, callback) {
                         
                     } catch(e) {
                         callback({error: true, reason: e.message});
+                        return;
                     }
+
+                    callback(null, data);
                 }
             });
         }
     });
-}
+};
 
-ittecoOembed.lookupOembedUrl = function(originalUrl, callback) {
-    new TwoStepProvider().getOembed(originalUrl, callback);
+function ServerProvider() {}
+
+ServerProvider.prototype.getOembed = function(url, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    var params = [];
+    params.push('url=' + encodeURIComponent(url));
+    if (options.format) params.push('format=' + options.format);
+    if (options.maxwidth) params.push('maxwidth=' + options.maxwidth);
+    if (options.maxheight) params.push('maxheight=' + options.maxheight);
+    
+    var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1.0';
+    
+    request('GET', serverEndpoint + '?' + params.join('&'), function(error, req, data) {
+        if (error) {
+            callback(error);
+
+        } else {
+            try {
+                data = JSON.parse(data);
+
+            } catch(e) {
+                callback({error: true, reason: e.message});
+                return;
+            }
+            
+            callback(null, data);
+        }
+    });
+};
+
+/**
+ * Get oembed object for the given url
+ */
+ittecoOembed.getOembed = function(originalUrl, callback) {
+    new TwoStepProvider().getOembed(originalUrl, function(error, oembed) {
+        if (error) {
+            new ServerProvider().getOembed(originalUrl, callback);
+            
+        } else {
+            callback(error, oembed);
+        }
+    });
 };
 
 function isOembed(link) {
