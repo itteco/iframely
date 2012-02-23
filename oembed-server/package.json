@@ -1,0 +1,10 @@
+{
+    "name": "oembed-server",
+    "version": "0.1.0",
+    
+    "dependencies": {
+        "http-link": "0.1",
+        "sax": "0.3",
+        "underscore": "1.3"
+    }
+}

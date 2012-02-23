@@ -1,0 +1,14 @@
+{
+    "name": "http-link-parser",
+    "version": "0.1.0",
+    
+    "devDependencies": {
+        "vows": "*"
+    },
+    
+    "main": "main.js",
+    
+    "scripts": {
+        "test": "vows test/*.js --isolate --spec"
+    }
+}
