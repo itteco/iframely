@@ -226,6 +226,25 @@ ittecoOembed.getOembed = function(originalUrl, callback) {
     });
 };
 
+var htmlProviders = {
+        'rich': function(url, data) {
+            return data.html;
+        },
+        'photo': function(url, data) {
+            return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' +  + '">';
+        },
+        'link': function(url, data) {
+            return '<a href="' + url + '" target="_blank">' + data.title || url + '</a> '
+        },
+        'video': function(url, data) {
+            return data.html;
+        }
+};
+
+ittecoOembed.getOembedHtml = function(url, data) {
+    return htmlProviders[data.type](url, data)
+}
+
 function isOembed(link) {
     return link.type === 'application/json+oembed' || link.type === 'application/xml+oembed' || link.type === 'text/xml+oembed';
 }
