@@ -127,7 +127,6 @@ var server = http.createServer(function(req, res) {
     }
 });
 
-
 function filterHeaders(headers, allowed) {
     var filtered = {};
     
