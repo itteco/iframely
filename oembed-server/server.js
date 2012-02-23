@@ -37,11 +37,11 @@ var server = http.createServer(function(req, res) {
                     res.end();
                     
                 } else {
-                    var format = uri.query.format || 'json';
+                    var format = uri.query.format;
                     var maxwidth = uri.query.maxwidth;
                     var maxheight = uri.query.maxheight;
                     
-                    var link = _.find(links, function(l) { return l.type.match(format); }) || links[0];
+                    var link = format && _.find(links, function(l) { return l.type.match(format); }) || links[0];
                     
                     var oembedUri = url.parse(link.href);
                     
@@ -62,7 +62,7 @@ var server = http.createServer(function(req, res) {
                         headers: headers
                     }, function(oembedRes) {
                         if (oembedRes.statusCode == 200) {
-                            if (oembedRes.headers['content-type'].match(format)) {
+                            if (!format || oembedRes.headers['content-type'].match(format)) {
                                 res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
                                 oembedRes.pipe(res);
                                 
