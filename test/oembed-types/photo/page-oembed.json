@@ -1,0 +1,11 @@
+{
+        "version": "1.0",
+        "type": "rich",
+        "width": 240,
+        "height": 160,
+        "title": "Just a simple page via well-done oembed provider",
+        "author_name": "Itteco",
+        "html": "<iframe src='http://provider.iframe.ly/page1.html'></iframe>",
+        "provider_name": "provider.iframe.ly",
+        "provider_url": "http://provider.iframe.ly/"
+}
