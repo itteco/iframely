@@ -247,4 +247,4 @@ function request(method, url, callback) {
     req.send();
 }
 
-})(exports || (ittecoOembed = {}));
+})(ittecoOembed = {});
