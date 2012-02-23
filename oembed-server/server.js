@@ -131,7 +131,9 @@ function filterHeaders(headers, allowed) {
     var filtered = {};
     
     allowed.forEach(function(header) {
-        filtered[header] = headers[header.toLowerCase()];
+        var key = header.toLowerCase();
+        if (key in headers)
+            filtered[header] = headers[key];
     });
     
     return filtered;
