@@ -192,7 +192,7 @@ ServerProvider.prototype.getOembed = function(url, options, callback) {
     if (options.maxwidth) params.push('maxwidth=' + options.maxwidth);
     if (options.maxheight) params.push('maxheight=' + options.maxheight);
     
-    var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1.0';
+    var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
     
     request('GET', serverEndpoint + '?' + params.join('&'), function(error, req, data) {
         if (error) {
