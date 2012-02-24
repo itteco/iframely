@@ -6,8 +6,16 @@ var express = require('express');
 var http = require('http');
 var https = require('https');
 var httpLink = require('http-link');
-var url = require('url');
 var sax = require('sax');
+var stream = require('stream');
+var url = require('url');
+var util = require('util');
+
+var NodeCache = require('node-cache');
+
+var linksCache = new NodeCache();
+
+var oembedsCache = new NodeCache();
 
 const COMMON_HEADERS = {
     'Access-Control-Allow-Origin': '*'
@@ -41,49 +49,42 @@ app.get('/oembed/1', function(req, res) {
 
             } else {
                 var format = req.param('format');
-                var maxwidth = req.param('maxwidth');
-                var maxheight = req.param('maxheight');
+                var iframe = req.param('iframe');
 
                 var link = format && _.find(links, function(l) {return l.type.match(format);}) || links[0];
 
-                var oembedUri = url.parse(link.href);
+                var options = {
+                    maxwidth: req.param('maxwidth'),
+                    maxheight: req.param('maxheight'),
+                    headers: filterInHeaders(req.headers)
+                };
 
-                var params = [];
-                if (maxwidth) params.push('maxwidth=' + maxwidth);
-                if (maxheight) params.push('maxheight=' + maxheight);
+                getOembed(link.href, options, function(oembedRes) {
+                    if ((!format || oembedRes.headers['content-type'].match(format)) && !iframe) {
+                        res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
+                        oembedRes.pipe(res);
 
-                if (params.length) {
-                    oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
-                }
+                    } else {
+                        var stream = oembedRes.headers['content-type'].match('xml')?
+                            xmlStream2json(oembedRes):
+                            stream2json(oembedRes)
 
-                oembedUri.headers = filterInHeaders(req.headers);
-
-                getPage(oembedUri, function(oembedRes) {
-                    if (oembedRes.statusCode == 200) {
-                        if (!format || oembedRes.headers['content-type'].match(format)) {
-                            res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
-                            oembedRes.pipe(res);
-
-                        } else if (oembedRes.headers['content-type'].match('xml')) { // convert xml 2 json
-                            xmlStream2json(oembedRes)
-                                .on('error', function(error) {
-                                    console.error('error', error);
-                                    res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
-                                    res.end();
-                                })
-                                .on('oembed', function(oembed) {
+                        stream
+                            .on('error', function(error) {
+                                console.error('error', error);
+                                res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
+                                res.end();
+                            })
+                            .on('oembed', function(oembed) {
+                                if (iframe) {
+                                    oembed.html = '<iframe src="http://iframe.ly/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '></iframe>';
+                                }
+                                
+                                if (format == 'json') {
                                     res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), {'Content-Type': 'application/json+oembed'}, COMMON_HEADERS));
                                     res.end(JSON.stringify(oembed));
-                                });
-
-                        } else { // convert json 2 xml
-                            stream2json(oembedRes)
-                                .on('error', function(error) {
-                                    console.error('error', error);
-                                    res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
-                                    res.end();
-                                })
-                                .on('oembed', function(oembed) {
+                                    
+                                } else {
                                     res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), {'Content-Type': 'application/xml+oembed'}, COMMON_HEADERS));
                                     res.write('<?xml version="1.0"?>\n');
                                     res.write('<oembed>\n');
@@ -95,19 +96,20 @@ app.get('/oembed/1', function(req, res) {
                                     });
 
                                     res.end('</oembed>\n');
-                                });
-                        }
-
-                    } else if (oembedRes.statusCode == 304) {
-                        res.writeHead(304, COMMON_HEADERS);
-                        res.end();
-
-                    } else {
-                        res.writeHead(404, COMMON_HEADERS);
-                        res.end();
+                                }
+                            });
                     }
 
-                }, 1).on('error', function(err) {
+                }, 1)
+                .on('not-modified', function() {
+                    res.writeHead(304, COMMON_HEADERS);
+                    res.end();
+                })
+                .on('not-found', function() {
+                    res.writeHead(404, COMMON_HEADERS);
+                    res.end();
+                })
+                .on('error', function(err) {
                     console.error('error', err);
                     res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
                     res.end();
@@ -120,7 +122,35 @@ app.get('/oembed/1', function(req, res) {
         });
 });
 
-app.get('/iframe/1', function(req, res) {});
+app.get('/iframe/1', function(req, res) {
+    var oembedUrl = decodeURIComponent(req.param('url'));
+    getOembed(oembedUrl, {}, function(oembedRes) {
+        var stream = oembedRes.headers['content-type'].match('xml')?
+            xmlStream2json(oembedRes):
+            stream2json(oembedRes)
+        
+        stream.on('error', function(error) {
+            console.error('error', error);
+            res.writeHead(500);
+            res.end();
+        })
+        .on('oembed', function(oembed) {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(oembed.html);
+        });
+        
+    }).on('not-found', function() {
+        res.writeHead(404);
+        res.end();
+        
+    }).on('error', function(error) {
+        console.log(error);
+        res.writeHead(500);
+        res.end();
+    });
+});
 
 function filterHeaders(headers, allowed) {
     var filtered = {};
@@ -160,54 +190,136 @@ function getOembedLinks(uri) {
         });
         
     } else {
-        getPage(uri, function(res) {
-            if (res.statusCode == 200) {
-                var links = [];
-
-                var linkHeaders = res.headers.link;
-                if (linkHeaders) {
-                    links = links.reduce(function(links, value) {
-                        return links.concat(httpLink.parse(value).filter(isOembed));
-                    }, []);
-
-                    if (links.length) {
-                        promise.emit('links', links);
-                        return;
-                    }
-                }
-
-                var saxStream = sax.createStream(false);
-
-                var end = false;
-                saxStream.on('error', function(err) {
-                    console.log('sax error', err);
-                    promise.emit('error', err);
+        linksCache.get(uri, function(error, data) {
+            if (!error && data && uri in data) {
+                process.nextTick(function() {
+                    promise.emit('links', data[uri]);
                 });
-                saxStream.on('opentag', function(tag) {
-                    if (tag.name === 'LINK' && isOembed(tag.attributes)) {
-                        links.push(tag.attributes);
-                    }
-                });
-                saxStream.on('closetag', function(name) {
-                    if (name === 'HEAD') {
-                        promise.emit('links', links);
-                        end = true;
-                    }
-                });
-                saxStream.on('end', function() {
-                    if (!end) {
-                        promise.emit('links', links);
-                        end = true;
-                    }
-                });
-
-                res.pipe(saxStream);
-
+                
             } else {
-                promise.emit('error', {error: true, code: res.statusCode});
+                getPage(uri, function(res) {
+                    if (res.statusCode == 200) {
+                        var links = [];
+
+                        var linkHeaders = res.headers.link;
+                        if (linkHeaders) {
+                            links = links.reduce(function(links, value) {
+                                return links.concat(httpLink.parse(value).filter(isOembed));
+                            }, []);
+
+                            if (links.length) {
+                                promise.emit('links', links);
+                                return;
+                            }
+                        }
+
+                        var saxStream = sax.createStream(false);
+
+                        var end = false;
+                        saxStream.on('error', function(err) {
+                            console.log('sax error', err);
+                            promise.emit('error', err);
+                        });
+                        saxStream.on('opentag', function(tag) {
+                            if (tag.name === 'LINK' && isOembed(tag.attributes)) {
+                                links.push(tag.attributes);
+                            }
+                        });
+                        saxStream.on('closetag', function(name) {
+                            if (name === 'HEAD') {
+                                linksCache.set(uri, links, 300);
+                                promise.emit('links', links);
+                                end = true;
+                            }
+                        });
+                        saxStream.on('end', function() {
+                            if (!end) {
+                                promise.emit('links', links);
+                                end = true;
+                            }
+                        });
+
+                        res.pipe(saxStream);
+
+                    } else {
+                        promise.emit('error', {error: true, code: res.statusCode});
+                    }
+                }, 3);
             }
-        }, 3);
+        });
     }
+    
+    return promise;
+}
+
+function getOembed(uri, options, callback) {
+    var promise = new events.EventEmitter();
+    if (callback) {
+        promise.on('response', callback);
+    }
+    
+    var oembedUri = url.parse(uri);
+
+    var params = [];
+    if (options.maxwidth) params.push('maxwidth=' + options.maxwidth);
+    if (options.maxheigth) params.push('maxheight=' + options.maxheigth);
+
+    if (params.length) {
+        oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
+    }
+    
+    var cacheKey = url.format(oembedUri);
+    oembedsCache.get(cacheKey, function(error, data) {
+        if (!error && data && cacheKey in data) {
+            process.nextTick(function() {
+                var oembedData = data[cacheKey];
+
+                var res = new ProxyStream();
+                res.oembedUrl = cacheKey;
+                res.statusCode = 200;
+                res.headers = oembedData.headers;
+                promise.emit('response', res);
+                process.nextTick(function() {
+                    res.end(oembedData.data);
+                });
+            });
+
+        } else {
+            oembedUri.headers = options.headers;
+
+            getPage(oembedUri, function(res) {
+                if (res.statusCode == 200) {
+                    res.oembedUrl = cacheKey;
+                    var headers = {};
+                    for (var prop in res.headers) {
+                        headers[prop] = res.headers[prop];
+                    }
+                    var oembedData = {
+                        headers: headers,
+                        data: ''
+                    };
+                    res.on('data', function(data) {
+                        oembedData.data += data;
+                    });
+                    res.on('end', function() {
+                        oembedsCache.set(cacheKey, oembedData, 3600);
+                    });
+                    
+                    promise.emit('response', res);
+                    
+                } else if (res.statusCode == 304) {
+                    promise.emit('not-modified');
+                    
+                } else {
+                    promise.emit('not-found');
+                }
+                
+                
+            }).on('error', function(error) {
+                promise.emit('error', error);
+            });
+        }
+    });
     
     return promise;
 }
@@ -249,15 +361,19 @@ function getPage(uri, callback, maxRedirects) {
         req.on('response', callback);
     }
     
+    var parsedUri
     if (typeof uri == 'string') {
-        uri = url.parse(uri);
+        parsedUri = url.parse(uri);
+        
+    } else {
+        parsedUri = uri;
     }
     
     var handler = uri.protocol === 'http:'? https: http;
     handler.get({
-        host: uri.hostname,
-        port: uri.port,
-        path: uri.path,
+        host: parsedUri.hostname,
+        port: parsedUri.port,
+        path: parsedUri.path,
         headers: uri.headers
     }, function(res) {
         if (res.statusCode == 301 || res.statusCode == 302) {
@@ -265,7 +381,7 @@ function getPage(uri, callback, maxRedirects) {
                 req.emit('error', {error: 'max-redirects'});
                 
             } else {
-                var redirectUri = url.resolve(uri, res.headers.location);
+                var redirectUri = url.resolve(parsedUri, res.headers.location);
                 redirectUri.headers = uri.headers;
                 getPage(redirectUri, req, maxRedirects > 0? maxRedirects - 1: maxRedirects);
             }
@@ -320,6 +436,8 @@ function xmlStream2json(stream) {
     });
 
     stream.pipe(saxStream);
+    
+    return promise;
 }
 
 function stream2json(stream) {
@@ -340,7 +458,33 @@ function stream2json(stream) {
         
         promise.emit('oembed', data);
     });
+    
+    return promise;
 }
+
+function ProxyStream() {
+    this.readable = true;
+}
+
+util.inherits(ProxyStream, stream.Stream);
+
+ProxyStream.prototype.write = function(data) {
+    this.emit('data', data);
+};
+
+ProxyStream.prototype.end = function(data) {
+    if (data)
+        this.emit('data', data);
+    this.emit('end');
+};
+
+ProxyStream.prototype.pause = function() {
+    this.emit('pause');
+};
+
+ProxyStream.prototype.resume = function() {
+    this.emit('resume');
+};
 
 app.listen(8060);
 console.log('Listening', 8060);
