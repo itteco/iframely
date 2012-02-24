@@ -44,7 +44,7 @@ app.get('/oembed/1', function(req, res) {
                 var maxwidth = req.param('maxwidth');
                 var maxheight = req.param('maxheight');
 
-                var link = format && _.find(links, function(l) { return l.type.match(format); }) || links[0];
+                var link = format && _.find(links, function(l) {return l.type.match(format);}) || links[0];
 
                 var oembedUri = url.parse(link.href);
 
@@ -151,58 +151,95 @@ function isOembed(link) {
  * @return event emitter object
  */
 function getOembedLinks(uri) {
-    console.log('oembed for', uri);
     var promise = new events.EventEmitter();
+    
+    var links = lookupStaticProviders(uri);
+    if (links) {
+        process.nextTick(function() {
+            promise.emit('links', links);
+        });
+        
+    } else {
+        getPage(uri, function(res) {
+            if (res.statusCode == 200) {
+                var links = [];
 
-    getPage(uri, function(res) {
-        if (res.statusCode == 200) {
-            var links = [];
+                var linkHeaders = res.headers.link;
+                if (linkHeaders) {
+                    links = links.reduce(function(links, value) {
+                        return links.concat(httpLink.parse(value).filter(isOembed));
+                    }, []);
 
-            var linkHeaders = res.headers.link;
-            if (linkHeaders) {
-                links = links.reduce(function(links, value) {
-                    return links.concat(httpLink.parse(value).filter(isOembed));
-                }, []);
-
-                if (links.length) {
-                    promise.emit('links', links);
-                    return;
+                    if (links.length) {
+                        promise.emit('links', links);
+                        return;
+                    }
                 }
+
+                var saxStream = sax.createStream(false);
+
+                var end = false;
+                saxStream.on('error', function(err) {
+                    console.log('sax error', err);
+                    promise.emit('error', err);
+                });
+                saxStream.on('opentag', function(tag) {
+                    if (tag.name === 'LINK' && isOembed(tag.attributes)) {
+                        links.push(tag.attributes);
+                    }
+                });
+                saxStream.on('closetag', function(name) {
+                    if (name === 'HEAD') {
+                        promise.emit('links', links);
+                        end = true;
+                    }
+                });
+                saxStream.on('end', function() {
+                    if (!end) {
+                        promise.emit('links', links);
+                        end = true;
+                    }
+                });
+
+                res.pipe(saxStream);
+
+            } else {
+                promise.emit('error', {error: true, code: res.statusCode});
             }
-
-            var saxStream = sax.createStream(false);
-
-            var end = false;
-            saxStream.on('error', function(err) {
-                console.log('sax error', err);
-                promise.emit('error', err);
-            });
-            saxStream.on('opentag', function(tag) {
-                if (tag.name === 'LINK' && isOembed(tag.attributes)) {
-                    links.push(tag.attributes);
-                }
-            });
-            saxStream.on('closetag', function(name) {
-                if (name === 'HEAD') {
-                    promise.emit('links', links);
-                    end = true;
-                }
-            });
-            saxStream.on('end', function() {
-                if (!end) {
-                    promise.emit('links', links);
-                    end = true;
-                }
-            });
-
-            res.pipe(saxStream);
-            
-        } else {
-            promise.emit('error', {error: true, code: res.statusCode});
-        }
-    }, 3);
+        }, 3);
+    }
     
     return promise;
+}
+
+function lookupStaticProviders(uri) {
+    var providers = require('./providers.json');
+    
+    var protoMatch = uri.match(/^(https?:\/\/)/);
+    uri = uri.substr(protoMatch[1].length);
+    
+    var links;
+    for (var j = 0; j < providers.length; j++) {
+        var p = providers[j];
+        var match;
+        for (var i = 0; i < p.templates.length; i++) {
+            match = uri.match(p.templates[i]);
+            if (match) break;
+        }
+        
+        if (match) {
+            links = p.links.map(function(l) {
+                return {
+                    href: l.href.replace('{part1}', match[1]),
+                    rel: 'alternate',
+                    type: l.type
+                }
+            });
+            break;
+        }
+    }
+    
+    return links;
 }
 
 function getPage(uri, callback, maxRedirects) {
