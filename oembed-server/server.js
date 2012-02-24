@@ -223,4 +223,9 @@ function jsonStream2oembed(stream) {
 app.listen(8060);
 console.log('Listening', 8060);
 
+process.on('uncaughtException', function (error) {
+    console.error(error);
+    console.error(error.stack);
+});
+
 })();
