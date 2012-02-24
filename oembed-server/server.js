@@ -9,6 +9,10 @@ var httpLink = require('http-link');
 var url = require('url');
 var sax = require('sax');
 
+var NodeCache = require('node-cache');
+
+var linksCache = new NodeCache();
+
 const COMMON_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 };
@@ -160,53 +164,63 @@ function getOembedLinks(uri) {
         });
         
     } else {
-        getPage(uri, function(res) {
-            if (res.statusCode == 200) {
-                var links = [];
-
-                var linkHeaders = res.headers.link;
-                if (linkHeaders) {
-                    links = links.reduce(function(links, value) {
-                        return links.concat(httpLink.parse(value).filter(isOembed));
-                    }, []);
-
-                    if (links.length) {
-                        promise.emit('links', links);
-                        return;
-                    }
-                }
-
-                var saxStream = sax.createStream(false);
-
-                var end = false;
-                saxStream.on('error', function(err) {
-                    console.log('sax error', err);
-                    promise.emit('error', err);
+        linksCache.get(uri, function(error, data) {
+            if (!error && data && uri in data) {
+                process.nextTick(function() {
+                    promise.emit('links', data[uri]);
                 });
-                saxStream.on('opentag', function(tag) {
-                    if (tag.name === 'LINK' && isOembed(tag.attributes)) {
-                        links.push(tag.attributes);
-                    }
-                });
-                saxStream.on('closetag', function(name) {
-                    if (name === 'HEAD') {
-                        promise.emit('links', links);
-                        end = true;
-                    }
-                });
-                saxStream.on('end', function() {
-                    if (!end) {
-                        promise.emit('links', links);
-                        end = true;
-                    }
-                });
-
-                res.pipe(saxStream);
-
+                
             } else {
-                promise.emit('error', {error: true, code: res.statusCode});
+                getPage(uri, function(res) {
+                    if (res.statusCode == 200) {
+                        var links = [];
+
+                        var linkHeaders = res.headers.link;
+                        if (linkHeaders) {
+                            links = links.reduce(function(links, value) {
+                                return links.concat(httpLink.parse(value).filter(isOembed));
+                            }, []);
+
+                            if (links.length) {
+                                promise.emit('links', links);
+                                return;
+                            }
+                        }
+
+                        var saxStream = sax.createStream(false);
+
+                        var end = false;
+                        saxStream.on('error', function(err) {
+                            console.log('sax error', err);
+                            promise.emit('error', err);
+                        });
+                        saxStream.on('opentag', function(tag) {
+                            if (tag.name === 'LINK' && isOembed(tag.attributes)) {
+                                links.push(tag.attributes);
+                            }
+                        });
+                        saxStream.on('closetag', function(name) {
+                            if (name === 'HEAD') {
+                                linksCache.set(uri, links, 300);
+                                promise.emit('links', links);
+                                end = true;
+                            }
+                        });
+                        saxStream.on('end', function() {
+                            if (!end) {
+                                promise.emit('links', links);
+                                end = true;
+                            }
+                        });
+
+                        res.pipe(saxStream);
+
+                    } else {
+                        promise.emit('error', {error: true, code: res.statusCode});
+                    }
+                }, 3);
             }
-        }, 3);
+        });
     }
     
     return promise;
@@ -249,15 +263,19 @@ function getPage(uri, callback, maxRedirects) {
         req.on('response', callback);
     }
     
+    var parsedUri
     if (typeof uri == 'string') {
-        uri = url.parse(uri);
+        parsedUri = url.parse(uri);
+        
+    } else {
+        parsedUri = uri;
     }
     
     var handler = uri.protocol === 'http:'? https: http;
     handler.get({
-        host: uri.hostname,
-        port: uri.port,
-        path: uri.path,
+        host: parsedUri.hostname,
+        port: parsedUri.port,
+        path: parsedUri.path,
         headers: uri.headers
     }, function(res) {
         if (res.statusCode == 301 || res.statusCode == 302) {
@@ -265,7 +283,7 @@ function getPage(uri, callback, maxRedirects) {
                 req.emit('error', {error: 'max-redirects'});
                 
             } else {
-                var redirectUri = url.resolve(uri, res.headers.location);
+                var redirectUri = url.resolve(parsedUri, res.headers.location);
                 redirectUri.headers = uri.headers;
                 getPage(redirectUri, req, maxRedirects > 0? maxRedirects - 1: maxRedirects);
             }
