@@ -6,12 +6,16 @@ var express = require('express');
 var http = require('http');
 var https = require('https');
 var httpLink = require('http-link');
-var url = require('url');
 var sax = require('sax');
+var stream = require('stream');
+var url = require('url');
+var util = require('util');
 
 var NodeCache = require('node-cache');
 
 var linksCache = new NodeCache();
+
+var oembedsCache = new NodeCache();
 
 const COMMON_HEADERS = {
     'Access-Control-Allow-Origin': '*'
@@ -45,24 +49,16 @@ app.get('/oembed/1', function(req, res) {
 
             } else {
                 var format = req.param('format');
-                var maxwidth = req.param('maxwidth');
-                var maxheight = req.param('maxheight');
 
                 var link = format && _.find(links, function(l) {return l.type.match(format);}) || links[0];
 
-                var oembedUri = url.parse(link.href);
+                var options = {
+                    maxwidth: req.param('maxwidth'),
+                    maxheight: req.param('maxheight'),
+                    headers: filterInHeaders(req.headers)
+                };
 
-                var params = [];
-                if (maxwidth) params.push('maxwidth=' + maxwidth);
-                if (maxheight) params.push('maxheight=' + maxheight);
-
-                if (params.length) {
-                    oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
-                }
-
-                oembedUri.headers = filterInHeaders(req.headers);
-
-                getPage(oembedUri, function(oembedRes) {
+                getOembed(link.href, options, function(oembedRes) {
                     if (oembedRes.statusCode == 200) {
                         if (!format || oembedRes.headers['content-type'].match(format)) {
                             res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
@@ -226,6 +222,68 @@ function getOembedLinks(uri) {
     return promise;
 }
 
+function getOembed(uri, options, callback) {
+    var promise = new events.EventEmitter();
+    if (callback) {
+        promise.on('response', callback);
+    }
+    
+    var oembedUri = url.parse(uri);
+
+    var params = [];
+    if (options.maxwidth) params.push('maxwidth=' + options.maxwidth);
+    if (options.maxheigth) params.push('maxheight=' + options.maxheigth);
+
+    if (params.length) {
+        oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
+    }
+    
+    var cacheKey = url.format(oembedUri);
+    oembedsCache.get(cacheKey, function(error, data) {
+        if (!error && data && cacheKey in data) {
+            process.nextTick(function() {
+                var oembedData = data[cacheKey];
+
+                var res = new ProxyStream();
+                res.statusCode = 200;
+                res.headers = oembedData.headers;
+                promise.emit('response', res);
+                process.nextTick(function() {
+                    res.end(oembedData.data);
+                });
+            });
+
+        } else {
+            oembedUri.headers = options.headers;
+
+            getPage(oembedUri, function(res) {
+                if (res.statusCode == 200) {
+                    var headers = {};
+                    for (var prop in res.headers) {
+                        headers[prop] = res.headers[prop];
+                    }
+                    var oembedData = {
+                        headers: headers,
+                        data: ''
+                    };
+                    res.on('data', function(data) {
+                        oembedData.data += data;
+                    });
+                    res.on('end', function() {
+                        oembedsCache.set(cacheKey, oembedData, 3600);
+                    });
+                }
+                promise.emit('response', res);
+                
+            }).on('error', function(error) {
+                promise.emit('error', error);
+            });
+        }
+    });
+    
+    return promise;
+}
+
 function lookupStaticProviders(uri) {
     var providers = require('./providers.json');
     
@@ -359,6 +417,30 @@ function stream2json(stream) {
         promise.emit('oembed', data);
     });
 }
+
+function ProxyStream() {
+    this.readable = true;
+}
+
+util.inherits(ProxyStream, stream.Stream);
+
+ProxyStream.prototype.write = function(data) {
+    this.emit('data', data);
+};
+
+ProxyStream.prototype.end = function(data) {
+    if (data)
+        this.emit('data', data);
+    this.emit('end');
+};
+
+ProxyStream.prototype.pause = function() {
+    this.emit('pause');
+};
+
+ProxyStream.prototype.resume = function() {
+    this.emit('resume');
+};
 
 app.listen(8060);
 console.log('Listening', 8060);
