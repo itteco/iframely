@@ -145,6 +145,30 @@ function byHttpLink(originalUrl, callback) {
     });
 }
 
+function xmlOembedToJson(xml) {
+    var json = xmlToJson(xml);
+    // TODO: validate structure?
+    return json.oembed || undefined;
+}
+
+function xmlToJson(xml) {
+    var obj = {};
+
+    if (xml.hasChildNodes()) {
+        for(var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeType = item.nodeType;
+            var nodeName = item.nodeName;
+            if (nodeType == 3 || nodeType  == 4) {
+                obj = item.nodeValue;
+            } else {
+                obj[nodeName] = xmlToJson(item);
+            }
+        }
+    }
+    return obj;
+};
+
 function TwoStepProvider() {}
 
 TwoStepProvider.prototype.getOembed = function(url, options, callback) {
@@ -158,22 +182,7 @@ TwoStepProvider.prototype.getOembed = function(url, options, callback) {
             callback(err);
             
         } else {
-            request('GET', oembedUrl, function(error, req, data) {
-                if (error) {
-                    callback(error);
-                
-                } else {
-                    try {
-                        data = JSON.parse(data);
-                        
-                    } catch(e) {
-                        callback({error: true, reason: e.message});
-                        return;
-                    }
-
-                    callback(null, data);
-                }
-            });
+            iframelyOembed.loadOembed(oembedUrl, callback);
         }
     });
 };
@@ -194,23 +203,35 @@ ServerProvider.prototype.getOembed = function(url, options, callback) {
     
     var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
     
-    request('GET', serverEndpoint + '?' + params.join('&'), function(error, req, data) {
+    var oembedUrl = serverEndpoint + '?' + params.join('&');
+    iframelyOembed.loadOembed(oembedUrl, callback);
+};
+
+/*
+ * Get oembed by oembed url (not original page)
+ */
+iframelyOembed.loadOembed = function(oembedUrl, callback) {
+    request('GET', oembedUrl, function(error, req, data) {
         if (error) {
             callback(error);
-
+        
         } else {
             try {
-                data = JSON.parse(data);
+                if (req.responseXML) {
+                    data = xmlOembedToJson(req.responseXML);
+                } else {
+                    data = JSON.parse(data);
+                }
 
             } catch(e) {
                 callback({error: true, reason: e.message});
                 return;
             }
-            
+
             callback(null, data);
         }
     });
-};
+}
 
 /**
  * Get oembed object for the given url
@@ -231,9 +252,13 @@ var htmlProviders = {
             return data.html;
         },
         'photo': function(url, data) {
+            if (data.html)
+                return data.html;
             return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' +  + '">';
         },
         'link': function(url, data) {
+            if (data.html)
+                return data.html;
             return '<a href="' + url + '" target="_blank">' + data.title || url + '</a> '
         },
         'video': function(url, data) {
