@@ -146,7 +146,7 @@ iframely.getOembedByProvider = function(uri, options, callback) {
                     callback({error: 'not-found'});
                 }
                 
-            }).on('error', function(error) {
+            }, 1).on('error', function(error) {
                 callback(error);
             });
         }
