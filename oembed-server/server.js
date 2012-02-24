@@ -77,7 +77,7 @@ app.get('/oembed/1', function(req, res) {
                             })
                             .on('oembed', function(oembed) {
                                 if (iframe) {
-                                    oembed.html = '<iframe src="http://iframe.ly/iframe/1?url="' + encodeURIComponent(oembedRes.oembedUrl) + '></iframe>';
+                                    oembed.html = '<iframe src="http://iframe.ly/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '></iframe>';
                                 }
                                 
                                 if (format == 'json') {
@@ -436,6 +436,8 @@ function xmlStream2json(stream) {
     });
 
     stream.pipe(saxStream);
+    
+    return promise;
 }
 
 function stream2json(stream) {
@@ -456,6 +458,8 @@ function stream2json(stream) {
         
         promise.emit('oembed', data);
     });
+    
+    return promise;
 }
 
 function ProxyStream() {
