@@ -2,12 +2,13 @@
 
 var _ = require('underscore');
 var events = require('events');
+var express = require('express');
 var http = require('http');
 var httpLink = require('http-link');
 var url = require('url');
 var sax = require('sax');
 
-var COMMON_HEADERS = {
+const COMMON_HEADERS = {
     'Access-Control-Allow-Origin': '*'
 };
 
@@ -24,108 +25,106 @@ const ALLOWED_OUT_HEADERS = [
     'Last-Modified'
 ];
 
-var server = http.createServer(function(req, res) {
-    var uri = url.parse(req.url, true);
-    
-    if (uri.pathname === '/oembed/1.0') {
-        var pageUrl = decodeURIComponent(uri.query.url);
-        console.log(new Date().toJSON(), 'get oembed for', pageUrl)
-        getOembedLinks(pageUrl)
-            .on('links', function(links) {
-                if (links.length == 0) {
-                    res.writeHead(404, COMMON_HEADERS);
-                    res.end();
-                    
-                } else {
-                    var format = uri.query.format;
-                    var maxwidth = uri.query.maxwidth;
-                    var maxheight = uri.query.maxheight;
-                    
-                    var link = format && _.find(links, function(l) { return l.type.match(format); }) || links[0];
-                    
-                    var oembedUri = url.parse(link.href);
-                    
-                    var params = [];
-                    if (maxwidth) params.push('maxwidth=' + maxwidth);
-                    if (maxheight) params.push('maxheight=' + maxheight);
-                    
-                    if (params.length) {
-                        oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
-                    }
-                    
-                    var headers = filterInHeaders(req.headers);
-                    
-                    http.get({
-                        host: oembedUri.hostname,
-                        port: oembedUri.port,
-                        path: oembedUri.path,
-                        headers: headers
-                    }, function(oembedRes) {
-                        if (oembedRes.statusCode == 200) {
-                            if (!format || oembedRes.headers['content-type'].match(format)) {
-                                res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
-                                oembedRes.pipe(res);
-                                
-                            } else if (oembedRes.headers['content-type'].match('xml')) { // convert xml 2 json
-                                xmlStream2json(oembedRes)
-                                    .on('error', function(error) {
-                                        console.error('error', error);
-                                        res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
-                                        res.end();
-                                    })
-                                    .on('oembed', function(oembed) {
-                                        res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), {'Content-Type': 'application/json+oembed'}, COMMON_HEADERS));
-                                        res.end(JSON.stringify(oembed));
-                                    });
-                                
-                            } else { // convert json 2 xml
-                                stream2json(oembedRes)
-                                    .on('error', function(error) {
-                                        console.error('error', error);
-                                        res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
-                                        res.end();
-                                    })
-                                    .on('oembed', function(oembed) {
-                                        res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), {'Content-Type': 'application/xml+oembed'}, COMMON_HEADERS));
-                                        res.write('<?xml version="1.0"?>\n');
-                                        res.write('<oembed>\n');
+var app = express.createServer(
+//    express.logger(),
+//    express.bodyParser()
+);
 
-                                        _.each(oembed, function(value, prop) {
-                                            res.write('<' + prop + '>');
-                                            res.write(value);
-                                            res.write('</' + prop + '>');
-                                        });
-
-                                        res.end('</oembed>\n');
-                                    });
-                            }
-                            
-                        } else if (oembedRes.statusCode == 304) {
-                            res.writeHead(304, COMMON_HEADERS);
-                            res.end();
-                            
-                        } else {
-                            res.writeHead(404, COMMON_HEADERS);
-                            res.end();
-                        }
-                        
-                    }).on('error', function(err) {
-                        console.error('error', err);
-                        res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
-                        res.end();
-                    });
-                }
-            })
-            .on('error', function() {
-                res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
+app.get('/oembed/1', function(req, res) {
+    var pageUrl = decodeURIComponent(req.param('url'));
+    getOembedLinks(pageUrl)
+        .on('links', function(links) {
+            if (links.length == 0) {
+                res.writeHead(404, COMMON_HEADERS);
                 res.end();
-            });
-        
-    } else {
-        res.writeHead(404);
-        res.end();
-    }
+
+            } else {
+                var format = req.param('format');
+                var maxwidth = req.param('maxwidth');
+                var maxheight = req.param('maxheight');
+
+                var link = format && _.find(links, function(l) { return l.type.match(format); }) || links[0];
+
+                var oembedUri = url.parse(link.href);
+
+                var params = [];
+                if (maxwidth) params.push('maxwidth=' + maxwidth);
+                if (maxheight) params.push('maxheight=' + maxheight);
+
+                if (params.length) {
+                    oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
+                }
+
+                var headers = filterInHeaders(req.headers);
+
+                http.get({
+                    host: oembedUri.hostname,
+                    port: oembedUri.port,
+                    path: oembedUri.path,
+                    headers: headers
+                }, function(oembedRes) {
+                    if (oembedRes.statusCode == 200) {
+                        if (!format || oembedRes.headers['content-type'].match(format)) {
+                            res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
+                            oembedRes.pipe(res);
+
+                        } else if (oembedRes.headers['content-type'].match('xml')) { // convert xml 2 json
+                            xmlStream2json(oembedRes)
+                                .on('error', function(error) {
+                                    console.error('error', error);
+                                    res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
+                                    res.end();
+                                })
+                                .on('oembed', function(oembed) {
+                                    res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), {'Content-Type': 'application/json+oembed'}, COMMON_HEADERS));
+                                    res.end(JSON.stringify(oembed));
+                                });
+
+                        } else { // convert json 2 xml
+                            stream2json(oembedRes)
+                                .on('error', function(error) {
+                                    console.error('error', error);
+                                    res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
+                                    res.end();
+                                })
+                                .on('oembed', function(oembed) {
+                                    res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), {'Content-Type': 'application/xml+oembed'}, COMMON_HEADERS));
+                                    res.write('<?xml version="1.0"?>\n');
+                                    res.write('<oembed>\n');
+
+                                    _.each(oembed, function(value, prop) {
+                                        res.write('<' + prop + '>');
+                                        res.write(value);
+                                        res.write('</' + prop + '>');
+                                    });
+
+                                    res.end('</oembed>\n');
+                                });
+                        }
+
+                    } else if (oembedRes.statusCode == 304) {
+                        res.writeHead(304, COMMON_HEADERS);
+                        res.end();
+
+                    } else {
+                        res.writeHead(404, COMMON_HEADERS);
+                        res.end();
+                    }
+
+                }).on('error', function(err) {
+                    console.error('error', err);
+                    res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
+                    res.end();
+                });
+            }
+        })
+        .on('error', function() {
+            res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
+            res.end();
+        });
 });
+
+app.get('/iframe/1', function(req, res) {});
 
 function filterHeaders(headers, allowed) {
     var filtered = {};
@@ -288,7 +287,7 @@ function stream2json(stream) {
     });
 }
 
-server.listen(8060);
+app.listen(8060);
 console.log('Listening', 8060);
 
 })();
