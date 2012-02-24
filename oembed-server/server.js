@@ -12,6 +12,7 @@ var url = require('url');
 var util = require('util');
 
 var NodeCache = require('node-cache');
+var httpUtils = require('./http-utils');
 
 var linksCache = new NodeCache();
 
@@ -36,6 +37,7 @@ const ALLOWED_OUT_HEADERS = [
 
 var app = express.createServer(
     express.logger()
+//    httpUtils.rateLimit(httpUtils.header('referrer'), 10, 60000)
 //    express.bodyParser()
 );
 
