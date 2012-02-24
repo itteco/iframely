@@ -8,12 +8,12 @@
 <script type="text/javascript">
 //<!CDATA[[
 function embed(url) {
-    ittecoOembed.getOembed(url, function(error, oembed) {
+    iframelyOembed.getOembed(url, function(error, oembed) {
         if (error) {
             console.log(error);
             
         } else {
-            $('#out').html(ittecoOembed.getOembedHtml(url, oembed));
+            $('#out').html(iframelyOembed.getOembedHtml(url, oembed));
         }
     });
 }
