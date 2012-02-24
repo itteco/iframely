@@ -4,6 +4,7 @@ var _ = require('underscore');
 var events = require('events');
 var express = require('express');
 var http = require('http');
+var https = require('https');
 var httpLink = require('http-link');
 var url = require('url');
 var sax = require('sax');
@@ -26,7 +27,7 @@ const ALLOWED_OUT_HEADERS = [
 ];
 
 var app = express.createServer(
-//    express.logger(),
+    express.logger()
 //    express.bodyParser()
 );
 
@@ -55,14 +56,9 @@ app.get('/oembed/1', function(req, res) {
                     oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
                 }
 
-                var headers = filterInHeaders(req.headers);
+                oembedUri.headers = filterInHeaders(req.headers);
 
-                http.get({
-                    host: oembedUri.hostname,
-                    port: oembedUri.port,
-                    path: oembedUri.path,
-                    headers: headers
-                }, function(oembedRes) {
+                getPage(oembedUri, function(oembedRes) {
                     if (oembedRes.statusCode == 200) {
                         if (!format || oembedRes.headers['content-type'].match(format)) {
                             res.writeHead(200, _.extend(filterOutHeaders(oembedRes.headers), COMMON_HEADERS));
@@ -111,7 +107,7 @@ app.get('/oembed/1', function(req, res) {
                         res.end();
                     }
 
-                }).on('error', function(err) {
+                }, 1).on('error', function(err) {
                     console.error('error', err);
                     res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
                     res.end();
@@ -155,24 +151,14 @@ function isOembed(link) {
  * @return event emitter object
  */
 function getOembedLinks(uri) {
+    console.log('oembed for', uri);
     var promise = new events.EventEmitter();
 
-    fetchPage(uri, promise);
-    
-    return promise;
-}
-
-function fetchPage(uri, promise) {
-    var pageUrl = url.parse(uri);
-    http.get({
-        host: pageUrl.hostname,
-        port: pageUrl.port,
-        path: pageUrl.path
-    }, function(pageRes) {
-        if (pageRes.statusCode == 200) {
+    getPage(uri, function(res) {
+        if (res.statusCode == 200) {
             var links = [];
 
-            var linkHeaders = pageRes.headers.link;
+            var linkHeaders = res.headers.link;
             if (linkHeaders) {
                 links = links.reduce(function(links, value) {
                     return links.concat(httpLink.parse(value).filter(isOembed));
@@ -209,21 +195,53 @@ function fetchPage(uri, promise) {
                 }
             });
 
-            pageRes.pipe(saxStream);
-            
-        } else if (pageRes.statusCode == 301 || pageRes.statusCode == 302) {
-            fetchPage(url.resolve(pageUrl, pageRes.headers.location), promise);
-            
+            res.pipe(saxStream);
             
         } else {
-            promise.emit('error', {error: true, code: pageRes.statusCode});
+            promise.emit('error', {error: true, code: res.statusCode});
+        }
+    }, 3);
+    
+    return promise;
+}
+
+function getPage(uri, callback, maxRedirects) {
+    var req = callback instanceof events.EventEmitter? callback: new events.EventEmitter();
+    
+    if (typeof callback === 'function') {
+        req.on('response', callback);
+    }
+    
+    if (typeof uri == 'string') {
+        uri = url.parse(uri);
+    }
+    
+    var handler = uri.protocol === 'http:'? https: http;
+    handler.get({
+        host: uri.hostname,
+        port: uri.port,
+        path: uri.path,
+        headers: uri.headers
+    }, function(res) {
+        if (res.statusCode == 301 || res.statusCode == 302) {
+            if (maxRedirects === 0) {
+                req.emit('error', {error: 'max-redirects'});
+                
+            } else {
+                var redirectUri = url.resolve(uri, res.headers.location);
+                redirectUri.headers = uri.headers;
+                getPage(redirectUri, req, maxRedirects > 0? maxRedirects - 1: maxRedirects);
+            }
+            
+        } else {
+            req.emit('response', res);
         }
         
-    }).on('error', function(err) {
-        console.error('error', err);
-        promise.emit('error', err);
+    }).on('error', function(error) {
+        req.emit('error', error);
     });
-        
+    
+    return req;
 }
 
 function xmlStream2json(stream) {
