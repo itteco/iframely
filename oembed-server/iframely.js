@@ -19,7 +19,12 @@ var oembedsCache = new NodeCache();
 /**
  * Fetches oembed links for the given page uri
  */
-iframely.getOembedLinks = function(uri, callback) {
+iframely.getOembedLinks = function(uri, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
     var links = lookupStaticProviders(uri);
     if (links) {
         callback(null, links);
@@ -60,7 +65,9 @@ iframely.getOembedLinks = function(uri, callback) {
                         });
                         saxStream.on('closetag', function(name) {
                             if (name === 'HEAD') {
-                                linksCache.set(uri, links, 300);
+                                if (options.useCache !== false) {
+                                    linksCache.set(uri, links, 300);
+                                }
                                 callback(null, links);
                                 end = true;
                             }
@@ -122,20 +129,23 @@ iframely.getOembedByProvider = function(uri, options, callback) {
             getPage(oembedUri, function(res) {
                 if (res.statusCode == 200) {
                     res.oembedUrl = cacheKey;
-                    var headers = {};
-                    for (var prop in res.headers) {
-                        headers[prop] = res.headers[prop];
+                    
+                    if (options.useCache !== false) {
+                        var headers = {};
+                        for (var prop in res.headers) {
+                            headers[prop] = res.headers[prop];
+                        }
+                        var oembedData = {
+                            headers: headers,
+                            data: ''
+                        };
+                        res.on('data', function(data) {
+                            oembedData.data += data;
+                        });
+                        res.on('end', function() {
+                            oembedsCache.set(cacheKey, oembedData, 3600);
+                        });
                     }
-                    var oembedData = {
-                        headers: headers,
-                        data: ''
-                    };
-                    res.on('data', function(data) {
-                        oembedData.data += data;
-                    });
-                    res.on('end', function() {
-                        oembedsCache.set(cacheKey, oembedData, 3600);
-                    });
                     
                     callback(null, res);
                     
@@ -162,7 +172,7 @@ iframely.getOembed = function(uri, options, callback) {
         options = {};
     }
 
-    iframely.getOembedLinks(uri, function(error, links) {
+    iframely.getOembedLinks(uri, options, function(error, links) {
         if (error) {
             callback(error);
 
