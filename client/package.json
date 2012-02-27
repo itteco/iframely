@@ -6,8 +6,8 @@
     
     "keywords": [
         "JavaScript",
-        "oEmbed", 
-        "Node.JS",     	
+        "oEmbed",
+        "Node.JS"
     ],
 
     "author": "Itteco Software Corp.",
@@ -19,13 +19,13 @@
         {
             "name": "Nazar Leush",
             "web": "https://github.com/nleush"
-        },
+        }
     ],
     "contributors": [
         {
             "name": "Pavel Kartautsau",
             "web": "https://github.com/poolby"
-        },
+        }
     ],
 
     "bugs": {
@@ -52,5 +52,5 @@
     "scripts": {
         "build": "build.js",
         "test": "test.js"
-    },
+    }
 }
