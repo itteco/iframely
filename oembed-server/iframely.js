@@ -84,7 +84,9 @@ iframely.getOembedLinks = function(uri, options, callback) {
                     } else {
                         callback({error: true, code: res.statusCode});
                     }
-                }, 3);
+                }, 3).on('error', function(error) {
+                    callback(error);
+                });
             }
         });
     }
@@ -106,7 +108,11 @@ iframely.getOembedByProvider = function(uri, options, callback) {
     if (options.maxheigth) params.push('maxheight=' + options.maxheigth);
 
     if (params.length) {
-        oembedUri.path += (oembedUri.path.match('\\?')? '&': '?') + params.join('&');
+        if (oembedUri.search)
+            oembedUri.search += '&' + params.join('&');
+        
+        else
+            oembedUri.search = '?' + params.join('&');
     }
     
     var cacheKey = url.format(oembedUri);
@@ -114,14 +120,19 @@ iframely.getOembedByProvider = function(uri, options, callback) {
         if (!error && data && cacheKey in data) {
             var oembedData = data[cacheKey];
 
-            var res = new ProxyStream();
-            res.oembedUrl = cacheKey;
-            res.statusCode = 200;
-            res.headers = oembedData.headers;
-            callback(null, res);
-            process.nextTick(function() {
-                res.end(oembedData.data);
-            });
+            if (options.stream === false) {
+                callback(null, oembedData.data);
+                
+            } else {
+                var res = new ProxyStream();
+                res.oembedUrl = cacheKey;
+                res.statusCode = 200;
+                res.headers = oembedData.headers;
+                callback(null, res);
+                process.nextTick(function() {
+                    res.end(oembedData.data);
+                });
+            }
 
         } else {
             oembedUri.headers = options.headers;
@@ -238,16 +249,16 @@ function getPage(uri, callback, maxRedirects) {
         parsedUri = uri;
     }
     
-    var handler = uri.protocol === 'http:'? https: http;
+    var handler = parsedUri.protocol === 'https:'? https: http;
     handler.get({
         host: parsedUri.hostname,
         port: parsedUri.port,
-        path: parsedUri.path,
+        path: parsedUri.pathname + (parsedUri.search || ''),
         headers: uri.headers
     }, function(res) {
         if (res.statusCode == 301 || res.statusCode == 302) {
             if (maxRedirects === 0) {
-                req.emit('error', {error: 'max-redirects'});
+                req.emit('error', new Error('too many redirects'));
                 
             } else {
                 var redirectUri = url.resolve(parsedUri, res.headers.location);
