@@ -30,7 +30,7 @@
 
     "bugs": {
         "mail": "iframely@itteco.com",
-        "web": "https://github.com/itteco/iframely/issues"
+        "url": "https://github.com/itteco/iframely/issues"
     },
 
     "licenses": [
@@ -45,7 +45,10 @@
             "type": "git",
             "url": "https://github.com/itteco/iframely.git" 
         }
-    ],   
+    ],
+    
+    "main": "iframely-oembed.js",
+    
     "dependencies": {
         "http-link": "*"
     },
