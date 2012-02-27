@@ -205,12 +205,32 @@ function isOembed(link) {
 } 
 
 function lookupStaticProviders(uri) {
-    var providers = require('./providers.json');
+    // var providers = require('providers.json'); 
     
-    var protoMatch = uri.match(/^(https?:\/\/)/);
-    uri = uri.substr(protoMatch[1].length);
-    
+    var protocolMatch = uri.match(/^(https?:\/\/)/);
+    uri = uri.substr(protocolMatch[1].length);
+
+    var providerMatch = uri.match(/^(\/)/);
+
     var links;
+
+    try {
+        // tries to fetch file like known-endpoints/youtube.com.json
+        var provider = require('known-endpoints/' + uri.substr(providerMatch[1].length)); 
+
+        links = provider.links.map(function(l) {
+            return {
+                href: l.href.replace('{part1}', match[1]),
+                rel: 'alternate',
+                type: l.type
+            }
+        });            
+    } catch (e) {
+        // do nothing. It's ok - the providers isn't known
+    }
+
+
+    /*
     for (var j = 0; j < providers.length; j++) {
         var p = providers[j];
         var match;
@@ -229,7 +249,7 @@ function lookupStaticProviders(uri) {
             });
             break;
         }
-    }
+    }*/
     
     return links;
 }
