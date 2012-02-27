@@ -1,4 +1,4 @@
-(function(iframelyOembed) {
+(function(iframely) {
 
 var httpLink = {};
 (function(httpLink) {
@@ -116,19 +116,60 @@ httpLink.parse = function(value) {
 
 })(httpLink);
 
-function byHttpLink(originalUrl, callback) {
-    request('HEAD', originalUrl, function(error, req) {
+var twoStepsProvider_getOembed = function(url, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    iframely.getOembedLinks(url, function(err, links) {
+        if (err) {
+            callback(err);
+            
+        } else {
+            links.sort();
+            var oembedUrl = links[0].href;
+            iframely.getOembedByProvider(oembedUrl, options, callback);
+        }
+    });
+};
+
+var serverProvider_getOembed = function(url, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    var params = [];
+    params.push('url=' + encodeURIComponent(url));
+    if (options.format) params.push('format=' + options.format);
+    
+    var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
+    
+    var oembedUrl = serverEndpoint + '?' + params.join('&');
+    iframely.getOembedByProvider(oembedUrl, options, callback);
+};
+
+/**
+ * Fetches oembed links for the given page url
+ */
+iframely.getOembedLinks = function(url, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    request('HEAD', url, function(error, req) {
         if (error) {
             callback(error);
-            
+
         } else {
             var value = req.getResponseHeader('link');
             if (value) {
                 try {
                     var links = httpLink.parse(value).filter(isOembed);
                     if (links.length > 0) {
-                        links.sort();
-                        callback(null, links[0].href);
+                        callback(null, links);
 
                     } else {
                         callback({error: 'not-found'});
@@ -145,72 +186,37 @@ function byHttpLink(originalUrl, callback) {
     });
 }
 
-function xmlOembedToJson(xml) {
-    var json = xmlToJson(xml);
-    // TODO: validate structure?
-    return json.oembed || undefined;
-}
-
-function xmlToJson(xml) {
-    var obj = {};
-
-    if (xml.hasChildNodes()) {
-        for(var i = 0; i < xml.childNodes.length; i++) {
-            var item = xml.childNodes.item(i);
-            var nodeType = item.nodeType;
-            var nodeName = item.nodeName;
-            if (nodeType == 3 || nodeType  == 4) {
-                obj = item.nodeValue;
-            } else {
-                obj[nodeName] = xmlToJson(item);
-            }
-        }
-    }
-    return obj;
-};
-
-function TwoStepProvider() {}
-
-TwoStepProvider.prototype.getOembed = function(url, options, callback) {
-    if (typeof options == 'function') {
-        callback = options;
-        options = null;
-    }
-    
-    byHttpLink(url, function(err, oembedUrl) {
-        if (err) {
-            callback(err);
-            
-        } else {
-            iframelyOembed.loadOembed(oembedUrl, callback);
-        }
-    });
-};
-
-function ServerProvider() {}
-
-ServerProvider.prototype.getOembed = function(url, options, callback) {
+/**
+ * Get oembed object for the given url
+ */
+iframely.getOembed = function(originalUrl, options, callback) {
     if (typeof options == 'function') {
         callback = options;
         options = {};
     }
     
-    var params = [];
-    params.push('url=' + encodeURIComponent(url));
-    if (options.format) params.push('format=' + options.format);
-    if (options.maxwidth) params.push('maxwidth=' + options.maxwidth);
-    if (options.maxheight) params.push('maxheight=' + options.maxheight);
-    
-    var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
-    
-    var oembedUrl = serverEndpoint + '?' + params.join('&');
-    iframelyOembed.loadOembed(oembedUrl, callback);
+    twoStepsProvider_getOembed(originalUrl, options, function(error, oembed) {
+        if (error) {
+            serverProvider_getOembed(originalUrl, options, callback);
+            
+        } else {
+            callback(error, oembed);
+        }
+    });
 };
 
 /*
  * Get oembed by oembed url (not original page)
  */
-iframelyOembed.loadOembed = function(oembedUrl, callback) {
+iframely.getOembedByProvider = function(oembedUrl, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    if (options.maxwidth) oembedUrl += '&maxwidth=' + options.maxwidth;
+    if (options.maxheight) oembedUrl += '&maxheight=' + options.maxheight;
+    
     request('GET', oembedUrl, function(error, req, data) {
         if (error) {
             callback(error);
@@ -218,7 +224,8 @@ iframelyOembed.loadOembed = function(oembedUrl, callback) {
         } else {
             try {
                 if (req.responseXML) {
-                    data = xmlOembedToJson(req.responseXML);
+                    data = xmlToOembed(req.responseXML);
+                    
                 } else {
                     data = JSON.parse(data);
                 }
@@ -229,20 +236,6 @@ iframelyOembed.loadOembed = function(oembedUrl, callback) {
             }
 
             callback(null, data);
-        }
-    });
-}
-
-/**
- * Get oembed object for the given url
- */
-iframelyOembed.getOembed = function(originalUrl, callback) {
-    new TwoStepProvider().getOembed(originalUrl, function(error, oembed) {
-        if (error) {
-            new ServerProvider().getOembed(originalUrl, callback);
-            
-        } else {
-            callback(error, oembed);
         }
     });
 };
@@ -266,8 +259,32 @@ var htmlProviders = {
         }
 };
 
-iframelyOembed.getOembedHtml = function(url, data) {
+iframely.getOembedHtml = function(url, data) {
     return htmlProviders[data.type](url, data)
+}
+
+function xmlToOembed(xml) {
+    var json = xmlToJson(xml);
+    // TODO: validate structure?
+    return json.oembed || undefined;
+}
+
+function xmlToJson(xml) {
+    var obj = {};
+
+    if (xml.hasChildNodes()) {
+        for(var i = 0; i < xml.childNodes.length; i++) {
+            var item = xml.childNodes.item(i);
+            var nodeType = item.nodeType;
+            var nodeName = item.nodeName;
+            if (nodeType == 3 || nodeType  == 4) {
+                obj = item.nodeValue;
+            } else {
+                obj[nodeName] = xmlToJson(item);
+            }
+        }
+    }
+    return obj;
 }
 
 function isOembed(link) {
