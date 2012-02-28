@@ -194,4 +194,4 @@ function request(method, url, callback) {
     req.send();
 }
 
-})(iframelyOembed = {});
+})(iframely = {});
