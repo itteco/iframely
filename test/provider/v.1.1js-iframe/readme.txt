@@ -1,1 +1,0 @@
-v1.1 js friendly provider which supports iframe
