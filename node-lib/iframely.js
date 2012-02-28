@@ -257,11 +257,22 @@ function lookupStaticProviders(uri) {
         }
         
         if (match) {
-            links = p.links.map(function(l) {
+            var endpoint = p.endpoint;
+            if (endpoint.match(/\{1\}/)) {
+                endpoint = endpoint.replace(/\{1\}/, match[1]);
+                
+            } else if (endpoint.match(/\{url\}/)) {
+                endpoint = endpoint.replace(/\{url\}/, encodeURIComponent(uri))
+                
+            } else {
+                endpoint = endpoint + '?url=' + encodeURIComponent(uri)
+            }
+            
+            links = ['json', 'xml'].map(function(format) {
                 return {
-                    href: l.href.replace('{part1}', match[1]),
+                    href: endpoint.match(/\{format\}/)? endpoint.replace(/\{format\}/, format): endpoint + '&format=' + format,
                     rel: 'alternate',
-                    type: l.type
+                    type: 'application/oembed+' + format
                 }
             });
             break;

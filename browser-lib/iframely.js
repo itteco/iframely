@@ -162,6 +162,9 @@ iframely.getOembed = function(url, options, callback) {
     });
 };
 
+/**
+ * @private
+ */
 var htmlProviders = {
     'rich': function(url, data) {
         return data.html;
@@ -193,6 +196,7 @@ iframely.getOembedHtml = function(url, oembed) {
 }
 
 /**
+ * @private
  * Convert oembed dom to oembed object
  * @param {Document} xml The oembed DOM
  * @returns {Object} The oembed object
@@ -203,6 +207,9 @@ function xmlToOembed(xml) {
     return json.oembed || undefined;
 }
 
+/**
+ * @private
+ */
 function xmlToJson(xml) {
     var obj = {};
 
@@ -221,10 +228,16 @@ function xmlToJson(xml) {
     return obj;
 }
 
+/**
+ * @private
+ */
 function isOembed(link) {
     return link.type === 'application/json+oembed' || link.type === 'application/xml+oembed' || link.type === 'text/xml+oembed';
 }
 
+/**
+ * @private
+ */
 function request(method, url, callback) {
     var req = new XMLHttpRequest();
     req.open(method, url, true);
