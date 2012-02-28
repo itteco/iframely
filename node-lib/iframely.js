@@ -258,7 +258,10 @@ function lookupStaticProviders(uri) {
         
         if (match) {
             var endpoint = p.endpoint;
-            if (endpoint.match(/\{url\}/)) {
+            if (endpoint.match(/\{1\}/)) {
+                endpoint = endpoint.replace(/\{1\}/, match[1]);
+                
+            } else if (endpoint.match(/\{url\}/)) {
                 endpoint = endpoint.replace(/\{url\}/, encodeURIComponent(uri))
                 
             } else {
