@@ -2,7 +2,7 @@
     "name": "iframely-oembed",
     "version": "0.1.0",
     
-    "description": "JavaScript Client oEmbed library",
+    "description": "Client-side oEmbed library",
     
     "keywords": [
         "JavaScript",
@@ -47,11 +47,12 @@
         }
     ],
     
-    "main": "iframely-oembed.js",
+    "main": "iframely.js",
     
     "dependencies": {
         "http-link": "*"
     },
+    
     "scripts": {
         "build": "build.js",
         "test": "test.js"

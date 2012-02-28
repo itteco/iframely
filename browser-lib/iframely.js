@@ -72,25 +72,6 @@ iframely.getOembedLinks = function(url, options, callback) {
     });
 }
 
-/**
- * Get oembed object for the given url
- */
-iframely.getOembed = function(originalUrl, options, callback) {
-    if (typeof options == 'function') {
-        callback = options;
-        options = {};
-    }
-    
-    twoStepsProvider_getOembed(originalUrl, options, function(error, oembed) {
-        if (error) {
-            serverProvider_getOembed(originalUrl, options, callback);
-            
-        } else {
-            callback(error, oembed);
-        }
-    });
-};
-
 /*
  * Get oembed by oembed url (not original page)
  */
@@ -126,23 +107,42 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
     });
 };
 
-var htmlProviders = {
-        'rich': function(url, data) {
-            return data.html;
-        },
-        'photo': function(url, data) {
-            if (data.html)
-                return data.html;
-            return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' +  + '">';
-        },
-        'link': function(url, data) {
-            if (data.html)
-                return data.html;
-            return '<a href="' + url + '" target="_blank">' + data.title || url + '</a> '
-        },
-        'video': function(url, data) {
-            return data.html;
+/**
+ * Get oembed object for the given url
+ */
+iframely.getOembed = function(originalUrl, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    twoStepsProvider_getOembed(originalUrl, options, function(error, oembed) {
+        if (error) {
+            serverProvider_getOembed(originalUrl, options, callback);
+            
+        } else {
+            callback(error, oembed);
         }
+    });
+};
+
+var htmlProviders = {
+    'rich': function(url, data) {
+        return data.html;
+    },
+    'photo': function(url, data) {
+        if (data.html)
+            return data.html;
+        return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' +  + '">';
+    },
+    'link': function(url, data) {
+        if (data.html)
+            return data.html;
+        return '<a href="' + url + '" target="_blank">' + data.title || url + '</a> '
+    },
+    'video': function(url, data) {
+        return data.html;
+    }
 };
 
 iframely.getOembedHtml = function(url, data) {
@@ -194,4 +194,4 @@ function request(method, url, callback) {
     req.send();
 }
 
-})(iframely = {});
+})(exports);
