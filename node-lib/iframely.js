@@ -17,7 +17,13 @@ var linksCache = new NodeCache();
 var oembedsCache = new NodeCache();
 
 /**
+ * @public
  * Fetches oembed links for the given page uri
+ * @param {String} uri The page uri
+ * @param {Object} [options] The request options
+ * @param {Boolean} [options.useCache=true] Use cache for this request
+ * @param {Function} callback Completion callback function. The callback gets two arguments (err, links) where links is an array of objects.
+ * @example callback(null, [{href: 'http://example.com/oembed?url=http://example.com/article.html', type: 'application/oembed+json'}])
  */
 iframely.getOembedLinks = function(uri, options, callback) {
     if (typeof options == 'function') {
@@ -92,8 +98,16 @@ iframely.getOembedLinks = function(uri, options, callback) {
     }
 };
 
-/**
+/*
+ * @public
  * Fetches oembed for the given oembed uri
+ * @param {String} uri The oembed direct uri
+ * @param {Object} [options] The request options
+ * @param {Number} [options.maxwidth] The maximum width of the embedded resource
+ * @param {Number} [options.maxheight] The maximum height of the embedded resource
+ * @param {Object} [options.headers] Additional headers
+ * @param {Function} callback Completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
+ * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
 iframely.getOembedByProvider = function(uri, options, callback) {
     var oembedUri = url.parse(uri);
@@ -175,7 +189,17 @@ iframely.getOembedByProvider = function(uri, options, callback) {
 };
 
 /**
- * Fetches oembed for the given page uri
+ * @public
+ * Get oembed object for the given uri
+ * @param {String} url The page url
+ * @param {Object} [options] The request options
+ * @param {String} [options.format] The requested format (json or xml)
+ * @param {Number} [options.maxwidth] The maximum width of the embedded resource
+ * @param {Number} [options.maxheight] The maximum height of the embedded resource
+ * @param {Object} [options.headers] Additional headers
+ * @param {String} [options.serverEndpoint] The url to fallback oembed server
+ * @param {Function} callback The completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
+ * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
 iframely.getOembed = function(uri, options, callback) {
     if (typeof options == 'function') {
@@ -200,37 +224,30 @@ iframely.getOembed = function(uri, options, callback) {
     });
 };
 
+/**
+ * @private
+ * Test the link for oembed
+ * @param {Object} link The link object in form {href: 'http://example.com/oembed?url=...', type: 'application/json+oembed'}
+ * @return {Boolean} true for oembed link
+ */
 function isOembed(link) {
     return link.type === 'application/json+oembed' || link.type === 'application/xml+oembed' || link.type === 'text/xml+oembed';
 } 
 
+/**
+ * @private
+ * Get the oembed uri via known providers
+ * @param {String} uri The page uri
+ * @return {String} The oembed uri
+ */
 function lookupStaticProviders(uri) {
-    // var providers = require('providers.json'); 
+    var providers = require('./providers.json');
     
     var protocolMatch = uri.match(/^(https?:\/\/)/);
     uri = uri.substr(protocolMatch[1].length);
 
-    var providerMatch = uri.match(/^(\/)/);
-
     var links;
-
-    try {
-        // tries to fetch file like known-endpoints/youtube.com.json
-        var provider = require('known-endpoints/' + uri.substr(providerMatch[1].length)); 
-
-        links = provider.links.map(function(l) {
-            return {
-                href: l.href.replace('{part1}', match[1]),
-                rel: 'alternate',
-                type: l.type
-            }
-        });            
-    } catch (e) {
-        // do nothing. It's ok - the providers isn't known
-    }
-
-
-    /*
+    
     for (var j = 0; j < providers.length; j++) {
         var p = providers[j];
         var match;
@@ -249,11 +266,19 @@ function lookupStaticProviders(uri) {
             });
             break;
         }
-    }*/
+    }
     
     return links;
 }
 
+/**
+ * @private
+ * Do HTTP GET request and handle redirects
+ * @param uri Request uri (parsed object or string)
+ * @param callback The completion callback function or events.EventEmitter object
+ * @param {Number} [maxRedirects] The maximum count of redirects.
+ * @returns {events.EventEmitter} The emmiter object which emit error or response event
+ */
 function getPage(uri, callback, maxRedirects) {
     var req = callback instanceof events.EventEmitter? callback: new events.EventEmitter();
     
@@ -297,6 +322,11 @@ function getPage(uri, callback, maxRedirects) {
     return req;
 }
 
+/**
+ * Creates a new proxy stream
+ * @constructor
+ * @extends stream.Stream
+ */
 function ProxyStream() {
     this.readable = true;
 }

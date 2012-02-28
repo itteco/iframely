@@ -1,0 +1,19 @@
+[
+    {
+        "name": "youtube",
+        "templates": [
+            "youtube\\.com/watch.+v=([\\w-]+)&?",
+            "youtu\\.be/([\\w-]+)"
+        ],
+        "links": [
+            {
+                "type": "application/json+oembed",
+                "href": "http://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch?v%3D{part1}&format=json"
+            },
+            {
+                "type": "application/xml+oembed",
+                "href": "http://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch?v%3D{part1}&format=xml"
+            }
+        ]
+    }
+]

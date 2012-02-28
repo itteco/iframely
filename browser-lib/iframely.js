@@ -2,6 +2,12 @@
 
 var httpLink = require('http-link');
 
+/**
+ * Get oembed for the given url via XHR
+ * @param {String} url The page url
+ * @param {Object} [options] The request options
+ * @param {Function} callback Completion callback function.
+ */
 var twoStepsProvider_getOembed = function(url, options, callback) {
     if (typeof options == 'function') {
         callback = options;
@@ -20,6 +26,12 @@ var twoStepsProvider_getOembed = function(url, options, callback) {
     });
 };
 
+/**
+ * Get oembed for the given url via server endpoint
+ * @param {String} url The page url
+ * @param {Object} [options] The request options
+ * @param {Function} callback Completion callback function.
+ */
 var serverProvider_getOembed = function(url, options, callback) {
     if (typeof options == 'function') {
         callback = options;
@@ -37,7 +49,12 @@ var serverProvider_getOembed = function(url, options, callback) {
 };
 
 /**
+ * @public
  * Fetches oembed links for the given page url
+ * @param {String} url The page url
+ * @param {Object} [options] The request options
+ * @param {Function} callback Completion callback function. The callback gets two arguments (err, links) where links is an array of objects.
+ * @example callback(null, [{href: 'http://example.com/oembed?url=http://example.com/article.html', type: 'application/oembed+json'}])
  */
 iframely.getOembedLinks = function(url, options, callback) {
     if (typeof options == 'function') {
@@ -73,7 +90,15 @@ iframely.getOembedLinks = function(url, options, callback) {
 }
 
 /*
+ * @public
  * Get oembed by oembed url (not original page)
+ * @param {String} oembedUrl The oembed direct url
+ * @param {Object} [options] The request options
+ * @param {Number} [options.maxwidth] The maximum width of the embedded resource
+ * @param {Number} [options.maxheight] The maximum height of the embedded resource
+ * @param {Boolean} [options.iframe] Wrap rich content into iframe
+ * @param {Function} callback Completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
+ * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
 iframely.getOembedByProvider = function(oembedUrl, options, callback) {
     if (typeof options == 'function') {
@@ -83,6 +108,7 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
     
     if (options.maxwidth) oembedUrl += '&maxwidth=' + options.maxwidth;
     if (options.maxheight) oembedUrl += '&maxheight=' + options.maxheight;
+    if (options.iframe) oembedUrl += '&iframe=true';
     
     request('GET', oembedUrl, function(error, req, data) {
         if (error) {
@@ -108,17 +134,27 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
 };
 
 /**
+ * @public
  * Get oembed object for the given url
+ * @param {String} url The page url
+ * @param {Object} [options] The request options
+ * @param {String} [options.format] The requested format (json or xml)
+ * @param {Number} [options.maxwidth] The maximum width of the embedded resource
+ * @param {Number} [options.maxheight] The maximum height of the embedded resource
+ * @param {Boolean} [options.iframe] Wrap rich content into iframe
+ * @param {String} [options.serverEndpoint] The url to fallback oembed server
+ * @param {Function} callback Completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
+ * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
-iframely.getOembed = function(originalUrl, options, callback) {
+iframely.getOembed = function(url, options, callback) {
     if (typeof options == 'function') {
         callback = options;
         options = {};
     }
     
-    twoStepsProvider_getOembed(originalUrl, options, function(error, oembed) {
+    twoStepsProvider_getOembed(url, options, function(error, oembed) {
         if (error) {
-            serverProvider_getOembed(originalUrl, options, callback);
+            serverProvider_getOembed(url, options, callback);
             
         } else {
             callback(error, oembed);
@@ -145,10 +181,22 @@ var htmlProviders = {
     }
 };
 
-iframely.getOembedHtml = function(url, data) {
-    return htmlProviders[data.type](url, data)
+/**
+ * @public
+ * Get the html fragment which represent oembed object
+ * @param {String} url The url
+ * @param {Object} oembed The oembed object
+ * @returns The html fragment
+ */
+iframely.getOembedHtml = function(url, oembed) {
+    return htmlProviders[oembed.type](url, oembed)
 }
 
+/**
+ * Convert oembed dom to oembed object
+ * @param {Document} xml The oembed DOM
+ * @returns {Object} The oembed object
+ */
 function xmlToOembed(xml) {
     var json = xmlToJson(xml);
     // TODO: validate structure?
