@@ -54,7 +54,5 @@
     },
     
     "scripts": {
-        "build": "build.js",
-        "test": "test.js"
     }
 }
