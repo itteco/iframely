@@ -1,7 +1,7 @@
 [
     {
         "name": "youtube",
-        "templates": [
+        "url_scheme": [
             "youtube\\.com/watch.+v=([\\w-]+)&?",
             "youtu\\.be/([\\w-]+)"
         ],
