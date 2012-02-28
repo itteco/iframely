@@ -26,7 +26,7 @@ const ALLOWED_OUT_HEADERS = [
 
 var app = express.createServer(
     express.logger()
-//    httpUtils.rateLimit(httpUtils.header('referrer'), 10, 60000)
+//    httpAssert.rateLimit(httpAssert.header('referrer'), 10, 60000)
 //    express.bodyParser()
 );
 
@@ -220,8 +220,8 @@ function jsonStream2oembed(stream) {
     return promise;
 }
 
-app.listen(8060);
-console.log('Listening', 8060);
+app.listen(process.env.npm_package_config_port);
+console.log('Listening', process.env.npm_package_config_port);
 
 process.on('uncaughtException', function (error) {
     console.error(error);
