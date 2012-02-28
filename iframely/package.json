@@ -1,5 +1,5 @@
 {
-    "name": "iframely-oembed",
+    "name": "iframely",
     "version": "0.1.0",
     
     "description": "Client-side oEmbed library",
