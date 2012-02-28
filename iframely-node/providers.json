@@ -1,0 +1,10 @@
+[
+    {
+        "name": "youtube",
+        "templates": [
+            "youtube\\.com/watch.+v=([\\w-]+)&?",
+            "youtu\\.be/([\\w-]+)"
+        ],
+        "endpoint": "http://www.youtube.com/oembed"
+    }
+]
