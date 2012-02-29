@@ -123,6 +123,8 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
                     data = JSON.parse(data);
                 }
 
+                data._responseText = req.responseText;
+
             } catch(e) {
                 callback({error: true, reason: e.message});
                 return;
