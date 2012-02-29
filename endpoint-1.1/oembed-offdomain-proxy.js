@@ -37,7 +37,7 @@ app.get('/oembed/1', function(req, res) {
     
     var options = {
         format: format,
-        iframe: req.param('iframe'),
+        iframe: iframe,
         maxwidth: req.param('maxwidth'),
         maxheight: req.param('maxheight'),
         headers: filterInHeaders(req.headers)
