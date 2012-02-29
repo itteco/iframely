@@ -5,7 +5,6 @@
     "description": "Node oEmbed library",
     
     "dependencies": {
-        "express": "2.5",
         "http-link": "0.1",
         "node-cache": "0.2",
         "sax": "0.3",
