@@ -2,57 +2,57 @@
     {
         "name": "Blip",
         "templates": [
-            "http://blip.tv/.*"
+            "blip\\.tv/.*"
         ],
         "endpoint": "http://blip.tv/oembed/"
     },
     {
         "name": "Flickr",
         "templates": [
-            "http://(www\\.)?flickr\\.com/.*"
+            "(www\\.)?flickr\\.com/.*"
         ],
         "endpoint": "http://www.flickr.com/services/oembed/"
     },
     {
         "name": "Hulu",
         "templates": [
-            "http://(www\\.)?hulu\\.com/watch/.*"
+            "(www\\.)?hulu\\.com/watch/.*"
         ],
         "endpoint": "http://www.hulu.com/api/oembed.{format}"
     },
     {
         "name": "Scribd",
         "templates": [
-            "http://(www\\.)?scribd\\.com/.*"
+            "(www\\.)?scribd\\.com/.*"
         ],
         "endpoint": "http://www.scribd.com/services/oembed"
     },
     {
         "name": "Viddler",
         "templates": [
-            "http://.*.viddler.com/.*"
+            ".*\\.viddler\\.com/.*"
         ],
         "endpoint": "http://lab.viddler.com/services/oembed/"
     },
     {
         "name": "Vimeo",
         "templates": [
-            "http://(www\\.)?vimeo\\.com/.*"
+            "(www\\.)?vimeo\\.com/.*"
         ],
         "endpoint": "http://vimeo.com/api/oembed.{format}"
     },
     {
         "name": "WordPress.tv",
         "templates": [
-            "http://wordpress\\.tv/.*"
+            "wordpress\\.tv/.*"
         ],
         "endpoint": "http://wordpress.tv/oembed/"
     },
     {
         "name": "YouTube",
         "templates": [
-            "https?://(www\\.)?youtube.com/watch.*",
-            "https?://youtu\\.be/*"
+            "(www\\.)?youtube.com/watch.*",
+            "youtu\\.be/*"
         ],
         "endpoint": "http://www.youtube.com/oembed"
     }
