@@ -52,4 +52,9 @@ app.get('/oembed', function(req, res) {
 
 app.listen(process.env.npm_package_config_port || 8061);
 
+process.on('uncaughtException', function (error) {
+    console.error(error);
+    console.error(error.stack);
+});
+
 })();
