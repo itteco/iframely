@@ -1,5 +1,7 @@
 (function() {
 
+process.title = 'iframely-proxy';
+
 var _ = require('underscore');
 var events = require('events');
 var express = require('express');
