@@ -35,6 +35,7 @@ iframely.getOembedLinks = function(uri, options, callback) {
     
     var links = lookupStaticProviders(uri);
     if (links) {
+        console.log('static', links);
         callback(null, links);
         
     } else {
@@ -288,7 +289,7 @@ function lookupStaticProviders(uri) {
     var providers = require('./providers.json');
     
     var protocolMatch = uri.match(/^(https?:\/\/)/);
-    uri = uri.substr(protocolMatch[1].length);
+    var uri2 = uri.substr(protocolMatch[1].length);
 
     var links;
     
@@ -296,7 +297,7 @@ function lookupStaticProviders(uri) {
         var p = providers[j];
         var match;
         for (var i = 0; i < p.templates.length; i++) {
-            match = uri.match(p.templates[i]);
+            match = uri2.match(p.templates[i]);
             if (match) break;
         }
         
