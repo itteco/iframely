@@ -9,7 +9,8 @@
     },
     
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "test": "vows test/*.js --isolate --spec"
     },
     
     "config" : {
