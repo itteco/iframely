@@ -72,7 +72,7 @@ app.get('/oembed/1', function(req, res) {
                     
                 } else {
                     if (iframe) {
-                        oembed.html = '<iframe src="http://iframe.ly/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '></iframe>';
+                        oembed.html = '<iframe src="http://iframe.ly/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '"></iframe>';
                     }
 
                     if (format == 'json') {
