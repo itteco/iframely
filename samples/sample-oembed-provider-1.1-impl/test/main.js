@@ -15,11 +15,11 @@ var api = {
 };
 
 var server = require('../server.js');
-server.baseUrl = 'http://localhost:8061';
+var baseUrl = server.app.baseUrl = 'http://localhost:8061';
 
 function testOembed(type) {
     return {
-        topic: api.oembed(server.baseUrl + '/' + type + '/', {}),
+        topic: api.oembed(baseUrl + '/' + type + '/', {}),
         'is valid': function(error, res) {
             assert.isNull(error);
             assert.instanceOf(res, events.EventEmitter);

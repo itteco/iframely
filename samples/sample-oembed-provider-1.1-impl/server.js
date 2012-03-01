@@ -16,7 +16,7 @@ var mimeTypes = {
 
 var typesPath = path.join(__dirname, 'resources/oembed-types');
 
-var app = exports.server = express.createServer();
+var app = exports.app = express.createServer();
 
 app.baseUrl = 'http://provider.iframe.ly';
 
