@@ -15,10 +15,11 @@ var api = {
 };
 
 var server = require('../server.js');
+server.baseUrl = 'http://localhost:8061';
 
 function testOembed(type) {
     return {
-        topic: api.oembed('http://provider.iframe.ly/' + type + '/', {}),
+        topic: api.oembed(server.baseUrl + '/' + type + '/', {}),
         'is valid': function(error, res) {
             assert.isNull(error);
             assert.instanceOf(res, events.EventEmitter);

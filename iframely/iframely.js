@@ -54,7 +54,7 @@ var serverProvider_getOembed = function(url, options, callback) {
  * @param {String} url The page url
  * @param {Object} [options] The request options
  * @param {Function} callback Completion callback function. The callback gets two arguments (err, links) where links is an array of objects.
- * @example callback(null, [{href: 'http://example.com/oembed?url=http://example.com/article.html', type: 'application/oembed+json'}])
+ * @example callback(null, [{href: 'http://example.com/oembed?url=http://example.com/article.html', type: 'application/json+oembed'}])
  */
 iframely.getOembedLinks = function(url, options, callback) {
     if (typeof options == 'function') {
