@@ -139,63 +139,7 @@
             "gist\\.github\\.com/(.+)"
         ],
         "endpoint": "https://github.com/api/oembed"
-    },
-
-
-
-
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-    {
-        "name": "",
-        "templates": [
-            ""
-        ],
-        "endpoint": ""
-    },
-
-
-    {}
+    }
 
 ]
 
