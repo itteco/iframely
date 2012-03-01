@@ -100,7 +100,7 @@ app.get('/oembed/1', function(req, res) {
 
 app.get('/iframe/1', function(req, res) {
     var oembedUrl = decodeURIComponent(req.param('url'));
-    iframely.getOembedByProvider(oembedUrl, {}, function(error, oembedRes) {
+    iframely.getOembedByProvider(oembedUrl, {type: 'object'}, function(error, oembed) {
         if (error) {
             if (error.error == 'not-found') {
                 res.writeHead(404);
@@ -113,20 +113,10 @@ app.get('/iframe/1', function(req, res) {
             }
             
         } else {
-            oembedRes.toOembed(function(error, oembed) {
-                if (error) {
-                    console.error('error', error);
-                    res.writeHead(500);
-                    res.end();
-                    
-                } else {
-                    res.writeHead(200, {
-                        'Content-Type': 'text/html'
-                    });
-                    res.end(oembed.html);
-                    
-                }
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
             });
+            res.end(oembed.html);
         }
     });
 });
