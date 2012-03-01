@@ -1,4 +1,5 @@
 {
+    "Iframely": "http://provider.iframe.ly/oembed?format=json&url=http%3A%2F%2Fprovider.iframe.ly%2Fvideo%2F",
     "Vimeo": "http://vimeo.com/api/oembed.json?url=http://vimeo.com/8005491",
     "YouTube": "http://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch?v%3D-bZ6Pl7cQAE&format=json"
 }
