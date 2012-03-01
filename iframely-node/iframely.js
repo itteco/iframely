@@ -23,7 +23,7 @@ var oembedsCache = new NodeCache();
  * @param {Object} [options] The request options
  * @param {Boolean} [options.useCache=true] Use cache for this request
  * @param {Function} callback Completion callback function. The callback gets two arguments (err, links) where links is an array of objects.
- * @example callback(null, [{href: 'http://example.com/oembed?url=http://example.com/article.html', type: 'application/oembed+json'}])
+ * @example callback(null, [{href: 'http://example.com/oembed?url=http://example.com/article.html', type: 'application/json+oembed'}])
  */
 iframely.getOembedLinks = function(uri, options, callback) {
     if (typeof options == 'function') {
@@ -31,8 +31,11 @@ iframely.getOembedLinks = function(uri, options, callback) {
         options = {};
     }
     
+    options = options || {};
+    
     var links = lookupStaticProviders(uri);
     if (links) {
+        console.log('static', links);
         callback(null, links);
         
     } else {
@@ -47,9 +50,16 @@ iframely.getOembedLinks = function(uri, options, callback) {
 
                         var linkHeaders = res.headers.link;
                         if (linkHeaders) {
-                            links = links.reduce(function(links, value) {
+                            if (typeof linkHeaders === 'string')
+                                linkHeaders = [linkHeaders];
+                            
+                            links = linkHeaders.reduce(function(links, value) {
                                 return links.concat(httpLink.parse(value).filter(isOembed));
                             }, []);
+                            
+                            links.forEach(function(link) {
+                                link.href = url.resolve(uri, link.href);
+                            });
 
                             if (links.length) {
                                 callback(null, links);
@@ -71,6 +81,9 @@ iframely.getOembedLinks = function(uri, options, callback) {
                         });
                         saxStream.on('closetag', function(name) {
                             if (name === 'HEAD') {
+                                links.forEach(function(link) {
+                                    link.href = url.resolve(uri, link.href);
+                                });
                                 if (options.useCache !== false) {
                                     linksCache.set(uri, links, 300);
                                 }
@@ -117,6 +130,8 @@ iframely.getOembedByProvider = function(uri, options, callback) {
         callback = options;
         options = {};
     }
+    
+    options = options || {};
 
     var type = options.type || 'stream';
     
@@ -142,10 +157,10 @@ iframely.getOembedByProvider = function(uri, options, callback) {
                 
             } else if (type === 'stream') {
                 var res = new ProxyStream();
+                res.headers = oembedData.headers;
                 res.toOembed = stream2oembed;
                 res.oembedUrl = cacheKey;
                 res.statusCode = 200;
-                res.headers = oembedData.headers;
                 callback(null, res);
                 process.nextTick(function() {
                     res.end(oembedData.data);
@@ -153,6 +168,7 @@ iframely.getOembedByProvider = function(uri, options, callback) {
                 
             } else { // type === 'object''
                 var res = new ProxyStream();
+                res.headers = oembedData.headers;
                 res.toOembed = stream2oembed;
                 res.toOembed(callback);
                 process.nextTick(function() {
@@ -233,6 +249,8 @@ iframely.getOembed = function(uri, options, callback) {
         callback = options;
         options = {};
     }
+    
+    options = options || {};
 
     iframely.getOembedLinks(uri, options, function(error, links) {
         if (error) {
@@ -271,7 +289,7 @@ function lookupStaticProviders(uri) {
     var providers = require('./providers.json');
     
     var protocolMatch = uri.match(/^(https?:\/\/)/);
-    uri = uri.substr(protocolMatch[1].length);
+    var uri2 = uri.substr(protocolMatch[1].length);
 
     var links;
     
@@ -279,7 +297,7 @@ function lookupStaticProviders(uri) {
         var p = providers[j];
         var match;
         for (var i = 0; i < p.templates.length; i++) {
-            match = uri.match(p.templates[i]);
+            match = uri2.match(p.templates[i]);
             if (match) break;
         }
         
@@ -299,7 +317,7 @@ function lookupStaticProviders(uri) {
                 return {
                     href: endpoint.match(/\{format\}/)? endpoint.replace(/\{format\}/, format): endpoint + '&format=' + format,
                     rel: 'alternate',
-                    type: 'application/oembed+' + format
+                    type: 'application/' + format + '+oembed'
                 }
             });
             break;

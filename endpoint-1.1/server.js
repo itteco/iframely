@@ -24,11 +24,13 @@ const ALLOWED_OUT_HEADERS = [
     'Last-Modified'
 ];
 
-var app = express.createServer(
+var app = exports.app = express.createServer(
     express.logger()
 //    httpAssert.rateLimit(httpAssert.header('referrer'), 10, 60000)
 //    express.bodyParser()
 );
+    
+app.baseUrl = 'http://iframe.ly';
 
 app.get('/oembed/1', function(req, res) {
     var pageUrl = decodeURIComponent(req.param('url'));
@@ -72,7 +74,7 @@ app.get('/oembed/1', function(req, res) {
                     
                 } else {
                     if (iframe) {
-                        oembed.html = '<iframe src="http://iframe.ly/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '"></iframe>';
+                        oembed.html = '<iframe src="' + app.baseUrl + '/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '"></iframe>';
                     }
 
                     if (format == 'json') {
@@ -142,7 +144,7 @@ function filterOutHeaders(headers) {
 }
 
 app.listen(process.env.npm_package_config_port);
-console.log('Listening', process.env.npm_package_config_port);
+console.log('Listening', process.env.npm_package_config_port || 8060);
 
 process.on('uncaughtException', function (error) {
     console.error(error);
