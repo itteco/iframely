@@ -106,6 +106,7 @@ iframely.getOembedLinks = function(uri, options, callback) {
  * @param {Number} [options.maxwidth] The maximum width of the embedded resource
  * @param {Number} [options.maxheight] The maximum height of the embedded resource
  * @param {Object} [options.headers] Additional headers
+ * @param {String} [options.type=stream] (string, stream, object)
  * @param {Function} callback Completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
  * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
@@ -117,10 +118,12 @@ iframely.getOembedByProvider = function(uri, options, callback) {
         options = {};
     }
 
+    var type = options.type || 'stream';
+    
     var params = [];
     if (options.maxwidth) params.push('maxwidth=' + options.maxwidth);
     if (options.maxheigth) params.push('maxheight=' + options.maxheigth);
-
+    
     if (params.length) {
         if (oembedUri.search)
             oembedUri.search += '&' + params.join('&');
@@ -134,15 +137,24 @@ iframely.getOembedByProvider = function(uri, options, callback) {
         if (!error && data && cacheKey in data) {
             var oembedData = data[cacheKey];
 
-            if (options.stream === false) {
+            if (type === 'string') {
                 callback(null, oembedData.data);
                 
-            } else {
+            } else if (type === 'stream') {
                 var res = new ProxyStream();
+                res.toOembed = stream2oembed;
                 res.oembedUrl = cacheKey;
                 res.statusCode = 200;
                 res.headers = oembedData.headers;
                 callback(null, res);
+                process.nextTick(function() {
+                    res.end(oembedData.data);
+                });
+                
+            } else { // type === 'object''
+                var res = new ProxyStream();
+                res.toOembed = stream2oembed;
+                res.toOembed(callback);
                 process.nextTick(function() {
                     res.end(oembedData.data);
                 });
@@ -153,6 +165,7 @@ iframely.getOembedByProvider = function(uri, options, callback) {
 
             getPage(oembedUri, function(res) {
                 if (res.statusCode == 200) {
+                    res.toOembed = stream2oembed;
                     res.oembedUrl = cacheKey;
                     
                     if (options.useCache !== false) {
@@ -172,7 +185,21 @@ iframely.getOembedByProvider = function(uri, options, callback) {
                         });
                     }
                     
-                    callback(null, res);
+                    if (type === 'stream') {
+                        callback(null, res);
+                        
+                    } else if (type === 'string') {
+                        var data = '';
+                        res.on('data', function(chunk) {
+                            data += chunk;
+                        });
+                        res.on('end', function() {
+                            callback(null, data);
+                        });
+                        
+                    } else { // type='object'
+                        res.toOembed(callback);
+                    }
                     
                 } else if (res.statusCode == 304) {
                     callback({error: 'not-modified'});
@@ -197,6 +224,7 @@ iframely.getOembedByProvider = function(uri, options, callback) {
  * @param {Number} [options.maxwidth] The maximum width of the embedded resource
  * @param {Number} [options.maxheight] The maximum height of the embedded resource
  * @param {Object} [options.headers] Additional headers
+ * @param {String} [options.type=stream] (string, stream, object)
  * @param {Function} callback The completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
  * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
@@ -330,6 +358,69 @@ function getPage(uri, callback, maxRedirects) {
     });
     
     return req;
+}
+
+function xmlStream2oembed(stream, callback) {
+    var oembed;
+    var prop;
+    var value;
+
+    var saxStream = sax.createStream();
+    saxStream.on('error', function(err) {
+        callback(err);
+    });
+    saxStream.on('opentag', function(tag) {
+        if (tag.name === 'OEMBED') {
+            oembed = {};
+            
+        } else if (oembed) {
+            prop = tag.name.toLowerCase();
+            value = "";
+        }
+    });
+    saxStream.on('text', function(text) {
+        if (prop) value += text;
+    });
+    saxStream.on('cdata', function(text) {
+        if (prop) value += text;
+    });
+    saxStream.on('closetag', function(name) {
+        if (name === 'OEMBED') {
+            callback(null, oembed);
+            
+        } else {
+            if (prop) {
+                oembed[prop] = value;
+            }
+            prop = null;
+        }
+    });
+
+    stream.pipe(saxStream);
+}
+
+function jsonStream2oembed(stream, callback) {
+    var data = "";
+    stream.on('data', function(chunk) {
+        data += chunk;
+        
+    }).on('end', function() {
+        try {
+            data = JSON.parse(data);
+            
+        } catch (e) {
+            callback(e);
+            return;
+        }
+        
+        callback(null, data);
+    });
+}
+
+function stream2oembed(callback) {
+    this.headers['content-type'].match('xml')?
+        xmlStream2oembed(this, callback):
+        jsonStream2oembed(this, callback)
 }
 
 /**

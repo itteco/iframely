@@ -3,9 +3,7 @@
 process.title = 'iframely-proxy';
 
 var _ = require('underscore');
-var events = require('events');
 var express = require('express');
-var sax = require('sax');
 
 var iframely = require('../iframely-node');
 
@@ -66,17 +64,13 @@ app.get('/oembed/1', function(req, res) {
             oembedRes.pipe(res);
 
         } else {
-            var stream = oembedRes.headers['content-type'].match('xml')?
-                xmlStream2oembed(oembedRes):
-                jsonStream2oembed(oembedRes)
-
-            stream
-                .on('error', function(error) {
+            oembedRes.toOembed(function(error, oembed) {
+                if (error) {
                     console.error('error', error);
                     res.writeHead(500, 'Internal Server Error', COMMON_HEADERS);
                     res.end();
-                })
-                .on('oembed', function(oembed) {
+                    
+                } else {
                     if (iframe) {
                         oembed.html = '<iframe src="http://iframe.ly/iframe/1?url=' + encodeURIComponent(oembedRes.oembedUrl) + '></iframe>';
                     }
@@ -98,7 +92,8 @@ app.get('/oembed/1', function(req, res) {
 
                         res.end('</oembed>\n');
                     }
-                });
+                }
+            });
         }
     });
 });
@@ -118,20 +113,19 @@ app.get('/iframe/1', function(req, res) {
             }
             
         } else {
-            var stream = oembedRes.headers['content-type'].match('xml')?
-                xmlStream2oembed(oembedRes):
-                jsonStream2oembed(oembedRes)
-
-            stream.on('error', function(error) {
-                console.error('error', error);
-                res.writeHead(500);
-                res.end();
-            })
-            .on('oembed', function(oembed) {
-                res.writeHead(200, {
-                    'Content-Type': 'text/html'
-                });
-                res.end(oembed.html);
+            oembedRes.toOembed(function(error, oembed) {
+                if (error) {
+                    console.error('error', error);
+                    res.writeHead(500);
+                    res.end();
+                    
+                } else {
+                    res.writeHead(200, {
+                        'Content-Type': 'text/html'
+                    });
+                    res.end(oembed.html);
+                    
+                }
             });
         }
     });
@@ -155,71 +149,6 @@ function filterInHeaders(headers) {
 
 function filterOutHeaders(headers) {
     return filterHeaders(headers, ALLOWED_OUT_HEADERS);
-}
-
-function xmlStream2oembed(stream) {
-    var promise = new events.EventEmitter();
-
-    var oembed;
-    var prop;
-    var value;
-
-    var saxStream = sax.createStream();
-    saxStream.on('error', function(err) {
-        promise.emit('error', err);
-    });
-    saxStream.on('opentag', function(tag) {
-        if (tag.name === 'OEMBED') {
-            oembed = {};
-            
-        } else if (oembed) {
-            prop = tag.name.toLowerCase();
-            value = "";
-        }
-    });
-    saxStream.on('text', function(text) {
-        if (prop) value += text;
-    });
-    saxStream.on('cdata', function(text) {
-        if (prop) value += text;
-    });
-    saxStream.on('closetag', function(name) {
-        if (name === 'OEMBED') {
-            promise.emit('oembed', oembed);
-            
-        } else {
-            if (prop) {
-                oembed[prop] = value;
-            }
-            prop = null;
-        }
-    });
-
-    stream.pipe(saxStream);
-    
-    return promise;
-}
-
-function jsonStream2oembed(stream) {
-    var promise = new events.EventEmitter();
-
-    var data = "";
-    stream.on('data', function(chunk) {
-        data += chunk;
-        
-    }).on('end', function() {
-        try {
-            data = JSON.parse(data);
-            
-        } catch (e) {
-            promise.emit('error', e);
-            return;
-        }
-        
-        promise.emit('oembed', data);
-    });
-    
-    return promise;
 }
 
 app.listen(process.env.npm_package_config_port);
