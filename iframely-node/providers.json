@@ -51,10 +51,151 @@
     {
         "name": "YouTube",
         "templates": [
-            "(www\\.)?youtube.com/watch.*",
+            "(www\\.)?youtube\\.com/watch.*",
             "youtu\\.be/*"
         ],
         "endpoint": "http://www.youtube.com/oembed"
-    }
+    },
+
+
+
+    {
+        "name": "Qik",
+        "templates": [
+            "qik\\.com/video/.*",
+            "qik\\.com/.*"
+        ],
+        "endpoint": "http://qik.com/api/oembed.{format}"
+    },
+    {
+        "name": "Revision3",
+        "templates": [
+            "(.*\\.)?revision3\\.com/.*"
+        ],
+        "endpoint": "http://revision3.com/api/oembed/"
+    },
+    {
+        "name": "CollegeHumor",
+        "templates": [
+            "www\\.collegehumor\\.com/video/.*"
+        ],
+        "endpoint": "http://www.collegehumor.com/oembed.{format}"
+    },
+    {
+        "name": "Poll Everywhere",
+        "templates": [
+            "www\\.polleverywhere\\.com/polls/.*",
+            "www\\.polleverywhere\\.com/multiple_choice_polls/.*",
+            "www\\.polleverywhere\\.com/free_text_polls/.*"
+        ],
+        "endpoint": "http://www.polleverywhere.com/services/oembed/"
+    },
+    {
+        "name": "My Opera",
+        "templates": [
+            "my\\.opera\\.com/.*"
+        ],
+        "endpoint": "http://my.opera.com/service/oembed"
+    },
+    {
+        "name": "iFixit",
+        "templates": [
+            "www\\.ifixit\\.com/.+/.+/.*"
+        ],
+        "endpoint": "http://www.ifixit.com/Embed"
+    },
+    {
+        "name": "SmugMug",
+        "templates": [
+            ".*\\.smugmug\\.com/.*"
+        ],
+        "endpoint": "http://api.smugmug.com/services/oembed/"
+    },
+    {
+        "name": "SlideShare",
+        "templates": [
+            "www\\.slideshare\\.net/.+/.*"
+        ],
+        "endpoint": "http://www.slideshare.net/api/oembed/2"
+    },
+    {
+        "name": "WordPress.com",
+        "templates": [
+            ".*\\.wordpress.com",
+            "wp\\.me/.*"
+        ],
+        "endpoint": "http://public-api.wordpress.com/oembed/"
+    },
+    {
+        "name": "Twitter",
+        "templates": [
+            "twitter\\.com/#!/\\w+/status/(\\d+)"
+        ],
+        "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}?id={1}"
+    },
+    {
+        "name": "Gist",
+        "templates": [
+            "gist\\.github\\.com/(.+)"
+        ],
+        "endpoint": "https://github.com/api/oembed"
+    },
+
+
+
+
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+    {
+        "name": "",
+        "templates": [
+            ""
+        ],
+        "endpoint": ""
+    },
+
+
+    {}
+
 ]
 
