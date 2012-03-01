@@ -17,7 +17,7 @@ var mimeTypes = {
 
 var typesPath = path.join(__dirname, 'resources/oembed-types');
 
-var app = express.createServer();
+var app = exports.server = express.createServer();
 
 app.get('/:type/', function(req, res) {
     var filepath = path.join(typesPath, req.param('type'), 'index.html');
