@@ -13,7 +13,7 @@ var api = {
             iframely.getOembedByProvider(url, options, this.callback);
         }
     }
-}
+};
 
 vows.describe('Tests')
 .addBatch({

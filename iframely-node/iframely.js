@@ -142,10 +142,10 @@ iframely.getOembedByProvider = function(uri, options, callback) {
                 
             } else if (type === 'stream') {
                 var res = new ProxyStream();
+                res.headers = oembedData.headers;
                 res.toOembed = stream2oembed;
                 res.oembedUrl = cacheKey;
                 res.statusCode = 200;
-                res.headers = oembedData.headers;
                 callback(null, res);
                 process.nextTick(function() {
                     res.end(oembedData.data);
@@ -153,6 +153,7 @@ iframely.getOembedByProvider = function(uri, options, callback) {
                 
             } else { // type === 'object''
                 var res = new ProxyStream();
+                res.headers = oembedData.headers;
                 res.toOembed = stream2oembed;
                 res.toOembed(callback);
                 process.nextTick(function() {
