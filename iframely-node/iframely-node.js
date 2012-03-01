@@ -191,13 +191,12 @@ iframely.getOembedByProvider = function(uri, options, callback) {
 /**
  * @public
  * Get oembed object for the given uri
- * @param {String} url The page url
+ * @param {String} uri The page uri
  * @param {Object} [options] The request options
  * @param {String} [options.format] The requested format (json or xml)
  * @param {Number} [options.maxwidth] The maximum width of the embedded resource
  * @param {Number} [options.maxheight] The maximum height of the embedded resource
  * @param {Object} [options.headers] Additional headers
- * @param {String} [options.serverEndpoint] The url to fallback oembed server
  * @param {Function} callback The completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
  * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */

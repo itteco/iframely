@@ -5,7 +5,7 @@ var events = require('events');
 var express = require('express');
 var sax = require('sax');
 
-var iframely = require('./iframely');
+var iframely = require('../iframely-node');
 
 const COMMON_HEADERS = {
     'Access-Control-Allow-Origin': '*'
