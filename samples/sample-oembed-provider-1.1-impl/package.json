@@ -11,6 +11,6 @@
     },
     
     "scripts": {
-        "start": "node oembed-provider-server.js"
+        "start": "node server.js"
     }
 }
