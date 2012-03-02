@@ -1,43 +1,80 @@
 (function() {
 
 var assert = require('assert');
-var request = require('request');
+var events = require('events');
 var vows = require('vows');
 
 var providers = require('./providers.json');
+var iframely = require('../iframely-node');
 
-function checkCORS(uri, callback) {
-    request({
-        uri: uri,
-        headers: {
-            'Original': 'http://iframe.ly/'
-        }
-    }, function(err, res, data) {
-        if (err) {
-            callback(err);
-            
-        } else if (res.statusCode != 200) {
-            callback({error: 'unexpected-code', code: res.statusCode});
-            
-        } else if (!res.headers['access-control-allow-origin']) {
-            callback({error: 'cors-not-supported'});
-            
-        } else {
-            callback(null, {ok: true});
-        }
-    });
+var headers = {
+    'Original': 'http://iframe.ly/'
+};
+
+function getOembed(uri) {
+    return function() {
+        iframely.getOembedByProvider(uri, {headers: headers}, this.callback);
+    };
 }
 
-function isOk(error, data) {
-    assert.deepEqual(data, {ok: true});
+function assertOembed(oembed) {
+    assert.isObject(oembed);
+    assert.isString(oembed.version);
+    assert.match(oembed.version, /^1\.[01]$/);
+    assert.isString(oembed.type);
+    assert.match(oembed.type, /^(link|photo|rich|video)$/);
+    switch(oembed.type) {
+        case 'link':
+            break;
+
+        case 'photo':
+            assert.isString(oembed.url);
+            assert.match(oembed.url, /^https?:\/\//);
+            assert.isNumber(oembed.width);
+            assert.isNumber(oembed.height);
+            break;
+            
+        case 'rich':
+        case 'video':
+            assert.isString(oembed.html);
+            assert.isNumber(oembed.width);
+            assert.isNumber(oembed.height);
+            break;
+    }
+    
+    if (oembed.thumbnail_url) {
+        assert.isString(oembed.thumbnail_url);
+        assert.match(oembed.thumbnail_url, /^https?:\/\//);
+        assert.isNumber(oembed.thumbnail_width);
+        assert.isNumber(oembed.thumbnail_height);
+    }
+    
+    if (oembed.provider_url) {
+        assert.isString(oembed.provider_url);
+        assert.match(oembed.provider_url, /^https?:\/\//);
+    }
 }
 
 function createTopic(url) {
     return {
-        topic: function() {
-            checkCORS(url, this.callback);
+        topic: getOembed(url),
+        'is correct': function(error, res) {
+            assert.isNull(error);
+            assert.instanceOf(res, events.EventEmitter);
         },
-        'supported': isOk
+        'is CORS': function(error, res) {
+            assert.isObject(res.headers);
+            assert.isString(res.headers['access-control-allow-origin']);
+        },
+        'oEmbed': {
+            topic: function(res) {
+                res.toOembed(this.callback);
+            },
+            'is valid': function(error, oembed) {
+                assert.isNull(error);
+                assertOembed(oembed);
+            }
+        }
     };
 }
 

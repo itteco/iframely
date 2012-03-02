@@ -53,7 +53,7 @@ vows.describe('Tests')
             assert.isNull(error);
             assert.isObject(res);
             assert.isString(res.html);
-            assert.equal(res.html, '<iframe src="' + baseUrl + '/iframe/1?url=http%3A%2F%2Fprovider.iframe.ly%2Foembed%3Furl%3Dhttp%3A%2F%2Fprovider.iframe.ly%2Fvideo%2F"></iframe>')
+            assert.equal(res.html, '<iframe src="' + baseUrl + '/iframe/1?url=http%3A%2F%2Fprovider.iframe.ly%2Foembed%3Furl%3Dhttp%253A%252F%252Fprovider.iframe.ly%252Fvideo%252F"></iframe>')
         }
     },
     "Get iframe": {

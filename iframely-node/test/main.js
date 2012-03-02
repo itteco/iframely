@@ -6,9 +6,47 @@ var vows = require('vows');
 
 var iframely = require('../iframely.js');
 
+function assertOembed(oembed) {
+    assert.isObject(oembed);
+    assert.isString(oembed.version);
+    assert.match(oembed.version, /^1\.[01]$/);
+    assert.isString(oembed.type);
+    assert.match(oembed.type, /^(link|photo|rich|video)$/);
+    switch(oembed.type) {
+        case 'link':
+            break;
+
+        case 'photo':
+            assert.isString(oembed.url);
+            assert.match(oembed.url, /^https?:\/\//);
+            assert.isNumber(oembed.width);
+            assert.isNumber(oembed.height);
+            break;
+            
+        case 'rich':
+        case 'video':
+            assert.isString(oembed.html);
+            assert.isNumber(oembed.width);
+            assert.isNumber(oembed.height);
+            break;
+    }
+    
+    if (oembed.thumbnail_url) {
+        assert.isString(oembed.thumbnail_url);
+        assert.match(oembed.thumbnail_url, /^https?:\/\//);
+        assert.isNumber(oembed.thumbnail_width);
+        assert.isNumber(oembed.thumbnail_height);
+    }
+    
+    if (oembed.provider_url) {
+        assert.isString(oembed.provider_url);
+        assert.match(oembed.provider_url, /^https?:\/\//);
+    }
+}
+
 vows.describe('Tests')
 .addBatch({
-    'Get oEmbed Links': {
+    'Get oEmbed links': {
         topic: function() {
             iframely.getOembedLinks('http://provider.iframe.ly/video/', this.callback);
         },
@@ -29,7 +67,7 @@ vows.describe('Tests')
             });
         }
     },
-    'Get oEmbed Links without cache': {
+    'Get oEmbed links without cache': {
         topic: function() {
             iframely.getOembedLinks('http://provider.iframe.ly/video/', {useCache: false}, this.callback);
         },
@@ -86,18 +124,14 @@ vows.describe('Tests')
         },
         'is object': function(err, oembed) {
             assert.isNull(err);
-            assert.isObject(oembed);
-            assert.isString(oembed.version);
-            assert.isString(oembed.type);
-            assert.isString(oembed.title);
-            assert.isString(oembed.html);
+            assertOembed(oembed);
         }
     },
     'Get oEmbed as stream': {
         topic: function() {
             iframely.getOembedByProvider('http://provider.iframe.ly/oembed?url=http://provider.iframe.ly/video/', {type: 'stream'}, this.callback);
         },
-        'is object': function(err, oembed) {
+        'is stream': function(err, oembed) {
             assert.isNull(err);
             assert.instanceOf(oembed, events.EventEmitter);
         }
