@@ -11,8 +11,8 @@
     "html": "<iframe src=\"http://provider.iframe.ly/video/iframe.html\" width=\"640\" height=\"360\" frameborder=\"0\" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>",
     "duration": "68",
     "thumbnail_url": "http://provider.iframe.ly/video/poster.png",
-    "thumbnail_width": "640",
-    "thumbnail_height": "360"
+    "thumbnail_width": 640,
+    "thumbnail_height": 360
 }
 
 
