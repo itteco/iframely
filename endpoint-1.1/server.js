@@ -87,9 +87,7 @@ app.get('/oembed/1', function(req, res) {
                         res.write('<oembed>\n');
 
                         _.each(oembed, function(value, prop) {
-                            res.write('<' + prop + '>');
-                            res.write(value);
-                            res.write('</' + prop + '>');
+                            res.write('<' + prop + '>' + value + '</' + prop + '>');
                         });
 
                         res.end('</oembed>\n');
