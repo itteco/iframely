@@ -408,6 +408,9 @@ function xmlStream2oembed(stream, callback) {
             
         } else {
             if (prop) {
+                if (prop.match(/(width|height)$/))
+                    value = parseInt(value);
+                
                 oembed[prop] = value;
             }
             prop = null;
