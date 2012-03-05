@@ -72,7 +72,7 @@ iframely.getOembedLinks = function(uri, options, callback) {
                         var end = false;
                         saxStream.on('error', function(err) {
                             console.log('sax error', err);
-                            callback(error);
+                            callback(err);
                         });
                         saxStream.on('opentag', function(tag) {
                             if (tag.name === 'LINK' && isOembed(tag.attributes)) {
@@ -269,6 +269,22 @@ iframely.getOembed = function(uri, options, callback) {
     });
 };
 
+iframely.queryOpengraph = function(uri, options, callback) {
+    callback(null, {
+        url: 'http://www.youtube.com/watch?v=-bZ6Pl7cQAE',
+        title: "Секретный приём мастера парковки",
+        type: "video",
+        image: "http://i2.ytimg.com/vi/-bZ6Pl7cQAE/hqdefault.jpg",
+        video: {
+            url: "http://www.youtube.com/v/-bZ6Pl7cQAE?version=3&amp;autohide=1",
+            type: "application/x-shockwave-flash",
+            width: 396,
+            height: 297
+        },
+        site_name: "YouTube"
+    });
+};
+
 /**
  * @private
  * Test the link for oembed
@@ -442,6 +458,97 @@ function stream2oembed(callback) {
     this.headers['content-type'].match('xml')?
         xmlStream2oembed(this, callback):
         jsonStream2oembed(this, callback)
+}
+
+function getPageMeta(uri, res, callback) {
+    var meta = {
+        links: []
+    };
+    
+    var ogEntry = {
+        prefix: 'og:'
+    };
+    
+    var ogEntriesStack = [ogEntry];
+    
+    function setOg(entry, property, value) {
+        if (property in entry) {
+            
+        } else {
+            entry[property] = value;
+        }
+    }
+    
+    var saxStream = sax.createStream(false);
+
+    var end = false;
+    saxStream.on('error', function(err) {
+        console.log('sax error', err);
+        callback(err);
+    });
+    saxStream.on('opentag', function(tag) {
+        if (end) return;
+        
+        if (tag.name === 'LINK') {
+            meta.links.push(tag.attributes);
+        }
+        
+        if (tag.name === 'META') {
+            var metaTag = tag.attributes;
+            if ('property' in metaTag && metaTag.property.match(/^og:/)) {
+                while (meta.property.substr(0, ogEntry.prefix.length) != ogEntry.prefix) {
+                    ogEntry = ogEntriesStack.shift();
+                }
+                
+                var property = metaTag.property.substr(0, ogEntry.prefix.length);
+                var propertyParts = property.split(':');
+                
+                if (propertyParts.length == 1) {
+                    ogEntry[property] = metaTag.content;
+                }
+                
+                if (property == 'image' || property == 'video' || property == 'audio') {
+                    structuredObj = {
+                        url: metaTag.content
+                    };
+                    
+                    if (property in meta.opengraph) {
+                        if (_.isArray(meta.opengraph[property])) {
+                            meta.opengraph[property].push(structuredObj);
+                            
+                        } else {
+                            meta.opengraph[property] = [meta.opengraph[property], structuredObj];
+                        }
+                        
+                    } else {
+                        meta.opengraph[property] = structuredObj;
+                    }
+                    
+                } else if (property.match(/^(audio|image|video):/)) {
+                    property = property.substr(6);
+                    structuredObj[property] = metaTag.content;
+                    
+                } else {
+                    meta.opengraph[property] = metaTag.content;
+                }
+            }
+        }
+    });
+    saxStream.on('closetag', function(name) {
+        if (name === 'HEAD') {
+            meta.links.forEach(function(link) {
+                link.href = url.resolve(uri, link.href);
+            });
+            callback(null, meta);
+            end = true;
+        }
+    });
+    saxStream.on('end', function() {
+        if (!end) {
+            callback(null, meta);
+            end = true;
+        }
+    });
 }
 
 /**

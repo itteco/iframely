@@ -121,6 +121,35 @@ app.get('/iframe/1', function(req, res) {
     });
 });
 
+app.get('/opengraph/1', function(req, res) {
+    var url = decodeURIComponent(req.param('url'));
+    var format = req.param('format');
+    
+    var options = {
+        format: format
+    };
+    
+    iframely.queryOpengraph(url, options, function(error, opengraph) {
+        if (error) {
+            if (error.error == 'not-found') {
+                res.writeHead(404);
+                res.end();
+                
+            } else {
+                console.log(error);
+                res.writeHead(500);
+                res.end();
+            }
+            
+        } else {
+            res.writeHead(200, {
+                'Content-Type': 'text/html'
+            });
+            res.end(JSON.stringify(opengraph));
+        }
+    });
+});
+
 function filterHeaders(headers, allowed) {
     var filtered = {};
     
