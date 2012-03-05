@@ -221,7 +221,9 @@ function xmlToJson(xml) {
             var nodeType = item.nodeType;
             var nodeName = item.nodeName;
             if (nodeType == 3 || nodeType  == 4) {
-                obj = item.nodeValue;
+                // Store value only if its single child element.
+                if (xml.childNodes.length == 1)
+                    obj = item.nodeValue;
             } else {
                 obj[nodeName] = xmlToJson(item);
             }
