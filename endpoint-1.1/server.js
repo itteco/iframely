@@ -129,7 +129,7 @@ app.get('/opengraph/1', function(req, res) {
         format: format
     };
     
-    iframely.queryOpengraph(url, options, function(error, opengraph) {
+    iframely.queryOpenGraph(url, options, function(error, opengraph) {
         if (error) {
             if (error.error == 'not-found') {
                 res.writeHead(404);

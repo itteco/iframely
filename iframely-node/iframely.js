@@ -16,6 +16,8 @@ var linksCache = new NodeCache();
 
 var oembedsCache = new NodeCache();
 
+var opengraphCache = new NodeCache();
+
 /**
  * @public
  * Fetches oembed links for the given page uri
@@ -68,19 +70,12 @@ iframely.getOembedLinks = function(uri, options, callback) {
                         }
 
                         var saxStream = sax.createStream(false);
-
-                        var end = false;
-                        saxStream.on('error', function(err) {
-                            console.log('sax error', err);
-                            callback(err);
-                        });
-                        saxStream.on('opentag', function(tag) {
-                            if (tag.name === 'LINK' && isOembed(tag.attributes)) {
-                                links.push(tag.attributes);
-                            }
-                        });
-                        saxStream.on('closetag', function(name) {
-                            if (name === 'HEAD') {
+                        parseLinks(saxStream, function(error, links) {
+                            if (error) {
+                                callback(error);
+                                
+                            } else {
+                                links = links.filter(isOembed);
                                 links.forEach(function(link) {
                                     link.href = url.resolve(uri, link.href);
                                 });
@@ -88,13 +83,6 @@ iframely.getOembedLinks = function(uri, options, callback) {
                                     linksCache.set(uri, links, 300);
                                 }
                                 callback(null, links);
-                                end = true;
-                            }
-                        });
-                        saxStream.on('end', function() {
-                            if (!end) {
-                                callback(null, links);
-                                end = true;
                             }
                         });
 
@@ -269,19 +257,43 @@ iframely.getOembed = function(uri, options, callback) {
     });
 };
 
-iframely.queryOpengraph = function(uri, options, callback) {
-    callback(null, {
-        url: 'http://www.youtube.com/watch?v=-bZ6Pl7cQAE',
-        title: "Секретный приём мастера парковки",
-        type: "video",
-        image: "http://i2.ytimg.com/vi/-bZ6Pl7cQAE/hqdefault.jpg",
-        video: {
-            url: "http://www.youtube.com/v/-bZ6Pl7cQAE?version=3&amp;autohide=1",
-            type: "application/x-shockwave-flash",
-            width: 396,
-            height: 297
-        },
-        site_name: "YouTube"
+iframely.queryOpenGraph = function(uri, options, callback) {
+    if (typeof options == 'function') {
+        callback = options;
+        options = {};
+    }
+    
+    options = options || {};
+    
+    opengraphCache.get(uri, function(error, data) {
+        if (!error && data && uri in data) {
+            callback(null, data[uri]);
+
+        } else {
+            getPage(uri, function(res) {
+                if (res.statusCode == 200) {
+                    var saxStream = sax.createStream(false);
+                    parseOpenGraph(saxStream, function(error, og) {
+                        if (error) {
+                            callback(error);
+
+                        } else {
+                            if (options.useCache !== false) {
+                                opengraphCache.set(uri, og, 300);
+                            }
+                            callback(null, og);
+                        }
+                    });
+
+                    res.pipe(saxStream);
+
+                } else {
+                    callback({error: true, code: res.statusCode});
+                }
+            }, 3).on('error', function(error) {
+                callback(error);
+            });
+        }
     });
 };
 
@@ -460,94 +472,138 @@ function stream2oembed(callback) {
         jsonStream2oembed(this, callback)
 }
 
-function getPageMeta(uri, res, callback) {
-    var meta = {
-        links: []
-    };
+function parseLinks(saxStream, callback) {
+    var links = [];
     
-    var ogEntry = {
-        prefix: 'og:'
-    };
+    var end = true;
     
-    var ogEntriesStack = [ogEntry];
-    
-    function setOg(entry, property, value) {
-        if (property in entry) {
-            
-        } else {
-            entry[property] = value;
-        }
-    }
-    
-    var saxStream = sax.createStream(false);
-
-    var end = false;
     saxStream.on('error', function(err) {
+        if (end) return;
+        
         console.log('sax error', err);
         callback(err);
+        end = true;
     });
     saxStream.on('opentag', function(tag) {
         if (end) return;
         
-        if (tag.name === 'LINK') {
-            meta.links.push(tag.attributes);
-        }
-        
-        if (tag.name === 'META') {
-            var metaTag = tag.attributes;
-            if ('property' in metaTag && metaTag.property.match(/^og:/)) {
-                while (meta.property.substr(0, ogEntry.prefix.length) != ogEntry.prefix) {
-                    ogEntry = ogEntriesStack.shift();
-                }
-                
-                var property = metaTag.property.substr(0, ogEntry.prefix.length);
-                var propertyParts = property.split(':');
-                
-                if (propertyParts.length == 1) {
-                    ogEntry[property] = metaTag.content;
-                }
-                
-                if (property == 'image' || property == 'video' || property == 'audio') {
-                    structuredObj = {
-                        url: metaTag.content
-                    };
-                    
-                    if (property in meta.opengraph) {
-                        if (_.isArray(meta.opengraph[property])) {
-                            meta.opengraph[property].push(structuredObj);
-                            
-                        } else {
-                            meta.opengraph[property] = [meta.opengraph[property], structuredObj];
-                        }
-                        
-                    } else {
-                        meta.opengraph[property] = structuredObj;
-                    }
-                    
-                } else if (property.match(/^(audio|image|video):/)) {
-                    property = property.substr(6);
-                    structuredObj[property] = metaTag.content;
-                    
-                } else {
-                    meta.opengraph[property] = metaTag.content;
-                }
-            }
+        if (tag.name === 'LINK' && isOembed(tag.attributes)) {
+            links.push(tag.attributes);
         }
     });
     saxStream.on('closetag', function(name) {
+        if (end) return;
+        
         if (name === 'HEAD') {
-            meta.links.forEach(function(link) {
-                link.href = url.resolve(uri, link.href);
-            });
-            callback(null, meta);
+            callback(null, links);
             end = true;
         }
     });
     saxStream.on('end', function() {
-        if (!end) {
-            callback(null, meta);
+        if (end) return;
+        
+        callback(null, links);
+        end = true;
+    });
+}
+
+function parseOpenGraph(saxStream, callback) {
+    var rootProp = {
+        prefix: 'og:',
+        value: {}
+    };
+    
+    var prop = rootProp;
+    var stack = [];
+    
+    function _merge(parentProp, prop) {
+        if (typeof parentProp.value == 'string') {
+            if (parentProp.property == 'audio' || parentProp.property == 'image' || parentProp.property == 'video') {
+                parentProp.value = {
+                    url: parentProp.value
+                };
+                
+            } else {
+                parentProp.value = {
+                    value: parentProp.value
+                };
+            }
+        }
+        
+        if (!(prop.property in parentProp.value)) {
+            parentProp.value[prop.property] = prop.value;
+
+        } else if (_.isArray(parentProp.value[prop.property])) {
+            parentProp.value[prop.property].push(prop.value);
+
+        } else {
+            parentProp.value[prop.property] = [parentProp.value[prop.property], prop.value];
+        }
+    }
+    
+    function _finalMerge() {
+        while (stack.length > 0) {
+            var parentProp = stack.shift();
+            _merge(parentProp, prop);
+            prop = parentProp;
+        }
+    }
+    
+    var end = false;
+    saxStream.on('error', function(err) {
+        if (end) return;
+        
+        console.log('sax error', err);
+        callback(err);
+        end = true;
+    });
+    saxStream.on('opentag', function(tag) {
+        if (end) return;
+        
+        if (tag.name === 'META') {
+            var metaTag = tag.attributes;
+            if ('property' in metaTag && metaTag.property.match(/^og:/)) {
+                while (metaTag.property.substr(0, prop.prefix.length) != prop.prefix) {
+                    var parentProp = stack.shift();
+                    _merge(parentProp, prop);
+                    prop = parentProp;
+                }
+                
+                var property = metaTag.property.substr(prop.prefix.length);
+                var propertyParts = property.split(':');
+                
+                while (propertyParts.length > 0) {
+                    stack.unshift(prop);
+                    var name = propertyParts.shift();
+                    prop = {
+                        prefix: prop.prefix + name + ':',
+                        property: name,
+                        value: {}
+                    };
+                }
+                
+                if (prop.property == 'height' || prop.property == 'width')
+                    metaTag.content = parseInt(metaTag.content);
+                
+                prop.value = metaTag.content;
+            }
+        }
+    });
+    saxStream.on('closetag', function(name) {
+        if (end) return;
+        
+        if (name === 'HEAD') {
+            _finalMerge();
+            callback(null, rootProp.value);
             end = true;
         }
+    });
+    saxStream.on('end', function() {
+        if (end) return;
+        
+        _finalMerge();
+        callback(null, rootProp.value);
+        end = true;
     });
 }
 
