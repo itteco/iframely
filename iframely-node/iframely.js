@@ -10,6 +10,8 @@ var stream = require('stream');
 var url = require('url');
 var util = require('util');
 
+var Iconv = require('iconv').Iconv;
+
 var NodeCache = require('node-cache');
 
 var linksCache = new NodeCache();
@@ -268,10 +270,13 @@ iframely.queryOpenGraph = function(uri, options, callback) {
     options = options || {};
     
     withCache(options.useCache !== false && opengraphCache, uri, 300, function(callback) {
+        uri.headers = {'Accept': 'text/html', 'User-Agent': 'curl/1.1'};
         getPage(uri, function(res) {
-            console.log('response');
             if (res.statusCode == 200) {
+                res.setEncoding('binary');
+                
                 var saxStream = sax.createStream(false);
+                saxStream.contentType = res.headers['content-type'];
                 parseOpenGraph(saxStream, callback);
                 res.pipe(saxStream);
 
@@ -515,6 +520,9 @@ function parseLinks(saxStream, callback) {
  * Parse Open Graph meta on page
  */
 function parseOpenGraph(saxStream, callback) {
+    var utf8_iso8859_1 = new Iconv('UTF-8', 'ISO8859-1');
+    var charset = getCharset(saxStream.contentType);
+    
     var prefixes;
     
     var rootProp = {
@@ -571,7 +579,9 @@ function parseOpenGraph(saxStream, callback) {
         
         if (tag.name === 'META') {
             var metaTag = tag.attributes;
+            
             if ('property' in metaTag && metaTag.property.match(/^og:/)) {
+                console.log(metaTag.property, metaTag.content);
                 while (metaTag.property.substr(0, prop.prefix.length) != prop.prefix) {
                     var parentProp = stack.shift();
                     _merge(parentProp, prop);
@@ -594,7 +604,14 @@ function parseOpenGraph(saxStream, callback) {
                 if (prop.property == 'height' || prop.property == 'width')
                     metaTag.content = parseInt(metaTag.content);
                 
+                if (charset) {
+                    metaTag.content = charset.convert(utf8_iso8859_1.convert(metaTag.content)).toString();
+                }
+                
                 prop.value = metaTag.content;
+                
+            } else if (metaTag['http-equiv'] &&  metaTag['http-equiv'].toLowerCase() == 'content-type') {
+                charset = getCharset(metaTag.content);
             }
             
         } else if (tag.name == 'HEAD') {
@@ -660,6 +677,23 @@ function withCache(cache, key, timeout, func, callback) {
             }
         });
     }
+}
+
+/**
+ * @private
+ */
+function getCharset(string) {
+    var m = string && string.match(/charset=([\w-]+)/i);
+    var charset = m && m[1].toUpperCase();
+    if (charset && charset.toLowerCase() == 'utf-8')
+        charset = null;
+    
+    if (charset) {
+        console.log('charset', charset);
+        return new Iconv(charset, 'UTF-8');
+    }
+    
+    return null;
 }
 
 /**

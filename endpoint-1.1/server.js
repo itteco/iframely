@@ -143,7 +143,7 @@ app.get('/opengraph/1', function(req, res) {
             
         } else {
             res.writeHead(200, {
-                'Content-Type': 'text/html'
+                'Content-Type': 'application/json'
             });
             res.end(JSON.stringify(opengraph));
         }
