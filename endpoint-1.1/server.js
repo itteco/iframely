@@ -170,7 +170,7 @@ function filterOutHeaders(headers) {
     return filterHeaders(headers, ALLOWED_OUT_HEADERS);
 }
 
-app.listen(process.env.npm_package_config_port);
+app.listen(process.env.npm_package_config_port || 8060);
 console.log('Listening', process.env.npm_package_config_port || 8060);
 
 process.on('uncaughtException', function (error) {
