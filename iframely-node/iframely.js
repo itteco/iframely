@@ -41,7 +41,7 @@ iframely.getOembedLinks = function(uri, options, callback) {
         callback(null, links);
         
     } else {
-        withCache(options.useCache && linksCache, uri, 300, function(callback) { 
+        withCache(options.useCache !== false && linksCache, uri, 300, function(callback) { 
             getPage(uri, function(res) {
                 if (res.statusCode == 200) {
                     var links = [];
@@ -267,7 +267,7 @@ iframely.queryOpenGraph = function(uri, options, callback) {
     
     options = options || {};
     
-    withCache(options.useCache && opengraphCache, uri, 300, function(callback) {
+    withCache(options.useCache !== false && opengraphCache, uri, 300, function(callback) {
         getPage(uri, function(res) {
             console.log('response');
             if (res.statusCode == 200) {
@@ -515,6 +515,8 @@ function parseLinks(saxStream, callback) {
  * Parse Open Graph meta on page
  */
 function parseOpenGraph(saxStream, callback) {
+    var prefixes;
+    
     var rootProp = {
         prefix: 'og:',
         value: {}
@@ -594,6 +596,22 @@ function parseOpenGraph(saxStream, callback) {
                 
                 prop.value = metaTag.content;
             }
+            
+        } else if (tag.name == 'HEAD') {
+            var headTag = tag.attributes;
+            if (headTag.prefix) {
+                prefixes = {};
+                var prefixParts = headTag.prefix.split(/\s+/);
+                for (var i = 0; i < prefixParts.length; i += 2) {
+                    var prefix = prefixParts[i];
+                    if (prefixParts[i + 1] == 'http://ogp.me/ns#') {
+                        rootProp.prefix = prefix;
+                        
+                    } else {
+                        prefixes[prefix.substr(0, prefix.length - 1)] = prefixParts[i + 1];
+                    }
+                }
+            }
         }
     });
     saxStream.on('closetag', function(name) {
@@ -601,6 +619,8 @@ function parseOpenGraph(saxStream, callback) {
         
         if (name === 'HEAD') {
             _finalMerge();
+            if (prefixes)
+                rootProp.value.namespaces = prefixes;
             callback(null, rootProp.value);
             end = true;
         }
