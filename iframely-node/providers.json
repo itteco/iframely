@@ -56,9 +56,6 @@
         ],
         "endpoint": "http://www.youtube.com/oembed"
     },
-
-
-
     {
         "name": "Qik",
         "templates": [
@@ -139,7 +136,84 @@
             "gist\\.github\\.com/(.+)"
         ],
         "endpoint": "https://github.com/api/oembed"
+    },
+    {
+        "name": "Photobucket",
+        "templates": [
+            "i.*\\.photobucket\\.com/albums/.*",
+            "gi.*\\.photobucket\\.com/groups/.*"
+        ],
+        "endpoint": "http://photobucket.com/oembed"
+    },
+    {
+        "name": "dotSUB",
+        "templates": [
+            "dotsub\\.com/view/.+"
+        ],
+        "endpoint": "http://dotsub.com/services/oembed"
+    },
+    {
+        "name": "official.fm",
+        "templates": [
+            "official\\.fm/(tracks|playlists)/.+"
+        ],
+        "endpoint": "http://official.fm/services/oembed"
+    },
+    {
+        "name": "yfrog",
+        "templates": [
+            "yfrog\\.com/.+"
+        ],
+        "endpoint": "http://www.yfrog.com/api/oembed"
+    },
+    {
+        "name": "Instagr.am",
+        "templates": [
+            "instagr\\.am/.+"
+        ],
+        "endpoint": "http://api.instagram.com/api/v1/oembed"
+    },
+    {
+        "name": "DailyMotion",
+        "templates": [
+            "www\\.dailymotion\\.com/video/.+"
+        ],
+        "endpoint": "http://www.dailymotion.com/services/oembed"
+    },
+    {
+        "name": "PicPlz",
+        "templates": [
+            "picplz\\.com/.+"
+        ],
+        "endpoint": "http://picplz.com/oembed"
+    },
+    {
+        "name": "SoundCloud",
+        "templates": [
+            "soundcloud.com/.+"
+        ],
+        "endpoint": "http://soundcloud.com/oembed"
+    },
+    {
+        "name": "MixCloud",
+        "templates": [
+            "www\\.mixcloud.com/.+"
+        ],
+        "endpoint": "http://www.mixcloud.com/oembed"
+    },
+    {
+        "name": "Skitch",
+        "templates": [
+            "(www\\.)?skitch\\.com/.+"
+        ],
+        "endpoint": "http://www.skitch.com/oembed"
+    },
+    {
+        "name": "Clikthrough",
+        "templates": [
+            "(www\\.)?clikthrough\\.com/.+"
+        ],
+        "endpoint": "http://www.clikthrough.com/services/oembed"
     }
-
 ]
 
