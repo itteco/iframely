@@ -41,61 +41,53 @@ iframely.getOembedLinks = function(uri, options, callback) {
         callback(null, links);
         
     } else {
-        linksCache.get(uri, function(error, data) {
-            if (!error && data && uri in data) {
-                callback(null, data[uri]);
-                
-            } else {
-                getPage(uri, function(res) {
-                    if (res.statusCode == 200) {
-                        var links = [];
+        withCache(options.useCache && linksCache, uri, 300, function(callback) { 
+            getPage(uri, function(res) {
+                if (res.statusCode == 200) {
+                    var links = [];
 
-                        var linkHeaders = res.headers.link;
-                        if (linkHeaders) {
-                            if (typeof linkHeaders === 'string')
-                                linkHeaders = [linkHeaders];
-                            
-                            links = linkHeaders.reduce(function(links, value) {
-                                return links.concat(httpLink.parse(value).filter(isOembed));
-                            }, []);
-                            
+                    var linkHeaders = res.headers.link;
+                    if (linkHeaders) {
+                        if (typeof linkHeaders === 'string')
+                            linkHeaders = [linkHeaders];
+
+                        links = linkHeaders.reduce(function(links, value) {
+                            return links.concat(httpLink.parse(value).filter(isOembed));
+                        }, []);
+
+                        links.forEach(function(link) {
+                            link.href = url.resolve(uri, link.href);
+                        });
+
+                        if (links.length) {
+                            callback(null, links);
+                            return;
+                        }
+                    }
+
+                    var saxStream = sax.createStream(false);
+                    parseLinks(saxStream, function(error, links) {
+                        if (error) {
+                            callback(error);
+
+                        } else {
+                            links = links.filter(isOembed);
                             links.forEach(function(link) {
                                 link.href = url.resolve(uri, link.href);
                             });
-
-                            if (links.length) {
-                                callback(null, links);
-                                return;
-                            }
+                            callback(null, links);
                         }
+                    });
 
-                        var saxStream = sax.createStream(false);
-                        parseLinks(saxStream, function(error, links) {
-                            if (error) {
-                                callback(error);
-                                
-                            } else {
-                                links = links.filter(isOembed);
-                                links.forEach(function(link) {
-                                    link.href = url.resolve(uri, link.href);
-                                });
-                                if (options.useCache !== false) {
-                                    linksCache.set(uri, links, 300);
-                                }
-                                callback(null, links);
-                            }
-                        });
+                    res.pipe(saxStream);
 
-                        res.pipe(saxStream);
-
-                    } else {
-                        callback({error: true, code: res.statusCode});
-                    }
-                }, 3).on('error', function(error) {
-                    callback(error);
-                });
-            }
-        });
+                } else {
+                    callback({error: true, code: res.statusCode});
+                }
+            }, 3).on('error', function(error) {
+                callback(error);
+            });
+        }, callback);
     }
 };
 
@@ -108,6 +100,7 @@ iframely.getOembedLinks = function(uri, options, callback) {
  * @param {Number} [options.maxheight] The maximum height of the embedded resource
  * @param {Object} [options.headers] Additional headers
  * @param {String} [options.type=stream] (string, stream, object)
+ * @param {Boolean} [options.useCache=true] Use cache for this request
  * @param {Function} callback Completion callback function. The callback gets two arguments (err, oembed) where oembed is an object.
  * @example callback(null, {version: '1.0', type: 'rich', html: '...'})
  */
@@ -257,6 +250,15 @@ iframely.getOembed = function(uri, options, callback) {
     });
 };
 
+/**
+ * @public
+ * Query Open Graph meta for the given page
+ * @param uri The page uri
+ * @param {Object} [options] The request options
+ * @param {Boolean} [options.useCache=true] Use cache for this request
+ * @param {Function} callback The completion callback function. The callback gets two arguments (err, og) where og is an object.
+ * @example callback(null, {title: 'abc', url: 'http://example.com/', image: '/adsawq'});
+ */
 iframely.queryOpenGraph = function(uri, options, callback) {
     if (typeof options == 'function') {
         callback = options;
@@ -265,36 +267,21 @@ iframely.queryOpenGraph = function(uri, options, callback) {
     
     options = options || {};
     
-    opengraphCache.get(uri, function(error, data) {
-        if (!error && data && uri in data) {
-            callback(null, data[uri]);
+    withCache(options.useCache && opengraphCache, uri, 300, function(callback) {
+        getPage(uri, function(res) {
+            console.log('response');
+            if (res.statusCode == 200) {
+                var saxStream = sax.createStream(false);
+                parseOpenGraph(saxStream, callback);
+                res.pipe(saxStream);
 
-        } else {
-            getPage(uri, function(res) {
-                if (res.statusCode == 200) {
-                    var saxStream = sax.createStream(false);
-                    parseOpenGraph(saxStream, function(error, og) {
-                        if (error) {
-                            callback(error);
-
-                        } else {
-                            if (options.useCache !== false) {
-                                opengraphCache.set(uri, og, 300);
-                            }
-                            callback(null, og);
-                        }
-                    });
-
-                    res.pipe(saxStream);
-
-                } else {
-                    callback({error: true, code: res.statusCode});
-                }
-            }, 3).on('error', function(error) {
-                callback(error);
-            });
-        }
-    });
+            } else {
+                callback({error: true, code: res.statusCode});
+            }
+        }, 3).on('error', function(error) {
+            callback(error);
+        });
+    }, callback);
 };
 
 /**
@@ -406,6 +393,10 @@ function getPage(uri, callback, maxRedirects) {
     return req;
 }
 
+/**
+ * @private
+ * Convert XML stream to an oembed object
+ */
 function xmlStream2oembed(stream, callback) {
     var oembed;
     var prop;
@@ -448,6 +439,10 @@ function xmlStream2oembed(stream, callback) {
     stream.pipe(saxStream);
 }
 
+/**
+ * @private
+ * Convert JSON stream to an oembed object
+ */
 function jsonStream2oembed(stream, callback) {
     var data = "";
     stream.on('data', function(chunk) {
@@ -466,12 +461,20 @@ function jsonStream2oembed(stream, callback) {
     });
 }
 
+/**
+ * @private
+ * Convert XML or JSON stream to an oembed object
+ */
 function stream2oembed(callback) {
     this.headers['content-type'].match('xml')?
         xmlStream2oembed(this, callback):
         jsonStream2oembed(this, callback)
 }
 
+/**
+ * @private
+ * Parse Link tags on page
+ */
 function parseLinks(saxStream, callback) {
     var links = [];
     
@@ -507,6 +510,10 @@ function parseLinks(saxStream, callback) {
     });
 }
 
+/**
+ * @private
+ * Parse Open Graph meta on page
+ */
 function parseOpenGraph(saxStream, callback) {
     var rootProp = {
         prefix: 'og:',
@@ -605,6 +612,34 @@ function parseOpenGraph(saxStream, callback) {
         callback(null, rootProp.value);
         end = true;
     });
+}
+
+/**
+ * @private
+ * 
+ */
+function withCache(cache, key, timeout, func, callback) {
+    if (!cache) {
+        func(callback);
+        
+    } else {
+        cache.get(key, function(error, data) {
+            if (!error && data && key in data) {
+                callback(null, data[key]);
+
+            } else {
+                func(function(error, data) {
+                    if (error) {
+                        callback(error);
+
+                    } else {
+                        cache.set(key, data, timeout);
+                        callback(error, data);
+                    }
+                });
+            }
+        });
+    }
 }
 
 /**
