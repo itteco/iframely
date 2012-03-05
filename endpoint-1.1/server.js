@@ -129,7 +129,7 @@ app.get('/opengraph/1', function(req, res) {
         format: format
     };
     
-    iframely.queryOpengraph(url, options, function(error, opengraph) {
+    iframely.queryOpenGraph(url, options, function(error, opengraph) {
         if (error) {
             if (error.error == 'not-found') {
                 res.writeHead(404);
@@ -170,7 +170,7 @@ function filterOutHeaders(headers) {
     return filterHeaders(headers, ALLOWED_OUT_HEADERS);
 }
 
-app.listen(process.env.npm_package_config_port);
+app.listen(process.env.npm_package_config_port || 8060);
 console.log('Listening', process.env.npm_package_config_port || 8060);
 
 process.on('uncaughtException', function (error) {

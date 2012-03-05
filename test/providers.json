@@ -2,6 +2,7 @@
     "CollegeHumor": "http://www.collegehumor.com/oembed.xml?url=http%3A%2F%2Fwww.collegehumor.com%2Fvideo%2F3922232%2Fprank-war-7-the-half-million-dollar-shot",
     "Embedly": "http://api.embed.ly/1/oembed?url=http://www.youtube.com/watch%3Fv%3DB-m6JDYRFvk",
     "Flickr": "http://flickr.com/services/oembed?url=http%3A//flickr.com/photos/bees/2362225867/",
+    "Gist": "https://github.com/api/oembed?format=json&url=https%3A%2F%2Fgist.github.com%2F311512",
     "Hulu": "http://www.hulu.com/api/oembed.xml?url=http%3A//www.hulu.com/watch/20807/late-night-with-conan-obrien-wed-may-21-2008",
     "iFixit": "http://www.ifixit.com/Embed?url=http%3A%2F%2Fwww.ifixit.com%2FTeardown%2FiPhone-4-Teardown%2F3130%2F1&format=json",
     "Iframely": "http://provider.iframe.ly/oembed?format=json&url=http%3A%2F%2Fprovider.iframe.ly%2Fvideo%2F",
