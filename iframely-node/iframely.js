@@ -560,7 +560,6 @@ function parseOpenGraph(saxStream, callback) {
             var metaTag = tag.attributes;
             
             if ('property' in metaTag && metaTag.property.match(/^og:/)) {
-                console.log(metaTag.property, metaTag.content);
                 while (metaTag.property.substr(0, prop.prefix.length) != prop.prefix) {
                     var parentProp = stack.shift();
                     _merge(parentProp, prop);
