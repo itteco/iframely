@@ -179,7 +179,7 @@ var htmlProviders = {
     'link': function(url, data) {
         if (data.html)
             return data.html;
-        return '<a href="' + url + '" target="_blank">' + data.title || url + '</a> '
+        return '<a href="' + url + '" target="_blank">' + (data.title || url) + '</a> '
     },
     'video': function(url, data) {
         return data.html;
