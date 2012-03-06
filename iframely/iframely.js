@@ -174,7 +174,7 @@ var htmlProviders = {
     'photo': function(url, data) {
         if (data.html)
             return data.html;
-        return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' +  + '">';
+        return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' + data.title + '">';
     },
     'link': function(url, data) {
         if (data.html)
