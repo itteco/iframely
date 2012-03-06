@@ -2,13 +2,14 @@
 
 var _ = require('underscore');
 var events = require('events');
-var http = require('http');
-var https = require('https');
 var httpLink = require('http-link');
+var request = require('request');
 var sax = require('sax');
 var stream = require('stream');
 var url = require('url');
 var util = require('util');
+
+var Iconv = require('iconv').Iconv;
 
 var NodeCache = require('node-cache');
 
@@ -268,10 +269,13 @@ iframely.queryOpenGraph = function(uri, options, callback) {
     options = options || {};
     
     withCache(options.useCache !== false && opengraphCache, uri, 300, function(callback) {
+        uri.headers = {'Accept': 'text/html', 'User-Agent': 'curl/1.1'};
         getPage(uri, function(res) {
-            console.log('response');
             if (res.statusCode == 200) {
+                res.setEncoding('binary');
+                
                 var saxStream = sax.createStream(false);
+                saxStream.contentType = res.headers['content-type'];
                 parseOpenGraph(saxStream, callback);
                 res.pipe(saxStream);
 
@@ -357,37 +361,17 @@ function getPage(uri, callback, maxRedirects) {
         req.on('response', callback);
     }
     
-    var parsedUri
-    if (typeof uri == 'string') {
-        parsedUri = url.parse(uri);
-        
-    } else {
-        parsedUri = uri;
-    }
-    
-    var handler = parsedUri.protocol === 'https:'? https: http;
-    handler.get({
-        host: parsedUri.hostname,
-        port: parsedUri.port,
-        path: parsedUri.pathname + (parsedUri.search || ''),
-        headers: uri.headers
-    }, function(res) {
-        if (res.statusCode == 301 || res.statusCode == 302) {
-            if (maxRedirects === 0) {
-                req.emit('error', new Error('too many redirects'));
-                
-            } else {
-                var redirectUri = url.resolve(parsedUri, res.headers.location);
-                redirectUri.headers = uri.headers;
-                getPage(redirectUri, req, maxRedirects > 0? maxRedirects - 1: maxRedirects);
-            }
-            
-        } else {
-            req.emit('response', res);
-        }
-        
-    }).on('error', function(error) {
+    request({
+        uri: uri, 
+        headers: uri.headers, 
+        maxRedirects: maxRedirects,
+        jar: false
+    })
+    .on('error', function(error) {
         req.emit('error', error);
+    })
+    .on('response', function(res) {
+        req.emit('response', res);
     });
     
     return req;
@@ -478,7 +462,7 @@ function stream2oembed(callback) {
 function parseLinks(saxStream, callback) {
     var links = [];
     
-    var end = true;
+    var end = false;
     
     saxStream.on('error', function(err) {
         if (end) return;
@@ -515,6 +499,9 @@ function parseLinks(saxStream, callback) {
  * Parse Open Graph meta on page
  */
 function parseOpenGraph(saxStream, callback) {
+    var utf8_iso8859_1 = new Iconv('UTF-8', 'ISO8859-1');
+    var charset = getCharset(saxStream.contentType);
+    
     var prefixes;
     
     var rootProp = {
@@ -571,6 +558,7 @@ function parseOpenGraph(saxStream, callback) {
         
         if (tag.name === 'META') {
             var metaTag = tag.attributes;
+            
             if ('property' in metaTag && metaTag.property.match(/^og:/)) {
                 while (metaTag.property.substr(0, prop.prefix.length) != prop.prefix) {
                     var parentProp = stack.shift();
@@ -591,10 +579,23 @@ function parseOpenGraph(saxStream, callback) {
                     };
                 }
                 
-                if (prop.property == 'height' || prop.property == 'width')
+                if (prop.property == 'height' || prop.property == 'width') {
                     metaTag.content = parseInt(metaTag.content);
                 
+                } else {
+                    var decoded = utf8_iso8859_1.convert(metaTag.content);
+                    if (charset) {
+                        metaTag.content = charset.convert(decoded).toString();
+
+                    } else {
+                        metaTag.content = decoded.toString();
+                    }
+                }
+                
                 prop.value = metaTag.content;
+                
+            } else if (metaTag['http-equiv'] &&  metaTag['http-equiv'].toLowerCase() == 'content-type') {
+                charset = getCharset(metaTag.content);
             }
             
         } else if (tag.name == 'HEAD') {
@@ -660,6 +661,22 @@ function withCache(cache, key, timeout, func, callback) {
             }
         });
     }
+}
+
+/**
+ * @private
+ */
+function getCharset(string) {
+    var m = string && string.match(/charset=([\w-]+)/i);
+    var charset = m && m[1].toUpperCase();
+    if (charset && charset.toLowerCase() == 'utf-8')
+        charset = null;
+    
+    if (charset) {
+        return new Iconv(charset, 'UTF-8');
+    }
+    
+    return null;
 }
 
 /**

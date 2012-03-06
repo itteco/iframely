@@ -6,7 +6,9 @@
     
     "dependencies": {
         "http-link": "0.2",
+        "iconv": "1.1",
         "node-cache": "0.2",
+        "request": "2.9",
         "sax": "0.3",
         "underscore": "1.3"
     },
