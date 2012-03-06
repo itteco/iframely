@@ -462,7 +462,7 @@ function stream2oembed(callback) {
 function parseLinks(saxStream, callback) {
     var links = [];
     
-    var end = true;
+    var end = false;
     
     saxStream.on('error', function(err) {
         if (end) return;
@@ -667,7 +667,6 @@ function getCharset(string) {
         charset = null;
     
     if (charset) {
-        console.log('charset', charset);
         return new Iconv(charset, 'UTF-8');
     }
     
