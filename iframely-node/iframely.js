@@ -579,11 +579,17 @@ function parseOpenGraph(saxStream, callback) {
                     };
                 }
                 
-                if (prop.property == 'height' || prop.property == 'width')
+                if (prop.property == 'height' || prop.property == 'width') {
                     metaTag.content = parseInt(metaTag.content);
                 
-                if (charset) {
-                    metaTag.content = charset.convert(utf8_iso8859_1.convert(metaTag.content)).toString();
+                } else {
+                    var decoded = utf8_iso8859_1.convert(metaTag.content);
+                    if (charset) {
+                        metaTag.content = charset.convert(decoded).toString();
+
+                    } else {
+                        metaTag.content = decoded.toString();
+                    }
                 }
                 
                 prop.value = metaTag.content;
