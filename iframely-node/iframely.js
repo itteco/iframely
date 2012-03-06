@@ -2,9 +2,8 @@
 
 var _ = require('underscore');
 var events = require('events');
-var http = require('http');
-var https = require('https');
 var httpLink = require('http-link');
+var request = require('request');
 var sax = require('sax');
 var stream = require('stream');
 var url = require('url');
@@ -362,37 +361,17 @@ function getPage(uri, callback, maxRedirects) {
         req.on('response', callback);
     }
     
-    var parsedUri
-    if (typeof uri == 'string') {
-        parsedUri = url.parse(uri);
-        
-    } else {
-        parsedUri = uri;
-    }
-    
-    var handler = parsedUri.protocol === 'https:'? https: http;
-    handler.get({
-        host: parsedUri.hostname,
-        port: parsedUri.port,
-        path: parsedUri.pathname + (parsedUri.search || ''),
-        headers: uri.headers
-    }, function(res) {
-        if (res.statusCode == 301 || res.statusCode == 302) {
-            if (maxRedirects === 0) {
-                req.emit('error', new Error('too many redirects'));
-                
-            } else {
-                var redirectUri = url.resolve(parsedUri, res.headers.location);
-                redirectUri.headers = uri.headers;
-                getPage(redirectUri, req, maxRedirects > 0? maxRedirects - 1: maxRedirects);
-            }
-            
-        } else {
-            req.emit('response', res);
-        }
-        
-    }).on('error', function(error) {
+    request({
+        uri: uri, 
+        headers: uri.headers, 
+        maxRedirects: maxRedirects,
+        jar: false
+    })
+    .on('error', function(error) {
         req.emit('error', error);
+    })
+    .on('response', function(res) {
+        req.emit('response', res);
     });
     
     return req;
