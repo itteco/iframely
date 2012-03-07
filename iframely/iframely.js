@@ -198,6 +198,24 @@ var htmlWidgets = {
                 return  '<h1>' + json.title + '</h1>' +
                         '<div>' + json.description + '</div>'
             }
+        },
+        'flash video': {
+            is: function(json) {
+                return json.video && json.video.url && json.video.type == 'application/x-shockwave-flash';
+            },
+            render: function(json) {
+                var video = json.video;
+                return '<object width="' + (video.width || 640) + '" height="' + (video.height || 480) + '">'+ 
+                '<param name="movie" value="' + video.url + '" />'+
+                '<param name="quality" value="high" />'+
+                '<param name="bgcolor" value="#ffffff" />'+
+                '<embed src="' + video.url + '" quality="high" bgcolor="#ffffff" '+
+                'width="' + (video.width || 640) + '" height="' + (video.height || 480) + '" '+
+                'align="" type="application/x-shockwave-flash" '+
+                'pluginspage="http://www.macromedia.com/go/getflashplayer">'+
+                '</embed>'+
+                '</object>';
+            }
         }
 };
 
