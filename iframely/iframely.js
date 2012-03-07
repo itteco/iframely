@@ -187,6 +187,21 @@ var htmlProviders = {
 };
 
 /**
+ * @private
+ */
+var htmlWidgets = {
+        'article': {
+            is: function(json) {
+                return json.title && json.description;
+            },
+            render: function(json) {
+                return  '<h1>' + json.title + '</h1>' +
+                        '<div>' + json.description + '</div>'
+            }
+        }
+};
+
+/**
  * @public
  * Get the html fragment which represent oembed object
  * @param {String} url The url
@@ -195,6 +210,26 @@ var htmlProviders = {
  */
 iframely.getOembedHtml = function(url, oembed) {
     return htmlProviders[oembed.type](url, oembed)
+}
+
+/**
+ * @public
+ * Generates html widgets by opengraph json.
+ * @param {Object} json, returned by iframely opengraph endpoint.
+ * @returns List of html widgets.
+ */
+iframely.getOpenGraphWidgets = function(json) {
+    var result = [];
+    for(var name in htmlWidgets) {
+        var widget = htmlWidgets[name];
+        if (widget.is(json)) {
+            result.push({
+                name: name,
+                html: widget.render(json)
+            });
+        }
+    }
+    return result;
 }
 
 /**
