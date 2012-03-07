@@ -48,10 +48,9 @@
                     },                                                                                                                                                             
                     type: 'article',                                                                                                                                               
                     title: 'Picture the Homeless Chasing Chase',                                                                                                                   
-                    url: 'http://vimeo.com/8005491'                                                                                                                                                });
+                    url: 'http://vimeo.com/8005491'
+                });
             }
         }
-        
     })['export'](module);
-
 })();

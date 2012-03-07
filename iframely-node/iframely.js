@@ -579,7 +579,7 @@ function parseOpenGraph(saxStream, callback) {
                     };
                 }
                 
-                if (prop.property == 'height' || prop.property == 'width') {
+                if (/^\d+$/.test(metaTag.content)) { // convert to integer
                     metaTag.content = parseInt(metaTag.content);
                 
                 } else {
