@@ -105,10 +105,34 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
         callback = options;
         options = {};
     }
-    
-    if (options.maxwidth) oembedUrl += '&maxwidth=' + options.maxwidth;
-    if (options.maxheight) oembedUrl += '&maxheight=' + options.maxheight;
-    if (options.iframe) oembedUrl += '&iframe=true';
+
+    // Parse params.
+    var params = {};
+    var urlParts = oembedUrl.split('?');
+    var parameters = urlParts[1].split('&');
+    var providerUrl = urlParts[0];
+    for(var i = 0;  i < parameters.length; i++) {
+        var parameter = parameters[i].split('=');
+        params[parameter[0]] = parameter[1];
+    }
+
+    // Override params.
+    if (options.maxwidth) params.maxwidth = options.maxwidth;
+    if (options.maxheight) params.maxheigth = options.maxheight;
+    if (options.iframe) {
+        params.iframe = options.iframe;
+        // iframe param supported only by iframe.ly
+        providerUrl = 'http://iframe.ly/oembed/1';
+    }
+
+    // Create oembed url.
+    paramsList = [];
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            paramsList.push(key + '=' + params[key]);
+        }
+    }
+    oembedUrl = providerUrl + '?' + paramsList.join('&');
     
     request('GET', oembedUrl, function(error, req, data) {
         if (error) {
