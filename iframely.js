@@ -108,9 +108,9 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
 
     // Parse params.
     var params = {};
-    var urlParts = oembedUrl.split('?');
-    var parameters = urlParts[1].split('&');
-    var providerUrl = urlParts[0];
+    var divider = oembedUrl.indexOf('?');
+    var parameters = oembedUrl.substr(divider + 1).split('&');
+    var providerUrl = oembedUrl.substr(0, divider);
     for(var i = 0;  i < parameters.length; i++) {
         var parameter = parameters[i].split('=');
         params[parameter[0]] = parameter[1];
