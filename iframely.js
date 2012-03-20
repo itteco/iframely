@@ -142,7 +142,21 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
             try {
                 if (req.responseXML) {
                     data = xmlToOembed(req.responseXML);
-                    
+
+                } else if (/\s*<?xml/.test(data)) {
+                    var xmlDoc;
+                    if (window.DOMParser)
+                    {
+                        var parser = new DOMParser();
+                        xmlDoc = parser.parseFromString(data,"text/xml");
+                    }
+                    else // Internet Explorer
+                    {
+                        xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+                        xmlDoc.async = false;
+                        xmlDoc.loadXML(data);
+                    }
+                    data = xmlToOembed(xmlDoc);
                 } else {
                     data = JSON.parse(data);
                 }
