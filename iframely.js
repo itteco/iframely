@@ -13,11 +13,11 @@ var twoStepsProvider_getOembed = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     iframely.getOembedLinks(url, function(err, links) {
         if (err) {
             callback(err);
-            
+
         } else {
             links.sort();
             var oembedUrl = links[0].href;
@@ -37,13 +37,13 @@ var serverProvider_getOembed = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     var params = [];
     params.push('url=' + encodeURIComponent(url));
     if (options.format) params.push('format=' + options.format);
-    
+
     var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
-    
+
     var oembedUrl = serverEndpoint + '?' + params.join('&');
     iframely.getOembedByProvider(oembedUrl, options, callback);
 };
@@ -61,7 +61,7 @@ iframely.getOembedLinks = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     request('HEAD', url, function(error, req) {
         if (error) {
             callback(error);
@@ -87,7 +87,7 @@ iframely.getOembedLinks = function(url, options, callback) {
             }
         }
     });
-}
+};
 
 /*
  * @public
@@ -126,18 +126,18 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
     }
 
     // Create oembed url.
-    paramsList = [];
+    var paramsList = [];
     for(var key in params) {
         if(params.hasOwnProperty(key)) {
             paramsList.push(key + '=' + params[key]);
         }
     }
     oembedUrl = providerUrl + '?' + paramsList.join('&');
-    
+
     request('GET', oembedUrl, function(error, req, data) {
         if (error) {
             callback(error);
-        
+
         } else {
             try {
                 if (req.responseXML) {
@@ -152,7 +152,7 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
                     }
                     else // Internet Explorer
                     {
-                        xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
                         xmlDoc.async = false;
                         xmlDoc.loadXML(data);
                     }
@@ -191,11 +191,11 @@ iframely.getOembed = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     twoStepsProvider_getOembed(url, options, function(error, oembed) {
         if (error) {
             serverProvider_getOembed(url, options, callback);
-            
+
         } else {
             callback(error, oembed);
         }
@@ -217,7 +217,7 @@ var htmlProviders = {
     'link': function(url, data) {
         if (data.html)
             return data.html;
-        return '<a href="' + url + '" target="_blank">' + (data.title || url) + '</a> '
+        return '<a href="' + url + '" target="_blank">' + (data.title || url) + '</a> ';
     },
     'video': function(url, data) {
         return data.html;
@@ -243,7 +243,7 @@ var htmlWidgets = {
             },
             render: function(json) {
                 var video = json.video;
-                return '<object width="' + (video.width || 640) + '" height="' + (video.height || 480) + '">'+ 
+                return '<object width="' + (video.width || 640) + '" height="' + (video.height || 480) + '">'+
                 '<param name="movie" value="' + video.url + '" />'+
                 '<param name="quality" value="high" />'+
                 '<param name="bgcolor" value="#ffffff" />'+
@@ -339,7 +339,7 @@ function request(method, url, callback) {
     req.onload = function() {
         if (req.status == 200) {
             callback(null, req, req.response);
-        
+
         } else {
             callback({error: true, code: req.status});
         }

@@ -2,26 +2,25 @@
     "name": "iframely",
     "version": "0.1.0",
     
-    "description": "Client-side oEmbed library",
+    "description": "JavaScript library for getting oEmbed data",
     
     "keywords": [
         "JavaScript",
-        "oEmbed",
-        "Node.JS"
+        "oEmbed"
     ],
 
-    "author": "Itteco Software Corp.",
+    "author": "Iframely Inc.",
     "maintainers": [
-        {
-            "name": "Viktar Vauchkevich",
-            "web": "https://github.com/victorenator"
-        }, 
         {
             "name": "Nazar Leush",
             "web": "https://github.com/nleush"
         }
     ],
     "contributors": [
+        {
+            "name": "Viktar Vauchkevich",
+            "web": "https://github.com/victorenator"
+        },
         {
             "name": "Pavel Kartautsau",
             "web": "https://github.com/poolby"
