@@ -21,6 +21,7 @@ var twoStepsProvider_getOembed = function(url, options, callback) {
         } else {
             links.sort();
             var oembedUrl = links[0].href;
+            options.url = url;
             iframely.getOembedByProvider(oembedUrl, options, callback);
         }
     });
@@ -45,6 +46,7 @@ var serverProvider_getOembed = function(url, options, callback) {
     var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
 
     var oembedUrl = serverEndpoint + '?' + params.join('&');
+    options.url = url;
     iframely.getOembedByProvider(oembedUrl, options, callback);
 };
 
@@ -123,6 +125,9 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
         params.iframe = options.iframe;
         // iframe param supported only by iframe.ly
         providerUrl = 'http://iframe.ly/oembed/1';
+
+        // Put url. Twitter provider uses only id.
+        if (options.url) params.url = encodeURIComponent(options.url);
     }
 
     // Create oembed url.
