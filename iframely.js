@@ -120,7 +120,7 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
 
     // Override params.
     if (options.maxwidth) params.maxwidth = options.maxwidth;
-    if (options.maxheight) params.maxheigth = options.maxheight;
+    if (options.maxheight) params.maxheight = options.maxheight;
     if (options.iframe) {
         params.iframe = options.iframe;
         // iframe param supported only by iframe.ly
