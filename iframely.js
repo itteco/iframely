@@ -123,6 +123,8 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
     if (options.maxheight) params.maxheight = options.maxheight;
     if (options.iframe) {
         params.iframe = options.iframe;
+    }
+    if (options.iframe || options.forceIframely) {
         // iframe param supported only by iframe.ly
         providerUrl = 'http://iframe.ly/oembed/1';
 
