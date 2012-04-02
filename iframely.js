@@ -212,19 +212,21 @@ iframely.getOembed = function(url, options, callback) {
 /**
  * @private
  */
+var _renderPhoto = function(url, data) {
+    if (data.html)
+        return data.html;
+    return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' + (data.title || '') + '">';
+};
 var htmlProviders = {
     'rich': function(url, data) {
         return data.html;
     },
-    'photo': function(url, data) {
-        if (data.html)
-            return data.html;
-        return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' + (data.title || '') + '">';
-    },
+    'photo': _renderPhoto,
+    'image': _renderPhoto,
     'link': function(url, data) {
         if (data.html)
             return data.html;
-        return '<a href="' + url + '" target="_blank">' + (data.title || url) + '</a> ';
+        return '<a href="' + url + '" target="_blank">' + (data.title || url) + '</a> '
     },
     'video': function(url, data) {
         return data.html;
