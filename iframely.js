@@ -13,14 +13,15 @@ var twoStepsProvider_getOembed = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     iframely.getOembedLinks(url, function(err, links) {
         if (err) {
             callback(err);
-            
+
         } else {
             links.sort();
             var oembedUrl = links[0].href;
+            options.url = url;
             iframely.getOembedByProvider(oembedUrl, options, callback);
         }
     });
@@ -37,14 +38,15 @@ var serverProvider_getOembed = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     var params = [];
     params.push('url=' + encodeURIComponent(url));
     if (options.format) params.push('format=' + options.format);
-    
+
     var serverEndpoint = options.serverEndpoint || 'http://iframe.ly/oembed/1';
-    
+
     var oembedUrl = serverEndpoint + '?' + params.join('&');
+    options.url = url;
     iframely.getOembedByProvider(oembedUrl, options, callback);
 };
 
@@ -61,7 +63,7 @@ iframely.getOembedLinks = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     request('HEAD', url, function(error, req) {
         if (error) {
             callback(error);
@@ -87,7 +89,7 @@ iframely.getOembedLinks = function(url, options, callback) {
             }
         }
     });
-}
+};
 
 /*
  * @public
@@ -105,20 +107,63 @@ iframely.getOembedByProvider = function(oembedUrl, options, callback) {
         callback = options;
         options = {};
     }
-    
-    if (options.maxwidth) oembedUrl += '&maxwidth=' + options.maxwidth;
-    if (options.maxheight) oembedUrl += '&maxheight=' + options.maxheight;
-    if (options.iframe) oembedUrl += '&iframe=true';
-    
+
+    // Parse params.
+    var params = {};
+    var divider = oembedUrl.indexOf('?');
+    var parameters = oembedUrl.substr(divider + 1).split('&');
+    var providerUrl = oembedUrl.substr(0, divider);
+    for(var i = 0;  i < parameters.length; i++) {
+        var parameter = parameters[i].split('=');
+        params[parameter[0]] = parameter[1];
+    }
+
+    // Override params.
+    if (options.maxwidth) params.maxwidth = options.maxwidth;
+    if (options.maxheight) params.maxheight = options.maxheight;
+    if (options.iframe) {
+        params.iframe = options.iframe;
+    }
+    if (options.iframe || options.forceIframely) {
+        // iframe param supported only by iframe.ly
+        providerUrl = 'http://iframe.ly/oembed/1';
+
+        // Put url. Twitter provider uses only id.
+        if (options.url) params.url = encodeURIComponent(options.url);
+    }
+
+    // Create oembed url.
+    var paramsList = [];
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            paramsList.push(key + '=' + params[key]);
+        }
+    }
+    oembedUrl = providerUrl + '?' + paramsList.join('&');
+
     request('GET', oembedUrl, function(error, req, data) {
         if (error) {
             callback(error);
-        
+
         } else {
             try {
                 if (req.responseXML) {
                     data = xmlToOembed(req.responseXML);
-                    
+
+                } else if (/\s*<?xml/.test(data)) {
+                    var xmlDoc;
+                    if (window.DOMParser)
+                    {
+                        var parser = new DOMParser();
+                        xmlDoc = parser.parseFromString(data,"text/xml");
+                    }
+                    else // Internet Explorer
+                    {
+                        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                        xmlDoc.async = false;
+                        xmlDoc.loadXML(data);
+                    }
+                    data = xmlToOembed(xmlDoc);
                 } else {
                     data = JSON.parse(data);
                 }
@@ -153,11 +198,11 @@ iframely.getOembed = function(url, options, callback) {
         callback = options;
         options = {};
     }
-    
+
     twoStepsProvider_getOembed(url, options, function(error, oembed) {
         if (error) {
             serverProvider_getOembed(url, options, callback);
-            
+
         } else {
             callback(error, oembed);
         }
@@ -167,15 +212,17 @@ iframely.getOembed = function(url, options, callback) {
 /**
  * @private
  */
+var _renderPhoto = function(url, data) {
+    if (data.html)
+        return data.html;
+    return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' + (data.title || '') + '">';
+};
 var htmlProviders = {
     'rich': function(url, data) {
         return data.html;
     },
-    'photo': function(url, data) {
-        if (data.html)
-            return data.html;
-        return '<img src="' + data.url + '" width="' + data.width + '" height="' + data.height + '" alt="' + (data.title || '') + '">';
-    },
+    'photo': _renderPhoto,
+    'image': _renderPhoto,
     'link': function(url, data) {
         if (data.html)
             return data.html;
@@ -205,7 +252,7 @@ var htmlWidgets = {
             },
             render: function(json) {
                 var video = json.video;
-                return '<object width="' + (video.width || 640) + '" height="' + (video.height || 480) + '">'+ 
+                return '<object width="' + (video.width || 640) + '" height="' + (video.height || 480) + '">'+
                 '<param name="movie" value="' + video.url + '" />'+
                 '<param name="quality" value="high" />'+
                 '<param name="bgcolor" value="#ffffff" />'+
@@ -301,7 +348,7 @@ function request(method, url, callback) {
     req.onload = function() {
         if (req.status == 200) {
             callback(null, req, req.response);
-        
+
         } else {
             callback({error: true, code: req.status});
         }
