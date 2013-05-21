@@ -1,0 +1,11 @@
+function init($container, cb){
+    $container.github({
+        user: '<%- userId %>',
+        show_extended_info: true,
+        show_follows: true,
+        width: "400px",
+        show_repos: 10,
+        oldest_first: false
+    });
+    cb();
+}

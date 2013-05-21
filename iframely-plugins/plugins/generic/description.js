@@ -1,0 +1,15 @@
+module.exports = {
+
+    getMeta: function(meta) {
+
+        var d = meta.metaDescription || meta.description;
+
+        if (d && d instanceof Array) {
+            d = d[0];
+        }
+
+        return {
+            description: d
+        }
+    }
+};

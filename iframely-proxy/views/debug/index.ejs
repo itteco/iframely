@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>iframe.ly debug tool</title>
+    <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/r3/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/r3/css/debug.css" />
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/r3/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/r3/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/r3/js/underscore-min.js"></script>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/r3/js/debug.js"></script>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/r3/js/iframely.js"></script>
+    <script type="text/javascript">
+        var baseAppUrl = <%- JSON.stringify(CONFIG.baseAppUrl) %>;
+    </script>
+    <style>
+        .oembed-container iframe {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .oembed-container {
+            position: relative;
+            left: 0px;
+            width: 100%;
+            height: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">
+            <!--Sidebar content-->
+        </div>
+        <div class="span10">
+
+            <p>
+                <form>
+                    <div class="input-append">
+                        <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="URI" name="uri">
+                        <input class="btn" type="submit" value="Debug!" />
+                    </div>
+                </form>
+            </p>
+
+            <div class="well" id="api-uri" style="display: none;">
+                API Call:
+                <a target="_blank"></a>
+            </div>
+            <div class="well" id="api-uri-grouped" style="display: none;">
+                API Call (grouped):
+                <a target="_blank"></a>
+            </div>
+            <div class="s-loader loader" style="display: none;"></div>
+            <div class="alert" id="status" style="display: none;"></div>
+
+            <div class="s-result-div" style="display: none;">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li><a href="#1" data-toggle="tab">Links & Meta</a></li>
+                    <li><a href="#2" data-toggle="tab" class="s-context-tab">Plugins context</a></li>
+                    <li><a href="#3" data-toggle="tab">All debug data</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane" id="1">
+                        <div class="s-embeds"></div>
+                    </div>
+                    <div class="tab-pane" id="2">
+                        <div class="s-debug-context"></div>
+                    </div>
+                    <div class="tab-pane" id="3">
+                        <pre class="s-debug-result"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

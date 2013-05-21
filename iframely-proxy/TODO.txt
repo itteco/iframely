@@ -1,0 +1,38 @@
+- copy static from /static
+- wrap request with caching
+- render script with injector wrapper and dependencies
+- auto fill image width, height and mime type
+- lowestPriority
+- validate urlMatch if no re in plugin
+- plugin handler timeout
+- tie rel from data to nested link.
+- support empty test plugin (only test for domain)
+- $oembed_html - requirement (frequently used)
+- invalid content type provider
+- autoplay=false - global replacement
+- plugin errors - place in debug data, show in debug tool
+- test framework
+- canonicals workaround
+- domain (no re) plugin: if mixins not worked - use all generic plugins?
+- validate data to be string
+- unify meta.date field (parse date?)
+
+Images:
+- downgrade image header size?
+- do not load favicon size
+- check if favicon exists
+
+Not implemented providers:
+
+- dropbox (render)
+- flickr.set flickr.gallery (render)
+- github .repo .author (script)
+- justin.tv
+    - channel not allowed in iframe.
+    - og video in archive page - always autoplay
+- listly (embeded script - not tested yet)
+- mixcloud (oembed removed from site)
+- video.nymag.com - bug with iframe size (inside video too large)
+- pinterest board - need render gallery
+
+

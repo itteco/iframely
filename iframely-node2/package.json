@@ -1,0 +1,27 @@
+{
+    "name": "iframely-node2",
+    "version": "0.1.0",
+    
+    "description": "Node oEmbed library",
+    
+    "dependencies": {
+        "request": "2.9",
+        "sax": "0.3",
+        "async": "0.2.8",
+        "imagemagick": "0.1",
+        "underscore": "1.4.4",
+        "iconv": "1.1.3",
+        "iconv-lite": "0.2.8",
+        "node-cache": "0.3.2"
+    },
+
+    "devDependencies": {
+        "vows": "~0.7.0"
+    },
+
+    "main": "./lib/iframely.js",
+
+    "scripts": {
+        "test": "vows test/main.js --isolate --spec"
+    }
+}

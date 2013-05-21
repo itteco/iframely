@@ -1,0 +1,15 @@
+{
+    "private": true,
+
+    "name": "iframely-plugins",
+    "version": "0.1.0",
+
+    "iframely-proxy-plugins": true,
+
+    "dependencies": {
+        "jquery":           "1.8.3",
+        "async":            "0.2",
+        "underscore":       "1.4.4",
+        "iframely-readability":      "git://github.com/itteco/node-readability.git#master"
+    }
+}

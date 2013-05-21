@@ -1,0 +1,23 @@
+{
+    "private": true,
+
+    "name": "iframely-proxy",
+    "version": "0.1.0",
+    
+    "description": "oebmed2 headers proxy and server",
+    
+    "dependencies": {
+        "jslint":       "0.1.9",
+        "async":        "0.2.8",
+        "underscore":   "1.4.4",
+        "jsdom":        "0.2",
+        "jQuery":       "1.7.3",
+        "request":      "2.9",
+        "express":      "3.2.4",
+        "send":         "0.1.0",
+        "connect":      "2.7.9",
+        "ejs":          "0.8.4"
+    },
+
+    "main": "server.js"
+}
