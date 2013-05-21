@@ -10,8 +10,6 @@
     var url = require('url');
     //TODO: get rid of non-native iconv
     var Iconv = require('iconv').Iconv;
-    var NodeCache = require('node-cache');
-
     var NodeCache = require( "node-cache" );
     var defaultCache = new NodeCache( { stdTTL: 60 * 60 * 24, checkperiod: 60 * 60 * 1 } );
 
