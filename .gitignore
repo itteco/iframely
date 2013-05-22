@@ -1,7 +1,5 @@
 .DS_Store
 .idea
 npm-debug.log
-iframely-proxy/node_modules
-iframely-proxy/config.local.js
-iframely-plugins/node_modules
-iframely-node2/node_modules
+node_modules
+config.local.js
