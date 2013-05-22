@@ -20,7 +20,7 @@
 
         "sax":          "0.3",
         "imagemagick":  "0.1",
-        "iconv-lite":   "0.2.8",
+        "iconv-lite":   "0.2",
         "node-cache":   "0.3.2",
 
         "jquery":       "1.8.3",
