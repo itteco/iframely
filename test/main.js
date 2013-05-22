@@ -4,7 +4,7 @@ var assert = require('assert'),
     events = require('events'),
     vows = require('vows');
 
-var iframely = require('../lib/iframely.js');
+var iframely = require('../lib/iframely-meta.js');
 
 function assertOembed(oembed) {
     assert.isObject(oembed);

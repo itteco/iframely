@@ -1,7 +1,6 @@
-var iframely_proxy = require('../../lib/iframely-proxy');
+var iframely = require('../../lib/iframely');
 var utils = require('../../utils');
 var async = require('async');
-var iframely = require('iframely-node2');
 var _ = require('underscore');
 
 module.exports = function(app) {
@@ -20,7 +19,7 @@ module.exports = function(app) {
         async.waterfall([
 
             function(cb) {
-                iframely_proxy.getRawLinks(req.query.uri, {debug: req.query.debug}, cb);
+                iframely.getRawLinks(req.query.uri, {debug: req.query.debug}, cb);
             }
 
         ], function(error, result) {

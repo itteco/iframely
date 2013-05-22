@@ -1,7 +1,5 @@
 GLOBAL.CONFIG = require('./config');
 
-var iframely_proxy = require('./lib/iframely-proxy');
-
 //iframely_proxy.getRawLinks("http://www.flickr.com/photos/jup3nep/8243797061/?f=hp");
 //iframely_proxy.getRawLinks("http://dippoetry.dipdive.com/media/151409");
 //iframely_proxy.getRawLinks("http://visual.ly/spring-cleaning-improve-energy-efficiency");

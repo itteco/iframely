@@ -1,4 +1,4 @@
-var iframely = require('../lib/iframely');
+var iframely = require('../lib/iframely-meta');
 
 //var s = "http://habrahabr.ru/post/178509/";
 //var s = "http://www.youtube.com/watch?v=etDRmrB9Css";
