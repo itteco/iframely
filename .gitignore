@@ -3,3 +3,5 @@
 npm-debug.log
 node_modules
 config.local.js
+
+test/test2.js
