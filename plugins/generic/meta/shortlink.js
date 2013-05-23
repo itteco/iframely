@@ -1,14 +1,14 @@
 module.exports = {
     getMeta: function(meta) {
 
-        var s = meta.shorturl;
+        var s = meta.shorturl || meta.short_url || meta.shortlink;
 
         if (s instanceof Array) {
             s = s[0];
         }
 
         return {
-            shorturl: s.url || s
+            shortlink: s.url || s
         };
     }
 };
