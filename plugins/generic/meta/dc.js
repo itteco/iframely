@@ -8,7 +8,11 @@ module.exports = {
 
             var root = meta.DC || meta.dc || meta.DCTERMS || meta.dcterms;
             if (root && root[attr]) {
-                return root[attr];
+                for(var key in root) {
+                    if (key.toLowerCase() == attr) {
+                        return root[key];
+                    }
+                }
             }
 
             for(var key in meta) {
@@ -16,7 +20,7 @@ module.exports = {
                 if (bits.length > 1) {
                     var b0 = bits[0].toLowerCase();
                     var b1 = bits.slice(1).join('.').toLowerCase();
-                    if ((b0 == "dcterms" || b[0] == "dc") && b1 == attr) {
+                    if ((b0 == "dcterms" || b0 == "dc") && b1 == attr) {
                         return meta[key];
                     }
                 }
@@ -27,7 +31,7 @@ module.exports = {
             title: getAttr("title"),
             description: getAttr("description"),
             author: getAttr("creator"),
-            date: getAttr("date") || getAttr("date.issued")
+            date: getAttr("date") || getAttr("date.issued") || getAttr("created") || getAttr("modified")
         };
     }
 };
