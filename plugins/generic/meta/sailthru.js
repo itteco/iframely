@@ -7,7 +7,8 @@ module.exports = {
             title: meta["sailthru.title"],
             description: meta["sailthru.description"],
             author: meta["sailthru.author"],
-            keywords: meta["sailthru.tags"]
+            keywords: meta["sailthru.tags"],
+            date: meta["sailthru.date"]
         };
     },
 
