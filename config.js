@@ -34,7 +34,8 @@
             twitter: "twitter",
             oembed: "oembed",
             fb: "fb",
-            icon: "icon"
+            icon: "icon",
+            logo: "logo"
         },
 
         providerOptions: {
