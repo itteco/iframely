@@ -60,4 +60,14 @@ module.exports = function(app) {
             res.send(result);
         });
     });
+
+    app.get('/meta-mappings', function(req, res, next) {
+
+        var ms = iframely.metaMappings;
+
+        res.send({
+            attributes: _.keys(ms),
+            sources: ms
+        });
+    });
 };
