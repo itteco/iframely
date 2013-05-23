@@ -24,18 +24,18 @@ module.exports = function(app) {
 
         ], function(error, result) {
 
-            if (!req.query.debug) {
-                delete result.debug;
-                delete result.plugins;
-            } else {
-                result.time = new Date().getTime() - start;
-            }
-
             if (error) {
                 if (error.code == 'ENOTFOUND') {
                     return next(new utils.NotFound('Page not found'));
                 }
                 return next(new Error(error));
+            }
+
+            if (!req.query.debug) {
+                delete result.debug;
+                delete result.plugins;
+            } else {
+                result.time = new Date().getTime() - start;
             }
 
             if (req.query.group) {
