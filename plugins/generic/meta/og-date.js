@@ -4,7 +4,7 @@ module.exports = {
 
     getMeta: function(meta) {
         return {
-            date: meta.date || meta.pubdate || meta.lastmod
+            date: meta.og.article.published_time || meta.og.article.modified_time
         };
     }
 };
