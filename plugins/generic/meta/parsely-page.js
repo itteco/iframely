@@ -2,7 +2,8 @@ module.exports = {
 
     lowestPriority: true,
 
-    getMeta: function(meta) {
+    getData: function(meta) {
+
         var p = meta["parsely-page"]
         if (p) {
             try {
@@ -10,10 +11,7 @@ module.exports = {
                 var data = JSON.parse(p);
 
                 return {
-                    title: data.title,
-                    date: data.pub_date,
-                    author: data.author,
-                    keywords: data.tags && data.tags.join(', ')
+                    parsely_page: data
                 };
 
             } catch(ex) {
@@ -21,23 +19,14 @@ module.exports = {
         }
     },
 
-    getLink: function(meta) {
-        var p = meta["parsely-page"]
-        if (p) {
-            try {
+    getMeta: function(parsely_page) {
 
-                var data = JSON.parse(p);
-
-                if (data.image_url) {
-                    return {
-                        href: data.image_url,
-                        type: CONFIG.T.image,
-                        rel: CONFIG.R.thumbnail
-                    };
-                }
-
-            } catch(ex) {
-            }
-        }
+        return {
+            title: parsely_page.title,
+            date: parsely_page.pub_date,
+            author: parsely_page.author,
+            keywords: parsely_page.tags && parsely_page.tags.join(', '),
+            category: parsely_page.section
+        };
     }
 };
