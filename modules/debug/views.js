@@ -9,7 +9,7 @@ module.exports = function(app) {
 
         res.render('debug/index',{
             uri: req.query.uri,
-            mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin
+            mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin]
         });
     });
 
