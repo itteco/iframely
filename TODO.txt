@@ -21,6 +21,7 @@
 - oembed only load
 - debug: filter by REL_GROUPS
 - debug: option for load reader
+- debug: show unified meta attributes srouce plugins
 
 Images:
 - downgrade image header size?
