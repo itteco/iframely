@@ -2,7 +2,10 @@ module.exports = {
 
     mixins: [
         "og-title",
-        "og-image",
+        "oembed-author",
+        "oembed-site",
+        "description",
+        "oembed-thumbnail",
         "twitter-image"
     ],
 
