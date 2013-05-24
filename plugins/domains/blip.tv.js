@@ -2,10 +2,18 @@ module.exports = {
 
     mixins: [
         "og-title",
+        "description",
+        "oembed-author",
         "oembed-thumbnail",
         "oembed-video-responsive",
         "twitter-image"
     ],
+
+    getMeta: function(meta) {
+        return {
+            keywords: meta.keywords.join(', ')
+        };
+    },
 
     tests: [{
         page: "http://blip.tv/",
