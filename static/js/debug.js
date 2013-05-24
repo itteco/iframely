@@ -285,19 +285,21 @@ function processUrl() {
     var $context = $('.s-debug-context');
     var $embeds = $('.s-embeds');
     var $status = $('#status').hide();
-    var $apiUri = $('#api-uri').hide();
-    var $apiUriG = $('#api-uri-grouped').hide();
-
+    var $apiUri = $('#api-uri');
+    var $apiUriG = $('#api-uri-grouped');
 
     // 0) Setup.
     $.iframely.defaults.endpoint = baseAppUrl + '/oembed2';
 
+
     // Render api call uri.
+    $apiUri.parent().show();
+    
     var APICall = $.iframely.defaults.endpoint + '?uri=' + encodeURIComponent(uri);
-    $apiUri.show().find('a').text(APICall).attr('href', APICall);
+    $apiUri.text(APICall).attr('href', APICall);
 
     var APICall2 = $.iframely.defaults.endpoint + '?group=true&uri=' + encodeURIComponent(uri);
-    $apiUriG.show().find('a').text(APICall2).attr('href', APICall2);
+    $apiUriG.text(APICall2).attr('href', APICall2);
 
     // 1) Fetch data.
     $.iframely.getPageData(uri, {
