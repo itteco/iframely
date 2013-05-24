@@ -45,6 +45,7 @@ function findDebugInfo(options, data) {
     // Find debug data for specific link.
 
     var defaultContext = data.debug[0] && data.debug[0].context;
+    defaultContext.request = true;
 
     var result = [];
     var onLevel;
@@ -85,6 +86,7 @@ function findDebugInfo(options, data) {
                     var params = data.plugins[methodData.method.pluginId].methods[methodData.method.name];
                     r.context = params.slice();
                     r.data = $.extend(true, {}, l);
+                    r.time = methodData.time;
                     delete r.data.sourceId;
 
                     // Find parent.
