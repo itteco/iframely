@@ -46,6 +46,7 @@ function findDebugInfo(options, data) {
 
     var defaultContext = data.debug[0] && data.debug[0].context;
     defaultContext.request = true;
+    defaultContext.$selector = true;
 
     var result = [];
     var onLevel;
