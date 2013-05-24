@@ -2,6 +2,7 @@ module.exports = {
 
     mixins: [
         "og-title",
+        "og-description",
         "og-video",
         "og-image"
     ],

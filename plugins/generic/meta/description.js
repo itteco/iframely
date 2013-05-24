@@ -2,7 +2,7 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        var d = meta.metaDescription || meta.description;
+        var d = meta.metaDescription || meta.description || meta.Description;
 
         if (d && d instanceof Array) {
             d = d[0];
