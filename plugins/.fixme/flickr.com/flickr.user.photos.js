@@ -1,4 +1,4 @@
-var gUtils = require('./utils');
+var gUtils = require('./../../domains/flickr.com/utils');
 var async = require('async');
 
 module.exports = {
