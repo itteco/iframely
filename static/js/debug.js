@@ -34,7 +34,7 @@ $.fn.renderObject = function(o) {
     var text = JSON.stringify(createTrimmedObject(o), null, 4);
     text = $('<div>').text(text).html();
     text = text.replace(/\\"/gi, '"');
-    text = text.replace(/"((https?:)?\/\/[^"]+)"/gi, '"<a target="_blank" href="$1">$1</a>"');
+    text = text.replace(/"((https?:)?\/\/[^" ]+)"/gi, '"<a target="_blank" href="$1">$1</a>"');
     text = text.replace(/\[contextLink](\w+)\[\/contextLink\]/gi, '<a href="#" data-context-link="$1">$1</a>');
     this.html(text);
     return this;
