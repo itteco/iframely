@@ -9,11 +9,16 @@ module.exports = {
         "twitter-image"
     ],
 
+    // TODO: Disable default keywords.
+    // TODO: add rel image to twitter.image.
+
     getMeta: function(meta) {
         return {
             latitude: meta.five_hundred_pixels.location.latitude,
             longitude: meta.five_hundred_pixels.location.longitude,
-            category: meta.five_hundred_pixels.category
+            category: meta.five_hundred_pixels.category,
+            date: meta.five_hundred_pixels.uploaded,
+            keywords: meta.five_hundred_pixels.tags && meta.five_hundred_pixels.tags.join(', ')
         };
     },
 
