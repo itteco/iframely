@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(meta) {
 
-        if (!meta.twitter)
+        if (!meta.twitter || !meta.twitter.player)
             return;
 
         return {
