@@ -2,7 +2,7 @@ var gUtils = require('./utils');
 
 module.exports = {
 
-    re: /^https?:\/\/www\.flickr\.com\/photos\/[@a-zA-Z0-9_\.]+\/(\d+).*?$/i,
+    re: /^https?:\/\/www\.flickr\.com\/photos\/[@a-zA-Z0-9_\.-]+\/(\d+).*?$/i,
 
     mixins: [
         "og-title",
