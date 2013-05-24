@@ -51,6 +51,13 @@
                         <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="URI" name="uri">
                         <input class="btn" type="submit" value="Debug!" />
                     </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" name="mixAllWithDomainPlugin" <% if (mixAllWithDomainPlugin) { %>checked="checked"<% } %>> Debug with all plugins (disable specific mixins and mixin all available plugins)
+                            </label>
+                        </div>
+                    </div>
                 </form>
             </p>
 

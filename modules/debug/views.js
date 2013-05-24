@@ -8,7 +8,8 @@ module.exports = function(app) {
     app.get('/debug', function(req, res, next) {
 
         res.render('debug/index',{
-            uri: req.query.uri
+            uri: req.query.uri,
+            mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin
         });
     });
 
@@ -19,7 +20,10 @@ module.exports = function(app) {
         async.waterfall([
 
             function(cb) {
-                iframely.getRawLinks(req.query.uri, {debug: req.query.debug}, cb);
+                iframely.getRawLinks(req.query.uri, {
+                    debug: req.query.debug,
+                    mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin == "true"
+                }, cb);
             }
 
         ], function(error, result) {

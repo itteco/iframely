@@ -24,7 +24,8 @@
             dataType: "json",
             data: {
                 uri: uri,
-                debug: options.debug
+                debug: options.debug,
+                mixAllWithDomainPlugin: options.mixAllWithDomainPlugin
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);

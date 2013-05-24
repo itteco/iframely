@@ -300,7 +300,10 @@ function processUrl() {
     $apiUriG.show().find('a').text(APICall2).attr('href', APICall2);
 
     // 1) Fetch data.
-    $.iframely.getPageData(uri, {debug: true}, function(error, data, jqXHR) {
+    $.iframely.getPageData(uri, {
+        debug: true,
+        mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked")
+    }, function(error, data, jqXHR) {
 
         $loader.hide();
 
@@ -372,6 +375,10 @@ $(document).ready(function(){
     $('.s-uri').click(function() {
         $(this).select();
     })
+
+    $('[name="mixAllWithDomainPlugin"]').change(function() {
+        $('form').submit();
+    });
 
     window.onpopstate = function(event) {
         if (event.state && 'position' in event.state && event.state.tab) {
