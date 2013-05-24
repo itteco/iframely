@@ -2,8 +2,15 @@ module.exports = {
 
     mixins: [
         "html-title",
-        "image_src"
+        "image_src",
+        "description"
     ],
+
+    getMeta: function() {
+        return {
+            site: "bravotv.com"
+        };
+    },
 
     getLink: function(html) {
 
