@@ -7,6 +7,13 @@ module.exports = {
         "og-image"
     ],
 
+    getMeta: function(meta) {
+        return {
+            site: "Bandcamp",
+            author: meta.og.site_name
+        };
+    },
+
     tests: [{
         feed: "http://mellomusicgroup.bandcamp.com/feed"
     },
