@@ -9,6 +9,14 @@ module.exports = {
         "twitter-image"
     ],
 
+    getMeta: function(meta) {
+        return {
+            latitude: meta.five_hundred_pixels.location.latitude,
+            longitude: meta.five_hundred_pixels.location.longitude,
+            category: meta.five_hundred_pixels.category
+        };
+    },
+
     tests: [{
         page: "http://500px.com/upcoming",
         selector: ".title a"
