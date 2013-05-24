@@ -6,7 +6,9 @@ module.exports = {
 
     mixins: [
         "og-title",
-        "oembed-license"
+        "oembed-author",
+        "oembed-license",
+        "description"
     ],
 
     getLink: function(urlMatch, request, cb) {
