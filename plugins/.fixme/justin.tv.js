@@ -1,3 +1,8 @@
+/*
+ - channel not allowed in iframe.
+ - og video in archive page - always autoplay
+* */
+
 module.exports = {
 
     re: /^http:\/\/www\.justin\.tv\/\w+\/b\/\d+/i,
@@ -10,7 +15,7 @@ module.exports = {
     getLink: function(meta) {
 
         return {
-            href: meta.og.video + "&auto_play=false",
+            href: meta.og.video,
             type: meta.video_type,
             rel: CONFIG.R.player,
             "aspect-ratio": meta.video_width / meta.video_height
