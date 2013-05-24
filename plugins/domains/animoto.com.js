@@ -4,7 +4,10 @@ module.exports = {
 
     mixins: [
         "oembed-title",
+        "description",
+        "oembed-author",
         "image_src",
+        "oembed-icon",
         "oembed-thumbnail",
         "oembed-video-responsive"
     ],
