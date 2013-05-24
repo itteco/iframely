@@ -14,6 +14,8 @@ module.exports = function(app) {
 
     app.get('/oembed2', function(req, res, next) {
 
+        console.log('-- Loadin oembed2 for', req.query.uri);
+
         var start = new Date().getTime();
 
         async.waterfall([
@@ -35,7 +37,7 @@ module.exports = function(app) {
                 delete result.debug;
                 delete result.plugins;
             } else {
-                result.time = new Date().getTime() - start;
+                result.time.total = new Date().getTime() - start;
             }
 
             if (req.query.group) {

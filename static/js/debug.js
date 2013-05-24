@@ -311,7 +311,7 @@ function processUrl() {
         $resultTabs.find('li:first-child a').tab('show');
 
         // Response status.
-        $status.attr('class', 'alert alert-success').show().text(jqXHR.status + ' ' + jqXHR.statusText + ' - ' + data.time + 'ms');
+        $status.attr('class', 'alert alert-success').show().text(jqXHR.status + ' ' + jqXHR.statusText + ' - ' + data.time.total + 'ms');
 
         // Render all debug data.
         $result.renderObject(data);
