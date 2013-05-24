@@ -21,7 +21,9 @@
         REL_GROUPS: [
             "icon",
             "thumbnail",
-            "player"
+            "image",
+            "player",
+            "reader"
         ],
 
         R: {

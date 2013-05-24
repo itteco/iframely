@@ -17,6 +17,10 @@
 - validate data to be string
 - unify meta.date field (parse date?)
 - create "og" an "twitter" plugins to provide this requirements, to skip if (!meta.og) checks. Solve problem with domain mixins.
+- fallback if domain plugin not work on 100%
+- oembed only load
+- debug: filter by REL_GROUPS
+- debug: option for load reader
 
 Images:
 - downgrade image header size?

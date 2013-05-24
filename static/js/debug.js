@@ -267,7 +267,8 @@ function findAllRels(data) {
             result = _.union(result, link.rel);
         }
     });
-    return result;
+
+    return _.intersection(result, REL_GROUPS);
 }
 
 function processUrl() {
