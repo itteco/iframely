@@ -3,6 +3,10 @@ module.exports = {
     useAlways: true,
 
     getMeta: function(meta) {
+
+        if (!meta.video)
+            return;
+
         return {
             duration: meta.video.duration,
             date: meta.video.release_date,

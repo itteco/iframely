@@ -1,6 +1,10 @@
 module.exports = {
 
     getLink: function(meta) {
+
+        if (!meta.twitter)
+            return;
+
         return {
             href: meta.twitter.player.value,
             type: CONFIG.T.text_html,

@@ -7,6 +7,9 @@ module.exports = {
             s = s[0];
         }
 
+        if (!s)
+            return;
+
         return {
             shortlink: s.url || s
         };

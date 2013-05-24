@@ -4,6 +4,9 @@ module.exports = {
 
     getLinks: function(meta) {
 
+        if (!meta.og)
+            return;
+
         if (meta.og.image instanceof Array) {
             return _.flatten(meta.og.image.map(function(image) {
                 return [{

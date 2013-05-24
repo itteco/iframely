@@ -16,6 +16,7 @@
 - domain (no re) plugin: if mixins not worked - use all generic plugins?
 - validate data to be string
 - unify meta.date field (parse date?)
+- create "og" an "twitter" plugins to provide this requirements, to skip if (!meta.og) checks. Solve problem with domain mixins.
 
 Images:
 - downgrade image header size?

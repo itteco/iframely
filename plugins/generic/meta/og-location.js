@@ -3,6 +3,10 @@ module.exports = {
     useAlways: true,
 
     getMeta: function(meta) {
+
+        if (!meta.og)
+            return;
+
         return {
             latitude: meta.og["latitude"],
             longitude: meta.og["longitude"],

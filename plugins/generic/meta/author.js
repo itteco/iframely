@@ -21,7 +21,7 @@ module.exports = {
 
         var result = getAuthor(meta.author);
 
-        if (!result) {
+        if (!result && meta.article) {
             result = getAuthor(meta.article.author);
         }
 

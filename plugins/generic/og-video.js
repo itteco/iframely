@@ -2,6 +2,9 @@ module.exports = {
 
     getLinks: function(meta) {
 
+        if (!meta.og || !meta.og.video)
+            return;
+
         if (meta.og.video && meta.og.video.type == "text/html") {
             return;
         }
