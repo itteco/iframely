@@ -1,23 +1,15 @@
 module.exports = {
 
+    re: /http:\/\/www\.collegehumor\.com\/video\.*/,
+
+    // TODO: add predefined size for og-image: 640x360.
+
     mixins: [
         "og-title",
-        "og-image"
+        "description",
+        "og-image",
+        "og-video-responsive"
     ],
-
-    getLinks: function(meta) {
-        return [{
-            href: meta.og.video.url.replace(/auto=true/, "auto=false"),
-            type: meta.og.video.type,
-            rel: CONFIG.R.player,
-            "aspect-ratio": meta.og.video.width / meta.og.video.height
-        }, {
-            href: meta.og.video.secure_url.replace(/auto=true/, "auto=false"),
-            type: meta.og.video.type,
-            rel: CONFIG.R.player,
-            "aspect-ratio": meta.og.video.width / meta.og.video.height
-        }];
-    },
 
     tests: [{
         pageWithFeed: "http://www.collegehumor.com/videos"

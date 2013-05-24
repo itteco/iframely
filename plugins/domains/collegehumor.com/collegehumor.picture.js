@@ -1,7 +1,10 @@
 module.exports = {
 
+    re: /http:\/\/www\.collegehumor\.com\/picture\.*/,
+
     mixins: [
         "og-title",
+        "description",
         "twitter-image"
     ],
 
