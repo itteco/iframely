@@ -23,7 +23,7 @@ module.exports = {
                 height: oembed.height
             }
         }
-    },
+    }/*,
 
     getData: function(oembed) {
 
@@ -39,4 +39,5 @@ module.exports = {
             height: oembed.height
         };
     }
+    */
 };
