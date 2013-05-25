@@ -1,3 +1,7 @@
+function linkify(text) {
+    return text.replace(/((https?:)?\/\/[^" ]+)/gi, '<a target="_blank" href="$1">$1</a>');
+}
+
 // Render json in PRE.
 $.fn.renderObject = function(o) {
 
@@ -251,8 +255,20 @@ function showEmbeds($embeds, data, filterByRel) {
         });
 
         // Unified meta.
-        var $pre = $('<pre>').renderObject(data.meta);
-        $embeds.prepend($pre);
+        var $meta = $('<table>')
+            .addClass("table table-bordered")
+            .append('<thead><tr><th>plugin</th><th>key</th><th>value</th></tr></thead>');
+
+        var metaKeys = _.keys(data.meta);
+        metaKeys.sort();
+        metaKeys.forEach(function(key) {
+            if (key == "_sources") {
+                return;
+            }
+            $meta.append('<tr><td>' + data.meta._sources[key] + '</td><td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
+        });
+
+        $embeds.prepend($meta);
         $embeds.prepend('<h4>Unified meta</h4>');
     } else if (!filterByRel) {
         $embeds.prepend($('<div>').addClass('alert alert-error').text('No links returned by plugins for this URI'));
