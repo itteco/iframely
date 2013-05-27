@@ -31,11 +31,14 @@
             thumbnail: "thumbnail",
             image: "image",
             reader: "reader",
+
+            iframely: "iframely",
             instapaper: "instapaper",
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
             fb: "fb",
+
             icon: "icon",
             logo: "logo"
         },
