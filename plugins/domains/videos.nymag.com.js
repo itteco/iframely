@@ -6,7 +6,11 @@ module.exports = {
     ],
 
     mixins: [
-        "image_src"
+        "html-title",
+        "image_src",
+        "copyright",
+        "description",
+        "keywords"
     ],
 
     getLink: function(urlMatch, meta) {
