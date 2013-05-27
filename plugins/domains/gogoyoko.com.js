@@ -6,7 +6,8 @@ module.exports = {
 
     mixins: [
         "image_src",
-        "html-title"
+        "html-title",
+        "favicon"
     ],
 
     getLink: function(meta) {

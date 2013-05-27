@@ -8,7 +8,6 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-site",
-        "keywords",
         "geo-url"
     ],
 
@@ -18,12 +17,16 @@ module.exports = {
         $container.html(oembed.html);
         var $embed = $container.find('embed');
 
-        return {
+        return [{
             href: $embed.attr('src') + '&' + $embed.attr("FlashVars"),
             type: CONFIG.T.flash,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.iframely],
             "aspect-ratio": oembed.width / oembed.height
-        }
+        }, {
+            href: 'http://qik.com/favicon.ico',
+            type: CONFIG.T.image,
+            rel: [CONFIG.R.icon, CONFIG.R.iframely]
+        }]
     },
 
     tests: [{

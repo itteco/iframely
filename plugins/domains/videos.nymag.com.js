@@ -10,7 +10,8 @@ module.exports = {
         "image_src",
         "copyright",
         "description",
-        "keywords"
+        "keywords",
+        "favicon"
     ],
 
     getLink: function(urlMatch, meta) {
