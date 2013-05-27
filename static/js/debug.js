@@ -261,7 +261,7 @@ function showEmbeds($embeds, data, filterByRel) {
         // Unified meta.
         var $meta = $('<table>')
             .addClass("table table-bordered")
-            .append('<thead><tr><th>plugin</th><th>key</th><th>value</th></tr></thead>');
+            .append('<thead><tr><th>plugin</th><th>requirements</th><th>key</th><th>value</th></tr></thead>');
 
         var metaKeys = _.keys(data.meta);
         metaKeys.sort();
@@ -269,7 +269,8 @@ function showEmbeds($embeds, data, filterByRel) {
             if (key == "_sources") {
                 return;
             }
-            $meta.append('<tr><td>' + data.meta._sources[key] + '</td><td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
+            var plugin = data.plugins[data.meta._sources[key]];
+            $meta.append('<tr><td>' + plugin.id + '</td><td>' + plugin.methods['getMeta'].join(', ') + '</td><td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
         });
 
         $embeds.prepend($meta);
