@@ -5,7 +5,11 @@ module.exports = {
     // TODO: check thumbnail.
 
     mixins: [
-        "oembed-title"
+        "oembed-title",
+        "oembed-author",
+        "oembed-site",
+        "keywords",
+        "geo-url"
     ],
 
     getLink: function(oembed) {
