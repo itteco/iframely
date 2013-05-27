@@ -22,6 +22,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.gogoyoko.com/song/873990"
+        "http://www.gogoyoko.com/song/1163074"
     ]
 };
