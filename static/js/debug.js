@@ -1,5 +1,9 @@
 function linkify(text) {
-    return text.replace(/((https?:)?\/\/[^" ]+)/gi, '<a target="_blank" href="$1">$1</a>');
+    if (typeof text === "string") {
+        return text.replace(/((https?:)?\/\/[^" ]+)/gi, '<a target="_blank" href="$1">$1</a>');
+    } else {
+        return text;
+    }
 }
 
 // Render json in PRE.
