@@ -4,13 +4,19 @@ module.exports = {
 
     mixins: [
         "oembed-title",
-        "description",
+        "oembed-description",
         "oembed-author",
-        "image_src",
-        "oembed-icon",
         "oembed-thumbnail",
         "oembed-video-responsive"
     ],
+
+    getLink: function() {
+        return {
+            href: '//d14f1fnryngsxt.cloudfront.net/images/icons/favicon_a015c4373ba7b3d975ea9a8648929200.ico',
+            type: CONFIG.T.image,
+            rel: [CONFIG.R.icon, CONFIG.R.iframely]
+        }
+    },
 
     test: [
         "http://animoto.com/play/k01h0yvqf59whdd80nla1q"
