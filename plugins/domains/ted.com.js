@@ -5,9 +5,9 @@ module.exports = {
         "oembed-title",
         "video",
         "oembed-author",
-        "oembed-site"
+        "oembed-site",
         "oembed-thumbnail",
-        "oembed-video-responsive",
+        "oembed-video-responsive"
     ],
 
     tests: [{
