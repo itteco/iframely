@@ -6,11 +6,9 @@ module.exports = {
         "oembed-site",
         "description",
         "oembed-thumbnail",
-        "twitter-image"
+        "favicon",
+        "canonical"
     ],
-
-    // TODO: Disable default keywords.
-    // TODO: add rel image to twitter.image.
 
     getMeta: function(meta) {
         return {
@@ -21,6 +19,20 @@ module.exports = {
             keywords: meta.five_hundred_pixels.tags && meta.five_hundred_pixels.tags.join(', ')
         };
     },
+
+    getLink: function(meta) {
+
+        if (!meta.twitter || !meta.twitter.image)
+            return;
+
+        return {
+            href: meta.twitter.image.url,
+            type: CONFIG.T.image,
+            rel: [CONFIG.R.image, CONFIG.R.twitter, CONFIG.R.iframely],
+            width: meta.twitter.image.width,
+            height: meta.twitter.image.height
+        };
+    },    
 
     tests: [{
         page: "http://500px.com/upcoming",
