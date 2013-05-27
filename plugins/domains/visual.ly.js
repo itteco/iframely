@@ -3,27 +3,28 @@ module.exports = {
     re: /^https?:\/\/visual\.ly\/[\w\-]+/i,
 
     mixins: [
-        "html-title"
+        "canonical",
+        "description",
+        "shortlink",
+        "dc-title"
     ],
 
-    getLinks: function($selector, meta) {
+    getLinks: function(meta) {
 
-        var $el = $selector('a#ig-graphic-container');
-        var original = $el.attr('href');
-        var title = $el.attr('title');
+        var thumbnail = meta.og.image;
+        var str = thumbnail.split('_');
+        var original = str[0]+'_'+str[1]+'.jpg'
 
         return [{
-            title: title,
-            href: meta.og.image,
+            href: thumbnail,
             type: CONFIG.T.image_jpeg,
-            rel: [CONFIG.R.thumbnail, CONFIG.R.og],
+            rel: [CONFIG.R.thumbnail, CONFIG.R.iframely],
             width: 250,
             height: 250
         }, {
-            title: title,
             href: original,
-            type: CONFIG.T.image,
-            rel: CONFIG.R.image
+            type: CONFIG.T.image_jpeg,
+            rel: [CONFIG.R.image, CONFIG.R.iframely]
         }];
     },
 
