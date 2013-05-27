@@ -1,10 +1,10 @@
-(function() {
-
 var assert = require('assert'),
     events = require('events'),
     vows = require('vows');
 
 var iframely = require('../lib/iframely-meta.js');
+
+// TODO: test oebmed only loading without meta.
 
 function assertOembed(oembed) {
     assert.isObject(oembed);
@@ -162,6 +162,4 @@ vows.describe('Tests')
             }
         }
 
-})['export'](module);
-
-})();
+    })['export'](module);
