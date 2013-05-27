@@ -9,7 +9,7 @@ module.exports = {
         "oembed-description"
     ],
 
-    getData: function(oembed) {
+    getMeta: function(oembed) {
 
         return {
             canonical: "http://vimeo.com/" + oembed.video_id
@@ -36,6 +36,6 @@ module.exports = {
     tests: [{
         feed: "http://vimeo.com/channels/staffpicks/videos/rss"
     },
-        "http://vimeo.com/42635813"
+        "http://vimeo.com/65836516"
     ]
 };

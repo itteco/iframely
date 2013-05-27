@@ -5,7 +5,7 @@ module.exports = {
     ],
 
     // No other meta data is returned for 9gags as otherwise the response time would be more than 10sec
-    getData: function(urlMatch) {
+    getMeta: function(urlMatch) {
         return {
             canonical: 'http:\\9gag.com/gag' + urlMatch[1]
         }
