@@ -25,7 +25,8 @@
             data: {
                 uri: uri,
                 debug: options.debug,
-                mixAllWithDomainPlugin: options.mixAllWithDomainPlugin
+                mixAllWithDomainPlugin: options.mixAllWithDomainPlugin,
+                disableCache: options.disableCache
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);

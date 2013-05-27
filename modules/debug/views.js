@@ -9,7 +9,8 @@ module.exports = function(app) {
 
         res.render('debug/index',{
             uri: req.query.uri,
-            mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin]
+            mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin],
+            disableCache: !!{"on":1, "true":1}[req.query.disableCache]
         });
     });
 
@@ -22,7 +23,8 @@ module.exports = function(app) {
             function(cb) {
                 iframely.getRawLinks(req.query.uri, {
                     debug: req.query.debug,
-                    mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin == "true"
+                    mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
+                    disableCache: req.query.disableCache === "true"
                 }, cb);
             }
 

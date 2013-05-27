@@ -321,7 +321,8 @@ function processUrl() {
     // 1) Fetch data.
     $.iframely.getPageData(uri, {
         debug: true,
-        mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked")
+        mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked"),
+        disableCache: $('[name="disableCache"]').is(":checked")
     }, function(error, data, jqXHR) {
 
         $loader.hide();
@@ -395,7 +396,7 @@ $(document).ready(function(){
         $(this).select();
     })
 
-    $('[name="mixAllWithDomainPlugin"]').change(function() {
+    $('[type="checkbox"]').change(function() {
         $('form').submit();
     });
 
