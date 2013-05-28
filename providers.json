@@ -23,7 +23,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "(www\\.)?scribd\\.com/.*"
+            "(www\\.)?scribd\\.com/doc/.*"
         ],
         "endpoint": "http://www.scribd.com/services/oembed"
     },
