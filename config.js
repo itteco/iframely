@@ -12,6 +12,7 @@
 
         T: {
             text_html: "text/html",
+            javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
             flash: "application/x-shockwave-flash",
