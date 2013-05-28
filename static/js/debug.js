@@ -269,8 +269,11 @@ function showEmbeds($embeds, data, filterByRel) {
             if (key == "_sources") {
                 return;
             }
-            var plugin = data.plugins[data.meta._sources[key]];
-            $meta.append('<tr><td>' + plugin.id + '</td><td>' + plugin.methods['getMeta'].join(', ') + '</td><td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
+            var plugin = data.plugins[data.meta._sources[key].pluginId];
+
+            var method = plugin.methods[data.meta._sources[key].method];
+
+            $meta.append('<tr><td>' + plugin.id + '</td><td>' + method.join(', ') + '</td><td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
         });
 
         $embeds.prepend($meta);
