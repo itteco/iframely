@@ -14,7 +14,7 @@ module.exports = {
         return {
             href: '//d14f1fnryngsxt.cloudfront.net/images/icons/favicon_a015c4373ba7b3d975ea9a8648929200.ico',
             type: CONFIG.T.image,
-            rel: [CONFIG.R.icon, CONFIG.R.iframely]
+            rel: CONFIG.R.icon
         }
     },
 

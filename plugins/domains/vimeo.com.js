@@ -22,12 +22,12 @@ module.exports = {
         return [{
             href: "//player.vimeo.com/video/" + oembed.video_id,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.iframely],
+            rel: CONFIG.R.player,
             "aspect-ratio": oembed.width / oembed.height
         }, {
             href: "http://a.vimeocdn.com/images_v6/apple-touch-icon-72.png",
             type: CONFIG.T.image,
-            rel: [CONFIG.R.icon, CONFIG.R.iframely],
+            rel: CONFIG.R.icon,
             width: 72,
             height: 72   
         }];

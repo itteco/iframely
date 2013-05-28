@@ -16,11 +16,11 @@ module.exports = {
         return [{
             href: '//d24w6bsrhbeh9d.cloudfront.net/photo/' + urlMatch[1] + '_700b.jpg',
             type: CONFIG.T.image,
-            rel: [CONFIG.R.image, CONFIG.R.iframely]
+            rel: CONFIG.R.image
         }, {
             href: '//d24w6bsrhbeh9d.cloudfront.net/static/main/core/20130208_1360298583/img/favicon_v2.png',
-            type:CONFIG.T.image,
-            rel:[CONFIG.R.icon, CONFIG.R.iframely]
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
         }]
     },
 

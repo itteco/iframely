@@ -14,7 +14,7 @@ module.exports = {
         return {            
             href: 'http://files.dipdive.com/favicon.ico',
             type: CONFIG.T.image,
-            rel: [CONFIG.R.icon,CONFIG.R.iframely]
+            rel: CONFIG.R.icon
         }
     },
 

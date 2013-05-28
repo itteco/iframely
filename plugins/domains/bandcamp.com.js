@@ -32,7 +32,7 @@ module.exports = {
         return {
             href: '//bandcamp.com/EmbeddedPlayer/v=2/' + id + '/size=venti/bgcol=FFFFFF/linkcol=4285BB/',
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.iframely],
+            rel: CONFIG.R.player,
             width: 400,
             height: 100
         }

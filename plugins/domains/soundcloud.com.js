@@ -24,17 +24,20 @@ module.exports = {
             player = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.iframely, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
                 height: oembed.height,
                 "min-width": oembed.width
             }
         }
 
-        return [player, {
+        return [
+            player,
+            {
                 href: '//a1.sndcdn.com/images/soundcloud_app.png?9d68d37',
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.icon, CONFIG.R.iframely],
-        }]
+                rel: CONFIG.R.icon
+            }
+        ];
     },
 
     tests: [

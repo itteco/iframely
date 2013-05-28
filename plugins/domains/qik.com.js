@@ -20,12 +20,12 @@ module.exports = {
         return [{
             href: $embed.attr('src') + '&' + $embed.attr("FlashVars"),
             type: CONFIG.T.flash,
-            rel: [CONFIG.R.player, CONFIG.R.iframely],
+            rel: CONFIG.R.player,
             "aspect-ratio": oembed.width / oembed.height
         }, {
             href: 'http://qik.com/favicon.ico',
             type: CONFIG.T.image,
-            rel: [CONFIG.R.icon, CONFIG.R.iframely]
+            rel: CONFIG.R.icon
         }]
     },
 

@@ -18,13 +18,13 @@ module.exports = {
         return [{
             href: thumbnail,
             type: CONFIG.T.image_jpeg,
-            rel: [CONFIG.R.thumbnail, CONFIG.R.iframely],
+            rel: CONFIG.R.thumbnail,
             width: 250,
             height: 250
         }, {
             href: original,
             type: CONFIG.T.image_jpeg,
-            rel: [CONFIG.R.image, CONFIG.R.iframely]
+            rel: CONFIG.R.image
         }];
     },
 
