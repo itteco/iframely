@@ -6,14 +6,10 @@ module.exports = {
         "oembed-author",
         "oembed-thumbnail",
         "oembed-video-responsive",
-        "twitter-image"
+        "video",
+        "favicon",
+        "keywords"
     ],
-
-    getMeta: function(meta) {
-        return {
-            keywords: meta.keywords.join(', ')
-        };
-    },
 
     tests: [{
         page: "http://blip.tv/",
