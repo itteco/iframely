@@ -4,7 +4,7 @@ module.exports = {
         "html-title",
         "image_src",
         "description",
-        "icon"
+        "favicon"
     ],
 
     getLink: function(html) {

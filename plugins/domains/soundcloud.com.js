@@ -1,26 +1,47 @@
+var jquery = require('jquery');
+
 module.exports = {
 
     mixins: [
-        "og-title",
-        "og-image"
+        "oembed-title",
+        "oembed-thumbnail",
+        "oembed-site",
+        "oembed-author",
+        "oembed-description"
     ],
 
-    getLink: function(meta) {
+    getLink: function(oembed) {
 
-        var link = {
-            href: meta.og.video.url,
-            type: meta.og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.og]
-        };
+        var $container = jquery('<div>');
+        try {
+            $container.html(oembed.html);
+        } catch(ex) {}
 
-        // Single track.
-        if (meta.og.video.height < 100) {
-            link.height = 82;
-        } else {
-            link["aspect-ratio"] = meta.og.video.width / meta.og.video.height;
+        var $iframe = $container.find('iframe');
+        var player; 
+
+        if ($iframe.length == 1) {
+            player = {
+                href: $iframe.attr('src'),
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.iframely, CONFIG.R.oembed],
+                height: oembed.height,
+                "min-width": oembed.width
+            }
         }
 
-        return link;
-    }
+        return [player, {
+                href: '//a1.sndcdn.com/images/soundcloud_app.png?9d68d37',
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.icon, CONFIG.R.iframely],
+        }]
+    },
+
+    tests: [
+        "https://soundcloud.com/palomafaith/picking-up-the-pieces-4",
+        "https://soundcloud.com/louislaroche/kate-bush-running-up-that-hill-llr-remix-full",
+        "https://soundcloud.com/posij/sets/posij-28-hz-ep-division"
+    ]
+
 
 };
