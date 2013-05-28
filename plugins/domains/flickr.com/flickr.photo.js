@@ -21,11 +21,11 @@ module.exports = {
 
             var result = sizes && sizes.map(function(size) {
                 return {
-                    href: size.source,
+                    href: size.source.replace(/^https?:/i, ""),
                     width: size.width,
                     height: size.height,
                     type: "image/jpeg",
-                    rel: CONFIG.R.image
+                    rel: size.width > 500 ? CONFIG.R.image : CONFIG.R.thumbnail
                 };
             }) || [];
 
