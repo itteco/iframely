@@ -1,27 +1,20 @@
 - copy static from /static
-- wrap request with caching
 - render script with injector wrapper and dependencies
-- auto fill image width, height and mime type
-- lowestPriority
 - validate urlMatch if no re in plugin
 - plugin handler timeout
 - tie rel from data to nested link.
 - support empty test plugin (only test for domain)
 - $oembed_html - requirement (frequently used)
 - invalid content type provider
-- autoplay=false - global replacement
-- plugin errors - place in debug data, show in debug tool
+- plugin errors - show as list in debug tool
 - test framework
 - canonicals workaround
 - domain (no re) plugin: if mixins not worked - use all generic plugins?
-- validate data to be string
+- validate data to be a string
 - unify meta.date field (parse date?)
 - create "og" an "twitter" plugins to provide this requirements, to skip if (!meta.og) checks. Solve problem with domain mixins.
 - fallback if domain plugin not work on 100%
-- oembed only load
-- debug: filter by REL_GROUPS
 - debug: option for load reader
-- debug: show unified meta attributes srouce plugins
 
 Images:
 - downgrade image header size?
