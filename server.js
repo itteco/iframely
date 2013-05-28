@@ -1,12 +1,5 @@
 GLOBAL.CONFIG = require('./config');
 
-//iframely_proxy.getRawLinks("http://www.flickr.com/photos/jup3nep/8243797061/?f=hp");
-//iframely_proxy.getRawLinks("http://dippoetry.dipdive.com/media/151409");
-//iframely_proxy.getRawLinks("http://visual.ly/spring-cleaning-improve-energy-efficiency");
-//iframely_proxy.getRawLinks("http://techcrunch.com/2013/05/08/cardflight-partners-with-stripe-and-launches-sdk-to-become-the-stripe-of-real-world-payments/");
-//iframely_proxy.getRawLinks("http://habrahabr.ru/company/mailru/blog/179113/");
-//iframely_proxy.getRawLinks("http://test.com/");
-//iframely_proxy.getRawLinks("http://www.youtube.com/watch?v=etDRmrB9Css");
 
 var path = require('path');
 var express = require('express');
