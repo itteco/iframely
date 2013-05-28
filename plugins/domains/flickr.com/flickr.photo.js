@@ -5,10 +5,10 @@ module.exports = {
     re: /^https?:\/\/www\.flickr\.com\/photos\/[@a-zA-Z0-9_\.-]+\/(\d+).*?$/i,
 
     mixins: [
-        "og-title",
+        "oembed-title",
         "oembed-author",
         "oembed-license",
-        "description"
+        "oembed-site"
     ],
 
     getLink: function(urlMatch, request, cb) {
@@ -19,7 +19,7 @@ module.exports = {
                 return cb(error);
             }
 
-            cb(null, sizes && sizes.map(function(size) {
+            var result = sizes && sizes.map(function(size) {
                 return {
                     href: size.source,
                     width: size.width,
@@ -27,7 +27,15 @@ module.exports = {
                     type: "image/jpeg",
                     rel: CONFIG.R.image
                 };
-            }));
+            }) || [];
+
+            result.push({
+                href: "http://l.yimg.com/g/favicon.ico",
+                rel: CONFIG.R.icon,
+                type: CONFIG.T.image_icon
+            });
+
+            cb(null, result);
         });
     },
 

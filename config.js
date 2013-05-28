@@ -15,7 +15,8 @@
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
             flash: "application/x-shockwave-flash",
-            image: "image"
+            image: "image",
+            image_icon: "image/icon"
         },
 
         REL_GROUPS: [
