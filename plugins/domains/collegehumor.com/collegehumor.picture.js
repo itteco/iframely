@@ -11,7 +11,7 @@ module.exports = {
         "keywords",
 
         "favicon",
-        "twitter-image"
+        "twitter-image-rel-image"
     ],
 
     tests: [{
