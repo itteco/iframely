@@ -250,5 +250,12 @@
             "speakerdeck\\.com/.*"
         ],
         "endpoint": "https://speakerdeck.com/oembed.{format}"
+    },
+    {
+        "name": "Yandex Video",
+        "templates": [
+            "video\\.yandex\\.ru/users/[^/]+/view/.+"
+        ],
+        "endpoint": "http://video.yandex.ru/oembed.{format}"
     }    
 ]

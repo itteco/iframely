@@ -17,6 +17,7 @@
 - debug: option for load reader
 - customize mixins (add specific rel, widht, height)
     - in collegehumor
+    - in video.yandex (https for oembed src)
 - replace rel=thumbnail with rel=image if image size more then 500px
 
 Images:
