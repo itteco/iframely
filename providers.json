@@ -229,13 +229,19 @@
             "rdio\\.com/artist/[^/]+/album/.+"
         ],
         "endpoint": "http://www.rdio.com/api/oembed"
-    }
-    ,
+    },
     {
         "name": "500px",
         "templates": [
             "500px\\.com/photo/(\\d+).+"
         ],
         "endpoint": "http://500px.com/photo/{1}/oembed.{format}"
+    },
+    {
+        "name": "Dipdive",
+        "templates": [
+            "\\w+\\.dipdive\\.com/media/.*"
+        ],
+        "endpoint": "http://api.dipdive.com/oembed.{format}"
     }
 ]
