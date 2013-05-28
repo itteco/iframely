@@ -243,5 +243,12 @@
             "\\w+\\.dipdive\\.com/media/.*"
         ],
         "endpoint": "http://api.dipdive.com/oembed.{format}"
-    }
+    },
+    {
+        "name": "Speaker Deck",
+        "templates": [
+            "speakerdeck\\.com/.*"
+        ],
+        "endpoint": "https://speakerdeck.com/oembed.{format}"
+    }    
 ]

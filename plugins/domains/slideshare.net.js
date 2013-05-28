@@ -48,7 +48,7 @@ module.exports = {
         }, {
                 href: meta.og.image.replace('http:', ''),
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.thumbnail, CONFIG.R.og],
+                rel: [CONFIG.R.thumbnail, CONFIG.R.og]
         }]
     },
 

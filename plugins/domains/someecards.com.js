@@ -28,6 +28,4 @@ module.exports = {
     tests: [
         "http://www.someecards.com/usercards/viewcard/eea3c10dfaeb6ef8c6eb386707343c36"
     ]
-
-
 };
