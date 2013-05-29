@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:(?:www|m)\.)?facebook\.com\/([^\/\?#]+)(?:\?|#|\/?$)/i,
-        /^https?:\/\/www\.facebook\.com\/([^\/\?#]+)$/i
+        /^https?:\/\/(?:(?:www|m)\.)?facebook\.com\/(?!photo)([^\/\?#]+)(?:\?|#|\/?$)/i,
+        /^https?:\/\/www\.facebook\.com\/(?!photo)([^\/\?#]+)$/i
     ],
 
     getLink: function(urlMatch, request, cb) {
