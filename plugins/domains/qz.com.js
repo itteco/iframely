@@ -18,26 +18,11 @@ module.exports = {
         {
             "href": "http://app.qz.com/img/logo/quartz.svg",
             "type": CONFIG.T.image_svg,
-            "rel": [CONFIG.R.thumbnail, CONFIG.R.logo]
+            "rel": CONFIG.R.logo
         },
 
-        // Favicons.
+        // Favicon.
         {
-            "href": "http://app.qz.com/img/icons/touch_144.png",
-            "rel": ["apple-touch-icon-precomposed", CONFIG.R.icon],
-            "type": CONFIG.T.image_png,
-            "width": 144,
-            "height": 144
-        }, {
-            "href": "http://app.qz.com/img/icons/touch_114.png",
-            "rel": [
-                "apple-touch-icon-precomposed",
-                CONFIG.R.icon
-            ],
-            "type": CONFIG.T.image_png,
-            "width": 114,
-            "height": 114
-        }, {
             "href": "http://app.qz.com/img/icons/touch_72.png",
             "rel": [
                 "apple-touch-icon-precomposed",
