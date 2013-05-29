@@ -24,6 +24,7 @@
 
         REL_GROUPS: [
             "icon",
+            "logo",
             "thumbnail",
             "image",
             "player",
