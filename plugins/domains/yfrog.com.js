@@ -8,8 +8,7 @@ module.exports = {
     mixins: [
         "canonical",
         "og-site",
-        "copyright",
-        "favicon"
+        "copyright"
     ],
 
     getMeta: function (meta) {
@@ -21,11 +20,15 @@ module.exports = {
 
     getLink: function (meta) {
 
-        if (meta.og) return {
+        if (meta.og) return [{
             href: meta.og.image,
             type: CONFIG.T.image,
             rel: CONFIG.R.image
-        }
+        }, {
+            href: 'http://yfrog.com/favicon.ico',
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon            
+        }]
     },
 
     tests: [ 
