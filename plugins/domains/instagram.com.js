@@ -7,22 +7,26 @@ module.exports = {
     ],
 
     mixins: [
-        "canonical",
-        "og-description",
-        "og-site",
-
-        "favicon"
+        "oembed-title",
+        "oembed-site",
+        "oembed-author"
     ],
-
-    getMeta: function($selector) {
-        return {
-            title: $selector('.media-caption .caption-text').html().trim()
-        };
-    },
 
     getLinks: function(urlMatch) {
         var src = 'http://instagram.com/p/' + urlMatch[1] +'/media/?size='
-        return [{
+        return [
+
+        // Favicon.
+        {
+            "href": "http://d36xtkk24g8jdx.cloudfront.net/bluebar/dd6cb37/images/ico/apple-touch-icon-72x72-precomposed.png",
+            "rel": ["apple-touch-icon-precomposed", CONFIG.R.icon],
+            "type": CONFIG.T.image_png,
+            "width": 72,
+            "height": 72
+        },
+
+        // Images.
+        {
             href: src + 't',
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail,

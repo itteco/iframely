@@ -162,9 +162,10 @@
     {
         "name": "Instagr.am",
         "templates": [
-            "instagr\\.am/.+"
+            "[\\w\\.]*instagram\\.com/p/([a-zA-Z0-9-]+)",
+            "instagr\\.am/p/([a-zA-Z0-9-]+)"
         ],
-        "endpoint": "http://api.instagram.com/api/v1/oembed"
+        "endpoint": "http://api.instagram.com/oembed"
     },
     {
         "name": "DailyMotion",
