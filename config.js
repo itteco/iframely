@@ -17,7 +17,9 @@
             image_jpeg: "image/jpeg",
             flash: "application/x-shockwave-flash",
             image: "image",
-            image_icon: "image/icon"
+            image_icon: "image/icon",
+            image_png: "image/png",
+            image_svg: "image/svg"
         },
 
         REL_GROUPS: [
