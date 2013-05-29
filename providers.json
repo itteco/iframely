@@ -160,13 +160,6 @@
         "endpoint": "http://official.fm/services/oembed"
     },
     {
-        "name": "yfrog",
-        "templates": [
-            "yfrog\\.com/.+"
-        ],
-        "endpoint": "http://www.yfrog.com/api/oembed"
-    },
-    {
         "name": "Instagr.am",
         "templates": [
             "instagr\\.am/.+"

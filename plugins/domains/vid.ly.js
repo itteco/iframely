@@ -14,7 +14,7 @@ module.exports = {
         }, {
             href: "//vid.ly/" + urlMatch[1] + "/poster",
             type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail,
+            rel: CONFIG.R.thumbnail
         }, {
         	href: "//vid.ly/favicon.ico",
         	type: CONFIG.T.image,
