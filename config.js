@@ -19,7 +19,8 @@
             image: "image",
             image_icon: "image/icon",
             image_png: "image/png",
-            image_svg: "image/svg"
+            image_svg: "image/svg",
+            video_mp4: "video/mp4"
         },
 
         REL_GROUPS: [
