@@ -42,13 +42,6 @@
         "endpoint": "http://vimeo.com/api/oembed.{format}"
     },
     {
-        "name": "WordPress.tv",
-        "templates": [
-            "wordpress\\.tv/.*"
-        ],
-        "endpoint": "http://wordpress.tv/oembed/"
-    },
-    {
         "name": "YouTube",
         "templates": [
             "(www\\.)?youtube\\.com/watch.*",

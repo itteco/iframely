@@ -13,7 +13,7 @@ module.exports = {
     ],
 
     tests: [{
-        feed: "http://revision3.com/osalt"
+        pageWithFeed: "http://revision3.com/osalt"
     },
         "http://revision3.com/osalt/htpc-software"
     ]
