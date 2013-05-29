@@ -4,7 +4,7 @@ module.exports = {
 
     getData: function(meta) {
 
-        var p = meta["parsely-page"]
+        var p = meta["parsely-page"];
         if (p) {
             try {
 

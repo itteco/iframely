@@ -15,6 +15,7 @@
 - create "og" an "twitter" plugins to provide this requirements, to skip if (!meta.og) checks. Solve problem with domain mixins.
 - fallback if domain plugin not work on 100%
 - debug: option for load reader
+- debug: show overriden meta and sources
 - customize mixins (add specific rel, widht, height)
     - in collegehumor
     - in video.yandex (https for oembed src)
