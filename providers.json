@@ -138,13 +138,6 @@
         "endpoint": "http://dotsub.com/services/oembed"
     },
     {
-        "name": "official.fm",
-        "templates": [
-            "official\\.fm/(tracks|playlists)/.+"
-        ],
-        "endpoint": "http://official.fm/services/oembed"
-    },
-    {
         "name": "Instagr.am",
         "templates": [
             "[\\w\\.]*instagram\\.com/p/([a-zA-Z0-9-]+)",
@@ -160,32 +153,11 @@
         "endpoint": "http://www.dailymotion.com/services/oembed"
     },
     {
-        "name": "PicPlz",
-        "templates": [
-            "picplz\\.com/.+"
-        ],
-        "endpoint": "http://picplz.com/oembed"
-    },
-    {
         "name": "SoundCloud",
         "templates": [
             "soundcloud\\.com/.+"
         ],
         "endpoint": "http://soundcloud.com/oembed"
-    },
-    {
-        "name": "Skitch",
-        "templates": [
-            "(www\\.)?skitch\\.com/.+"
-        ],
-        "endpoint": "http://www.skitch.com/oembed"
-    },
-    {
-        "name": "Clikthrough",
-        "templates": [
-            "(www\\.)?clikthrough\\.com/.+"
-        ],
-        "endpoint": "http://www.clikthrough.com/services/oembed"
     },
     {
         "name": "Animoto",
