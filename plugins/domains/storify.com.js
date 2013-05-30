@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/storify\.com(?:\/[0-9a-z\-]+){2}$/i
+        /^https?:\/\/storify\.com\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: [
