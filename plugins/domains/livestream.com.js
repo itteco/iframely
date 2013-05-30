@@ -3,15 +3,14 @@ module.exports = {
     //twitvid will re-direct here
     mixins: [
         "canonical",
-        "og-site",
-        "og-title",
+        "twitter-title",
+        "twitter-description",
         "twitter-image",
-        "twitter-player-responsive",
+        "twitter-player",
         "favicon"
     ],
 
     tests: [ 
-        "http://telly.com/2EQ0D4",
-        "http://www.twitvid.com/POQOWF"
+        "http://new.livestream.com/wbc2013/Melbourne2013",
     ]
 };
