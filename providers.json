@@ -251,5 +251,12 @@
             "qz\\.com/\\d+/[a-zA-Z0-9_-]+/"
         ],
         "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=wpcom-auto-discovery&url={url}"
-    }
+    },
+    {
+        "name": "Mixcloud",
+        "templates": [
+            "www\\.mixcloud\\.com/.+/.+/.*"
+        ],
+        "endpoint": "http://www.mixcloud.com/oembed/"
+    }    
 ]

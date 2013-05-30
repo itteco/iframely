@@ -3,9 +3,6 @@ var jquery = require('jquery');
 module.exports = {
 
     getLink: function(oembed) {
-        if (oembed.type != "video") {
-            return;
-        }
 
         var $container = jquery('<div>');
         try{
