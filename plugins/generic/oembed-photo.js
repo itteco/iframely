@@ -9,7 +9,7 @@ module.exports = {
         return {
             href: oembed.url,
             type: CONFIG.T.image,
-            rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+            rel: [CONFIG.R.image, CONFIG.R.oembed],
             width: oembed.width,
             height: oembed.height
         };
