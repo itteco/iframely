@@ -229,5 +229,12 @@
             "\\w+\\.kickstarter\\.com/projects/.*"
         ],
         "endpoint": "http://www.kickstarter.com/services/oembed"
-    }  
+    },
+    {
+        "name": "Coub",
+        "templates": [
+            "coub\\.com/view/.*"
+        ],
+        "endpoint": "http://coub.com/api/oembed.{format}"
+    }    
 ]
