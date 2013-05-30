@@ -37,6 +37,7 @@
             thumbnail: "thumbnail",
             image: "image",
             reader: "reader",
+            file: "file",
 
             iframely: "iframely",
             instapaper: "instapaper",
