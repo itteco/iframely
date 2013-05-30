@@ -47,6 +47,17 @@
     };
 
     var renders = {
+        "javascript": {
+            test: function(data) {
+                return /(text|application)\/javascript/i.test(data.type)
+                    && data.href;
+            },
+            generate: function(data) {
+                return $('<script>')
+                    .attr('type', data.type)
+                    .attr('src', data.href);
+            }
+        },
         "image": {
             test: function(data) {
                 return /^image(\/[\w-]+)?$/i.test(data.type)

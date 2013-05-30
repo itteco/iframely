@@ -2,7 +2,7 @@
     var config = {
         DEBUG: true,
         baseAppUrl: "http://localhost:8061",
-        baseStaticUrl: "http://localhost:8061",
+        baseStaticUrl: "http://localhost:8061/r3",
         port: 8061
     };
 

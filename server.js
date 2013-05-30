@@ -10,7 +10,10 @@ var app = express();
 
 app.use(express.bodyParser());
 app.set('view engine', 'ejs');
+
+require('./modules/api/views')(app);
 require('./modules/debug/views')(app);
+
 app.use(logErrors);
 app.use(errorHandler);
 

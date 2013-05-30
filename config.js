@@ -7,7 +7,7 @@
         DEBUG: false,
 
         baseAppUrl: "http://dev.iframe.ly",
-        baseStaticUrl: "http://dev.iframe.ly",
+        baseStaticUrl: "http://dev.iframe.ly/r3",
         port: 8061,
 
         T: {

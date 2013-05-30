@@ -1,0 +1,186 @@
+(function(document,window) {
+    var iframely = {};
+    iframely.dependenciesReady = function () {
+        if (iframely.jQuery && iframely.jQuery.fn.objectfit) {
+            window.clearInterval(iframely._dependenciesReadyInterval);
+            iframely.createWidget();
+        }
+    };
+
+    iframely.createWidget = function() {
+        (function($){
+            function drawWidget($cont){
+                $cont.html(iframely.embedCode);
+                $cont.objectfit({selector: 'img'});
+                $cont.objectfit({selector: 'iframe'});
+                $cont.objectfit({selector: 'embed'});
+                $cont.find('a').attr('target','_blank');
+                $cont.parent().trigger('iframely.loaded', iframely.widgetId);
+            }
+
+            var $placeholders = $('iframely\\:widget[data-id="'+iframely.widgetId+'"]');
+
+            if ($placeholders.length){
+                $placeholders.each(function(index){
+                    var $container = $('<div class="iframely-article-container"></div>')
+                    $(this).replaceWith($container);
+                    drawWidget($container);
+                });
+            } else {
+                //Fallback for static pages
+                var $scriptElement = $('script[data-used!=true][src$="' + iframely.uri + '"]:first');
+
+                if ($scriptElement){
+                    $scriptElement.attr('data-used', true);
+                    var $container = $('<div class="iframely-article-container"></div>');
+                    $container.insertAfter($scriptElement);
+                    drawWidget($container);
+                }
+            }
+
+        })(iframely.jQuery);
+    };
+
+    function scriptLoadHandler() {
+        iframely.jQuery = window.jQuery.noConflict(true);
+        main();
+    }
+
+    function loadImageSize(src, cb) {
+
+        var img = new Image();
+        img.onload = function() {
+            cb(null, {
+                src: src,
+                width: this.width,
+                height: this.height
+            });
+        };
+        var abort = function() {
+            cb(true, null);
+        };
+        img.onerror = abort;
+        img.onabort = abort;
+        img.src = src;
+    }
+
+    function loadDependencies() {
+        (function($) {
+            var cssHref = "<%= CONFIG.baseStaticUrl %>/css/article.css";
+
+            if (!$('link[href="'+cssHref+'"]').length) {
+                var cssLink = $("<link>", {
+                    rel: "stylesheet",
+                    type: "text/css",
+                    href: cssHref
+                });
+                $(window.document).find('head').append(cssLink);
+            }
+
+            if (typeof($.fn.objectfit) != 'function'){
+                $.fn.objectfit = function(options) {
+                    if (!options.selector && !options.elements){
+                        return;
+                    }
+
+                    //TODO: move it to top
+                    var fit = {
+                        all : function(objs){
+                            objs.each(function(){
+                                fit.one(this);
+                            })
+                        },
+                        one : function(obj){
+                            var $obj = $(obj);
+
+                            if ($obj.attr('startheight')){
+                                $obj.width('100%').each(function()
+                                    {
+                                        $(this).attr('resized',"yes");
+                                        $(this).height(Math.round(
+                                            $(this).attr('startheight')*($(this).width()/$(this).attr('startwidth')))
+                                        );
+                                    })
+                            }
+                        }
+                    };
+
+                    this.each(function(){
+                        var container = this;
+                        // store list of contained images (excluding those in tables)
+                        var objs = options.elements || $(this).find(options.selector);
+
+                        // store initial dimensions on each image
+                        objs.each(function(){
+                            var ctr = 0;
+
+                            var $this = $(this);
+                            $this.one("load",function(){
+                                var $this = $(this);
+
+                                if ($this.is('img')) {
+                                    loadImageSize($this.attr('src'), function(error, size) {
+                                        if (error) return;
+
+                                        $this.attr('startwidth', size.width)
+                                            .attr('startheight', size.height)
+                                            .css('max-width', $this.attr('startwidth')+"px");
+                                    });
+                                } else {
+                                    $this.attr('startwidth', $this.width())
+                                        .attr('startheight', $this.height())
+                                        .css('max-width', $this.attr('startwidth')+"px");
+                                }
+
+                                fit.one(this);
+                            })
+                            if(this.complete) $this.trigger("load");
+                        });
+                        // Re-adjust when window width is changed
+                        $(window).bind('resize', function(){
+                            fit.all(objs);
+                        });
+                    });
+                    return this;
+                };
+            }
+        })(iframely.jQuery);
+    }
+
+    function main() {
+        loadDependencies();
+
+        iframely._dependenciesReadyInterval = window.setInterval(iframely.dependenciesReady, 500);
+    }
+
+    iframely.widgetId = <%- widgetId %>;
+    iframely.uri = <%- uri %>;
+    var embedCode = <%- embedCode %>;
+
+    if (embedCode instanceof Array) {
+        iframely.embedCode = embedCode.join('\n');
+    } else {
+        iframely.embedCode = embedCode;
+    }
+
+    if (window.jQuery === undefined || window.jQuery.fn.jquery < '1.9.1') {
+        var scriptTag = document.createElement('script');
+        scriptTag.setAttribute("type","text/javascript");
+        scriptTag.setAttribute("src", "<%= CONFIG.baseStaticUrl %>/js/jquery-1.9.1.min.js");
+        if (scriptTag.readyState) {
+            scriptTag.onreadystatechange = function () {
+                if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                    scriptLoadHandler();
+                }
+            };
+        } else {
+            scriptTag.onload = scriptLoadHandler;
+        }
+        (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(scriptTag);
+    } else {
+        iframely.jQuery = window.jQuery;
+        main();
+    }
+
+
+})(document,window);
