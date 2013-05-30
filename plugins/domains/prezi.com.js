@@ -1,0 +1,50 @@
+module.exports = {
+
+    re: [
+        /^http:\/\/prezi\.com\/([a-z0-9\-]+)\/([a-z0-9\-]+)/i
+    ],
+
+    mixins: [
+        "canonical",
+        "og-title",
+        "og-description",
+        "og-site",
+        "og-image",
+        "favicon"
+    ],    
+
+    getMeta: function(meta) {
+        return {
+            author_url: meta.prezi_for_facebook.author
+        }
+    },
+
+    getLink: function(urlMatch) {
+        /**
+        Here's the original embed code: 
+        <iframe src="http://prezi.com/embed/hvsanqexuoza/?
+            bgcolor=ffffff
+            &amp;lock_to_path=0
+            &amp;autoplay=0
+            &amp;autohide_ctrls=0
+            &amp;features=undefined
+            &amp;disabled_features=undefined" 
+        width="550" height="400" frameBorder="0"></iframe>
+        */
+
+        return {
+            href: 'http://prezi.com/embed/' + urlMatch[1] + '/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;',
+            type: CONFIG.T.text_html,
+            rel: CONFIG.R.player,
+
+            // The player is theoretically responsive. 
+            // However, it seems, the flash would render the browser irresponsive if container is bigger. C'est la vie. 
+            width: 550,
+            height: 400
+        }
+    },
+
+    tests: [
+        "http://prezi.com/hvsanqexuoza/designthinking-vs-leanstartup/"
+    ]
+};
