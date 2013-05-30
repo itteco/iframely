@@ -258,5 +258,12 @@
             "www\\.mixcloud\\.com/.+/.+/.*"
         ],
         "endpoint": "http://www.mixcloud.com/oembed/"
-    }    
+    },
+    {
+        "name": "Kickstarter",
+        "templates": [
+            "\\w+\\.kickstarter\\.com/projects/.*"
+        ],
+        "endpoint": "http://www.kickstarter.com/services/oembed"
+    }  
 ]
