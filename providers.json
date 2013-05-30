@@ -131,14 +131,6 @@
         "endpoint": "https://github.com/api/oembed"
     },
     {
-        "name": "Photobucket",
-        "templates": [
-            "i.*\\.photobucket\\.com/albums/.*",
-            "gi.*\\.photobucket\\.com/groups/.*"
-        ],
-        "endpoint": "http://photobucket.com/oembed"
-    },
-    {
         "name": "dotSUB",
         "templates": [
             "dotsub\\.com/view/.+"

@@ -2,16 +2,16 @@ module.exports = {
 
     mixins: [
         "oembed-title",
-        "og-description",
+        "canonical",
         "oembed-site",
         "oembed-author",
 
-        "oembed-video-responsive",
+        "oembed-video-responsive",        
         "og-image",
         "favicon"
     ],
 
     tests: [
-        "http://www.mixcloud.com/espnradio/espn-radio-daily-515/"
+        "http://dotsub.com/view/6c5d7514-5656-476a-9504-07dd4e2f6509"
     ]
 };
