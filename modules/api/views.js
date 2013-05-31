@@ -105,4 +105,34 @@ module.exports = function(app) {
         });
 
     });
+
+    app.get('/render', function(req, res, next) {
+
+        console.log('-- Loading render for', req.query.uri);
+
+        async.waterfall([
+
+            function(cb) {
+                iframely.getRawRenderLink(req.query.uri, {
+                    disableCache: req.query.disableCache === "true"
+                }, cb);
+            }
+
+        ], function(error, link) {
+
+            if (error) {
+                if (error.code == 'ENOTFOUND') {
+                    return next(new utils.NotFound('Page not found'));
+                }
+                return next(new Error(error));
+            }
+
+            if (!link) {
+                return next(new utils.NotFound());
+            }
+
+            res.render(link._render.template, link.template_context);
+        });
+
+    });
 };

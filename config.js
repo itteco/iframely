@@ -47,7 +47,9 @@
             fb: "fb",
 
             icon: "icon",
-            logo: "logo"
+            logo: "logo",
+
+            widget: "widget"
         },
 
         providerOptions: {
