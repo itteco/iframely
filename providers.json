@@ -243,5 +243,12 @@
             "coub\\.com/view/.*"
         ],
         "endpoint": "http://coub.com/api/oembed.{format}"
+    },
+    {
+        "name": "Screenr",
+        "templates": [
+            "\\w+\\.screenr\\.com/[a-zA-Z0-9_-]+/"
+        ],
+        "endpoint": "http://www.screenr.com/api/oembed.{format}"
     }    
 ]
