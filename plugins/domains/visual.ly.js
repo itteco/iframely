@@ -18,7 +18,7 @@ module.exports = {
 
         return [{
             href: thumbnail,
-            type: CONFIG.T.image_jpeg,
+            type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail,
             width: 250,
             height: 250
