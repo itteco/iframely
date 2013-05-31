@@ -13,8 +13,7 @@ module.exports = {
 
         var thumbnail = meta.og.image;
         var str = thumbnail.split('_');
-        var ext = thumbnail.split('.');
-        var original = str[0]+'_'+str[1]+'.' + ext[ext.length - 1];
+        var original = str[0]+'_'+str[1]+str[]
 
         return [{
             href: thumbnail,
@@ -24,7 +23,7 @@ module.exports = {
             height: 250
         }, {
             href: original,
-            type: CONFIG.T.image_jpeg,
+            type: CONFIG.T.image,
             rel: CONFIG.R.image
         }];
     },
