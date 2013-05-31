@@ -17,15 +17,24 @@ module.exports = {
         }
     },
 
+    // TODO: add max-width.
+    // TODO: add iframe event to parent: update size.
+
     getLink: function(meta) {
 
-        return [{
-            href: meta.canonical.replace('http:', '') + '.js',
-            type: CONFIG.T.javascript,
+        var src = meta.canonical.replace('http:', '') + '.js';
+
+        return {
+            type: CONFIG.T.text_html,
             rel: CONFIG.R.reader,
+            template: "embed-html",
+            template_context: {
+                title: meta.og.title,
+                html: '<script type="text/javascript" src="' + src + '"></script>'
+            },
             "orientation": 'portrait',
             "min-width": 320
-        }]
+        };
     },
 
     tests: [{
