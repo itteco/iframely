@@ -57,7 +57,7 @@
                 apiKey: 'a4a2c14fc31006239edf38992f101c06'
             },
             readability: {
-                enabled: false
+                enabled: true
             }
         }
     };
