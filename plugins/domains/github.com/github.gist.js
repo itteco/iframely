@@ -8,9 +8,15 @@ module.exports = {
         "favicon"
     ],
 
-    getData: function(urlMatch) {
+    getLink: function(urlMatch, meta) {
         return {
-            embed_html: '<script type="text/javascript" src="https://gist.github.com/' + urlMatch[2] +'.js"></script>'
+            type: CONFIG.T.text_html,
+            rel: CONFIG.R.reader,
+            template: "embed-html",
+            template_context: {
+                title: meta.og.title,
+                html: '<script type="text/javascript" src="https://gist.github.com/' + urlMatch[2] +'.js"></script>'
+            }
         };
     },
 
