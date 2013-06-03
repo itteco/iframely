@@ -15,68 +15,20 @@
             position: relative;
         }
     </style>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/iframely-utils.js"></script>
     <script>
-        var XD = function(){
 
-            return {
-                postMessage : function(message, target_url, target) {
+        function init() {
 
-                    target_url = target_url || '*';
+            var d = document.getElementById('iframely-content')
 
-                    target = target || window.parent;  // default to parent
-
-                    if (window['postMessage']) {
-                        // the browser supports window.postMessage, so call it with a targetOrigin
-                        // set appropriately, based on the target_url parameter.
-                        target['postMessage'](message, target_url.replace( /([^:]+:\/\/[^\/]+).*/, '$1'));
-
-                    }
-                },
-
-                receiveMessage : function(callback) {
-
-                    // browser supports window.postMessage
-                    if (window['postMessage']) {
-                        if (window['addEventListener']) {
-                            window[callback ? 'addEventListener' : 'removeEventListener']('message', callback, !1);
-                        } else {
-                            window[callback ? 'attachEvent' : 'detachEvent']('onmessage', callback);
-                        }
-                    }
-                }
-            };
-        }();
-
-        var windowId;
-
-        XD.receiveMessage(function(e) {
-
-            if (e.data.method == "register") {
-                windowId = e.data.windowId;
-
-                var height;
-                var d = document.getElementById('iframely-content');
-
-                function resize() {
-                    var h = d.scrollHeight;
-
-                    if (h && h != height) {
-                        height = h;
-                        XD.postMessage({
-                            windowId: windowId,
-                            method: 'resize',
-                            height: height
-                        });
-                    }
-                }
-
-                var interval = setInterval(resize, 500);
-                resize();
-            }
-        });
+            $.iframely.registerHeightGetter(function() {
+                return d.scrollHeight;
+            });
+        }
 
     </script>
-<body>
+<body onload="init();">
     <div id='iframely-content'>
         <%- html %>
     <div>
