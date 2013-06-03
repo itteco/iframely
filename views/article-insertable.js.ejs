@@ -28,7 +28,7 @@
                 });
             } else {
                 //Fallback for static pages
-                var $scriptElement = $('script[data-used!=true][src$="' + iframely.uri + '"]:first');
+                var $scriptElement = $('script[data-used!=true][src$="' + encodeURIComponent(iframely.uri) + '"]:first');
 
                 if ($scriptElement){
                     $scriptElement.attr('data-used', true);
