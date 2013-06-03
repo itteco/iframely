@@ -2,19 +2,6 @@
 <html>
 <head>
     <title><%= title %></title>
-    <style>
-        html, body, object, embed, iframe {
-            margin:  0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background: white;
-            color: white;
-        }
-        body {
-            position: relative;
-        }
-    </style>
     <script>
         var XD = function(){
 
@@ -58,7 +45,7 @@
                 var d = document.getElementById('iframely-content');
 
                 function resize() {
-                    var h = d.scrollHeight;
+                    var h = d.scrollHeight + 20;
 
                     if (h && h != height) {
                         height = h;
@@ -77,8 +64,8 @@
 
     </script>
 <body>
-    <div id='iframely-content'>
-        <%- html %>
-    <div>
+<div id='iframely-content'>
+    <%- html %>
+<div>
 </body>
 </html>

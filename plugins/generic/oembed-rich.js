@@ -2,7 +2,7 @@ var jquery = require('jquery');
 
 module.exports = {
 
-    getLink: function(meta, oembed) {
+    getLinks: function(meta, oembed) {
 
         if (oembed.type != "rich") {
             return;
@@ -16,34 +16,34 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-        if ($iframe.length == 1) {
-            return {
-                href: $iframe.attr('src'),
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.oembed, CONFIG.R.player],
-                width: oembed.width,
-                height: oembed.height
-            }
-        }
-    }/*,
-
-    getData: function(meta, oembed) {
-
-        if (oembed.type != "rich") {
-            return;
-        }
-
         var rel = [CONFIG.R.oembed];
         if (meta.og && (meta.og.type in {"video": 1, "audio": 1} || meta.og.video || meta.og.audio)) {
             rel.push(CONFIG.R.player);
         }
 
-        return {
-            embed_html: oembed.html,
-            // TODO: tie rel from data to nested link.
-            rel: rel,
-            width: oembed.width,
-            height: oembed.height
-        };
-    }*/
+        if ($iframe.length == 1) {
+
+            return {
+                href: $iframe.attr('src'),
+                type: CONFIG.T.text_html,
+                rel: rel,
+                width: oembed.width,
+                height: oembed.height
+            };
+
+        } else {
+
+            return {
+                type: 'text/html',
+                template: "embed-html",
+                template_context: {
+                    title: oembed.title,
+                    html: oembed.html
+                },
+                rel: rel,
+                width: oembed.width,
+                height: oembed.height
+            };
+        }
+    }
 };
