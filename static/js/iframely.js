@@ -161,8 +161,9 @@
                     $container.css('height', media.height);
                 }
 
-                if (media && media.width) {
-                    $container.css('width', media.width);
+                var w;
+                if (media && (w = media.width || media["max-width"] || media["min-width"])) {
+                    $container.css('width', w);
                 }
 
                 // Default aspect ratio.
