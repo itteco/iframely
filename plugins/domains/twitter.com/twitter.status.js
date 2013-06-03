@@ -15,7 +15,7 @@ module.exports = {
         return {
             title: title,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.iframely],
+            rel: [CONFIG.R.oembed, CONFIG.R.iframely, CONFIG.R.reader],
             template_context: {
                 title: title,
                 html: oembed.html
