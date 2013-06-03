@@ -393,6 +393,8 @@ function processUrl() {
 
             return false;
         });
+
+        $.iframely.registerIframesIn($('body'));
     });
 }
 
