@@ -5,3 +5,6 @@ node_modules
 config.local.js
 
 test/test2.js
+
+static/js/test.html
+
