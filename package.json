@@ -3,6 +3,11 @@
     "version": "0.3.0",
     
     "description": "oebmed2 server",
+
+    "repository" :{
+        "type":         "git",
+        "url":          "http://github.com/itteco/iframely.git"
+    },
     
     "dependencies": {
         "jslint":       "0.1.9",
