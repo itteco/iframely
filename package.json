@@ -2,7 +2,7 @@
     "name": "iframely",
     "version": "0.3.0",
     
-    "description": "oebmed2 server",
+    "description": "oEmbed/2 gateway endpoint",
 
     "repository" :{
         "type":         "git",
