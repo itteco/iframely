@@ -250,5 +250,12 @@
             "\\w+\\.screenr\\.com/[a-zA-Z0-9_-]+/"
         ],
         "endpoint": "http://www.screenr.com/api/oembed.{format}"
-    }    
+    },
+    {
+        "name": "Funny or Die",
+        "templates": [
+            "\\w+\\.kickstarter\\.com/videos/.*"
+        ],
+        "endpoint": "http://www.funnyordie.com/oembed.{format}"
+    }
 ]
