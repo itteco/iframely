@@ -153,22 +153,26 @@
                     .append($iframe);
 
                 var media = data.media;
+
                 if (media && media["aspect-ratio"]) {
+
                     $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
-                }
 
-                if (media && media.height) {
-                    $container.css('height', media.height);
-                }
+                } else {
 
-                var w;
-                if (media && (w = media.width || media["max-width"] || media["min-width"])) {
-                    $container.css('width', w);
-                }
+                    if (media && media.height) {
+                        $container.css('height', media.height);
+                    }
 
-                // Default aspect ratio.
-                if (!media || (!media.height && !media["aspect-ratio"])) {
-                    $container.css('padding-bottom', '75%');
+                    var w;
+                    if (media && (w = media.width || media["max-width"] || media["min-width"])) {
+                        $container.css('width', w);
+                    }
+
+                    // Default aspect ratio.
+                    if (!media || (!media.height && !media["aspect-ratio"])) {
+                        $container.css('padding-bottom', '75%');
+                    }
                 }
 
                 return $container;
