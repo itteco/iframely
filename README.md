@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
+
 ## Install
 
     npm install --production
