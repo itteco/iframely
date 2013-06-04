@@ -1,8 +1,6 @@
 {
-    "private": true,
-
     "name": "iframely",
-    "version": "0.1.1",
+    "version": "0.3.0",
     
     "description": "oebmed2 server",
     
