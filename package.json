@@ -36,5 +36,9 @@
 
     "scripts": {
         "test": "vows test/main.js --isolate --spec"
+    },
+
+    "engines": {
+        "node": ">=0.8"
     }
 }
