@@ -223,8 +223,38 @@ Meta attributes provided by plugins [getMeta](plugingetmeta) method.
 
 #### /reader.js
 
+Endpoint for article rendering scripts.
+
+**Method:** GET
+
+**Params:**
+ - `uri` - page uri to be processed.
+
+**Returns:** JavaScript widget to render article.
+
+This is behind scenes endpoint. It is not directly used by developer.
+Link to endpoint is automatically generated for internal MIME type `"text/x-safe-html"`.
+See [x-safe-html](#x-safe-html) for details.
+
+Endpoint will return JavaScript widget to embed it with `<script>` tag.
+Embedding will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
+
 #### /render
 
+Endpoint to cusrom rendered widgets.
+
+**Method:** GET
+
+**Params:**
+ - `uri` - page uri to be processed.
+
+**Returns:** html page with widget.
+
+This is behind scenes endpoint. It is not directly used by developer.
+Link to endpoint is automatically generated for internal MIME type `"text/html"` with `html` attribute provided by plugin.
+See [rendering templates](#rendering-templates) for details.
+
+Result will be embedded with `<iframe>`. Embedding and resizing will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
 
 ---------------------------------------
 
@@ -400,10 +430,10 @@ See example [/generic/meta/video.js](https://github.com/itteco/iframely/blob/mas
 
 Some plugins may return same meta attributes. This is possible if one attribute is described using different semantics.
 It happens that values of these attributes are different. We know some semantics are better then other.
-For example: html '<title>' tag often provides page title with site name, which is not really part of content title.
+For example: html `<title>` tag often provides page title with site name, which is not really part of content title.
 But `og:title` usually better and contains only article title without site name.
 
-If you want to mark you plugin as worst source of meta (like html '<title>' tag), use `lowestPriority: true`:
+If you want to mark you plugin as worst source of meta (like html `<title>` tag), use `lowestPriority: true`:
 
     module.exports = {
         lowestPriority: true
