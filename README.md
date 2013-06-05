@@ -15,7 +15,7 @@ Look at example debug tool urls to see how it works:
     - [Installation](#installation)
     - [Config](#config)
     - [Run server](#run-server)
-    - TODO: list of used server urls
+    - [List of server urls](#list-of-server-urls)
     - [Server debug tool](#server-debug-tool)
     - [Run tests](#run-tests)
 - [Reference](#reference)
@@ -79,6 +79,15 @@ Also you can use [forever](https://github.com/nodejitsu/forever):
 
     npm install -g forever
     forever start -l iframely.log server.js
+
+### List of server urls
+
+    /r3/.+              -- static files.
+    /oembed2            -- API endpoint with get params - returns oembed2 JSON.
+    /debug              -- debugger UI with get params.
+    /reader.js          -- API endpoint with get params - returns script to render article.
+    /render             -- API endpoint with get params - returns custom rendered widget.
+    /meta-mappings      -- API endpoint with available unified meta.
 
 ### Server debug tool
 
