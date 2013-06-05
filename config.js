@@ -44,12 +44,9 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
-            fb: "fb",
 
             icon: "icon",
-            logo: "logo",
-
-            widget: "widget"
+            logo: "logo"
         },
 
         providerOptions: {
