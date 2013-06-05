@@ -1,6 +1,4 @@
-# Iframely
-
-[![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
+# Iframely [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
 oEmbed/2 gateway endpoint
 
