@@ -1,7 +1,5 @@
 module.exports = {
 
-    useAlways: true,
-
     lowestPriority: true,
 
     getMeta: function(meta) {

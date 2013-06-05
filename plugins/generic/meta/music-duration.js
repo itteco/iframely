@@ -1,7 +1,5 @@
 module.exports = {
 
-    useAlways: true,
-
     getMeta: function(meta) {
 
         if (!meta.music)

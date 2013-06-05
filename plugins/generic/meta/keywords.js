@@ -1,7 +1,5 @@
 module.exports = {
 
-    useAlways: true,
-
     getMeta: function(meta) {
 
         var k = meta.keywords || meta.metaKeywords || meta.news_keywords;
