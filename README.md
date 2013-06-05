@@ -9,6 +9,45 @@ Look at example debug tool urls to see how it works:
  - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fmashable.com%2F2013%2F06%2F05%2Fdominos-drone%2F
  - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fnf39%2F8941500522%2F
 
+## Table of contents
+
+- [Server setup](#server-setup)
+    - [Installation](#installation)
+    - [Config](#config)
+    - [Run server](#run-server)
+    - [Server debug tool](#server-debug-tool)
+    - [Run tests](#run-tests)
+- [Reference](#reference)
+    - [Using as npm package](#using-as-npm-package)
+    - [Using REST API](#using-rest-api)
+        - [/oembed2](#oembed2)
+            - [meta](#meta)
+            - [links](#links)
+        - [/meta-mappings](#meta-mappings)
+        - [/reader.js](#readerjs)
+        - [/render](#render)
+    - [JavaScript client lib iframely.js](#javascript-client-lib-iframelyjs)
+        - [Deploy on your page](#deploy-on-your-page)
+        - [Fetching oEmbed/2](#fetching-oembed2)
+        - [Rendering links](#rendering-links)
+    - [Writing plugins](#writing-plugins)
+        - [Plugin structure](#plugin-structure)
+            - [plugin.getLink(s)](#plugingetlinks)
+            - [plugin.getMeta](#plugingetmeta)
+            - [plugin.getData](#plugingetdata)
+            - [plugin.mixins](#pluginmixins)
+            - [plugin.tests](#plugintests)
+        - [Type of plugins](#type-of-plugins)
+            - [Generic plugins](#generic-plugins)
+                - [Meta plugins](#meta-plugins)
+            - [Domain plugins](#domain-plugins)
+            - [Custom plugins](#custom-plugins)
+            - [Template plugins](#template-plugins)
+        - [Custom links cases](#custom-links-cases)
+            - [x-safe-html](#x-safe-html)
+            - [Rendering templates](#rendering-templates)
+            - [Resize embedded iframe from inside iframe](#resize-embedded-iframe-from-inside-iframe)
+
 ## Server setup
 
 ### Installation
@@ -48,7 +87,7 @@ You can test server API with debug tool at:
 
 All functionality is not covered by tests for now. Tests depends on non stable web pages and sometimes crashes for no reason.
 
-## Documentation
+## Reference
 
 ### Using as npm package
 
@@ -64,7 +103,9 @@ Usage:
     // TODO: doc on iframely.getPageData
     // TODO: doc on iframely.getImageMetadata
 
+
 ---------------------------------------
+
 
 ### Using REST API
 
@@ -80,7 +121,9 @@ Usage:
 
 #### /render
 
+
 ---------------------------------------
+
 
 ### JavaScript client lib iframely.js
 
@@ -117,7 +160,7 @@ To support proportional size iframes add following styles:
 
 This will allow youtube, vimeo and similar players to be resized by container where they are placed and keep their proportion.
 
-#### Fetching oEmbed
+#### Fetching oEmbed/2
 
     // Setup endpoint path.
     $.iframely.defaults.endpoint = 'http://your.iframely.server.domain/oembed2';
@@ -208,29 +251,45 @@ where js widget is inserted in iframe and we don't know exact size before it lau
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
 So iframely.js will resize that iframe to fit content without horizontal scrolling.
 
+
 ---------------------------------------
+
 
 ### Writing plugins
 
-#### plugin.getLink(s)
+#### Plugin structure
 
-#### plugin.getMeta
+##### plugin.getLink(s)
 
-#### plugin.getData
+##### plugin.getMeta
 
-#### plugin.tests
+##### plugin.getData
 
-#### Generic plugins
+##### plugin.mixins
 
-##### Meta plugins
+##### plugin.tests
 
-#### Domain plugins
 
-#### Custom plugins
 
-#### x-safe-html
+#### Type of plugins
 
-#### Rendering templates.
+##### Generic plugins
 
-#### Resize embedded iframe from inside iframe.
+###### Meta plugins
+
+##### Domain plugins
+
+##### Custom plugins
+
+##### Template plugins
+
+
+
+#### Custom links cases
+
+##### x-safe-html
+
+##### Rendering templates.
+
+##### Resize embedded iframe from inside iframe.
 
