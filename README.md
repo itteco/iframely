@@ -19,7 +19,7 @@ Look at example debug tool urls to see how it works:
     - [Server debug tool](#server-debug-tool)
     - [Run tests](#run-tests)
 - [Reference](#reference)
-    - [Using as npm package](#using-as-npm-package)
+    - TODO [Using as npm package](#using-as-npm-package)
     - [Using REST API](#using-rest-api)
         - [/oembed2](#oembed2)
             - [meta](#meta)
@@ -34,24 +34,24 @@ Look at example debug tool urls to see how it works:
         - [Deploy on your page](#deploy-on-your-page)
         - [Fetching oEmbed/2](#fetching-oembed2)
         - [Rendering links](#rendering-links)
-    - [Writing plugins](#writing-plugins)
-        - [Plugin structure](#plugin-structure)
-            - [plugin.getLink(s)](#plugingetlinks)
+    - TODO [Writing plugins](#writing-plugins)
+        - TODO [Plugin structure](#plugin-structure)
+            - TODO [plugin.getLink(s)](#plugingetlinks)
             - [plugin.getMeta](#plugingetmeta)
                 - [plugin.getMeta priorities](#plugingetmeta-priorities)
-            - [plugin.getData](#plugingetdata)
-            - [plugin.mixins](#pluginmixins)
-            - [plugin.tests](#plugintests)
-        - [Type of plugins](#type-of-plugins)
-            - [Generic plugins](#generic-plugins)
-                - [Meta plugins](#meta-plugins)
-            - [Domain plugins](#domain-plugins)
-            - [Custom plugins](#custom-plugins)
-            - [Template plugins](#template-plugins)
-        - [Custom links cases](#custom-links-cases)
-            - [x-safe-html](#x-safe-html)
-            - [Rendering templates](#rendering-templates)
-            - [Resize embedded iframe from inside iframe](#resize-embedded-iframe-from-inside-iframe)
+            - TODO [plugin.getData](#plugingetdata)
+            - TODO [plugin.mixins](#pluginmixins)
+            - TODO [plugin.tests](#plugintests)
+        - TODO [Type of plugins](#type-of-plugins)
+            - TODO [Generic plugins](#generic-plugins)
+                - TODO [Meta plugins](#meta-plugins)
+            - TODO [Domain plugins](#domain-plugins)
+            - TODO [Custom plugins](#custom-plugins)
+            - TODO [Template plugins](#template-plugins)
+        - TODO [Custom links cases](#custom-links-cases)
+            - TODO [x-safe-html](#x-safe-html)
+            - TODO [Rendering templates](#rendering-templates)
+            - TODO [Resize embedded iframe from inside iframe](#resize-embedded-iframe-from-inside-iframe)
 
 ## Server setup
 
@@ -194,6 +194,8 @@ There are following types for now:
  - `"image/png"`
  - `"image/svg"`
 
+---------------------------------------
+
 ###### rel
 
 Rel is semantic keyword describing meaning of link.
@@ -213,6 +215,8 @@ Usually it should be used to find better link for rendering in specific cases.
  - **icon** - link with favicon.
  - **logo** - link with site log.
 
+---------------------------------------
+
 ###### media
 
 Plugins uses following media query attributes (meaning follows from name):
@@ -226,6 +230,8 @@ Plugins uses following media query attributes (meaning follows from name):
  - **aspect-ratio** - available only if **width** and **height** not present
 
 Note: **-min** and **-max** values are not currently fully supported by iframely.js.
+
+---------------------------------------
 
 #### /meta-mappings
 
