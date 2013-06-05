@@ -114,7 +114,7 @@
             ".*\\.wordpress.com",
             "wp\\.me/.*"
         ],
-        "endpoint": "http://public-api.wordpress.com/oembed/"
+        "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=iframely&url={url}"
     },
     {
         "name": "Twitter",
@@ -257,5 +257,12 @@
             "\\w+\\.kickstarter\\.com/videos/.*"
         ],
         "endpoint": "http://www.funnyordie.com/oembed.{format}"
+    },
+    {
+        "name": "Wistia",
+        "templates": [
+            ".*\\.wistia.com/medias/.*"
+        ],
+        "endpoint": "http://fast.wistia.com/oembed.{format}"
     }
 ]
