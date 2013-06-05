@@ -113,15 +113,29 @@ Usage:
 
 ##### meta
 
-Iframely provides unified meta specification.
-It supports some useful attribues that can be found on different pages or APIs like:
+Most pages supports meta data using different semantics: twitter, og, meta, dublin core, parsely, sailthru and so on.
+
+Iframely provides unified way to access those attributes in one place and one way.
+
+`meta` object provides useful available meta attributes of retrieved page in unified form. It could be:
  - title
  - description
  - author
- - publication date `TODO: unify date type`
- - duration (of video or audio content)
+ - date (publication date) `TODO: unify date type`
+ - duration (in seconds, duration of video or audio content)
+ - ... and more.
 
-You can find unified meta attributes mapping on [http://dev.iframe.ly/meta-mappings](http://dev.iframe.ly/meta-mappings).
+All attributes has unified names and listed in [/meta-mappings](#meta-mappings) endpoint.
+
+Meta attributes provided by plugins [getMeta](plugingetmeta) method.
+
+##### links
+
+#### /meta-mappings
+
+Provides unified meta attributes mapping.
+
+You can find current unified meta attributes mapping on [http://dev.iframe.ly/meta-mappings](http://dev.iframe.ly/meta-mappings).
 
 Here is description of data:
 
@@ -143,9 +157,7 @@ Here is description of data:
       }
     }
 
-##### links
-
-#### /meta-mappings
+Meta attributes provided by plugins [getMeta](plugingetmeta) method.
 
 #### /reader.js
 
@@ -292,6 +304,23 @@ So iframely.js will resize that iframe to fit content without horizontal scrolli
 ##### plugin.getLink(s)
 
 ##### plugin.getMeta
+
+`TODO: describe and comment lines`
+
+https://github.com/itteco/iframely/plugins/generic/meta/video.js:
+
+    module.exports = {
+        getMeta: function(meta) {
+            if (!meta.video)
+                return;
+            return {
+                duration: meta.video.duration,
+                date: meta.video.release_date,
+                author: meta.video.writer,
+                keywords: meta.video.tag
+            };
+        }
+    };
 
 ##### plugin.getData
 
