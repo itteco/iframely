@@ -21,6 +21,7 @@
     - in video.yandex (https for oembed src)
 - replace rel=thumbnail with rel=image if image size more then 500px
 - parsely-page priority will not work, because second level plugins priority is not used yet
+- not parsed meta attribute source at /plugins/generic/meta/author.js
 
 Images:
 - downgrade image header size?

@@ -127,7 +127,7 @@ Iframely provides unified way to access those attributes in one place and one wa
 
 All attributes has unified names and listed in [/meta-mappings](#meta-mappings) endpoint.
 
-Meta attributes provided by plugins [getMeta](plugingetmeta) method.
+Meta attributes provided by plugins [getMeta](#plugingetmeta) method.
 
 ##### links
 
@@ -305,17 +305,29 @@ So iframely.js will resize that iframe to fit content without horizontal scrolli
 
 ##### plugin.getMeta
 
-`TODO: describe and comment lines`
+`getMeta` function allow plugin to provide some page meta attributes.
 
-https://github.com/itteco/iframely/plugins/generic/meta/video.js:
+Look at all meta plugins at: [/plugins/generic/meta](https://github.com/itteco/iframely/tree/master/plugins/generic/meta).
+
+Names of attributes should be unified. Do not created different forms of one attribute name, line `author_url` and `author-url`.
+See available attributes names to check if similar name exists at [/meta-mappings](#meta-mappings).
+
+**Warging!** As meta-mappings generated using regexp modules parsing, all attributes should be described in specific form:
+ - each attribute should be declared in separate line;
+ - no other functions with `return` are not expected inside `getMeta` function.
+
+See example [/generic/meta/video.js](https://github.com/itteco/iframely/blob/master/plugins/generic/meta/video.js):
 
     module.exports = {
         getMeta: function(meta) {
+
+            // This prevents non useful errors loging with "undefined".
             if (!meta.video)
                 return;
+
             return {
-                duration: meta.video.duration,
-                date: meta.video.release_date,
+                duration: meta.video.duration,  // This will extract video duration.
+                date: meta.video.release_date,  // If value is undefined - it will be removed from meta.
                 author: meta.video.writer,
                 keywords: meta.video.tag
             };
