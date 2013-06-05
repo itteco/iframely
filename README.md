@@ -31,7 +31,7 @@ Setup values listed in config as you wish. You may override any values from conf
 
     node server
 
-Also you can use forever:
+Also you can use [forever](https://github.com/nodejitsu/forever):
 
     npm install -g forever
     forever start -l iframely.log server.js
