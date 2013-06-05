@@ -310,7 +310,7 @@ So iframely.js will resize that iframe to fit content without horizontal scrolli
 
 Look at all meta plugins at: [/plugins/generic/meta](https://github.com/itteco/iframely/tree/master/plugins/generic/meta).
 
-Names of attributes should be unified. Do not created different forms of one attribute name, line `author_url` and `author-url`.
+Names of attributes should be unified. Do not created different forms of one attribute name, like `author_url` and `author-url`.
 See available attributes names to check if similar name exists at [/meta-mappings](#meta-mappings).
 
 **Warging!** As meta-mappings generated using regexp modules parsing, all attributes should be described in specific form:
@@ -339,16 +339,16 @@ See example [/generic/meta/video.js](https://github.com/itteco/iframely/blob/mas
 
 Some plugins may return same meta attributes. This is possible if one attribute is described using different semantics.
 It happens that values of these attributes are different. We know some semantics are better then other.
-For example: html <title> tag often provides page title with site name, which is not really part of page title.
+For example: html '<title>' tag often provides page title with site name, which is not really part of content title.
 But `og:title` usually better and contains only article title without site name.
 
-If you want to mark you plugin as worst meta source (like html <title> tag), use `lowestPriority: true`:
+If you want to mark you plugin as worst source of meta (like html '<title>' tag), use `lowestPriority: true`:
 
     module.exports = {
         lowestPriority: true
     }
 
-If you want to mark your plugin as good meta source, use `highestPriority: true`:
+If you want to mark your plugin as good source of meta (like og:title), use `highestPriority: true`:
 
     module.exports = {
         highestPriority: true
@@ -356,9 +356,9 @@ If you want to mark your plugin as good meta source, use `highestPriority: true`
 
 So resulting priority of meta plugins will be following:
 
- 1. `highestPriority: true` will override all others plugins data.
- 1. meta from plugins without priority mark will override only `lowestPriority: true` plugins data.
- 1. `lowestPriority: true` will be used only if no other plugin provides that meta.
+ 1. plugins with `highestPriority: true` will override all others plugins meta data.
+ 1. meta from plugins without priority mark will override only `lowestPriority: true` plugins meta data.
+ 1. data from plugins with `lowestPriority: true` will be used only if no other plugin provides that meta data.
 
 ##### plugin.getData
 
