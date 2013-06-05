@@ -34,6 +34,7 @@ Look at example debug tool urls to see how it works:
         - [Plugin structure](#plugin-structure)
             - [plugin.getLink(s)](#plugingetlinks)
             - [plugin.getMeta](#plugingetmeta)
+                - [plugin.getMeta priorities](#plugingetmeta-priorities)
             - [plugin.getData](#plugingetdata)
             - [plugin.mixins](#pluginmixins)
             - [plugin.tests](#plugintests)
@@ -333,6 +334,31 @@ See example [/generic/meta/video.js](https://github.com/itteco/iframely/blob/mas
             };
         }
     };
+
+###### plugin.getMeta priorities
+
+Some plugins may return same meta attributes. This is possible if one attribute is described using different semantics.
+It happens that values of these attributes are different. We know some semantics are better then other.
+For example: html <title> tag often provides page title with site name, which is not really part of page title.
+But `og:title` usually better and contains only article title without site name.
+
+If you want to mark you plugin as worst meta source (like html <title> tag), use `lowestPriority: true`:
+
+    module.exports = {
+        lowestPriority: true
+    }
+
+If you want to mark your plugin as good meta source, use `highestPriority: true`:
+
+    module.exports = {
+        highestPriority: true
+    }
+
+So resulting priority of meta plugins will be following:
+
+ 1. `highestPriority: true` will override all others plugins data.
+ 1. meta from plugins without priority mark will override only `lowestPriority: true` plugins data.
+ 1. `lowestPriority: true` will be used only if no other plugin provides that meta.
 
 ##### plugin.getData
 
