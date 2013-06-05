@@ -120,8 +120,10 @@ This is actually oEmbed/2 endpoint.
 **Method:** GET
 
 **Params:**
- - `uri` - page uri to be processed
- - `debug` - includes plugin debug info if `true`
+ - `uri` - page uri to be processed.
+ - `disableCache` - disables getting data from cache if `true`.
+ - `debug` - includes plugin debug info if `true`.
+ - `mixAllWithDomainPlugin` - use all generic plugins if domain plugin available, see [domain plugins](#domain-plugins) for details.
 
 **Returns:** JSON, see [example](http://dev.iframe.ly/oembed2?uri=http%3A%2F%2Fvimeo.com%2F67452063).
 
