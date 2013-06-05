@@ -13,7 +13,7 @@ module.exports = {
     getMeta: function(meta) {
 
         if (meta.storifyapp) return {
-            "author-url": meta.storifyapp.author
+            "author_url": meta.storifyapp.author
         }
     },
 
