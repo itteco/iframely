@@ -4,6 +4,13 @@
 
 oEmbed/2 gateway endpoint
 
+Look at example debug tool urls to see how it works:
+
+http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_l96hPlqzcI
+http://dev.iframe.ly/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897
+http://dev.iframe.ly/debug?uri=http%3A%2F%2Fmashable.com%2F2013%2F06%2F05%2Fdominos-drone%2F
+http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fnf39%2F8941500522%2F
+
 ## Server setup
 
 ### Installation
@@ -20,7 +27,7 @@ Node.js 0.8-0.10 required. Install if from [pre-built installer](http://nodejs.o
     cp config.local.js.SAMPLE config.local.js
     vi config.local.js
 
-Setup values listed values as you with. You may override any values from config.js.
+Setup values listed in config as you wish. You may override any values from config.js.
 
 ### Run server
 
@@ -35,14 +42,14 @@ Also you can use forever:
 
 You can test server API with debug tool at:
 
-    http://localhost:8061/debug
+http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897
 
 ### Run tests
 
     npm install vows
     npm run-script test
 
-All functionality is not covered by tests for now.
+All functionality is not covered by tests for now. Tests depends on non stable web pages and sometimes crashes for no reason.
 
 ## Documentation
 
@@ -69,3 +76,26 @@ Usage:
     /reader.js
 
     /render
+
+## JavaScript client lib iframely.js
+
+### Fetching oEmbed/2
+
+### Rendering links
+
+## Writing plugins
+
+### plugin.getLink(s)
+
+### plugin.getMeta
+
+### plugin.getData
+
+### Generic plugins
+
+#### Meta plugins
+
+### Domain plugins
+
+### Custom plugins
+
