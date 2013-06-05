@@ -99,9 +99,9 @@ Usage:
 
     var iframely = require("iframely");
 
-    // TODO: doc on iframely.getRawLinks
-    // TODO: doc on iframely.getPageData
-    // TODO: doc on iframely.getImageMetadata
+`TODO: doc on iframely.getRawLinks`
+`TODO: doc on iframely.getPageData`
+`TODO: doc on iframely.getImageMetadata`
 
 
 ---------------------------------------
@@ -112,6 +112,36 @@ Usage:
 #### /oembed2
 
 ##### meta
+
+Iframely provides unified meta specification.
+It supports some useful attribues that can be found on different pages or APIs like:
+ - title
+ - description
+ - author
+ - publication date `TODO: unify date type`
+ - duration (of video or audio content)
+
+You can find unified meta attributes mapping on [http://dev.iframe.ly/meta-mappings](http://dev.iframe.ly/meta-mappings).
+
+Here is description of data:
+
+    {
+      "attributes": [                           -- List of all supported attributes in alphabetic order.
+        "author",
+        "author_url",
+        ...
+      ],
+      "sources": {                              -- Object with each attribute source.
+        "author": [
+          {
+            "pluginId": "twitter-author",       -- Plugin in which meta attribute is defined.
+            "source": "meta.twitter.creator"    -- Part of that plugin code which returns meta attribute value.
+          },
+          ...
+        ],
+        ...
+      }
+    }
 
 ##### links
 
