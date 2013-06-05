@@ -181,11 +181,11 @@ This code will create following [log](http://dev.iframe.ly/oembed2?uri=http%3A%2
       ]
     }
 
-This is parsed JSON object. You can use `data.meta` to get some page data or `data.links` to render some objects from the page.
+This is parsed JSON object. You can use `data.meta` to get page meta attributes or `data.links` to render some objects from the page.
 
 #### Rendering links
 
-Each link of result from previous example can be rendered:
+Each link in result from previous example can be rendered:
 
     // Iterate through all links.
     data.links.forEach(function(link) {
@@ -206,7 +206,7 @@ This is useful with [github.gist](http://dev.iframe.ly/debug?uri=https%3A%2F%2Fg
 [storify](http://dev.iframe.ly/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages,
 where js widget is inserted in iframe and we don't know exact size before it launched.
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
-So iframely.js will resize that iframe to fit content wihtout horizontal scrolling.
+So iframely.js will resize that iframe to fit content without horizontal scrolling.
 
 ---------------------------------------
 
