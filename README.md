@@ -6,10 +6,10 @@ oEmbed/2 gateway endpoint
 
 Look at example debug tool urls to see how it works:
 
-http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_l96hPlqzcI
-http://dev.iframe.ly/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897
-http://dev.iframe.ly/debug?uri=http%3A%2F%2Fmashable.com%2F2013%2F06%2F05%2Fdominos-drone%2F
-http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fnf39%2F8941500522%2F
+ - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_l96hPlqzcI
+ - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897
+ - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fmashable.com%2F2013%2F06%2F05%2Fdominos-drone%2F
+ - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fnf39%2F8941500522%2F
 
 ## Server setup
 
@@ -42,12 +42,11 @@ Also you can use forever:
 
 You can test server API with debug tool at:
 
-http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897
+ - [http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
 
 ### Run tests
 
-    npm install vows
-    npm run-script test
+    npm test
 
 All functionality is not covered by tests for now. Tests depends on non stable web pages and sometimes crashes for no reason.
 
@@ -67,35 +66,41 @@ Usage:
     // TODO: doc on iframely.getPageData
     // TODO: doc on iframely.getImageMetadata
 
-## Using REST API
+---------------------------------------
 
-    /oembed2
+### Using REST API
 
-    /meta-mappings
+#### /oembed2
 
-    /reader.js
+#### /meta-mappings
 
-    /render
+#### /reader.js
 
-## JavaScript client lib iframely.js
+#### /render
 
-### Fetching oEmbed/2
+---------------------------------------
 
-### Rendering links
+### JavaScript client lib iframely.js
 
-## Writing plugins
+#### Fetching oEmbed/2
 
-### plugin.getLink(s)
+#### Rendering links
 
-### plugin.getMeta
+---------------------------------------
 
-### plugin.getData
+### Writing plugins
 
-### Generic plugins
+#### plugin.getLink(s)
 
-#### Meta plugins
+#### plugin.getMeta
 
-### Domain plugins
+#### plugin.getData
 
-### Custom plugins
+#### Generic plugins
+
+##### Meta plugins
+
+#### Domain plugins
+
+#### Custom plugins
 
