@@ -441,7 +441,7 @@ The authors of the package are these guys from [Itteco](http://itteco.com):
 
 Once we figure out the exact licensing for the package, we will welcome contributions, and especially for specific domain providers. 
 
-In the meantime, please, feel free to rich us on [twitter](http://twitter.com/iframely) or to submit the issue.
+In the meantime, please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to submit an issue.
 
 
 
