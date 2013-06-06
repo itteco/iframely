@@ -11,11 +11,11 @@ Main endpoint (see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvime
 Iframely provides out-of-the-box:
  - Generic parsers of [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed v1](http://oembed.com/) and Readability articles
  - API for unified/merged meta, thumbnails (incl sizes), video, players, articles
- - Plugins arthitecture to extend the logic or to implement custom domain parsers
+ - Plugins arсhitecture to extend the logic or to implement custom domain parsers
  - 100+ parsers for specific domains (well, it'll be so very soon)
 
 
-Iframely is based on [oEmbed/2](#oembed2):
+Iframely is based on [oEmbed/2][oembed2]:
  - Name it "oEmbed two" or "half oEmbed"
  - It removes the semantics part of the spec
  - Leaves the discovery part through `<link>` tag
@@ -26,7 +26,7 @@ License is TBD. We envision free for non-commercial use, and a fee for commercia
 
 ## Jump To
 
-- [oEmbed/2 quick draft](#oembed2)
+- [oEmbed/2 quick draft][oembed2]
 - [Server setup](#server-setup)
     - [Installation](#installation)
     - [Config](#config)
@@ -70,6 +70,7 @@ License is TBD. We envision free for non-commercial use, and a fee for commercia
             - TODO [Resize embedded iframe from inside iframe](#resize-embedded-iframe-from-inside-iframe)
 
 ## oEmbed/2 quick draft
+[oembed2]: #oembed2-quick-draft "oEmbed/2 draft"
 
 oEmbed/2 eliminates the semantic part of [oEmbed](http://oembed.com) as other semantic protocols such as [Open Graph]((http://ogp.me/)) and RDFa in general have clearly gone mainstream. Besides, there is plenty of other `<meta>` data, available for a web page. 
 
@@ -97,79 +98,71 @@ As a "good citizen" policy and business etiquette, it is worth to remind that bo
 
 ## Server setup
 
+__Please note__: You may use skip installation and use community endpoint at [http://dev.iframe.ly/iframely] to rapidly develop against it. 
+This endpoint is subject to frequent restarts and rate-limits and thus is not suitable for production use. Please deploy iframely on your own server later on.
+
 ### Installation
 
-Node.js 0.8-0.10 required. Install if from [pre-built installer](http://nodejs.org/download/) for your platform or from [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+Node.js versions 0.8-0.10 required. Install if from [pre-built installer](http://nodejs.org/download/) for your platform or from [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
     cd <your servers dir>
     git clone https://github.com/itteco/iframely.git
     cd iframely
     npm install
 
+If you're using Mac OS, you might need to install ImageMagic CLI tools to make image size detection work. 
+
 ### Config
+
+Please, create your local config file to adjust settings. This local config file will be ignored when you update versions from Git later on.
 
     cp config.local.js.SAMPLE config.local.js
     vi config.local.js
 
-Setup values listed in config as you wish. You may override any values from config.js.
+Edit the sample config file as you need. You may also override any values from main config.js in your local config.
+There are some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds).
+You can also fine-tune API response time by disabling image size detection or readability parsing. Plus, we'll put some security configuration options there in a near future. 
+
+__Important__: At the very list you need to enter your own application keys and secret tokens where applicable. 
+
 
 ### Run server
 
+Starting server is simple (from iframely home directory):
+
     node server
 
-Also you can use [forever](https://github.com/nodejitsu/forever):
+We highly recommend [forever](https://github.com/nodejitsu/forever) though as it makes stopping and restarting of the servers so much easier:
 
     npm install -g forever
     forever start -l iframely.log server.js
 
+
 ### List of server urls
 
-    /r3/.+              -- static files.
-    /iframely           -- API endpoint with get params - returns oEmbed/2 JSON.
+You may need to configure these in your reverse proxy settings, depending on your setup:
+
+    /r3/.+              -- static files (including iframely.js client library).
+    /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON.
     /debug              -- debugger UI with get params.
-    /reader.js          -- API endpoint with get params - returns script to render article.
-    /render             -- API endpoint with get params - returns custom rendered widget.
+    /reader.js          -- API endpoint with get params - proxies script to render article.
+    /render             -- API endpoint with get params - prexies custom widgets if required.
     /meta-mappings      -- API endpoint with available unified meta.
 
-### Server debug tool
+### Debug tool
 
-You can test server API with debug tool at:
+You can visualize server API with debug tool at:
 
  - [http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
 
-### Run tests
-
-    npm test
-
-All functionality is not covered by tests for now. Tests depends on non stable web pages and sometimes crashes for no reason.
-
-## Reference
-
-### Using as npm package
-
-Install:
-
-    npm install iframely
-
-Usage:
-
-    var iframely = require("iframely");
-
-`TODO: doc on iframely.getRawLinks`
-
-`TODO: publish method + doc on iframely.getPageData` (+shortcuts to fetch only oembed or else)
-
-`TODO: publish method + doc on iframely.getImageMetadata`
+If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when [developing plugins](#writing-plugins))
 
 
----------------------------------------
+## API Reference
 
+### /iframely API endpoint
 
-### Using REST API
-
-#### /iframely
-
-This is actually oEmbed/2 endpoint.
+This is the actual oEmbed/2 gateway endpoint and the core of Iframely.
 
 **Method:** GET
 
@@ -209,7 +202,7 @@ Idea of unified 'meta' and 'links' item specific attributes are described in fol
 
 ---------------------------------------
 
-##### meta
+#### meta
 
 Most pages supports meta data using different semantics: twitter, og, meta, dublin core, parsely, sailthru and so on.
 
@@ -229,11 +222,11 @@ Meta attributes provided by plugins [getMeta](#plugingetmeta) method.
 
 ---------------------------------------
 
-##### links
+#### links
 
 Following sections will describe available link attributes values.
 
-###### MIME types
+##### MIME types
 
 Generally MIME type defines method to render link as widget.
 
@@ -251,7 +244,7 @@ There are following types for now:
 
 ---------------------------------------
 
-###### rel
+##### rel
 
 Rel is semantic keyword describing meaning of link.
 
@@ -272,7 +265,7 @@ Usually it should be used to find better link for rendering in specific cases.
 
 ---------------------------------------
 
-###### media
+##### media
 
 Plugins uses following media query attributes (meaning follows from name):
 
@@ -285,75 +278,6 @@ Plugins uses following media query attributes (meaning follows from name):
  - **aspect-ratio** - available only if **width** and **height** not present
 
 Note: **-min** and **-max** values are not currently fully supported by iframely.js.
-
----------------------------------------
-
-#### /meta-mappings
-
-Provides unified meta attributes mapping.
-
-You can find current unified meta attributes mapping on [http://dev.iframe.ly/meta-mappings](http://dev.iframe.ly/meta-mappings).
-
-Here is description of data:
-
-    {
-      "attributes": [                           -- List of all supported attributes in alphabetic order.
-        "author",
-        "author_url",
-        ...
-      ],
-      "sources": {                              -- Object with each attribute source.
-        "author": [
-          {
-            "pluginId": "twitter-author",       -- Plugin in which meta attribute is defined.
-            "source": "meta.twitter.creator"    -- Part of that plugin code which returns meta attribute value.
-          },
-          ...
-        ],
-        ...
-      }
-    }
-
-Meta attributes provided by plugins [getMeta](plugingetmeta) method.
-
----------------------------------------
-
-#### /reader.js
-
-Endpoint for article rendering scripts.
-
-**Method:** GET
-
-**Params:**
- - `uri` - page uri to be processed.
-
-**Returns:** JavaScript widget to render article.
-
-This is behind scenes endpoint. It is not directly used by developer.
-Link to endpoint is automatically generated for internal MIME type `"text/x-safe-html"`.
-See [x-safe-html](#x-safe-html) for details.
-
-Endpoint will return JavaScript widget to embed it with `<script>` tag.
-Embedding will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
-
----------------------------------------
-
-#### /render
-
-Endpoint to cusrom rendered widgets.
-
-**Method:** GET
-
-**Params:**
- - `uri` - page uri to be processed.
-
-**Returns:** html page with widget.
-
-This is behind scenes endpoint. It is not directly used by developer.
-Link to endpoint is automatically generated for internal MIME type `"text/html"` with `template_context` or `template` attributes provided by plugin.
-See [rendering templates](#rendering-templates) for details.
-
-Result will be embedded with `<iframe>`. Embedding and resizing will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
 
 ---------------------------------------
 
@@ -488,9 +412,24 @@ So iframely.js will resize that iframe to fit content without horizontal scrolli
 
 
 ---------------------------------------
+### Using Iframely as npm package
+
+Install:
+
+    npm install iframely
+
+Usage:
+
+    var iframely = require("iframely");
+
+`TODO: doc on iframely.getRawLinks`
+
+`TODO: publish method + doc on iframely.getPageData` (+shortcuts to fetch only oembed or else)
+
+`TODO: publish method + doc on iframely.getImageMetadata`
 
 
-### Writing plugins
+## Writing plugins
 
 **Terms**
 
@@ -676,6 +615,76 @@ So resulting priority of meta plugins will be following:
 #### Custom links cases
 
 ##### x-safe-html
+
+---------------------------------------
+
+#### /meta-mappings
+
+Provides unified meta attributes mapping.
+
+You can find current unified meta attributes mapping on [http://dev.iframe.ly/meta-mappings](http://dev.iframe.ly/meta-mappings).
+
+Here is description of data:
+
+    {
+      "attributes": [                           -- List of all supported attributes in alphabetic order.
+        "author",
+        "author_url",
+        ...
+      ],
+      "sources": {                              -- Object with each attribute source.
+        "author": [
+          {
+            "pluginId": "twitter-author",       -- Plugin in which meta attribute is defined.
+            "source": "meta.twitter.creator"    -- Part of that plugin code which returns meta attribute value.
+          },
+          ...
+        ],
+        ...
+      }
+    }
+
+Meta attributes provided by plugins [getMeta](plugingetmeta) method.
+
+---------------------------------------
+
+#### /reader.js
+
+Endpoint for article rendering scripts.
+
+**Method:** GET
+
+**Params:**
+ - `uri` - page uri to be processed.
+
+**Returns:** JavaScript widget to render article.
+
+This is behind scenes endpoint. It is not directly used by developer.
+Link to endpoint is automatically generated for internal MIME type `"text/x-safe-html"`.
+See [x-safe-html](#x-safe-html) for details.
+
+Endpoint will return JavaScript widget to embed it with `<script>` tag.
+Embedding will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
+
+---------------------------------------
+
+#### /render
+
+Endpoint to cusrom rendered widgets.
+
+**Method:** GET
+
+**Params:**
+ - `uri` - page uri to be processed.
+
+**Returns:** html page with widget.
+
+This is behind scenes endpoint. It is not directly used by developer.
+Link to endpoint is automatically generated for internal MIME type `"text/html"` with `template_context` or `template` attributes provided by plugin.
+See [rendering templates](#rendering-templates) for details.
+
+Result will be embedded with `<iframe>`. Embedding and resizing will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
+
 
 ##### Rendering templates.
 
