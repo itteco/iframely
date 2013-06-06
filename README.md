@@ -34,7 +34,7 @@ Look at example debug tool urls to see how it works:
         - [Deploy on your page](#deploy-on-your-page)
         - [Fetching oEmbed/2](#fetching-oembed2)
         - [Rendering links](#rendering-links)
-    - TODO [Writing plugins](#writing-plugins)
+    - [Writing plugins](#writing-plugins)
         - TODO [Plugin structure](#plugin-structure)
             - TODO [plugin.getLink(s)](#plugingetlinks)
             - [plugin.getMeta](#plugingetmeta)
@@ -114,8 +114,10 @@ Usage:
     var iframely = require("iframely");
 
 `TODO: doc on iframely.getRawLinks`
-`TODO: doc on iframely.getPageData`
-`TODO: doc on iframely.getImageMetadata`
+
+`TODO: publish method + doc on iframely.getPageData` (+shortcuts to fetch only oembed or else)
+
+`TODO: publish method + doc on iframely.getImageMetadata`
 
 
 ---------------------------------------
@@ -447,6 +449,85 @@ So iframely.js will resize that iframe to fit content without horizontal scrolli
 
 
 ### Writing plugins
+
+Plugins are node.js modules with attributes and functions defined by iframely engine:
+
+ - **mixins** - list of module names to use with domain plugin.
+ - **re** - list or single RegExp for testing page URI.
+ - **getLink** - method to generate link.
+ - **getLinks** - method to generate links array.
+ - **getMeta** - method to create page unified meta.
+ - **getData** - this method generates data, which can be used by other plugins and methods (getMeta, getLink(s) and getData).
+ - **tests** - array of test urls to test plugin work. This is not used yet.
+ - **lowestPriority** - marks plugin's getMeta method low priority.
+ - **highestPriority** - marks plugin's getMeta method highest priority.
+
+`TODO: add links to sections`
+
+Main work is done by plugin's methods getMeta, getLink(s) and getData. These method work similar but returns
+different kind of objects (hashes). Each methods has a number of params, called **requirements**. For example:
+
+    getLink: function(meta, oembed) {
+        cb(null, {
+            title: oembed.title,
+            description: meta.description
+        });
+    }
+
+`getLink` uses **meta** and **oembed** params, so they are method's **requirements**.
+
+Iframely engine know that by parsing module code and provides that parameters values when call this method.
+If some requirements are not available, method will not be called. This means all defined method params ara mandatory requirements.
+Here is the list of all available default requirements:
+
+ - **urlMatch** - variable got after matching URI against **re** RegExpes attribute of plugin. This is available only if domain plugin with **re** used.
+ - **url** - page URI itself.
+ - **request** - known [request module](https://github.com/mikeal/request), wrapped with caching (caching not implemented yet). This is useful to call some external APIs.
+ - **meta** - parsed paged meta head. You can see how page is parsed with debugger.
+ - **oembed* - parsed oembed 1.0, defined on page (if available)
+ - **html* - decoded to UTF-8 entire page response.
+ - **$selector** - jquery wrapper of page. Useful for fast accessing some page data by element class.
+ - **cb** - this is result callback. If method requires **cb** - it means method is asynchronous. Engine will wait calling of **cb**. Without **cb** - method must return object synchronously.
+
+Plugin can provide custom requirements using **getData** method. See [plugin.getData](#plugingetdata) for details.
+
+Here is engine algorithm to work with plugins (URI - is page to be processed):
+
+ 1. Extract URI domain (e.g. `example.com`).
+ 2. Find suitable domain plugins for that URI.
+    1. If domain plugins found:
+        1. Check if domain plugins has **re** attribute.
+            1. If true:
+                1. Match all RegExp'es against URI and create urlMatch variable.
+                2. Use only plugins with matched **re**s.
+                3. If no matched plugins found - use domain plugins without **re**.
+                4. If all plugins has **re** and no matches found - use all generic plugins.
+            2. If false:
+                1. Use all domain plugins.
+    2. If suitable domain plugins **not** found:
+        1. Use all generic plugins.
+ 3. Find methods of selected plugins to call:
+    1. Iterate all used plugins:
+        1. Itarate all plugin methods:
+            1. If method has only default requirements (see list below) - use it.
+            2. If method has custom requirements (provided by some getData method) - skip it.
+ 3. Go through all selected (used) methods.
+    1. Gather method's required params.
+    2. Call method with selected params.
+    3. Wait for **cb** called if method is asynchronous or ger result immediately.
+    4. Store received result or error.
+ 4. Find methods with custom requirements which can be called with received data.
+    1. If methods found - go to step 3.
+ 5. Extract all links from saved data:
+    1. Generate info for links with [x-safe-html](#x-safe-html)
+    2. Generate info for links with [custom render](#rendering-templates)
+    3. Calculate images sizes and type if not provided.
+    4. Filter links without `href`.
+    5. Resolve href to URI (if relative path provided).
+    6. Skip duplicate links (by `href`).
+    7. Combine `http://` and `https://` similar links to one without protocol `//`.
+ 6. Merge all **meta** to single object (data from highest priority plugins will override others).
+ 7. Return **links** and **meta**.
 
 #### Plugin structure
 
