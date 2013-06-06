@@ -133,7 +133,7 @@ This is actually oEmbed/2 endpoint.
  - `uri` - page uri to be processed.
  - `disableCache` - disables getting data from cache if `true`.
  - `debug` - includes plugin debug info if `true`.
- - `mixAllWithDomainPlugin` - use all generic plugins if domain plugin available, see [domain plugins](#domain-plugins) for details.
+ - `mixAllWithDomainPlugin` - if `true` - uses all generic plugins if domain plugin available, see [domain plugins](#domain-plugins) for details.
 
 **Returns:** JSON, see [example](http://dev.iframe.ly/oembed2?uri=http%3A%2F%2Fvimeo.com%2F67452063).
 
@@ -160,6 +160,8 @@ Description of result:
         ...
       ]
     }
+
+Idea of unified 'meta' and 'links' item specific attributes are described in following sections.
 
 ---------------------------------------
 
@@ -304,7 +306,7 @@ Endpoint to cusrom rendered widgets.
 **Returns:** html page with widget.
 
 This is behind scenes endpoint. It is not directly used by developer.
-Link to endpoint is automatically generated for internal MIME type `"text/html"` with `html` attribute provided by plugin.
+Link to endpoint is automatically generated for internal MIME type `"text/html"` with `template_context` or `template` attributes provided by plugin.
 See [rendering templates](#rendering-templates) for details.
 
 Result will be embedded with `<iframe>`. Embedding and resizing will be completed by [iframely.js](#javascript-client-lib-iframelyjs) lib.
@@ -428,9 +430,11 @@ Each link in result from previous example can be rendered:
     });
 
 
-If you want to make `reader` iframes without horizontal scrolling call:
+If you want to make `reader` iframes to be without horizontal scrolling call after rendering widgets:
 
     $.iframely.registerIframesIn($('body'));
+
+You can call it once after all or after each rendering operation.
 
 This is useful with [github.gist](http://dev.iframe.ly/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
 [storify](http://dev.iframe.ly/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages,
