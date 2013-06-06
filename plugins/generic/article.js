@@ -2,12 +2,22 @@ module.exports = {
 
     notPlugin: CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === false,
 
-    getData: function(html) {
+    getData: function(html, meta) {
 
         if (/<[^>]*class\s*=[^>]*instapaper_body/i.test(html)) {
             return {
                 instapaper_flag: true
             }
+        }
+
+        if (meta.twitter && meta.twitter.player) {
+            // Skip if has twitter player.
+            return;
+        }
+
+        if (meta.og && meta.og.type && !{'article':1, 'blog':1}[meta.og.type]) {
+            // Skip if og type is not article explicitly.
+            return;
         }
 
         var isArticle = html.match(/<article\b/i);
