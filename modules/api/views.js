@@ -5,7 +5,7 @@ var _ = require('underscore');
 
 module.exports = function(app) {
 
-    app.get('/oembed2', function(req, res, next) {
+    app.get('/iframely', function(req, res, next) {
 
         console.log('-- Loading oembed2 for', req.query.uri);
 

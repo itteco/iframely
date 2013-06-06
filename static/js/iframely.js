@@ -108,7 +108,7 @@
     };
 
     $.iframely.defaults = {
-        endpoint: "http://iframe.ly/oembed2"
+        endpoint: "http://iframe.ly/iframely"
     };
 
     var renders = {
@@ -149,7 +149,7 @@
                     .attr('src', data.href)
                     .attr('frameborder', '0');
                 var $container = $('<div>')
-                    .addClass('oembed-container')
+                    .addClass('iframely-container')
                     .append($iframe);
 
                 var media = data.media;

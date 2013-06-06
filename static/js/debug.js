@@ -314,7 +314,7 @@ function processUrl() {
     var $apiUriG = $('#api-uri-grouped');
 
     // 0) Setup.
-    $.iframely.defaults.endpoint = baseAppUrl + '/oembed2';
+    $.iframely.defaults.endpoint = baseAppUrl + '/iframely';
 
 
     // Render api call uri.

@@ -21,7 +21,7 @@ Look at example debug tool urls to see how it works:
 - [Reference](#reference)
     - TODO [Using as npm package](#using-as-npm-package)
     - [Using REST API](#using-rest-api)
-        - [/oembed2](#oembed2)
+        - [/iframely](#iframely)
             - [meta](#meta)
             - [links](#links)
                 - [MIME types](#mime-types)
@@ -83,7 +83,7 @@ Also you can use [forever](https://github.com/nodejitsu/forever):
 ### List of server urls
 
     /r3/.+              -- static files.
-    /oembed2            -- API endpoint with get params - returns oembed2 JSON.
+    /iframely           -- API endpoint with get params - returns oEmbed/2 JSON.
     /debug              -- debugger UI with get params.
     /reader.js          -- API endpoint with get params - returns script to render article.
     /render             -- API endpoint with get params - returns custom rendered widget.
@@ -123,7 +123,7 @@ Usage:
 
 ### Using REST API
 
-#### /oembed2
+#### /iframely
 
 This is actually oEmbed/2 endpoint.
 
@@ -135,7 +135,7 @@ This is actually oEmbed/2 endpoint.
  - `debug` - includes plugin debug info if `true`.
  - `mixAllWithDomainPlugin` - if `true` - uses all generic plugins if domain plugin available, see [domain plugins](#domain-plugins) for details.
 
-**Returns:** JSON, see [example](http://dev.iframe.ly/oembed2?uri=http%3A%2F%2Fvimeo.com%2F67452063).
+**Returns:** JSON, see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063).
 
 Description of result:
 
@@ -316,7 +316,7 @@ Result will be embedded with `<iframe>`. Embedding and resizing will be complete
 
 ### JavaScript client lib iframely.js
 
-Iframely can be used from client application using `/static/js/iframely.js` client script. It provides shortcuts to fetch data from `/oembed2` API endpoint and render links.
+Iframely can be used from client application using `/static/js/iframely.js` client script. It provides shortcuts to fetch data from `/iframely` API endpoint and render links.
 
 #### Deploy on your page
 
@@ -331,7 +331,7 @@ You should copy `iframely.js` script file to your static dir and change path pro
 To support proportional size iframes add following styles:
 
     <style>
-        .oembed-container iframe {
+        .iframely-container iframe {
             top: 0;
             left: 0;
             width: 100%;
@@ -339,7 +339,7 @@ To support proportional size iframes add following styles:
             position: absolute;
         }
 
-        .oembed-container {
+        .iframely-container {
             position: relative;
             left: 0px;
             width: 100%;
@@ -352,14 +352,14 @@ This will allow youtube, vimeo and similar players to be resized by container wh
 #### Fetching oEmbed/2
 
     // Setup endpoint path.
-    $.iframely.defaults.endpoint = 'http://your.iframely.server.domain/oembed2';
+    $.iframely.defaults.endpoint = 'http://your.iframely.server.domain/iframely';
 
     // Start data fetching. Specify page uri and result callback.
     $.iframely.getPageData("http://vimeo.com/67452063", function(error, data) {
         console.log(data);
     });
 
-This code will create following [log](http://dev.iframe.ly/oembed2?uri=http%3A%2F%2Fvimeo.com%2F67452063):
+This code will create following [log](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
 
     {
       "meta": {
