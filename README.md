@@ -62,15 +62,14 @@ For app developers it meant they could provide significantly more engaging user 
 
 oEmbed/2 eliminates the semantic part of [oEmbed](http://oembed.com) as other semantic protocols such as [Open Graph]((http://ogp.me/)) and RDFa in general have clearly gone mainstream. Besides, there is plenty of other `<meta>` data, available for a web page. 
 
-Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer and agreeing on the use cases:
+Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer and agreeing on the use cases.
+**Discovery is expected to happen when publisher puts `<link>` tag in the head of their webpage:**
 
-Discovery is expected to happen when publisher puts `<link>` tag in the head of their webpage:
 
-
-    <link rel="oembed"            // use case
-    type="text/html"              // iframe
-    href="//iframe.ly/234rds"     // src
-    media="min-width: 100"        // sizes
+    <link rel="player twitter"            // intended use case
+    type="text/html"                      // embed as iframe
+    href="//iframe.ly/234rds"             // with this src
+    media="min-width: 100"                // when these sizes are ok
     title="Thanks for all the fish!" >    
 
 
