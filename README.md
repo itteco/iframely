@@ -1,16 +1,31 @@
 # Iframely [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
-oEmbed/2 gateway endpoint
+oEmbed/2 self-hosted embeds server. 
+Iframely package saves you months of dev time on rich content parsers. So you can focus on enriching your users’ experience instead.
 
-Look at example debug tool urls to see how it works:
+Main endpoint (see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
+    /iframely?uri={url encoded http link to a web page}
 
- - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D_l96hPlqzcI
- - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897
- - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fmashable.com%2F2013%2F06%2F05%2Fdominos-drone%2F
- - http://dev.iframe.ly/debug?uri=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fnf39%2F8941500522%2F
 
-## Table of contents
+Iframely provides out-of-the-box:
+ - Generic parsers of [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed v1](http://oembed.com/) and Readability articles
+ - API for unified/merged meta, thumbnails (incl sizes), video, players, articles
+ - Plugins arthitecture to extend the logic or to implement custom domain parsers
+ - 100+ parsers for specific domains (well, it'll be so very soon)
 
+
+Iframely is based on [oEmbed/2](#oembed2):
+ - Name it "oEmbed two" or "half oEmbed"
+ - It removes the semantics part of the spec
+ - Leaves the discovery part through `<link>` tag
+ - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities
+
+(c) 2013 Itteco Software Corp.
+License is TBD. We envision free for non-commercial use, and a fee for commercial use.
+
+## Jump To
+
+- [oEmbed/2 quick draft](#oembed2)
 - [Server setup](#server-setup)
     - [Installation](#installation)
     - [Config](#config)
@@ -52,6 +67,31 @@ Look at example debug tool urls to see how it works:
             - TODO [x-safe-html](#x-safe-html)
             - TODO [Rendering templates](#rendering-templates)
             - TODO [Resize embedded iframe from inside iframe](#resize-embedded-iframe-from-inside-iframe)
+
+## oEmbed/2 quick draft
+
+oEmbed/2 eliminates the semantic part of [oEmbed](http://oembed.com) as other semantic protocols such as [Open Graph]((http://ogp.me/)) and RDFa in general have clearly gone mainstream. Besides, there is plenty of other `<meta>` data, available for a web page. 
+
+Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer:
+    <link rel="oembed"            // use case
+    type="text/html"              // iframe
+    href="//iframe.ly/234rds"     // src
+    media="min-width: 100"        // sizes
+    title="Thanks for all the fish!" >
+
+Each embed representation should have it's own `<link>` in the head of HTML document. 
+
+The use cases shall be listed in `rel` attributed, separated by a space. The dictionary of use cases is not fixed, and it is up to publisher and provider to choose what to publish or consume. 
+Iframely endpoint currently can output the following `rel` use cases: `favicon`, `thumnail`, `image`, `player`, `reader`, `logo`.
+
+`type` attribute of a link specified the MIME type of the link, and so dicttes the way the embed resources shall be embedded. Iframely supports embeds as iframe, image and javascript.
+
+`href` attributes is preferrably via https protocol to ensure maximum distribution for publishers' content, as consumers may opt not to consder http-only embeds.
+
+`media` is for media queries, indicating the sizes of the containers where embed content would fit. 
+
+
+As a "good citizen" policy and business etiquette, it is worth to remind that both consumer and publisher work together towards a common goal of providing the best user experience possible for their shared audience, and not against each other in order to solicit a customer. Never should it be acceptable to undermine user experience in lieu of providing value.
 
 ## Server setup
 
