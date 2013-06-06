@@ -19,6 +19,7 @@
         "send":         "0.1.0",
         "connect":      "2.7.9",
         "ejs":          "0.8.4",
+        "moment":       "2.0",
 
         "sax":          "0.3",
         "imagemagick":  "git://github.com/itteco/node-imagemagick.git",
