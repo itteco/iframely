@@ -296,7 +296,7 @@ function findAllRels(data) {
 }
 
 function processUrl() {
-    var uri = $.trim($('.s-uri').val());
+    var uri = $.trim($('.s-uri').focus().val());
 
     if (!uri) {
         return;
