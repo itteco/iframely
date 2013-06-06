@@ -450,48 +450,55 @@ So iframely.js will resize that iframe to fit content without horizontal scrolli
 
 ### Writing plugins
 
+**Terms**
+
+ - **plugin** - node.js module.
+ - **plugin method** - function in that plugin.
+ - **plugin method requirements** - named params of that function.
+ - **URI** - page URI on wich iframely search links and meta.
+
 Plugins are node.js modules with attributes and functions defined by iframely engine:
 
- - **mixins** - list of module names to use with domain plugin.
+ - **mixins** - list of plugins' to use with domain plugin. Plugins identified by its file name without extension and path.
  - **re** - list or single RegExp for testing page URI.
  - **getLink** - method to generate link.
  - **getLinks** - method to generate links array.
  - **getMeta** - method to create page unified meta.
  - **getData** - this method generates data, which can be used by other plugins and methods (getMeta, getLink(s) and getData).
  - **tests** - array of test urls to test plugin work. This is not used yet.
- - **lowestPriority** - marks plugin's getMeta method low priority.
- - **highestPriority** - marks plugin's getMeta method highest priority.
+ - **lowestPriority** - marks plugin's getMeta method with low priority.
+ - **highestPriority** - marks plugin's getMeta method with highest priority.
 
 `TODO: add links to sections`
 
-Main work is done by plugin's methods getMeta, getLink(s) and getData. These method work similar but returns
-different kind of objects (hashes). Each methods has a number of params, called **requirements**. For example:
+Main work is done by plugins' methods getMeta, getLink(s) and getData. These methods work similar but returns
+different kind of objects (hashes). Each method has a number of params, called **requirements**. For example:
 
     getLink: function(meta, oembed) {
-        cb(null, {
+        return {
             title: oembed.title,
             description: meta.description
-        });
+        };
     }
 
 `getLink` uses **meta** and **oembed** params, so they are method's **requirements**.
 
-Iframely engine know that by parsing module code and provides that parameters values when call this method.
+Iframely engine know that by parsing module code and provides that parameters when method is called.
 If some requirements are not available, method will not be called. This means all defined method params ara mandatory requirements.
 Here is the list of all available default requirements:
 
- - **urlMatch** - variable got after matching URI against **re** RegExpes attribute of plugin. This is available only if domain plugin with **re** used.
+ - **urlMatch** - variable got after matching page URI against **re** RegExpes attribute of plugin. This is available only if domain plugin which has **re** attribute is used.
  - **url** - page URI itself.
- - **request** - known [request module](https://github.com/mikeal/request), wrapped with caching (caching not implemented yet). This is useful to call some external APIs.
- - **meta** - parsed paged meta head. You can see how page is parsed with debugger.
- - **oembed* - parsed oembed 1.0, defined on page (if available)
- - **html* - decoded to UTF-8 entire page response.
- - **$selector** - jquery wrapper of page. Useful for fast accessing some page data by element class.
+ - **request** - known [request module](https://github.com/mikeal/request), wrapped with caching (caching not implemented yet). This is useful to call some external APIs' methods.
+ - **meta** - parsed paged meta head. You can see how page meta is parsed in [debugger, "Plugins context" section](http://dev.iframe.ly/debug?uri=http%3A%2F%2Fvimeo.com%2F67452063).
+ - **oembed** - parsed oembed 1.0 (if available for page).
+ - **html** - entire page response decoded to UTF-8.
+ - **$selector** - jquery wrapper of page. Useful for fast accessing some page data by element class, e.g. `$selector('.item').text()`.
  - **cb** - this is result callback. If method requires **cb** - it means method is asynchronous. Engine will wait calling of **cb**. Without **cb** - method must return object synchronously.
 
 Plugin can provide custom requirements using **getData** method. See [plugin.getData](#plugingetdata) for details.
 
-Here is engine algorithm to work with plugins (URI - is page to be processed):
+Here is engine algorithm to work with plugins:
 
  1. Extract URI domain (e.g. `example.com`).
  2. Find suitable domain plugins for that URI.
@@ -511,23 +518,23 @@ Here is engine algorithm to work with plugins (URI - is page to be processed):
         1. Itarate all plugin methods:
             1. If method has only default requirements (see list below) - use it.
             2. If method has custom requirements (provided by some getData method) - skip it.
- 3. Go through all selected (used) methods.
-    1. Gather method's required params.
+ 4. Load page by URI and get all required variables (meta, oembed, html etc.). If no requirements - page will not be loaded.
+ 5. Go through all selected (used) methods.
     2. Call method with selected params.
-    3. Wait for **cb** called if method is asynchronous or ger result immediately.
+    3. Wait for **cb** called if method is asynchronous or get result immediately.
     4. Store received result or error.
- 4. Find methods with custom requirements which can be called with received data.
-    1. If methods found - go to step 3.
- 5. Extract all links from saved data:
-    1. Generate info for links with [x-safe-html](#x-safe-html)
+ 6. Find methods with custom requirements which can be called with received data (from previous step).
+    1. If methods found - go to step 5.
+ 7. Extract all links from saved data:
+    1. Generate info for links with [type: "x-safe-html"](#x-safe-html)
     2. Generate info for links with [custom render](#rendering-templates)
     3. Calculate images sizes and type if not provided.
     4. Filter links without `href`.
     5. Resolve href to URI (if relative path provided).
     6. Skip duplicate links (by `href`).
     7. Combine `http://` and `https://` similar links to one without protocol `//`.
- 6. Merge all **meta** to single object (data from highest priority plugins will override others).
- 7. Return **links** and **meta**.
+ 8. Merge all **meta** to single object (data from highest priority plugins will override others).
+ 9. Return **links** and **meta**.
 
 #### Plugin structure
 
