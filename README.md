@@ -73,6 +73,7 @@ License is TBD. We envision free for non-commercial use, and a fee for commercia
 oEmbed/2 eliminates the semantic part of [oEmbed](http://oembed.com) as other semantic protocols such as [Open Graph]((http://ogp.me/)) and RDFa in general have clearly gone mainstream. Besides, there is plenty of other `<meta>` data, available for a web page. 
 
 Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer:
+
     <link rel="oembed"            // use case
     type="text/html"              // iframe
     href="//iframe.ly/234rds"     // src
