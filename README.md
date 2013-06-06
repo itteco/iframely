@@ -3,6 +3,7 @@
 oEmbed/2 self-hosted embeds server. 
 Iframely package saves you months of dev time on rich content parsers. So you can focus on enriching your users’ experience instead.
 
+Iframely is Node.JS app (and/or package), but you can access it from other environments via API.
 Main endpoint (see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
 
     /iframely?uri={url encoded http link to a web page}
@@ -10,6 +11,7 @@ Main endpoint (see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvime
 
 Iframely provides out-of-the-box:
  - Generic parsers of [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed v1](http://oembed.com/) and Readability articles
+ - Caching for performance optimizations 
  - API for unified/merged meta, thumbnails (incl sizes), video, players, articles
  - Plugins arсhitecture to extend the logic or to implement custom domain parsers
  - 100+ parsers for specific domains (well, it'll be so very soon)
@@ -20,6 +22,7 @@ Iframely is based on [oEmbed/2][oembed2]:
  - It removes the semantics part of the spec
  - Leaves the discovery part through `<link>` tag
  - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities
+
 
 (c) 2013 Itteco Software Corp.
 License is TBD. We envision free for non-commercial use, and a fee for commercial use.
@@ -33,18 +36,20 @@ License is TBD. We envision free for non-commercial use, and a fee for commercia
     - [Run server](#run-server)
     - [List of server urls](#list-of-server-urls)
     - [Server debug tool](#server-debug-tool)
+    - [Update iframely](#update-iframely)
 - [API Reference](#api-reference)
-    - [/iframely: _the_ API endpoint](#iframely)
+    - [/iframely: _the_ API endpoint][iframely]
         - [meta](#meta)
         - [links](#links)
             - [MIME types](#mime-types)
             - [rel](#rel)
             - [media](#media)
-    - [iframely.js: JavaScript client lib](#iframely-js)
+    - [iframely.js: JavaScript client lib][iframely-js]
         - [Add to your page](#add-to-your-page)
         - [Fetch oEmbed/2](#fetch-oembed2)
         - [Render links](#render-links)
     - TODO: [Using as npm package](#using-as-npm-package)
+- [Contributing & Contact Us](#contributing-contact-us)
 
 See WIKI for further reading.    
 
@@ -80,6 +85,10 @@ As a "good citizen" policy and business etiquette, it is worth to remind that bo
 __Please note__: You may use skip installation and use community endpoint at [http://dev.iframe.ly/iframely] to rapidly develop against it. 
 This endpoint is subject to frequent restarts and rate-limits and thus is not suitable for production use. Please deploy iframely on your own server later on.
 
+### Security considerations
+
+It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain.
+
 ### Installation
 
 Node.js versions 0.8-0.10 required. Install if from [pre-built installer](http://nodejs.org/download/) for your platform or from [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
@@ -88,6 +97,8 @@ Node.js versions 0.8-0.10 required. Install if from [pre-built installer](http:/
     git clone https://github.com/itteco/iframely.git
     cd iframely
     npm install
+
+It will also install all the package dependencies.
 
 If you're using Mac OS, you might need to install ImageMagic CLI tools to make image size detection work. 
 
@@ -135,6 +146,12 @@ You can visualize server API with debug tool at:
  - [http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
 
 If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when [developing plugins](#writing-plugins))
+
+### Update iframely
+
+As we keep adding features, you may want to update your server. The domain providers due to dependencies to 3rd parties do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
+
+To update a package to it's latest version:
 
 
 ## API Reference
@@ -409,6 +426,17 @@ Usage:
 `TODO: publish method + doc on iframely.getPageData` (+shortcuts to fetch only oembed or else)
 
 `TODO: publish method + doc on iframely.getImageMetadata`
+
+
+## Contributing & Contact Us
+
+The authors of the package are these guys from [Itteco](http://itteco.com):
+ - [Nazar Leush](https://github.com/nleush) - _the_ author
+ - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
+
+Once we figure out the exact licensing for the package, we will welcome contributions, and especially for specific domain providers. 
+
+In the meantime, please, feel free to rich us on [twitter](http://twitter.com/iframely) or to submit the issue.
 
 
 
