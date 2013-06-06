@@ -151,8 +151,13 @@ If your local configuration turns debug mode on, the debug tool will also show t
 
 As we keep adding features, you may want to update your server. The domain providers due to dependencies to 3rd parties do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
 
-To update a package to it's latest version:
+To update a package to it's latest version run in iframely home directory:
 
+    git pull
+    
+and restart your server. If you use forever, run:
+
+    forever restartall
 
 ## API Reference
 
