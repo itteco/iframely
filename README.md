@@ -48,8 +48,8 @@ License is TBD. We envision free for non-commercial use, and a fee for commercia
         - [Add to your page](#add-to-your-page)
         - [Fetch oEmbed/2](#fetch-oembed2)
         - [Render links](#render-links)
-    - TODO: [Using as npm package](#using-as-npm-package)
-- [Contributing & Contact Us](#contributing-contact-us)
+    - TODO: [Using Iframely as npm package](#using-iframely-as-npm-package)
+- [Contributing & Contact Us](#contributing-and-contact-us)
 
 See WIKI for further reading.    
 
@@ -139,7 +139,7 @@ You may need to configure these in your reverse proxy settings, depending on you
     /render             -- API endpoint with get params - prexies custom widgets if required.
     /meta-mappings      -- API endpoint with available unified meta.
 
-### Debug tool
+### Server debug tool
 
 You can visualize server API with debug tool at:
 
@@ -279,8 +279,8 @@ Plugins use the following media query attributes at the moment:
  - `orientation`
 
 
-### JavaScript client lib iframely.js
-[iframely-js]: #javascript-client-lib-iframely-js
+### iframely.js: JavaScript client lib
+[iframely-js]: #iframely-js-javascript-client-lib
 
 Iframely includes the client wrapper over the API, so you don't need to spend time on it yourself. 
 You may access it as `/static/js/iframely.js`. It provides calls to fetch data from `/iframely` API endpoint and render links.
@@ -428,7 +428,7 @@ Usage:
 `TODO: publish method + doc on iframely.getImageMetadata`
 
 
-## Contributing & Contact Us
+## Contributing and Contact Us
 
 The authors of the package are these guys from [Itteco](http://itteco.com):
  - [Nazar Leush](https://github.com/nleush) - _the_ author
