@@ -608,14 +608,27 @@ So resulting priority of meta plugins will be following:
 
 ##### Generic plugins
 
+[/plugins/generic](https://github.com/itteco/iframely/tree/master/plugins/generic)
+
+
 ###### Meta plugins
+
+[/plugins/generic/meta](https://github.com/itteco/iframely/tree/master/plugins/generic/meta)
+
 
 ##### Domain plugins
 
+[/plugins/domains](https://github.com/itteco/iframely/tree/master/plugins/domains)
+
+
 ##### Custom plugins
+
+[/plugins/generic/custom](https://github.com/itteco/iframely/tree/master/plugins/generic/custom)
+
 
 ##### Template plugins
 
+[/plugins/templates](https://github.com/itteco/iframely/tree/master/plugins/templates)
 
 
 #### Custom links cases
