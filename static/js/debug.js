@@ -1,5 +1,3 @@
-var DEBUG = false;
-
 function linkify(text) {
     if (typeof text === "string") {
         return text.replace(/((https?:)?\/\/[^" ]+)/gi, '<a target="_blank" href="$1">$1</a>');
@@ -265,7 +263,7 @@ function showEmbeds($embeds, data, filterByRel) {
         // Unified meta.
         var $meta = $('<table>')
             .addClass("table table-bordered")
-            .append('<thead><tr><th>plugin</th><th>requirements</th><th>key</th><th>value</th></tr></thead>');
+            .append('<thead><tr>' + (DEBUG ? '<th>plugin</th><th>requirements</th>' : '') + '<th>key</th><th>value</th></tr></thead>');
 
         var metaKeys = _.keys(data.meta);
         metaKeys.sort();
@@ -277,7 +275,7 @@ function showEmbeds($embeds, data, filterByRel) {
 
             var method = plugin.methods[data.meta._sources[key].method];
 
-            $meta.append('<tr><td>' + plugin.id + '</td><td>' + method.join(', ') + '</td><td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
+            $meta.append('<tr>' + (DEBUG ? ('<td>' + plugin.id + '</td><td>' + method.join(', ') + '</td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
         });
 
         $embeds.prepend($meta);
@@ -374,9 +372,15 @@ function processUrl() {
             if (k == "cb") {
                 continue;
             }
+            if (!DEBUG && k != 'oembed' && k != 'meta') {
+                continue;
+            }
             $context.append('<h4>' + k + '</h4>');
             var $pre = $('<pre>').attr('data-context', k).renderObject(contexts[0][k]);
             $context.append($pre);
+        }
+        if ($context.children().length == 0) {
+            $('.s-context-tab').hide();
         }
 
         // Good links.

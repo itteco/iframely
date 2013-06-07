@@ -13,6 +13,7 @@
     <script type="text/javascript">
         var baseAppUrl = <%- JSON.stringify(CONFIG.baseAppUrl) %>;
         var REL_GROUPS = <%- JSON.stringify(CONFIG.REL_GROUPS) %>;
+        var DEBUG = <%= JSON.stringify(debug) %>;
     </script>
     <style>
         .iframely-container iframe {
@@ -38,7 +39,9 @@
         <div class="span2">
             <p style="padding: 5px;">
                 Bookmarklet:
-                <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug in iframe.ly</a>
+                <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug&nbsp;in&nbsp;iframe.ly</a>
+                <br>
+                You can drag&drop it to your bookmarks to test web pages quickly with iframely.
             <p>
             <p style="padding: 5px;">
                 <a href="/meta-mappings" target="_blank">Unified META mappings</a>
@@ -52,6 +55,7 @@
                         <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="URI" name="uri">
                         <input class="btn" type="submit" value="Debug!" />
                     </div>
+                    <% if (debug) { %>
                     <div class="control-group">
                         <div class="controls">
                             <label class="checkbox">
@@ -62,6 +66,7 @@
                             </label>
                         </div>
                     </div>
+                    <% } %>
                 </form>
             </p>
 
