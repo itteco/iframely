@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/[\w\.]*instagram\.com\/p\/([a-zA-Z0-9\-]+)/i,
-        /^http:\/\/instagr\.am\/p\/([a-zA-Z0-9\-]+)/i,
-        /^http:\/\/instagram\.com\/p\/([a-zA-Z0-9\-]+)$/i
+        /^https?:\/\/[\w\.]*instagram\.com\/p\/([a-zA-Z0-9_-]+)/i,
+        /^http:\/\/instagr\.am\/p\/([a-zA-Z0-9_-]+)/i,
+        /^http:\/\/instagram\.com\/p\/([a-zA-Z0-9_-]+)$/i
     ],
 
     mixins: [
