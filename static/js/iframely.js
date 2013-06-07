@@ -154,35 +154,38 @@
 
                 var media = data.media;
 
-                if (media && media["aspect-ratio"]) {
+                if (media) {
 
-                    $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
+                    if (media["aspect-ratio"]) {
 
-                } else {
+                        $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
 
-                    if (media && media.height) {
-                        $container.css('height', media.height);
+                    } else {
+
+                        if (media.height) {
+                            $container.css('height', media.height);
+                        }
+
+                        if (media.width) {
+                            $container.css('width', media.width);
+                        }
                     }
 
-                    if (media && media.width) {
-                        $container.css('width', media.width);
-                    }
-
-                    // Default aspect ratio.
-                    if (!media || (!media.height && !media["aspect-ratio"])) {
-                        $container.css('padding-bottom', '75%');
+                    // Min/max width can be controlled by one more parent div.
+                    if (media["max-width"] || media["min-width"]) {
+                        var $widthLimiterContainer = $('<div>').append($container);
+                        ["max-width", "min-width"].forEach(function(attr) {
+                            if (media[attr]) {
+                                $widthLimiterContainer.css(attr, media[attr]);
+                            }
+                        });
+                        $container = $widthLimiterContainer;
                     }
                 }
 
-                // Min/max width can be controlled by one more parent div.
-                if (media && (media["max-width"] || media["min-width"])) {
-                    var $widthLimiterContainer = $('<div>').append($container);
-                    ["max-width", "min-width"].forEach(function(attr) {
-                        if (media[attr]) {
-                            $widthLimiterContainer.css(attr, media[attr]);
-                        }
-                    });
-                    $container = $widthLimiterContainer;
+                // Default aspect ratio.
+                if (!media || (!media.height && !media["aspect-ratio"])) {
+                    $container.css('padding-bottom', '75%');
                 }
 
                 return $container;
