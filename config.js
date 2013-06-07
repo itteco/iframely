@@ -24,12 +24,12 @@
         },
 
         REL_GROUPS: [
-            "icon",
-            "logo",
-            "thumbnail",
-            "image",
+            "reader",
             "player",
-            "reader"
+            "image",
+            "thumbnail",
+            "logo",
+            "icon"
         ],
 
         R: {

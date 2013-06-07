@@ -196,7 +196,7 @@ function showEmbeds($embeds, data, filterByRel) {
 
                 // Embed code.
                 if (!link.html) {
-                    $embeds.append('<h4>Embed code</h4>');
+                    $embeds.append('<h4>Embed As</h4>');
                     var $code = $('<pre>').text($el.parent().html());
                     $embeds.append($code);
                 }
@@ -207,7 +207,20 @@ function showEmbeds($embeds, data, filterByRel) {
 
                 // Links head.
                 plugins.push(debug.plugin + '-' + counter);
-                $embeds.append('<h2 data-plugin="' + debug.plugin + '-' + counter + '">' + debug.plugin + '</h2>');
+                var head;
+                if (DEBUG) {
+                    head = debug.plugin;
+                } else {
+                    var rels = _.intersection(link.rel, REL_GROUPS);
+                    if (rels.length) {
+                        head = rels[0];
+                    } else if (link.rel.length) {
+                        head = link.rel[0];
+                    } else {
+                        head = debug.plugin;
+                    }
+                }
+                $embeds.append('<h2 data-plugin="' + debug.plugin + '-' + counter + '">' + head + '</h2>');
                 counter += 1;
 
                 // Links preview.
@@ -219,7 +232,7 @@ function showEmbeds($embeds, data, filterByRel) {
 
                 // Embed code.
                 if (!link.html) {
-                    $embeds.append('<h4>Embed code</h4>');
+                    $embeds.append('<h4>Embed As</h4>');
                     var $code = $('<pre>').text($el.parent().html());
                     $embeds.append($code);
                 }
@@ -249,7 +262,7 @@ function showEmbeds($embeds, data, filterByRel) {
     if (!filterByRel && plugins.length > 0) {
 
         var $prePlugins = $("<div>").addClass('well');
-        if (!filterByRel) {
+        if (!filterByRel && DEBUG) {
             // Prapare table of contents.
             $embeds.prepend('<hr/>');
             $embeds.prepend($prePlugins);
@@ -387,7 +400,7 @@ function processUrl() {
         showEmbeds($embeds, data);
 
         findAllRels(data).forEach(function(rel) {
-            $('.s-context-tab').parent().after('<li><a href="#' + rel +'" data-rel="' + rel + '" data-toggle="tab">rel: ' + rel + '</a></li>');
+            $('.s-links').parent().after('<li><a href="#' + rel +'" data-rel="' + rel + '" data-toggle="tab">rel: ' + rel + '</a></li>');
             $('#2').after('<div class="tab-pane" id="' + rel + '"></div>');
         });
 
