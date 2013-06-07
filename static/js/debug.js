@@ -387,10 +387,8 @@ function processUrl() {
         showEmbeds($embeds, data);
 
         findAllRels(data).forEach(function(rel) {
-            $('.s-context-tab').parent().after('<li><a href="#' + rel +'" data-toggle="tab">rel: ' + rel + '</a></li>');
+            $('.s-context-tab').parent().after('<li><a href="#' + rel +'" data-rel="' + rel + '" data-toggle="tab">rel: ' + rel + '</a></li>');
             $('#2').after('<div class="tab-pane" id="' + rel + '"></div>');
-
-            showEmbeds($("#" + rel), data, rel);
         });
 
         // Links tab: click on context - show context tab.
@@ -415,6 +413,23 @@ function processUrl() {
 
             return false;
         });
+
+        $('a[data-rel]').on('shown', function (e) {
+
+            var $l = $(e.target);
+
+            if ($l.attr('data-rendered')) {
+                return;
+            }
+
+            var rel = $l
+                .attr('data-rendered', true)
+                .attr('data-rel');
+
+            var $c = $("#" + rel);
+            showEmbeds($c, data, rel);
+            $.iframely.registerIframesIn($c);
+        })
 
         $.iframely.registerIframesIn($('body'));
     });
