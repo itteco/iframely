@@ -164,15 +164,25 @@
                         $container.css('height', media.height);
                     }
 
-                    var w;
-                    if (media && (w = media.width || media["max-width"]/* || media["min-width"]*/)) {
-                        $container.css('width', w);
+                    if (media && media.width) {
+                        $container.css('width', media.width);
                     }
 
                     // Default aspect ratio.
                     if (!media || (!media.height && !media["aspect-ratio"])) {
                         $container.css('padding-bottom', '75%');
                     }
+                }
+
+                // Min/max width can be controlled by one more parent div.
+                if (media && (media["max-width"] || media["min-width"])) {
+                    var $widthLimiterContainer = $('<div>').append($container);
+                    ["max-width", "min-width"].forEach(function(attr) {
+                        if (media[attr]) {
+                            $widthLimiterContainer.css(attr, media[attr]);
+                        }
+                    });
+                    $container = $widthLimiterContainer;
                 }
 
                 return $container;
