@@ -18,10 +18,10 @@ Iframely provides out-of-the-box:
 
 
 Iframely is based on [oEmbed/2][oembed2]:
- - Name it "oEmbed two" or "half oEmbed"
- - It removes the semantics part of the spec
- - Leaves the discovery part through `<link>` tag
- - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities
+ - Name it "oEmbed two" or "half oEmbed", because - 
+ - It leaves the semantics part of [oEmbed](http://oembed.com) out of the scope of the spec (as there is plenty of `meta` available already on the page)
+ - Leaves the discovery part through `<link>` tag in the `<head>` of the page
+ - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities (HTML5)
 
 
 (c) 2013 Itteco Software Corp.
@@ -58,11 +58,13 @@ See WIKI for further reading.
 
 [oEmbed spec](http://oembed.com) was remarkable and ingenious in 2008. It was unlocking numerous opportunities for developers and businesses alike. 
 All of a sudden, as a publisher you could get enormous distribution of your content into all the apps (and their user base) that consume it per spec.
+
 For app developers it meant they could provide significantly more engaging user experience and higher value to better retain their customers. However, due to inconsistencies in implementations, security considerations and lack of progress on semantics part, the progress towards a movable web stumbled.
 
 oEmbed/2 eliminates the semantic part of [oEmbed](http://oembed.com) as other semantic protocols such as [Open Graph]((http://ogp.me/)) and RDFa in general have clearly gone mainstream. Besides, there is plenty of other `<meta>` data, available for a web page. 
 
 Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer and agreeing on the use cases.
+
 **Discovery is expected to happen when publisher puts `<link>` tag in the head of their webpage:**
 
 
@@ -74,7 +76,7 @@ Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer and
 
 
 - The use cases shall be listed in `rel` attributed, separated by a space. The dictionary of use cases is not fixed, and it is up to publisher and provider to choose what to publish or consume. 
-Iframely endpoint currently can output the following `rel` use cases: `favicon`, `thumnail`, `image`, `player`, `reader`, `logo`.
+Iframely endpoint can currently output the following `rel` functional use cases: `favicon`, `thumnail`, `image`, `player`, `reader`, `logo`. In addition, we supplement with `rel` indicating origin, such as `twitter` for example.
 
 - `type` attribute of a link specified the MIME type of the link, and so dicttes the way the embed resources shall be embedded. Iframely supports embeds as iframe, image and javascript.
 
@@ -120,7 +122,7 @@ Edit the sample config file as you need. You may also override any values from m
 There are some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds).
 You can also fine-tune API response time by disabling image size detection or readability parsing. Plus, we'll put some security configuration options there in a near future. 
 
-__Important__: At the very list you need to enter your own application keys and secret tokens where applicable. 
+__Important__: At the very least, you need to enter your own application keys and secret tokens where applicable. 
 
 
 ### Run server
@@ -150,9 +152,9 @@ You may need to configure these in your reverse proxy settings, depending on you
 
 You can visualize server API with debug tool at:
 
- - [http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
+ - [http://localhost:8061/debug](http://localhost:8061/debug), for [example](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897))
 
-If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when [developing plugins](#writing-plugins))
+If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when developing plugins - see Wiki for how to write plugins)
 
 ### Update iframely
 
@@ -176,10 +178,8 @@ This is the actual oEmbed/2 gateway endpoint and the core of Iframely.
 **Method:** GET
 
 **Params:**
- - `uri` - page uri to be processed.
- - `disableCache` - disables getting data from cache if `true`.
- - `debug` - includes plugin debug info if `true`.
- - `mixAllWithDomainPlugin` - if `true` - uses all generic plugins if domain plugin available, see [domain plugins](#domain-plugins) for details.
+ - `uri` - (required) URI of the page to be processed.
+ - `refresh` - (optional) You can request the cache data to be ingored by sending `true`. Will unconditionally re-fetch the original source page.
 
 **Returns:** JSON, see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063).
 
@@ -192,15 +192,16 @@ Description of result:
       },
       "links": [                                        -- Array of links which can be rendered.
         {
-          "href": "//player.vimeo.com/video/67452063",  -- URI of link.
+          "href": "//player.vimeo.com/video/67452063",  -- URI of link. If both http and https are available, starts with `//`
           "type": "text/html",                          -- MIME type of link content.
           "rel": [                                      -- Array of link semantic types.
-            "player",                                   -- "player" - is widget playing some media.
-            "iframely"                                  -- "iframely" - custom widget generated by iframely.
+            "player",                                   -- `player` - is widget playing some media.
+            "iframely"                                  -- `framely` - indicates custom code of Iframely:
+                                                            in this example, we added responsive `aspect-ratio` and `//` 
           ],
           "title": "BLACK&BLUE",                        -- Usual html link title attribute, equals meta.title.
           "media": {                                    -- "media query" semantics to provide widget media properties.
-            "aspect-ratio": 1.778                       -- This means widget is proportionally resizable.
+            "aspect-ratio": 1.778                       -- This means widget is responsive and proportionally resizable.
           }
         },
         ...
@@ -213,21 +214,46 @@ Idea of unified 'meta' and 'links' item specific attributes are described in fol
 
 #### meta
 
-Most pages supports meta data using different semantics: twitter, og, meta, dublin core, parsely, sailthru and so on.
+Most web pages have organic `<meta>` data using different semantics: twitter, og, meta, dublin core, parsely, sailthru, etc.
 
-Iframely provides unified way to access those attributes in one place and one way.
+Iframely merges different semantics into fields with unified consistent naming, so you can reliably use them (if they are present, of course).
 
-`meta` object provides useful available meta attributes of retrieved page in unified form. It could be:
- - title
- - description
- - author
- - date (publication date) `TODO: unify date type`
- - duration (in seconds, duration of video or audio content)
- - ... and more.
+Iframely `meta` object may contain the following keys at the moment:
 
-All attributes has unified names and listed in [/meta-mappings](#meta-mappings) endpoint.
+General meta:
+ - `title`
+ - `description`
+ - `date` (the publication date)
+ - `canonical` - canonical URL of the resource 
+ - `shortlink` - URL shortened through publisher
+ - `category`
+ - `keywords`
 
-Meta attributes provided by plugins [getMeta](#plugingetmeta) method.
+Attribution:
+ - `author`
+ - `author_url` 
+ - `copyright`
+ - `license`
+ - `license_url`
+ - `site`
+ 
+Stats info: 
+ - `views` - number of views on the original host
+ - `likes`
+ - `comments`
+ - `duration` (in seconds, duration of video or audio content)
+
+
+Geo (as per Open Graph spec):
+ - `country-name`,
+ - `postal-code`, 
+ - `street-address`,
+ - `region`
+ - `locality`
+ - `latitude`,
+ - `longitude`
+
+All current attributes are listed in `/meta-mappings` endpoint.
 
 ---------------------------------------
 
@@ -244,7 +270,7 @@ MIME type is an expected http response "content-type" of data behind '"href"'. T
 There are following types for now:
  - `"text/html"` - this could be rendered as `<iframe>`.
  - `"application/javascript"` - JavaScript widget with dynamic page embedding with `<script>` tag.
- - `"text/x-safe-html"` - this is internal type for plugins. It will be converted to `"application/javascript"`. That will be script which dynamically renders html on page. See [x-safe-html](#x-safe-html) for details.
+ - `"text/x-safe-html"` - this is an internal type for plugins. It will be converted to `"application/javascript"` delivered through iframely's `/render.js` endpoint.
  - `"application/x-shockwave-flash"` - flash widget, will be rendered with `<iframe>`.
  - `"video/mp4"` - html5 video. Will be rendered with `<iframe>`. TODO: render with `<video>` tag.
  - `"image"` - this is image which will be rendered with `<img>` tag. Following types - is specified image format. If format is not specified engine will try to detect it by fetching image head.
@@ -269,7 +295,7 @@ Usually it should be used to find better link for rendering in specific cases.
  - `logo` - link with site's logo. Is returned mostly for pages with the news article (custom ones) for better attribution
 
 Iframely uses supplementary `rels` as the way of attributing to the origin of the data:
- - `iframely` - link is customly generated by iframely through [domain plugin](#domain-plugins). Consider it a whitelist.
+ - `iframely` - link or attributes are customly altered by iframely through one of the domain plugin. Consider it a whitelist.
  - `instapaper` - article extracted using instapaper classes.
  - `og` - link extracted from opengraph semantics. Beware, `players` rendered through `og` have higher chance of being unreliable. 
  - `twitter` - link extracted from twitter semantics.
@@ -448,9 +474,11 @@ The authors of the package are these guys from [Itteco](http://itteco.com):
  - [Nazar Leush](https://github.com/nleush) - _the_ author
  - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
 
-Once we figure out the exact licensing for the package, we will welcome contributions, and especially for specific domain providers. 
+Once we figure out the exact licensing for the package, we will welcome contributions to this repo, and especially for specific domain providers. 
 
 In the meantime, please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to submit an issue.
+If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch.
+
 
 
 
