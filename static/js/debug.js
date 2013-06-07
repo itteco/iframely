@@ -342,7 +342,7 @@ function processUrl() {
     $.iframely.getPageData(uri, {
         debug: true,
         mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked"),
-        disableCache: $('[name="disableCache"]').is(":checked")
+        refresh: $('[name="refresh"]').is(":checked")
     }, function(error, data, jqXHR) {
 
         $loader.hide();

@@ -15,7 +15,7 @@ module.exports = function(app) {
                 iframely.getRawLinks(req.query.uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    disableCache: req.query.disableCache === "true"
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
