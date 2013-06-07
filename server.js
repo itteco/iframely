@@ -37,6 +37,10 @@ function errorHandler(err, req, res, next) {
     }
 }
 
+process.on('uncaughtException', function(err) {
+    console.log(err.stack);
+});
+
 app.get('/r3/*', function(req, res, next) {
     var url = '/' + req.url.split('/').splice(2).join('/');
     sysUtils.static(path.resolve(__dirname, 'static'), {path: url})(req, res, next);

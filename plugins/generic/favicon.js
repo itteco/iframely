@@ -1,7 +1,5 @@
 module.exports = {
 
-    useAlways: true,
-
     getLinks: function(meta) {
 
         function findIcons(meta, links, filter) {

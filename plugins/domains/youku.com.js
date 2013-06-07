@@ -16,7 +16,8 @@ module.exports = {
         return {
             href: "http://player.youku.com/embed/"+ urlMatch[1],
             type: CONFIG.T.text_html,            
-            rel: CONFIG.R.player
+            rel: CONFIG.R.player,
+            "aspect-ratio": 16/10 //As stated it in docs
         }
     },
 

@@ -13,9 +13,10 @@
     <script type="text/javascript">
         var baseAppUrl = <%- JSON.stringify(CONFIG.baseAppUrl) %>;
         var REL_GROUPS = <%- JSON.stringify(CONFIG.REL_GROUPS) %>;
+        var DEBUG = <%= JSON.stringify(debug) %>;
     </script>
     <style>
-        .oembed-container iframe {
+        .iframely-container iframe {
             top: 0;
             left: 0;
             width: 100%;
@@ -23,7 +24,7 @@
             position: absolute;
         }
 
-        .oembed-container {
+        .iframely-container {
             position: relative;
             left: 0px;
             width: 100%;
@@ -37,54 +38,64 @@
     <div class="row-fluid">
         <div class="span2">
             <p style="padding: 5px;">
+                Feel free to contact <a href="mailto:ivan@iframely.com">ivan@iframely.com</a> with questions of feedback
+            </p>
+            <% if (debug) { %>
+            <p style="padding: 5px;">
                 Bookmarklet:
-                <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug in iframe.ly</a>
+                <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug&nbsp;in&nbsp;iframe.ly</a>
+                <br>
+                You can drag&drop it to your bookmarks to test web pages quickly with iframely.
             <p>
             <p style="padding: 5px;">
                 <a href="/meta-mappings" target="_blank">Unified META mappings</a>
             <p>
+            <% } %>
         </div>
         <div class="span10">
 
             <p>
                 <form>
                     <div class="input-append">
-                        <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="URI" name="uri">
+                        <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="Enter URL here" name="uri">
                         <input class="btn" type="submit" value="Debug!" />
                     </div>
+                    <% if (debug) { %>
                     <div class="control-group">
                         <div class="controls">
                             <label class="checkbox">
                                 <input type="checkbox" name="mixAllWithDomainPlugin" <% if (mixAllWithDomainPlugin) { %>checked="checked"<% } %>> Debug with all plugins (disable specific mixins and mixin all available plugins) <a href="/debug?uri=<%= encodeURIComponent(uri) || '' %>&mixAllWithDomainPlugin=<%= !!!mixAllWithDomainPlugin %>" target="_blank">or open in new window with opposite value</a>
                             </label>
                             <label class="checkbox">
-                                <input type="checkbox" name="disableCache" <% if (disableCache) { %>checked="checked"<% } %>> Disable cache</a>
+                                <input type="checkbox" name="refresh" <% if (disableCache) { %>checked="checked"<% } %>> Refresh</a>
                             </label>
                         </div>
                     </div>
+                    <% } %>
                 </form>
             </p>
 
             <div class="well" style="display: none;">
                 API Call:
                 <a target="_blank" id="api-uri"></a>
-                </br>
-                API Call (grouped):
-                <a target="_blank"id="api-uri-grouped"></a>
             </div>
             <div class="s-loader loader" style="display: none;"></div>
             <div class="alert" id="status" style="display: none;"></div>
 
             <div class="s-result-div" style="display: none;">
                 <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#1" data-toggle="tab">Links & Meta</a></li>
-                    <li><a href="#2" data-toggle="tab" class="s-context-tab">Plugins context</a></li>
-                    <li><a href="#3" data-toggle="tab">All debug data</a></li>
+                    <li><a href="#1" data-toggle="tab" class="s-links">Links & Meta</a></li>
+                    <li><a href="#4" data-toggle="tab" class="s-response-tab">JSON Response</a></li>
+                    <li><a href="#2" data-toggle="tab" class="s-context-tab">Source Data</a></li>
+                    <li><a href="#3" data-toggle="tab" class="s-all-debug">All debug data</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane" id="1">
                         <div class="s-embeds"></div>
+                    </div>
+                    <div class="tab-pane" id="4">
+                        <pre class="s-json"></pre>
                     </div>
                     <div class="tab-pane" id="2">
                         <div class="s-debug-context"></div>

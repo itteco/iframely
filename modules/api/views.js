@@ -5,7 +5,7 @@ var _ = require('underscore');
 
 module.exports = function(app) {
 
-    app.get('/oembed2', function(req, res, next) {
+    app.get('/iframely', function(req, res, next) {
 
         console.log('-- Loading oembed2 for', req.query.uri);
 
@@ -15,7 +15,7 @@ module.exports = function(app) {
                 iframely.getRawLinks(req.query.uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    disableCache: req.query.disableCache === "true"
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 

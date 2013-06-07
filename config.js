@@ -24,12 +24,12 @@
         },
 
         REL_GROUPS: [
-            "icon",
-            "logo",
-            "thumbnail",
-            "image",
+            "reader",
             "player",
-            "reader"
+            "image",
+            "thumbnail",
+            "logo",
+            "icon"
         ],
 
         R: {
@@ -44,12 +44,9 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
-            fb: "fb",
 
             icon: "icon",
-            logo: "logo",
-
-            widget: "widget"
+            logo: "logo"
         },
 
         providerOptions: {
