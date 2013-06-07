@@ -78,7 +78,7 @@ Iframely endpoint currently can output the following `rel` use cases: `favicon`,
 
 - `type` attribute of a link specified the MIME type of the link, and so dicttes the way the embed resources shall be embedded. Iframely supports embeds as iframe, image and javascript.
 
-- `href` attributes is preferrably via https protocol to ensure maximum distribution for publishers' content, as consumers may opt not to consder http-only embeds.
+- `href` attributes is preferrably via https protocol to ensure maximum distribution for publishers' content, as consumers may opt not to consider http-only embeds.
 
 - `media` is for media queries, indicating the sizes of the containers where embed content would fit. 
 
@@ -255,7 +255,7 @@ There are following types for now:
 
 ##### `rel`
 
-`Rel` is for inteded use case of the link.
+`Rel` is for intended use case of the link.
 
 Usually it should be used to find better link for rendering in specific cases.
  - `player` - wiget which plays video or music or slideshow.
