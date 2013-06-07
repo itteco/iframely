@@ -13,7 +13,7 @@
     <script type="text/javascript">
         var baseAppUrl = <%- JSON.stringify(CONFIG.baseAppUrl) %>;
         var REL_GROUPS = <%- JSON.stringify(CONFIG.REL_GROUPS) %>;
-        var DEBUG = <%= JSON.stringify(debug) %>;
+        var DEBUG = <%= JSON.stringify(DEBUG) %>;
     </script>
     <style>
         .iframely-container iframe {
@@ -40,7 +40,7 @@
             <p style="padding: 5px;">
                 Feel free to contact <a href="mailto:ivan@iframely.com">ivan@iframely.com</a> with questions of feedback
             </p>
-            <% if (debug) { %>
+            <% if (DEBUG) { %>
             <p style="padding: 5px;">
                 Bookmarklet:
                 <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug&nbsp;in&nbsp;iframe.ly</a>
@@ -60,7 +60,7 @@
                         <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="Enter URL here" name="uri">
                         <input class="btn" type="submit" value="Debug!" />
                     </div>
-                    <% if (debug) { %>
+                    <% if (DEBUG) { %>
                     <div class="control-group">
                         <div class="controls">
                             <label class="checkbox">

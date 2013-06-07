@@ -11,7 +11,7 @@ module.exports = function(app) {
             uri: req.query.uri,
             mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin],
             disableCache: !!{"on":1, "true":1}[req.query.refresh],
-            debug: CONFIG.DEBUG
+            DEBUG: CONFIG.DEBUG
         });
     });
 };
