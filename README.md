@@ -239,6 +239,8 @@ Following sections will describe available link attributes values.
 
 Generally MIME type defines method to render link as widget.
 
+MIME type is an expected http response "content-type" of data behind '"href"'. Type of content defines rendering method.
+
 There are following types for now:
  - `"text/html"` - this could be rendered as `<iframe>`.
  - `"application/javascript"` - JavaScript widget with dynamic page embedding with `<script>` tag.
@@ -258,7 +260,7 @@ There are following types for now:
 `Rel` is for intended use case of the link.
 
 Usually it should be used to find better link for rendering in specific cases.
- - `player` - wiget which plays video or music or slideshow.
+ - `player` - wiget which plays video or music or slideshow. E.g. it could be `"text/html"` page with embedded media.
  - `thumbnail` - small image.
  - `image` - large (not small) image.
  - `reader` - reading widget (article or some info).
