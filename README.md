@@ -4,7 +4,7 @@ oEmbed/2 self-hosted embeds server.
 Iframely package saves you months of dev time on rich content parsers. So you can focus on enriching your users’ experience instead.
 
 Iframely is Node.JS app (and/or package), but you can access it from other environments via API.
-Main endpoint (see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
+Main endpoint (see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
 
     /iframely?uri={url encoded http link to a web page}
 
@@ -19,9 +19,9 @@ Iframely provides out-of-the-box:
 
 Iframely is based on [oEmbed/2][oembed2]:
  - Name it "oEmbed two" or "half oEmbed", because - 
- - It leaves the semantics part of [oEmbed](http://oembed.com) out of the scope of the spec (as there is plenty of `meta` available already on the page)
- - Leaves the discovery part through `<link>` tag in the `<head>` of the page
- - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities (HTML5)
+ - It removes the semantics part of [oEmbed](http://oembed.com) out of the scope of the spec (as there is plenty of `meta` available already on the page)
+ - Keeps the discovery part through `<link>` tag in the `<head>` of the page
+ - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities (HTML5, CSS3, HTTP1.1)
 
 
 (c) 2013 Itteco Software Corp.
@@ -30,6 +30,7 @@ License is TBD. We envision free for non-commercial use, and a fee for commercia
 ## Jump To
 
 - [oEmbed/2 quick draft][oembed2]
+- [Community API endpoint at iframely.com/iframely][community-api]
 - [Server setup](#server-setup)
     - [Installation](#installation)
     - [Config](#config)
@@ -89,10 +90,21 @@ As a "good citizen" policy and business etiquette, it is worth to remind that bo
 
 This is a draft idea. More specific description will be published once we gather sufficient feedback from the community.
 
-## Server setup
+## Community API endpoint at iframely.com/iframely
+[community-api]: #community-api-endpoint-at-iframely-com-iframely 
 
-__Please note__: You may use skip installation and use community endpoint at [http://dev.iframe.ly/iframely] to rapidly develop against it. 
-This endpoint is subject to frequent restarts and rate-limits and thus is not suitable for production use. Please deploy iframely on your own server later on.
+__Please note__: You may use skip installation and use community endpoint to rapidly develop against it:
+
+    http://iframely.com/iframely?uri=
+
+The visusal debug tool is at [http://iframely.com/debug](http://iframely.com/debug).
+
+This endpoint is provided courtesy of Itteco and has the latest version of iframely deployed. It is subject to restarts and rate-limits and thus is not suitable for production use. 
+
+Please deploy iframely on your own hardware before going live.
+
+
+## Server setup
 
 ### Security considerations
 
@@ -152,7 +164,7 @@ You may need to configure these in your reverse proxy settings, depending on you
 
 You can visualize server API with debug tool at:
 
- - [http://localhost:8061/debug](http://localhost:8061/debug), for [example](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897))
+ - [http://localhost:8061/debug](http://localhost:8061/debug), try [example](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
 
 If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when developing plugins - see Wiki for how to write plugins)
 
@@ -181,7 +193,7 @@ This is the actual oEmbed/2 gateway endpoint and the core of Iframely.
  - `uri` - (required) URI of the page to be processed.
  - `refresh` - (optional) You can request the cache data to be ingored by sending `true`. Will unconditionally re-fetch the original source page.
 
-**Returns:** JSON, see [example](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063).
+**Returns:** JSON, see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063).
 
 Description of result:
 
@@ -196,7 +208,7 @@ Description of result:
           "type": "text/html",                          -- MIME type of link content.
           "rel": [                                      -- Array of link semantic types.
             "player",                                   -- `player` - is widget playing some media.
-            "iframely"                                  -- `framely` - indicates custom code of Iframely:
+            "iframely"                                  -- `iframely` - indicates custom code of Iframely:
                                                             in this example, we added responsive `aspect-ratio` and `//` 
           ],
           "title": "BLACK&BLUE",                        -- Usual html link title attribute, equals meta.title.
@@ -245,12 +257,12 @@ Stats info:
 
 
 Geo (as per Open Graph spec):
- - `country-name`,
- - `postal-code`, 
- - `street-address`,
+ - `country-name`
+ - `postal-code` 
+ - `street-address`
  - `region`
  - `locality`
- - `latitude`,
+ - `latitude`
  - `longitude`
 
 All current attributes are listed in `/meta-mappings` endpoint.
@@ -273,11 +285,11 @@ There are following types for now:
  - `"text/x-safe-html"` - this is an internal type for plugins. It will be converted to `"application/javascript"` delivered through iframely's `/render.js` endpoint.
  - `"application/x-shockwave-flash"` - flash widget, will be rendered with `<iframe>`.
  - `"video/mp4"` - html5 video. Will be rendered with `<iframe>`. TODO: render with `<video>` tag.
- - `"image"` - this is image which will be rendered with `<img>` tag. Following types - is specified image format. If format is not specified engine will try to detect it by fetching image head.
- - `"image/jpeg"`
- - `"image/icon"`
- - `"image/png"`
- - `"image/svg"`
+ - `"image"` - this is image which will be rendered with `<img>` tag. Below are the specific image types. If format is not specified engine will try to detect it by fetching image head.
+  - `"image/jpeg"`
+  - `"image/icon"`
+  - `"image/png"`
+  - `"image/svg"`
 
 ---------------------------------------
 
@@ -296,11 +308,11 @@ Usually it should be used to find better link for rendering in specific cases.
 
 Iframely uses supplementary `rels` as the way of attributing to the origin of the data:
  - `iframely` - link or attributes are customly altered by iframely through one of the domain plugin. Consider it a whitelist.
- - `instapaper` - article extracted using instapaper classes.
+ - `readability` or `instapaper` - article extracted using instapaper classes.
  - `og` - link extracted from opengraph semantics. Beware, `players` rendered through `og` have higher chance of being unreliable. 
  - `twitter` - link extracted from twitter semantics.
  - `oembed` - link extracted from oembed/1 semantics.
-
+You would need to make a decision wheather you want to trust specific origins or not.
 ---------------------------------------
 
 ##### `media`
@@ -322,18 +334,18 @@ Plugins use the following media query attributes at the moment:
 ### iframely.js: JavaScript client lib
 [iframely-js]: #iframely-js-javascript-client-lib
 
-Iframely includes the client wrapper over the API, so you don't need to spend time on it yourself. 
-You may access it as `/static/js/iframely.js`. It provides calls to fetch data from `/iframely` API endpoint and render links.
+Iframely package includes the client wrapper over the API, so you don't need to spend time on it yourself. 
+You may access it in `/static/js/iframely.js` folder. It provides calls to fetch data from `/iframely` API endpoint and render links.
 
 #### Add to your page
 
-Insert following lines in your page head:
+Insert similar lines in your page head (iframely.js requires jQuery and Underscore):
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script type="text/javascript" src="https://raw.github.com/itteco/iframely/master/static/js/iframely.js"></script>
+    <script type="text/javascript" src="http://your.domain/r3/js/iframely.js"></script>
 
-You should copy `iframely.js` script file to your static dir and change path properly.
+Replace `your.domain` with your actual domain name. You may also copy `iframely.js` script file to your apps main domain and accordingly.
 
 To support proportional size iframes add following styles:
 
@@ -366,7 +378,7 @@ This will allow youtube, vimeo and similar players to be resized by container wh
         console.log(data);
     });
 
-This code will create following [log](http://dev.iframe.ly/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
+This code will create following [log](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
 
     {
       "meta": {
@@ -443,8 +455,8 @@ If you'd like to make `reader` iframes to be without horizontal scrolling call a
 
 You can call it once after all or after each rendering operation.
 
-This is useful with [github.gist](http://dev.iframe.ly/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
-[storify](http://dev.iframe.ly/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages,
+This is useful with [github.gist](http://iframely.com/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
+[storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages,
 where js widget is inserted in iframe and we don't know exact size before it launched.
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
 So iframely.js will resize that iframe to fit content without horizontal scrolling.
