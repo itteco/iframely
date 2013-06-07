@@ -312,7 +312,9 @@ Iframely uses supplementary `rels` as the way of attributing to the origin of th
  - `og` - link extracted from opengraph semantics. Beware, `players` rendered through `og` have higher chance of being unreliable. 
  - `twitter` - link extracted from twitter semantics.
  - `oembed` - link extracted from oembed/1 semantics.
+
 You would need to make a decision wheather you want to trust specific origins or not.
+
 ---------------------------------------
 
 ##### `media`
