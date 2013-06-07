@@ -38,6 +38,10 @@
     <div class="row-fluid">
         <div class="span2">
             <p style="padding: 5px;">
+                Feel free to contact <a href="mailto:ivan@iframely.com">ivan@iframely.com</a> with questions of feedback
+            </p>
+            <% if (debug) { %>
+            <p style="padding: 5px;">
                 Bookmarklet:
                 <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug&nbsp;in&nbsp;iframe.ly</a>
                 <br>
@@ -46,13 +50,14 @@
             <p style="padding: 5px;">
                 <a href="/meta-mappings" target="_blank">Unified META mappings</a>
             <p>
+            <% } %>
         </div>
         <div class="span10">
 
             <p>
                 <form>
                     <div class="input-append">
-                        <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="URI" name="uri">
+                        <input class="input-xxlarge s-uri" type="url" value="<%= uri || '' %>" placeholder="Enter URL here" name="uri">
                         <input class="btn" type="submit" value="Debug!" />
                     </div>
                     <% if (debug) { %>
