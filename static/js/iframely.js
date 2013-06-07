@@ -165,7 +165,7 @@
                     }
 
                     var w;
-                    if (media && (w = media.width || media["max-width"] || media["min-width"])) {
+                    if (media && (w = media.width || media["max-width"]/* || media["min-width"]*/)) {
                         $container.css('width', w);
                     }
 
