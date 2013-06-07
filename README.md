@@ -91,7 +91,7 @@ As a "good citizen" policy and business etiquette, it is worth to remind that bo
 This is a draft idea. More specific description will be published once we gather sufficient feedback from the community.
 
 ## Community API endpoint at iframely.com/iframely
-[community-api]: #community-api-endpoint-at-iframely-com-iframely 
+[community-api]: #community-api-endpoint-at-iframelycomiframely
 
 __Please note__: You may use skip installation and use community endpoint to rapidly develop against it:
 
