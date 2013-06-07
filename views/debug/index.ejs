@@ -68,9 +68,6 @@
             <div class="well" style="display: none;">
                 API Call:
                 <a target="_blank" id="api-uri"></a>
-                </br>
-                API Call (grouped):
-                <a target="_blank"id="api-uri-grouped"></a>
             </div>
             <div class="s-loader loader" style="display: none;"></div>
             <div class="alert" id="status" style="display: none;"></div>
@@ -78,13 +75,17 @@
             <div class="s-result-div" style="display: none;">
                 <ul class="nav nav-tabs" id="myTab">
                     <li><a href="#1" data-toggle="tab">Links & Meta</a></li>
+                    <li><a href="#4" data-toggle="tab">Iframely response JSON</a></li>
                     <li><a href="#2" data-toggle="tab" class="s-context-tab">Plugins context</a></li>
-                    <li><a href="#3" data-toggle="tab">All debug data</a></li>
+                    <li><a href="#3" data-toggle="tab" class="s-all-debug">All debug data</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane" id="1">
                         <div class="s-embeds"></div>
+                    </div>
+                    <div class="tab-pane" id="4">
+                        <pre class="s-json"></pre>
                     </div>
                     <div class="tab-pane" id="2">
                         <div class="s-debug-context"></div>

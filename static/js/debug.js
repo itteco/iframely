@@ -1,3 +1,5 @@
+var DEBUG = false;
+
 function linkify(text) {
     if (typeof text === "string") {
         return text.replace(/((https?:)?\/\/[^" ]+)/gi, '<a target="_blank" href="$1">$1</a>');
@@ -229,14 +231,16 @@ function showEmbeds($embeds, data, filterByRel) {
                 var $pre = $('<pre>').renderObject(link);
                 $embeds.append($pre);
 
-                // Link debug data with raw source.
-                var $debug = $('<pre>').renderObject(debug);
+                if (DEBUG) {
+                    // Link debug data with raw source.
+                    var $debug = $('<pre>').renderObject(debug);
 
-                var $div = $('<div>').addClass("row-fluid")
-                    .append($('<div>').addClass("span1"))
-                    .append($('<div>').addClass("span11").append('<h4>Debug</h4>').append($debug));
+                    var $div = $('<div>').addClass("row-fluid")
+                        .append($('<div>').addClass("span1"))
+                        .append($('<div>').addClass("span11").append('<h4>Debug</h4>').append($debug));
 
-                $embeds.append($div);
+                    $embeds.append($div);
+                }
             }
 
             $embeds.append('<hr/>');
@@ -308,10 +312,10 @@ function processUrl() {
 
     var $result = $('.s-debug-result');
     var $context = $('.s-debug-context');
+    var $response = $('.s-json');
     var $embeds = $('.s-embeds');
     var $status = $('#status').hide();
     var $apiUri = $('#api-uri');
-    var $apiUriG = $('#api-uri-grouped');
 
     // 0) Setup.
     $.iframely.defaults.endpoint = baseAppUrl + '/iframely';
@@ -322,9 +326,6 @@ function processUrl() {
     
     var APICall = $.iframely.defaults.endpoint + '?uri=' + encodeURIComponent(uri);
     $apiUri.text(APICall).attr('href', APICall);
-
-    var APICall2 = $.iframely.defaults.endpoint + '?group=true&uri=' + encodeURIComponent(uri);
-    $apiUriG.text(APICall2).attr('href', APICall2);
 
     // 1) Fetch data.
     $.iframely.getPageData(uri, {
@@ -344,11 +345,28 @@ function processUrl() {
         $resultTabs.show();
         $resultTabs.find('li:first-child a').tab('show');
 
+        if (!DEBUG) {
+            $('.s-all-debug').hide();
+        }
+
         // Response status.
         $status.attr('class', 'alert alert-success').show().text(jqXHR.status + ' ' + jqXHR.statusText + ' - ' + data.time.total + 'ms');
 
         // Render all debug data.
         $result.renderObject(data);
+
+        var clearData = $.extend(true, {}, data);
+        delete clearData.debug;
+        delete clearData.time;
+        delete clearData.plugins;
+        if (clearData.meta) {
+            delete clearData.meta._sources;
+        }
+        clearData.links.forEach(function(link) {
+            delete link.sourceId;
+        });
+
+        $response.renderObject(clearData);
 
         // Render context.
         var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || null;
