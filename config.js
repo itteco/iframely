@@ -10,6 +10,8 @@
         baseStaticUrl: "http://dev.iframe.ly/r3",
         port: 8061,
 
+        tests_mongodb: 'mongodb://localhost:27017/iframely-tests',
+
         T: {
             text_html: "text/html",
             javascript: "application/javascript",
