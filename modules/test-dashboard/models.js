@@ -6,7 +6,6 @@
     try {
         mongoose = require('mongoose');
         db = mongoose.createConnection(CONFIG.tests_mongodb);
-        return;
     } catch (ex) {
         console.warn("Mongodb not initialized. Test dashboard will not work.");
         return;
