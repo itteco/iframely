@@ -65,10 +65,12 @@
                         <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError()) { %>success<% } %> <% if (!log) { %>warning<% } %>">
 
                             <td>
-                                <% if (log.hasError()) { %>
+                                <% if (log && log.hasError()) { %>
                                     <%= log.errors %>
-                                <% } else { %>
+                                <% } else if (log) { %>
                                     ok - <%= log.response_time/1000 %> sec
+                                <% } else { %>
+                                    pending...
                                 <% } %>
                             </td>
 
