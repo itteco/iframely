@@ -158,7 +158,7 @@ function processPluginTests(pluginTest, plugin, cb) {
                     });
 
                     if (error) {
-                        logEntry.errors = JSON.stringify(error);
+                        logEntry.errors = [JSON.stringify(error)];
                     }
 
                     logEntry.save(cb);
