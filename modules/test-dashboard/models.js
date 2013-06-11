@@ -29,7 +29,9 @@
         obsolete: {
             type: Boolean,
             default: false
-        }
+        },
+
+        error: String
     });
 
     var TestUrlsSetSchema = new Schema({
@@ -47,8 +49,14 @@
             ref: 'PluginTest'
         },
 
-        urls: [String]
+        urls: [String],
+
+        errors: []
     });
+
+    TestUrlsSetSchema.methods.hasError = function() {
+        return this.errors && this.errors.length > 0;
+    };
 
     var PageTestLogSchema = new Schema({
 

@@ -107,7 +107,7 @@
                     }).length;
                     pluginTest.failedUrls = logs.length - pluginTest.passedUrls;
                     pluginTest.pendingUrls = _.difference(pluginTest.last_urls_set.urls, testedUrls).length;
-                    pluginTest.error = pluginTest.failedUrls > 0 || pluginTest.last_urls_set.urls.length == 0;
+                    pluginTest.hasError = pluginTest.failedUrls > 0 || pluginTest.error || pluginTest.last_urls_set.hasError();
                 });
 
                 var good = {
@@ -122,8 +122,8 @@
                 groups.push(bad);
                 groups.push(good);
 
-                good.items = pluginTests.filter(function(p) { return !p.error; });
-                bad.items = pluginTests.filter(function(p) { return p.error; });
+                good.items = pluginTests.filter(function(p) { return !p.hasError; });
+                bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
                 res.render('test-dashboard/index',{
                     groups: groups

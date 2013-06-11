@@ -86,6 +86,9 @@ module.exports = {
     tests: [
         "http://www.facebook.com/video/video.php?v=4253262701205&set=vb.1574932468&type=2",
         "http://www.facebook.com/photo.php?v=4253262701205&set=vb.1574932468&type=2&theater",
-        "http://www.facebook.com/video/video.php?v=4253270901410"
+        "http://www.facebook.com/video/video.php?v=4253270901410",
+        {
+            noFeeds: true
+        }
     ]
 };

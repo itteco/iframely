@@ -35,7 +35,7 @@
                         <% if (pluginTest.failedUrls) {%><span class="badge badge-important" title="urls failed"><%= pluginTest.failedUrls %></span><% } %>
                         <% if (pluginTest.passedUrls) {%><span class="badge badge-success" title="urls passed"><%= pluginTest.passedUrls %></span><% } %>
                         <% if (pluginTest.pendingUrls) {%><span class="badge" title="urls pending"><%= pluginTest.pendingUrls %></span><% } %>
-                        <%= pluginTest._id %>
+                        <a href="#<%= pluginTest._id %>" id="<%= pluginTest._id %>"><%= pluginTest._id %></a>
                     </h4>
                 </div>
             </div>
@@ -45,62 +45,77 @@
                 <div class="span1"></div>
                 <div class="span11">
 
+                    <% if (pluginTest.error) { %>
+                        <strong>Plugin test error:</strong> <%= pluginTest.error %>
+                    <% } %>
+
                     <% if (pluginTest.last_urls_set) { %>
-                    <table class="table table-bordered">
+                        <% if (pluginTest.last_urls_set.hasError()) { %>
+                            <p><strong>Plugin test feed error:</strong></p>
+                            <ul>
+                                <% pluginTest.last_urls_set.errors.forEach(function(error) { %>
+                                    <li><pre><%= JSON.stringify(error, null, 4) %></pre></li>
+                                <% }); %>
+                            </ul>
+                        <% } %>
 
-                        <thead>
-                            <tr>
-                                <th class="span6">Result</th>
-                                <th class="span2"></th>
-                                <th>URL</th>
-                                <th class="span4">tested at</th>
-                            </tr>
-                        </thead>
+                        <% if (pluginTest.last_urls_set.urls.length) { %>
+                            <table class="table table-bordered">
 
-                        <tbody>
+                                <thead>
+                                    <tr>
+                                        <th class="span6">Result</th>
+                                        <th class="span2"></th>
+                                        <th>URL</th>
+                                        <th class="span4">tested at</th>
+                                    </tr>
+                                </thead>
 
-                        <% pluginTest.last_urls_set.urls.forEach(function(url) { %>
+                                <tbody>
 
-                        <% var log = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url]; %>
+                                <% pluginTest.last_urls_set.urls.forEach(function(url) { %>
 
-                        <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError()) { %>success<% } %> <% if (!log) { %>warning<% } %>">
+                                <% var log = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url]; %>
 
-                            <td>
-                                <% if (log && log.hasError()) { %>
-                                    <ul>
-                                        <% log.errors.forEach(function(e) { %>
-                                            <li><%= e %></li>
-                                        <% }); %>
-                                    </ul>
-                                <% } else if (log) { %>
-                                    ok - <%= log.response_time/1000 %> sec
-                                <% } else { %>
-                                    pending...
-                                <% } %>
-                            </td>
+                                <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError()) { %>success<% } %> <% if (!log) { %>warning<% } %>">
 
-                            <td>
-                                <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>&debug=true">debug</a>
-                            </td>
+                                    <td>
+                                        <% if (log && log.hasError()) { %>
+                                            <ul>
+                                                <% log.errors.forEach(function(e) { %>
+                                                    <li><%= e %></li>
+                                                <% }); %>
+                                            </ul>
+                                        <% } else if (log) { %>
+                                            ok - <%= log.response_time/1000 %> sec
+                                        <% } else { %>
+                                            pending...
+                                        <% } %>
+                                    </td>
 
-                            <td>
-                                <a target="_blank" href="<%= url %>"><%= url %></a>
-                            </td>
+                                    <td>
+                                        <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>&debug=true">debug</a>
+                                    </td>
 
-                            <td>
-                                <%= log && log.created_at_format() || '' %>
-                            </td>
+                                    <td>
+                                        <a target="_blank" href="<%= url %>"><%= url %></a>
+                                    </td>
 
-                        </tr>
+                                    <td>
+                                        <%= log && log.created_at_format() || '' %>
+                                    </td>
 
-                        <% }); %>
+                                </tr>
 
-                        </tbody>
+                                <% }); %>
 
-                    </table>
+                                </tbody>
+
+                            </table>
+                        <% } %>
 
                     <% } else { %>
-                        <div>No test urls</div>
+                        <div>No test urls loaded yet.</div>
                     <% } %>
 
                 </div>

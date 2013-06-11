@@ -81,10 +81,27 @@ function createNewPluginTests(providersIds, cb) {
 
 function processPluginTests(pluginTest, plugin, cb) {
 
-    var testUrlsSet;
+    var testUrlsSet, reachTestObjectFound = false;;
 
     log('===========================================');
-    log('Testing provider:', plugin.id);
+    console.log('Testing provider:', plugin.id);
+
+    function getFetchTestUrlsCallback(url, cb) {
+        return function(error, urls) {
+            if (error) {
+                urls = {
+                    error: error,
+                    test: url
+                };
+            } else if (urls.length == 0) {
+                urls = {
+                    error: "No test urls found",
+                    test: url
+                };
+            }
+            cb(null, urls);
+        }
+    }
 
     async.waterfall([
 
@@ -92,45 +109,77 @@ function processPluginTests(pluginTest, plugin, cb) {
 
             var tests = plugin.module.tests;
 
-            if (typeof tests === "string") {
-                cb(null, [tests]);
+            if (!tests) {
+
+                cb(null, null);
+
+            } else if (typeof tests === "string") {
+
+                cb(null, tests);
+
             } else {
 
-                async.map(tests, function(url, cb) {
+                async.map(tests.filter(function(x) {return x;}), function(url, cb) {
+
                     if (typeof url === "string") {
                         // Array of strings.
-                        return cb(null, url);
+                        cb(null, url);
                     } else if (url) {
+
+                        reachTestObjectFound = true;
 
                         if (url.feed) {
                             // Fetch feed.
-                            utils.fetchFeedUrls(url.feed, cb);
+                            utils.fetchFeedUrls(url.feed, getFetchTestUrlsCallback(url, cb));
+
                         } else if (url.pageWithFeed) {
                             // Find feed on page and fetch feed.
-                            utils.fetchUrlsByPageOnFeed(url.pageWithFeed, cb);
+                            utils.fetchUrlsByPageOnFeed(url.pageWithFeed, getFetchTestUrlsCallback(url, cb));
+
                         } else if (url.page && url.selector) {
-                            utils.fetchUrlsByPageAndSelector(url.page, url.selector, cb);
+                            // Find urls on page by jqeury selector.
+                            utils.fetchUrlsByPageAndSelector(url.page, url.selector, getFetchTestUrlsCallback(url, cb));
+
+                        } else if (url.noFeeds) {
+
+                            cb(null, null);
+
                         } else {
-                            cb('Not supported test object ' + JSON.stringify(url));
+                            cb(null, {
+                                error: "Not supported test object",
+                                test: url
+                            });
                         }
 
                     } else {
-                        return cb(null, null);
+                        cb(null, null);
                     }
-                }, cb);
+                }, function(error, data) {
+                    cb(error, data);
+                });
             }
         },
 
         function(urls, cb) {
 
-            urls = urls.filter(function(url) {
-                return url;
-            });
+            urls = urls || [];
 
             urls = _.flatten(urls);
 
+            var errors = urls.filter(function(url) {
+                return url.error;
+            });
+
+            urls = urls.filter(function(url) {
+                return typeof url === "string";
+            });
+
             if (urls.length == 0) {
-                return cb('No test urls');
+                errors.push("No test urls specified");
+            }
+
+            if (!reachTestObjectFound) {
+                errors.push("No test feeds specified");
             }
 
             // TODO: add additional_test_urls.
@@ -139,6 +188,7 @@ function processPluginTests(pluginTest, plugin, cb) {
                 plugin: pluginTest._id,
                 urls: urls
             });
+            testUrlsSet.errors = errors.length ? errors : undefined
             testUrlsSet.save(cb);
         },
 
@@ -236,24 +286,19 @@ function testAll(cb) {
 
     // Get all plugins with tests.
     var pluginsList = _.values(plugins).filter(function(plugin) {
-        if (plugin.domain && !plugin.module.tests) {
-            console.warn('Domain plugin without tests:', plugin.id);
-        }
-
         if (process.argv.length > 2) {
             if (process.argv[2] != plugin.id) {
                 // node tester.js
                 return false;
             }
         }
-
-        return !!plugin.module.tests;
+        return plugin.domain || plugin.tests;
     });
     var pluginsIds = pluginsList.map(function(plugin) {
         return plugin.id;
     });
 
-    log('Start tests with', pluginsList.length, 'plugins to test.');
+    console.log('Start tests with', pluginsList.length, 'plugins to test.');
 
     async.waterfall([
 
@@ -291,11 +336,12 @@ function testAll(cb) {
                 processPluginTests(pluginTest, plugins[pluginTest._id], function(error) {
 
                     if (error) {
-                        // TODO: log provider error to DB.
                         cerror('    Plugin test error', pluginTest._id, error);
+                        pluginTest.error = error;
+                    } else {
+                        pluginTest.error = undefined;
                     }
-
-                    cb();
+                    pluginTest.save(cb);
                 });
 
             }, cb);
