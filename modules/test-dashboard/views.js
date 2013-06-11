@@ -129,7 +129,7 @@
 
                 res.render('test-dashboard/index',{
                     groups: groups,
-                    time: moment().format("DD:MM:YY HH:mm")
+                    time: moment().format("DD-MM-YY HH:mm")
                 });
             });
         });

@@ -103,7 +103,7 @@
     };
 
     PageTestLogSchema.methods.created_at_format = function() {
-        return moment(this.created_at).format("DD:MM:YY HH:mm");
+        return moment(this.created_at).format("DD-MM-YY HH:mm");
     };
 
 
