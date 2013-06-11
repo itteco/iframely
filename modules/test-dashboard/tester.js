@@ -110,6 +110,8 @@ function processPluginTests(pluginTest, plugin, cb) {
                             utils.fetchUrlsByPageOnFeed(url.pageWithFeed, cb);
                         } else if (url.page && url.selector) {
                             utils.fetchUrlsByPageAndSelector(url.page, url.selector, cb);
+                        } else {
+                            cb('Not supported test object ' + JSON.stringify(url));
                         }
 
                     } else {
