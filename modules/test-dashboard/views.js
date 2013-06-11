@@ -107,7 +107,9 @@
                     }).length;
                     pluginTest.failedUrls = logs.length - pluginTest.passedUrls;
                     pluginTest.pendingUrls = _.difference(pluginTest.last_urls_set.urls, testedUrls).length;
-                    pluginTest.hasError = pluginTest.failedUrls > 0 || pluginTest.error || pluginTest.last_urls_set.hasError();
+                    pluginTest.hasError = pluginTest.failedUrls > 0;
+                    // TODO: do something with this?
+                    pluginTest.hasGeneralError = pluginTest.error || pluginTest.last_urls_set.hasError();
                 });
 
                 var good = {

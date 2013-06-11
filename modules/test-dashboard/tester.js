@@ -176,9 +176,7 @@ function processPluginTests(pluginTest, plugin, cb) {
 
             if (urls.length == 0) {
                 errors.push("No test urls specified");
-            }
-
-            if (!reachTestObjectFound) {
+            } else if (!reachTestObjectFound) {
                 errors.push("No test feeds specified");
             }
 
