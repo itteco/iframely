@@ -72,6 +72,9 @@
                         </div>
                     </div>
                     <% } %>
+                    <% if (DEBUG != CONFIG.DEBUG) { %>
+                        <input type="hidden" name="debug" value="<%= DEBUG ? "true" : "false" %>">
+                    <% } %>
                 </form>
             </p>
 
