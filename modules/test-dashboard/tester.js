@@ -115,7 +115,7 @@ function processPluginTests(pluginTest, plugin, cb) {
 
             } else if (typeof tests === "string") {
 
-                cb(null, tests);
+                cb(null, [tests]);
 
             } else {
 
@@ -167,7 +167,7 @@ function processPluginTests(pluginTest, plugin, cb) {
             urls = _.flatten(urls);
 
             var errors = urls.filter(function(url) {
-                return url.error;
+                return url && url.error;
             });
 
             urls = urls.filter(function(url) {
