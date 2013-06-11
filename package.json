@@ -28,7 +28,6 @@
         "connect":      "2.7.9",
         "ejs":          "0.8.4",
         "moment":       "2.0",
-        "~mongoose":     "2.5",
 
         "sax":          "0.3",
         "imagemagick":  "git://github.com/itteco/node-imagemagick.git",
@@ -39,6 +38,10 @@
 
         "jquery":       "1.8.3",
         "iframely-readability":      "git://github.com/itteco/node-readability.git"
+    },
+
+    "~dependencies": {
+        "mongoose":     "2.5"
     },
 
     "devDependencies": {
