@@ -25,7 +25,11 @@
                 function loadPluginTests(cb) {
                     PluginTest.find({
                         obsolete: false
-                    }, {}, {}, cb);
+                    }, {}, {
+                        sort:{
+                            _id: 1
+                        }
+                    }, cb);
                 },
 
                 function loadTestSets(_pluginTests, cb) {

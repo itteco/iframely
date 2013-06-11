@@ -8,9 +8,11 @@ var models = require('./models');
 var iframely = require('../../lib/iframely');
 var utils = require('./utils');
 
+/*
 process.on('uncaughtException', function(err) {
     console.log("uncaughtException", err.stack);
 });
+*/
 
 var PluginTest = models.PluginTest;
 var PageTestLog = models.PageTestLog;
@@ -109,7 +111,12 @@ function processPluginTests(pluginTest, plugin, cb) {
 
     async.waterfall([
 
-        function getUrls(cb) {
+        function markStart(cb) {
+            pluginTest.last_test_started_at = new Date();
+            pluginTest.save(cb);
+        },
+
+        function getUrls(a, b, cb) {
 
             var tests = plugin.module.tests;
 
@@ -286,6 +293,15 @@ function processPluginTests(pluginTest, plugin, cb) {
                 }, callback);
 
             }, cb);
+        },
+
+        function removeOldSets(cb) {
+            TestUrlsSet.remove({
+                _id: {
+                    $ne: testUrlsSet._id
+                },
+                plugin: plugin.id
+            }, cb);
         }
 
     ], cb);
@@ -342,7 +358,11 @@ function testAll(cb) {
                     $in: pluginsIds
                 },
                 obsolete: false
-            }, {}, {}, cb);
+            }, {}, {
+                sort:{
+                    last_test_started_at: 1
+                }
+            }, cb);
         },
 
         function(pluginTests, cb) {
