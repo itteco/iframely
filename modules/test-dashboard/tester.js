@@ -286,12 +286,11 @@ function testAll(cb) {
 
     // Get all plugins with tests.
     var pluginsList = _.values(plugins).filter(function(plugin) {
-        if (process.argv.length > 2) {
-            if (process.argv[2] != plugin.id) {
-                // node tester.js
-                return false;
-            }
+
+        if (plugin.module.tests && plugin.module.tests.noTest) {
+            return false;
         }
+
         return plugin.domain || plugin.tests;
     });
     var pluginsIds = pluginsList.map(function(plugin) {
@@ -317,6 +316,16 @@ function testAll(cb) {
         },
 
         function loadPluginTests(data, cb) {
+
+            pluginsIds = pluginsIds.filter(function(pluginId) {
+                if (process.argv.length > 2) {
+                    if (process.argv[2] != pluginId) {
+                        return false;
+                    }
+                }
+                return true;
+            })
+
             PluginTest.find({
                 _id: {
                     $in: pluginsIds
