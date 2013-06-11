@@ -363,7 +363,7 @@ function testAll(cb) {
             }, cb);
         }
     ], function(error) {
-        cerror('Global testing error:', error);
+        console.error('Global testing error:', error);
         cb();
     });
 }
