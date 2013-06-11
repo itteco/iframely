@@ -109,7 +109,12 @@ function processPluginTests(pluginTest, plugin, cb) {
 
     async.waterfall([
 
-        function getUrls(cb) {
+        function markStart(cb) {
+            pluginTest.last_test_started_at = new Date();
+            pluginTest.save(cb);
+        },
+
+        function getUrls(a, b, cb) {
 
             var tests = plugin.module.tests;
 
@@ -342,7 +347,11 @@ function testAll(cb) {
                     $in: pluginsIds
                 },
                 obsolete: false
-            }, {}, {}, cb);
+            }, {}, {
+                sort:{
+                    last_test_started_at: 1
+                }
+            }, cb);
         },
 
         function(pluginTests, cb) {
