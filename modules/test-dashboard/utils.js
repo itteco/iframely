@@ -193,8 +193,9 @@ function findAllPluginMethods(pluginId, plugins, result, skipped) {
     var plugin = plugins[pluginId];
 
     var skipMixins = [];
-    var skipMethods = []
-    plugin.module.tests && plugin.module.tests.forEach(function(test) {
+    var skipMethods = [];
+    var tests = plugin.module.tests;
+    tests.forEach && tests.forEach(function(test) {
         if (test.skipMixins) {
             skipMixins = _.union(skipMixins, test.skipMixins);
         }
