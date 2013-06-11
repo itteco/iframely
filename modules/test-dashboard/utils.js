@@ -146,7 +146,10 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, cb) {
                 if (urls.length < MAX_FEED_URLS) {
                     var href = $(this).attr("href");
                     if (href) {
-                        urls.push(url.resolve(page, href));
+                        var href = url.resolve(page, href);
+                        if (urls.indexOf(href) == -1) {
+                            urls.push(href);
+                        }
                     }
                 }
             });
