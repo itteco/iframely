@@ -1,8 +1,13 @@
 var _ = require('underscore');
 var FeedParser = require('feedparser');
 var request = require('request');
+var async = require('async');
+var $ = require('jquery');
+var jsdom = require('jsdom');
+var url = require('url');
 
 var iframely = require("../../lib/iframely");
+var iframelyMeta = require("../../lib/iframely-meta");
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 
@@ -34,7 +39,7 @@ exports.getErrors = function(debugData) {
 
 var MAX_FEED_URLS = 5;
 
-exports.fetchFeedUrls = function(feedUrl, cb) {
+var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, cb) {
 
     var urls = [];
 
@@ -69,6 +74,90 @@ exports.fetchFeedUrls = function(feedUrl, cb) {
         .on('end', function() {
             _cb();
         });
+};
+
+exports.fetchUrlsByPageOnFeed = function(pageWithFeed, cb) {
+
+    async.waterfall([
+
+        function fetchPageMeta(cb) {
+            iframelyMeta.getPageData(pageWithFeed, {
+                oembed: false,
+                fullResponse: false
+            }, cb);
+        },
+
+        function findFeedUrl(data, cb) {
+            var alternate = data.meta.alternate;
+
+            var feeds;
+
+            if (alternate) {
+
+                if (!(alternate instanceof Array)) {
+                    alternate = [alternate];
+                }
+
+                feeds = alternate.filter(function(o) {
+                    return o.href && (o.type == "application/atom+xml" || o.type == "application/rss+xml");
+                });
+            }
+
+            if (feeds && feeds.length > 0) {
+
+                cb(null, feeds[0].href);
+
+            } else {
+                cb("No feeds found on " + pageWithFeed);
+            }
+        },
+
+        fetchFeedUrls
+
+    ], cb);
+};
+
+exports.fetchUrlsByPageAndSelector = function(page, selector, cb) {
+
+    async.waterfall([
+
+        function fetchPageBody(cb) {
+            iframelyMeta.getPageData(page, {
+                oembed: false,
+                meta: false,
+                fullResponse: true
+            }, cb);
+        },
+
+        function createWindow(data, cb) {
+            jsdom.env({
+                html: data.fullResponse
+            }, cb);
+        },
+
+        function(window, cb) {
+
+            var $selector = $.create(window);
+
+            var $links = $selector(selector);
+
+            var urls = [];
+            $links.each(function() {
+                if (urls.length < MAX_FEED_URLS) {
+                    var href = $(this).attr("href");
+                    if (href) {
+                        urls.push(url.resolve(page, href));
+                    }
+                }
+            });
+
+            if (urls.length) {
+                cb(null, urls);
+            } else {
+                cb("No urls found on " + page + " using selector='" + selector + "'");
+            }
+        }
+    ], cb);
 };
 
 function getAllUsedMethods(debugData) {

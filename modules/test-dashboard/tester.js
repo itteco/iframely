@@ -107,9 +107,9 @@ function processPluginTests(pluginTest, plugin, cb) {
                             utils.fetchFeedUrls(url.feed, cb);
                         } else if (url.pageWithFeed) {
                             // Find feed on page and fetch feed.
-                            cb(null, null);
+                            utils.fetchUrlsByPageOnFeed(url.pageWithFeed, cb);
                         } else if (url.page && url.selector) {
-                            cb(null, null);
+                            utils.fetchUrlsByPageAndSelector(url.page, url.selector, cb);
                         }
 
                     } else {
