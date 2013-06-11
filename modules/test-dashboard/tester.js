@@ -8,6 +8,10 @@ var models = require('./models');
 var iframely = require('../../lib/iframely');
 var utils = require('./utils');
 
+process.on('uncaughtException', function(err) {
+    console.log("uncaughtException", err.stack);
+});
+
 var PluginTest = models.PluginTest;
 var PageTestLog = models.PageTestLog;
 var TestUrlsSet = models.TestUrlsSet;
