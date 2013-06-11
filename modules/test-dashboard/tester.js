@@ -201,7 +201,7 @@ function testAll(cb) {
             console.warn('Domain plugin without tests:', plugin.id);
         }
         if (["telly.com", "screenr.com", "facebook.video"].indexOf(plugin.id) == -1) {
-            return false;
+            //return false;
         }
         return !!plugin.module.tests;
     });
