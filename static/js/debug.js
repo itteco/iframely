@@ -57,7 +57,6 @@ function findDebugInfo(options, data) {
     defaultContext.$selector = true;
 
     var result = [];
-    var onLevel;
     data.debug.forEach(function(level, levelIdx) {
         if (options.maxLevel <= levelIdx) {
             return;
@@ -98,13 +97,9 @@ function findDebugInfo(options, data) {
                     r.time = methodData.time;
                     delete r.data.sourceId;
 
-                    // Find parent.
-                    var findSourceForRequirements = [];
-                    params.forEach(function(param) {
-                        if (!(param in defaultContext)) {
-                            findSourceForRequirements.push(param);
-                        }
-                    })
+                    // Find parent data source.
+
+                    var findSourceForRequirements = _.difference(params, defaultContext);
 
                     if (findSourceForRequirements.length > 0) {
                         r.customContextSource = findDebugInfo({

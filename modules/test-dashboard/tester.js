@@ -6,6 +6,7 @@ var _ = require('underscore');
 var models = require('./models');
 
 var iframely = require('../../lib/iframely');
+var utils = require('./utils');
 
 var PluginTest = models.PluginTest;
 var PageTestLog = models.PageTestLog;
@@ -147,7 +148,7 @@ function processPluginTests(pluginTest, plugin, cb) {
                     if (error) {
                         log('       error!', error);
                     } else {
-                        log('       ok');
+                        log('       done');
                     }
 
                     var logEntry = new PageTestLog({
@@ -159,6 +160,17 @@ function processPluginTests(pluginTest, plugin, cb) {
 
                     if (error) {
                         logEntry.errors = [JSON.stringify(error)];
+                    }
+
+                    if (data) {
+                        var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
+                        if (unusedMethods.length > 0) {
+                            logEntry.errors = logEntry.errors || [];
+                            unusedMethods.forEach(function(m) {
+                                log("       Unused method: " + m);
+                                logEntry.errors.push("Unused method: " + m);
+                            });
+                        }
                     }
 
                     logEntry.save(cb);
@@ -187,6 +199,9 @@ function testAll(cb) {
     var pluginsList = _.values(plugins).filter(function(plugin) {
         if (plugin.domain && !plugin.module.tests) {
             console.warn('Domain plugin without tests:', plugin.id);
+        }
+        if (["telly.com", "screenr.com", "facebook.video"].indexOf(plugin.id) == -1) {
+            return false;
         }
         return !!plugin.module.tests;
     });

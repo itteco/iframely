@@ -50,7 +50,7 @@
 
                         <thead>
                             <tr>
-                                <th class="span2">Result</th>
+                                <th class="span6">Result</th>
                                 <th class="span2"></th>
                                 <th>URL</th>
                                 <th class="span4">tested at</th>
@@ -67,7 +67,11 @@
 
                             <td>
                                 <% if (log && log.hasError()) { %>
-                                    <%= log.errors %>
+                                    <ul>
+                                        <% log.errors.forEach(function(e) { %>
+                                            <li><%= e %></li>
+                                        <% }); %>
+                                    </ul>
                                 <% } else if (log) { %>
                                     ok - <%= log.response_time/1000 %> sec
                                 <% } else { %>
