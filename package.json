@@ -29,6 +29,8 @@
         "ejs":          "0.8.4",
         "moment":       "2.0",
 
+        "feedparser":   "0.16",
+
         "sax":          "0.3",
         "imagemagick":  "git://github.com/itteco/node-imagemagick.git",
         "iconv-lite":   "0.2",

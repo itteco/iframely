@@ -1,4 +1,6 @@
 var _ = require('underscore');
+var FeedParser = require('feedparser');
+var request = require('request');
 
 var iframely = require("../../lib/iframely");
 
@@ -28,6 +30,45 @@ exports.getErrors = function(debugData) {
     } else {
         return null;
     }
+};
+
+var MAX_FEED_URLS = 5;
+
+exports.fetchFeedUrls = function(feedUrl, cb) {
+
+    var urls = [];
+
+    var cbed = false;
+    var _cb = function(error) {
+        if (cbed) {
+            return;
+        }
+        cbed = true;
+        cb(error, urls);
+    };
+
+    request(feedUrl)
+        .pipe(new FeedParser({addmeta: false}))
+        .on('error', function(error) {
+            _cb(error);
+        })
+        .on('readable', function () {
+            var stream = this, item;
+            while (item = stream.read()) {
+
+                if (urls.length < MAX_FEED_URLS) {
+
+                    urls.push(item.origlink || item.link);
+
+                    if (MAX_FEED_URLS == urls.length) {
+                        _cb();
+                    }
+                }
+            }
+        })
+        .on('end', function() {
+            _cb();
+        });
 };
 
 function getAllUsedMethods(debugData) {

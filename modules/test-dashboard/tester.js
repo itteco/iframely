@@ -95,19 +95,37 @@ function processPluginTests(pluginTest, plugin, cb) {
             if (typeof tests === "string") {
                 cb(null, [tests]);
             } else {
-                cb(null, tests.map(function(url) {
+
+                async.map(tests, function(url, cb) {
                     if (typeof url === "string") {
-                        return url;
+                        // Array of strings.
+                        return cb(null, url);
+                    } else if (url) {
+
+                        if (url.feed) {
+                            // Fetch feed.
+                            utils.fetchFeedUrls(url.feed, cb);
+                        } else if (url.pageWithFeed) {
+                            // Find feed on page and fetch feed.
+                            cb(null, null);
+                        } else if (url.page && url.selector) {
+                            cb(null, null);
+                        }
+
                     } else {
-                        return null;
+                        return cb(null, null);
                     }
-                }).filter(function(url) {
-                        return url;
-                    }));
+                }, cb);
             }
         },
 
         function(urls, cb) {
+
+            urls = urls.filter(function(url) {
+                return url;
+            });
+
+            urls = _.flatten(urls);
 
             if (urls.length == 0) {
                 return cb('No test urls');
