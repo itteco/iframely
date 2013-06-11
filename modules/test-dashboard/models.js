@@ -1,5 +1,7 @@
 (function() {
 
+    var moment = require('moment');
+
     var mongoose, db;
 
     // DB connect.
@@ -87,6 +89,12 @@
     PageTestLogSchema.methods.hasError = function() {
         return this.errors && this.errors.length > 0;
     };
+
+    PageTestLogSchema.methods.created_at_format = function() {
+        return moment(this.created_at).format("DD:MM:YY HH:mm");
+    };
+
+
 
     exports.PluginTest = db.model('PluginTest', PluginTestSchema);
     exports.PageTestLog = db.model('PageTestLog', PageTestLogSchema);

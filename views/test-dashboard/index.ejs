@@ -53,6 +53,7 @@
                                 <th class="span2">Result</th>
                                 <th class="span2"></th>
                                 <th>URL</th>
+                                <th class="span4">tested at</th>
                             </tr>
                         </thead>
 
@@ -80,6 +81,10 @@
 
                             <td>
                                 <a target="_blank" href="<%= url %>"><%= url %></a>
+                            </td>
+
+                            <td>
+                                <%= log.created_at_format() %>
                             </td>
 
                         </tr>
