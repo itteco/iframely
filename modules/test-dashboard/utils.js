@@ -14,7 +14,10 @@ exports.getPluginUnusedMethods = function(pluginId, debugData) {
     var usedMethods = getAllUsedMethods(debugData);
     var pluginMethods = findAllPluginMethods(pluginId, debugData.plugins);
 
-    return _.difference(pluginMethods, usedMethods);
+    return {
+        mandatory: _.difference(pluginMethods.mandatory, usedMethods),
+        skipped: _.difference(pluginMethods.skipped, usedMethods)
+    };
 };
 
 exports.getErrors = function(debugData) {
@@ -180,20 +183,46 @@ function getAllUsedMethods(debugData) {
     return result;
 }
 
-function findAllPluginMethods(pluginId, plugins, result) {
+function findAllPluginMethods(pluginId, plugins, result, skipped) {
 
-    result = result || [];
+    result = result || {
+        mandatory: [],
+        skipped: []
+    };
 
     var plugin = plugins[pluginId];
 
+    var skipMixins = [];
+    var skipMethods = []
+    plugin.module.tests && plugin.module.tests.forEach(function(test) {
+        if (test.skipMixins) {
+            skipMixins = _.union(skipMixins, test.skipMixins);
+        }
+        if (test.skipMethods) {
+            skipMethods = _.union(skipMethods, test.skipMethods);
+        }
+    });
+
     plugin.module.mixins && plugin.module.mixins.forEach(function(mixin) {
-        findAllPluginMethods(mixin, plugins, result);
+
+        if (!skipped && skipMixins.indexOf(mixin) == -1) {
+            findAllPluginMethods(mixin, plugins, result);
+        } else {
+            findAllPluginMethods(mixin, plugins, result, true);
+        }
+
     });
 
     iframely.PLUGIN_METHODS.forEach(function(method) {
+
         var methodId = pluginId + " - " + method;
-        if (method in plugin.methods && result.indexOf(methodId) == -1) {
-            result.push(methodId);
+        if (method in plugin.methods && result.mandatory.indexOf(methodId) == -1 && result.skipped.indexOf(methodId) == -1) {
+
+            if (!skipped && skipMethods.indexOf(method) == -1) {
+                result.mandatory.push(methodId);
+            } else {
+                result.skipped.push(methodId);
+            }
         }
     });
 

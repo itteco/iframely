@@ -77,20 +77,37 @@
 
                                 <% var log = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url]; %>
 
-                                <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError()) { %>success<% } %> <% if (!log) { %>warning<% } %>">
+                                <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError() && !log.hasWarning()) { %>success<% } %> <% if (!log || (log.hasWarning() && !log.hasError())) { %>warning<% } %>">
 
                                     <td>
+
+                                        <% if (log) { %>
+                                            <p>
+                                                <%= log.hasError() ? "error" : "ok" %> - <%= log.response_time/1000 %> sec
+                                            </p>
+                                        <% } %>
+
                                         <% if (log && log.hasError()) { %>
                                             <ul>
                                                 <% log.errors.forEach(function(e) { %>
                                                     <li><%= e %></li>
                                                 <% }); %>
                                             </ul>
-                                        <% } else if (log) { %>
-                                            ok - <%= log.response_time/1000 %> sec
-                                        <% } else { %>
-                                            pending...
+                                        <% } else if (!log) { %>
+                                            <p>
+                                                pending...
+                                            </p>
                                         <% } %>
+
+                                        <% if (log && log.hasWarning()) { %>
+                                            <p><strong>soft warnings:</strong></p>
+                                            <ul>
+                                                <% log.warnings.forEach(function(e) { %>
+                                                    <li><%= e %></li>
+                                                <% }); %>
+                                            </ul>
+                                        <% } %>
+
                                     </td>
 
                                     <td>

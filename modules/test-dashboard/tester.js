@@ -140,7 +140,7 @@ function processPluginTests(pluginTest, plugin, cb) {
                             // Find urls on page by jqeury selector.
                             utils.fetchUrlsByPageAndSelector(url.page, url.selector, getFetchTestUrlsCallback(url, cb));
 
-                        } else if (url.noFeeds) {
+                        } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
 
                             cb(null, null);
 
@@ -244,21 +244,30 @@ function processPluginTests(pluginTest, plugin, cb) {
 
                         // Search unused methods.
                         var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
-                        if (unusedMethods.length > 0) {
+                        // Error on mandatory methods.
+                        if (unusedMethods.mandatory.length > 0) {
                             logEntry.errors = logEntry.errors || [];
-                            unusedMethods.forEach(function(m) {
-
+                            unusedMethods.mandatory.forEach(function(m) {
                                 if (errors && errors.indexOf(m) > -1) {
                                     // Skip no data if error.
                                     return;
                                 }
-
                                 log("       " + m + ": no data");
                                 logEntry.errors.push(m + ": no data");
                             });
                         }
+                        // Warning on non-mandatory methods.
+                        if (unusedMethods.skipped.length > 0) {
+                            logEntry.warnings = logEntry.warnings || [];
+                            unusedMethods.skipped.forEach(function(m) {
+                                if (errors && errors.indexOf(m) > -1) {
+                                    // Skip no data if error.
+                                    return;
+                                }
+                                logEntry.warnings.push(m + ": no data");
+                            });
+                        }
                     }
-
 
                     logEntry.save(cb);
                 }

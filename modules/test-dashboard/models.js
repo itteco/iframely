@@ -91,11 +91,15 @@
 
         //data: String,
 
-        errors: [String]
+        errors: [String],
+        warnings: [String]
     });
 
     PageTestLogSchema.methods.hasError = function() {
         return this.errors && this.errors.length > 0;
+    };
+    PageTestLogSchema.methods.hasWarning = function() {
+        return this.warnings && this.warnings.length > 0;
     };
 
     PageTestLogSchema.methods.created_at_format = function() {
