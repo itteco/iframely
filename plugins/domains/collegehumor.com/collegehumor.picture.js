@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www\.collegehumor\.com\/picture\.*/,
+    re: /http:\/\/www\.collegehumor\.com\/picture\/([0-9]+)\.*/,
 
     mixins: [
         "og-title",

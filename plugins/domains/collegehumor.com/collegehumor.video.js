@@ -8,7 +8,6 @@ module.exports = {
 
     mixins: [
         "oembed-title",
-        "oembed-author",
         "oembed-site",
         "oembed-thumbnail"
     ],

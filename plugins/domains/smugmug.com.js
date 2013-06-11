@@ -30,7 +30,5 @@ module.exports = {
 
     tests: [{
         pageWithFeed: "http://www.smugmug.com/popular/all"
-    },
-        "http://www.mbwilde.com/Portfolio/Photographers-Favorites/5932407_ktZMKq#!i=391615904&k=4FhK7kX"
-    ]
+    }]
 };

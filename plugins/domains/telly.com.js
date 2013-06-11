@@ -11,7 +11,6 @@ module.exports = {
     ],
 
     tests: [ 
-        "http://telly.com/2EQ0D4",
-        "http://www.twitvid.com/POQOWF"
+        "http://telly.com/Q84DI7"
     ]
 };

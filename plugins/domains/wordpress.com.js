@@ -20,7 +20,7 @@ module.exports = {
 
 
     tests: [{
-        feed: "http://en.wordpress.com/tag/technology/feed/"
+        feed: "http://en.wordpress.com/tag/javascript/feed/"
     }, {
         skipMixins: [
             "oembed-thumbnail"

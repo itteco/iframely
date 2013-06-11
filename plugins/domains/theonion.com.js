@@ -49,6 +49,7 @@ module.exports = {
     },   
 
     tests: [{
-        pageWithFeed: "http://www.theonion.com/video/"
+        page: "http://www.theonion.com/video/",
+        selector: ".title h1 a"
     }]
 };

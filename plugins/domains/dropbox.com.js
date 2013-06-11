@@ -10,12 +10,20 @@ module.exports = {
 
     getLink: function ($selector) {
         var $download_link = $selector('#download_button_link');
+        var $download_button = $selector('#default_content_download_button');
 
-        if ($download_link.length) return {
-            href: $download_link.attr('href'),
-            rel: CONFIG.R.file
-        };
-  },
+        if ($download_link.length) 
+            return {
+                href: $download_link.attr('href'),
+                rel: CONFIG.R.file
+            };
+
+        if ($download_button.length) 
+            return {
+                href: $download_button.attr('href'),
+                rel: CONFIG.R.file
+            }
+    },
 
     tests: [
         "https://www.dropbox.com/s/5nscrc87w4qroii/Boston%20City%20Flow.jpg",
