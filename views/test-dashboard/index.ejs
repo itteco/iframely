@@ -21,6 +21,8 @@
 
 <div class="container-fluid">
 
+    <p>Rendered at: <%= time %></p>
+
 <% groups.forEach(function(g) { %>
 
     <h3><%= g.title %> <span class="badge badge-<%= g.class %>" title="plugins count"><%= g.items.length %></span></h3>
