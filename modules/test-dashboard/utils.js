@@ -8,7 +8,27 @@ exports.getPluginUnusedMethods = function(pluginId, debugData) {
     var pluginMethods = findAllPluginMethods(pluginId, debugData.plugins);
 
     return _.difference(pluginMethods, usedMethods);
-}
+};
+
+exports.getErrors = function(debugData) {
+
+    var errors = [];
+
+    debugData.debug.forEach(function(level, levelIdx) {
+        level.data.forEach(function(methodData) {
+            if (methodData.error) {
+                var methodId = methodData.method.pluginId + " - " + methodData.method.name;
+                errors.push(methodId + ": " + methodData.error);
+            }
+        });
+    });
+
+    if (errors.length) {
+        return errors;
+    } else {
+        return null;
+    }
+};
 
 function getAllUsedMethods(debugData) {
 
@@ -38,8 +58,9 @@ function findAllPluginMethods(pluginId, plugins, result) {
     });
 
     iframely.PLUGIN_METHODS.forEach(function(method) {
-        if (method in plugin.methods) {
-            result.push(pluginId + " - " + method);
+        var methodId = pluginId + " - " + method;
+        if (method in plugin.methods && result.indexOf(methodId) == -1) {
+            result.push(methodId);
         }
     });
 

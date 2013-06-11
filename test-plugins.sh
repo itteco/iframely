@@ -1,1 +1,1 @@
-node ./modules/test-dashboard/tester
+node ./modules/test-dashboard/tester $1

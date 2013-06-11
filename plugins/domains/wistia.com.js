@@ -8,7 +8,6 @@ module.exports = {
         "oembed-title",
         "oembed-thumbnail",
         "oembed-duration",
-        "oembed-author",
         "oembed-video-responsive"
     ],
 

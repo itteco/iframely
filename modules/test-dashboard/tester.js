@@ -163,15 +163,34 @@ function processPluginTests(pluginTest, plugin, cb) {
                     }
 
                     if (data) {
+
+                        // Method errors.
+                        var errors = utils.getErrors(data);
+                        if (errors) {
+                            logEntry.errors = logEntry.errors || [];
+                            errors.forEach(function(m) {
+                                log("       " + m);
+                                logEntry.errors.push(m);
+                            });
+                        }
+
+                        // Search unused methods.
                         var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
                         if (unusedMethods.length > 0) {
                             logEntry.errors = logEntry.errors || [];
                             unusedMethods.forEach(function(m) {
-                                log("       Unused method: " + m);
-                                logEntry.errors.push("Unused method: " + m);
+
+                                if (errors && errors.indexOf(m) > -1) {
+                                    // Skip no data if error.
+                                    return;
+                                }
+
+                                log("       " + m + ": no data");
+                                logEntry.errors.push(m + ": no data");
                             });
                         }
                     }
+
 
                     logEntry.save(cb);
                 }
@@ -200,9 +219,14 @@ function testAll(cb) {
         if (plugin.domain && !plugin.module.tests) {
             console.warn('Domain plugin without tests:', plugin.id);
         }
-        if (["telly.com", "screenr.com", "facebook.video"].indexOf(plugin.id) == -1) {
-            //return false;
+
+        if (process.argv.length > 2) {
+            if (process.argv[2] != plugin.id) {
+                // node tester.js
+                return false;
+            }
         }
+
         return !!plugin.module.tests;
     });
     var pluginsIds = pluginsList.map(function(plugin) {

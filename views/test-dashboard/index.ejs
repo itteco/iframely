@@ -23,7 +23,7 @@
 
 <% groups.forEach(function(g) { %>
 
-    <h3><%= g.title %> <span class="badge badge-<%= g.class %>"><%= g.items.length %></span></h3>
+    <h3><%= g.title %> <span class="badge badge-<%= g.class %>" title="plugins count"><%= g.items.length %></span></h3>
 
 
     <% g.items.forEach(function(pluginTest) { %>
@@ -32,9 +32,9 @@
             <div class="row-fluid">
                 <div class="span">
                     <h4>
-                        <% if (pluginTest.failedUrls) {%><span class="badge badge-important"><%= pluginTest.failedUrls %></span><% } %>
-                        <% if (pluginTest.passedUrls) {%><span class="badge badge-success"><%= pluginTest.passedUrls %></span><% } %>
-                        <% if (pluginTest.pendingUrls) {%><span class="badge "><%= pluginTest.pendingUrls %></span><% } %>
+                        <% if (pluginTest.failedUrls) {%><span class="badge badge-important" title="urls failed"><%= pluginTest.failedUrls %></span><% } %>
+                        <% if (pluginTest.passedUrls) {%><span class="badge badge-success" title="urls passed"><%= pluginTest.passedUrls %></span><% } %>
+                        <% if (pluginTest.pendingUrls) {%><span class="badge" title="urls pending"><%= pluginTest.pendingUrls %></span><% } %>
                         <%= pluginTest._id %>
                     </h4>
                 </div>
@@ -80,7 +80,7 @@
                             </td>
 
                             <td>
-                                <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>">debug</a>
+                                <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>&debug=true">debug</a>
                             </td>
 
                             <td>
