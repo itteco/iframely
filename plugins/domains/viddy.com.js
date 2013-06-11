@@ -20,6 +20,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.viddy.com/video/d2000a03-149d-48d4-a7ec-6121300bc7f3?source=Trending
+        "http://www.viddy.com/video/d2000a03-149d-48d4-a7ec-6121300bc7f3?source=Trending"
     ]
 };
