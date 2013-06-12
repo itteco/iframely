@@ -24,6 +24,10 @@
                 }, {
                     upsert: false,
                     multi: true
+                }, function(error) {
+                    if (error) {
+                        console.error('Error restarting all tests', error);
+                    }
                 });
                 return res.redirect('/tests');
             }
