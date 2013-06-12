@@ -27,6 +27,10 @@ module.exports = {
     tests: [{
         page: "http://www.bravotv.com/videos",
         selector: "#content .title a"
+    }, {
+        skipMixins: [
+            "image_src"
+        ]
     },
         "http://www.bravotv.com/top-chef-masters/season-4/videos/thai-bye"
     ]
