@@ -2,7 +2,7 @@ var jquery = require('jquery');
 
 module.exports = {
 
-    re: /http:\/\/www\.collegehumor\.com\/video\.*/,
+    re: /http:\/\/www\.collegehumor\.com\/(video|embed)\.*/,
 
     // TODO: add predefined size for og-image: 640x360.
 

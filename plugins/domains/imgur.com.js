@@ -13,9 +13,9 @@ module.exports = {
     getLink: function(meta) {
 
         var src;
-        if (meta.twitter && meta.twitter.image && (src = meta.twitter.image.url) && src.match(/\.jpg$/)) {
+        if (meta.twitter && meta.twitter.image && (src = meta.twitter.image.url) && src.match(/\.(jpg|png)$/)) {
             return {
-                href: src.replace(/\.jpg$/, "b.jpeg"),
+                href: src.replace(/\.(jpg|png)$/, "b.$1"),
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 160,
