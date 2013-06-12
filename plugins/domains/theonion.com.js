@@ -51,5 +51,9 @@ module.exports = {
     tests: [{
         page: "http://www.theonion.com/video/",
         selector: ".title h1 a"
+    }, {
+        skipMethods: [
+            "getData"
+        ]
     }]
 };
