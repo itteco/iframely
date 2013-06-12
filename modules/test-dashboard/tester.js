@@ -470,7 +470,7 @@ function testAll(cb) {
         },
 
         function(cb) {
-            if (testOnePlugin || pluginTests.length == 0) {
+            if (testOnePlugin || count == 0) {
                 cb()
             } else {
                 TestingProgress.update({
