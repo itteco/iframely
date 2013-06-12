@@ -505,7 +505,10 @@ function startTest() {
             process.abort();
         }
 
-        setTimeout(startTest, CONFIG.tests.plugin_test_period / 10);
+        setTimeout(function() {
+            // Script should be restarted on that period to check new files version.
+            process.abort();
+        }, CONFIG.tests.relaunch_script_period);
     });
 }
 

@@ -3,6 +3,7 @@
     var async = require('async');
     var moment = require('moment');
     var _ = require('underscore');
+    var exec = require('child_process').exec;
 
     var models = require('./models');
 
@@ -12,6 +13,25 @@
     var TestingProgress = models.TestingProgress;
 
     module.exports = function(app){
+
+        app.get('/tests/run/:plugin', function(req, res, next) {
+
+            if (req.params.plugin == "all") {
+                PluginTest.update({}, {
+                    $set: {
+                        last_test_started_at: null
+                    }
+                }, {
+                    upsert: false,
+                    multi: true
+                });
+                return res.redirect('/tests');
+            }
+
+            exec('sh ./test-plugins.sh ' + req.params.plugin, function (error, stdout, stderr) {
+                res.redirect('/tests#' + req.params.plugin);
+            });
+        });
 
         app.get('/tests', function(req, res, next){
 

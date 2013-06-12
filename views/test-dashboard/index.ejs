@@ -44,6 +44,8 @@
         <% } %>
     <% } %>
 
+    <p><a href="/tests/run/all">test all!</a> (will be executed after test script restarted)</p>
+
 <% groups.forEach(function(g) { %>
 
     <h3><%= g.title %> <span class="badge badge-<%= g.class %>" title="plugins count"><%= g.items.length %></span></h3>
@@ -65,7 +67,9 @@
 
 
             <div class="row-fluid">
-                <div class="span1"></div>
+                <div class="span1">
+                    <a href="/tests/run/<%= pluginTest._id %>" onclick="$(this).after('testing...').remove();">test now</a>
+                </div>
                 <div class="span11">
 
                     <% if (pluginTest.error) { %>
