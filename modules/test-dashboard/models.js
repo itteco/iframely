@@ -139,6 +139,10 @@
         return this.errors && this.errors.length > 0;
     };
 
+    PageTestLogSchema.methods.hasTimeout = function() {
+        return this.warnings && this.warnings.indexOf("timeout") > -1;
+    };
+
     PageTestLogSchema.methods.hasWarning = function() {
         return this.warnings && this.warnings.length > 0;
     };

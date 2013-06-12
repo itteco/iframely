@@ -261,7 +261,11 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
-                        logEntry.errors = [JSON.stringify(error)];
+                        if (error == "timeout") {
+                            logEntry.warnings = [error];
+                        } else {
+                            logEntry.errors = [JSON.stringify(error)];
+                        }
                     }
 
                     if (data) {

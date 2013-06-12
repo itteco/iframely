@@ -110,7 +110,13 @@
 
                                         <% if (log) { %>
                                             <p>
-                                                <%= log.hasError() ? "error" : "ok" %> - <%= log.response_time/1000 %> sec
+                                                <% if (log.hasTimeout()) {%>
+                                                    timeout
+                                                <% } else { %>
+                                                    <%= log.hasError() ? "error" : "ok" %>
+                                                <% } %>
+                                                -
+                                                <%= log.response_time/1000 %> sec
                                             </p>
                                         <% } %>
 
@@ -126,7 +132,7 @@
                                             </p>
                                         <% } %>
 
-                                        <% if (log && log.hasWarning()) { %>
+                                        <% if (log && log.hasWarning() && !log.hasTimeout()) { %>
                                             <p><strong>soft warnings:</strong></p>
                                             <ul>
                                                 <% log.warnings.forEach(function(e) { %>
