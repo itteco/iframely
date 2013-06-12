@@ -42,7 +42,7 @@ exports.getErrors = function(debugData) {
 
 var MAX_FEED_URLS = 5;
 
-var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, cb) {
+var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
 
     var urls = [];
 
@@ -65,6 +65,16 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, cb) {
             while (item = stream.read()) {
 
                 if (urls.length < MAX_FEED_URLS) {
+
+                    var url = item.origlink || item.link;
+
+                    if (options.getUrl) {
+                        url = options.getUrl(url);
+                    }
+
+                    if (!url) {
+                        return;
+                    }
 
                     urls.push(item.origlink || item.link);
 

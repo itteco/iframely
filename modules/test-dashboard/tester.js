@@ -166,7 +166,9 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         if (url.feed) {
                             // Fetch feed.
-                            utils.fetchFeedUrls(url.feed, getFetchTestUrlsCallback(url, cb));
+                            utils.fetchFeedUrls(url.feed, {
+                                getUrl: url.getUrl
+                            }, getFetchTestUrlsCallback(url, cb));
 
                         } else if (url.pageWithFeed) {
                             // Find feed on page and fetch feed.
