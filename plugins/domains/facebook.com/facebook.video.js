@@ -43,7 +43,7 @@ module.exports = {
     },
 
     getData: function(urlMatch, request, cb) {
-
+console.log(urlMatch);
         var statsUri = 'http://www.facebook.com/video/external_video.php?v=' + urlMatch[1];
 
         request({
@@ -86,7 +86,6 @@ module.exports = {
     tests: [
         "http://www.facebook.com/video/video.php?v=4253262701205&set=vb.1574932468&type=2",
         "http://www.facebook.com/photo.php?v=4253262701205&set=vb.1574932468&type=2&theater",
-        "http://www.facebook.com/video/video.php?v=4253270901410",
         {
             noFeeds: true
         }
