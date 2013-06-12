@@ -39,7 +39,10 @@
     });
 
     TestingProgressSchema.methods.getPercent = function() {
-        if (this.total_plugins_count) {
+
+        if (this.total_plugins_count && this.total_plugins_count) {
+            return 100;
+        } else if (this.total_plugins_count && this.total_plugins_count > 0) {
             var p = this.tested_plugins_count / this.total_plugins_count;
             return Math.ceil(p * 100);
         } else {

@@ -429,9 +429,16 @@ function testAll(cb) {
                 TestingProgress.update({
                     _id: 1
                 }, {
-                    total_plugins_count: pluginTests.length,
-                    tested_plugins_count: 0,
-                    tests_started_at: new Date()
+                    $set: {
+                        total_plugins_count: pluginTests.length,
+                        tested_plugins_count: 0,
+                        tests_started_at: new Date()
+                    },
+                    $unset: {
+                        tests_finished_at: 1,
+                        last_plugin_test_started_at: 1,
+                        current_testing_plugin: 1
+                    }
                 }, {
                     upsert: true
                 }, function(error) {

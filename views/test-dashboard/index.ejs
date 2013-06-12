@@ -24,7 +24,11 @@
     <p>Rendered at: <%= time %></p>
 
     <% if (progress) { %>
-        <p>Progress:</p>
+        <% if (!progress.tests_finished_at) { %>
+            <p>Current test batch progress:</p>
+        <% } else { %>
+            <p>Last test batch:</p>
+        <% } %>
         <ul>
             <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
             <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
