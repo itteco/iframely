@@ -44,6 +44,11 @@ var MAX_FEED_URLS = 5;
 
 var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
 
+    if (typeof options === "function") {
+        cb = options;
+        options = {};
+    }
+
     var urls = [];
 
     var cbed = false;

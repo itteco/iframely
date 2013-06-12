@@ -41,9 +41,9 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://digg.com/",
+        pageWithFeed: "http://digg.com/"
     }, {
-        pageWithFeed: "http://www.reddit.com/",
+        pageWithFeed: "http://www.reddit.com/"
     }, {
         skipMethods: [
             "getLinks"

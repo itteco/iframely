@@ -352,7 +352,7 @@ function testAll(cb) {
             return false;
         }
 
-        return plugin.domain || plugin.tests;
+        return plugin.domain || plugin.module.tests;
     });
     var pluginsIds = pluginsList.map(function(plugin) {
         return plugin.id;
