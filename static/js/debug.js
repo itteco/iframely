@@ -110,7 +110,7 @@ function findDebugInfo(options, data) {
 
                     for(var k in r.context) {
                         var c = r.context[k];
-                        if (c in defaultContext && c != "cb") {
+                        if (c in defaultContext && c != "cb" && c != "$selector") {
                             // Link to context.
                             r.context[k] = "[contextLink]" + c + "[/contextLink]";
                         }
