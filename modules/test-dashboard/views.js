@@ -9,6 +9,7 @@
     var PluginTest = models.PluginTest;
     var PageTestLog = models.PageTestLog;
     var TestUrlsSet = models.TestUrlsSet;
+    var TestingProgress = models.TestingProgress;
 
     module.exports = function(app){
 
@@ -18,11 +19,18 @@
                 return next(new Error("mongodb not initialized to store db logs"));
             }
 
-            var pluginTests, groups = [];
+            var progress, pluginTests, groups = [];
 
             async.waterfall([
 
-                function loadPluginTests(cb) {
+                function loadProgress(cb) {
+                    TestingProgress.findById(1, cb);
+                },
+
+                function loadPluginTests(_progress, cb) {
+
+                    progress = _progress;
+
                     PluginTest.find({
                         obsolete: false
                     }, {}, {
@@ -133,7 +141,14 @@
 
                 res.render('test-dashboard/index',{
                     groups: groups,
-                    time: moment().format("DD-MM-YY HH:mm")
+                    time: moment().format("DD-MM-YY HH:mm"),
+                    progress: progress,
+                    format: function(d) {
+                        if (!d) {
+                            return "–";
+                        }
+                        return moment(d).format("DD-MM-YY HH:mm")
+                    }
                 });
             });
         });

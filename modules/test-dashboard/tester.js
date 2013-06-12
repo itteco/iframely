@@ -8,15 +8,21 @@ var models = require('./models');
 var iframely = require('../../lib/iframely');
 var utils = require('./utils');
 
-/*
+var testOnePlugin = false;
+
+if (process.argv.length > 1) {
+    testOnePlugin = process.argv[2];
+}
+
 process.on('uncaughtException', function(err) {
     console.log("uncaughtException", err.stack);
+    process.abort();
 });
-*/
 
 var PluginTest = models.PluginTest;
 var PageTestLog = models.PageTestLog;
 var TestUrlsSet = models.TestUrlsSet;
+var TestingProgress = models.TestingProgress;
 
 if (!PluginTest) {
     console.error("Models not loaded. Tests will not run.");
@@ -85,7 +91,7 @@ function createNewPluginTests(providersIds, cb) {
     ], cb);
 }
 
-function processPluginTests(pluginTest, plugin, cb) {
+function processPluginTests(pluginTest, plugin, count, cb) {
 
     var testUrlsSet, reachTestObjectFound = false;;
 
@@ -116,7 +122,26 @@ function processPluginTests(pluginTest, plugin, cb) {
             pluginTest.save(cb);
         },
 
-        function getUrls(a, b, cb) {
+        function fixProgress(a, b, cb) {
+            if (testOnePlugin) {
+                cb(null, a);
+            } else {
+
+                TestingProgress.update({
+                    _id: 1
+                }, {
+                    $set: {
+                        tested_plugins_count: count,
+                        last_plugin_test_started_at: new Date(),
+                        current_testing_plugin: plugin.id
+                    }
+                }, {
+                    upsert: false
+                }, cb);
+            }
+        },
+
+        function getUrls(a, cb) {
 
             var tests = plugin.module.tests;
 
@@ -165,9 +190,7 @@ function processPluginTests(pluginTest, plugin, cb) {
                     } else {
                         cb(null, null);
                     }
-                }, function(error, data) {
-                    cb(error, data);
-                });
+                }, cb);
             }
         },
 
@@ -208,7 +231,7 @@ function processPluginTests(pluginTest, plugin, cb) {
                 log('   Testing url:', url);
 
                 var startTime = new Date().getTime();
-                var timeout, timeoutTime = 10;
+                var timeout;
 
                 // TODO: handle schema validation errors.
 
@@ -284,8 +307,8 @@ function processPluginTests(pluginTest, plugin, cb) {
                 }
 
                 timeout = setTimeout(function() {
-                    callback('timeout: ' + timeoutTime + ' sec');
-                }, timeoutTime * 1000);
+                    callback('timeout');
+                }, CONFIG.tests.single_test_timeout);
 
                 iframely.getRawLinks(url, {
                     debug: true,
@@ -326,6 +349,8 @@ function testAll(cb) {
 
     console.log('Start tests with', pluginsList.length, 'plugins to test.');
 
+    var count = 0;
+
     async.waterfall([
 
         function initPluginTests(cb) {
@@ -344,25 +369,75 @@ function testAll(cb) {
 
         function loadPluginTests(data, cb) {
 
-            pluginsIds = pluginsIds.filter(function(pluginId) {
-                if (process.argv.length > 2) {
-                    if (process.argv[2] != pluginId) {
-                        return false;
-                    }
-                }
-                return true;
-            })
+            if (testOnePlugin) {
+                PluginTest.find({_id: testOnePlugin}, cb);
+            } else {
 
-            PluginTest.find({
-                _id: {
-                    $in: pluginsIds
-                },
-                obsolete: false
-            }, {}, {
-                sort:{
-                    last_test_started_at: 1
-                }
-            }, cb);
+                async.waterfall([
+
+                    function loadPluginTests(cb) {
+                        PluginTest.find({
+                            obsolete: false
+                        }, {}, {}, cb);
+                    },
+
+                    function filterAndSort(pluginTests, cb) {
+
+                        pluginTests.forEach(function(pluginTest) {
+                            var modified = plugins[pluginTest._id].modified;
+                            if (pluginTest.last_test_started_at && pluginTest.last_test_started_at < modified) {
+                                pluginTest.last_test_started_at = null;
+                            }
+                        });
+
+                        var filterDate = new Date(new Date() - CONFIG.tests.plugin_test_period);
+
+                        pluginTests = pluginTests.filter(function(pluginTest) {
+                            return !pluginTest.last_test_started_at || pluginTest.last_test_started_at < filterDate;
+                        });
+
+                        pluginTests.sort(function(a, b) {
+
+                            if (!a.last_test_started_at && !b.last_test_started_at) {
+                                return 0;
+                            }
+
+                            if (!a.last_test_started_at) {
+                                return -1;
+                            }
+
+                            if (!b.last_test_started_at) {
+                                return 1;
+                            }
+
+                            return a.last_test_started_at - b.last_test_started_at;
+                        });
+
+                        cb(null, pluginTests);
+                    }
+
+                ], cb);
+            }
+
+        },
+
+        function(pluginTests, cb) {
+
+            if (testOnePlugin) {
+                cb(null, pluginTests)
+            } else {
+                TestingProgress.update({
+                    _id: 1
+                }, {
+                    total_plugins_count: pluginTests.length,
+                    tested_plugins_count: 0,
+                    tests_started_at: new Date()
+                }, {
+                    upsert: true
+                }, function(error) {
+                    cb(error, pluginTests);
+                });
+            }
         },
 
         function(pluginTests, cb) {
@@ -373,7 +448,9 @@ function testAll(cb) {
 
             async.eachSeries(pluginTests, function(pluginTest, cb) {
 
-                processPluginTests(pluginTest, plugins[pluginTest._id], function(error) {
+                processPluginTests(pluginTest, plugins[pluginTest._id], count, function(error) {
+
+                    count++;
 
                     if (error) {
                         cerror('    Plugin test error', pluginTest._id, error);
@@ -385,7 +462,29 @@ function testAll(cb) {
                 });
 
             }, cb);
+        },
+
+        function(cb) {
+            if (testOnePlugin) {
+                cb()
+            } else {
+                TestingProgress.update({
+                    _id: 1
+                }, {
+                    $set: {
+                        tested_plugins_count: count,
+                        tests_finished_at: new Date()
+                    },
+                    $unset: {
+                        last_plugin_test_started_at: 1,
+                        current_testing_plugin: 1
+                    }
+                }, {
+                    upsert: false
+                }, cb);
+            }
         }
+
     ], function(error) {
         console.error('Global testing error:', error);
         cb();
@@ -394,7 +493,12 @@ function testAll(cb) {
 
 function startTest() {
     testAll(function() {
-        setTimeout(startTest, 5 * 60 * 60 * 1000); // each 5 hours.
+
+        if (testOnePlugin) {
+            process.abort();
+        }
+
+        setTimeout(startTest, CONFIG.tests.plugin_test_period / 10);
     });
 }
 

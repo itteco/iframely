@@ -7,13 +7,45 @@
     // DB connect.
     try {
         mongoose = require('mongoose');
-        db = mongoose.createConnection(CONFIG.tests_mongodb);
+        db = mongoose.createConnection(CONFIG.tests.mongodb);
     } catch (ex) {
         console.warn("Mongodb not initialized. Test dashboard will not work.");
         return;
     }
 
     var Schema = mongoose.Schema;
+
+    var TestingProgressSchema = new Schema({
+        _id: {
+            type: Number,
+            required: true,
+            default: 1
+        },
+        total_plugins_count: {
+            required: true,
+            type: Number
+        },
+        tested_plugins_count: {
+            required: true,
+            type: Number
+        },
+        tests_started_at: {
+            required: true,
+            type: Date
+        },
+        tests_finished_at: Date,
+        last_plugin_test_started_at: Date,
+        current_testing_plugin: String
+    });
+
+    TestingProgressSchema.methods.getPercent = function() {
+        if (this.total_plugins_count) {
+            var p = this.tested_plugins_count / this.total_plugins_count;
+            return Math.ceil(p * 100);
+        } else {
+            return "0"
+        }
+    };
 
     var PluginTestSchema = new Schema({
 
@@ -24,8 +56,6 @@
 
         last_test_started_at: {
             type: Date,
-            required: true,
-            default: Date.now,
             index: true
         },
 
@@ -105,6 +135,7 @@
     PageTestLogSchema.methods.hasError = function() {
         return this.errors && this.errors.length > 0;
     };
+
     PageTestLogSchema.methods.hasWarning = function() {
         return this.warnings && this.warnings.length > 0;
     };
@@ -113,10 +144,9 @@
         return moment(this.created_at).format("DD-MM-YY HH:mm");
     };
 
-
-
     exports.PluginTest = db.model('PluginTest', PluginTestSchema);
     exports.PageTestLog = db.model('PageTestLog', PageTestLogSchema);
     exports.TestUrlsSet = db.model('TestUrlsSet', TestUrlsSetSchema);
+    exports.TestingProgress = db.model('TestingProgress', TestingProgressSchema);
 
 })();

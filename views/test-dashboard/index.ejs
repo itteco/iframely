@@ -23,6 +23,23 @@
 
     <p>Rendered at: <%= time %></p>
 
+    <% if (progress) { %>
+        <p>Progress:</p>
+        <ul>
+            <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
+            <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
+            <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
+        </ul>
+
+        <% if (progress.current_testing_plugin) { %>
+            <p>Current test:</p>
+            <ul>
+                <li>plugin: <strong><%= progress.current_testing_plugin %></strong></li>
+                <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
+            </ul>
+        <% } %>
+    <% } %>
+
 <% groups.forEach(function(g) { %>
 
     <h3><%= g.title %> <span class="badge badge-<%= g.class %>" title="plugins count"><%= g.items.length %></span></h3>
