@@ -8,7 +8,13 @@ module.exports = {
 
     getLink: function($selector) {
 
-        var preview = $selector('img#fbPhotoImage').attr('src');
+        var $image = $selector('img#fbPhotoImage');
+
+        if ($image.attr('width') == 1) {
+            return;
+        }
+
+        var preview = $image.attr('src');
         var title = $selector('.hasCaption').text().trim();
 
         if (preview) {

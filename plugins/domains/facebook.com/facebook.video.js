@@ -43,7 +43,7 @@ module.exports = {
     },
 
     getData: function(urlMatch, request, cb) {
-console.log(urlMatch);
+
         var statsUri = 'http://www.facebook.com/video/external_video.php?v=' + urlMatch[1];
 
         request({
