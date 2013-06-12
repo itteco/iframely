@@ -29,6 +29,7 @@
             }
 
             exec('sh ./test-plugins.sh ' + req.params.plugin, function (error, stdout, stderr) {
+                console.log(stdout);
                 res.redirect('/tests#' + req.params.plugin);
             });
         });

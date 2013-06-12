@@ -259,7 +259,9 @@ function findUsedMethods(options, debugData, result) {
 
                 var good = false;
                 if (options.link) {
-                    good = l.sourceId == options.link.sourceId;
+                    good =
+                        l.sourceId == options.link.sourceId
+                    ||  l.duplicateId == options.link.sourceId;
                 }
 
                 if (options.findByMeta) {
