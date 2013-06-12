@@ -42,6 +42,13 @@ module.exports = {
     tests: [{
         feed: "http://api.flickr.com/services/feeds/photos_public.gne"
     },
-        "http://www.flickr.com/photos/jup3nep/8243797061/?f=hp"
+        "http://www.flickr.com/photos/jup3nep/8243797061/?f=hp",
+        {
+            skipMixins: [
+                "oembed-title",
+                "oembed-author",
+                "oembed-license"
+            ]
+        }
     ]
 };
