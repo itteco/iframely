@@ -1,8 +1,9 @@
 module.exports = {
 
     mixins: [
-        "oembed-title",
-        "description",
+        "og-title",     // Low priority.
+        "oembed-title", // Higher priority.
+        "og-description",
         "canonical",
         "oembed-site",
         "oembed-author",
@@ -30,5 +31,11 @@ module.exports = {
 
     tests: [{
         pageWithFeed: "http://www.smugmug.com/popular/all"
+    }, {
+        skipMixins: [
+            "og-title",
+            "oembed-title",
+            "keywords"
+        ]
     }]
 };
