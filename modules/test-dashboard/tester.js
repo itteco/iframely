@@ -423,7 +423,7 @@ function testAll(cb) {
 
         function(pluginTests, cb) {
 
-            if (testOnePlugin) {
+            if (testOnePlugin || pluginTests.length == 0) {
                 cb(null, pluginTests)
             } else {
                 TestingProgress.update({
@@ -451,8 +451,6 @@ function testAll(cb) {
 
             log("Loaded PluginTest's from db", pluginTests.length);
 
-            // TODO: change pluginTests ordering method - first untested OR last changed untested.
-
             async.eachSeries(pluginTests, function(pluginTest, cb) {
 
                 processPluginTests(pluginTest, plugins[pluginTest._id], count, function(error) {
@@ -472,7 +470,7 @@ function testAll(cb) {
         },
 
         function(cb) {
-            if (testOnePlugin) {
+            if (testOnePlugin || pluginTests.length == 0) {
                 cb()
             } else {
                 TestingProgress.update({
@@ -493,7 +491,11 @@ function testAll(cb) {
         }
 
     ], function(error) {
-        console.error('Global testing error:', error);
+        if (error) {
+            console.error('Global testing error:', error);
+        } else {
+            console.log('Testing finished');
+        }
         cb();
     });
 }

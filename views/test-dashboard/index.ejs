@@ -44,7 +44,7 @@
         <% } %>
     <% } %>
 
-    <p><a href="/tests/run/all">test all!</a> (will be executed after test script restarted)</p>
+    <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">[test all]</a> (will be executed after test script restarted)</p>
 
 <% groups.forEach(function(g) { %>
 
