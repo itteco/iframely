@@ -268,7 +268,12 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         }
                     }
 
+
                     if (data) {
+                        if (data.debug[0].context.errors) {
+                            logEntry.errors = logEntry.errors || [];
+                            logEntry.errors = logEntry.errors.concat(data.debug[0].context.errors);
+                        }
 
                         // Method errors.
                         var errors = utils.getErrors(data);
