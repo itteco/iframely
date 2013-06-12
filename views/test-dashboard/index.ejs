@@ -44,7 +44,7 @@
         <% } %>
     <% } %>
 
-    <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">[test all]</a> (will be executed after test script restarted)</p>
+    <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">Mark all to test</a> (test will run in background after <%= CONFIG.tests.relaunch_script_period / (60 * 1000) %> mins if properly configured)</p>
 
 <% groups.forEach(function(g) { %>
 
