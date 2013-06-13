@@ -139,9 +139,17 @@
 
                     var logs = _.values(pluginTest.last_page_logs_dict);
 
-                    pluginTest.passedUrls = _.values(pluginTest.last_page_logs_dict).filter(function(log) {
-                        return !log.hasError();
-                    }).length;
+                    var allTimeout = _.all(logs, function(log) {
+                        return log.hasTimeout();
+                    });
+                    if (allTimeout) {
+                        pluginTest.passedUrls = 0;
+                    } else {
+                        pluginTest.passedUrls = logs.filter(function(log) {
+                            return !log.hasError();
+                        }).length;
+                    }
+
                     pluginTest.failedUrls = logs.length - pluginTest.passedUrls;
                     pluginTest.pendingUrls = _.difference(pluginTest.last_urls_set.urls, testedUrls).length;
                     pluginTest.hasError = pluginTest.failedUrls > 0;
