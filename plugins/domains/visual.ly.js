@@ -32,6 +32,11 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://visual.ly/"
     },
-        "http://visual.ly/spring-cleaning-improve-energy-efficiency"
+        "http://visual.ly/spring-cleaning-improve-energy-efficiency",
+        {
+            skipMixins: [
+                "description"
+            ]
+        }
     ]
 };
