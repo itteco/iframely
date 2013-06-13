@@ -272,6 +272,18 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
 
                     if (data) {
+
+                        var rels = [];
+                        data.links.forEach(function(link) {
+                            link.rel.forEach(function(rel) {
+                                if (CONFIG.REL_GROUPS.indexOf(rel) > -1 && rels.indexOf(rel) == -1) {
+                                    rels.push(rel);
+                                }
+                            });
+                        });
+
+                        logEntry.rel = rels;
+
                         if (data.debug[0].context.errors) {
                             logEntry.errors = logEntry.errors || [];
                             logEntry.errors = logEntry.errors.concat(data.debug[0].context.errors);

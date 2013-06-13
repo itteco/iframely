@@ -129,7 +129,7 @@
             required: true
         },
 
-        //data: String,
+        rel: [String],
 
         errors: [String],
         warnings: [String]
