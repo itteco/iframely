@@ -54,6 +54,11 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://techcrunch.com/"
     },
-        "http://techcrunch.com/2013/05/31/amazon-updates-route-53-dns-service-to-make-hosting-high-availability-sites-on-ec2-easier/"
+        "http://techcrunch.com/2013/05/31/amazon-updates-route-53-dns-service-to-make-hosting-high-availability-sites-on-ec2-easier/",
+        {
+            skipMixins: [
+                "oembed-thumbnail"
+            ]
+        }
     ]
 };

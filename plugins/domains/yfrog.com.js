@@ -32,7 +32,7 @@ module.exports = {
     },
 
     tests: [ 
-        "http://twitter.yfrog.com/gz7qjnqj",
+        "http://twitter.yfrog.com/mn444mbkj?sa=0",
         "http://yfrog.com/obwotspj"
     ]
 };

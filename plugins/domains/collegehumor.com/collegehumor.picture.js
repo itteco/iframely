@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www\.collegehumor\.com\/picture\.*/,
+    re: /http:\/\/www\.collegehumor\.com\/picture\/([0-9]+)\.*/,
 
     mixins: [
         "og-title",
@@ -17,6 +17,11 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://www.collegehumor.com/pictures"
     },
-        "http://www.collegehumor.com/picture/6785079/cops-pull-over-black-man"
+        "http://www.collegehumor.com/picture/6785079/cops-pull-over-black-man",
+        {
+            skipMixins: [
+                "og-description"
+            ]
+        }
     ]
 };

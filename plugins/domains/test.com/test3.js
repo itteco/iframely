@@ -5,5 +5,9 @@ module.exports = {
             href: 'http://test.com',
             type: 'text/html'
         };
+    },
+
+    tests: {
+        noTest: true
     }
 };

@@ -2,7 +2,8 @@ module.exports = {
 
     //http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842    
     re: [
-        /^https?:\/\/v\.youku\.com\/v_show\/id_(\w{3,})\.html/i
+        /^https?:\/\/v\.youku\.com\/v_show\/id_(\w{3,})\.html/i,
+        /^https?:\/\/news\.youku\.com\/(\w{3,})/i
     ],
 
     mixins: [
@@ -21,7 +22,10 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        page: "http://www.youku.com/",
+        selector: "#focusvideo .v_title a"
+    },
         "http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842"
     ]
 };

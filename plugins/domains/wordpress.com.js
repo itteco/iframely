@@ -20,6 +20,16 @@ module.exports = {
 
 
     tests: [{
-        feed: "http://en.wordpress.com/tag/technology/feed/"
+        feed: "http://en.wordpress.com/tag/javascript/feed/",
+        getUrl: function(url) {
+            var m = url.match(/http:\/\/\w+\.wordpress\.com/i);
+            if (m) {
+                return url;
+            }
+        }
+    }, {
+        skipMixins: [
+            "oembed-thumbnail"
+        ]
     }]
 };

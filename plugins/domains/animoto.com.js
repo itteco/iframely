@@ -18,7 +18,7 @@ module.exports = {
         }
     },
 
-    test: [
+    tests: [
         "http://animoto.com/play/k01h0yvqf59whdd80nla1q"
     ]
 };

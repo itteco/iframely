@@ -62,5 +62,12 @@ module.exports = {
                      "max-width": c["max-width"]
                  });
             });
-    }
+    },
+
+    tests: [{
+        page: "https://twitter.com/TSwiftOnTour",
+        selector: ".tweet-timestamp"
+    },
+        "https://twitter.com/TSwiftOnTour/status/343846711346737153"
+    ]
 };

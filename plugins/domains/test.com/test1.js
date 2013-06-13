@@ -4,5 +4,9 @@ module.exports = {
         return {
             test_data1: true
         };
+    },
+
+    tests: {
+        noTest: true
     }
 };

@@ -2,12 +2,11 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        if (!meta.DC) {
-            return;
-        }
+    	var dc = meta.DC || meta.dc;
 
+        if (dc && dc.title) 
         return {
-            title: meta.DC.title
+            title: dc.title
         };
     }
 };

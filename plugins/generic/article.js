@@ -50,8 +50,6 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://techcrunch.com"
-    }, {
         pageWithFeed: "http://habrahabr.ru"
     }]
 };

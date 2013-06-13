@@ -11,7 +11,8 @@ module.exports = {
         "favicon"
     ],
 
-    tests: [
-        "http://www.mixcloud.com/espnradio/espn-radio-daily-515/"
-    ]
+    tests: [{
+        page: "http://www.mixcloud.com/categories/comedy/",
+        selector: ".latest-cc .mx-link"
+    }]
 };

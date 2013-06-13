@@ -57,7 +57,6 @@ function findDebugInfo(options, data) {
     defaultContext.$selector = true;
 
     var result = [];
-    var onLevel;
     data.debug.forEach(function(level, levelIdx) {
         if (options.maxLevel <= levelIdx) {
             return;
@@ -98,13 +97,9 @@ function findDebugInfo(options, data) {
                     r.time = methodData.time;
                     delete r.data.sourceId;
 
-                    // Find parent.
-                    var findSourceForRequirements = [];
-                    params.forEach(function(param) {
-                        if (!(param in defaultContext)) {
-                            findSourceForRequirements.push(param);
-                        }
-                    })
+                    // Find parent data source.
+
+                    var findSourceForRequirements = _.difference(params, defaultContext);
 
                     if (findSourceForRequirements.length > 0) {
                         r.customContextSource = findDebugInfo({
@@ -115,7 +110,7 @@ function findDebugInfo(options, data) {
 
                     for(var k in r.context) {
                         var c = r.context[k];
-                        if (c in defaultContext && c != "cb") {
+                        if (c in defaultContext && c != "cb" && c != "$selector") {
                             // Link to context.
                             r.context[k] = "[contextLink]" + c + "[/contextLink]";
                         }
@@ -348,7 +343,7 @@ function processUrl() {
         $loader.hide();
 
         if (error) {
-            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' ' + error);
+            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error + ' - ' +jqXHR.responseText);
             $result.renderObject(data);
             return;
         }

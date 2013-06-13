@@ -1,6 +1,7 @@
 module.exports = {
 
     //twitvid will re-direct here
+    //TODO: extract YouTube & Vimeo players
     mixins: [
         "canonical",
         "og-site",
@@ -10,8 +11,11 @@ module.exports = {
         "favicon"
     ],
 
-    tests: [ 
-        "http://telly.com/2EQ0D4",
-        "http://www.twitvid.com/POQOWF"
+    tests: [
+    /*{
+        page: "http://blog.telly.com/",
+        selector: ".main_content a"
+    },*/
+        "http://telly.com/Q84DI7"
     ]
 };

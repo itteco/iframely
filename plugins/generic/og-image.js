@@ -38,5 +38,13 @@ module.exports = {
                 height: meta.og.image.height
             }];
         }
-    }
+    },
+
+    tests: [{
+        pageWithFeed: "http://digg.com/",
+    }, {
+        skipMethods: [
+            "getLinks"
+        ]
+    }]
 };

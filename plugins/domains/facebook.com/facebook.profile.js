@@ -31,5 +31,10 @@ module.exports = {
         });
     },
 
-    tests: "http://www.facebook.com/nazar.leush"
+    tests: [
+        "http://www.facebook.com/nazar.leush",
+        {
+            noFeeds: true
+        }
+    ]
 };

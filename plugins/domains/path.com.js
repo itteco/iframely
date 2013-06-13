@@ -6,8 +6,7 @@ module.exports = {
 
     mixins: [
         "canonical",
-        "favicon",
-        "og-video"
+        "favicon"
     ],
 
     getMeta: function(meta) {
@@ -58,8 +57,6 @@ module.exports = {
         "https://path.com/p/2Citrk",
         "https://path.com/p/2XzZcC",
         "https://path.com/p/12tHdu",
-        "https://path.com/p/j9Wet",
-        "https://path.com/p/1gdeo4",
         "https://path.com/p/2QsP9k"
     ]
 };

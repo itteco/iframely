@@ -40,7 +40,12 @@ module.exports = {
 
     tests: [{
         feed: "http://mellomusicgroup.bandcamp.com/feed"
-    },
-        "http://mad-hop.bandcamp.com/track/fracture"
+        },
+        "http://mad-hop.bandcamp.com/track/fracture",
+        {
+            skipMixins: [
+                "og-description"
+            ]
+        }
     ]
 };

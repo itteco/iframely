@@ -17,7 +17,10 @@ module.exports = {
         }
     },
 
-    tests: [ 
-        "http://coub.com/view/12yjcjny",
+    tests: [{
+        page: "http://coub.com/view/1icq5pfk",
+        selector: ".suggest .title a"
+    },
+        "http://coub.com/view/12yjcjny"
     ]
 };

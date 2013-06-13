@@ -12,12 +12,18 @@ module.exports = {
     ],
 
     getMeta: function(meta) {
+
+        var keywords = meta.five_hundred_pixels.tags;
+        if (keywords instanceof Array) {
+            keywords = meta.five_hundred_pixels.tags.join(', ');
+        }
+
         return {
             latitude: meta.five_hundred_pixels.location.latitude,
             longitude: meta.five_hundred_pixels.location.longitude,
             category: meta.five_hundred_pixels.category,
             date: meta.five_hundred_pixels.uploaded,
-            keywords: meta.five_hundred_pixels.tags && meta.five_hundred_pixels.tags.join(', ')
+            keywords: keywords
         };
     },
 
