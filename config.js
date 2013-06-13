@@ -12,10 +12,12 @@
 
         tests: {
             mongodb: 'mongodb://localhost:27017/iframely-tests',
-            single_test_timeout: 10000,
+            single_test_timeout: 10 * 1000,
             plugin_test_period: 2 * 60 * 60 * 1000,
             relaunch_script_period: 5 * 60 * 1000
         },
+
+        metaLoadingTimeout: 15 * 1000,
 
         T: {
             text_html: "text/html",

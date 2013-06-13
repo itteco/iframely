@@ -343,7 +343,7 @@ function processUrl() {
         $loader.hide();
 
         if (error) {
-            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' ' + error);
+            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error + ' - ' +jqXHR.responseText);
             $result.renderObject(data);
             return;
         }
