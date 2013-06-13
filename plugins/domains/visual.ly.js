@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/visual\.ly\/[\w\-]+/i,
+    re: /^https?:\/\/visual\.ly\/[\u0000-\u0080]+/i,
 
     mixins: [
         "canonical",
