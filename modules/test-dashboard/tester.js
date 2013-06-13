@@ -6,7 +6,10 @@ var _ = require('underscore');
 var models = require('./models');
 
 var iframely = require('../../lib/iframely');
+var cache = require('../../lib/cache');
 var utils = require('./utils');
+
+cache.setCachingCallbacks(function(key, data) {}, function(key, cb) {cb(null, null);});
 
 var testOnePlugin = false;
 
@@ -15,8 +18,21 @@ if (process.argv.length > 1) {
 }
 
 process.on('uncaughtException', function(err) {
+
     console.log("uncaughtException", err.stack);
-    process.abort();
+
+    TestingProgress.update({
+        _id: 1
+    }, {
+        $set: {
+            tests_finished_at: new Date(),
+            last_uncaught_exception: err.message
+        }
+    }, {
+        upsert: false
+    }, function(){
+        process.abort();
+    });
 });
 
 var PluginTest = models.PluginTest;
@@ -460,7 +476,8 @@ function testAll(cb) {
                     $unset: {
                         tests_finished_at: 1,
                         last_plugin_test_started_at: 1,
-                        current_testing_plugin: 1
+                        current_testing_plugin: 1,
+                        last_uncaught_exception: 1
                     }
                 }, {
                     upsert: true
@@ -496,6 +513,7 @@ function testAll(cb) {
             if (testOnePlugin || count == 0) {
                 cb()
             } else {
+                console.log('finish');
                 TestingProgress.update({
                     _id: 1
                 }, {
@@ -505,7 +523,8 @@ function testAll(cb) {
                     },
                     $unset: {
                         last_plugin_test_started_at: 1,
-                        current_testing_plugin: 1
+                        current_testing_plugin: 1,
+                        last_uncaught_exception: 1
                     }
                 }, {
                     upsert: false

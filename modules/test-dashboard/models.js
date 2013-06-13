@@ -35,7 +35,8 @@
         },
         tests_finished_at: Date,
         last_plugin_test_started_at: Date,
-        current_testing_plugin: String
+        current_testing_plugin: String,
+        last_uncaught_exception: String
     });
 
     TestingProgressSchema.methods.getPercent = function() {

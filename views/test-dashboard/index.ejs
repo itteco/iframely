@@ -33,6 +33,10 @@
             <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
             <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
             <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
+
+            <% if (progress.last_uncaught_exception) { %>
+                <li>Last uncaught exception: <strong><%= progress.last_uncaught_exception %></strong></li>
+            <% } %>
         </ul>
 
         <% if (progress.current_testing_plugin) { %>
