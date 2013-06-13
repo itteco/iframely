@@ -2,6 +2,8 @@ var assert = require('assert'),
     events = require('events'),
     vows = require('vows');
 
+GLOBAL.CONFIG = require('../config');
+
 var iframely = require('../lib/iframely-meta.js');
 
 // TODO: test oebmed only loading without meta.
