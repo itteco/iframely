@@ -24,8 +24,9 @@ Iframely is based on [oEmbed/2][oembed2]:
  - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities (HTML5, CSS3, HTTP1.1)
 
 
-(c) 2013 Itteco Software Corp.
-License is TBD. We envision free for non-commercial use, and a fee for commercial use.
+(c) 2013 Itteco Software Corp. Licensed under MIT.
+
+If you use this software, we'd love to hear from you. Give us a shout on Twitter [@iframely](https://twitter.com/iframely) and spread the word. 
 
 ## Jump To
 
@@ -488,11 +489,8 @@ The authors of the package are these guys from [Itteco](http://itteco.com):
  - [Nazar Leush](https://github.com/nleush) - _the_ author
  - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
 
-Once we figure out the exact licensing for the package, we will welcome contributions to this repo, and especially for specific domain providers. 
 
-In the meantime, please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to submit an issue.
-If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch.
+Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to submit an issue.
+Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. 
 
-
-
-
+If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch or [cast your email here](http://iframely.com).
