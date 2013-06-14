@@ -4,11 +4,8 @@
     var fs = require('fs');
 
     var config = {
-        DEBUG: false,
 
-        baseAppUrl: "http://dev.iframe.ly",
-        baseStaticUrl: "http://dev.iframe.ly/r3",
-        port: 8061,
+        metaLoadingTimeout: 15 * 1000,
 
         T: {
             text_html: "text/html",
@@ -47,26 +44,6 @@
 
             icon: "icon",
             logo: "logo"
-        },
-
-        providerOptions: {
-            "twitter.status": {
-                "max-width": 550,
-                "min-width": 250,
-                consumer_key: 'OqGh4EYEuQ2OcpyMU6nS6Q',
-                consumer_secret: 'lRd8cUQsNqRCVrTiYX4euYSMpgsG1jDcsho8WqFM9so',
-                access_token: '988902877-yALuPBW3AdImNUBWfG43AGGZalMj35Al1o16ZjeF',
-                access_token_secret: 'r4yFEl32BGFcA7sm7gWa6kpR0rkkPmSe4cnJuD7FSe4',
-                hide_media: false,
-                hide_thread: false,
-                omit_script: false
-            },
-            flickr: {
-                apiKey: 'a4a2c14fc31006239edf38992f101c06'
-            },
-            readability: {
-                enabled: true
-            }
         }
     };
 
@@ -75,6 +52,8 @@
         var local = require(local_config_path);
         _.extend(config, local);
     }
+
+    config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
 
     module.exports = config;
 })();

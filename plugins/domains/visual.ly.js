@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/visual\.ly\/[\w\-]+/i,
+    re: /^https?:\/\/visual\.ly\/[\u0000-\u0080]+/i,
 
     mixins: [
         "canonical",
@@ -32,6 +32,11 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://visual.ly/"
     },
-        "http://visual.ly/spring-cleaning-improve-energy-efficiency"
+        "http://visual.ly/spring-cleaning-improve-energy-efficiency",
+        {
+            skipMixins: [
+                "description"
+            ]
+        }
     ]
 };

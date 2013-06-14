@@ -24,14 +24,16 @@ Iframely is based on [oEmbed/2][oembed2]:
  - And specifies technological approaches and use case for embeds to improve end user's experience in modern realities (HTML5, CSS3, HTTP1.1)
 
 
-(c) 2013 Itteco Software Corp.
-License is TBD. We envision free for non-commercial use, and a fee for commercial use.
+(c) 2013 Itteco Software Corp. Licensed under MIT.
+
+If you use this software, we'd love to hear from you. Give us a shout on Twitter [@iframely](https://twitter.com/iframely) and spread the word. 
 
 ## Jump To
 
 - [oEmbed/2 quick draft][oembed2]
 - [Community API endpoint at iframely.com/iframely][community-api]
 - [Server setup](#server-setup)
+    - [Security considerations](#security-considerations)
     - [Installation](#installation)
     - [Config](#config)
     - [Run server](#run-server)
@@ -108,7 +110,7 @@ Please deploy iframely on your own hardware before going live.
 
 ### Security considerations
 
-It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain.
+It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see [config options](#config)).
 
 ### Installation
 
@@ -132,7 +134,9 @@ Please, create your local config file to adjust settings. This local config file
 
 Edit the sample config file as you need. You may also override any values from main config.js in your local config.
 There are some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds).
-You can also fine-tune API response time by disabling image size detection or readability parsing. Plus, we'll put some security configuration options there in a near future. 
+You can also fine-tune API response time by disabling image size detection or readability parsing. 
+
+For enhanced security, it is important that you properly configure `allowedOrigins` parameter for CORS.
 
 __Important__: At the very least, you need to enter your own application keys and secret tokens where applicable. 
 
@@ -153,7 +157,7 @@ We highly recommend [forever](https://github.com/nodejitsu/forever) though as it
 
 You may need to configure these in your reverse proxy settings, depending on your setup:
 
-    /r3/.+              -- static files (including iframely.js client library).
+    /r/.+               -- static files (including iframely.js client library).
     /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON.
     /debug              -- debugger UI with get params.
     /reader.js          -- API endpoint with get params - proxies script to render article.
@@ -312,7 +316,9 @@ Iframely uses supplementary `rels` as the way of attributing to the origin of th
  - `og` - link extracted from opengraph semantics. Beware, `players` rendered through `og` have higher chance of being unreliable. 
  - `twitter` - link extracted from twitter semantics.
  - `oembed` - link extracted from oembed/1 semantics.
+
 You would need to make a decision wheather you want to trust specific origins or not.
+
 ---------------------------------------
 
 ##### `media`
@@ -486,11 +492,8 @@ The authors of the package are these guys from [Itteco](http://itteco.com):
  - [Nazar Leush](https://github.com/nleush) - _the_ author
  - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
 
-Once we figure out the exact licensing for the package, we will welcome contributions to this repo, and especially for specific domain providers. 
 
-In the meantime, please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to submit an issue.
-If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch.
+Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to submit an issue.
+Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. 
 
-
-
-
+If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch or [cast your email here](http://iframely.com).

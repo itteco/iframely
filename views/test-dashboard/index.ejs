@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test Dashboard</title>
+    <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="#">Test Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <p>Rendered at: <%= time %></p>
+
+    <% if (progress) { %>
+        <% if (!progress.tests_finished_at) { %>
+            <p>Current test batch progress:</p>
+        <% } else { %>
+            <p>Last test batch:</p>
+        <% } %>
+        <ul>
+            <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
+            <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
+            <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
+
+            <% if (progress.last_uncaught_exception) { %>
+                <li>Last uncaught exception: <strong><%= progress.last_uncaught_exception %></strong></li>
+            <% } %>
+        </ul>
+
+        <% if (progress.current_testing_plugin) { %>
+            <p>Current test:</p>
+            <ul>
+                <li>plugin: <strong><%= progress.current_testing_plugin %></strong></li>
+                <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
+            </ul>
+        <% } %>
+    <% } %>
+
+    <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">Mark all to test</a> (test will run in background after <%= CONFIG.tests.relaunch_script_period / (60 * 1000) %> mins if properly configured)</p>
+
+<% groups.forEach(function(g) { %>
+
+    <h3><%= g.title %> <span class="badge badge-<%= g.class %>" title="plugins count"><%= g.items.length %></span></h3>
+
+
+    <% g.items.forEach(function(pluginTest) { %>
+        <div class="row-fluid">
+
+            <div class="row-fluid">
+                <div class="span">
+                    <h4>
+                        <% if (pluginTest.failedUrls) {%><span class="badge badge-important" title="urls failed"><%= pluginTest.failedUrls %></span><% } %>
+                        <% if (pluginTest.passedUrls) {%><span class="badge badge-success" title="urls passed"><%= pluginTest.passedUrls %></span><% } %>
+                        <% if (pluginTest.pendingUrls) {%><span class="badge" title="urls pending"><%= pluginTest.pendingUrls %></span><% } %>
+                        <a href="#<%= pluginTest._id %>" id="<%= pluginTest._id %>"><%= pluginTest._id %></a>
+                    </h4>
+                </div>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="span1">
+                    <a href="/tests/run/<%= pluginTest._id %>" onclick="$(this).after('testing...').remove();">test now</a>
+                </div>
+                <div class="span11">
+
+                    <% if (pluginTest.error) { %>
+                        <strong>Plugin test error:</strong> <%= pluginTest.error %>
+                    <% } %>
+
+                    <% if (pluginTest.last_urls_set) { %>
+                        <% if (pluginTest.last_urls_set.hasError()) { %>
+                            <p><strong>Plugin test feed error:</strong></p>
+                            <ul>
+                                <% pluginTest.last_urls_set.errors.forEach(function(error) { %>
+                                    <li><pre><%= JSON.stringify(error, null, 4) %></pre></li>
+                                <% }); %>
+                            </ul>
+                        <% } %>
+
+                        <% if (pluginTest.last_urls_set.urls.length) { %>
+                            <table class="table table-bordered">
+
+                                <thead>
+                                    <tr>
+                                        <th class="span6">result</th>
+                                        <th class="span3">rel</th>
+                                        <th class="span1"></th>
+                                        <th>URL</th>
+                                        <th class="span4">tested at</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <% pluginTest.last_urls_set.urls.forEach(function(url) { %>
+
+                                <% var log = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url]; %>
+
+                                <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError() && !log.hasWarning()) { %>success<% } %> <% if (!log || (log.hasWarning() && !log.hasError())) { %>warning<% } %>">
+
+                                    <td>
+
+                                        <% if (log) { %>
+                                            <p>
+                                                <% if (log.hasTimeout()) {%>
+                                                    test timeout
+                                                <% } else { %>
+                                                    <%= log.hasError() ? "error" : "ok" %>
+                                                <% } %>
+
+                                                -
+
+                                                <%= log.response_time/1000 %> sec
+                                            </p>
+                                        <% } %>
+
+                                        <% if (log && log.hasError()) { %>
+                                            <ul>
+                                                <% log.errors.forEach(function(e) { %>
+                                                    <li><%= e %></li>
+                                                <% }); %>
+                                            </ul>
+                                        <% } else if (!log) { %>
+                                            <p>
+                                                pending...
+                                            </p>
+                                        <% } %>
+
+                                        <% if (log && log.hasWarning() && !log.hasTimeout()) { %>
+                                            <p><strong>soft warnings:</strong></p>
+                                            <ul>
+                                                <% log.warnings.forEach(function(e) { %>
+                                                    <li><%= e %></li>
+                                                <% }); %>
+                                            </ul>
+                                        <% } %>
+
+                                    </td>
+
+                                    <td>
+                                        <% if (log && log.rel && log.rel.length > 0) { %>
+                                                <%= log.rel.join(', ') %>
+                                        <% } %>
+                                    </td>
+
+                                    <td>
+                                        <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>&debug=true">debug</a>
+                                    </td>
+
+                                    <td>
+                                        <a target="_blank" href="<%= url %>"><%= url %></a>
+                                    </td>
+
+                                    <td>
+                                        <%= log && log.created_at_format() || '' %>
+                                    </td>
+
+                                </tr>
+
+                                <% }); %>
+
+                                </tbody>
+
+                            </table>
+                        <% } %>
+
+                    <% } else { %>
+                        <div>No test urls loaded yet.</div>
+                    <% } %>
+
+                </div>
+            </div>
+        </div>
+    <% }); %>
+<% }); %>
+
+</div>
+</body>
+</html>

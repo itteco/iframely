@@ -3,12 +3,10 @@ module.exports = {
     re: /^https?:\/\/([a-zA-Z0-9]+).wistia\.com\/medias\/([_a-zA-Z0-9]+)/i,
 
     mixins: [
-        "oembed-author",
         "oembed-site",
         "oembed-title",
         "oembed-thumbnail",
         "oembed-duration",
-        "oembed-author",
         "oembed-video-responsive"
     ],
 

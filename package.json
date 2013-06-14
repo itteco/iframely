@@ -1,8 +1,8 @@
 {
     "name": "iframely",
-    "version": "0.3.2",
+    "version": "0.3.3",
     
-    "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one API",
+    "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": ["oembed", "embed", "open graph", "og", "twitter cards"],
     "homepage": "http://iframely.com",
 
@@ -15,7 +15,7 @@
         "url": "https://github.com/itteco/iframely/issues"
     },
 
-    "license": "To Be Defined. Expect - Free for non-commercial use. Fee - for commercial one",
+    "license": "MIT",
     
     "dependencies": {
         "jslint":       "0.1.9",
@@ -28,6 +28,9 @@
         "connect":      "2.7.9",
         "ejs":          "0.8.4",
         "moment":       "2.0",
+
+        "feedparser":   "0.16",
+        "mongoose":     "2.5",
 
         "sax":          "0.3",
         "imagemagick":  "git://github.com/itteco/node-imagemagick.git",

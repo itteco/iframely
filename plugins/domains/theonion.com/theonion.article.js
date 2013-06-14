@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.theonion\.com\/video\/*/i,
+    re: /^http:\/\/www\.theonion\.com\/article\/*/i,
 
     mixins: [
         "canonical",
@@ -13,7 +13,7 @@ module.exports = {
 
     getData: function($selector) {
 
-        var $html = $selector('section.article-content')
+        var $html = $selector('article.full-article')
 
         if ($html.length) {
 
@@ -30,25 +30,12 @@ module.exports = {
             return {
                 html_for_readability: html,
                 ignore_readability_error: true
-            }
+            };
         }
     },
 
-
-    getLink: function($selector) {
-
-        var $video = $selector('video');
-        if (!$video.length || !$video.attr('id')) return;
-
-        return {
-            href: 'http://www.theonion.com/video_embed/?id=' + $video.attr('id'),
-            type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
-            "aspect-ratio": 480 / 270
-        }
-    },   
-
     tests: [{
-        pageWithFeed: "http://www.theonion.com/video/"
+        page: "http://www.theonion.com/section/politics/",
+        selector: "a.title"
     }]
 };

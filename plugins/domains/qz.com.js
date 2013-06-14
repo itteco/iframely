@@ -10,7 +10,11 @@ module.exports = {
 
     getLinks: function(oembed) {
 
-        var html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + oembed.html;
+        var html = oembed.html;
+
+        if (oembed.thumbnail_url) {
+            html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + html;
+        }
 
         return [
 
@@ -44,6 +48,10 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://qz.com/"
     },
-        "http://qz.com/78935/amazon-enterprise-cloud-computing/"
+        "http://qz.com/78935/amazon-enterprise-cloud-computing/", {
+            skipMixins: [
+                "oembed-thumbnail"
+            ]
+        }
     ]
 };

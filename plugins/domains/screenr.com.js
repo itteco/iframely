@@ -20,6 +20,6 @@ module.exports = {
     tests: [ {
         pageWithFeed: "http://www.screenr.com/stream"
     },
-        "http://www.screenr.com/embed/e4HH"
+        "http://www.screenr.com/e4HH"
     ]
 };

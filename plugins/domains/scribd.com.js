@@ -35,7 +35,10 @@ module.exports = {
         }]
     },
 
-    tests: [
+    tests: [{
+        page: "http://www.scribd.com/collections/4201493/Best-of-Day",
+        selector: "a.title"
+    },
         "http://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013"
     ]
 

@@ -15,7 +15,7 @@ module.exports = {
             return;
         }
 
-        if (meta.og && meta.og.type && !{'article':1, 'blog':1}[meta.og.type]) {
+        if (meta.og && ((meta.og.type && !{'article':1, 'blog':1}[meta.og.type]) || meta.og.video)) {
             // Skip if og type is not article explicitly.
             return;
         }
@@ -50,8 +50,6 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://techcrunch.com"
-    }, {
         pageWithFeed: "http://habrahabr.ru"
     }]
 };

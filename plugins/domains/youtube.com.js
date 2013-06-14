@@ -35,6 +35,7 @@ module.exports = {
         return {
             title: youtube_gdata.title,
             date: youtube_gdata.uploaded,
+            author: youtube_gdata.uploader,
             category: youtube_gdata.category,
             description: youtube_gdata.description,
             duration: youtube_gdata.duration,
@@ -62,7 +63,7 @@ module.exports = {
             href: '//www.youtube.com/embed/' + youtube_gdata.id,
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
-            "aspect-ratio": 1.33
+            "aspect-ratio": (youtube_gdata.aspectRatio === "widescreen") ? 16/9 : 4/3
         }];
     },
 

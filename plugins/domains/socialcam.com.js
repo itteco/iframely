@@ -1,7 +1,7 @@
 module.exports = {
 
     mixins: [
-        "thumbnail",
+        "og-image",
         "twitter-player-responsive",
         "video-duration",
         "og-title",

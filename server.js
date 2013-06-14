@@ -11,8 +11,26 @@ var app = express();
 app.use(express.bodyParser());
 app.set('view engine', 'ejs');
 
+if (CONFIG.allowedOrigins) {
+    app.use(function(req, res, next) {
+        var origin = req.headers["origin"];
+
+        if (origin) {
+            if (CONFIG.allowedOrigins.indexOf('*') > -1) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+            } else {
+                if (CONFIG.allowedOrigins.indexOf(origin) > -1) {
+                    res.setHeader('Access-Control-Allow-Origin', origin);
+                }
+            }
+        }
+        next();
+    });
+}
+
 require('./modules/api/views')(app);
 require('./modules/debug/views')(app);
+require('./modules/test-dashboard/views')(app);
 
 app.use(logErrors);
 app.use(errorHandler);
@@ -41,9 +59,14 @@ process.on('uncaughtException', function(err) {
     console.log(err.stack);
 });
 
-app.get('/r3/*', function(req, res, next) {
+app.get(CONFIG.relativeStaticUrl + '/*', function(req, res, next) {
     var url = '/' + req.url.split('/').splice(2).join('/');
     sysUtils.static(path.resolve(__dirname, 'static'), {path: url})(req, res, next);
+});
+
+app.get('/', function(req, res) {
+    res.writeHead(302, { Location: 'http://iframely.com'});
+    res.end();
 });
 
 app.listen(CONFIG.port);

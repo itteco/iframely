@@ -2,6 +2,8 @@ var assert = require('assert'),
     events = require('events'),
     vows = require('vows');
 
+GLOBAL.CONFIG = require('../config');
+
 var iframely = require('../lib/iframely-meta.js');
 
 // TODO: test oebmed only loading without meta.
@@ -153,11 +155,11 @@ vows.describe('Tests')
 
         'image size': {
             topic: function() {
-                iframely.getImageMetadata("http://rack.3.mshcdn.com/media/ZgkyMDEzLzA1LzAxLzlkL0FuZGVyc29uVmFsLmM1YTBiLmpwZwpwCXRodW1iCTk1MHg1MzQjCmUJanBn/673862f7/304/Anderson-Valley-composite.jpg", this.callback)
+                iframely.getImageMetadata("http://www.google.com/logos/2013/dia_dos_namorados_2013-1529005-hp.jpg", this.callback)
             },
             'has correct size and type': function(error, data) {
-                assert.equal(data.width, 950);
-                assert.equal(data.height, 534);
+                assert.equal(data.width, 400);
+                assert.equal(data.height, 211);
                 assert.equal(data.format, "JPEG");
             }
         }

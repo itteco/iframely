@@ -13,8 +13,13 @@ module.exports = {
 
     tests: [{
         page: "http://www.ustream.tv/new/explore/technology",
-        selectr: ".media-data"
-        }, 
-        "http://www.ustream.tv/thisweekin"
+        selector: ".media-data"
+    },
+        "http://www.ustream.tv/thisweekin",
+        {
+            skipMixins: [
+                "twitter-author"
+            ]
+        }
     ]
 };
