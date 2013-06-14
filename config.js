@@ -10,6 +10,8 @@
         baseStaticUrl: "http://dev.iframe.ly/r3",
         port: 8061,
 
+        allowedOrigins: ["http://iframely.com"],
+
         tests: {
             mongodb: 'mongodb://localhost:27017/iframely-tests',
             single_test_timeout: 10 * 1000,
