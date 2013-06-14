@@ -33,6 +33,7 @@ If you use this software, we'd love to hear from you. Give us a shout on Twitter
 - [oEmbed/2 quick draft][oembed2]
 - [Community API endpoint at iframely.com/iframely][community-api]
 - [Server setup](#server-setup)
+    - [Security considerations](#security-considerations)
     - [Installation](#installation)
     - [Config](#config)
     - [Run server](#run-server)
@@ -109,7 +110,7 @@ Please deploy iframely on your own hardware before going live.
 
 ### Security considerations
 
-It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain.
+It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see [config options](#config)).
 
 ### Installation
 
@@ -133,7 +134,9 @@ Please, create your local config file to adjust settings. This local config file
 
 Edit the sample config file as you need. You may also override any values from main config.js in your local config.
 There are some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds).
-You can also fine-tune API response time by disabling image size detection or readability parsing. Plus, we'll put some security configuration options there in a near future. 
+You can also fine-tune API response time by disabling image size detection or readability parsing. 
+
+For enhanced security, it is important that you properly configure `allowedOrigins` parameter for CORS.
 
 __Important__: At the very least, you need to enter your own application keys and secret tokens where applicable. 
 
