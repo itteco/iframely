@@ -4,32 +4,6 @@
     var fs = require('fs');
 
     var config = {
-        DEBUG: false,
-
-        baseAppUrl: "http://yourdomain.com",
-        relativeStaticUrl: "/r",
-
-        port: 8061,
-
-        /*
-        // Access-Control-Allow-Origin list.
-        allowedOrigins: [
-            "*",
-            "http://another_domain.com"
-        ],
-        */
-
-        /*
-        // Uncomment to enable plugin testing framework.
-        tests: {
-            mongodb: 'mongodb://localhost:27017/iframely-tests',
-            single_test_timeout: 10 * 1000,
-            plugin_test_period: 2 * 60 * 60 * 1000,
-            relaunch_script_period: 5 * 60 * 1000
-        },
-        */
-
-        metaLoadingTimeout: 15 * 1000,
 
         T: {
             text_html: "text/html",
@@ -68,26 +42,6 @@
 
             icon: "icon",
             logo: "logo"
-        },
-
-        providerOptions: {
-            "twitter.status": {
-                "max-width": 550,
-                "min-width": 250,
-                consumer_key: 'INSERT YOUR VALUE',
-                consumer_secret: 'INSERT YOUR VALUE',
-                access_token: 'INSERT YOUR VALUE',
-                access_token_secret: 'INSERT YOUR VALUE',
-                hide_media: false,
-                hide_thread: false,
-                omit_script: false
-            },
-            flickr: {
-                apiKey: 'INSERT YOUR VALUE'
-            },
-            readability: {
-                enabled: true
-            }
         }
     };
 
