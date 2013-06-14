@@ -6,18 +6,28 @@
     var config = {
         DEBUG: false,
 
-        baseAppUrl: "http://dev.iframe.ly",
-        baseStaticUrl: "http://dev.iframe.ly/r3",
+        baseAppUrl: "http://yourdomain.com",
+        relativeStaticUrl: "/r",
+
         port: 8061,
 
-        allowedOrigins: ["http://iframely.com"],
+        /*
+        // Access-Control-Allow-Origin list.
+        allowedOrigins: [
+            "*",
+            "http://another_domain.com"
+        ],
+        */
 
+        /*
+        // Uncomment to enable plugin testing framework.
         tests: {
             mongodb: 'mongodb://localhost:27017/iframely-tests',
             single_test_timeout: 10 * 1000,
             plugin_test_period: 2 * 60 * 60 * 1000,
             relaunch_script_period: 5 * 60 * 1000
         },
+        */
 
         metaLoadingTimeout: 15 * 1000,
 
@@ -64,16 +74,16 @@
             "twitter.status": {
                 "max-width": 550,
                 "min-width": 250,
-                consumer_key: 'OqGh4EYEuQ2OcpyMU6nS6Q',
-                consumer_secret: 'lRd8cUQsNqRCVrTiYX4euYSMpgsG1jDcsho8WqFM9so',
-                access_token: '988902877-yALuPBW3AdImNUBWfG43AGGZalMj35Al1o16ZjeF',
-                access_token_secret: 'r4yFEl32BGFcA7sm7gWa6kpR0rkkPmSe4cnJuD7FSe4',
+                consumer_key: 'INSERT YOUR VALUE',
+                consumer_secret: 'INSERT YOUR VALUE',
+                access_token: 'INSERT YOUR VALUE',
+                access_token_secret: 'INSERT YOUR VALUE',
                 hide_media: false,
                 hide_thread: false,
                 omit_script: false
             },
             flickr: {
-                apiKey: 'a4a2c14fc31006239edf38992f101c06'
+                apiKey: 'INSERT YOUR VALUE'
             },
             readability: {
                 enabled: true
@@ -86,6 +96,8 @@
         var local = require(local_config_path);
         _.extend(config, local);
     }
+
+    config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
 
     module.exports = config;
 })();

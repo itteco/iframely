@@ -1,5 +1,10 @@
 (function() {
 
+    if (!CONFIG.tests) {
+        module.exports = function(){};
+        return;
+    }
+
     var async = require('async');
     var moment = require('moment');
     var _ = require('underscore');

@@ -1,5 +1,9 @@
 (function() {
 
+    if (!CONFIG.tests) {
+        return;
+    }
+
     var moment = require('moment');
 
     var mongoose, db;
@@ -9,7 +13,8 @@
         mongoose = require('mongoose');
         db = mongoose.createConnection(CONFIG.tests.mongodb);
     } catch (ex) {
-        console.warn("Mongodb not initialized. Test dashboard will not work.");
+        console.error("Plugins testing framework will not work. Can't connect to mongodb.");
+        console.error(ex.stack);
         return;
     }
 

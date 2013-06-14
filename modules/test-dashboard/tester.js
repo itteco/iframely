@@ -1,5 +1,11 @@
 GLOBAL.CONFIG = require('../../config');
 
+if (!CONFIG.tests) {
+    console.error('Tests not started: CONFIG.tests not configured.');
+    process.abort();
+    return;
+}
+
 var async = require('async');
 var _ = require('underscore');
 
@@ -41,7 +47,7 @@ var TestUrlsSet = models.TestUrlsSet;
 var TestingProgress = models.TestingProgress;
 
 if (!PluginTest) {
-    console.error("Models not loaded. Tests will not run.");
+    process.abort();
     return;
 }
 

@@ -154,7 +154,7 @@ We highly recommend [forever](https://github.com/nodejitsu/forever) though as it
 
 You may need to configure these in your reverse proxy settings, depending on your setup:
 
-    /r3/.+              -- static files (including iframely.js client library).
+    /r/.+               -- static files (including iframely.js client library).
     /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON.
     /debug              -- debugger UI with get params.
     /reader.js          -- API endpoint with get params - proxies script to render article.

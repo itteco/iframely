@@ -53,13 +53,6 @@ module.exports = function(app) {
                 result.links = groups;
             }
 
-            var url = req.headers["x-forwarded-for"] || req.headers["origin"];
-            var goodUrl = CONFIG.allowedOrigins.filter(function(allowed) {
-                return url.indexOf(allowed) == 0;
-            });
-            if (goodUrl.length > 0) {
-                res.setHeader('Access-Control-Allow-Origin', goodUrl[0]);
-            }
             res.send(result);
         });
     });
