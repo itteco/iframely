@@ -5,6 +5,8 @@
 
     var config = {
 
+        metaLoadingTimeout: 15 * 1000,
+
         T: {
             text_html: "text/html",
             javascript: "application/javascript",
