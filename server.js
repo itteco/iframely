@@ -64,5 +64,10 @@ app.get(CONFIG.relativeStaticUrl + '/*', function(req, res, next) {
     sysUtils.static(path.resolve(__dirname, 'static'), {path: url})(req, res, next);
 });
 
+app.get('/', function(req, res) {
+    res.writeHead(302, { Location: 'http://iframely.com'});
+    res.end();
+});
+
 app.listen(CONFIG.port);
 console.log('Listening on port', CONFIG.port);
