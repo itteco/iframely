@@ -184,7 +184,7 @@
     {
         "name": "500px",
         "templates": [
-            "500px\\.com/photo/(\\d+).+"
+            "500px\\.com/photo/(\\d+).*"
         ],
         "endpoint": "http://500px.com/photo/{1}/oembed.{format}"
     },
