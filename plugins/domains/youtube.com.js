@@ -48,6 +48,12 @@ module.exports = {
     getLinks: function(youtube_gdata) {
 
         return [{
+            href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
+            type: CONFIG.T.image_png,
+            rel: CONFIG.R.icon,
+            width: 32,
+            height: 32
+        }, {
             href: youtube_gdata.thumbnail.sqDefault,
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
