@@ -287,6 +287,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     if (error) {
                         if (error == "timeout") {
                             logEntry.warnings = [error];
+                        } else if (error.stack) {
+                            logEntry.errors = [error.stack];
                         } else {
                             logEntry.errors = [JSON.stringify(error)];
                         }
