@@ -1,6 +1,6 @@
 function linkify(text) {
     if (typeof text === "string") {
-        return text.replace(/((https?:)?\/\/[^" ]+)/gi, '<a target="_blank" href="$1">$1</a>');
+        return text.replace(/((https?:)?\/\/[^"\s]+)/gi, '<a target="_blank" href="$1">$1</a>');
     } else {
         return text;
     }
@@ -42,7 +42,7 @@ $.fn.renderObject = function(o) {
     var text = JSON.stringify(createTrimmedObject(o), null, 4);
     text = $('<div>').text(text).html();
     text = text.replace(/\\"/gi, '"');
-    text = text.replace(/"((https?:)?\/\/[^" ]+)"/gi, '"<a target="_blank" href="$1">$1</a>"');
+    text = text.replace(/"((https?:)?\/\/[^"\s]+)"/gi, '"<a target="_blank" href="$1">$1</a>"');
     text = text.replace(/\[contextLink](\w+)\[\/contextLink\]/gi, '<a href="#" data-context-link="$1">$1</a>');
     this.html(text);
     return this;
@@ -375,18 +375,22 @@ function processUrl() {
         $response.renderObject(clearData);
 
         // Render context.
-        var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || null;
-        for(var k in contexts[0]) {
-            if (k == "cb") {
-                continue;
+        var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || [];
+        var DISABLED_REQUIREMENTS = [
+            "request",
+            "html",
+            "cb"
+        ];
+        contexts.forEach(function(context) {
+            for(var k in context) {
+                if (DISABLED_REQUIREMENTS.indexOf(k) > -1) {
+                    continue;
+                }
+                $context.append('<h4>' + k + '</h4>');
+                var $pre = $('<pre>').attr('data-context', k).renderObject(context[k]);
+                $context.append($pre);
             }
-            if (!DEBUG && k != 'oembed' && k != 'meta') {
-                continue;
-            }
-            $context.append('<h4>' + k + '</h4>');
-            var $pre = $('<pre>').attr('data-context', k).renderObject(contexts[0][k]);
-            $context.append($pre);
-        }
+        });
         if ($context.children().length == 0) {
             $('.s-context-tab').hide();
         }
