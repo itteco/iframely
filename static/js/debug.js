@@ -375,18 +375,22 @@ function processUrl() {
         $response.renderObject(clearData);
 
         // Render context.
-        var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || null;
-        for(var k in contexts[0]) {
-            if (k == "cb") {
-                continue;
+        var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || [];
+        var DISABLED_REQUIREMENTS = [
+            "request",
+            "html",
+            "cb"
+        ];
+        contexts.forEach(function(context) {
+            for(var k in context) {
+                if (DISABLED_REQUIREMENTS.indexOf(k) > -1) {
+                    continue;
+                }
+                $context.append('<h4>' + k + '</h4>');
+                var $pre = $('<pre>').attr('data-context', k).renderObject(context[k]);
+                $context.append($pre);
             }
-            if (!DEBUG && k != 'oembed' && k != 'meta') {
-                continue;
-            }
-            $context.append('<h4>' + k + '</h4>');
-            var $pre = $('<pre>').attr('data-context', k).renderObject(contexts[0][k]);
-            $context.append($pre);
-        }
+        });
         if ($context.children().length == 0) {
             $('.s-context-tab').hide();
         }
