@@ -9,8 +9,15 @@
         port: 8061,
 
         /*
+        Supported cache engines:
+        - no-cache - no caching will be used.
+        - node-cache - node memory will be used (with node-cache lib).
+        - redis - redis as cache backand.
+        */
+        CACHE_ENGINE: 'node-cache',
+
+        /*
         // Redis cache.
-        CACHE_ENGINE: 'redis',
         REDIS_OPTIONS: {
             host: '127.0.0.1',
             port: 6379
