@@ -22,12 +22,16 @@ module.exports = {
         var src = $container.find('object').attr('data');
 
         if (src) {
-            return {
+            return [{
                 href: src,
                 type: CONFIG.T.flash,
                 rel: CONFIG.R.player,
                 "aspect-ratio": oembed.width / oembed.height
-            };
+            }, {
+                href: "//www.collegehumor.com/favicon.ico?v=2",
+                type: CONFIG.T.image,
+                rel: CONFIG.R.icon
+            }];
         }
     },
 
