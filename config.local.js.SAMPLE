@@ -9,6 +9,15 @@
         port: 8061,
 
         /*
+        // Redis cache.
+        CACHE_ENGINE: 'redis',
+        REDIS_OPTIONS: {
+            host: '127.0.0.1',
+            port: 6379
+        },
+        */
+
+        /*
         // Access-Control-Allow-Origin list.
         allowedOrigins: [
             "*",

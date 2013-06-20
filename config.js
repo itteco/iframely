@@ -5,6 +5,9 @@
 
     var config = {
 
+        // Default cache engine to prevent warning.
+        CACHE_ENGINE: 'node-cache',
+
         metaLoadingTimeout: 15 * 1000,
 
         T: {
