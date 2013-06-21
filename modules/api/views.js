@@ -7,6 +7,10 @@ module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
 
+        if (!req.query.uri) {
+            return next(new Error("'uri' get param expected"));
+        }
+
         console.log('-- Loading oembed2 for', req.query.uri);
 
         async.waterfall([
@@ -69,6 +73,10 @@ module.exports = function(app) {
 
     app.get('/reader.js', function(req, res, next) {
 
+        if (!req.query.uri) {
+            return next(new Error("'uri' get param expected"));
+        }
+
         console.log('-- Loading reader for', req.query.uri);
 
         async.waterfall([
@@ -107,6 +115,10 @@ module.exports = function(app) {
     });
 
     app.get('/render', function(req, res, next) {
+
+        if (!req.query.uri) {
+            return next(new Error("'uri' get param expected"));
+        }
 
         console.log('-- Loading render for', req.query.uri);
 
