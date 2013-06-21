@@ -13,8 +13,6 @@ RedactorPlugins.iframely = {
 
         var that = this;
 
-        //that.insertWidget("TEST");
-
         this.selectionSave();
         this.bufferSet();
 
@@ -57,7 +55,7 @@ RedactorPlugins.iframely = {
             }
 
             var embeddables = data.links.filter(function(link) {
-                return link.rel.indexOf('player') > -1 || link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1;
+                return link.rel.indexOf('player') > -1 || link.rel.indexOf('image') > -1;
             });
 
             if (embeddables.length == 0) {
@@ -65,28 +63,26 @@ RedactorPlugins.iframely = {
                 return;
             }
 
-            that.renderLinks(embeddables);
+            that.renderLink(embeddables[0]);
         });
     },
 
-    renderLinks: function(links) {
+    renderLink: function(link) {
 
-        var $result = this.$result
+        var $result = this.$result;
 
         $result.html('');
 
-        links.forEach(function(link) {
-            var $el = $.iframely.generateLinkElement(link);
+        var $el = $.iframely.generateLinkElement(link);
 
-            if ($el) {
-                var $div = $('<div/>');
+        if ($el) {
+            var $div = $('<div/>');
 
-                $div.append($('<div/>').addClass("insert").append($('<button />').data('embedCode', $('<div/>').append($el).html()).html("Insert this:")))
-                $div.append($el);
+            $div.append($('<div/>').addClass("insert").append($('<button />').data('embedCode', $('<div/>').append($el).html()).html("Insert this:")))
+            $div.append($el);
 
-                $result.append($div);
-            }
-        });
+            $result.append($div);
+        }
     },
 
     insertWidget: function(html) {

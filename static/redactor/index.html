@@ -11,13 +11,18 @@
     <script src="http://imperavi.com/js/redactor/redactor.js"></script>
 
     <!-- Redactor's plugin -->
+
+    <!-- Setup plugin css. -->
     <link rel="stylesheet" href="iframely.css" />
+    <!-- Setup iframely.js lib. -->
     <script src="../js/iframely.js"></script>
+    <!-- Setup iframely redactor plugin. -->
     <script src="iframely.js"></script>
 
     <!-- Call Redactor -->
     <script type="text/javascript">
 
+        // Setup iframely endpoint path.
         $.iframely.defaults.endpoint = '/iframely';
 
         $(document).ready(function() {
@@ -55,7 +60,7 @@
     <div id="iframelyModal" style="display: none;">
         <section class="iframely_box">
             <div class="iframely_form">
-                <input type="uri" placeholder="enter URI with video"><button>fetch</button>
+                <input type="uri" placeholder="enter URI"><button>preview</button>
             </div>
             <div class="results">
 
