@@ -108,7 +108,7 @@
     };
 
     $.iframely.defaults = {
-        endpoint: "http://iframe.ly/iframely"
+        endpoint: "http://iframely.com/iframely"
     };
 
     var renders = {
