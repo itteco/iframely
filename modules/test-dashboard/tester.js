@@ -6,6 +6,9 @@ if (!CONFIG.tests) {
     return;
 }
 
+// Set before "cache.js" loaded from iframely.js.
+CONFIG.CACHE_ENGINE = 'no-cache';
+
 var async = require('async');
 var _ = require('underscore');
 
@@ -14,8 +17,6 @@ var models = require('./models');
 var iframely = require('../../lib/iframely');
 var cache = require('../../lib/cache');
 var utils = require('./utils');
-
-cache.setCachingCallbacks(function(key, data) {}, function(key, cb) {cb(null, null);});
 
 var testOnePlugin = false;
 
