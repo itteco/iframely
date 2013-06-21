@@ -108,7 +108,7 @@
     };
 
     $.iframely.defaults = {
-        endpoint: "http://iframe.ly/iframely"
+        endpoint: "http://iframely.com/iframely"
     };
 
     var renders = {
@@ -145,11 +145,21 @@
                     && data.href;
             },
             generate: function(data) {
+
                 var $iframe = $('<iframe>')
                     .attr('src', data.href)
-                    .attr('frameborder', '0');
+                    .attr('frameborder', '0')
+                    .css('top', 0)
+                    .css('left', 0)
+                    .css('width', '100%')
+                    .css('height', '100%')
+                    .css('position', 'absolute');
+
                 var $container = $('<div>')
-                    .addClass('iframely-container')
+                    .css('left', 0)
+                    .css('width', '100%')
+                    .css('height', 0)
+                    .css('position', 'relative')
                     .append($iframe);
 
                 var media = data.media;

@@ -6,7 +6,8 @@ module.exports = {
         "canonical",
         "description",
         "shortlink",
-        "dc-title"
+        "dc-title",
+        "favicon"
     ],
 
     getLinks: function(meta) {

@@ -14,12 +14,16 @@ module.exports = {
 
     getLink: function (urlMatch) {
 
-        return {
+        return [{
             href: "http://player.youku.com/embed/"+ urlMatch[1],
             type: CONFIG.T.text_html,            
             rel: CONFIG.R.player,
             "aspect-ratio": 16/10 //As stated it in docs
-        }
+        }, {
+                href: "http://youku.com/favicon.ico",
+                type: CONFIG.T.image,
+                rel: CONFIG.R.icon
+        }]
     },
 
     tests: [{

@@ -4,7 +4,8 @@ module.exports = {
         "twitter-image",
         "twitter-player-responsive",
         "og-title",
-        "og-site"
+        "og-site",
+        "favicon"
     ],
 
     tests: [
