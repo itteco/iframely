@@ -9,6 +9,31 @@
         port: 8061,
 
         /*
+        Supported cache engines:
+        - no-cache - no caching will be used.
+        - node-cache - good for debug, node memory will be used (https://github.com/tcs-de/nodecache).
+        - redis - https://github.com/mranney/node_redis.
+        - memcached - https://github.com/3rd-Eden/node-memcached
+        */
+        CACHE_ENGINE: 'node-cache',
+        CACHE_TTL: 24 * 60 * 60, // In seconds.
+
+        /*
+        // Redis cache options.
+        REDIS_OPTIONS: {
+            host: '127.0.0.1',
+            port: 6379
+        },
+        */
+
+        /*
+        // Memcached options. See https://github.com/3rd-Eden/node-memcached#server-locations
+        MEMCACHED_OPTIONS: {
+            locations: "127.0.0.1:11211"
+        }
+        */
+
+        /*
         // Access-Control-Allow-Origin list.
         allowedOrigins: [
             "*",
