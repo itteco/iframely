@@ -1,32 +1,21 @@
-.label-red {
-    color: #fff;
-    background: #c92020;
-    padding: 0 7px;
-    border-radius: 4px;
+.iframely_box input {
+    width: 80%;
+}
+.iframely_box .results {
+    padding: 10px;
+    height: 500px;
+    overflow-y: auto;
 }
 
-.redactor_clips_box {
-    margin-left: 0;
-    padding-left: 0;
-    list-style: none;
+.iframely_box .results img {
+    max-width: 700px;
 }
-.redactor_clips_box li {
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #ddd;
+
+.iframely_box .results .insert {
+    padding: 5px;
 }
-.redactor_clips_box li:first-child {
-    border-top: none;
-}
-.redactor_clips_box li:last-child {
-    border-bottom: none;
-}
-.redactor_clips_box li a {
-    padding: 10px 5px;
-    color: #000;
-    text-decoration: none;
-    font-size: 13px;
-    display: block;
-}
-.redactor_clips_box li a:hover {
-    background-color: #fff;
+
+.iframely_box .results>div {
+    padding: 10px;
+    border-top: 1px solid black;
 }

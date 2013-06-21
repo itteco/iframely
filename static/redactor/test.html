@@ -12,19 +12,20 @@
 
     <!-- Redactor's plugin -->
     <link rel="stylesheet" href="iframely.css" />
+    <script src="../js/iframely.js"></script>
     <script src="iframely.js"></script>
 
     <!-- Call Redactor -->
     <script type="text/javascript">
-        $(document).ready(
-                function()
-                {
-                    $('#redactor').redactor({
-                        focus: true,
-                        plugins: ['iframely']
-                    });
-                }
-        );
+
+        $.iframely.defaults.endpoint = '/iframely';
+
+        $(document).ready(function() {
+            $('#redactor').redactor({
+                focus: true,
+                plugins: ['iframely']
+            });
+        });
     </script>
 
     <!-- Site styles -->
@@ -51,24 +52,14 @@
     </textarea>
 
     <!-- Clips Modal HTML -->
-    <div id="clipsmodal" style="display: none;">
-        <section>
-            <ul class="redactor_clips_box">
-                <li>
-                    <a href="#" class="redactor_clip_link">Lorem ipsum …</a>
+    <div id="iframelyModal" style="display: none;">
+        <section class="iframely_box">
+            <div class="iframely_form">
+                <input type="uri" placeholder="enter URI with video"><button>fetch</button>
+            </div>
+            <div class="results">
 
-                    <div class="redactor_clip" style="display: none;">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </div>
-                </li>
-                <li>
-                    <a href="#" class="redactor_clip_link">Red label</a>
-
-                    <div class="redactor_clip" style="display: none;">
-                        <span class="label-red">Label</span>
-                    </div>
-                </li>
-            </ul>
+            </div>
         </section>
         <footer>
             <a href="#" class="redactor_modal_btn redactor_btn_modal_close">Close</a>
