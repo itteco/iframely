@@ -353,27 +353,6 @@ Insert similar lines in your page head (iframely.js requires jQuery and Undersco
 
 Replace `your.domain` with your actual domain name. You may also copy `iframely.js` script file to your apps main domain and accordingly.
 
-To support proportional size iframes add following styles:
-
-    <style>
-        .iframely-container iframe {
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-        }
-
-        .iframely-container {
-            position: relative;
-            left: 0px;
-            width: 100%;
-            height: 0px;
-        }
-    </style>
-
-This will allow youtube, vimeo and similar players to be resized by container where they are placed and keep their proportion.
-
 #### Fetch oEmbed/2
 
     // Setup endpoint path.
