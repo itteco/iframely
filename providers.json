@@ -254,7 +254,7 @@
     {
         "name": "Funny or Die",
         "templates": [
-            "\\w+\\.kickstarter\\.com/videos/.*"
+            "www.funnyordie.com/videos/.+"
         ],
         "endpoint": "http://www.funnyordie.com/oembed.{format}"
     },
