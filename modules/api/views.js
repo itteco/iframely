@@ -26,7 +26,7 @@ module.exports = function(app) {
         ], function(error, result) {
 
             if (error) {
-                if (error.code == 'ENOTFOUND') {
+                if (error == 404 || error.code == 'ENOTFOUND') {
                     return next(new utils.NotFound('Page not found'));
                 }
                 return next(new Error(error));
