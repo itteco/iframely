@@ -427,7 +427,7 @@ Each link in result from previous example can be rendered:
     data.links.forEach(function(link) {
 
         // Call generator to create html element for link.
-        var $el = $.iframely.generateLinkElement(link);
+        var $el = $.iframely.generateLinkElement(link, data);
 
         // Add element to body.
         $('body').append($el);
