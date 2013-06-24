@@ -4,10 +4,10 @@ module.exports = {
 
         function getAttr(attr) {
 
-            var root = meta.DC || meta.dc || meta.DCTERMS || meta.dcterms;
+            var root = meta.dc || meta.dcterms;
             if (root && root[attr]) {
                 for(var key in root) {
-                    if (key.toLowerCase() == attr) {
+                    if (key == attr) {
                         return root[key];
                     }
                 }
@@ -16,8 +16,8 @@ module.exports = {
             for(var key in meta) {
                 var bits = key.split('.');
                 if (bits.length > 1) {
-                    var b0 = bits[0].toLowerCase();
-                    var b1 = bits.slice(1).join('.').toLowerCase();
+                    var b0 = bits[0];
+                    var b1 = bits.slice(1).join('.');
                     if ((b0 == "dcterms" || b0 == "dc") && b1 == attr) {
                         return meta[key];
                     }
