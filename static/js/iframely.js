@@ -136,6 +136,11 @@
             .css('position', 'relative')
             .append($element);
 
+        // Default aspect ratio.
+        if (!media || (!media.height && !media["aspect-ratio"])) {
+            $container.css('padding-bottom', '75%');
+        }
+
         if (media) {
 
             if (media["aspect-ratio"]) {
@@ -163,11 +168,6 @@
                 });
                 $container = $widthLimiterContainer;
             }
-        }
-
-        // Default aspect ratio.
-        if (!media || (!media.height && !media["aspect-ratio"])) {
-            $container.css('padding-bottom', '75%');
         }
 
         return $container;
