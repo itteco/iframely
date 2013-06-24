@@ -206,11 +206,15 @@
                     || data.type == "video/webm"
                     || data.type == "video/ogg");
             },
-            generate: function(data) {
+            generate: function(data, iframely_data) {
                 var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
 
-                if (data.poster) {
-                    $video.attr("poster", data.poster);
+                if (iframely_data && iframely_data.links) {
+                    var thumbnails = iframely_data.links.filter(renders["image"].test);
+
+                    if (thumbnails.length) {
+                        $video.attr("poster", thumbnails[0].href);
+                    }
                 }
 
                 $video.append('<source />').children('source')
@@ -247,12 +251,12 @@
         }
     };
 
-    $.iframely.generateLinkElement = function(data) {
+    $.iframely.generateLinkElement = function(link, allData) {
 
         for(var key in renders) {
             var render = renders[key];
-            if (render.test(data)) {
-                return render.generate(data);
+            if (render.test(link)) {
+                return render.generate(link, allData);
             }
         }
     };
