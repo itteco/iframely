@@ -2,7 +2,9 @@
 
     /*
 
+    Iframely consumer client lib.
 
+    Fetches and renders iframely oebmed/2 widgets.
 
     */
 
@@ -111,6 +113,66 @@
         endpoint: "http://iframely.com/iframely"
     };
 
+    function wrapContainer($element, data) {
+
+        var media = data.media;
+
+        if (media.height && media.width) {
+            $element.attr('width', media.width);
+            $element.attr('height', media.height);
+            return $element;
+        }
+
+        $element.css('top', 0)
+            .css('left', 0)
+            .css('width', '100%')
+            .css('height', '100%')
+            .css('position', 'absolute');
+
+        var $container = $('<div>')
+            .css('left', 0)
+            .css('width', '100%')
+            .css('height', 0)
+            .css('position', 'relative')
+            .append($element);
+
+        if (media) {
+
+            if (media["aspect-ratio"]) {
+
+                $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
+
+            } else {
+
+                if (media.height) {
+                    $container.css('height', media.height);
+                }
+
+                if (media.width) {
+                    $container.css('width', media.width);
+                }
+            }
+
+            // Min/max width can be controlled by one more parent div.
+            if (media["max-width"] || media["min-width"]) {
+                var $widthLimiterContainer = $('<div>').append($container);
+                ["max-width", "min-width"].forEach(function(attr) {
+                    if (media[attr]) {
+                        $widthLimiterContainer.css(attr, media[attr]);
+                    }
+                });
+                $container = $widthLimiterContainer;
+            }
+        }
+
+        // Default aspect ratio.
+        if (!media || (!media.height && !media["aspect-ratio"])) {
+            $container.css('padding-bottom', '75%');
+        }
+
+        return $container;
+    }
+
     var renders = {
         "javascript": {
             test: function(data) {
@@ -138,6 +200,24 @@
                 return $img;
             }
         },
+        "mp4video": {
+            test: function(data) {
+                return (data.type == "video/mp4"
+                    || data.type == "video/webm"
+                    || data.type == "video/ogg");
+            },
+            generate: function(data) {
+                var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
+
+                $video.append('<source />').children('source')
+                    .attr('src', data.href)
+                    .attr('type', data.type);
+
+                console.log($video);
+
+                return wrapContainer($video, data);
+            }
+        },
         "iframe": {
             test: function(data) {
                 return (data.type == "text/html"
@@ -148,57 +228,9 @@
 
                 var $iframe = $('<iframe>')
                     .attr('src', data.href)
-                    .attr('frameborder', '0')
-                    .css('top', 0)
-                    .css('left', 0)
-                    .css('width', '100%')
-                    .css('height', '100%')
-                    .css('position', 'absolute');
+                    .attr('frameborder', '0');
 
-                var $container = $('<div>')
-                    .css('left', 0)
-                    .css('width', '100%')
-                    .css('height', 0)
-                    .css('position', 'relative')
-                    .append($iframe);
-
-                var media = data.media;
-
-                if (media) {
-
-                    if (media["aspect-ratio"]) {
-
-                        $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
-
-                    } else {
-
-                        if (media.height) {
-                            $container.css('height', media.height);
-                        }
-
-                        if (media.width) {
-                            $container.css('width', media.width);
-                        }
-                    }
-
-                    // Min/max width can be controlled by one more parent div.
-                    if (media["max-width"] || media["min-width"]) {
-                        var $widthLimiterContainer = $('<div>').append($container);
-                        ["max-width", "min-width"].forEach(function(attr) {
-                            if (media[attr]) {
-                                $widthLimiterContainer.css(attr, media[attr]);
-                            }
-                        });
-                        $container = $widthLimiterContainer;
-                    }
-                }
-
-                // Default aspect ratio.
-                if (!media || (!media.height && !media["aspect-ratio"])) {
-                    $container.css('padding-bottom', '75%');
-                }
-
-                return $container;
+                return wrapContainer($iframe, data);
             }
         },
         'article': {
