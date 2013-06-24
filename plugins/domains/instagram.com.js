@@ -49,6 +49,7 @@ module.exports = {
         if (meta.og && meta.og.video) {
             links.push({
                 href: meta.og.video.url || meta.og.video,
+                poster: meta.og.image,
                 type: meta.og.video.type || CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.og],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height,

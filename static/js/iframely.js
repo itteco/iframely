@@ -209,11 +209,13 @@
             generate: function(data) {
                 var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
 
+                if (data.poster) {
+                    $video.attr("poster", data.poster);
+                }
+
                 $video.append('<source />').children('source')
                     .attr('src', data.href)
                     .attr('type', data.type);
-
-                console.log($video);
 
                 return wrapContainer($video, data);
             }
