@@ -4,7 +4,7 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        if (!meta.twitter)
+        if (!meta.twitter || !meta.twitter.creator)
             return;
 
         return {
