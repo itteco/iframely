@@ -33,6 +33,9 @@ module.exports = {
         page: "http://qik.com/video/search?order=recent&query=music",
         selector: "h6 a"
     },
-        "http://qik.com/video/52767028"
+        "http://qik.com/video/52767028",
+        {
+            skipMixins: "geo-url"
+        }
     ]
 };

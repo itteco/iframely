@@ -378,6 +378,21 @@ function processPluginTests(pluginTest, plugin, count, cb) {
     ], cb);
 };
 
+function findPluginLastModifiedDate(plugin, plugins) {
+
+    var modified = plugin.modified;
+
+    plugin.module.mixins && plugin.module.mixins.forEach(function(mixin) {
+        var m = findPluginLastModifiedDate(plugins[mixin], plugins);
+
+        if (m > modified) {
+            modified = m;
+        }
+    });
+
+    return modified;
+}
+
 function testAll(cb) {
 
     var plugins = iframely.getPlugins();
@@ -432,7 +447,7 @@ function testAll(cb) {
                     function filterAndSort(pluginTests, cb) {
 
                         pluginTests.forEach(function(pluginTest) {
-                            var modified = plugins[pluginTest._id].modified;
+                            var modified = findPluginLastModifiedDate(plugins[pluginTest._id], plugins);
                             if (pluginTest.last_test_started_at && pluginTest.last_test_started_at < modified) {
                                 pluginTest.last_test_started_at = null;
                             }
