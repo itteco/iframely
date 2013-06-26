@@ -15,27 +15,17 @@
                 $cont.objectfit({selector: 'iframe'});
                 $cont.objectfit({selector: 'embed'});
                 $cont.find('a').attr('target','_blank');
-                $cont.parent().trigger('iframely.loaded', iframely.widgetId);
+                $cont.parent().trigger('iframely.loaded');
             }
 
-            var $placeholders = $('iframely\\:widget[data-id="'+iframely.widgetId+'"]');
 
-            if ($placeholders.length){
-                $placeholders.each(function(index){
-                    var $container = $('<div class="iframely-article-container"></div>')
-                    $(this).replaceWith($container);
-                    drawWidget($container);
-                });
-            } else {
-                //Fallback for static pages
-                var $scriptElement = $('script[data-used!=true][src$="' + encodeURIComponent(iframely.uri) + '"]:first');
+            var $scriptElement = $('script[data-used!=true][src$="' + encodeURIComponent(iframely.uri) + '"]:first');
 
-                if ($scriptElement){
-                    $scriptElement.attr('data-used', true);
-                    var $container = $('<div class="iframely-article-container"></div>');
-                    $container.insertAfter($scriptElement);
-                    drawWidget($container);
-                }
+            if ($scriptElement){
+                $scriptElement.attr('data-used', true);
+                var $container = $('<div class="iframely-article-container"></div>');
+                $container.insertAfter($scriptElement);
+                drawWidget($container);
             }
 
         })(iframely.jQuery);
@@ -153,7 +143,6 @@
         iframely._dependenciesReadyInterval = window.setInterval(iframely.dependenciesReady, 500);
     }
 
-    iframely.widgetId = <%- widgetId %>;
     iframely.uri = <%- uri %>;
     var embedCode = <%- embedCode %>;
 
