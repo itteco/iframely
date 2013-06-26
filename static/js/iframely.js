@@ -119,7 +119,7 @@
 
         var media = data.media;
 
-        if (media.height && media.width) {
+        if (media && media.height && media.width) {
             $element.attr('width', media.width);
             $element.attr('height', media.height);
             return $element;
@@ -132,6 +132,7 @@
             .css('position', 'absolute');
 
         var $container = $('<div>')
+            .addClass("iframely-widget-container")
             .css('left', 0)
             .css('width', '100%')
             .css('height', 0)
@@ -162,7 +163,9 @@
 
             // Min/max width can be controlled by one more parent div.
             if (media["max-width"] || media["min-width"]) {
-                var $widthLimiterContainer = $('<div>').append($container);
+                var $widthLimiterContainer = $('<div>')
+                    .addClass("iframely-outer-container")
+                    .append($container);
                 ["max-width", "min-width"].forEach(function(attr) {
                     if (media[attr]) {
                         $widthLimiterContainer.css(attr, media[attr]);
@@ -183,6 +186,7 @@
             },
             generate: function(data) {
                 return $('<script>')
+                    .addClass("iframely-widget iframely-script")
                     .attr('type', data.type)
                     .attr('src', data.href);
             }
@@ -193,7 +197,9 @@
                     && data.href;
             },
             generate: function(data) {
-                var $img = $('<img>').attr('src', data.href);
+                var $img = $('<img>')
+                    .addClass("iframely-widget iframely-image")
+                    .attr('src', data.href);
                 if (data.title) {
                     $img
                         .attr('title', data.title)
@@ -209,7 +215,8 @@
                     || data.type == "video/ogg");
             },
             generate: function(data, iframely_data) {
-                var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
+                var $video = $('<video controls>Your browser does not support HTML5 video.</video>')
+                    .addClass("iframely-widget iframely-video");
 
                 if (iframely_data && iframely_data.links) {
                     var thumbnails = iframely_data.links.filter(renders["image"].test);
@@ -235,20 +242,11 @@
             generate: function(data) {
 
                 var $iframe = $('<iframe>')
+                    .addClass("iframely-widget iframely-iframe")
                     .attr('src', data.href)
                     .attr('frameborder', '0');
 
                 return wrapContainer($iframe, data);
-            }
-        },
-        'article': {
-            test: function(data) {
-                return data.type == "text/x-safe-html"
-                    && data.html;
-            },
-            generate: function(data) {
-                var $div = $('<div>').html(data.html);
-                return $div;
             }
         }
     };
