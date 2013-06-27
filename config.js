@@ -21,7 +21,8 @@
             image_icon: "image/icon",
             image_png: "image/png",
             image_svg: "image/svg",
-            video_mp4: "video/mp4"
+            video_mp4: "video/mp4",
+            video_ogg: "video/ogg"
         },
 
         REL_GROUPS: [
