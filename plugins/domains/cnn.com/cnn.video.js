@@ -14,12 +14,19 @@ module.exports = {
     ],
 
     getLink: function(meta) {
-        return {
-            href: meta.og.video.url,
-            type: CONFIG.T.video_ogg,
-            rel: CONFIG.R.rel,
-            "aspect-ratio": meta.og.video.width / meta.og.video.height
-        };
+
+        var video_url = meta.og.video.url;
+
+        var m = video_url.match(/\.(mp4|ogg|webm)$/);
+
+        if (m) {
+            return {
+                href: meta.og.video.url,
+                type: "video/" + m[1],
+                rel: CONFIG.R.rel,
+                "aspect-ratio": meta.og.video.width / meta.og.video.height
+            };
+        }
     },
 
     tests: [
