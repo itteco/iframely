@@ -11,7 +11,7 @@ module.exports = {
             return;
 
         return {
-            shortlink: s.url || s
+            shortlink: s.href || s
         };
     }
 };
