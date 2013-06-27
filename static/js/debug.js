@@ -267,6 +267,11 @@ function showEmbeds($embeds, data, filterByRel) {
         plugins.forEach(function(p) {
             $prePlugins.append('<a href="#" data-link-pointer="' + p + '">' + p.replace(/-\d+$/i, "") + '</a><br>');
         });
+    } else if (!filterByRel) {
+        $embeds.prepend($('<div>').addClass('alert alert-error').text('No links returned by plugins for this URI'));
+    }
+
+    if (!filterByRel) {
 
         // Unified meta.
         var $meta = $('<table>')
@@ -288,8 +293,6 @@ function showEmbeds($embeds, data, filterByRel) {
 
         $embeds.prepend($meta);
         $embeds.prepend('<h4>Unified meta</h4>');
-    } else if (!filterByRel) {
-        $embeds.prepend($('<div>').addClass('alert alert-error').text('No links returned by plugins for this URI'));
     }
 }
 
