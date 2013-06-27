@@ -1,3 +1,5 @@
 0.3.7
 
  + instagram video
+ + 'iframely-widget' styles used by iframely.js to identify generated widgets
+ + crowdranking oembed/1 provider added (Mathias Panzenböck)
