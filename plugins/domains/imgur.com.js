@@ -16,7 +16,9 @@ module.exports = {
 
         var links = [];
 
-        if (meta.twitter && meta.twitter.image && !meta.twitter.image.width) {
+        var m;
+        // If twitter image ID not equals url ID.
+        if (meta.twitter && meta.twitter.image && (m = meta.twitter.image.match(/http:\/\/i\.imgur\.com\/(\w+)\.\w+/i)) && m[1] != urlMatch[1]) {
             links.push({
                 href: "http://imgur.com/a/" + urlMatch[1] + "/embed",
                 rel: CONFIG.R.player,
