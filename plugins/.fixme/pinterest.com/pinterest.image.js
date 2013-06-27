@@ -5,7 +5,8 @@ module.exports = {
     mixins: [
         "canonical",
         "site",
-        "html-title"
+        "html-title",
+        "favicon"
     ],
 
     getMeta: function($selector) {
@@ -15,8 +16,8 @@ module.exports = {
     },
 
     getLink: function($selector) {
+
         var $img = $selector('.pinImage');
-        console.log($img.length);
 
         if ($img.length) {
             return {
@@ -27,5 +28,10 @@ module.exports = {
                 height: $img.css('height').replace('px', '')
             };
         }
-    }
+    },
+
+    tests: [{
+        page: "http://pinterest.com/all/science_nature/",
+        selector: ".pinImageWrapper"
+    }]
 };
