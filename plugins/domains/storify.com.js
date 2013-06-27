@@ -33,7 +33,8 @@ module.exports = {
                 html: '<script type="text/javascript" src="' + src + '"></script>'
             },
             "orientation": 'portrait',
-            "min-width": 320
+            "min-width": 320,
+            "max-width": 900
         };
     },
 
