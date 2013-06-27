@@ -4,11 +4,11 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        if (!meta.twitter)
+        if (!meta.twitter || !meta.twitter.creator)
             return;
 
         return {
-            author: meta.twitter.creator
+            author: meta.twitter.creator.value || meta.twitter.creator
         };
     }
 };

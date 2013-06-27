@@ -173,7 +173,7 @@ function showEmbeds($embeds, data, filterByRel) {
         }
 
         // 2) Get html.
-        var $el = $.iframely.generateLinkElement(link);
+        var $el = $.iframely.generateLinkElement(link, data);
         if ($el) {
             if (filterByRel) {
 

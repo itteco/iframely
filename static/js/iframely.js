@@ -2,7 +2,11 @@
 
     /*
 
+    Iframely consumer client lib.
 
+    Versrion 0.3.6
+
+    Fetches and renders iframely oebmed/2 widgets.
 
     */
 
@@ -111,6 +115,69 @@
         endpoint: "http://iframely.com/iframely"
     };
 
+    function wrapContainer($element, data) {
+
+        var media = data.media;
+
+        if (media && media.height && media.width) {
+            $element.attr('width', media.width);
+            $element.attr('height', media.height);
+            return $element;
+        }
+
+        $element.css('top', 0)
+            .css('left', 0)
+            .css('width', '100%')
+            .css('height', '100%')
+            .css('position', 'absolute');
+
+        var $container = $('<div>')
+            .addClass("iframely-widget-container")
+            .css('left', 0)
+            .css('width', '100%')
+            .css('height', 0)
+            .css('position', 'relative')
+            .append($element);
+
+        // Default aspect ratio.
+        if (!media || (!media.height && !media["aspect-ratio"])) {
+            $container.css('padding-bottom', '75%');
+        }
+
+        if (media) {
+
+            if (media["aspect-ratio"]) {
+
+                $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
+
+            } else {
+
+                if (media.height) {
+                    $container.css('height', media.height);
+                }
+
+                if (media.width) {
+                    $container.css('width', media.width);
+                }
+            }
+
+            // Min/max width can be controlled by one more parent div.
+            if (media["max-width"] || media["min-width"]) {
+                var $widthLimiterContainer = $('<div>')
+                    .addClass("iframely-outer-container")
+                    .append($container);
+                ["max-width", "min-width"].forEach(function(attr) {
+                    if (media[attr]) {
+                        $widthLimiterContainer.css(attr, media[attr]);
+                    }
+                });
+                $container = $widthLimiterContainer;
+            }
+        }
+
+        return $container;
+    }
+
     var renders = {
         "javascript": {
             test: function(data) {
@@ -119,6 +186,7 @@
             },
             generate: function(data) {
                 return $('<script>')
+                    .addClass("iframely-widget iframely-script")
                     .attr('type', data.type)
                     .attr('src', data.href);
             }
@@ -129,13 +197,40 @@
                     && data.href;
             },
             generate: function(data) {
-                var $img = $('<img>').attr('src', data.href);
+                var $img = $('<img>')
+                    .addClass("iframely-widget iframely-image")
+                    .attr('src', data.href);
                 if (data.title) {
                     $img
                         .attr('title', data.title)
                         .attr('alt', data.title);
                 }
                 return $img;
+            }
+        },
+        "mp4video": {
+            test: function(data) {
+                return (data.type == "video/mp4"
+                    || data.type == "video/webm"
+                    || data.type == "video/ogg");
+            },
+            generate: function(data, iframely_data) {
+                var $video = $('<video controls>Your browser does not support HTML5 video.</video>')
+                    .addClass("iframely-widget iframely-video");
+
+                if (iframely_data && iframely_data.links) {
+                    var thumbnails = iframely_data.links.filter(renders["image"].test);
+
+                    if (thumbnails.length) {
+                        $video.attr("poster", thumbnails[0].href);
+                    }
+                }
+
+                $video.append('<source />').children('source')
+                    .attr('src', data.href)
+                    .attr('type', data.type);
+
+                return wrapContainer($video, data);
             }
         },
         "iframe": {
@@ -147,78 +242,21 @@
             generate: function(data) {
 
                 var $iframe = $('<iframe>')
+                    .addClass("iframely-widget iframely-iframe")
                     .attr('src', data.href)
-                    .attr('frameborder', '0')
-                    .css('top', 0)
-                    .css('left', 0)
-                    .css('width', '100%')
-                    .css('height', '100%')
-                    .css('position', 'absolute');
+                    .attr('frameborder', '0');
 
-                var $container = $('<div>')
-                    .css('left', 0)
-                    .css('width', '100%')
-                    .css('height', 0)
-                    .css('position', 'relative')
-                    .append($iframe);
-
-                var media = data.media;
-
-                if (media) {
-
-                    if (media["aspect-ratio"]) {
-
-                        $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
-
-                    } else {
-
-                        if (media.height) {
-                            $container.css('height', media.height);
-                        }
-
-                        if (media.width) {
-                            $container.css('width', media.width);
-                        }
-                    }
-
-                    // Min/max width can be controlled by one more parent div.
-                    if (media["max-width"] || media["min-width"]) {
-                        var $widthLimiterContainer = $('<div>').append($container);
-                        ["max-width", "min-width"].forEach(function(attr) {
-                            if (media[attr]) {
-                                $widthLimiterContainer.css(attr, media[attr]);
-                            }
-                        });
-                        $container = $widthLimiterContainer;
-                    }
-                }
-
-                // Default aspect ratio.
-                if (!media || (!media.height && !media["aspect-ratio"])) {
-                    $container.css('padding-bottom', '75%');
-                }
-
-                return $container;
-            }
-        },
-        'article': {
-            test: function(data) {
-                return data.type == "text/x-safe-html"
-                    && data.html;
-            },
-            generate: function(data) {
-                var $div = $('<div>').html(data.html);
-                return $div;
+                return wrapContainer($iframe, data);
             }
         }
     };
 
-    $.iframely.generateLinkElement = function(data) {
+    $.iframely.generateLinkElement = function(link, allData) {
 
         for(var key in renders) {
             var render = renders[key];
-            if (render.test(data)) {
-                return render.generate(data);
+            if (render.test(link)) {
+                return render.generate(link, allData);
             }
         }
     };

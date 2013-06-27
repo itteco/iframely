@@ -264,5 +264,16 @@
             ".*\\.wistia.com/medias/.*"
         ],
         "endpoint": "http://fast.wistia.com/oembed.{format}"
+    },
+    {
+        "name": "crowdranking",
+        "templates": [
+            "crowdranking.com/crowdrankings/.+",
+            "crowdranking.com/rankings/.+",
+            "crowdranking.com/topics/.+",
+            "crowdranking.com/widgets/.+",
+            "crowdranking.com/r/.+"
+        ],
+        "endpoint": "http://crowdranking.com/api/oembed.{format}"
     }
 ]
