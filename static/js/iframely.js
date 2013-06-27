@@ -219,11 +219,49 @@
                     .addClass("iframely-widget iframely-video");
 
                 if (iframely_data && iframely_data.links) {
-                    var thumbnails = iframely_data.links.filter(renders["image"].test);
 
-                    if (thumbnails.length) {
-                        $video.attr("poster", thumbnails[0].href);
+                    // Find video aspect.
+                    var media = data.media;
+                    var aspect = media["aspect-ratio"];
+                    if (media) {
+                        [
+                            ["min-width", "min-height"],
+                            ["max-width", "max-height"],
+                            ["width", "height"]
+                        ].forEach(function(dims) {
+                            var w = media[dims[0]];
+                            var h = media[dims[1]];
+                            if (w && h) {
+                                aspect = w / h;
+                            }
+                        });
                     }
+
+                    if (aspect) {
+                        // Find images with same aspect.
+                        var thumbnails = iframely_data.links.filter(function(link) {
+                            if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
+                                var m = link.media;
+                                if (m && m.width && m.height) {
+                                    var imgAspect = m.width / m.height;
+                                    return Math.abs(imgAspect - aspect) < 0.1;
+                                }
+                            }
+                        });
+
+                        if (thumbnails.length) {
+                            // Find largest image.
+                            var maxW = 0, image;
+                            thumbnails.forEach(function(link) {
+                                if (link.media.width > maxW) {
+                                    image = link;
+                                }
+                            });
+
+                            $video.attr("poster", image.href);
+                        }
+                    }
+
                 }
 
                 $video.append('<source />').children('source')
