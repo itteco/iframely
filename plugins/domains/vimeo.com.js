@@ -36,6 +36,11 @@ module.exports = {
     tests: [{
         feed: "http://vimeo.com/channels/staffpicks/videos/rss"
     },
-        "http://vimeo.com/65836516"
+        "http://vimeo.com/65836516",
+        {
+            skipMixins: [
+                "oembed-description"
+            ]
+        }
     ]
 };
