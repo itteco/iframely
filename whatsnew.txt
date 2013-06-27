@@ -4,6 +4,7 @@
  + video.nhl.com
  + cnn.com videos
  + issuu.com
+ + imgur.com galleries
 
 0.3.7
 
