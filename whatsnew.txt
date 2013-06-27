@@ -1,3 +1,10 @@
+0.3.8
+
+ + trutv.com
+ + video.nhl.com
+ + cnn.com videos
+ + issuu.com
+
 0.3.7
 
  + instagram video
