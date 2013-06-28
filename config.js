@@ -28,6 +28,7 @@
         REL_GROUPS: [
             "reader",
             "player",
+            "survey",
             "image",
             "thumbnail",
             "logo",
@@ -50,6 +51,7 @@
             image: "image",
             reader: "reader",
             file: "file",
+            survey: "survey",
 
             iframely: "iframely",
             instapaper: "instapaper",
