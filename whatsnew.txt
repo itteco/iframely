@@ -6,6 +6,7 @@
  + issuu.com
  + imgur.com galleries
  + guardian.co.uk videos
+ + wikimedia articles and pictures
 
 0.3.7
 

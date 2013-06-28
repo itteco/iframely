@@ -35,13 +35,14 @@ module.exports = {
         };
     },
 
-    tests: [{
-        page: "http://en.wikipedia.org/wiki/Wikipedia:Featured_articles",
-        selector: "tr:nth-child(3) a"
-    },
-        "http://en.wikipedia.org/wiki/Comparison_of_European_road_signs",
+    tests: [
+        "http://commons.wikimedia.org/wiki/Commons:Welcome",
+        "http://commons.wikimedia.org/wiki/Main_Page",
         {
-            skipMethods: "getLink"
+            noFeeds: true,
+            skipMethods: [
+                "getLink"
+            ]
         }
     ]
-}
+};
