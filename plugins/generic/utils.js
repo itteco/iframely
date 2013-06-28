@@ -69,9 +69,8 @@ module.exports = {
             var media = v.media;
             if (media) {
                 CONFIG.MEDIA_ATTRS.forEach(function(ma) {
-                    var re = ma + "\\s*:\\s*([\\d./]+)(!px)?";
+                    var re = "\\(\\s*" + ma + "\\s*:\\s*([\\d./]+)(?:px)?\\s*\\)";
                     var m = media.match(re);
-                    console.log(ma, media, m)
                     if (m) {
                         link[ma] = m[1];
                     }
