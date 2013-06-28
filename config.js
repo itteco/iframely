@@ -34,6 +34,16 @@
             "icon"
         ],
 
+        MEDIA_ATTRS: [
+            "width",
+            "min-width",
+            "max-width",
+            "height",
+            "min-height",
+            "max-height",
+            "aspect-ratio"
+        ],
+
         R: {
             player: "player",
             thumbnail: "thumbnail",
