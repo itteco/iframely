@@ -337,11 +337,11 @@ Media section is for media query. Iframely generates attributes as well as puts 
 Plugins use the following media query attributes at the moment:
 
  - `width`
- - `width-min`
- - `width-max`
+ - `min-width`
+ - `max-width`
  - `height`
- - `height-min`
- - `height-max`
+ - `min-height`
+ - `max-height`
  - `aspect-ratio` - available only if **width** and **height** not present
  - `orientation`
 
