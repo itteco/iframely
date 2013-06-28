@@ -7,6 +7,7 @@
  + imgur.com galleries
  + guardian.co.uk videos
  + wikimedia articles and pictures
+ + parse links by iframely (oEmbed/2) spec
 
 0.3.7
 
