@@ -8,7 +8,7 @@ module.exports = {
             return;
         }
         if (v instanceof Array) {
-            return v.image_src && v.image_src.map(function(image) {
+            return v.map(function(image) {
                 return {
                     href: image.href || image,
                     type: image.type || CONFIG.T.image,
