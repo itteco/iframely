@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /http:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
+
     mixins: [
         "twitter-title",
         "description",
@@ -10,18 +12,35 @@ module.exports = {
         "twitter-image-rel-image"
     ],
 
-    getLink: function(meta) {
+    getLink: function(urlMatch, meta) {
+
+        var links = [];
+
+        var m, url;
+        // If twitter image ID not equals url ID.
+        if (meta.twitter
+            && (url = meta.twitter.image.url || meta.twitter.image)
+            && (m = url.match(/http:\/\/i\.imgur\.com\/(\w+)\.\w+/i)) && m[1] != urlMatch[1]) {
+            links.push({
+                href: "http://imgur.com/a/" + urlMatch[1] + "/embed",
+                rel: CONFIG.R.player,
+                type: CONFIG.T.text_html,
+                "aspect-ratio": 4/3
+            });
+        }
 
         var src;
         if (meta.twitter && meta.twitter.image && (src = meta.twitter.image.url) && src.match(/\.(jpg|png|gif)$/)) {
-            return {
+            links.push({
                 href: src.replace(/\.(jpg|png|gif)$/, "b.$1"),
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image,
                 width: 160,
                 height: 160
-            };
+            });
         }
+
+        return links;
     },
 
     tests: [{

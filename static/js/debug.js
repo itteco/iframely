@@ -163,6 +163,7 @@ function showEmbeds($embeds, data, filterByRel) {
     $embeds.html('');
 
     var plugins = [];
+    var usedPlugins = {};
 
     var counter = 0;
 
@@ -202,6 +203,7 @@ function showEmbeds($embeds, data, filterByRel) {
 
                 // Links head.
                 plugins.push(debug.plugin + '-' + counter);
+                usedPlugins[debug.plugin] = true;
                 var head;
                 if (DEBUG) {
                     head = debug.plugin;
@@ -261,12 +263,17 @@ function showEmbeds($embeds, data, filterByRel) {
             // Prapare table of contents.
             $embeds.prepend('<hr/>');
             $embeds.prepend($prePlugins);
-            $embeds.prepend('<h4>Used plugins</h4>');
+            $embeds.prepend('<h4>Used link plugins</h4>');
         }
 
         plugins.forEach(function(p) {
             $prePlugins.append('<a href="#" data-link-pointer="' + p + '">' + p.replace(/-\d+$/i, "") + '</a><br>');
         });
+    } else if (!filterByRel) {
+        $embeds.prepend($('<div>').addClass('alert alert-error').text('No links returned by plugins for this URI'));
+    }
+
+    if (!filterByRel) {
 
         // Unified meta.
         var $meta = $('<table>')
@@ -279,7 +286,9 @@ function showEmbeds($embeds, data, filterByRel) {
             if (key == "_sources") {
                 return;
             }
-            var plugin = data.plugins[data.meta._sources[key].pluginId];
+            var pluginId = data.meta._sources[key].pluginId;
+            var plugin = data.plugins[pluginId];
+            usedPlugins[pluginId] = true;
 
             var method = plugin.methods[data.meta._sources[key].method];
 
@@ -288,8 +297,26 @@ function showEmbeds($embeds, data, filterByRel) {
 
         $embeds.prepend($meta);
         $embeds.prepend('<h4>Unified meta</h4>');
-    } else if (!filterByRel) {
-        $embeds.prepend($('<div>').addClass('alert alert-error').text('No links returned by plugins for this URI'));
+
+        var pluginsList = _.keys(usedPlugins);
+        var $textarea = $('<textarea>')
+            .hide()
+            .attr('rows', pluginsList.length + 2)
+            .html("mixins: " + JSON.stringify(pluginsList, null, 4));
+
+        var $a = $('<a href="#">')
+            .text('[show plugins as mixins]')
+            .click(function(e) {
+                e.preventDefault();
+                $textarea
+                    .show()
+                    .focus()
+                    .select();
+                $a.hide();
+            });
+
+        $embeds.prepend($textarea);
+        $embeds.prepend($a);
     }
 }
 

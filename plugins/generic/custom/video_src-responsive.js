@@ -6,8 +6,7 @@ module.exports = {
             href: meta.video_src,
             type: meta.video_type,
             rel: CONFIG.R.player,
-            width: meta.video_width,
-            height: meta.video_height
+            "aspect-ratio": meta.video_width / meta.video_height
         };
     }
 };

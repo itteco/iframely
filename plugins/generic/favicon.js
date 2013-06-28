@@ -2,7 +2,7 @@ module.exports = {
 
     getLinks: function(meta) {
 
-        function findIcons(meta, links, filter) {
+        function findIcons(links, filter) {
 
             for(var key in meta) {
 
@@ -30,8 +30,7 @@ module.exports = {
                             width: m && parseInt(m[1]),
                             height: m && parseInt(m[2])
                         });
-                    })
-
+                    });
                 }
             }
         }
@@ -39,13 +38,13 @@ module.exports = {
         var links = [];
 
         // Filter not 'shortcut icon'.
-        findIcons(meta, links, function(key) {
+        findIcons(links, function(key) {
             return /icon/i.test(key) && key != 'shortcut icon';
         });
 
         // Use 'shortcut icon' if no other.
         if (links.length == 0) {
-            findIcons(meta, links, function(key) {
+            findIcons(links, function(key) {
                 return key == 'shortcut icon';
             });
         }
@@ -58,7 +57,6 @@ module.exports = {
                 rel: CONFIG.R.icon
             });
         }
-
 
         return links;
     }

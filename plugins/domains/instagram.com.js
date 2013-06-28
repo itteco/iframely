@@ -9,22 +9,15 @@ module.exports = {
     mixins: [
         "oembed-title",
         "oembed-site",
-        "oembed-author"
+        "oembed-author",
+
+        "favicon"
     ],
 
     getLinks: function(urlMatch, meta) {
         var src = 'http://instagram.com/p/' + urlMatch[1] +'/media/?size='
 
         var links = [
-            // Favicon.
-            {
-                "href": "http://d36xtkk24g8jdx.cloudfront.net/bluebar/dd6cb37/images/ico/apple-touch-icon-72x72-precomposed.png",
-                "rel": ["apple-touch-icon-precomposed", CONFIG.R.icon],
-                "type": CONFIG.T.image_png,
-                "width": 72,
-                "height": 72
-            },
-
             // Images.
             {
                 href: src + 't',
@@ -64,6 +57,7 @@ module.exports = {
         page: "http://blog.instagram.com/",
         selector: ".photogrid a"
     },
-        "http://instagram.com/p/HbBy-ExIyF/"
+        "http://instagram.com/p/HbBy-ExIyF/",
+        "http://instagram.com/p/a_v1-9gTHx/"
     ]
 };

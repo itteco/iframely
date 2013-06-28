@@ -21,16 +21,28 @@
             image_icon: "image/icon",
             image_png: "image/png",
             image_svg: "image/svg",
-            video_mp4: "video/mp4"
+            video_mp4: "video/mp4",
+            video_ogg: "video/ogg"
         },
 
         REL_GROUPS: [
             "reader",
             "player",
+            "survey",
             "image",
             "thumbnail",
             "logo",
             "icon"
+        ],
+
+        MEDIA_ATTRS: [
+            "width",
+            "min-width",
+            "max-width",
+            "height",
+            "min-height",
+            "max-height",
+            "aspect-ratio"
         ],
 
         R: {
@@ -39,6 +51,7 @@
             image: "image",
             reader: "reader",
             file: "file",
+            survey: "survey",
 
             iframely: "iframely",
             instapaper: "instapaper",

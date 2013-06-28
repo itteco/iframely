@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/storify\.com\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)/i
+        /^https?:\/\/storify\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
     ],
 
     mixins: [
@@ -33,13 +33,15 @@ module.exports = {
                 html: '<script type="text/javascript" src="' + src + '"></script>'
             },
             "orientation": 'portrait',
-            "min-width": 320
+            "min-width": 320,
+            "max-width": 900
         };
     },
 
     tests: [{
         feed: "http://storify.com/rss/featured"
     },
-        "https://storify.com/miniver/our-leaders-willfully-wrong-response-to-the-econom/"
+        "https://storify.com/miniver/our-leaders-willfully-wrong-response-to-the-econom/",
+        "http://storify.com/Kevin_H_Nielsen/nba-draft-live"
     ]
 };

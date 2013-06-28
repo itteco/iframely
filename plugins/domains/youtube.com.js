@@ -9,10 +9,14 @@ module.exports = {
 
     getData: function(urlMatch, request, cb) {
 
-        var statsUri = 'https://gdata.youtube.com/feeds/api/videos?q=' + urlMatch[1] + '&v=2&alt=jsonc&max-results=1';
+        var statsUri = "https://gdata.youtube.com/feeds/api/videos/" + urlMatch[1];
 
         request({
             uri: statsUri,
+            qs: {
+                v: 2,
+                alt: "jsonc"
+            },
             json: true
         }, function(error, b, data) {
 
@@ -20,13 +24,13 @@ module.exports = {
                 return cb(error);
             }
 
-            if (data.data && data.data.items && data.data.items.length > 0) {
+            if (data.data) {
 
                 cb(null, {
-                    youtube_gdata: data.data.items[0]
+                    youtube_gdata: data.data
                 });
             } else {
-                cb();
+                cb(statsUri + " returned no data");
             }
         });
     },
