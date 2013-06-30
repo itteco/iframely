@@ -68,6 +68,9 @@
             flickr: {
                 apiKey: 'INSERT YOUR VALUE'
             },
+            "google.maps": {
+//              apiKey: 'INSERT YOUR VALUE' // not required, but recommended
+            },
             readability: {
                 enabled: true
             }
