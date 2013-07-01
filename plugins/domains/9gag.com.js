@@ -7,8 +7,8 @@ module.exports = {
     // No other meta data is returned for 9gags as otherwise the response time would be more than 10sec
     getMeta: function(urlMatch) {
         return {
-            canonical: 'http:\\9gag.com/gag' + urlMatch[1]
-        }
+            canonical: 'http://9gag.com/gag' + urlMatch[1]
+        };
     },
 
     getLink: function(urlMatch) {
@@ -21,7 +21,7 @@ module.exports = {
             href: '//d24w6bsrhbeh9d.cloudfront.net/static/main/core/20130208_1360298583/img/favicon_v2.png',
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
-        }]
+        }];
     },
 
     tests: [ {
