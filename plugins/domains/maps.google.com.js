@@ -11,7 +11,7 @@ var TypeMap = {
 
 module.exports = {
 
-    re: /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/maps(?:\/ms)?\?.+/i,
+    re: /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms)?)?\?.+/i,
 
     mixins: [
         'html-title',
