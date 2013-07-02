@@ -12,7 +12,7 @@ module.exports = {
 		"favicon"
 	],
 
-	getData: function(url, urlMatch, meta, $selector) {
+	getData: function(url, urlMatch, meta) {
 		var image_url = URL.parse(meta.og.image);
 		var image_path = image_url.path.split("/");
 
@@ -20,16 +20,12 @@ module.exports = {
 		var author = decodeURIComponent(image_path[2]);
 		var title  = decodeURIComponent(image_path[3]);
 
-		var $author  = $selector('a[rel="cc:attributionURL"]');
-		var $license = $selector('a[rel="license"]');
-
 		return {
 			magnatune_meta: {
 				title:       title,
 				author:      author,
-				author_url:  URL.resolve(url, $author.attr('href')),
-				license:     $license.attr('title'),
-				license_url: URL.resolve(url, $license.attr('href')),
+				license:     "All audio files at Magnatune are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike license.",
+				license_url: "http://magnatune.com/info/cc_licensed",
 				embed_url:   "http://embed.magnatune.com/img/magnatune_player_embedded.swf?playlist_url=http://embed.magnatune.com/artists/albums/"+
 				             urlMatch[1]+"/hifi.xspf&autoload=true&autoplay=&playlist_title="+encodeURIComponent(author+" : "+title)
 			}
