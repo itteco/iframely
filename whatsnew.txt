@@ -1,4 +1,9 @@
-0.3.8 - Currently developing
+0.3.9 - Currently developing
+
+ + tindeck.com (Mathias Panzenböck)
+ + maps.google.com (Mathias Panzenböck)
+
+0.3.8
 
  + trutv.com
  + video.nhl.com
