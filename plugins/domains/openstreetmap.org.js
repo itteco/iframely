@@ -87,7 +87,7 @@ module.exports = {
 			links.push({
 				href: "http://staticmap.openstreetmap.de/staticmap.php?"+
 					"center="+lat+","+lon+"&"+
-					"zoom="+zoom+"&"+
+					"zoom="+Math.max(0,zoom-1)+"&"+
 					"size="+thumb_width+"x"+thumb_height+"&"+
 					"maptype="+layer,
 				rel:  CONFIG.R.thumbnail,
