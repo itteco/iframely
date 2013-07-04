@@ -2,6 +2,7 @@ var URL = require("url");
 var jQuery = require("jquery");
 
 module.exports = {
+
     re: [
         /^http:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(?:lofi_play)?)?(?:[\?#].*)?$/i
     ],
@@ -13,6 +14,7 @@ module.exports = {
     ],
 
     getData: function(url, urlMatch, meta) {
+
         var image_url = URL.parse(meta.og.image);
         var image_path = image_url.path.split("/");
 
@@ -26,8 +28,8 @@ module.exports = {
                 author:      author,
                 license:     "All audio files at Magnatune are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike license.",
                 license_url: "http://magnatune.com/info/cc_licensed",
-                embed_url:   "http://embed.magnatune.com/img/magnatune_player_embedded.swf?playlist_url=http://embed.magnatune.com/artists/albums/"+
-                             urlMatch[1]+"/hifi.xspf&autoload=true&autoplay=&playlist_title="+encodeURIComponent(author+" : "+title)
+                embed_url:   "http://embed.magnatune.com/img/magnatune_player_embedded.swf?playlist_url=http://embed.magnatune.com/artists/albums/" +
+                             sku + "/hifi.xspf&autoload=true&autoplay=&playlist_title="+encodeURIComponent(author + " : " + title)
             }
         };
     },
@@ -39,7 +41,7 @@ module.exports = {
     },
 
     getLink: function(magnatune_meta) {
-        var image_url = "http://he3.magnatune.com/music/"+encodeURIComponent(magnatune_meta.author)+"/"+encodeURIComponent(magnatune_meta.title)+"/cover";
+        var image_url = "http://he3.magnatune.com/music/" + encodeURIComponent(magnatune_meta.author) + "/" + encodeURIComponent(magnatune_meta.title) + "/cover";
         var links = [{
             href: magnatune_meta.embed_url,
             type: CONFIG.T.flash,
@@ -54,7 +56,7 @@ module.exports = {
 
         [30, 50, 100, 150, 200, 300, 600].forEach(function (size) {
             links.push({
-                href: image_url+"_"+size+".jpg",
+                href: image_url + "_" + size + ".jpg",
                 rel:  CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width:  size,
@@ -65,7 +67,10 @@ module.exports = {
         return links;
     },
 
-    tests: [
+    tests: [{
+        page: "http://magnatune.com/",
+        selector: "p td font a:has(font)"
+    },
         "http://magnatune.com/artists/albums/sieber-hidden/",
         "http://magnatune.com/artists/albums/fallingyou-adore/lofi_play"
     ]
