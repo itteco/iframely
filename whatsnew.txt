@@ -2,6 +2,7 @@
 
  + tindeck.com (Mathias Panzenböck)
  + maps.google.com (Mathias Panzenböck)
+ + magnatune.com (Mathias Panzenböck)
 
 0.3.8
 
