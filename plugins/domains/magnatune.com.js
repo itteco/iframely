@@ -47,7 +47,9 @@ module.exports = {
             type: CONFIG.T.flash,
             rel:  CONFIG.R.player,
             "min-width":  300,
-            "min-height": 150
+            "max-width":  600,
+            "min-height": 150,
+            "max-height": 600
         }, {
             href: image_url+".jpg",
             rel:  CONFIG.R.thumbnail,
