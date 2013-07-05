@@ -8,21 +8,23 @@ module.exports = {
     ],
 
     getLink: function (meta) {
-        if (meta.twitter && meta.twitter.image)
+        if (meta.twitter && meta.twitter.image) {
             return {
                 href: meta.twitter.image.url,
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.image],
                 width: meta.twitter.image.width,
                 height: meta.twitter.image.height
-            }
+            };
+        }
 
-        if (meta.image_src)
+        if (meta.image_src) {
             return {
                 href: meta.image_src,
                 type: CONFIG.t.image,
-                rel: [CONGIG.R.image],
-            }            
+                rel: [CONGIG.R.image]
+            }
+        }
     },
 
     tests: [
