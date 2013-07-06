@@ -1,9 +1,17 @@
 function linkify(text) {
     if (typeof text === "string") {
-        return text.replace(/((https?:)?\/\/[^"\s]+)/gi, '<a target="_blank" href="$1">$1</a>');
+        return text.replace(/((https?:)?\/\/[^"'<>\s]+)/gi, '<a target="_blank" href="$1">$1</a>');
     } else {
         return text;
     }
+}
+
+var HTML_CHARS = {'"':"&quot;","'":"&#39;","&":"&amp;","<":"&lt;",">":"&gt;"};
+
+function escapeHtml(text) {
+    return String(text).replace(/["'&<>]/g, function (ch) {
+        return HTML_CHARS[ch];
+    });
 }
 
 // Render json in PRE.
@@ -42,7 +50,7 @@ $.fn.renderObject = function(o) {
     var text = JSON.stringify(createTrimmedObject(o), null, 4);
     text = $('<div>').text(text).html();
     text = text.replace(/\\"/gi, '"');
-    text = text.replace(/"((https?:)?\/\/[^"\s]+)"/gi, '"<a target="_blank" href="$1">$1</a>"');
+    text = text.replace(/"((https?:)?\/\/[^"'<>\s]+)"/gi, '"<a target="_blank" href="$1">$1</a>"');
     text = text.replace(/\[contextLink](\w+)\[\/contextLink\]/gi, '<a href="#" data-context-link="$1">$1</a>');
     this.html(text);
     return this;
@@ -217,7 +225,7 @@ function showEmbeds($embeds, data, filterByRel) {
                         head = debug.plugin;
                     }
                 }
-                $embeds.append('<h2 data-plugin="' + debug.plugin + '-' + counter + '">' + head + '</h2>');
+                $embeds.append('<h2 data-plugin="' + debug.plugin + '-' + counter + '">' + escapeHtml(head) + '</h2>');
                 counter += 1;
 
                 // Links preview.
@@ -292,7 +300,7 @@ function showEmbeds($embeds, data, filterByRel) {
 
             var method = plugin.methods[data.meta._sources[key].method];
 
-            $meta.append('<tr>' + (DEBUG ? ('<td>' + plugin.id + '</td><td>' + method.join(', ') + '</td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
+            $meta.append('<tr>' + (DEBUG ? ('<td>' + escapeHtml(plugin.id) + '</td><td>' + escapeHtml(method.join(', ')) + '</td>') : '') + '<td><strong>' + escapeHtml(key) + '</strong></td><td>' + linkify(escapeHtml(data.meta[key])) + '</td></tr>')
         });
 
         $embeds.prepend($meta);
@@ -302,7 +310,7 @@ function showEmbeds($embeds, data, filterByRel) {
         var $textarea = $('<textarea>')
             .hide()
             .attr('rows', pluginsList.length + 2)
-            .html("mixins: " + JSON.stringify(pluginsList, null, 4));
+            .html("mixins: " + escapeHtml(JSON.stringify(pluginsList, null, 4)));
 
         var $a = $('<a href="#">')
             .text('[show plugins as mixins]')
