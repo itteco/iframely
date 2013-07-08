@@ -1,5 +1,7 @@
 0.3.10 - Currently developing
 
+ * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
+
 0.3.9
 
  + tindeck.com (Mathias Panzenböck)
