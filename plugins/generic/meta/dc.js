@@ -4,16 +4,16 @@ module.exports = {
 
         function getAttr(attr) {
 
-            var root = meta.dc || meta.dcterms;
+            var root = meta.dc || meta.dcterms, key;
             if (root && root[attr]) {
-                for(var key in root) {
+                for(key in root) {
                     if (key == attr) {
                         return root[key];
                     }
                 }
             }
 
-            for(var key in meta) {
+            for(key in meta) {
                 var bits = key.split('.');
                 if (bits.length > 1) {
                     var b0 = bits[0];
