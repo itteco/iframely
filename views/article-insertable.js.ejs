@@ -18,13 +18,20 @@
                 $cont.parent().trigger('iframely.loaded');
             }
 
+            var $container = $('[data-used!=true][iframely-container-for$="' + encodeURIComponent(iframely.uri) + '"]:first');
 
-            var $scriptElement = $('script[data-used!=true][src$="' + encodeURIComponent(iframely.uri) + '"]:first');
+            if ($container.length == 0) {
 
-            if ($scriptElement){
-                $scriptElement.attr('data-used', true);
-                var $container = $('<div class="iframely-article-container"></div>');
-                $container.insertAfter($scriptElement);
+                var $script = $('script[data-used!=true][src$="' + encodeURIComponent(iframely.uri) + '"]:first');
+                $script.attr('data-used', true);
+
+                var $container = $('<div>');
+                $container.insertAfter($script);
+            }
+
+            if ($container.length) {
+                $container.attr('data-used', true);
+                $container.addClass("iframely-article-container");
                 drawWidget($container);
             }
 
