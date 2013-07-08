@@ -3,12 +3,13 @@ module.exports = {
     getLinks: function(meta) {
 
         function findIcons(links, filter) {
+            var key, l;
 
-            for(var key in meta) {
+            for(key in meta) {
 
                 if (filter(key)) {
 
-                    var l = meta[key];
+                    l = meta[key];
 
                     if (!(l instanceof Array)) {
                         l = [l];
