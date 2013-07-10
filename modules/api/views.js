@@ -174,4 +174,41 @@ module.exports = function(app) {
             });
         })
     });
+
+    app.get('/supported-plugins-re.json', function(req, res, next) {
+
+        console.log('-- Loading supported-plugins-re.json');
+
+        var plugins = _.values(iframely.getPlugins());
+
+        var regexps = [];
+        var domainsDict = {};
+
+        plugins.forEach(function(plugin) {
+
+            if (plugin.domain) {
+
+                if (plugin.re && plugin.re.length){
+                    plugin.re.forEach(function(re){
+                        regexps.push({
+                            s: re.source,
+                            m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
+                        });
+                    });
+                } else if (!(plugin.domain in domainsDict)) {
+
+                    domainsDict[plugin.domain] = true;
+
+                    regexps.push({
+                        s: plugin.domain.replace(/\./g, "\\."),
+                        m: ''
+                    });
+                }
+            }
+        });
+
+        regexps.sort();
+
+        res.send(regexps);
+    });
 };
