@@ -37,7 +37,7 @@ module.exports = {
         // TODO: add media and rels to faviicon and thumbnail plugins.
         var EXISTING_PROVIDERS = ["icon", "thumbnail"];
 
-        if (_.intersection(rels, EXISTING_PROVIDERS).length > 0) {
+        if (rels.length == 1 && _.intersection(rels, EXISTING_PROVIDERS).length > 0) {
             return [];
         }
 
@@ -62,6 +62,7 @@ module.exports = {
 
             var link = {
                 href: v.href,
+                title: v.title,
                 type: v.type,   // Validate TYPE?
                 rel: rels       // Validate REL?
             };
