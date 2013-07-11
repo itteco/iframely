@@ -3,6 +3,7 @@
  + added readtapestry.com plugin
  + added whosay.com photo plugin
  + added jsfiddle.net plugin
+ + added theoatmeal.com plugin
 
 0.3.10
 
