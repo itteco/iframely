@@ -2,6 +2,7 @@
 
  + added readtapestry.com plugin
  + added whosay.com photo plugin
+ + added jsfiddle.net plugin
 
 0.3.10
 
