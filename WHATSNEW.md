@@ -1,4 +1,12 @@
-0.3.10 - Currently developing
+0.3.10
+
+ * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
+ + added /supported-plugins-re.json endpoint
+ + added /twitter endpoint to get only twitter meta
+ * fixed timeout on waiting full response
+ * fixed iframely-link plugin
+ * fixed iframed widgets buggy resizing
+ * fixed dynamic reader embedding
 
 0.3.9
 

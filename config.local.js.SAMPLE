@@ -2,6 +2,7 @@
     var config = {
 
         DEBUG: false,
+        RICH_LOG_ENABLED: false,
 
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",

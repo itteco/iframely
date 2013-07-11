@@ -1,4 +1,5 @@
 var iframely = require('../../lib/iframely');
+var iframelyMeta = require('../../lib/iframely-meta');
 var utils = require('../../utils');
 var async = require('async');
 var _ = require('underscore');
@@ -146,5 +147,68 @@ module.exports = function(app) {
             res.render(link._render.template, link.template_context);
         });
 
+    });
+
+    app.get('/twitter', function(req, res, next) {
+        if (!req.query.uri) {
+            return next(new Error("'uri' get param expected"));
+        }
+
+        console.log('-- Loading twitter for', req.query.uri);
+
+        iframelyMeta.getPageData(req.query.uri, {
+            meta: true,
+            oembed: false,
+            fullResponse: false
+        }, function(error, data) {
+
+            if (error) {
+                if (error.code == 'ENOTFOUND') {
+                    return next(new utils.NotFound('Page not found'));
+                }
+                return next(new Error(error));
+            }
+
+            res.send({
+                twitter: data.meta.twitter || {}
+            });
+        })
+    });
+
+    app.get('/supported-plugins-re.json', function(req, res, next) {
+
+        console.log('-- Loading supported-plugins-re.json');
+
+        var plugins = _.values(iframely.getPlugins());
+
+        var regexps = [];
+        var domainsDict = {};
+
+        plugins.forEach(function(plugin) {
+
+            if (plugin.domain) {
+
+                if (plugin.re && plugin.re.length){
+                    plugin.re.forEach(function(re){
+                        regexps.push({
+                            s: re.source,
+                            m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
+                        });
+                    });
+                } else if (!(plugin.domain in domainsDict)) {
+
+                    domainsDict[plugin.domain] = true;
+
+                    regexps.push({
+                        s: plugin.domain.replace(/\./g, "\\."),
+                        m: ''
+                    });
+                }
+            }
+        });
+
+        regexps.sort();
+
+        res.send(regexps);
     });
 };

@@ -44,12 +44,11 @@
             windowId = e.data.windowId;
 
             var height;
-            var d = document.getElementById('iframely-content');
 
             function resize() {
                 var h = heightGetter ? heightGetter() : null;
 
-                if (h && h != height) {
+                if (h && h != height && (h > height || !height)) {
                     height = h;
                     XD.postMessage({
                         windowId: windowId,
@@ -59,7 +58,7 @@
                 }
             }
 
-            setInterval(resize, 500);
+            setInterval(resize, 200);
             resize();
         }
     });
