@@ -4,6 +4,7 @@
  + added whosay.com photo plugin
  + added jsfiddle.net plugin
  + added theoatmeal.com plugin
+ + added lolwall.co plugin
 
 0.3.10
 
