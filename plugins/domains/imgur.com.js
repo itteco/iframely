@@ -12,6 +12,12 @@ module.exports = {
         "twitter-image-rel-image"
     ],
 
+    getMeta: function() {
+        return {
+            site: "imgur"
+        };
+    },
+
     getLink: function(urlMatch, meta) {
 
         var links = [];
