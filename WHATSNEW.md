@@ -1,3 +1,7 @@
+0.3.11
+
+ + added readtapestry.com plugin
+
 0.3.10
 
  * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
