@@ -1,6 +1,7 @@
 0.3.11
 
  + added readtapestry.com plugin
+ + added whosay.com photo plugin
 
 0.3.10
 
