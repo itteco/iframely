@@ -23,9 +23,13 @@ module.exports = {
             }
 
             if (data.app_type) {
+
+                var img = data.previews && data.previews.length && data.previews[0].image_url;
+
                 cb(null, {
                     firefox_marketplace_data: data,
                     html_for_readability:
+                        (img ? '<p><img src="' + img + '"></p>' : '') +
                         '<p>' + data.description + (data.current_version.release_notes ?
                         '</p>\n<h3>Release Notes</h3>\n<p>' + data.current_version.release_notes + '</p>' :
                         '</p>'),
@@ -44,19 +48,21 @@ module.exports = {
             date:             firefox_marketplace_data.created,
             author:           firefox_marketplace_data.current_version.developer_name,
             description:      jQuery('<div>'+firefox_marketplace_data.description+'</div>').text(),
-            canonical:        "https://marketplace.firefox.com/app/"+firefox_marketplace_data.slug,
+            canonical:        "https://marketplace.firefox.com/app/"+firefox_marketplace_data.slug
+            /*,
             support_url:      firefox_marketplace_data.support_url,
             homepage:         firefox_marketplace_data.homepage,
             ratings_count:    firefox_marketplace_data.ratings.count,
             ratings_average:  firefox_marketplace_data.ratings.average,
             weekly_downloads: firefox_marketplace_data.weekly_downloads
+            */
         };
     },
 
     getLinks: function(firefox_marketplace_data) {
         var links = [];
-
-        for (var key in firefox_marketplace_data.icons) {
+        var key;
+        for (key in firefox_marketplace_data.icons) {
             var icon_size = parseInt(key,10);
             links.push({
                 href:   firefox_marketplace_data.icons[key],
@@ -84,5 +90,14 @@ module.exports = {
         });
 
         return links;
-    }
+    },
+
+    tests: [
+        "https://marketplace.firefox.com/app/pasjanssolitaire?src=all-popular",
+        "https://marketplace.firefox.com/app/wikipedia?src=all-popular",
+        "https://marketplace.firefox.com/app/soundcloud?src=all-popular",
+        {
+            noFeeds: true
+        }
+    ]
 };
