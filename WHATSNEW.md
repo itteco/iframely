@@ -7,6 +7,7 @@
  + added lolwall.co plugin
  + added openstreetmap.org plugin (Mathias Panzenböck)
  + added marketplace.firefox.com plugin (Mathias Panzenböck)
+ * fixed smugmug.com plugin
 
 0.3.10
 
