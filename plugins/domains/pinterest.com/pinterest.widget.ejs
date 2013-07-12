@@ -19,9 +19,10 @@
 <div id='iframely-content'>
     <a data-pin-do="<%= type %>"
        href="<%= url %>"
-       data-pin-scale-width="<%= pinWidth %>"
-       data-pin-scale-height="<%= height %>"
-       data-pin-board-width="<%= width %>"></a>
+       <% if (pinWidth) { %>data-pin-scale-width="<%= pinWidth %>"<% } %>
+       <% if (pinWidth) { %>data-pin-scale-height="<%= height %>"<% } %>
+       <% if (pinWidth) { %>data-pin-board-width="<%= width %>"<% } %>
+    ></a>
     <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
 </div>
 </body>
