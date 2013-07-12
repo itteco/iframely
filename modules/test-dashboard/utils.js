@@ -81,7 +81,7 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
                         return;
                     }
 
-                    urls.push(item.origlink || item.link);
+                    urls.push(url);
 
                     if (MAX_FEED_URLS == urls.length) {
                         _cb();
