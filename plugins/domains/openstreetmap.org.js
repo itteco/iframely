@@ -101,6 +101,10 @@ module.exports = {
     },
 
     tests: [
-        "http://www.openstreetmap.org/?lat=48.12446&lon=16.42282&zoom=15&layers=M"
+        "http://www.openstreetmap.org/?lat=48.12446&lon=16.42282&zoom=15&layers=M",
+        "http://www.openstreetmap.org/?lat=51.5064&lon=-0.1281&zoom=14&layers=MC",
+        {
+            noFeeds: true
+        }
     ]
 };

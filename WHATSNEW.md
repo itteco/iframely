@@ -5,6 +5,7 @@
  + added jsfiddle.net plugin
  + added theoatmeal.com plugin
  + added lolwall.co plugin
+ + added openstreetmap.org plugin (Mathias Panzenböck)
 
 0.3.10
 
