@@ -5,19 +5,13 @@ module.exports = {
     mixins: [
         "og-title",
         "canonical",
-        "description",
+        "og-description",
         "site",
 
         "og-image-rel-image",
         "twitter-image",
         "favicon"
     ],
-
-    getMeta: function($selector) {
-        return {
-            description: $selector('.commentDescriptionContent').text()
-        };
-    },
 
     getLink: function(url, meta) {
         return {
