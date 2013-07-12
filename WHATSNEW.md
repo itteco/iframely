@@ -6,6 +6,7 @@
  + added theoatmeal.com plugin
  + added lolwall.co plugin
  + added openstreetmap.org plugin (Mathias Panzenböck)
+ + added marketplace.firefox.com plugin (Mathias Panzenböck)
 
 0.3.10
 
