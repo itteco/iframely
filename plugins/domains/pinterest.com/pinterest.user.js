@@ -31,11 +31,11 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        page: "http://pinterest.com/all/science_nature/",
+        selector: ".pinUserAttribution a.firstAttribution"
+    },
         "http://pinterest.com/bcij/",
-        "http://pinterest.com/franktofineart/",
-        {
-            noFeeds: true
-        }
+        "http://pinterest.com/franktofineart/"
     ]
 };

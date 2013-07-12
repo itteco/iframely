@@ -6,7 +6,6 @@ module.exports = {
 
     mixins: [
         "og-title",
-        "og-description",
         "description",
         "canonical",
         "site",
@@ -32,15 +31,11 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        page: "http://pinterest.com/all/science_nature/",
+        selector: ".pinUserAttribution a.lastAttribution"
+    },
         "http://pinterest.com/bcij/pins/",
-        "http://pinterest.com/bcij/aging-gracefully/",
-        {
-            noFeeds: true,
-            skipMixins: [
-                "og-description",
-                "description"
-            ]
-        }
+        "http://pinterest.com/bcij/aging-gracefully/"
     ]
 };
