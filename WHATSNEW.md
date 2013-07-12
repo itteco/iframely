@@ -11,7 +11,6 @@
  + added pinterest.com pin-board widget plugin
  + added pinterest.com user widget plugin
  + added pinterest.com pin widget plugin
- + added flickr.com embedded gallery plugin
 
 0.3.10
 
