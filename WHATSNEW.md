@@ -9,6 +9,7 @@
  + added marketplace.firefox.com plugin (Mathias Panzenböck)
  * fixed smugmug.com plugin
  + added pinterest.com pin-board widget plugin
+ + added pinterest.com user widget plugin
 
 0.3.10
 

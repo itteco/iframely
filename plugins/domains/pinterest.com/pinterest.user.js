@@ -2,12 +2,11 @@ var jquery = require('jquery');
 
 module.exports = {
 
-    re: /^https?:\/\/pinterest\.com\/((?!pin)[a-z0-9]+)\/([\w\-]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/pinterest\.com\/((?!pin)[a-z0-9]+)\/?(?:$|\?|#)/i,
 
     mixins: [
         "og-title",
         "og-description",
-        "description",
         "canonical",
         "site",
 
@@ -22,7 +21,7 @@ module.exports = {
             template_context: {
                 url: url,
                 title: meta.og.title,
-                type: "embedBoard",
+                type: "embedUser",
                 width: 800,
                 height: 600,
                 pinWidth: 120
@@ -33,14 +32,10 @@ module.exports = {
     },
 
     tests: [
-        "http://pinterest.com/bcij/pins/",
-        "http://pinterest.com/bcij/aging-gracefully/",
+        "http://pinterest.com/bcij/",
+        "http://pinterest.com/franktofineart/",
         {
-            noFeeds: true,
-            skipMixins: [
-                "og-description",
-                "description"
-            ]
+            noFeeds: true
         }
     ]
 };
