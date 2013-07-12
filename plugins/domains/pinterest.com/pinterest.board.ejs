@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/iframely-utils.js"></script>
+    <script>
+
+        function init() {
+            var d = document.getElementById('iframely-content');
+
+            $.iframely.registerHeightGetter(function() {
+                //console.log(d.scrollHeight + 20);
+                return d.scrollHeight + 20;
+            });
+        }
+
+    </script>
+<body onload="init();">
+<div id='iframely-content'>
+    <a data-pin-do="embedBoard"
+       href="<%= url %>"
+       data-pin-scale-width="<%= pinWidth %>"
+       data-pin-scale-height="<%= height %>"
+       data-pin-board-width="<%= width %>"></a>
+    <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+</div>
+</body>
+</html>
