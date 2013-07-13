@@ -22,7 +22,7 @@ module.exports = {
         };
     },
 
-    getLink: function(meta, url) {
+    getLink: function(url) {
         return {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.reader,
