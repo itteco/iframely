@@ -1,6 +1,8 @@
+var re = /^http:\/\/theoatmeal\.com\/comics\/[a-z0-9_-]+/i;
+
 module.exports = {
 
-    re: /^http:\/\/theoatmeal\.com\/comics\/[a-z0-9_-]+/i,
+    re: re,
 
     mixins: [
         "image_src",
@@ -27,7 +29,12 @@ module.exports = {
 
     tests: [{
         page: "http://theoatmeal.com/comics",
-        selector: "a.arrow_right"
+        selector: "a.arrow_right",
+        getUrl: function(url) {
+            if (url.match(re)) {
+                return url;
+            }
+        }
     },
         "http://theoatmeal.com/comics/air_mattress"
     ]
