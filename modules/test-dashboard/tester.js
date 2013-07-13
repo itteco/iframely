@@ -195,11 +195,15 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         } else if (url.pageWithFeed) {
                             // Find feed on page and fetch feed.
-                            utils.fetchUrlsByPageOnFeed(url.pageWithFeed, getFetchTestUrlsCallback(url, cb));
+                            utils.fetchUrlsByPageOnFeed(url.pageWithFeed, {
+                                getUrl: url.getUrl
+                            }, getFetchTestUrlsCallback(url, cb));
 
                         } else if (url.page && url.selector) {
                             // Find urls on page by jqeury selector.
-                            utils.fetchUrlsByPageAndSelector(url.page, url.selector, getFetchTestUrlsCallback(url, cb));
+                            utils.fetchUrlsByPageAndSelector(url.page, url.selector, {
+                                getUrl: url.getUrl
+                            }, getFetchTestUrlsCallback(url, cb));
 
                         } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
 
