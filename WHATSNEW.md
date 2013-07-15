@@ -13,7 +13,7 @@
  + added pinterest.com pin widget plugin
  * fixed facebook.video plugin
  * fixed businessinsider.com plugin
- * fixed selecting best media link
+ * fixed: iframely selects better media sizes for duplicate http/https links from different plugins, giving priority to the ones that produce responsive widget
 
 0.3.10
 
