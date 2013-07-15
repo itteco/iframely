@@ -11,7 +11,9 @@
  + added pinterest.com pin-board widget plugin
  + added pinterest.com user widget plugin
  + added pinterest.com pin widget plugin
+ * fixed facebook.video plugin
  * fixed businessinsider.com plugin
+ * fixed selecting best media link
 
 0.3.10
 
