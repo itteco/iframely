@@ -11,7 +11,7 @@ module.exports = {
 
     getMeta: function(meta) {
         return {
-            title: meta.og.title || meta["html-title"].split(" · ")[0],
+            title: (meta.og.title || meta["html-title"]).split(" · ")[0],
             author_url: meta.storifyapp && meta.storifyapp.author
         };
     },
