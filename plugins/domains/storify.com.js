@@ -5,16 +5,15 @@ module.exports = {
     ],
 
     mixins: [
-        "og-title",
         "og-site",
         "favicon"
     ],
 
     getMeta: function(meta) {
-
-        if (meta.storifyapp) return {
-            "author_url": meta.storifyapp.author
-        }
+        return {
+            title: meta.og.title || meta["html-title"].split(" · ")[0],
+            author_url: meta.storifyapp && meta.storifyapp.author
+        };
     },
 
     // TODO: add max-width.
