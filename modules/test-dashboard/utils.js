@@ -81,7 +81,7 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
                         return;
                     }
 
-                    urls.push(item.origlink || item.link);
+                    urls.push(url);
 
                     if (MAX_FEED_URLS == urls.length) {
                         _cb();
@@ -94,7 +94,12 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
         });
 };
 
-exports.fetchUrlsByPageOnFeed = function(pageWithFeed, cb) {
+exports.fetchUrlsByPageOnFeed = function(pageWithFeed, otpions, cb) {
+
+    if (typeof options === "function") {
+        cb = options;
+        options = {};
+    }
 
     async.waterfall([
 
@@ -123,7 +128,7 @@ exports.fetchUrlsByPageOnFeed = function(pageWithFeed, cb) {
 
             if (feeds && feeds.length > 0) {
 
-                cb(null, feeds[0].href);
+                cb(null, feeds[0].href, otpions);
 
             } else {
                 cb("No feeds found on " + pageWithFeed);
@@ -135,7 +140,12 @@ exports.fetchUrlsByPageOnFeed = function(pageWithFeed, cb) {
     ], cb);
 };
 
-exports.fetchUrlsByPageAndSelector = function(page, selector, cb) {
+exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
+
+    if (typeof options === "function") {
+        cb = options;
+        options = {};
+    }
 
     async.waterfall([
 
@@ -166,6 +176,15 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, cb) {
                     if (href) {
                         var href = url.resolve(page, href);
                         if (urls.indexOf(href) == -1) {
+
+                            if (options.getUrl) {
+                                href = options.getUrl(href);
+                            }
+
+                            if (!href) {
+                                return;
+                            }
+
                             urls.push(href);
                         }
                     }

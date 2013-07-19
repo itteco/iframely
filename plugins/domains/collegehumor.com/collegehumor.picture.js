@@ -1,6 +1,8 @@
+var re = /http:\/\/www\.collegehumor\.com\/picture\/([0-9]+)\.*/;
+
 module.exports = {
 
-    re: /http:\/\/www\.collegehumor\.com\/picture\/([0-9]+)\.*/,
+    re: re,
 
     mixins: [
         "og-title",
@@ -15,7 +17,13 @@ module.exports = {
     ],
 
     tests: [{
-        pageWithFeed: "http://www.collegehumor.com/pictures"
+        pageWithFeed: "http://www.collegehumor.com/pictures",
+        getUrl: function(url) {
+            if (url.match(re)) {
+                console.log(url);
+                return url;
+            }
+        }
     },
         "http://www.collegehumor.com/picture/6785079/cops-pull-over-black-man",
         {

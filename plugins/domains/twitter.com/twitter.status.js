@@ -51,10 +51,10 @@ module.exports = {
                 var title = meta['html-title'].replace(/Twitter\s*\/?\s*/, " ");
 
                  cb(null, {
-                         title: title,
-                         type: CONFIG.T.text_html,
-                         rel: [CONFIG.R.oembed, CONFIG.R.reader],
-                         template_context: {
+                     title: title,
+                     type: CONFIG.T.text_html,
+                     rel: [CONFIG.R.oembed, CONFIG.R.reader],
+                     template_context: {
                          title: title,
                          html: oembed.html
                      },

@@ -15,9 +15,22 @@ module.exports = {
     ],
 
     getLinks: function(urlMatch, meta) {
-        var src = 'http://instagram.com/p/' + urlMatch[1] +'/media/?size='
+        var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
+        //var embed = 'http://instagram.com/p/' + urlMatch[1] + '/embed/';
 
         var links = [
+            /*
+             http://instagram.com/p/a_v1-9gTHx/embed/
+             overflow-y: scroll;
+             Always has scroller.
+            {
+                href: embed,
+                type: CONFIG.T.text_html,
+                rel: (meta.og && meta.og.video) ? CONFIG.R.player : CONFIG.R.reader,
+                width: 612+19,
+                height: 710+4
+            },
+            */
             // Images.
             {
                 href: src + 't',

@@ -1,15 +1,19 @@
 module.exports = {
 
     mixins: [
-        "og-title",     // Low priority.
-        "oembed-title", // Higher priority.
-        "og-description",
         "canonical",
         "oembed-site",
         "oembed-author",
         "keywords",
         "favicon"
     ],
+
+    getMeta: function(oembed) {
+        return {
+            title: oembed.title.split(/[\.\r\n]/)[0],
+            description: oembed.title
+        };
+    },
 
     getLink: function (oembed) {
 
@@ -30,8 +34,10 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://www.smugmug.com/popular/all"
-    }, {
+        pageWithFeed: "http://www.smugmug.com/popular/today"
+    },
+        "http://www.smugmug.com/popular/all#!i=789708429&k=sPdffjw",
+        {
         skipMixins: [
             "og-title",
             "oembed-title",

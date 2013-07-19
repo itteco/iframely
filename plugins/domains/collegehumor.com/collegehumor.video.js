@@ -1,8 +1,10 @@
 var jquery = require('jquery');
 
+var re = /http:\/\/www\.collegehumor\.com\/(video|embed)\/([0-9]+)\.*/;
+
 module.exports = {
 
-    re: /http:\/\/www\.collegehumor\.com\/(video|embed)\.*/,
+    re: re,
 
     // TODO: add predefined size for og-image: 640x360.
 
@@ -36,7 +38,12 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://www.collegehumor.com/videos"
+        pageWithFeed: "http://www.collegehumor.com/videos",
+        getUrl: function(url) {
+            if (url.match(re)) {
+                return url;
+            }
+        }
     },
         "http://www.collegehumor.com/video/6853117/look-at-this-instagram-nickelback-parody"
     ]

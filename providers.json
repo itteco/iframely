@@ -97,9 +97,9 @@
     {
         "name": "SmugMug",
         "templates": [
-            ".*\\.smugmug\\.com/.*"
+            "(.*\\.smugmug\\.com/[^#]*)#!i=(\\d+)&k=(\\w+)"
         ],
-        "endpoint": "http://api.smugmug.com/services/oembed/"
+        "endpoint": "http://api.smugmug.com/services/oembed/?format={format}&url=http://{1}%23{2}_{3}"
     },
     {
         "name": "SlideShare",
