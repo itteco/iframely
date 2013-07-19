@@ -24,10 +24,11 @@ _Itteco also is developing additional services for developers and publishers, wh
 
 ## Getting Started
 
-### Dont forget :)
+### Do not forget :)
 
 - To give Iframely a star on GitHub
 - To [follow Iframely on Twitter](https://twitter.com/iframely) or watch this repo to get updates
+
 
 ### Community Endpoint
 
@@ -39,15 +40,17 @@ This endpoint is provided courtesy of Itteco and has the latest version of ifram
 
 Please deploy iframely on your own hardware before going live.
 
-### Quick API Response intro
+
+### Quick API Response Intro
 
 In response to `/iframely?uri=` requests, Iframely will return JSON with the embed links and unified meta semantics.
 
+
 Response structure is close resemblance of the following analogue of `<head>` part of the URL's page:
-    <head>
-      <meta name="..." value="..."/>
-      <link rel="iframely player" href="..." type="text/html" media="aspect-ratio: 1.778" title="...">
-    </head>
+      <head>
+        <meta name="..." value="..."/>
+        <link rel="iframely player" href="..." type="text/html" media="aspect-ratio: 1.778" title="...">
+      </head>
 
 
 JSON response will look like:
@@ -75,13 +78,16 @@ JSON response will look like:
       ]
     }
 
+
 You can use `iframely.js` jQuery script to communicate with Iframely endpoint and render the embeds. 
 See `docs` folder for more details on API and `iframely.js`
+
 
 ### Visual Debug Tool
 
 The visusal debug tool is at [http://iframely.com/debug](http://iframely.com/debug). 
 Once you deploy Iframely to your own servers, you will have your own copy of technical debug tool at `/debug` address.
+
 
 ### Install & Other Docs
 
@@ -93,6 +99,7 @@ To get a copy of Iframely, you have three options:
 
 Please, see the `docs` folder for more detailed install and configuration instructions as well as API description.
 
+
 ### Sample Apps & Demos
 
 Itteco has developed the following services based on Iframely technology:
@@ -101,13 +108,15 @@ Itteco has developed the following services based on Iframely technology:
 
 If you'd like your app to be included into the list - please, fork repository and add it to README.md, then submit pull-request.
 
-## Contributing and Contact Us
+
+## Contributing
 
 Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues).
 
-Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. 
+Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
 If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch or [cast your email here](http://iframely.com).
+
 
 ## Authors
 
@@ -115,6 +124,6 @@ The authors and maintainers of the package are these guys from [Itteco](http://i
  - [Nazar Leush](https://github.com/nleush) - _the_ author
  - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
 
- Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
+Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
 
 
