@@ -47,11 +47,11 @@ In response to `/iframely?uri=` requests, Iframely will return JSON with the emb
 
 
 Response structure is close resemblance of the following analogue of `<head>` part of the URL's page:
-      <head>
+
+    <head>
         <meta name="..." value="..."/>
         <link rel="iframely player" href="..." type="text/html" media="aspect-ratio: 1.778" title="...">
-      </head>
-
+    </head>
 
 JSON response will look like:
 
