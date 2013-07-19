@@ -115,7 +115,7 @@ Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [s
 
 Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
-If you are a publisher and would like to make your embeds available as [oEmbed/2][oembed2] (and thus delivered through iframely) - please, do get in touch or [cast your email here](http://iframely.com).
+If you are a publisher and would like to make your embeds available as oEmbed/2 (and thus distributed through iframely) - please, do get in touch or [cast your email here](http://iframely.com).
 
 
 ## Authors
