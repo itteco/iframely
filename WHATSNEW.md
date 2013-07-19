@@ -1,4 +1,4 @@
-0.3.11
+2013.07.19, Version 0.4.0
 
  + added readtapestry.com plugin
  + added whosay.com photo plugin
@@ -15,7 +15,7 @@
  * fixed businessinsider.com plugin
  * fixed: iframely selects better media sizes for duplicate http/https links from different plugins, giving priority to the ones that produce responsive widget
 
-0.3.10
+2013.07.11, Version 0.3.10
 
  * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
  + added /supported-plugins-re.json endpoint
@@ -25,14 +25,14 @@
  * fixed iframed widgets buggy resizing
  * fixed dynamic reader embedding
 
-0.3.9
+2013.07.05, Version 0.3.9
 
  + tindeck.com (Mathias Panzenböck)
  + maps.google.com (Mathias Panzenböck)
  + magnatune.com (Mathias Panzenböck)
  + ocreamix.org (Mathias Panzenböck)
 
-0.3.8
+2013.06.28, Version 0.3.8
 
  + trutv.com
  + video.nhl.com
@@ -43,7 +43,7 @@
  + wikimedia articles and pictures
  + parse links by iframely (oEmbed/2) spec
 
-0.3.7
+2013.06.27, Version 0.3.7
 
  + instagram video
  + 'iframely-widget' styles used by iframely.js to identify generated widgets
