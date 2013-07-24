@@ -95,7 +95,8 @@
                 uri: uri,
                 debug: options.debug,
                 mixAllWithDomainPlugin: options.mixAllWithDomainPlugin,
-                refresh: options.refresh
+                refresh: options.refresh,
+                meta: options.meta
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);

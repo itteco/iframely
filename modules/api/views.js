@@ -14,9 +14,25 @@ module.exports = function(app) {
 
         console.log('-- Loading oembed2 for', req.query.uri);
 
+        var meta;
+
         async.waterfall([
 
             function(cb) {
+
+                if (req.query.meta) {
+                    iframelyMeta.getPageData(req.query.uri, {
+                        meta: true,
+                        oembed: true,
+                        fullResponse: false
+                    }, cb);
+                } else {
+                    cb(null, null);
+                }
+            },
+
+            function(data, cb) {
+                meta = data;
                 iframely.getRawLinks(req.query.uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
@@ -56,6 +72,10 @@ module.exports = function(app) {
                     groups.other = other;
                 }
                 result.links = groups;
+            }
+
+            if (meta) {
+                result['raw-meta'] = meta;
             }
 
             res.send(result);
@@ -172,7 +192,7 @@ module.exports = function(app) {
             res.send({
                 twitter: data.meta.twitter || {}
             });
-        })
+        });
     });
 
     app.get('/supported-plugins-re.json', function(req, res, next) {
