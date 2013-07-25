@@ -88,6 +88,8 @@ See `docs` folder for more details on API and `iframely.js`
 The visusal debug tool is at [http://iframely.com/debug](http://iframely.com/debug). 
 Once you deploy Iframely to your own servers, you will have your own copy of technical debug tool at `/debug` address.
 
+You can also get a debugger as [Google Chrome extension here](https://chrome.google.com/webstore/detail/iframely-semantic-url-deb/lhemgegopokbfknihjcefbaamgoojfjf).
+
 
 ### Install & Other Docs
 
