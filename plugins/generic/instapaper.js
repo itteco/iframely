@@ -1,9 +1,21 @@
 var $ = require('jquery');
 var jsdom = require('jsdom');
+var urllib = require('url');
+
+function fixURIs(parent, tag, _attr, baseUri){
+    var tagsList = parent.getElementsByTagName(tag);
+
+    for (var i=0; i < tagsList.length; i++) {
+        var elURI = tagsList[i].getAttribute(_attr);
+        if (elURI){
+            tagsList[i].setAttribute(_attr, urllib.resolve(baseUri, elURI));
+        }
+    }
+}
 
 module.exports = {
 
-    getLink: function(instapaper_flag, html, cb) {
+    getLink: function(url, instapaper_flag, html, cb) {
 
         jsdom.env({
             html: html
@@ -15,14 +27,20 @@ module.exports = {
 
             var $selector = $.create(window);
 
-            var $cont = $('<article />');
-
             var content = $selector('.instapaper_body');
 
             content.find('.instapaper_ignore').remove();
             content.find('a[href=], a:not([href])').remove();
 
             if (content.length) {
+
+                var parent = content[0];
+
+                fixURIs(parent, "img", "src", url);
+                fixURIs(parent, "source", "src", url);
+                fixURIs(parent, "video", "src", url);
+                fixURIs(parent, "audio", "src", url);
+                fixURIs(parent, "a", "href", url);
 
                 cb(null, {
                     html: content.html(),
