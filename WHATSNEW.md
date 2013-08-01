@@ -1,3 +1,5 @@
+ + added v.qq.com plugin
+
 2013.07.19, Version 0.4.0
 
  + added readtapestry.com plugin
