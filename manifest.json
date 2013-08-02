@@ -1,0 +1,17 @@
+{
+    "title": "Iframe.ly",
+    "github": "itteco/iframely",
+    "rootDir": ".",
+    "files": [
+        "README.md",
+        "./docs/OEMBED-2-DRAFT.md",
+        "./docs/SETUP.md",
+        "./docs/API.md",
+        "./docs/WRITE-A-PLUGIN.md"
+    ],
+    "links": [
+        ["View on Github", "http://github.com/itteco/iframely"],
+        ["Demo Debugger", "https://iframely.com/debug"]
+    ],
+    "maxTocLevel": 3
+}

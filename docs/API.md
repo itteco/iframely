@@ -1,4 +1,4 @@
-## Jump To
+## API Reference
 
 - [/iframely: _the_ API endpoint][iframely]
     - [meta](#meta)
@@ -11,9 +11,6 @@
     - [Fetch oEmbed/2](#fetch-oembed2)
     - [Render links](#render-links)
 - TODO: [Using Iframely as npm package](#using-iframely-as-npm-package)
-
-
-## API Reference
 
 ### /iframely API endpoint
 [iframely]: #iframely-api-endpoint

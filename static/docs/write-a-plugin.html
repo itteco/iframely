@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Iframe.ly</title>
+
+    <link type="text/css" rel="stylesheet" href="/r3/docs/assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="/r3/docs/assets/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="/r3/docs/assets/css/print.css" media="print">
+    
+
+    <script type="text/javascript" src="/r3/docs/assets/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    <script type="text/javascript" src="/r3/docs/assets/js/lunr.min.js"></script>
+
+    
+
+    <script type="text/javascript">var BASE_URL = "/r3/docs/";</script>
+    <script type="text/javascript" src="/r3/docs/assets/js/viewer.js"></script>
+
+    
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        <header id="header">
+            <h1><a href="/r3/docs/">Iframe.ly</a></h1>
+        </header>
+        
+
+<div id="sidebar">
+    <form action="/r3/docs/search.html"><input id="search" type="text" placeholder="Search" name="q" /></form>
+    <nav id="toc">
+        
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/readme.html#iframely-embeds-gateway">Iframely Embeds Gateway</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/readme.html#getting-started">Getting Started</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/readme.html#do-not-forget">Do not forget :)</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#community-endpoint">Community Endpoint</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#quick-api-response-intro">Quick API Response Intro</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#visual-debug-tool">Visual Debug Tool</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#install-other-docs">Install &amp; Other Docs</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#sample-apps-demos">Sample Apps &amp; Demos</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#contributing">Contributing</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#authors">Authors</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/oembed-2-draft.html#oembed2-quick-draft">oEmbed/2 quick draft</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#server-setup">Server setup</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/setup.html#security-considerations">Security considerations</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#installation">Installation</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#config">Config</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#run-server">Run server</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#list-of-server-urls">List of server urls</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#server-debug-tool">Server debug tool</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#update-iframely">Update iframely</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/api.html#api-reference">API Reference</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/api.html#iframely-api-endpoint">/iframely API endpoint</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/api.html#iframelyjs-javascript-client-lib">iframely.js: JavaScript client lib</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/api.html#using-iframely-as-npm-package">Using Iframely as npm package</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/write-a-plugin.html#write-a-plugin">Write a Plugin</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+    </nav>
+    
+    <nav id="links">
+        <ul>
+            
+            <li><a href="http://github.com/itteco/iframely">View on Github</a></li>
+            
+            <li><a href="https://iframely.com/debug">Demo Debugger</a></li>
+            
+        </ul>
+    </nav>
+    
+</div>
+
+        <div id="content">
+            <a name="write-a-plugin"></a><h2>Write a Plugin</h2>
+<ul>
+<li>TODO <a href="#plugin-structure">Plugin structure</a><ul>
+<li>TODO <a href="#plugingetlinks">plugin.getLink(s)</a></li>
+<li><a href="#plugingetmeta">plugin.getMeta</a><ul>
+<li><a href="#plugingetmeta-priorities">plugin.getMeta priorities</a></li>
+</ul>
+</li>
+<li>TODO <a href="#plugingetdata">plugin.getData</a></li>
+<li>TODO <a href="#pluginmixins">plugin.mixins</a></li>
+<li>TODO <a href="#plugintests">plugin.tests</a></li>
+</ul>
+</li>
+<li>TODO <a href="#type-of-plugins">Type of plugins</a><ul>
+<li>TODO <a href="#generic-plugins">Generic plugins</a><ul>
+<li>TODO <a href="#meta-plugins">Meta plugins</a></li>
+</ul>
+</li>
+<li>TODO <a href="#domain-plugins">Domain plugins</a></li>
+<li>TODO <a href="#custom-plugins">Custom plugins</a></li>
+<li>TODO <a href="#template-plugins">Template plugins</a></li>
+</ul>
+</li>
+<li>TODO <a href="#custom-links-cases">Custom links cases</a><ul>
+<li>TODO <a href="#x-safe-html">x-safe-html</a></li>
+<li>TODO <a href="#rendering-templates">Rendering templates</a></li>
+<li>TODO <a href="#resize-embedded-iframe-from-inside-iframe">Resize embedded iframe from inside iframe</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>Terms</strong></p>
+<ul>
+<li><strong>plugin</strong> - node.js module.</li>
+<li><strong>plugin method</strong> - function in that plugin.</li>
+<li><strong>plugin method requirements</strong> - named params of that function.</li>
+<li><strong>URI</strong> - page URI on wich iframely search links and meta.</li>
+</ul>
+<p>Plugins are node.js modules with attributes and functions defined by iframely engine:</p>
+<ul>
+<li><strong>mixins</strong> - list of plugins&#39; to use with domain plugin. Plugins identified by its file name without extension and path.</li>
+<li><strong>re</strong> - list or single RegExp for testing page URI.</li>
+<li><strong>getLink</strong> - method to generate link.</li>
+<li><strong>getLinks</strong> - method to generate links array.</li>
+<li><strong>getMeta</strong> - method to create page unified meta.</li>
+<li><strong>getData</strong> - this method generates data, which can be used by other plugins and methods (getMeta, getLink(s) and getData).</li>
+<li><strong>tests</strong> - array of test urls to test plugin work. This is not used yet.</li>
+<li><strong>lowestPriority</strong> - marks plugin&#39;s getMeta method with low priority.</li>
+<li><strong>highestPriority</strong> - marks plugin&#39;s getMeta method with highest priority.</li>
+</ul>
+<p><code>TODO: add links to sections</code></p>
+<p>Main work is done by plugins&#39; methods getMeta, getLink(s) and getData. These methods work similar but returns
+different kind of objects (hashes). Each method has a number of params, called <strong>requirements</strong>. For example:</p>
+<pre><code>getLink: function(meta, oembed) {
+    return {
+        title: oembed.title,
+        description: meta.description
+    };
+}</code></pre>
+<p><code>getLink</code> uses <strong>meta</strong> and <strong>oembed</strong> params, so they are method&#39;s <strong>requirements</strong>.</p>
+<p>Iframely engine know that by parsing module code and provides that parameters when method is called.
+If some requirements are not available, method will not be called. This means all defined method params ara mandatory requirements.
+Here is the list of all available default requirements:</p>
+<ul>
+<li><strong>urlMatch</strong> - variable got after matching page URI against <strong>re</strong> RegExpes attribute of plugin. This is available only if domain plugin which has <strong>re</strong> attribute is used.</li>
+<li><strong>url</strong> - page URI itself.</li>
+<li><strong>request</strong> - known <a href="https://github.com/mikeal/request">request module</a>, wrapped with caching (caching not implemented yet). This is useful to call some external APIs&#39; methods.</li>
+<li><strong>meta</strong> - parsed paged meta head. You can see how page meta is parsed in <a href="http://dev.iframe.ly/debug?uri=http%3A%2F%2Fvimeo.com%2F67452063">debugger, &quot;Plugins context&quot; section</a>.</li>
+<li><strong>oembed</strong> - parsed oembed 1.0 (if available for page).</li>
+<li><strong>html</strong> - entire page response decoded to UTF-8.</li>
+<li><strong>$selector</strong> - jquery wrapper of page. Useful for fast accessing some page data by element class, e.g. <code>$selector(&#39;.item&#39;).text()</code>.</li>
+<li><strong>cb</strong> - this is result callback. If method requires <strong>cb</strong> - it means method is asynchronous. Engine will wait calling of <strong>cb</strong>. Without <strong>cb</strong> - method must return object synchronously.</li>
+</ul>
+<p>Plugin can provide custom requirements using <strong>getData</strong> method. See <a href="#plugingetdata">plugin.getData</a> for details.</p>
+<p>Here is engine algorithm to work with plugins:</p>
+<ol>
+<li>Extract URI domain (e.g. <code>example.com</code>).</li>
+<li>Find suitable domain plugins for that URI.<ol>
+<li>If domain plugins found:<ol>
+<li>Check if domain plugins has <strong>re</strong> attribute.<ol>
+<li>If true:<ol>
+<li>Match all RegExp&#39;es against URI and create urlMatch variable.</li>
+<li>Use only plugins with matched <strong>re</strong>s.</li>
+<li>If no matched plugins found - use domain plugins without <strong>re</strong>.</li>
+<li>If all plugins has <strong>re</strong> and no matches found - use all generic plugins.</li>
+</ol>
+</li>
+<li>If false:<ol>
+<li>Use all domain plugins.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>If suitable domain plugins <strong>not</strong> found:<ol>
+<li>Use all generic plugins.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Find methods of selected plugins to call:<ol>
+<li>Iterate all used plugins:<ol>
+<li>Itarate all plugin methods:<ol>
+<li>If method has only default requirements (see list below) - use it.</li>
+<li>If method has custom requirements (provided by some getData method) - skip it.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Load page by URI and get all required variables (meta, oembed, html etc.). If no requirements - page will not be loaded.</li>
+<li>Go through all selected (used) methods.<ol>
+<li>Call method with selected params.</li>
+<li>Wait for <strong>cb</strong> called if method is asynchronous or get result immediately.</li>
+<li>Store received result or error.</li>
+</ol>
+</li>
+<li>Find methods with custom requirements which can be called with received data (from previous step).<ol>
+<li>If methods found - go to step 5.</li>
+</ol>
+</li>
+<li>Extract all links from saved data:<ol>
+<li>Generate info for links with <a href="#x-safe-html">type: &quot;x-safe-html&quot;</a></li>
+<li>Generate info for links with <a href="#rendering-templates">custom render</a></li>
+<li>Calculate images sizes and type if not provided.</li>
+<li>Filter links without <code>href</code>.</li>
+<li>Resolve href to URI (if relative path provided).</li>
+<li>Skip duplicate links (by <code>href</code>).</li>
+<li>Combine <code>http://</code> and <code>https://</code> similar links to one without protocol <code>//</code>.</li>
+</ol>
+</li>
+<li>Merge all <strong>meta</strong> to single object (data from highest priority plugins will override others).</li>
+<li>Return <strong>links</strong> and <strong>meta</strong>.</li>
+</ol>
+<a name="plugin-structure"></a><h4>Plugin structure</h4>
+<a name="plugingetlinks"></a><h5>plugin.getLink(s)</h5>
+<a name="plugingetmeta"></a><h5>plugin.getMeta</h5>
+<p><code>getMeta</code> function allow plugin to provide some page meta attributes.</p>
+<p>Look at all meta plugins at: <a href="https://github.com/itteco/iframely/tree/master/plugins/generic/meta">/plugins/generic/meta</a>.</p>
+<p>Names of attributes should be unified. Do not created different forms of one attribute name, like <code>author_url</code> and <code>author-url</code>.
+See available attributes names to check if similar name exists at <a href="#meta-mappings">/meta-mappings</a>.</p>
+<p><strong>Warging!</strong> As meta-mappings generated using regexp modules parsing, all attributes should be described in specific form:
+ - each attribute should be declared in separate line;
+ - no other functions with <code>return</code> are not expected inside <code>getMeta</code> function.</p>
+<p>See example <a href="https://github.com/itteco/iframely/blob/master/plugins/generic/meta/video.js">/generic/meta/video.js</a>:</p>
+<pre><code>module.exports = {
+    getMeta: function(meta) {
+
+        // This prevents non useful errors loging with &quot;undefined&quot;.
+        if (!meta.video)
+            return;
+
+        return {
+            duration: meta.video.duration,  // This will extract video duration.
+            date: meta.video.release_date,  // If value is undefined - it will be removed from meta.
+            author: meta.video.writer,
+            keywords: meta.video.tag
+        };
+    }
+};</code></pre>
+<a name="plugingetmeta-priorities"></a><h6>plugin.getMeta priorities</h6>
+<p>Some plugins may return same meta attributes. This is possible if one attribute is described using different semantics.
+It happens that values of these attributes are different. We know some semantics are better then other.
+For example: html <code>&lt;title&gt;</code> tag often provides page title with site name, which is not really part of content title.
+But <code>og:title</code> usually better and contains only article title without site name.</p>
+<p>If you want to mark you plugin as worst source of meta (like html <code>&lt;title&gt;</code> tag), use <code>lowestPriority: true</code>:</p>
+<pre><code>module.exports = {
+    lowestPriority: true
+}</code></pre>
+<p>If you want to mark your plugin as good source of meta (like og:title), use <code>highestPriority: true</code>:</p>
+<pre><code>module.exports = {
+    highestPriority: true
+}</code></pre>
+<p>So resulting priority of meta plugins will be following:</p>
+<ol>
+<li>plugins with <code>highestPriority: true</code> will override all others plugins meta data.</li>
+<li>meta from plugins without priority mark will override only <code>lowestPriority: true</code> plugins meta data.</li>
+<li>data from plugins with <code>lowestPriority: true</code> will be used only if no other plugin provides that meta data.</li>
+</ol>
+<a name="plugingetdata"></a><h5>plugin.getData</h5>
+<a name="pluginmixins"></a><h5>plugin.mixins</h5>
+<a name="plugintests"></a><h5>plugin.tests</h5>
+<p>Example:</p>
+<pre><code>tests: [
+    {
+        feed: &quot;http://gdata.youtube.com/feeds/api/videos&quot;
+    },
+    {
+        pageWithFeed: &quot;http://www.businessinsider.com/&quot;
+    },
+    {
+        page: &quot;http://500px.com/upcoming&quot;,
+        selector: &quot;.title a&quot;,
+        getUrl: function(url) {
+            return url.indexOf(&#39;ok&#39;) &gt; -1 ? url : null;            
+        }
+    },
+    {
+        skipMixins: [&quot;og-title&quot;],
+        skipMethods: [&quot;getLink&quot;]
+    },
+    &quot;http://www.youtube.com/watch?v=etDRmrB9Css&quot;
+]</code></pre>
+<p>Feeds:
+ <em> <code>feed</code> - rss/atom feed of links to test.
+ </em> <code>pageWithFeed</code> - &quot;home&quot; page with rss/atom link in page header, feed will be looked for links to test.
+ <em> <code>page</code> and <code>selector</code> - jquery selector on page to find <code>a</code> elements with <code>href</code> attribute with links to test.
+ </em> <code>getUrl</code> - this function allows to change or mark feed url as not usable by returning <code>null</code>.</p>
+<p>Testing directives:
+ <em> <code>skipMethods</code> - array of non mandatory plugin methods. If method will not return data - it will be test warting, not error. Exceptions will raise error as usual.
+ </em> <code>skipMixins</code> - same as previous, but with mixin methods.</p>
+<p>If you have test urls but there are no test feeds, specify following to prevent test warnings:</p>
+<pre><code>tests: [
+    {
+        noFeeds: true
+    },
+    &quot;http://www.youtube.com/watch?v=etDRmrB9Css&quot;
+]</code></pre>
+<p>If there are no any test urls, write:</p>
+<pre><code>tests: {
+    noTest: true
+}</code></pre>
+<a name="type-of-plugins"></a><h4>Type of plugins</h4>
+<a name="generic-plugins"></a><h5>Generic plugins</h5>
+<p><a href="https://github.com/itteco/iframely/tree/master/plugins/generic">/plugins/generic</a></p>
+<a name="meta-plugins"></a><h6>Meta plugins</h6>
+<p><a href="https://github.com/itteco/iframely/tree/master/plugins/generic/meta">/plugins/generic/meta</a></p>
+<a name="domain-plugins"></a><h5>Domain plugins</h5>
+<p><a href="https://github.com/itteco/iframely/tree/master/plugins/domains">/plugins/domains</a></p>
+<a name="custom-plugins"></a><h5>Custom plugins</h5>
+<p><a href="https://github.com/itteco/iframely/tree/master/plugins/generic/custom">/plugins/generic/custom</a></p>
+<a name="template-plugins"></a><h5>Template plugins</h5>
+<p><a href="https://github.com/itteco/iframely/tree/master/plugins/templates">/plugins/templates</a></p>
+<a name="custom-links-cases"></a><h4>Custom links cases</h4>
+<a name="x-safe-html"></a><h5>x-safe-html</h5>
+<hr>
+<a name="meta-mappings"></a><h4>/meta-mappings</h4>
+<p>Provides unified meta attributes mapping.</p>
+<p>You can find current unified meta attributes mapping on <a href="http://dev.iframe.ly/meta-mappings"><a href="http://dev.iframe.ly/meta-mappings">http://dev.iframe.ly/meta-mappings</a></a>.</p>
+<p>Here is description of data:</p>
+<pre><code>{
+  &quot;attributes&quot;: [                           -- List of all supported attributes in alphabetic order.
+    &quot;author&quot;,
+    &quot;author_url&quot;,
+    ...
+  ],
+  &quot;sources&quot;: {                              -- Object with each attribute source.
+    &quot;author&quot;: [
+      {
+        &quot;pluginId&quot;: &quot;twitter-author&quot;,       -- Plugin in which meta attribute is defined.
+        &quot;source&quot;: &quot;meta.twitter.creator&quot;    -- Part of that plugin code which returns meta attribute value.
+      },
+      ...
+    ],
+    ...
+  }
+}</code></pre>
+<p>Meta attributes provided by plugins <a href="plugingetmeta">getMeta</a> method.</p>
+<hr>
+<a name="readerjs"></a><h4>/reader.js</h4>
+<p>Endpoint for article rendering scripts.</p>
+<p><strong>Method:</strong> GET</p>
+<p><strong>Params:</strong>
+ - <code>uri</code> - page uri to be processed.</p>
+<p><strong>Returns:</strong> JavaScript widget to render article.</p>
+<p>This is behind scenes endpoint. It is not directly used by developer.
+Link to endpoint is automatically generated for internal MIME type <code>&quot;text/x-safe-html&quot;</code>.
+See <a href="#x-safe-html">x-safe-html</a> for details.</p>
+<p>Endpoint will return JavaScript widget to embed it with <code>&lt;script&gt;</code> tag.
+Embedding will be completed by <a href="#javascript-client-lib-iframelyjs">iframely.js</a> lib.</p>
+<hr>
+<a name="render"></a><h4>/render</h4>
+<p>Endpoint to cusrom rendered widgets.</p>
+<p><strong>Method:</strong> GET</p>
+<p><strong>Params:</strong>
+ - <code>uri</code> - page uri to be processed.</p>
+<p><strong>Returns:</strong> html page with widget.</p>
+<p>This is behind scenes endpoint. It is not directly used by developer.
+Link to endpoint is automatically generated for internal MIME type <code>&quot;text/html&quot;</code> with <code>template_context</code> or <code>template</code> attributes provided by plugin.
+See <a href="#rendering-templates">rendering templates</a> for details.</p>
+<p>Result will be embedded with <code>&lt;iframe&gt;</code>. Embedding and resizing will be completed by <a href="#javascript-client-lib-iframelyjs">iframely.js</a> lib.</p>
+<a name="rendering-templates"></a><h5>Rendering templates.</h5>
+<a name="resize-embedded-iframe-from-inside-iframe"></a><h5>Resize embedded iframe from inside iframe.</h5>
+
+
+
+
+        </div>
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="/r3/docs/all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="/r3/docs/all.html?print=1">Print all pages</a>
+            
+                <a href="https://github.com/itteco/iframely" id="fork-me-on-github">Fork me on Github</a>
+            
+        </footer>
+    </div>
+</body>
+</html>

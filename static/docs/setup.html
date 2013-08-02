@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Iframe.ly</title>
+
+    <link type="text/css" rel="stylesheet" href="/r3/docs/assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/sunburst.min.css">
+    <link type="text/css" rel="stylesheet" href="/r3/docs/assets/css/docs.css">
+    <link type="text/css" rel="stylesheet" href="/r3/docs/assets/css/print.css" media="print">
+    
+
+    <script type="text/javascript" src="/r3/docs/assets/js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+    <script type="text/javascript" src="/r3/docs/assets/js/lunr.min.js"></script>
+
+    
+
+    <script type="text/javascript">var BASE_URL = "/r3/docs/";</script>
+    <script type="text/javascript" src="/r3/docs/assets/js/viewer.js"></script>
+
+    
+</head>
+<body>
+    <div id="page">
+        <a name="top" />
+        <header id="header">
+            <h1><a href="/r3/docs/">Iframe.ly</a></h1>
+        </header>
+        
+
+<div id="sidebar">
+    <form action="/r3/docs/search.html"><input id="search" type="text" placeholder="Search" name="q" /></form>
+    <nav id="toc">
+        
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/readme.html#iframely-embeds-gateway">Iframely Embeds Gateway</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/readme.html#getting-started">Getting Started</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/readme.html#do-not-forget">Do not forget :)</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#community-endpoint">Community Endpoint</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#quick-api-response-intro">Quick API Response Intro</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#visual-debug-tool">Visual Debug Tool</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#install-other-docs">Install &amp; Other Docs</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#sample-apps-demos">Sample Apps &amp; Demos</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#contributing">Contributing</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/readme.html#authors">Authors</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/oembed-2-draft.html#oembed2-quick-draft">oEmbed/2 quick draft</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#server-setup">Server setup</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/setup.html#security-considerations">Security considerations</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#installation">Installation</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#config">Config</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#run-server">Run server</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#list-of-server-urls">List of server urls</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#server-debug-tool">Server debug tool</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/setup.html#update-iframely">Update iframely</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/api.html#api-reference">API Reference</a>
+            
+                
+    <ol>
+    
+        <li>
+            <a href="/r3/docs/api.html#iframely-api-endpoint">/iframely API endpoint</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/api.html#iframelyjs-javascript-client-lib">iframely.js: JavaScript client lib</a>
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/api.html#using-iframely-as-npm-package">Using Iframely as npm package</a>
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+        <li>
+            <a href="/r3/docs/write-a-plugin.html#write-a-plugin">Write a Plugin</a>
+            
+                
+    <ol>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+            
+        </li>
+    
+</ol>
+
+    </nav>
+    
+    <nav id="links">
+        <ul>
+            
+            <li><a href="http://github.com/itteco/iframely">View on Github</a></li>
+            
+            <li><a href="https://iframely.com/debug">Demo Debugger</a></li>
+            
+        </ul>
+    </nav>
+    
+</div>
+
+        <div id="content">
+            <a name="server-setup"></a><h2>Server setup</h2>
+<ul>
+<li><a href="#security-considerations">Security considerations</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#config">Config</a></li>
+<li><a href="#run-server">Run server</a></li>
+<li><a href="#list-of-server-urls">List of server urls</a></li>
+<li><a href="#server-debug-tool">Server debug tool</a></li>
+<li><a href="#update-iframely">Update iframely</a></li>
+</ul>
+<a name="security-considerations"></a><h3>Security considerations</h3>
+<p>It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see <a href="#config">config options</a>).</p>
+<a name="installation"></a><h3>Installation</h3>
+<p>Node.js versions 0.8-0.10 required. Install if from <a href="http://nodejs.org/download/">pre-built installer</a> for your platform or from <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">package managers</a>.</p>
+<pre><code>cd &lt;your servers dir&gt;
+git clone https://github.com/itteco/iframely.git
+cd iframely
+npm install</code></pre>
+<p>It will also install all the package dependencies.</p>
+<p>If you&#39;re using Mac OS, you might need to install ImageMagic CLI tools to make image size detection work. </p>
+<a name="config"></a><h3>Config</h3>
+<p>Please, create your local config file to adjust settings. This local config file will be ignored when you update versions from Git later on.</p>
+<pre><code>cp config.local.js.SAMPLE config.local.js
+vi config.local.js</code></pre>
+<p>Edit the sample config file as you need. You may also override any values from main config.js in your local config.
+There are some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds).
+You can also fine-tune API response time by disabling image size detection or readability parsing. </p>
+<p>For enhanced security, it is important that you properly configure <code>allowedOrigins</code> parameter for CORS.</p>
+<p><strong>Important</strong>: At the very least, you need to enter your own application keys and secret tokens where applicable. </p>
+<a name="run-server"></a><h3>Run server</h3>
+<p>Starting server is simple. From iframely home directory:</p>
+<pre><code>node server</code></pre>
+<p>We highly recommend <a href="https://github.com/nodejitsu/forever">forever</a> though as it makes stopping and restarting of the servers so much easier:</p>
+<pre><code>npm install -g forever
+forever start -l iframely.log server.js</code></pre>
+<a name="list-of-server-urls"></a><h3>List of server urls</h3>
+<p>You may need to configure these in your reverse proxy settings, depending on your setup:</p>
+<pre><code>/r/.+               -- static files (including iframely.js client library).
+/iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON.
+/debug              -- debugger UI with get params.
+/reader.js          -- API endpoint with get params - proxies script to render article.
+/render             -- API endpoint with get params - prexies custom widgets if required.
+/meta-mappings      -- API endpoint with available unified meta.</code></pre>
+<a name="server-debug-tool"></a><h3>Server debug tool</h3>
+<p>You can visualize server API with debug tool at:</p>
+<ul>
+<li><a href="http://localhost:8061/debug"><a href="http://localhost:8061/debug">http://localhost:8061/debug</a></a>, try <a href="http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897">example</a></li>
+</ul>
+<p>If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when developing plugins - see Wiki for how to write plugins)</p>
+<a name="update-iframely"></a><h3>Update iframely</h3>
+<p>As we keep adding features, you may want to update your server. The domain providers due to dependencies to 3rd parties do break from time to time, and we&#39;ll release hot fixes in this case. Please, follow <a href="http://twitter.com/iframely">Iframely on Twitter</a> to get timely heads up when hot fixes are required.</p>
+<p>To update a package to it&#39;s latest version run in iframely home directory:</p>
+<pre><code>git pull</code></pre>
+<p>and restart your server. If you use forever, run:</p>
+<pre><code>forever restartall</code></pre>
+
+
+
+
+        </div>
+        <footer id="footer">
+            Powered by <a href="http://github.com/maximebf/beautiful-docs">beautiful-docs</a> -
+            <a href="#top">Back to top</a> - <a href="/r3/docs/all.html">Everything on a single page</a>
+            - <a href="?print=1">Print current page</a> - <a href="/r3/docs/all.html?print=1">Print all pages</a>
+            
+                <a href="https://github.com/itteco/iframely" id="fork-me-on-github">Fork me on Github</a>
+            
+        </footer>
+    </div>
+</body>
+</html>
