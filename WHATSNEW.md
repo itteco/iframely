@@ -1,4 +1,5 @@
  + added v.qq.com plugin
+ + added angel.co embeds plugin
 
 2013.07.19, Version 0.4.0
 
