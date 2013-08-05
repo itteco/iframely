@@ -1,1 +1,0 @@
-node ./node_modules/beautiful-docs/bin/bfdocs --base-url=/r3/docs/ ./manifest.json ./static/docs
