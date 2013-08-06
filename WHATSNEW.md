@@ -1,5 +1,9 @@
  + added v.qq.com plugin
  + added angel.co embeds plugin
+ + added facebook embeds plugin
+ + added pinterest product meta
+ * check if favicon exists
+ * fix instapaper resolving relative urls
 
 2013.07.19, Version 0.4.0
 
