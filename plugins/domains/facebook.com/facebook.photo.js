@@ -2,6 +2,8 @@ module.exports = {
 
     re: /^https?:\/\/www\.facebook\.com\/photo\.php/i,
 
+    highestPriority: true,
+
     mixins: [
         "favicon"
     ],

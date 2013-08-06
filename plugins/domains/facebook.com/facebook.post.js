@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/www\.facebook\.com\/.+/i,
+    re: /^https?:\/\/www\.facebook\.com\/(?!login\.php).+/i,
 
     getLink: function(url, meta) {
 
@@ -15,8 +15,7 @@ module.exports = {
                 title: title,
                 url: url
             },
-            width: 552,
-            height: 586
+            width: 552
         }
     },
 
