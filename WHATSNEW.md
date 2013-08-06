@@ -1,4 +1,4 @@
-2013.08.06, Version 0.4.1
+2013.08.06, Version 0.4.2
 
  + added v.qq.com plugin
  + added angel.co embeds plugin
