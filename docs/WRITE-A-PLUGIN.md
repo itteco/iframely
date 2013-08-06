@@ -1,3 +1,5 @@
+## Write a Plugin
+
  - TODO [Plugin structure](#plugin-structure)
     - TODO [plugin.getLink(s)](#plugingetlinks)
     - [plugin.getMeta](#plugingetmeta)

@@ -1,4 +1,8 @@
-# [Iframely Embeds Gateway](http://iframely.com) [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
+# Iframely Embeds Gateway
+
+[http://iframely.com](http://iframely.com)
+
+[![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
 Iframely is self-hosted embeds gateway, giving you single endpoint to get rich embeds data of any URL. 
 

@@ -1,4 +1,4 @@
-## Jump To
+## Server setup
 
 - [Security considerations](#security-considerations)
 - [Installation](#installation)
@@ -7,8 +7,6 @@
 - [List of server urls](#list-of-server-urls)
 - [Server debug tool](#server-debug-tool)
 - [Update iframely](#update-iframely)
-
-## Server setup
 
 ### Security considerations
 

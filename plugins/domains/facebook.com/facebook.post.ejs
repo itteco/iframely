@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <style>
+        body {
+            margin: 0px;
+        }
+    </style>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/iframely-utils.js"></script>
+    <script>
+
+        function init() {
+            var d = document.getElementById('iframely-content');
+
+            $.iframely.registerHeightGetter(function() {
+                if (d.scrollHeight == 1000) {
+                    // Prevent default height.
+                    return 0;
+                } else {
+                    return d.scrollHeight;
+                }
+            });
+        }
+
+    </script>
+<body onload="init();">
+
+<div id="fb-root"></div><script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id))
+            return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<div id="iframely-content">
+    <fb:post href="<%= url %>"></fb:post>
+</div>
+
+</body>
+</html>
