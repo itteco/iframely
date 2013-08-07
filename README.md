@@ -127,6 +127,7 @@ If you are a publisher and would like to make your embeds available as oEmbed/2 
 ## Authors
 
 The authors and maintainers of the package are these guys from [Itteco](http://itteco.com):
+
  - [Nazar Leush](https://github.com/nleush) - _the_ author
  - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
 

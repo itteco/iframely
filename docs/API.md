@@ -1,12 +1,12 @@
 ## API Reference
 
-- [/iframely: _the_ API endpoint][iframely]
+- [/iframely: _the_ API endpoint](#iframely-api-endpoint)
     - [meta](#meta)
     - [links](#links)
         - [MIME types](#mime-types)
         - [rel](#rel)
         - [media](#media)
-- [iframely.js: JavaScript client lib][iframely-js]
+- [iframely.js: JavaScript client lib](#iframelyjs-javascript-client-lib)
     - [Add to your page](#add-to-your-page)
     - [Fetch oEmbed/2](#fetch-oembed2)
     - [Render links](#render-links)
@@ -171,7 +171,7 @@ Plugins use the following media query attributes at the moment:
 
 
 ### iframely.js: JavaScript client lib
-[iframely-js]: #iframely-js-javascript-client-lib
+[iframely-js]: #iframelyjs-javascript-client-lib
 
 Iframely package includes the client wrapper over the API, so you don't need to spend time on it yourself. 
 You may access it in `/static/js/iframely.js` folder. It provides calls to fetch data from `/iframely` API endpoint and render links.

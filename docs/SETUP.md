@@ -66,9 +66,7 @@ You may need to configure these in your reverse proxy settings, depending on you
 
 ### Server debug tool
 
-You can visualize server API with debug tool at:
-
- - [http://localhost:8061/debug](http://localhost:8061/debug), try [example](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
+You can visualize server API with debug tool at [http://localhost:8061/debug](http://localhost:8061/debug), try [example](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
 
 If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when developing plugins - see Wiki for how to write plugins)
 
