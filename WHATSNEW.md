@@ -1,3 +1,5 @@
+2013.08.08, Version 0.4.3
+
  + added mixbit.com plugin
 
 2013.08.06, Version 0.4.2
