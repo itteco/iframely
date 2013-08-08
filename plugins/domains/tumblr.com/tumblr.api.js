@@ -9,7 +9,7 @@ module.exports = {
     },
 
     getData: function(urlMatch, request, cb) {
-        console.log(urlMatch);
+        
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
