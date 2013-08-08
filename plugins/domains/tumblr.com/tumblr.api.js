@@ -1,8 +1,15 @@
 module.exports = {
 
-    re: /http:\/\/([a-z0-9-]+\.tumblr\.com)\/post\/(\d+)\/[a-z0-9-]+/i,
+    re: /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/post\/(\d+)(?:\/[a-z0-9-]+)?/i,
+
+    getMeta: function(tumblr_post) {
+        return {
+            //title: tumblr_post.caption
+        };
+    },
 
     getData: function(urlMatch, request, cb) {
+        console.log(urlMatch);
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
