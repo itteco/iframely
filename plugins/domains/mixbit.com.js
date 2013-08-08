@@ -1,24 +1,52 @@
 module.exports = {
 
-    re: /https:\/\/mixbit\.com\/v\/(\w+)/i,
+    re: /^https:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
 
-    getMeta: function() {
+    getMeta: function(mixbit) {
         return {
-            title: "MixBit",
+            title: mixbit.title,
             site: "MixBit"
         };
     },
 
-    getLink: function(urlMatch) {
+    getData: function(urlMatch, request, cb) {
+        request({
+            uri: "https://api.mixbit.com/api/v1/msee/project/" + urlMatch[1],
+            json: true
+        }, function(error, response, body) {
+            if (error) {
+                return cb(error);
+            }
+            if (body.status != "success") {
+                return cb(body.status);
+            }
+            cb(null, {
+                mixbit: body.pkg
+            });
+        });
+    },
+
+    getLink: function(mixbit) {
         return [{
             href: "https://mixbit.com/favicon.ico",
             type: CONFIG.T.image_icon,
             rel: CONFIG.R.icon
         }, {
-            href: "https://mixbit.com/embed/" + urlMatch[1],
+            href: mixbit.thumbnail_url,
+            type: CONFIG.T.image_jpeg,
+            rel: CONFIG.R.thumbnail,
+            width: mixbit.thumbnail_width,
+            height: mixbit.thumbnail_height
+        }, {
+            href: "https://mixbit.com/embed/" + mixbit.project_id,
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
-            "aspect-ratio": 640/360
+            "aspect-ratio": mixbit.video_width / mixbit.video_height
+        }, {
+            href: mixbit.video_url,
+            type: CONFIG.T.video_mp4,
+            rel: CONFIG.R.player,
+            "aspect-ratio": mixbit.video_width / mixbit.video_height
         }];
     },
 
