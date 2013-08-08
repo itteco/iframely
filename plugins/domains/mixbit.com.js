@@ -42,11 +42,6 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": mixbit.video_width / mixbit.video_height
-        }, {
-            href: mixbit.video_url,
-            type: CONFIG.T.video_mp4,
-            rel: CONFIG.R.player,
-            "aspect-ratio": mixbit.video_width / mixbit.video_height
         }];
     },
 
