@@ -30,12 +30,9 @@ Thus, oEmbed/2 is primarily for discovery of what publisher has got to offer and
 
 - The use cases shall be listed in `rel` attributed, separated by a space. The dictionary of use cases is not fixed, and it is up to publisher and provider to choose what to publish or consume. 
 Iframely endpoint can currently output the following `rel` functional use cases: `favicon`, `thumnail`, `image`, `player`, `reader`, `logo`. In addition, we supplement with `rel` indicating origin, such as `twitter` for example.
-
 - `type` attribute of a link specified the MIME type of the link, and so dicttes the way the embed resources shall be embedded. Iframely supports embeds as iframe, image and javascript.
-
 - `href` attributes is preferrably via https protocol to ensure maximum distribution for publishers' content, as consumers may opt not to consider http-only embeds.
-
-- `media` is for media queries, indicating the sizes of the containers where embed content would fit. 
+- `media` is for media queries, indicating the sizes of the containers where embed content would fit.
 
 
 As a "good citizen" policy and business etiquette, it is worth to remind that both consumer and publisher work together towards a common goal of providing the best user experience possible for their shared audience, and not against each other in order to solicit a customer. Never should it be acceptable to undermine user experience in lieu of providing value.
