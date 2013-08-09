@@ -29,11 +29,13 @@ module.exports = {
             var originalWidth = photo.original_size.width;
 
             var image = _.find(photo.alt_sizes, function(image) {
-                if (image.width < originalWidth && image.width <= 400) {
+                if (image.width <= originalWidth * 0.75 && image.width <= 400) {
                     return true;
                 }
             });
-            addImage(title, image, CONFIG.R.thumbnail);
+            if (image) {
+                addImage(title, image, CONFIG.R.thumbnail);
+            }
         });
 
         return links;

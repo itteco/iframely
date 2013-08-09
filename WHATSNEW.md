@@ -1,3 +1,6 @@
+ + added tumblr.com meta plugin
+ + added tumblr.com photo plugin
+
 2013.08.06, Version 0.4.2
 
  + added v.qq.com plugin
