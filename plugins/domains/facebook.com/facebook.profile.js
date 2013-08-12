@@ -32,7 +32,7 @@ module.exports = {
     },
 
     tests: [
-        "http://www.facebook.com/nazar.leush",
+        "https://www.facebook.com/logvynenko",
         {
             noFeeds: true
         }
