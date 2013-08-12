@@ -5,6 +5,10 @@ module.exports = {
 
     re: /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/post\/(\d+)(?:\/[a-z0-9-]+)?/i,
 
+    mixins: [
+        "favicon"
+    ],
+
     getMeta: function(tumblr_post) {
         return {
             title: $('<div>').html(tumblr_post.caption).text(),
@@ -14,13 +18,25 @@ module.exports = {
             canonical: tumblr_post.post_url,
             tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
             shortlink: tumblr_post.short_url,
-            date: tumblr_post.timestamp * 1000
+            date: tumblr_post.timestamp * 1000,
+            duration: tumblr_post.duration
         };
     },
 
-    mixins: [
-        "favicon"
-    ],
+    getLink: function(tumblr_post) {
+
+        if (!tumblr_post.thumbnail_url) {
+            return;
+        }
+
+        return {
+            href: tumblr_post.thumbnail_url,
+            rel: CONFIG.R.thumbnail,
+            type: CONFIG.T.image,
+            width: tumblr_post.thumbnail_width,
+            height: tumblr_post.thumbnail_height
+        };
+    },
 
     getData: function(urlMatch, request, cb) {
 
@@ -50,8 +66,5 @@ module.exports = {
                 cb(null);
             }
         });
-    },
-
-    tests: [
-    ]
+    }
 };

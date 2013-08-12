@@ -6,7 +6,9 @@ module.exports = {
             template_context: {
                 title: title,
                 html: embed_html
-            }
+            },
+            width: embed_html.width,
+            height: embed_html.height
         }
     }
 };

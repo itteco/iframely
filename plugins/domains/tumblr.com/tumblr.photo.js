@@ -39,5 +39,11 @@ module.exports = {
         });
 
         return links;
-    }
+    },
+
+    tests: [{
+        pageWithFeed: "http://bows-and-polkadots.tumblr.com/"
+    },
+        "http://fewthistle.tumblr.com/post/58045916432"
+    ]
 };
