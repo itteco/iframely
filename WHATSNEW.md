@@ -2,6 +2,7 @@
  + added tumblr.com photo plugin
  + added tumblr.com video plugin
  + added tumblr.com text plugin
+ * fixed animoto.com plugin
 
 2013.08.08, Version 0.4.3
 
