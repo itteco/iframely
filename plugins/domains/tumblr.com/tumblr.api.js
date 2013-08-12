@@ -11,7 +11,7 @@ module.exports = {
 
     getMeta: function(tumblr_post) {
         return {
-            title: $('<div>').html(tumblr_post.caption).text(),
+            title: tumblr_post.title || $('<div>').html(tumblr_post.caption).text(),
             site: 'tumblr',
             author: tumblr_post.blog_name,
             author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',
