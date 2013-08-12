@@ -1,3 +1,8 @@
+ + added tumblr.com meta plugin
+ + added tumblr.com photo plugin
+ + added tumblr.com video plugin
+ + added tumblr.com text plugin
+
 2013.08.08, Version 0.4.3
 
  + added mixbit.com plugin
