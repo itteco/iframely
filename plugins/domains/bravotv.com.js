@@ -29,7 +29,8 @@ module.exports = {
         selector: "#content .title a"
     }, {
         skipMixins: [
-            "image_src"
+            "image_src",
+            "description"
         ]
     },
         "http://www.bravotv.com/top-chef-masters/season-4/videos/thai-bye"
