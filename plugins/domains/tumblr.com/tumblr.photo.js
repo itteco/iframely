@@ -42,7 +42,7 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://bows-and-polkadots.tumblr.com/"
+        pageWithFeed: "http://lincolnmotorco.tumblr.com/"
     },
         "http://fewthistle.tumblr.com/post/58045916432"
     ]
