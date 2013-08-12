@@ -3,6 +3,7 @@
  + added tumblr.com video plugin
  + added tumblr.com text plugin
  * fixed animoto.com plugin
+ * updated guardian.com plguin domain
 
 2013.08.08, Version 0.4.3
 
