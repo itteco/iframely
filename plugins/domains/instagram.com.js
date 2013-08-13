@@ -71,6 +71,11 @@ module.exports = {
         selector: ".photogrid a"
     },
         "http://instagram.com/p/HbBy-ExIyF/",
-        "http://instagram.com/p/a_v1-9gTHx/"
+        "http://instagram.com/p/a_v1-9gTHx/",
+        {
+            skipMixins: [
+                "oembed-title"
+            ]
+        }
     ]
 };
