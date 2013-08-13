@@ -11,8 +11,9 @@ module.exports = {
 
     getData: function($selector) {
         return {
-            html_for_readability: $selector('.post_body').html(),
-            ignore_readability_error: true
+            readability_data: {
+                html: $selector('.post_body').html()
+            }
         };
     },
 

@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www\.guardian\.co\.uk\/\w+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
+    re: /http:\/\/www\.theguardian\.com\/\w+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
 
     mixins: [
         "canonical",
@@ -24,7 +24,7 @@ module.exports = {
                 rel: CONFIG.R.player,
                 width: 460,
                 height: 397
-            }
+            };
         }
 
     },

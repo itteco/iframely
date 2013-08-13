@@ -74,6 +74,9 @@
             },
             readability: {
                 enabled: true
+            },
+            tumblr: {
+                consumer_key: "INSERT YOUR VALUE"
             }
         }
     };

@@ -8,9 +8,17 @@ module.exports = {
     ],
 
     getData: function($selector) {
+
+        var $content = $selector('.intro-content');
+
+        if ($content.length == 0) {
+            $content = $selector('.post-content');
+        }
+
         return {
-            html_for_readability: $selector('div.post-content').html(),
-            ignore_readability_error: true
+            readability_data: {
+                html:$content.html()
+            }
         };
     },
 

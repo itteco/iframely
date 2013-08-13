@@ -104,7 +104,7 @@
     {
         "name": "SlideShare",
         "templates": [
-            "www\\.slideshare\\.net/.+/.*"
+            "\\w+\\.slideshare\\.net/.+/.*"
         ],
         "endpoint": "http://www.slideshare.net/api/oembed/2"
     },
@@ -164,7 +164,8 @@
         "templates": [
             "animoto\\.com/play/.+"
         ],
-        "endpoint": "http://animoto.com/services/oembed"
+        "endpoint": "http://animoto.com/oembeds/create.{format}?automated=true&options=start_hq&url={url}"
+
     },
     {
         "name": "Dailymotion",

@@ -19,6 +19,11 @@ module.exports = {
     },
 
     tests: [
-        "http://animoto.com/play/k01h0yvqf59whdd80nla1q"
+        "http://animoto.com/play/k01h0yvqf59whdd80nla1q",
+        {
+            skipMixins: [
+                "oembed-thumbnail"
+            ]
+        }
     ]
 };

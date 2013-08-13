@@ -28,12 +28,13 @@ module.exports = {
 
                 cb(null, {
                     firefox_marketplace_data: data,
-                    html_for_readability:
-                        (img ? '<p><img src="' + img + '"></p>' : '') +
-                        '<p>' + data.description + (data.current_version.release_notes ?
-                        '</p>\n<h3>Release Notes</h3>\n<p>' + data.current_version.release_notes + '</p>' :
-                        '</p>'),
-                    ignore_readability_error: true
+                    readability_data: {
+                        html:
+                            (img ? '<p><img src="' + img + '"></p>' : '') +
+                            '<p>' + data.description + (data.current_version.release_notes ?
+                            '</p>\n<h3>Release Notes</h3>\n<p>' + data.current_version.release_notes + '</p>' :
+                            '</p>'),
+                    }
                 });
             }
             else {

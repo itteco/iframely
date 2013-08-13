@@ -39,8 +39,9 @@ module.exports = {
                 composers: parseLinks(composers),
                 songs:     parseLinks(songs)
             },
-            html_for_readability: body.html(),
-            ignore_readability_error: true
+            readability_data: {
+                html: body.html()
+            }
         };
 
         if (youtube_url) {
