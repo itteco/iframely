@@ -1,3 +1,5 @@
+2013.08.13, Version 0.4.4
+
  + added tumblr.com meta plugin
  + added tumblr.com photo plugin
  + added tumblr.com video plugin
