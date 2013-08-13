@@ -104,7 +104,7 @@
     {
         "name": "SlideShare",
         "templates": [
-            "www\\.slideshare\\.net/.+/.*"
+            "\\w+\\.slideshare\\.net/.+/.*"
         ],
         "endpoint": "http://www.slideshare.net/api/oembed/2"
     },

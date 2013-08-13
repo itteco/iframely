@@ -5,6 +5,7 @@
  * fixed animoto.com plugin
  * updated guardian.com plguin domain
  * updated businessinsider.com plguin
+ * fixed slideshare.net plugin
 
 2013.08.08, Version 0.4.3
 

@@ -10,6 +10,11 @@ module.exports = {
     ],
 
     getMeta: function(meta) {
+
+        if (!meta.slideshare) {
+            return;
+        }
+
         return {
             category: meta.slideshare.category,
             date: meta.slideshare.published,
@@ -17,7 +22,7 @@ module.exports = {
         };
     },
 
-    getLink: function(meta, oembed) {
+    getLink: function(oembed) {
 
         var $container = jquery('<div>');
         try {
@@ -34,25 +39,34 @@ module.exports = {
                 rel: [CONFIG.R.reader],
                 "aspect-ratio": oembed.width / oembed.height // 4:3 + 35px for nav bar :(
                                                              // Would need to host embed as js file to address this.
-            }
+            };
         }
 
-        return [doc, {
+        return [
+            doc,
+            {
                 href: '//public.slidesharecdn.com/images/favicon.ico',
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.icon],
-        }, {
-                href: meta.twitter.image,
+                rel: CONFIG.R.icon
+
+            }, {
+                href: oembed.thumbnail,
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],
-        }, {
-                href: meta.og.image.replace('http:', ''),
-                type: CONFIG.T.image,
-                rel: [CONFIG.R.thumbnail, CONFIG.R.og]
-        }]
+                rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+                width: oembed.thumbnail_width,
+                height: oembed.thumbnail_height
+            }
+        ];
     },
 
-    tests: [
-        "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext"
+    tests: [{
+        pageWithFeed: "http://www.slideshare.net"
+    },
+        "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext",
+        {
+            skipMethods: [
+                "getMeta"
+            ]
+        }
     ]
 };
