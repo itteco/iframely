@@ -3,9 +3,15 @@ var readability = require('iframely-readability');
 
 module.exports = {
 
-    getLink: function(url, html_for_readability, ignore_readability_error, cb) {
+    getLink: function(url, readability_data, cb) {
 
         // TODO: handle timeout on top.
+
+        var ignore_readability_error = false;
+
+        if ("ignore_readability_error" in readability_data) {
+            ignore_readability_error = readability_data["ignore_readability_error"];
+        }
 
         var errorCallback = function(error) {
             if (timeout) {
@@ -13,7 +19,7 @@ module.exports = {
                 timeout = null;
                 if (ignore_readability_error) {
                     cb(null, {
-                        html: html_for_readability,
+                        html: readability_data.html,
                         type: CONFIG.T.safe_html,
                         rel: CONFIG.R.reader
                     });
@@ -28,7 +34,7 @@ module.exports = {
         }, 15000); // TODO: move to plugin config?
 
         try {
-            readability.parse(html_for_readability, url, {
+            readability.parse(readability_data.html, url, {
                 debug: false,
                 returnContentOnly: true,
                 straightifyDocument: true,

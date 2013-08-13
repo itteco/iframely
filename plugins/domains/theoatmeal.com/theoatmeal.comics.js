@@ -22,8 +22,9 @@ module.exports = {
         $comic.find('#content_footer2').remove();
 
         return {
-            html_for_readability: $comic.html(),
-            ignore_readability_error: true
+            readability_data: {
+                html: $comic.html()
+            }
         };
     },
 

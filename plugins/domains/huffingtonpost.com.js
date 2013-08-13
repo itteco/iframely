@@ -18,8 +18,9 @@ module.exports = {
         var $body = $selector('.entry_body_text,.articleBody');
         $body.find('.video_box_title,.promo_holder').remove();
         return {
-            html_for_readability: $body.html(),
-            ignore_readability_error: true
+            readability_data: {
+                html: $body.html()
+            }
         };
     },
 

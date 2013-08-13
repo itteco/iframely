@@ -16,8 +16,9 @@ module.exports = {
         }
 
         return {
-            html_for_readability: $content.html(),
-            ignore_readability_error: true
+            readability_data: {
+                html:$content.html()
+            }
         };
     },
 

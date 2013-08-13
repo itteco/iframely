@@ -7,8 +7,9 @@ module.exports = {
         }
 
         return {
-            html_for_readability: tumblr_post.body,
-            ignore_readability_error: true
+            readability_data: {
+                html: tumblr_post.body
+            }
         };
     },
 

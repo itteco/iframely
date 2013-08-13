@@ -43,8 +43,10 @@ module.exports = {
 
         if (isArticle) {
             return {
-                html_for_readability: html,
-                ignore_readability_error: false
+                readability_data: {
+                    html: html,
+                    ignore_readability_error: false
+                }
             }
         }
     },

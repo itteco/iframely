@@ -44,9 +44,10 @@ module.exports = {
             html += $html.html();
 
             return {
-                html_for_readability: html,
-                ignore_readability_error: true
-            }
+                readability_data: {
+                    html: html
+                }
+            };
         }
     },
 

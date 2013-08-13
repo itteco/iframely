@@ -30,8 +30,9 @@ module.exports = {
         var $html = $selector("#bodyContent");
 
         return {
-            html_for_readability: $html.html(),
-            ignore_readability_error: true
+            readability_data: {
+                html: $html.html()
+            }
         };
     },
 
