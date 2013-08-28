@@ -1,3 +1,6 @@
+ * fix parsing alternate oembed links
+ * fix telly.com plugin
+
 2013.08.13, Version 0.4.4
 
  + added tumblr.com meta plugin
