@@ -14,7 +14,7 @@ module.exports = {
         return {
             html: oembed.html,
             type: CONFIG.T.safe_html,
-            rel: [CONFIG.R.reader, CONFIG.R.iframely]
+            rel: CONFIG.R.reader
         }
     },
 

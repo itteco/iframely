@@ -12,13 +12,13 @@ module.exports = {
                 return [{
                     href: image.url || image,
                     type: image.type || CONFIG.T.image,
-                    rel: [CONFIG.R.image, CONFIG.R.og, CONFIG.R.iframely],
+                    rel: [CONFIG.R.image, CONFIG.R.og],
                     width: image.width,
                     height: image.height
                 }, {
                     href: image.secure_url,
                     type: CONFIG.T.image,
-                    rel: [CONFIG.R.image, CONFIG.R.iframely],
+                    rel: [CONFIG.R.image],
                     width: image.width,
                     height: image.height
                 }]
@@ -27,13 +27,13 @@ module.exports = {
             return [{
                 href: meta.og.image.url || meta.og.image,
                 type: meta.og.image.type || CONFIG.T.image,
-                rel: [CONFIG.R.image, CONFIG.R.og, CONFIG.R.iframely],
+                rel: [CONFIG.R.image, CONFIG.R.og],
                 width: meta.og.image.width,
                 height: meta.og.image.height
             }, {
                 href: meta.og.image.secure_url,
                 type: meta.og.image.type || CONFIG.T.image,
-                rel: [CONFIG.R.image, CONFIG.R.og, CONFIG.R.iframely],
+                rel: [CONFIG.R.image, CONFIG.R.og],
                 width: meta.og.image.width,
                 height: meta.og.image.height
             }];

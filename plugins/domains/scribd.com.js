@@ -23,7 +23,7 @@ module.exports = {
             doc = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.iframely, CONFIG.R.oembed],
+                rel: [CONFIG.R.reader, CONFIG.R.oembed],
                 "aspect-ratio": $iframe.attr('data-aspect-ratio')
             }
         }
@@ -31,7 +31,7 @@ module.exports = {
         return [doc, {
                 href: '//www.scribd.com/favicon.ico',
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.icon, CONFIG.R.iframely],
+                rel: CONFIG.R.icon,
         }]
     },
 
