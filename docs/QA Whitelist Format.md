@@ -1,7 +1,7 @@
 ## Iframely QA Whitelist File Format
 
 Itteco providers [Whitelist DB](http://iframely.com/qa), as the first independently run embeds QA service. 
-We cover [iframely protocol](http://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
+We cover [Iframely Protocol](http://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
 
 There are technical/security considerations that can be resolved algorithmically, but it really 
 requires a human eye to see if the user experience of the embeds can be relied on. 
@@ -119,7 +119,7 @@ Iframely QA is being done on the following protocols and types:
 
 Please, note, that Twitter's photo card allows the fallback onto `og:image` if `twitter:image` is not provided. Such cards may be approved by Iframely as well.
 
-### Extra tags
+### QA Result Tags
 
 The basic and most important values in tags list are:
  - `"ok"` - means the domain-protocol is whitelisted
@@ -154,6 +154,6 @@ Note that [Iframely Embeds Gateway](http://iframely.com/gateway) tries to replac
 
 For `oembed link` and `oembed rich` we add tag `reader`, in case the `html` actually contains the complete article. oEmbed spec does not include article types, and so many publishers (WordPress in particular) provider `link` and `rich` types instead.
 
-
+#### More to come
 
 Please, stay tuned as we have plans to add more tags in our test runs. Follow [@iframely](https://twitter.com/iframely) to get the updates.
