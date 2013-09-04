@@ -116,6 +116,7 @@ Iframely QA is being done on the following protocols and types:
  - `og` is for Facebook [Open Graph](http://ogp.me) types. However, we only test `video` type.
  - `twitter` is for [Twitter Cards](https://dev.twitter.com/docs/cards):
   - `player`, `photo`
+ - `html-meta` protocol with `video` type is for QA results on `video_src` meta tag.
 
 Please, note, that Twitter's photo card allows the fallback onto `og:image` if `twitter:image` is not provided. Such cards may be approved by Iframely as well.
 
