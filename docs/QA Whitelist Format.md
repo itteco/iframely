@@ -10,7 +10,7 @@ The whitelist is a JSON file, which format is given in this document. It contain
 
 If you use [Iframely Gateway](http://iframely.com/gateway), the whitelist support is already included. Just upload the latest whitelist file to the root of your Iframely server. 
 
-You can get whitelist file at [http://iframely.com/qa/buy](http://iframely.com/qa/buy)).
+You can get whitelist file at [http://iframely.com/qa/buy](http://iframely.com/qa/buy).
 
 
 ### Basic file structure
@@ -92,7 +92,7 @@ The basic and most important values in tags list are:
 
 The domain names are given as the top-level keys for the convenience of quering the values. 
 
-However, Iframely Whitelist supports wildcard entries, such as `"*.sub.domain.com"` and you would need to choose a proper key. 
+However, [Iframely Whitelist](http://iframely.com/qa) supports wildcard entries, such as `"*.sub.domain.com"` and you would need to choose a proper key. 
 
 We suggest the following algorithm. Let's say you have the URL `http://name.sub.domain.com/slug`:
 
@@ -102,10 +102,22 @@ We suggest the following algorithm. Let's say you have the URL `http://name.sub.
 
 The domains use variety of URL structures, and sometimes we need to whitelist the top domain, but blacklist some of the sub-domains, or whitelist all subdomains except only one. The algorithm above covers the logic of how we do it. 
 
-Please, note that `www.domain.com` and `domain.com` are the same in most cases. If you meet URLs with `www` and we do not list it explicitely as `www.domain.com`, check `domain.com` rather than `*.domain.com`. We try to be careful about `www` as we can, but since it is a manual QA process, human error can squeeze in.
+Please, note that `www.domain.com` and `domain.com` are the same in most cases. If you meet URLs with `www` and we do not list it explicitely as `www.domain.com`, check `domain.com` rather than `*.domain.com`. We try to be as careful about `www` as we can, but since it is a manual QA process, human error is alwasy a factor.
 
 
 ### Protocols
+
+Iframely QA is being done on the following protocols and types:
+
+ - `iframely` is for Iframely protocol ([see spec](http://iframely.com/oembed2)) types:
+  - `player`, `reader`, `image`, `survey`, `thumbnail`, `logo`
+ - `oembed` is for [oEmbed](http://oembed.com) types:
+  - `video`, `photo`, `link`, `rich`
+ - `og` is for Facebook [Open Graph](http://ogp.me) types. However, we only test `video` type.
+ - `twitter` is for [Twitter Cards](https://dev.twitter.com/docs/cards):
+  - `player`, `photo`
+
+Please, note, that Twitter's photo card allows the fallback onto `og:image` if `twitter:image` is not provided. Such cards may be approved by Iframely as well.
 
 ### Extra tags
 
