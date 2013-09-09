@@ -115,12 +115,12 @@ Please, note that `www.domain.com` and `domain.com` are the same in most cases. 
 Iframely QA is being done on the following protocols and types:
 
  - `iframely` is for Iframely protocol ([see spec](http://iframely.com/oembed2)) types:
-  - `player` 
-  - `reader` 
-  - `image` 
-  - `survey`
-  - `thumbnail`
-  - `logo
+  - player
+  - reader
+  - image 
+  - survey
+  - thumbnail
+  - logo
  - `oembed` is for [oEmbed](http://oembed.com) types:
   - video 
   - photo
