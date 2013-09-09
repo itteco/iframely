@@ -115,12 +115,21 @@ Please, note that `www.domain.com` and `domain.com` are the same in most cases. 
 Iframely QA is being done on the following protocols and types:
 
  - `iframely` is for Iframely protocol ([see spec](http://iframely.com/oembed2)) types:
-  - `player`, `reader`, `image`, `survey`, `thumbnail`, `logo`
+  - `player` 
+  - `reader` 
+  - `image` 
+  - `survey`
+  - `thumbnail`
+  - `logo
  - `oembed` is for [oEmbed](http://oembed.com) types:
-  - `video`, `photo`, `link`, `rich`
- - `og` is for Facebook [Open Graph](http://ogp.me) types. However, we only test `video` type.
+  - video 
+  - photo
+  - link
+  - rich
+ - `og` is for Facebook [Open Graph](http://ogp.me) types. However, we only test video type.
  - `twitter` is for [Twitter Cards](https://dev.twitter.com/docs/cards):
-  - `player`, `photo`
+  - player
+  - photo
  - `html-meta` protocol with `video` type is for QA results on `video_src` meta tag.
 
 Please, note, that Twitter's photo card allows the fallback onto `og:image` if `twitter:image` is not provided. Such cards may be approved by Iframely as well.
