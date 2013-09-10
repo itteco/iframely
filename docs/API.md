@@ -179,6 +179,7 @@ Plugins use the following media query attributes at the moment:
 If you are interested in specific `rel` use case, you can send `&group=true` get parameter to the API endpoint. 
 
 If will result in the response being groupped by rel:
+
     {
       "meta": {
         "canonical": "http://vimeo.com/67452063",
