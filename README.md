@@ -2,14 +2,13 @@
 
 [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
-Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta.
+Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
 
-It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
+You host the API on your own servers and domain. The primary endpoint is `/iframely?uri=`:
 
-You host the APIs on your own servers and domain. The primary endpoint is (see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
+    http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}
 
-  http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}
-
+(see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063))
 
 Iframely provides out-of-the-box:
 
@@ -20,9 +19,9 @@ Iframely provides out-of-the-box:
  - API for unified/merged meta semantics, thumbnails (incl sizes), video, players, articles
 
 
-Iframely API response mimics the [Iframely Protocol For Responsive Embeds](http://iframely.com/oembed2), plus merges various meta fields into a list that you could rely on in your code.
+Iframely API response mimics the [Iframely Protocol For Responsive Embeds](http://iframely.com/oembed2). It also merges various meta fields into a list that you could rely on in your code.
 
-Iframely is Node.JS app (and/or package), but you can use it from other environments via API.
+Iframely is Node.JS app (and/or package), though you can use it from other environments via API.
 
 
 (c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT.
@@ -33,7 +32,7 @@ Iframely is Node.JS app (and/or package), but you can use it from other environm
 
 You might wish to read [Iframely Protocol](http://iframely.com/oembed2) spec to get a better intro into structure of the API responses and overall concept for responsive embeds.
 
-The custom domain plugins (all 100+ of them) in Iframely gateway, convert those 100+ domains into Iframely Protocol compliant publishers. Iframely gateway acts as the connector with this regard and by the same time is the embeds Consumer app.
+The custom domain plugins (all 100+ of them) in Iframely gateway convert those 100+ domains into Iframely Protocol compliant publishers. Iframely gateway acts as the connector with this regard and by the same time is the embeds Consumer app.
 
 
 ### A Picture is Worth a Thousand Words
@@ -54,7 +53,7 @@ __Important__: To jump-start with your dev effort, you may use skip installation
 
 This endpoint is hosted courtesy of Itteco and has the latest version of Iframely gateway on it. It is subject to restarts and rate-limits and thus _is not suitable for production use_.
 
-Please [deploy Iframely](http://iframely.com/gateway/setup) on your own hardware before going live.
+__Please__ [deploy Iframely](http://iframely.com/gateway/setup) on your own hardware before going live.
 
 
 ### Understand the API Response
@@ -104,7 +103,7 @@ For dev effort, you can source it from `http://iframely.com/r3/js/iframely.js` (
 [Read more about iframely.js](http://iframely.com/gateway/iframelyjs)
 
 
-### Deploy to Your Servers Wheneever You're Ready
+### Deploy to Your Servers Whenever You're Ready
 
 To get a copy of Iframely, you have three options:
 
@@ -119,7 +118,7 @@ We recommend hosting it on a separate domain for CORS security of your main app.
 
 ### Get Whitelist File
 
-Itteco provides [Whitelist DB](http://iframely.com/qa), as the first independently run embeds QA service. 
+Itteco provides [Whitelist DB](http://iframely.com/qa) - the first independently run embeds QA service. 
 
 We cover [Iframely Protocol](http://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
 
@@ -128,15 +127,15 @@ requires a human eye to check if the user experience of the embeds can be relied
 
 The whitelist is a JSON file with the list of domains and `ok` or `reject` tags for each protocol. 
 
-The whitelist support is already included into Gateway. Just upload the latest whitelist file to the root of your Iframely server. See [Setup Instructions](http://iframely.com/gateway/setup).
+The whitelist support is already included into Gateway. Just upload the latest whitelist file to the root of your Iframely server. See [setup instructions](http://iframely.com/gateway/setup).
 
 
-[Get Whitelist File here](http://iframely.com/qa/buy)
+And [Get Whitelist File here](http://iframely.com/qa/buy)
 
 
 ## Sample Apps & Demos
 
-Itteco has developed the following demo services based on Iframely technology:
+Itteco has developed couple demo services based on Iframely technology (well, it was more "in parrallel with", actually):
 
 * [Iframe.ly](http://iframe.ly) - the web shortener
 * [Nowork FM](http://nowork.fm) - simple intranet for your team
@@ -149,12 +148,13 @@ Feel free to try it to get an inspiration and idea of the possibilities.
 
 We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions.
 
-Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
+Fork and do a pull-request, if you'de like to [add more plugins](http://iframely.com/gateway/write-plugin) and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
-If you are a publisher and would like to make your embeds available under [Iframely Protocol](http://iframely.com/oembed2) (and thus distributed through gateway) - please, [add your domain to the whitelist](http://iframely.com/qa/request).
+If you are a publisher and would like to make your embeds available under [Iframely Protocol](http://iframely.com/oembed2) (and thus distributed through this open-source gateway) - please, [add your domain to the whitelist](http://iframely.com/qa/request).
 
 
 We encourage you to help other folks get up to speed with Iframely by following community channels:
+
 - Business questions and answers are handled via [Iframely topic on Quora](http://www.quora.com/Iframely)
 - Technical Q&A - [iframely tag on StackOverflow](http://stackoverflow.com/questions/tagged/iframely)
 - News & Experiences. [#iframely](https://twitter.com/search?q=iframely&src=typd&mode=realtime) or [@iframely](https://twitter.com/iframely) on Twitter
