@@ -1,7 +1,16 @@
+# Iframely Gateway Changelog
+
+This is the history of the [Iframely Gateway](http://iframely.com/gateway) changes. 
+
+Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
+
+
+### In the works
+
  * fix parsing alternate oembed links
  * fix telly.com plugin
 
-2013.08.13, Version 0.4.4
+### 2013.08.13, Version 0.4.4
 
  + added tumblr.com meta plugin
  + added tumblr.com photo plugin
@@ -13,11 +22,11 @@
  * fixed slideshare.net plugin
  + added huffingtonpost.com plugin
 
-2013.08.08, Version 0.4.3
+### 2013.08.08, Version 0.4.3
 
  + added mixbit.com plugin
 
-2013.08.06, Version 0.4.2
+### 2013.08.06, Version 0.4.2
 
  + added v.qq.com plugin
  + added angel.co embeds plugin
@@ -26,7 +35,7 @@
  * check if favicon exists
  * fix instapaper resolving relative urls
 
-2013.07.19, Version 0.4.0
+### 2013.07.19, Version 0.4.0
 
  + added readtapestry.com plugin
  + added whosay.com photo plugin
@@ -43,7 +52,7 @@
  * fixed businessinsider.com plugin
  * fixed: iframely selects better media sizes for duplicate http/https links from different plugins, giving priority to the ones that produce responsive widget
 
-2013.07.11, Version 0.3.10
+### 2013.07.11, Version 0.3.10
 
  * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
  + added /supported-plugins-re.json endpoint
@@ -53,14 +62,14 @@
  * fixed iframed widgets buggy resizing
  * fixed dynamic reader embedding
 
-2013.07.05, Version 0.3.9
+### 2013.07.05, Version 0.3.9
 
  + tindeck.com (Mathias Panzenböck)
  + maps.google.com (Mathias Panzenböck)
  + magnatune.com (Mathias Panzenböck)
  + ocreamix.org (Mathias Panzenböck)
 
-2013.06.28, Version 0.3.8
+### 2013.06.28, Version 0.3.8
 
  + trutv.com
  + video.nhl.com
@@ -71,8 +80,8 @@
  + wikimedia articles and pictures
  + parse links by iframely (oEmbed/2) spec
 
-2013.06.27, Version 0.3.7
+### 2013.06.27, Version 0.3.7
 
- + instagram video
+ + added instagram video
  + 'iframely-widget' styles used by iframely.js to identify generated widgets
  + crowdranking oembed/1 provider added (Mathias Panzenböck)
