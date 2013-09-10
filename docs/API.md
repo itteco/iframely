@@ -15,6 +15,7 @@ You host the API on your own servers and domain. The primary endpoint is `/ifram
 **Method:** GET. 
 
 **Params:**
+
  - `uri` - (required) URI of the page to be processed.
  - `refresh` - (optional) You can request the cache data to be ingored by sending `true`. Will unconditionally re-fetch the original source page.
  - `group` - (optional) You can add the extra parameter "group=true" to use different output in JSON - the records groupped by link rel. See below.
