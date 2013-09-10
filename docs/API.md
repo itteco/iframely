@@ -173,3 +173,64 @@ Plugins use the following media query attributes at the moment:
  - `max-height`
  - `aspect-ratio` - available only if **width** and **height** not present
 
+
+## Group By Rel
+
+If you are interested in specific `rel` use case, you can send `&group=true` get parameter to the API endpoint. 
+
+If will result in the response being groupped by rel:
+    {
+      "meta": {
+        "canonical": "http://vimeo.com/67452063",
+        "title": "BLACK&BLUE",
+        "author": "Ruud Bakker",
+        "author_url": "http://vimeo.com/ruudbakker",
+        "duration": 262,
+        "site": "Vimeo",
+        "description": "Is it bad luck?\nIs it fate?\nOr just stupid?\n\nBLACK&BLUE is my graduation film from AKV st. Joost, Breda, The Netherlands.\n\nWritten, animated and directed by Ruud Bakker\nMusic and sounddesign by Bram Meindersma, Audiobrand\n\nScreenings\n\nPictoplasma Berlin, Germany 2013\nKlik! Amsterdam, The Netherlands 2012\nMultivision, st Petersburg, Russia 2012\nCut-Out Fest, Querétaro, Mexico 2012\nFête de l'anim, Lille, France 2012\nPlaygrounds Festival, Tilburg, The Netherlands, 2012\n\nwww.thisisbeker.com"
+      },
+      "links": {
+        "player": [
+          {
+            "href": "//player.vimeo.com/video/67452063",
+            "type": "text/html",
+            "rel": [
+              "player"
+            ],
+            "title": "BLACK&BLUE",
+            "media": {
+              "aspect-ratio": 1.778
+            }
+          }
+        ],
+        "thumbnail": [
+          {
+            "href": "http://b.vimeocdn.com/ts/439/417/439417999_1280.jpg",
+            "type": "image",
+            "rel": [
+              "thumbnail",
+              "oembed"
+            ],
+            "title": "BLACK&BLUE",
+            "media": {
+              "width": 1280,
+              "height": 720
+            }
+          }
+        ],
+        "icon": [
+          {
+            "href": "http://a.vimeocdn.com/images_v6/apple-touch-icon-72.png",
+            "type": "image",
+            "rel": [
+              "icon"
+            ],
+            "title": "BLACK&BLUE",
+            "media": {
+              "width": 72,
+              "height": 72
+            }
+          }
+        ]
+      }
+    }
