@@ -32,7 +32,7 @@ Iframely is Node.JS app (and/or package), though you can use it from other envir
 
 You might wish to read [Iframely Protocol](http://iframely.com/oembed2) spec to get a better intro into structure of the API responses and overall concept for responsive embeds.
 
-The custom domain plugins (all 100+ of them) in Iframely gateway convert those 100+ domains into Iframely Protocol compliant publishers. Iframely gateway acts as the connector with this regard and by the same time is the embeds Consumer app.
+The custom domain plugins (all 100+ of them) and generic parsers in Iframely gateway convert domains into Iframely Protocol compliant publishers. Iframely gateway acts as the connector with this regard and by the same time is the embeds Consumer app.
 
 
 ### A Picture is Worth a Thousand Words
@@ -72,7 +72,7 @@ JSON response will have the following format:
 
     {
       "meta": {                                         -- meta object with the unified semantics
-        "title": "BLACK&BLUE",                          -- e.g. title attribte and others
+        "title": "BLACK&BLUE",                          -- e.g. title and others
         ...
       },
       "links": [                                        -- List of embed widgets
@@ -92,7 +92,7 @@ JSON response will have the following format:
     }
 
 
-### Render Embed Widget
+### Render Responsive Widget
 
 You can use included `iframely.js` jQuery library to communicate with Iframely API and to render the embeds. 
 
@@ -144,7 +144,7 @@ Feel free to try it to get an inspiration and idea of the possibilities.
 
 
 
-## Be Our Best Friend
+## Be Our Friend
 
 We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions.
 
