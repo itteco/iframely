@@ -7,7 +7,7 @@ We cover [Iframely Protocol](http://iframely.com/oembed2), oEmbed v1, Twitter Ca
 There are technical/security considerations that can be resolved algorithmically, but it really 
 requires a human eye to check if the user experience of the embeds can be relied on. 
 
-The whitelist is a JSON file, the format of which is given in this document. It contains the list of domains with `ok` or `reject` tags for each protocol, with supplementary instructions on how to improve the embeds (that are easy to translate into code).
+The whitelist is a JSON file, the format of which is given in this document. It contains the list of domains with `allow` or `deny` tags for each protocol, with supplementary instructions on how to improve the embeds (that are easy to translate into code).
 
 If you use [Iframely Gateway](http://iframely.com/gateway), the whitelist support is already included. Just upload the latest whitelist file to the root of your Iframely server. See [Setup Instructions](http://iframely.com/gateway/setup).
 
@@ -29,51 +29,51 @@ The file itself contains the list of domains in the whitelist DB, with the proto
     	"youtube.com": {
     		date: "2013-09-01",
     		og: {
-    			video: ["ok", "ssl", "responsive"]
+    			video: ["allow", "ssl", "responsive"]
     		},
     		oembed: {
-    			video: ["ok", "responsive"]
+    			video: ["allow", "responsive"]
     		},
     		twitter: {
-    			player: ["ok", "ssl", "responsive"]
+    			player: ["allow", "ssl", "responsive"]
     		}
     	},
 
     	"mashable.com": {
     		date: "2013-09-01",    		
     		twitter: {
-    			photo: "reject",
-    			player: ["ok", "ssl", "responsive", "autoplay"]
+    			photo: "deny",
+    			player: ["allow", "ssl", "responsive", "autoplay"]
     		}
     	},
 
     	"*.nbcsports.com": {
     		date: "2013-09-01",    		
     		oembed: {
-    			link: ["ok", "reader"]
+    			link: ["allow", "reader"]
     		}
     	},
 
 		"iframe.ly": {
     		date: "2013-09-01",			
 			iframely: {
-				reader: "ok",
-				player: "ok",
-				survey: "ok",
-				image: "ok",
-				thumbnail: "ok",
-				logo: "ok"
+				reader: "allow",
+				player: "allow",
+				survey: "allow",
+				image: "allow",
+				thumbnail: "allow",
+				logo: "allow"
 			}, 
 			twitter: {
-				player: "ok",
-				photo: "ok"				
+				player: "allow,
+				photo: "allow"		
 			},
 			og: {
-				video: "ok"
+				video: "allow"
 			},
 			oembed: {
-				video: "ok",
-				photo: "ok"
+				video: "allow",
+				photo: "allow"
 			}
 		}
 	}
@@ -86,8 +86,8 @@ Its value contains an object with keys equal to protocol names and values listin
 If the protocol is not supported by the domain, the value of `domain.protocol` will be `null`. If we did not test the domain yet, `domain` will be `null`. If domain does not support specific type on the protocol, then `domain.protocol.type` will be null.
 
 The basic and most important values in tags list are:
- - `"ok"` - means the domain-protocol is whitelisted
- - `"reject"` - indicates that domain-protocol does not provide reliable or expected user experience
+ - `"allow"` - means the domain-protocol is whitelisted
+ - `"deny"` - indicates that domain-protocol does not provide reliable or expected user experience
 
 `date` value for the domain gives the date when this domain was last updated with the test results. You may opt to ignore test results that are not recent enough for your needs. 
 
@@ -136,12 +136,13 @@ Please, note, that Twitter's photo card allows the fallback onto `og:image` if `
 
 
 
-## QA Result Tags: `ok` or `reject`
+## QA Result Tags: `allow` or `deny`
 
 The basic and most important values in tags list are:
- - `"ok"` - means the domain-protocol is whitelisted
- - `"reject"` - indicates that domain-protocol does not provide reliable or expected user experience
+ - `"allow"` - means the domain-protocol is whitelisted
+ - `"deny"` - indicates that domain-protocol does not provide reliable or expected user experience
 
+The naming of those tags is analogous to X-FRAME-OPTIONS header. Except you, the consumer, are now the one that needs to allow or deny the widget.
 
 We also give the extra tags that you can programm the user experience upon:
 
