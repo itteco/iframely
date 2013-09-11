@@ -140,9 +140,9 @@ You would need to make a decision wheather you want to trust specific origins or
 
 ### MIME `type`
 
-Generally MIME type defines method to render link as widget.
+MIME type defines a method to render link as widget.
 
-MIME type is an expected HTTP response "content-type" of data behind '"href"'. Type of content defines rendering method.
+MIME type is an expected HTTP response "content-type" header of a resource behind '"href"'. Type of content defines rendering method.
 
 There are following `type`s at the moment:
 
