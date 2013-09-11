@@ -19,7 +19,7 @@ iframely.js requires jQuery and [Underscore](http://underscorejs.org/). Include 
 Where `{YOUR.DOMAIN}}` is the domain name you host Iframely Gateway at. 
 You may also copy iframely.js file to your apps main domain and serve it from there. 
 
-If you have not [set up your Iframely server](http://iframely.com/gateway/setup) yet, you can load iframel.js from [this source](iframely.com/r3/js/iframely.js). However, don't use it for production purposes.
+If you have not [set up your Iframely server](http://iframely.com/gateway/setup) yet, you can load iframel.js from [this source](http://iframely.com/r3/js/iframely.js). However, don't use it for production purposes.
 
 
 
