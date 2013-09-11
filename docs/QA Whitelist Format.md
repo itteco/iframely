@@ -43,7 +43,7 @@ The file itself contains the list of domains in the whitelist DB, with the proto
     		date: "2013-09-01",    		
     		twitter: {
     			photo: "reject",
-    			player: ["ok", "ssl", "responsiv", "authoplay"]
+    			player: ["ok", "ssl", "responsiv", "autoplay"]
     		}
     	},
 
