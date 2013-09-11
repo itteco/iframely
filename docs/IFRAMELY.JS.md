@@ -1,29 +1,37 @@
-### iframely.js: JavaScript client lib
+# Hit The Ground Running with Iframely JS Client Lib
 
-Iframely package includes the client wrapper over the API, so you don't need to spend time on it yourself. 
-You may access it in `/static/js/iframely.js` folder. It provides calls to fetch data from `/iframely` API endpoint and render links.
+[Iframely Gateway](http://iframely.com/gateway) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. 
 
-#### Add to your page
+You may find `iframely.js` lib in `/static/js/iframely.js` folder. 
 
-Insert similar lines in your page head (iframely.js requires jQuery and Underscore):
+It facilitates calls and fetches information from `/iframely` API endpoint and renderы responsive embed widgets from the data received.
+
+
+
+## Add iframely.js to Your App
+
+iframely.js requires jQuery and [Underscore](http://underscorejs.org/). Include it in the `<head>` section of your page:
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
     <script type="text/javascript" src="http://your.domain/r3/js/iframely.js"></script>
 
-Replace `your.domain` with your actual domain name. You may also copy `iframely.js` script file to your apps main domain and accordingly.
+Where `your.domain` is the domain name you host Iframely Gateway at. 
+You may also copy iframely.js file to your apps main domain and serve it from there.
 
-#### Fetch oEmbed/2
 
-    // Setup endpoint path.
-    $.iframely.defaults.endpoint = 'http://your.iframely.server.domain/iframely';
 
-    // Start data fetching. Specify page uri and result callback.
+## Fetch API Response
+
+    // Set endpoint address
+    $.iframely.defaults.endpoint = 'http://{YOUR.IFRAMELY.SERVER.DOMAIN}/iframely';
+
+    // Get Data. Specify page {URI} and your callback if required
     $.iframely.getPageData("http://vimeo.com/67452063", function(error, data) {
         console.log(data);
     });
 
-This code will create following [log](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
+The code above will put the following JSON into console [log](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
 
     {
       "meta": {
@@ -33,7 +41,7 @@ This code will create following [log](http://iframely.com/iframely?uri=http%3A%2
         "author_url": "http://vimeo.com/ruudbakker",
         "duration": 262,
         "site": "Vimeo",
-        "description": "Is it bad luck?\nIs it fate?\nOr just stupid?\n\nBLACK&BLUE is my graduation film from AKV st. Joost, Breda, The Netherlands.\n\nWritten, animated and directed by Ruud Bakker\nMusic and sounddesign by Bram Meindersma, Audiobrand\n\nScreenings\n\nPictoplasma Berlin, Germany 2013\nKlik! Amsterdam, The Netherlands 2012\nMultivision, st Petersburg, Russia 2012\nCut-Out Fest, Querétaro, Mexico 2012\nFête de l'anim, Lille, France 2012\nPlaygrounds Festival, Tilburg, The Netherlands, 2012\n\nwww.thisisbeker.com"
+        "description": "..."
       },
       "links": [
         {
@@ -77,16 +85,23 @@ This code will create following [log](http://iframely.com/iframely?uri=http%3A%2
       ]
     }
 
-This is parsed JSON object. You can use `data.meta` to get page meta attributes or `data.links` to render some objects from the page.
 
-#### Render links
+The format of this JSON object is given in [API description](http://iframely.com/gateway/api).
 
-Each link in result from previous example can be rendered:
+You can use `data.meta` to get availe meta attributes of your `uri` or `data.links` to render some widgets from it.
+
+
+
+## Render `links` Widgets
+
+You would need to make a choice which links/widgets you'd like to render from a list given in the response code. Please, refer to [Iframely Protocol](http://iframely.com/oembed) spec.
+
+Each link in API response from previous example can be rendered in a following way:
 
     // Iterate through all links.
     data.links.forEach(function(link) {
 
-        // Call generator to create html element for link.
+        // Call generator to create html element for a link.
         var $el = $.iframely.generateLinkElement(link, data);
 
         // Add element to body.
@@ -94,14 +109,15 @@ Each link in result from previous example can be rendered:
     });
 
 
-If you'd like to make `reader` iframes to be without horizontal scrolling call after rendering widgets:
+If you'd like to rid `reader` rel iframes (`type="text/html"`) from horizontal scrollbar, call the following method after rendering widgets:
 
     $.iframely.registerIframesIn($('body'));
 
 You can call it once after all or after each rendering operation.
 
-This is useful with [github.gist](http://iframely.com/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
-[storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages,
-where js widget is inserted in iframe and we don't know exact size before it launched.
+This method is useful for example with [Github Gist](http://iframely.com/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
+[Storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages. 
+
+They insert javascript widget in iframe and we don't know exact size before it is actually loaded.
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
 So iframely.js will resize that iframe to fit content without horizontal scrolling.
