@@ -97,12 +97,12 @@ Iframely API returns `meta` object that may contain the following keys at the mo
 
 ### Product info (per Pinterest spec):
 
-`price`
-`currency_code`
-`brand`
-`product_id`
-`availability`
-`quantity`
+- `price`
+- `currency_code`
+- `brand`
+- `product_id`
+- `availability`
+- `quantity`
 
 
 You can get all current attributes are listed in `/meta-mappings` endpoint.
@@ -188,7 +188,7 @@ If will result in the response being groupped by rel:
         "author_url": "http://vimeo.com/ruudbakker",
         "duration": 262,
         "site": "Vimeo",
-        "description": "Is it bad luck?\nIs it fate?\nOr just stupid?\n\nBLACK&BLUE is my graduation film from AKV st. Joost, Breda, The Netherlands.\n\nWritten, animated and directed by Ruud Bakker\nMusic and sounddesign by Bram Meindersma, Audiobrand\n\nScreenings\n\nPictoplasma Berlin, Germany 2013\nKlik! Amsterdam, The Netherlands 2012\nMultivision, st Petersburg, Russia 2012\nCut-Out Fest, Querétaro, Mexico 2012\nFête de l'anim, Lille, France 2012\nPlaygrounds Festival, Tilburg, The Netherlands, 2012\n\nwww.thisisbeker.com"
+        "description": "..."
       },
       "links": {
         "player": [

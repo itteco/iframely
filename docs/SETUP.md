@@ -1,20 +1,18 @@
-## Server setup
+# Deploy Iframely Gateway to Your Own Servers
 
-- [Security considerations](#security-considerations)
-- [Installation](#installation)
-- [Config](#config)
-- [Run server](#run-server)
-- [List of server urls](#list-of-server-urls)
-- [Server debug tool](#server-debug-tool)
-- [Update iframely](#update-iframely)
 
-### Security considerations
 
-It is highly recommended that you install the server on a separate domain. There are few cases, when rendering of embed content is required by the server, for example the articles. Even though iframely tries to eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see [config options](#config)).
+## Stay Secure - Host on Dedicated Domain
 
-### Installation
+It is highly recommended that you install [Iframely Gateway](http://iframely.com/gateway) on a dedicated domain. 
 
-Node.js versions 0.8-0.10 required. Install if from [pre-built installer](http://nodejs.org/download/) for your platform or from [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+There are few cases, when rendering of embed content is required by the server, for example the articles. Even though Iframely tries to detect and eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see config options below).
+
+
+
+## Initial Installation
+
+Node.js versions 0.8 and higher are required. Install it from [pre-built installer](http://nodejs.org/download/) for your platform or from any of the [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
     cd <your servers dir>
     git clone https://github.com/itteco/iframely.git
@@ -23,61 +21,68 @@ Node.js versions 0.8-0.10 required. Install if from [pre-built installer](http:/
 
 It will also install all the package dependencies.
 
-If you're using Mac OS, you might need to install ImageMagic CLI tools to make image size detection work. 
+If you're using Mac OS, you might need to install [ImageMagic CLI](http://www.imagemagick.org/script/binary-releases.php#macosx) tools to make image size detection work. 
 
-### Config
 
-Please, create your local config file to adjust settings. This local config file will be ignored when you update versions from Git later on.
+## Configure Iframely
+
+Please, create your local config file to adjust settings. This local config file will be ignored when you pull new versions from Git later on.
 
     cp config.local.js.SAMPLE config.local.js
     vi config.local.js
 
 Edit the sample config file as you need. You may also override any values from main config.js in your local config.
-There are some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds).
+
+At the very least, you need to properly configure:
+
+- `baseAppUrl` - the domain you host Iframely Gateway on
+- `CACHE_ENGINE` - the caching middleware you'd prefer to use (No Cache, Redis, Memcached or Node.js in-memory cache)
+- If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
+- `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
+
+There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable
+
 You can also fine-tune API response time by disabling image size detection or readability parsing. 
 
-For enhanced security, it is important that you properly configure `allowedOrigins` parameter for CORS.
-
-__Important__: At the very least, you need to enter your own application keys and secret tokens where applicable. 
 
 
-### Run server
+## Run Server
 
-Starting server is simple. From iframely home directory:
+Starting server is simple. From Iframely home directory:
 
     node server
 
-We highly recommend [forever](https://github.com/nodejitsu/forever) though as it makes stopping and restarting of the servers so much easier:
+We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
     npm install -g forever
     forever start -l iframely.log server.js
 
 
-### List of server urls
 
-You may need to configure these in your reverse proxy settings, depending on your setup:
+## Add Required Pathes to Your Reverse Proxy
 
-    /r/.+               -- static files (including iframely.js client library).
-    /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON.
-    /debug              -- debugger UI with get params.
-    /reader.js          -- API endpoint with get params - proxies script to render article.
-    /render             -- API endpoint with get params - prexies custom widgets if required.
-    /meta-mappings      -- API endpoint with available unified meta.
+Depending on your setup, you may need to configure these pathes in your reverse proxy settings to point to Iframely's Node.js instance:
 
-### Server debug tool
+    /r/.+               -- static files (including iframely.js client library)
+    /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON
+    /debug              -- optional debugger UI with get params
+    /reader.js          -- API endpoint with get params - proxies script to render article
+    /render             -- API endpoint with get params - prexies custom widgets if required
+    /meta-mappings      -- optional API endpoint with available unified meta
 
-You can visualize server API with debug tool at [http://localhost:8061/debug](http://localhost:8061/debug), try [example](http://localhost:8061/debug?uri=http%3A%2F%2Fvimeo.com%2F67487897)
 
-If your local configuration turns debug mode on, the debug tool will also show the debug information for the plugins used (useful when developing plugins - see Wiki for how to write plugins)
 
-### Update iframely
+## Update Iframely
 
-As we keep adding features, you may want to update your server. The domain providers due to dependencies to 3rd parties do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
+Please, update Iframely Gateway as we keep adding features or releasing fixes. 
 
-To update a package to it's latest version run in iframely home directory:
+The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
+
+
+To update Iframely package to its latest version run from Iframely home directory:
 
     git pull
     
-and restart your server. If you use forever, run:
+and restart your server afterwards. If you use [Forever](https://github.com/nodejitsu/forever), run for example:
 
     forever restartall
