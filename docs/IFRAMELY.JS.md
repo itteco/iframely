@@ -14,9 +14,9 @@ iframely.js requires jQuery and [Underscore](http://underscorejs.org/). Include 
 
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script type="text/javascript" src="http://your.domain/r3/js/iframely.js"></script>
+    <script type="text/javascript" src="http://{YOUR.DOMAIN}}/r3/js/iframely.js"></script>
 
-Where `your.domain` is the domain name you host Iframely Gateway at. 
+Where `{YOUR.DOMAIN}}` is the domain name you host Iframely Gateway at. 
 You may also copy iframely.js file to your apps main domain and serve it from there.
 
 
@@ -88,7 +88,7 @@ The code above will put the following JSON into console [log](http://iframely.co
 
 The format of this JSON object is given in [API description](http://iframely.com/gateway/api).
 
-You can use `data.meta` to get availe meta attributes of your `uri` or `data.links` to render some widgets from it.
+You can use `data.meta` to get available meta attributes of your `uri` or `data.links` to render some widgets from it.
 
 
 
@@ -117,7 +117,6 @@ You can call it once after all or after each rendering operation.
 
 This method is useful for example with [Github Gist](http://iframely.com/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
 [Storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages. 
-
 They insert javascript widget in iframe and we don't know exact size before it is actually loaded.
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
 So iframely.js will resize that iframe to fit content without horizontal scrolling.
