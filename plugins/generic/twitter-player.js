@@ -6,7 +6,7 @@ module.exports = {
             return;
 
         return {
-            href: meta.twitter.player.value,
+            href: meta.twitter.player.value || meta.twitter.player,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.twitter],
             width: meta.twitter.player.width,
