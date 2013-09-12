@@ -5,10 +5,6 @@ module.exports = {
         if (!meta.og || !meta.og.video)
             return;
 
-        if (meta.og.video && meta.og.video.type == "text/html") {
-            return;
-        }
-
         return [{
             href: meta.og.video.url || meta.og.video,
             type: meta.og.video.type || CONFIG.T.text_html,
