@@ -51,7 +51,7 @@ module.exports = {
                         cb(null, {
                             html: result.content,
                             type: CONFIG.T.safe_html,
-                            rel: CONFIG.R.reader
+                            rel: [CONFIG.R.reader, CONFIG.R.inline]
                         });
                     }
                 }

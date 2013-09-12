@@ -60,7 +60,9 @@
             oembed: "oembed",
 
             icon: "icon",
-            logo: "logo"
+            logo: "logo",
+
+            inline: "inline"
         }
     };
 
