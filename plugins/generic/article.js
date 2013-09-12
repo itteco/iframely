@@ -20,6 +20,11 @@ module.exports = {
             return;
         }
 
+        if (meta.video_src) {
+            // Skip if video_src is given
+            return;
+        }        
+
         var isArticle = html.match(/<article\b/i);
 
         if (!isArticle){
