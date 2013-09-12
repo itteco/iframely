@@ -7,6 +7,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### In the works
 
+ - support new IFTTT embeds
  * fix parsing alternate oembed links
  * fix telly.com plugin
 
