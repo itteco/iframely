@@ -65,7 +65,7 @@ The file itself contains the list of domains in the whitelist DB, with the proto
 				logo: "allow"
 			}, 
 			twitter: {
-				player: "allow,
+				player: "allow",
 				photo: "allow"		
 			},
 			og: {
