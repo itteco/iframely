@@ -4,15 +4,30 @@ var utils = require('../../utils');
 var async = require('async');
 var _ = require('underscore');
 
+function prepareUri(uri) {
+
+    if (uri.match(/^\/\//i)) {
+        return "http:" + uri;
+    }
+
+    if (!uri.match(/^https?:\/\//i)) {
+        return "http://" + uri;
+    }
+
+    return uri;
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
 
-        if (!req.query.uri) {
+        var uri = prepareUri(req.query.uri);
+
+        if (!uri) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading oembed2 for', req.query.uri);
+        console.log('-- Loading oembed2 for', uri);
 
         var meta;
 
@@ -21,7 +36,7 @@ module.exports = function(app) {
             function(cb) {
 
                 if (req.query.meta) {
-                    iframelyMeta.getPageData(req.query.uri, {
+                    iframelyMeta.getPageData(uri, {
                         meta: true,
                         oembed: true,
                         fullResponse: false
@@ -33,7 +48,7 @@ module.exports = function(app) {
 
             function(data, cb) {
                 meta = data;
-                iframely.getRawLinks(req.query.uri, {
+                iframely.getRawLinks(uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
                     disableCache: req.query.refresh === "true"
@@ -74,6 +89,10 @@ module.exports = function(app) {
                 result.links = groups;
             }
 
+            if (req.query.whitelist) {
+                result.whitelist = iframely.whitelist.findWhitelistRecordFor(uri) || {};
+            }
+
             if (meta) {
                 result['raw-meta'] = meta;
             }
@@ -94,16 +113,18 @@ module.exports = function(app) {
 
     app.get('/reader.js', function(req, res, next) {
 
-        if (!req.query.uri) {
+        var uri = prepareUri(req.query.uri);
+
+        if (!uri) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading reader for', req.query.uri);
+        console.log('-- Loading reader for', uri);
 
         async.waterfall([
 
             function(cb) {
-                iframely.getRawReaderLink(req.query.uri, {
+                iframely.getRawReaderLink(uri, {
                     disableCache: req.query.disableCache === "true"
                 }, cb);
             }
@@ -126,7 +147,7 @@ module.exports = function(app) {
             var context = {
                 embedCode: JSON.stringify(htmlArray),
                 widgetId: JSON.stringify(1),
-                uri: JSON.stringify(req.query.uri)
+                uri: JSON.stringify(uri)
             };
 
             res.setHeader("Content-Type", "text/javascript; charset=utf-8");
@@ -137,16 +158,18 @@ module.exports = function(app) {
 
     app.get('/render', function(req, res, next) {
 
-        if (!req.query.uri) {
+        var uri = prepareUri(req.query.uri);
+
+        if (!uri) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading render for', req.query.uri);
+        console.log('-- Loading render for', uri);
 
         async.waterfall([
 
             function(cb) {
-                iframely.getRawRenderLink(req.query.uri, {
+                iframely.getRawRenderLink(uri, {
                     disableCache: req.query.disableCache === "true"
                 }, cb);
             }
@@ -169,14 +192,18 @@ module.exports = function(app) {
 
     });
 
+    // TODO: check who use that.
     app.get('/twitter', function(req, res, next) {
-        if (!req.query.uri) {
+
+        var uri = prepareUri(req.query.uri);
+
+        if (!uri) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading twitter for', req.query.uri);
+        console.log('-- Loading twitter for', uri);
 
-        iframelyMeta.getPageData(req.query.uri, {
+        iframelyMeta.getPageData(uri, {
             meta: true,
             oembed: false,
             fullResponse: false
