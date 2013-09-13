@@ -96,7 +96,8 @@
                 debug: options.debug,
                 mixAllWithDomainPlugin: options.mixAllWithDomainPlugin,
                 refresh: options.refresh,
-                meta: options.meta
+                meta: options.meta,
+                whitelist: options.whitelist
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);
