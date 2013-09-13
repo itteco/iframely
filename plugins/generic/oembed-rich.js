@@ -31,7 +31,7 @@ module.exports = {
                 height: oembed.height
             };
 
-        } else {
+        }/* else {
 
             return {
                 type: 'text/html',
@@ -44,6 +44,6 @@ module.exports = {
                 width: oembed.width,
                 height: oembed.height
             };
-        }
+        }*/
     }
 };
