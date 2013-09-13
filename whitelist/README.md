@@ -1,0 +1,1 @@
+Here is whitelist json file exptected with name pattern "iframely-*.json". Lastest filename considered to be actual.
