@@ -28,6 +28,7 @@
         "connect":      "2.7.9",
         "ejs":          "0.8.4",
         "moment":       "2.0",
+        "chokidar":     "0.6.3",
 
         "feedparser":   "0.16",
         "mongoose":     "2.5",

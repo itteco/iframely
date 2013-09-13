@@ -5,3 +5,4 @@ node_modules
 config.local.js
 test/test2.js
 static/test
+iframely-*.json
