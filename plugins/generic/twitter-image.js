@@ -7,7 +7,7 @@ module.exports = {
 
         var rel;
 
-        if (whitelistRecord.isAllowed('twitter.photo')) {
+        if (meta.twitter.type == "photo" && whitelistRecord.isAllowed('twitter.photo')) {
             rel = CONFIG.R.image;
         } else {
             rel = CONFIG.R.thumbnail;

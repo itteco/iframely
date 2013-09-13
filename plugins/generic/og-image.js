@@ -8,7 +8,7 @@ module.exports = {
             return;
 
         var rel;
-        if ((!meta.twitter || !meta.twitter.image) && whitelistRecord.isAllowed('twitter.photo')) {
+        if ((meta.twitter && meta.twitter.type == "photo" && !meta.twitter.image) && whitelistRecord.isAllowed('twitter.photo')) {
             rel = [CONFIG.R.image, CONFIG.R.og, CONFIG.R.twitter];
         } else {
             rel = [CONFIG.R.thumbnail, CONFIG.R.og];
