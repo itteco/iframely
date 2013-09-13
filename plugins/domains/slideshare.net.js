@@ -36,7 +36,7 @@ module.exports = {
             doc = {
                 href: $iframe.attr('src').replace('http:', ''),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader],
+                rel: [CONFIG.R.player],
                 "aspect-ratio": oembed.width / oembed.height // 4:3 + 35px for nav bar :(
                                                              // Would need to host embed as js file to address this.
             };
