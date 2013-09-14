@@ -9,7 +9,7 @@ requires a human eye to check if the user experience of the embeds can be relied
 
 The whitelist is a JSON file, the format of which is given in this document. It contains the list of domains with `allow` or `deny` tags for each protocol, with supplementary instructions on how to improve the embeds (that are easy to translate into code).
 
-If you use [Iframely Gateway](http://iframely.com/gateway), the whitelist support is already included. Just upload the latest whitelist file to the root of your Iframely server. See [Setup Instructions](http://iframely.com/gateway/setup).
+If you use [Iframely Gateway](http://iframely.com/gateway), the whitelist support is already included. Just upload the latest whitelist file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](http://iframely.com/gateway/setup).
 
 You can get whitelist file at [http://iframely.com/qa/buy](http://iframely.com/qa/buy).
 
