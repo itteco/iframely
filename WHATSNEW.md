@@ -5,11 +5,19 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
-### In the works
+### 2013.09.16, Version 0.5.0
 
+ + Added optional [Iframely QA Whitelist](http://iframely.com/qa) Functionality: 
+   - Deny Broken Embeds, 
+   - Convert OG Twitter & oEmbed into Responsive players,   
+   - Allow whitelisted Twitter Photos
+   - Proxy Autoplay and SSL tags from the whitelist
+   - Get Whitelist file from [http://iframely.com/qa/buy](http://iframely.com/qa/buy) and upload to `whitelist` folder
+ * number of miscellaneous fixes to make gateway compliant with [official release of Iframely Protocol](http://iframely.com/oembed2)
+ - Removed [Coub](http://coub.com) - they now support Iframely protocol natively 
  + support new IFTTT embeds ([example](http://iframely.com/debug?uri=https%3A%2F%2Fifttt.com%2Frecipes%2F116160))
  * fix parsing alternate oembed links
- * fix telly.com plugin
+ * fix telly.com plugin 
 
 ### 2013.08.13, Version 0.4.4
 
