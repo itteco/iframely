@@ -4,7 +4,7 @@
 
     Iframely consumer client lib.
 
-    Versrion 0.4.2
+    Versrion 0.5.0
 
     Fetches and renders iframely oebmed/2 widgets.
 
@@ -96,7 +96,8 @@
                 debug: options.debug,
                 mixAllWithDomainPlugin: options.mixAllWithDomainPlugin,
                 refresh: options.refresh,
-                meta: options.meta
+                meta: options.meta,
+                whitelist: options.whitelist
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);
@@ -206,6 +207,7 @@
                         .attr('title', data.title)
                         .attr('alt', data.title);
                 }
+                // TODO: add image width, heigth?
                 return $img;
             }
         },

@@ -11,6 +11,14 @@ module.exports = {
 
         "oembed-thumbnail"
     ],
+    
+    getMeta: function(urlMatch) {
+        if (urlMatch.size < 4) return;
+
+        return {
+            date: urlMatch[1] + '-' + urlMatch[2] + '-' + urlMatch[3]
+        }
+    },
 
     getLinks: function() {
 

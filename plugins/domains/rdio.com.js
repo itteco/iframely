@@ -31,13 +31,13 @@ module.exports = {
             }, {
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.thumbnail, CONFIG.R.iframely],            
+                rel: CONFIG.R.thumbnail,
                 width: oembed.thumbnail_width,
                 height: oembed.thumbnail_height
             }, {
                 href: '//www.rdio.com/favicon.ico',
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.icon, CONFIG.R.iframely],
+                rel: CONFIG.R.icon,
         }]
     },
 

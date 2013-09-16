@@ -276,5 +276,12 @@
             "crowdranking.com/r/.+"
         ],
         "endpoint": "http://crowdranking.com/api/oembed.{format}"
-    }
+    },
+    {
+        "name": "IFTTT",
+        "templates": [
+            "ifttt\\.com/recipes/.+"
+        ],
+        "endpoint": "https://ifttt.com/oembed"
+    }    
 ]

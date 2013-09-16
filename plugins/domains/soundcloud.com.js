@@ -4,7 +4,6 @@ module.exports = {
 
     mixins: [
         "oembed-title",
-        "oembed-thumbnail",
         "oembed-site",
         "oembed-author",
         "oembed-description"
@@ -18,7 +17,7 @@ module.exports = {
         } catch(ex) {}
 
         var $iframe = $container.find('iframe');
-        var player; 
+        var player, thumbnail;
 
         if ($iframe.length == 1) {
             player = {
@@ -30,8 +29,18 @@ module.exports = {
             }
         }
 
+        if (oembed.thumbnail_url) {
+            thumbnail = {
+                href: oembed.thumbnail_url.replace('http:',''),
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+                width: oembed.thumbnail_width,
+                height: oembed.thumbnail_height
+            }
+        }
+
         return [
-            player,
+            player, thumbnail, 
             {
                 href: '//a1.sndcdn.com/images/soundcloud_app.png?9d68d37',
                 type: CONFIG.T.image,

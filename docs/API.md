@@ -1,68 +1,64 @@
-## API Reference
+# Iframely Gateway API Reference
 
-- [/iframely: _the_ API endpoint](#iframely-api-endpoint)
-    - [meta](#meta)
-    - [links](#links)
-        - [MIME types](#mime-types)
-        - [rel](#rel)
-        - [media](#media)
-- [iframely.js: JavaScript client lib](#iframelyjs-javascript-client-lib)
-    - [Add to your page](#add-to-your-page)
-    - [Fetch oEmbed/2](#fetch-oembed2)
-    - [Render links](#render-links)
-- TODO: [Using Iframely as npm package](#using-iframely-as-npm-package)
+Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
 
-### /iframely API endpoint
-[iframely]: #iframely-api-endpoint
+You host the API on your own servers and domain. The primary endpoint is `/iframely?uri=`:
 
-This is the actual oEmbed/2 gateway endpoint and the core of Iframely.
+    http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}
 
-**Method:** GET
+(see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063))
+
+
+
+## Main `/iframely` API Endpoint
+
+**Method:** GET. 
 
 **Params:**
+
  - `uri` - (required) URI of the page to be processed.
  - `refresh` - (optional) You can request the cache data to be ingored by sending `true`. Will unconditionally re-fetch the original source page.
+ - `group` - (optional) You can add the extra parameter "group=true" to use different output in JSON - the records groupped by link rel. See below.
 
 **Returns:** JSON, see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063).
 
-Description of result:
+**Format:** Result has the following structure:
 
     {
-      "meta": {                                         -- Unified meta object, see description in next section.
-        "title": "BLACK&BLUE",                          -- Page title attribte.
+      "meta": {                                         -- meta object with the unified semantics
+        "title": "BLACK&BLUE",                          -- e.g. title and others
         ...
       },
-      "links": [                                        -- Array of links which can be rendered.
+      "links": [                                        -- List of embed widgets
         {
-          "href": "//player.vimeo.com/video/67452063",  -- URI of link. If both http and https are available, starts with `//`
-          "type": "text/html",                          -- MIME type of link content.
-          "rel": [                                      -- Array of link semantic types.
-            "player",                                   -- `player` - is widget playing some media.
-            "iframely"                                  -- `iframely` - indicates custom code of Iframely:
-                                                            in this example, we added responsive `aspect-ratio` and `//` 
+          "href": "//player.vimeo.com/video/67452063",  -- SRC of embed. 
+          "type": "text/html",                          -- MIME type of embed method.
+          "rel": [                                      -- List of functional use cases. For example,
+            "player"                                    -- `player` - is widget with media playback
           ],
-          "title": "BLACK&BLUE",                        -- Usual html link title attribute, equals meta.title.
-          "media": {                                    -- "media query" semantics to provide widget media properties.
-            "aspect-ratio": 1.778                       -- This means widget is responsive and proportionally resizable.
+          "title": "BLACK&BLUE",                        -- different titles, for different content on the page
+          "media": {                                    -- "media query" semantics to indicate responsive sizes
+            "aspect-ratio": 1.778                       -- e.g. fluid widget with fixed aspect ratio
           }
         },
         ...
       ]
     }
 
-Idea of unified 'meta' and 'links' item specific attributes are described in following sections.
+Please, refer to [Iframely Protocol](http://iframely.com/oembed2) to get the idea of embeds via `<link>` element.
 
----------------------------------------
 
-#### meta
 
-Most web pages have organic `<meta>` data using different semantics: twitter, og, meta, dublin core, parsely, sailthru, etc.
+## Unified and Merged META
 
-Iframely merges different semantics into fields with unified consistent naming, so you can reliably use them (if they are present, of course).
+Most web pages have organic `<meta>` data published using different semantics standards and optimized for different platforms. For example, oEmbed, Open Graph, Twitter Cards, core HTML meta for Google, Dublin Core, Parsely, Sailthru, etc.
 
-Iframely `meta` object may contain the following keys at the moment:
+[Iframely Gateway](http://iframely.com/gateway) merges various semantics into fields with unified consistent naming keys, so you can reliably use them in your app (if they are present, of course).
 
-General meta:
+Iframely API returns `meta` object that may contain the following keys at the moment:
+
+
+### General meta:
 
  - `title`
  - `description`
@@ -72,7 +68,7 @@ General meta:
  - `category`
  - `keywords`
 
-Attribution:
+### Attribution:
 
  - `author`
  - `author_url` 
@@ -81,15 +77,15 @@ Attribution:
  - `license_url`
  - `site`
  
-Stats info:
+### Stats info:
 
- - `views` - number of views on the original host
+ - `views` - number of views on the original host, e.g. YouTube
  - `likes`
  - `comments`
  - `duration` (in seconds, duration of video or audio content)
 
 
-Geo (as per Open Graph spec):
+### Geo data (as per Open Graph spec):
 
  - `country-name`
  - `postal-code` 
@@ -99,64 +95,73 @@ Geo (as per Open Graph spec):
  - `latitude`
  - `longitude`
 
-All current attributes are listed in `/meta-mappings` endpoint.
+### Product info (per Pinterest spec):
 
----------------------------------------
+- `price`
+- `currency_code`
+- `brand`
+- `product_id`
+- `availability`
+- `quantity`
 
-#### links
 
-Following sections will describe available link attributes values.
+You can get all current attributes are listed in `/meta-mappings` endpoint.
 
-##### MIME types
 
-Generally MIME type defines method to render link as widget.
 
-MIME type is an expected http response "content-type" of data behind '"href"'. Type of content defines rendering method.
+## List of Embed Widget Links
 
-There are following types for now:
+`links` is the list of objects with keys `rel`, `href`, `type` and `media`. 
 
- - `"text/html"` - this could be rendered as `<iframe>`.
- - `"application/javascript"` - JavaScript widget with dynamic page embedding with `<script>` tag.
- - `"text/x-safe-html"` - this is an internal type for plugins. It will be converted to `"application/javascript"` delivered through iframely's `/render.js` endpoint.
- - `"application/x-shockwave-flash"` - flash widget, will be rendered with `<iframe>`.
- - `"video/mp4"` - html5 video. Will be rendered with `<iframe>`. TODO: render with `<video>` tag.
- - `"image"` - this is image which will be rendered with `<img>` tag. Below are the specific image types. If format is not specified engine will try to detect it by fetching image head.
+You can generate embed codes for it as referenced in [Iframely Protocol](http://iframely.com/oembed2/types) spec.
+
+
+### Values of `rel`
+
+`rel` object contains an array of functional use cases. You need to chose link with `rel` which is better suiteable for your apps functionality.
+
+ - `player` - widget with media playback. Like video or music or slideshow players
+ - `thumbnail` - the preview image
+ - `image` - sizeable image, indicating that this is the main content on the web page. For use in e.g. photo albums "details" page
+ - `reader` - text or graphical widget intended for reader functionality (e.g. article)
+ - `file` - downloadable file
+ - `icon` - attribution favicon or glyph
+ - `logo` - logo the source site. Is returned mostly for pages with the news article (custom ones) for better attribution
+
+Iframely uses supplementary `rels` as the way of attributing to the origin of the data:
+
+ - `readability` or `instapaper` - article extracted using instapaper classes.
+ - `og` - link extracted from Open Graph markup. Beware, `players` rendered through `og` have higher chance of being unreliable. 
+ - `twitter` - link extracted from Twitter Cards semantics.
+ - `oembed` - link extracted from oEmbed/1 object.
+
+You would need to make a decision wheather you want to trust specific origins or not or use [Iframely Whitelist File](http://iframely.com/qa).
+
+
+### MIME `type`
+
+MIME type defines a method to render link as widget.
+
+MIME type is an expected HTTP response "content-type" header of a resource behind '"href"'. Type of content defines rendering method.
+
+There are following `type`s at the moment:
+
+ - `"text/html"` - widget needs to be rendered as `<iframe>`.
+ - `"application/javascript"` - JavaScript widget with dynamic page embedding with as `<script>`.
+ - `"application/x-shockwave-flash"` - Flash widget, will be rendered with `<iframe>`.
+ - `"video/mp4"` - HTML5 video. Will be rendered with as `<video>`.
+ - `"image"` - this is image which will be rendered with as `<img>`. Below are the specific image types. If format is not specified, the engine will try to detect it by fetching image's descriptors.
   - `"image/jpeg"`
   - `"image/icon"`
   - `"image/png"`
   - `"image/svg"`
 
----------------------------------------
 
-##### `rel`
-
-`Rel` is for intended use case of the link.
-
-Usually it should be used to find better link for rendering in specific cases.
-
- - `player` - wiget which plays video or music or slideshow. E.g. it could be `"text/html"` page with embedded media.
- - `thumbnail` - small image.
- - `image` - large (not small) image.
- - `reader` - reading widget (article or some info).
- - `file` - downloadable file.
- - `icon` - link with favicon.
- - `logo` - link with site's logo. Is returned mostly for pages with the news article (custom ones) for better attribution
-
-Iframely uses supplementary `rels` as the way of attributing to the origin of the data:
-
- - `iframely` - link or attributes are customly altered by iframely through one of the domain plugin. Consider it a whitelist.
- - `readability` or `instapaper` - article extracted using instapaper classes.
- - `og` - link extracted from opengraph semantics. Beware, `players` rendered through `og` have higher chance of being unreliable. 
- - `twitter` - link extracted from twitter semantics.
- - `oembed` - link extracted from oembed/1 semantics.
-
-You would need to make a decision wheather you want to trust specific origins or not.
-
----------------------------------------
-
-##### `media`
+### `media` query
 
 Media section is for media query. Iframely generates attributes as well as puts it into usable JSON.
+
+You can use [iframely.js](http://iframely.com/gateway/iframelyjs) to render responsive widgets.
 
 Plugins use the following media query attributes at the moment:
 
@@ -167,132 +172,66 @@ Plugins use the following media query attributes at the moment:
  - `min-height`
  - `max-height`
  - `aspect-ratio` - available only if **width** and **height** not present
- - `orientation`
 
 
-### iframely.js: JavaScript client lib
-[iframely-js]: #iframelyjs-javascript-client-lib
+## Group By Rel
 
-Iframely package includes the client wrapper over the API, so you don't need to spend time on it yourself. 
-You may access it in `/static/js/iframely.js` folder. It provides calls to fetch data from `/iframely` API endpoint and render links.
+If you are interested in specific `rel` use case, you can send `&group=true` get parameter to the API endpoint. 
 
-#### Add to your page
-
-Insert similar lines in your page head (iframely.js requires jQuery and Underscore):
-
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script type="text/javascript" src="http://your.domain/r3/js/iframely.js"></script>
-
-Replace `your.domain` with your actual domain name. You may also copy `iframely.js` script file to your apps main domain and accordingly.
-
-#### Fetch oEmbed/2
-
-    // Setup endpoint path.
-    $.iframely.defaults.endpoint = 'http://your.iframely.server.domain/iframely';
-
-    // Start data fetching. Specify page uri and result callback.
-    $.iframely.getPageData("http://vimeo.com/67452063", function(error, data) {
-        console.log(data);
-    });
-
-This code will create following [log](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
+If will result in the response being groupped by rel:
 
     {
       "meta": {
         "canonical": "http://vimeo.com/67452063",
         "title": "BLACK&BLUE",
-        "author": "ruud bakker",
+        "author": "Ruud Bakker",
         "author_url": "http://vimeo.com/ruudbakker",
         "duration": 262,
         "site": "Vimeo",
-        "description": "Is it bad luck?\nIs it fate?\nOr just stupid?\n\nBLACK&BLUE is my graduation film from AKV st. Joost, Breda, The Netherlands.\n\nWritten, animated and directed by Ruud Bakker\nMusic and sounddesign by Bram Meindersma, Audiobrand\n\nScreenings\n\nPictoplasma Berlin, Germany 2013\nKlik! Amsterdam, The Netherlands 2012\nMultivision, st Petersburg, Russia 2012\nCut-Out Fest, Querétaro, Mexico 2012\nFête de l'anim, Lille, France 2012\nPlaygrounds Festival, Tilburg, The Netherlands, 2012\n\nwww.thisisbeker.com"
+        "description": "..."
       },
-      "links": [
-        {
-          "href": "//player.vimeo.com/video/67452063",
-          "type": "text/html",
-          "rel": [
-            "player",
-            "iframely"
-          ],
-          "title": "BLACK&BLUE",
-          "media": {
-            "aspect-ratio": 1.778
+      "links": {
+        "player": [
+          {
+            "href": "//player.vimeo.com/video/67452063",
+            "type": "text/html",
+            "rel": [
+              "player"
+            ],
+            "title": "BLACK&BLUE",
+            "media": {
+              "aspect-ratio": 1.778
+            }
           }
-        },
-        {
-          "href": "http://a.vimeocdn.com/images_v6/apple-touch-icon-72.png",
-          "type": "image",
-          "rel": [
-            "icon",
-            "iframely"
-          ],
-          "title": "BLACK&BLUE",
-          "media": {
-            "width": 72,
-            "height": 72
+        ],
+        "thumbnail": [
+          {
+            "href": "http://b.vimeocdn.com/ts/439/417/439417999_1280.jpg",
+            "type": "image",
+            "rel": [
+              "thumbnail",
+              "oembed"
+            ],
+            "title": "BLACK&BLUE",
+            "media": {
+              "width": 1280,
+              "height": 720
+            }
           }
-        },
-        {
-          "href": "http://b.vimeocdn.com/ts/439/417/439417999_1280.jpg",
-          "type": "image",
-          "rel": [
-            "thumbnail",
-            "oembed"
-          ],
-          "title": "BLACK&BLUE",
-          "media": {
-            "width": 1280,
-            "height": 720
+        ],
+        "icon": [
+          {
+            "href": "http://a.vimeocdn.com/images_v6/apple-touch-icon-72.png",
+            "type": "image",
+            "rel": [
+              "icon"
+            ],
+            "title": "BLACK&BLUE",
+            "media": {
+              "width": 72,
+              "height": 72
+            }
           }
-        }
-      ]
+        ]
+      }
     }
-
-This is parsed JSON object. You can use `data.meta` to get page meta attributes or `data.links` to render some objects from the page.
-
-#### Render links
-
-Each link in result from previous example can be rendered:
-
-    // Iterate through all links.
-    data.links.forEach(function(link) {
-
-        // Call generator to create html element for link.
-        var $el = $.iframely.generateLinkElement(link, data);
-
-        // Add element to body.
-        $('body').append($el);
-    });
-
-
-If you'd like to make `reader` iframes to be without horizontal scrolling call after rendering widgets:
-
-    $.iframely.registerIframesIn($('body'));
-
-You can call it once after all or after each rendering operation.
-
-This is useful with [github.gist](http://iframely.com/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
-[storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages,
-where js widget is inserted in iframe and we don't know exact size before it launched.
-After widget is rendered, custom script in that iframe sends message to parent about new window size.
-So iframely.js will resize that iframe to fit content without horizontal scrolling.
-
-
-
-### Using Iframely as npm package
-
-Install:
-
-    npm install iframely
-
-Usage:
-
-    var iframely = require("iframely");
-
-`TODO: doc on iframely.getRawLinks`
-
-`TODO: publish method + doc on iframely.getPageData` (+shortcuts to fetch only oembed or else)
-
-`TODO: publish method + doc on iframely.getImageMetadata`

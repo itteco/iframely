@@ -8,7 +8,7 @@ module.exports = {
             product_id: oembed.product_id,
             availability: oembed.availability,
             quantity: oembed.quantity && parseInt(oembed.quantity),
-            products: oembed.products
+            offers: oembed.offers
         };
     }
 };

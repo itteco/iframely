@@ -70,7 +70,7 @@ module.exports = {
             var media = v.media;
             if (media) {
                 CONFIG.MEDIA_ATTRS.forEach(function(ma) {
-                    var re = "\\(\\s*" + ma + "\\s*:\\s*([\\d./]+)(?:px)?\\s*\\)";
+                    var re = "\\(\\s*" + ma + "\\s*:\\s*([\\d./:]+)(?:px)?\\s*\\)";
                     var m = media.match(re);
                     if (m) {
                         link[ma] = m[1];

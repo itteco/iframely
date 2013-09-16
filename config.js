@@ -60,8 +60,62 @@
             oembed: "oembed",
 
             icon: "icon",
-            logo: "logo"
-        }
+            logo: "logo",
+
+            inline: "inline"
+        },
+
+        // Whitelist settings.
+
+        REL: {
+            "iframely": [
+                "reader",
+                "player",
+                "survey",
+                "image",
+                "thumbnail",
+                "logo"
+            ],
+            "twitter": [
+                "player",
+                "photo"
+            ],
+            "og": [
+                "video"
+            ],
+            "oembed": [
+                "link",
+                "rich",
+                "video",
+                "photo"
+            ],
+            "html-meta": [
+                "video"
+            ]
+        },
+
+        REL_OPTIONS: {
+            all: ["ssl"],
+            player: ["responsive", "autoplay"],
+            video: ["responsive", "autoplay"],
+            link: ["reader"],
+            rich: ["reader"]
+        },
+
+        // whitelist rel to iframely rel.
+        REL_MAP: {
+            "article": "reader",
+            "photo": "image",
+            "video": "player"
+        },
+
+        // To detect: "html-meta".
+        KNOWN_SOURCES: [
+            "oembed",
+            "og",
+            "twitter",
+            "iframely"
+        ]
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");
