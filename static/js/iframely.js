@@ -207,6 +207,7 @@
                         .attr('title', data.title)
                         .attr('alt', data.title);
                 }
+                // TODO: add image width, heigth?
                 return $img;
             }
         },
