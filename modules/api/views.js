@@ -42,11 +42,12 @@ module.exports = function(app) {
 
             function(cb) {
 
+                // TODO: load all meta from getRawLinks method?
                 if (req.query.meta) {
                     iframelyMeta.getPageData(uri, {
                         meta: true,
                         oembed: true,
-                        fullResponse: true // TODO: fast fix problems with response decoding for debugger.
+                        fullResponse: false
                     }, cb);
                 } else {
                     cb(null, null);
