@@ -46,7 +46,7 @@ module.exports = function(app) {
                     iframelyMeta.getPageData(uri, {
                         meta: true,
                         oembed: true,
-                        fullResponse: false
+                        fullResponse: true // TODO: fast fix problems with response decoding for debugger.
                     }, cb);
                 } else {
                     cb(null, null);
