@@ -3,6 +3,7 @@ var iframelyMeta = require('../../lib/iframely-meta');
 var utils = require('../../utils');
 var async = require('async');
 var _ = require('underscore');
+var moment = require('moment');
 
 function prepareUri(uri) {
 
@@ -17,6 +18,12 @@ function prepareUri(uri) {
     return uri;
 }
 
+function log() {
+    var args = Array.prototype.slice.apply(arguments);
+    args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
+    console.log.apply(console, args);
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
@@ -27,7 +34,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading oembed2 for', uri);
+        log('Loading oembed2 for', uri);
 
         var meta;
 
@@ -35,6 +42,7 @@ module.exports = function(app) {
 
             function(cb) {
 
+                // TODO: load all meta from getRawLinks method?
                 if (req.query.meta) {
                     iframelyMeta.getPageData(uri, {
                         meta: true,
@@ -119,7 +127,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading reader for', uri);
+        log('Loading reader for', uri);
 
         async.waterfall([
 
@@ -164,7 +172,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading render for', uri);
+        log('Loading render for', uri);
 
         async.waterfall([
 
@@ -201,7 +209,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        console.log('-- Loading twitter for', uri);
+        log('Loading twitter for', uri);
 
         iframelyMeta.getPageData(uri, {
             meta: true,
@@ -224,7 +232,7 @@ module.exports = function(app) {
 
     app.get('/supported-plugins-re.json', function(req, res, next) {
 
-        console.log('-- Loading supported-plugins-re.json');
+        log('Loading supported-plugins-re.json');
 
         var plugins = _.values(iframely.getPlugins());
 
