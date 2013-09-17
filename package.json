@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "0.5.0",
+    "version": "0.5.1",
     
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": ["oembed", "embed", "open graph", "og", "twitter cards"],

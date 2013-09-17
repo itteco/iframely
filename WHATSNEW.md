@@ -4,6 +4,9 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2013.09.17, Version 0.5.1
+
+ * fix encoding issues for non-latin characters
 
 ### 2013.09.16, Version 0.5.0
 
