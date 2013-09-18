@@ -7,7 +7,8 @@ module.exports = {
 
         var rel;
 
-        if (meta.twitter.card == "photo" && whitelistRecord.isAllowed('twitter.photo')) {
+        // TODO: make whitelistRecord.isAllowed always existing method?
+        if (meta.twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             rel = CONFIG.R.image;
         } else {
             rel = CONFIG.R.thumbnail;
