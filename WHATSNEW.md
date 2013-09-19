@@ -4,6 +4,10 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2013.09.??, Version 0.5.2
+
+ * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
+
 ### 2013.09.17, Version 0.5.1
 
  * fix encoding issues for non-latin characters
