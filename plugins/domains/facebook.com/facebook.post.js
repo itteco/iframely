@@ -1,8 +1,29 @@
+var _ = require('underscore');
+
 module.exports = {
 
     re: /^https?:\/\/www\.facebook\.com\/(?!login\.php).+/i,
 
     getLink: function(url, meta) {
+
+        var badRe = [
+            // From profile.
+            /^https?:\/\/(?:(?:www|m)\.)?facebook\.com\/(?!photo)([^\/\?#]+)(?:\?|#|\/?$)/i,
+            /^https?:\/\/www\.facebook\.com\/(?!photo)([^\/\?#]+)$/i,
+
+            // From video.
+            /^https?:\/\/www\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
+            /^https?:\/\/www\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
+            /^https?:\/\/www\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i
+        ];
+
+        var good = _.every(badRe, function(re) {
+            return !url.match(re);
+        });
+
+        if (!good) {
+            return;
+        }
 
         var title = meta["html-title"];
         title = title.replace(/ \| Facebook$/, "");

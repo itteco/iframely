@@ -2,6 +2,7 @@ var qs = require('querystring');
 
 module.exports = {
 
+    // Re used in facebook.post.
     re: [
         /^https?:\/\/www\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/www\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
@@ -19,7 +20,13 @@ module.exports = {
         };
     },
 
-    getLinks: function(urlMatch) {
+    getLinks: function(url) {
+
+        var urlMatch;
+
+        this.re.forEach(function(re) {
+            urlMatch = urlMatch || url.match(re);
+        });
 
         return {
             href: "//www.facebook.com/video/embed?video_id=" + urlMatch[1],

@@ -1,11 +1,18 @@
 module.exports = {
 
+    // Re used in facebook.post.
     re: [
         /^https?:\/\/(?:(?:www|m)\.)?facebook\.com\/(?!photo)([^\/\?#]+)(?:\?|#|\/?$)/i,
         /^https?:\/\/www\.facebook\.com\/(?!photo)([^\/\?#]+)$/i
     ],
 
-    getLink: function(urlMatch, request, cb) {
+    getLink: function(url, request, cb) {
+
+        var urlMatch;
+
+        this.re.forEach(function(re) {
+            urlMatch = urlMatch || url.match(re)
+        });
 
         var graphUri = 'http://graph.facebook.com/' + urlMatch[1];
 
