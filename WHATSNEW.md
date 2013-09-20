@@ -6,6 +6,8 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2013.09.??, Version 0.5.2
 
+ * fix pinterest matching regexps
+ + add helper functions to iframely.js: easy find links by rel and best fit size
  * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
 
 ### 2013.09.17, Version 0.5.1
