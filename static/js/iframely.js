@@ -120,7 +120,7 @@
     };
 
     $.iframely.defaults = {
-        endpoint: "http://iframely.com/iframely"
+        endpoint: "//iframely.com/iframely"
     };
 
     function wrapContainer($element, data) {
@@ -539,6 +539,14 @@
                     return 1;
                 }
             });
+        }
+
+        if (result && options.returnOne) {
+            if (result.length > 0) {
+                return result[0];
+            } else {
+                return null;
+            }
         }
 
         return result;
