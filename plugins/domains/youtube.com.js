@@ -45,7 +45,8 @@ module.exports = {
             duration: youtube_gdata.duration,
             likes: youtube_gdata.likeCount,
             views: youtube_gdata.viewCount,
-            comments: youtube_gdata.commentCount
+            comments: youtube_gdata.commentCount,
+            site: "YouTube"
         };
     },
 
