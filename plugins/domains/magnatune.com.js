@@ -8,19 +8,15 @@ module.exports = {
     ],
 
     mixins: [
-        "og-description",
-        "og-image",
         "favicon"
     ],
 
-    getData: function(url, urlMatch, meta) {
+    getData: function(urlMatch, meta) {
 
-        var image_url = URL.parse(meta.og.image);
-        var image_path = image_url.path.split("/");
-
+        var html_title = meta['html-title'].split(/\s*:\s+/);
+        var title  = html_title[0].trim();
+        var author = html_title[1].replace(/\s*\(listen for free\)\s*$/, '').trim();
         var sku    = urlMatch[1];
-        var author = decodeURIComponent(image_path[2]);
-        var title  = decodeURIComponent(image_path[3]);
 
         return {
             magnatune_meta: {
