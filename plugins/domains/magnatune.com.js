@@ -4,7 +4,7 @@ var jQuery = require("jquery");
 module.exports = {
 
     re: [
-        /^http:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(?:lofi_play)?)?(?:[\?#].*)?$/i
+        /^http:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(lofi_play)?)?(?:[\?#].*)?$/i
     ],
 
     mixins: [
@@ -17,6 +17,12 @@ module.exports = {
         var title  = html_title[0].trim();
         var author = html_title[1].replace(/\s*\(listen for free\)\s*$/, '').trim();
         var sku    = urlMatch[1];
+
+		if (urlMatch[2] === 'lofi_play') {
+			var tmp = author;
+			author = title;
+			title  = tmp;
+		}
 
         return {
             magnatune_meta: {
