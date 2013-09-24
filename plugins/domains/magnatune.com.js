@@ -18,11 +18,11 @@ module.exports = {
         var author = html_title[1].replace(/\s*\(listen for free\)\s*$/, '').trim();
         var sku    = urlMatch[1];
 
-		if (urlMatch[2] === 'lofi_play') {
-			var tmp = author;
-			author = title;
-			title  = tmp;
-		}
+        if (urlMatch[2] === 'lofi_play') {
+            var tmp = author;
+            author = title;
+            title  = tmp;
+        }
 
         return {
             magnatune_meta: {
