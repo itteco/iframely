@@ -139,6 +139,7 @@ Itteco has developed couple demo services based on Iframely technology (well, it
 
 * [Iframe.ly](http://iframe.ly) - the web shortener
 * [Nowork FM](http://nowork.fm) - simple intranet for your team
+* [Iframely for Gmail](https://chrome.google.com/webstore/detail/iframely-for-gmail/bbafbcjnlgfbemjemgliogmfdlkocjmi) - watch videos, view photos and read articles in your inbox.
 
 Feel free to try it to get an inspiration and idea of the possibilities. 
 
