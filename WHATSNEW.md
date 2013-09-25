@@ -6,6 +6,8 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2013.09.??, Version 0.5.2
 
+ * fix matching domain plugins for urls with varying domains like `maps.google.co.uk` and `maps.google.com`
+ + add support of new url schema for openstreetmap.org (Mathias Panzenböck)
  * fix pinterest matching regexps
  + add helper functions to iframely.js: easy find links by rel and best fit size
  * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
