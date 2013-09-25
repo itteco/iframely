@@ -11,7 +11,7 @@ var TypeMap = {
 
 function diameterToZoom (diameter) {
     var zoom = Math.floor(19 - Math.log(diameter / 1000) / Math.LN2);
-    return zoom < 0 ? 0 : zoom;
+    return zoom < 0 ? 0 : zoom > 20 ? 20 : zoom;
 }
 
 module.exports = {
