@@ -9,9 +9,17 @@ var TypeMap = {
     k: 'hybrid'
 };
 
+function diameterToZoom (diameter) {
+    var zoom = Math.floor(19 - Math.log(diameter / 1000) / Math.LN2);
+    return zoom < 0 ? 0 : zoom;
+}
+
 module.exports = {
 
-    re: /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms)?)?\?.+/i,
+    re: [
+        /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms|\/preview)?)?[\?\#].+/i,
+        /^https?:\/\/(?:www\.)?google\.com\/maps(?:\/preview)?[\?\#].+/i
+    ],
 
     mixins: [
         'html-title',
@@ -19,9 +27,52 @@ module.exports = {
     ],
 
     getLink: function(url) {
-        var query = URL.parse(url,true).query;
+        url = URL.parse(url,true);
+
+        var query = url.query;
+
+        // convert new url scheme to old
+        if (query.output !== 'classic' && url.hash) {
+            var hash = QueryString.parse(url.hash.replace(/^#?!/,''));
+
+            if (hash.q) {
+                query.q = hash.q;
+            }
+
+            if (hash.data) {
+                var data = hash.data.split('!');
+                var lat = 0;
+                var lon = 0;
+                var i;
+
+                for (i = 0; i < data.length; ++ i) {
+                    var arg = data[i];
+                    if (/^1d\d+/.test(arg)) { // visible distance
+                        query.z = diameterToZoom(Number(arg.slice(2)));
+                    }
+                    else if (/^2d./.test(arg)) { // longitude
+                        lon = arg.slice(2);
+                    }
+                    else if (/^3d./.test(arg)) { // latitude
+                        lat = arg.slice(2);
+                    }
+                    else if (arg === '1e0') { // maps
+                        query.t = 'm';
+                    }
+                    else if (arg === '1e2') { // image gallery
+                        query.lci = 'com.panoramio.all';
+                    }
+                    else if (arg === '1e3') { // satellite
+                        query.t = 'h';
+                    }
+                }
+                query.ll = lat+','+lon;
+            }
+        }
+
+        delete query.output;
+
         var iframe_query = jQuery.extend({},query,{ie: 'UTF8', output: 'embed'});
-        delete iframe_query.z;
 
         if (!query.spn && query.sspn) {
             iframe_query.spn = query.sspn;
@@ -33,6 +84,10 @@ module.exports = {
 
         if (!query.f && (query.saddr || query.daddr)) {
             iframe_query.f = 'd';
+        }
+
+        if (iframe_query.spn) {
+            delete iframe_query.z;
         }
 
         var links = [{
