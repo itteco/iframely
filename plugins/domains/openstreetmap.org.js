@@ -215,6 +215,7 @@ module.exports = {
     tests: [
         "http://www.openstreetmap.org/?lat=48.12446&lon=16.42282&zoom=15&layers=M",
         "http://www.openstreetmap.org/?lat=51.5064&lon=-0.1281&zoom=14&layers=MC",
+        "http://www.openstreetmap.org/#map=12/50.2598/28.6695",
         {
             noFeeds: true
         }
