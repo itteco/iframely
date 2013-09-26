@@ -1,5 +1,10 @@
 module.exports = {
 
+    /*
+    Docs at:
+    https://developers.google.com/+/web/embedded-post/
+    */
+
     re: [
         /https:\/\/plus\.google\.com\/(\w+)\/posts\/(\w+)/i,
         /https:\/\/plus\.google\.com\/\+(\w+)\/posts\/(\w+)/i,
