@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 module.exports = {
 
     re: /^http:\/\/theoatmeal\.com\/blog\/[a-z0-9_-]+/i,
@@ -10,10 +12,29 @@ module.exports = {
     ],
 
     getData: function($selector) {
+
+        var $body = $selector('.post_body');
+        var text = $body.text();
+
+        if ($.trim(text)) {
+            return {
+                readability_data: {
+                    html: $body.html()
+                }
+            };
+        } else {
+            return {
+                theoatmeal_body: $body.html()
+            };
+        }
+    },
+
+    // TODO: make generic plugin?
+    getLink: function(theoatmeal_body) {
         return {
-            readability_data: {
-                html: $selector('.post_body').html()
-            }
+            html: theoatmeal_body,
+            type: CONFIG.T.safe_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
     },
 
@@ -21,6 +42,9 @@ module.exports = {
         page: "http://theoatmeal.com/blog",
         selector: "a.arrow_right"
     },
-        "http://theoatmeal.com/blog/fathers_day2013"
+        "http://theoatmeal.com/blog/fathers_day2013",
+        {
+            skipMethods: ["getLink"]
+        }
     ]
 };
