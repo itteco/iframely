@@ -54,10 +54,18 @@
     });
 
     $.iframely.setIframeHeight = function($iframe, height) {
-        $iframe
-            .parents('.iframely-widget-container')
-            .css('padding-bottom', '')
-            .css('height', height);
+
+        var $parent = $iframe.parents('.iframely-widget-container');
+
+        if ($parent.length > 0) {
+
+            $parent
+                .css('padding-bottom', '')
+                .css('height', height);
+
+        } else {
+            $iframe.css('height', height);
+        }
     };
 
     $.iframely.registerIframesIn = function($parent) {

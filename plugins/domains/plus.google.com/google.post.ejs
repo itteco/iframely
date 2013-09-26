@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <style>
+        body {
+            margin: 0px;
+            overflow: hidden;
+        }
+    </style>
+    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/iframely-utils.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script>
+
+        function init() {
+            var d = document.getElementById('iframely-content');
+
+            $.iframely.registerHeightGetter(function() {
+                return d.scrollHeight;
+            });
+        }
+
+    </script>
+<body onload="init();">
+<div id='iframely-content'>
+    <div class="g-post" data-href="<%= uri %>">
+    <div>
+<div>
+</body>
+</html>
