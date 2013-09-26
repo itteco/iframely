@@ -6,6 +6,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### Work In Progress -  Version 0.5.2
 
+ + added allthingsd.com player plugin
  + added [Google+ Posts](https://developers.google.com/+/web/embedded-post/) plugin
  + added support of new url schema for openstreetmap.org (Mathias Panzenböck)
  + added helper functions to iframely.js: easy find links by rel and best fit size
