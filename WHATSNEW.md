@@ -4,9 +4,9 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
-### 2013.09.??, Version 0.5.2
+### Work In Progress -  Version 0.5.2
 
- + added Google+ Embedded Posts plugin
+ + added [Google+ Posts](https://developers.google.com/+/web/embedded-post/) plugin
  + added support of new url schema for openstreetmap.org (Mathias Panzenböck)
  + added helper functions to iframely.js: easy find links by rel and best fit size
  * fixed matching domain plugins for urls with varying domains like `maps.google.co.uk` and `maps.google.com`
