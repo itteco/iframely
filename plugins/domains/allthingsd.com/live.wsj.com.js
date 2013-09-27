@@ -9,7 +9,7 @@ module.exports = {
         "description",
         "site",
 
-        "favicon""
+        "favicon"
     ],
 
     getLink: function(urlMatch) {

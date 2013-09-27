@@ -6,6 +6,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### Work In Progress -  Version 0.5.2
 
+ + added weheartit.com photo plugin
  + added travelchannel.com video player plugin
  + added live.huffingtonpost.com player plugin
  + added allthingsd.com player plugin
