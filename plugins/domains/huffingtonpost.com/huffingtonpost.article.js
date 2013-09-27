@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.huffingtonpost\.com\//i,
+    re: /^http:\/\/www\.(huffingtonpost|huffpostmaghreb)\.(com|ca|fr|it|jp|es|co\.uk)\//i,
 
     mixins: [
         "og-title",

@@ -16,6 +16,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
  * fixed matching domain plugins for urls with varying domains like `maps.google.co.uk` and `maps.google.com`
  * fixed pinterest matching regexps
  * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
+ * support international domains for huffingtonpost.com
 
 ### 2013.09.17, Version 0.5.1
 
