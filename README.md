@@ -139,6 +139,7 @@ Itteco has developed couple demo services based on Iframely technology (well, it
 
 * [Iframe.ly](http://iframe.ly) - the web shortener
 * [Nowork FM](http://nowork.fm) - simple intranet for your team
+* [Iframely for Gmail](https://chrome.google.com/webstore/detail/iframely-for-gmail/bbafbcjnlgfbemjemgliogmfdlkocjmi) - watch videos, view photos and read articles in your inbox.
 
 Feel free to try it to get an inspiration and idea of the possibilities. 
 
@@ -148,7 +149,7 @@ Feel free to try it to get an inspiration and idea of the possibilities.
 
 We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions.
 
-Fork and do a pull-request, if you'de like to [add more plugins](http://iframely.com/gateway/write-plugin) and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
+Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
 If you are a publisher and would like to make your embeds available under [Iframely Protocol](http://iframely.com/oembed2) (and thus distributed through this open-source gateway) - please, [add your domain to the whitelist](http://iframely.com/qa/request).
 

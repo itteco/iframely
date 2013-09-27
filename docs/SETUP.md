@@ -48,7 +48,7 @@ You can also fine-tune API response time by disabling image size detection or re
 
 ## Run Server
 
-Starting server is simple. From Iframely home directory:
+Starting the server is simple. From Iframely home directory:
 
     node server
 

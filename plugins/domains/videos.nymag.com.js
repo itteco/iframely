@@ -29,6 +29,9 @@ module.exports = {
         page: "http://videos.nymag.com/watch/recent",
         selector: ".mvp_grid_panel_title a"
     },
-        "http://videos.nymag.com/video/Models-Studio-Jourdan-Dunn-2;toprated"
+        "http://videos.nymag.com/video/Models-Studio-Jourdan-Dunn-2;toprated",
+        {
+            skipMixins: ["copyright"]
+        }
     ]
 };

@@ -36,30 +36,15 @@ module.exports = function(app) {
 
         log('Loading oembed2 for', uri);
 
-        var meta;
-
         async.waterfall([
 
             function(cb) {
 
-                // TODO: load all meta from getRawLinks method?
-                if (req.query.meta) {
-                    iframelyMeta.getPageData(uri, {
-                        meta: true,
-                        oembed: true,
-                        fullResponse: false
-                    }, cb);
-                } else {
-                    cb(null, null);
-                }
-            },
-
-            function(data, cb) {
-                meta = data;
                 iframely.getRawLinks(uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    disableCache: req.query.refresh === "true"
+                    forceMeta: req.query.meta,
+                    forceOembed: req.query.meta
                 }, cb);
             }
 
@@ -71,6 +56,8 @@ module.exports = function(app) {
                 }
                 return next(new Error(error));
             }
+
+            var debug = result.debug;
 
             if (!req.query.debug) {
                 delete result.debug;
@@ -101,8 +88,12 @@ module.exports = function(app) {
                 result.whitelist = iframely.whitelist.findWhitelistRecordFor(uri) || {};
             }
 
-            if (meta) {
-                result['raw-meta'] = meta;
+            if (req.query.meta) {
+                var raw_meta = result['raw-meta'] = {};
+                if (debug.length > 0) {
+                    raw_meta.meta = debug[0].context.meta;
+                    raw_meta.oembed = debug[0].context.oembed;
+                }
             }
 
             res.send(result);

@@ -4,6 +4,21 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2013.09.27 -  Version 0.5.2
+
+ + added weheartit.com photo plugin
+ + added travelchannel.com video player plugin
+ + added live.huffingtonpost.com player plugin
+ + added allthingsd.com player plugin
+ + added [Google+ Posts](https://developers.google.com/+/web/embedded-post/) plugin
+ + added support of new url schema for openstreetmap.org (Mathias Panzenböck)
+ + added helper functions to iframely.js: easy find links by rel and best fit size
+ * fixed matching domain plugins for urls with varying domains like `maps.google.co.uk` and `maps.google.com`
+ * fixed pinterest matching regexps
+ * fixed smugmug.com photo plugin to work with new url schema
+ * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
+ * support international domains for huffingtonpost.com
+
 ### 2013.09.17, Version 0.5.1
 
  * fix encoding issues for non-latin characters

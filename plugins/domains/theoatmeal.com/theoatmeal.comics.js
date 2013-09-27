@@ -15,16 +15,16 @@ module.exports = {
         };
     },
 
-    getData: function($selector) {
+    getLink: function($selector) {
 
         var $comic = $selector('#comic');
 
         $comic.find('#content_footer2').remove();
 
         return {
-            readability_data: {
-                html: $comic.html()
-            }
+            html: $comic.html(),
+            type: CONFIG.T.safe_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
     },
 

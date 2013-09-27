@@ -158,7 +158,7 @@ For `oembed video`, this tag also means that you need to extract the value of at
 
 ### Additional `ssl` tag
 
-If we `https` is the transport protocol of frames in embed code, we verify that the SSL certificate is valid and does not generate browser errors on load and does not break the lock of the browser. Passive mixed content browser warnings when the video or audio starts to play may still occur.
+If `https` is the transport protocol of frames in embed code, we verify that the SSL certificate is valid and does not generate browser errors on load and does not break the lock of the browser. Passive mixed content browser warnings when the video or audio starts to play may still occur.
 
 For `og video` it also verifies the value of `og:video:secure_url` attribute.
 

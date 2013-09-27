@@ -44,11 +44,9 @@ module.exports = {
         });
 
         // Use 'shortcut icon' if no other.
-        if (links.length == 0) {
-            findIcons(links, function(key) {
-                return key == 'shortcut icon';
-            });
-        }
+        findIcons(links, function(key) {
+            return key == 'shortcut icon';
+        });
 
         // Push default icon if no icons at all.
         if (links.length == 0) {

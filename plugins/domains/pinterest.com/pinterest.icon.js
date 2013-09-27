@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/pinterest\.com\//i,
+    re: /^https?:\/\/(?:www\.)?pinterest\.com\//i,
 
     getLink: function() {
         return {

@@ -9,9 +9,17 @@ var TypeMap = {
     k: 'hybrid'
 };
 
+function diameterToZoom (diameter) {
+    var zoom = Math.floor(19 - Math.log(diameter / 1000) / Math.LN2);
+    return zoom < 0 ? 0 : zoom > 20 ? 20 : zoom;
+}
+
 module.exports = {
 
-    re: /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms)?)?\?.+/i,
+    re: [
+        /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms|\/preview)?)?[\?\#].+/i,
+        /^https?:\/\/(?:www\.)?google\.com\/maps(?:\/preview)?[\?\#].+/i
+    ],
 
     mixins: [
         'html-title',
@@ -19,9 +27,52 @@ module.exports = {
     ],
 
     getLink: function(url) {
-        var query = URL.parse(url,true).query;
+        url = URL.parse(url,true);
+
+        var query = url.query;
+
+        // convert new url scheme to old
+        if (query.output !== 'classic' && url.hash) {
+            var hash = QueryString.parse(url.hash.replace(/^#?!/,''));
+
+            if (hash.q) {
+                query.q = hash.q;
+            }
+
+            if (hash.data) {
+                var data = hash.data.split('!');
+                var lat = 0;
+                var lon = 0;
+                var i;
+
+                for (i = 0; i < data.length; ++ i) {
+                    var arg = data[i];
+                    if (/^1d\d+/.test(arg)) { // visible distance
+                        query.z = diameterToZoom(Number(arg.slice(2)));
+                    }
+                    else if (/^2d./.test(arg)) { // longitude
+                        lon = arg.slice(2);
+                    }
+                    else if (/^3d./.test(arg)) { // latitude
+                        lat = arg.slice(2);
+                    }
+                    else if (arg === '1e0') { // maps
+                        query.t = 'm';
+                    }
+                    else if (arg === '1e2') { // image gallery
+                        query.lci = 'com.panoramio.all';
+                    }
+                    else if (arg === '1e3') { // satellite
+                        query.t = 'h';
+                    }
+                }
+                query.ll = lat+','+lon;
+            }
+        }
+
+        delete query.output;
+
         var iframe_query = jQuery.extend({},query,{ie: 'UTF8', output: 'embed'});
-        delete iframe_query.z;
 
         if (!query.spn && query.sspn) {
             iframe_query.spn = query.sspn;
@@ -33,6 +84,10 @@ module.exports = {
 
         if (!query.f && (query.saddr || query.daddr)) {
             iframe_query.f = 'd';
+        }
+
+        if (iframe_query.spn) {
+            delete iframe_query.z;
         }
 
         var links = [{
@@ -98,6 +153,7 @@ module.exports = {
         "https://maps.google.com/maps?saddr=Linz,+Austria&daddr=48.8674527,2.3531961+to:London,+United+Kingdom&hl=en&sll=49.843352,7.08885&sspn=5.930447,16.907959&geocode=Ffwa4QIdBvzZAClNhZn6lZVzRzHEdXlXLClTfA%3BFXyo6QIdLOgjACmptoaSEG7mRzHRA-RB5kIhIA%3BFa7_EQMd8Cv-_yl13iGvC6DYRzGZKtXdWjqWUg&oq=London&t=h&mra=dpe&mrsp=1&sz=7&via=1&z=7",
         "https://maps.google.com/maps/ms?msid=200639360345265791507.0004e066058111401f6e7&msa=0&ll=50.522158,15.943909&spn=1.066929,4.22699",
         "https://maps.google.com.ua/maps?q=%D1%87%D0%BE%D1%80%D0%BD%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D1%81%D0%BA%D0%B0+%D0%B0%D0%B5%D1%81&hl=uk&ie=UTF8&ll=51.376442,30.132086&spn=0.01539,0.022144&sll=48.33599,31.18287&sspn=16.793485,22.675781&t=h&hq=%D1%87%D0%BE%D1%80%D0%BD%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D1%81%D0%BA%D0%B0+%D0%B0%D0%B5%D1%81&z=16",
-        "http://goo.gl/maps/WmfmA"
+        "http://goo.gl/maps/WmfmA",  // Will not work because redirected url not passed to context. Will be fixed later.
+        "https://www.google.com/maps/preview#!q=hotel&data=!1m4!1m3!1d849587!2d29.1797946!3d47.0152013!2m1!1e3!4m10!1m9!4m8!1m3!1d849633!2d19.1797946!3d47.0152013!3m2!1i1920!2i937!4f13.1&fid=7"
     ]
 };

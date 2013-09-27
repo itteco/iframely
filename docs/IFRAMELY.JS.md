@@ -4,7 +4,7 @@
 
 You may find `iframely.js` lib in `/static/js/iframely.js` folder. 
 
-It facilitates calls and fetches information from `/iframely` API endpoint and renderы responsive embed widgets from the data received.
+It facilitates calls and fetches information from `/iframely` API endpoint and renders responsive embed widgets from the data received.
 
 
 
@@ -88,7 +88,7 @@ The code above will put the following JSON into console [log](http://iframely.co
     }
 
 
-The format of this JSON object is given in [API description](http://iframely.com/gateway/api).
+The format of this JSON object is given in [API description](http://iframely.com/gateway/API).
 
 You can use `data.meta` to get available meta attributes of your `uri` or `data.links` to render some widgets from it.
 
@@ -96,7 +96,7 @@ You can use `data.meta` to get available meta attributes of your `uri` or `data.
 
 ## Render `links` Widgets
 
-You would need to make a choice which links/widgets you'd like to render from a list given in the response code. Please, refer to [Iframely Protocol](http://iframely.com/oembed) spec.
+You would need to make a choice which links/widgets you'd like to render from a list given in the response code. Please, refer to [Iframely Protocol](http://iframely.com/oembed2) spec.
 
 Each link in API response from previous example can be rendered in a following way:
 

@@ -41,7 +41,8 @@ module.exports = {
         skipMixins: [
             "og-title",
             "oembed-title",
-            "keywords"
+            "keywords",
+            "canonical"
         ]
     }]
 };

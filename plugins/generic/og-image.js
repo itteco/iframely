@@ -8,7 +8,8 @@ module.exports = {
             return;
 
         var rel;
-        if ((meta.twitter && meta.twitter.card == "photo" && !meta.twitter.image) && whitelistRecord.isAllowed('twitter.photo')) {
+        // TODO: make whitelistRecord.isAllowed always existing method?
+        if ((meta.twitter && meta.twitter.card == "photo" && !meta.twitter.image) && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             rel = [CONFIG.R.image, CONFIG.R.og, CONFIG.R.twitter];
         } else {
             rel = [CONFIG.R.thumbnail, CONFIG.R.og];

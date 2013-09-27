@@ -2,15 +2,15 @@
 
     /*
 
-    Iframely consumer client lib.
+     Iframely consumer client lib.
 
-    Versrion 0.5.1
+     Versrion 0.5.2
 
-    Fetches and renders iframely oebmed/2 widgets.
+     Fetches and renders iframely oebmed/2 widgets.
 
-    */
+     */
 
-    var XD = function(){
+    var windowMessaging = function(){
 
         return {
             postMessage : function(message, target_url, target) {
@@ -44,19 +44,33 @@
     $.iframely = $.iframely || {};
     $.iframely.iframes = $.iframely.iframes || {};
 
-    XD.receiveMessage(function(e) {
+    windowMessaging.receiveMessage(function(e) {
         var $iframe;
         if (e.data && e.data.windowId && ($iframe = $.iframely.iframes[e.data.windowId])) {
-            if (e.data.method == "resize" && e.data.height) {
-                $iframe.parent()
-                    .css('padding-bottom', '')
-                    .css('height', e.data.height);
+            if ($.iframely.setIframeHeight && e.data.method == "resize" && e.data.height) {
+                $.iframely.setIframeHeight($iframe, e.data.height);
             }
         }
     });
 
+    $.iframely.setIframeHeight = function($iframe, height) {
+
+        var $parent = $iframe.parents('.iframely-widget-container');
+
+        if ($parent.length > 0) {
+
+            $parent
+                .css('padding-bottom', '')
+                .css('height', height);
+
+        } else {
+            $iframe.css('height', height);
+        }
+    };
+
     $.iframely.registerIframesIn = function($parent) {
-        $parent.find('iframe').each(function() {
+
+        $parent.find('iframe.iframely-iframe').each(function() {
 
             var $iframe = $(this);
 
@@ -71,7 +85,7 @@
                 var iframesCounter = $.iframely.iframesCounter = ($.iframely.iframesCounter || 0) + 1;
 
                 $.iframely.iframes[iframesCounter] = $iframe;
-                XD.postMessage({
+                windowMessaging.postMessage({
                     method: "register",
                     windowId: iframesCounter
                 }, '*', this.contentWindow);
@@ -114,7 +128,7 @@
     };
 
     $.iframely.defaults = {
-        endpoint: "http://iframely.com/iframely"
+        endpoint: "//iframely.com/iframely"
     };
 
     function wrapContainer($element, data) {
@@ -191,6 +205,11 @@
                     .addClass("iframely-widget iframely-script")
                     .attr('type', data.type)
                     .attr('src', data.href);
+                var $container = $('<div>')
+                    .attr('iframely-container-for', data.href)
+                    .append($script);
+
+                return $container;
             }
         },
         "image": {
@@ -217,11 +236,14 @@
                     || data.type == "video/webm"
                     || data.type == "video/ogg");
             },
-            generate: function(data, iframely_data) {
+            generate: function(data, options) {
+
+                var iframelyData = options && options.iframelyData;
+
                 var $video = $('<video controls>Your browser does not support HTML5 video.</video>')
                     .addClass("iframely-widget iframely-video");
 
-                if (iframely_data && iframely_data.links) {
+                if (iframelyData && iframelyData.links) {
 
                     // Find video aspect.
                     var media = data.media;
@@ -232,17 +254,17 @@
                             ["max-width", "max-height"],
                             ["width", "height"]
                         ].forEach(function(dims) {
-                            var w = media[dims[0]];
-                            var h = media[dims[1]];
-                            if (w && h) {
-                                aspect = w / h;
-                            }
-                        });
+                                var w = media[dims[0]];
+                                var h = media[dims[1]];
+                                if (w && h) {
+                                    aspect = w / h;
+                                }
+                            });
                     }
 
                     if (aspect) {
                         // Find images with same aspect.
-                        var thumbnails = iframely_data.links.filter(function(link) {
+                        var thumbnails = iframelyData.links.filter(function(link) {
                             if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
                                 var m = link.media;
                                 if (m && m.width && m.height) {
@@ -271,7 +293,11 @@
                     .attr('src', data.href)
                     .attr('type', data.type);
 
-                return wrapContainer($video, data);
+                if (options && options.disableSizeWrapper) {
+                    return $video;
+                } else {
+                    return wrapContainer($video, data);
+                }
             }
         },
         "iframe": {
@@ -280,26 +306,258 @@
                     || data.type == "application/x-shockwave-flash")
                     && data.href;
             },
-            generate: function(data) {
+            generate: function(data, options) {
 
                 var $iframe = $('<iframe>')
                     .addClass("iframely-widget iframely-iframe")
                     .attr('src', data.href)
                     .attr('frameborder', '0');
 
-                return wrapContainer($iframe, data);
+                if (options && options.disableSizeWrapper) {
+                    return $iframe;
+                } else {
+                    return wrapContainer($iframe, data);
+                }
             }
         }
     };
 
-    $.iframely.generateLinkElement = function(link, allData) {
+    $.iframely.generateLinkElement = function(link, options) {
+
+        // Backward compatibility with v.0.5.1.
+        if (options && options.links) {
+            options = {
+                iframelyData: options
+            };
+        }
+
 
         for(var key in renders) {
             var render = renders[key];
             if (render.test(link)) {
-                return render.generate(link, allData);
+                return render.generate(link, options);
             }
         }
+    };
+
+    $.iframely.findBestFittedLink = function(targetWidth, targetHeight, links) {
+
+        if (!links || links.length == 0) {
+            return;
+        }
+
+        var sizedLinks = links.filter(function(link) {
+            var media = link.media;
+            return media && media.width && media.height;
+        });
+
+        if (sizedLinks.length == 0) {
+            return links[0];
+        }
+
+        var targetAspect = targetWidth / targetHeight;
+
+        var fits = [];
+        sizedLinks.forEach(function(link) {
+
+            var width = link.media.width;
+            var height = link.media.height;
+
+            var aspect = width / height;
+            var scale;
+
+            if (aspect > targetAspect) {
+                scale = width / targetWidth;
+            } else {
+                scale = height / targetHeight;
+            }
+
+            if (scale > 1) {
+                width = width / scale;
+                height = height / scale;
+            }
+
+            var diffSquare = targetWidth * targetHeight - width * height;
+
+            fits.push({
+                link: link,
+                scale: scale,
+                modScale: scale > 1 ? scale : 1 / scale,
+                diffSquare: diffSquare
+            });
+        });
+
+        // Check images smaller then screen.
+        var smallFit;
+        var smallFits = fits.filter(function(fit) {
+            return fit.scale <= 1;
+        });
+        if (smallFits.length > 0) {
+            smallFits.sort(function(a, b) {
+                return b.scale - a.scale;
+            });
+            smallFit = smallFits[0];
+        }
+
+        // Check images larger then screen.
+        var bigFit;
+        var bigFits = fits.filter(function(fit) {
+            return fit.scale > 1;
+        });
+        if (bigFits.length > 0) {
+            bigFits.sort(function(a, b) {
+                // Sort by smallest black square.
+                var result = a.diffSquare - a.diffSquare;
+                if (result == 0) {
+                    // Sort by smallest square
+                    result = a.scale - b.scale;
+                }
+                return result;
+            });
+            bigFit = bigFits[0];
+        }
+
+        // Select closest to 100% scale from smallFit and bigFit.
+        var results = [smallFit, bigFit].filter(function(fit) {
+            return fit;
+        });
+        results.sort(function(a, b) {
+            return a.modScale - b.modScale;
+        });
+
+        return results[0].link;
+    };
+
+    // This not works with scaling. Not used yet.
+    $.iframely.findBestSizedLink = function(targetWidth, targetHeight, links) {
+
+        if (!links || links.length == 0) {
+            return;
+        }
+
+        var sizedLinks = links.filter(function(link) {
+            var media = link.media;
+            return media && media.width && media.height;
+        });
+
+        if (sizedLinks.length == 0) {
+            return links[0];
+        }
+
+        var fits = [];
+        sizedLinks.forEach(function(link) {
+            var width = link.media.width;
+            var height = link.media.height;
+
+            var widthDiff = width - targetWidth;
+            var heightDiff = height - targetHeight;
+
+            var overSquare = 0, lostSquare = 0;
+
+            if (widthDiff > 0 && heightDiff > 0) {
+                overSquare = width * height - targetWidth * targetHeight;
+            }
+
+            if (widthDiff < 0 && heightDiff < 0) {
+                lostSquare = targetWidth * targetHeight - width * height;
+            }
+
+            if (widthDiff > 0 && heightDiff < 0) {
+                overSquare = widthDiff * height;
+                lostSquare = - heightDiff * targetWidth;
+            }
+
+            if (widthDiff < 0 && heightDiff > 0) {
+                overSquare = heightDiff * width;
+                lostSquare = - widthDiff * targetHeight;
+            }
+
+            fits.push({
+                link: link,
+                overSquare: overSquare,
+                lostSquare: lostSquare
+            });
+        });
+
+        // Full fit cases, find smalest image.
+        var fullFits = fits.filter(function(fit) {
+            return fit.lostSquare == 0;
+        });
+        if (fullFits.length > 0) {
+            fullFits.sort(function(a, b) {
+                return a.overSquare - b.overSquare;
+            });
+
+            return fullFits[0].link;
+        }
+
+        // Partial fit cases, find less image loss.
+        var partialFits = fits.filter(function(fit) {
+            return fit.lostSquare > 0;
+        });
+        partialFits.sort(function(a, b) {
+            return a.lostSquare - b.lostSquare;
+        });
+
+        return partialFits[0].link;
+    };
+
+    $.iframely.filterLinksByRel = function(rel, links, options) {
+
+        var options = options || {};
+
+        if (typeof rel == "string") {
+            rel = [rel];
+        }
+
+        function isHttps(href) {
+            return href.indexOf('//:') == 0 || href.indexOf('https://') == 0;
+        }
+
+        var result = links && links.filter && links.filter(function(link) {
+
+            if (options.httpsOnly) {
+                if (!isHttps(link.href)) {
+                    return false;
+                }
+            }
+
+            var found = false;
+            var idx = 0;
+            while (!found && idx < rel.length) {
+                if (link.rel.indexOf(rel[idx]) > -1) {
+                    found = true;
+                }
+                idx++;
+            }
+            return found;
+        });
+
+        if (result && options.httpsFirst) {
+            result.sort(function(a, b) {
+                var sa = isHttps(a.href);
+                var sb = isHttps(a.href);
+                if (sa == sb) {
+                    return 0;
+                }
+
+                if (sa && !sb) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            });
+        }
+
+        if (result && options.returnOne) {
+            if (result.length > 0) {
+                return result[0];
+            } else {
+                return null;
+            }
+        }
+
+        return result;
     };
 
 })( jQuery );

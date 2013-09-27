@@ -13,7 +13,7 @@
 
 module.exports = {
 
-    re: /^https?:\/\/pinterest\.com\/((?!pin)[a-z0-9]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-z0-9]+)\/?(?:$|\?|#)/i,
 
     getMeta: function() {
         return {

@@ -52,7 +52,7 @@ function findDebugInfo(options, data) {
 
     // Find debug data for specific link.
 
-    var defaultContext = data.debug[0] && data.debug[0].context;
+    var defaultContext = data.debug[0] && data.debug[0].context || {};
     defaultContext.request = true;
     defaultContext.$selector = true;
 

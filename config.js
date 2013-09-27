@@ -62,7 +62,9 @@
             icon: "icon",
             logo: "logo",
 
-            inline: "inline"
+            inline: "inline",
+
+            autoplay: "autoplay"
         },
 
         // Whitelist settings.
