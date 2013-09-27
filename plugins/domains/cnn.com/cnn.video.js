@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/\w*\.?cnn\.com\/video\//i,
+    re: /^http:\/\/(\w+\.)?cnn\.com\/video\//i,
 
     mixins: [
         "canonical",
@@ -23,7 +23,7 @@ module.exports = {
             return {
                 href: meta.og.video.url,
                 type: "video/" + m[1],
-                rel: CONFIG.R.rel,
+                rel: CONFIG.R.player,
                 "aspect-ratio": meta.og.video.width / meta.og.video.height
             };
         }
