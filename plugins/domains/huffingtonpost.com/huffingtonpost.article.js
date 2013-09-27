@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /^http:\/\/www\.huffingtonpost\.com\//i,
+
     mixins: [
         "og-title",
         "og-image",
@@ -15,6 +17,7 @@ module.exports = {
     ],
 
     getData: function($selector) {
+
         var $body = $selector('.entry_body_text,.articleBody');
         $body.find('.video_box_title,.promo_holder').remove();
         return {
