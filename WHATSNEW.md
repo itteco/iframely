@@ -4,7 +4,7 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
-### Work In Progress -  Version 0.5.2
+### 2013.09.27 -  Version 0.5.2
 
  + added weheartit.com photo plugin
  + added travelchannel.com video player plugin
