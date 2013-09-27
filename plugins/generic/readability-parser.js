@@ -3,7 +3,11 @@ var readability = require('iframely-readability');
 
 module.exports = {
 
-    getLink: function(url, readability_data, cb) {
+    getLink: function(url, readability_data, whitelistRecord, cb) {
+
+        if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
+            return cb();
+        }
 
         // TODO: handle timeout on top.
 
