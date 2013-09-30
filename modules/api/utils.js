@@ -284,7 +284,7 @@ var filterLinksByRel = function(rel, links, options) {
     return result;
 };
 
-var rels = ["player", "survey", "image"];
+var rels = ["player", "survey", "reader", "image"];
 
 exports.getOembed = function(uri, data) {
 
@@ -334,15 +334,12 @@ exports.getOembed = function(uri, data) {
         return link;
     });
 
-    if (link) {
+    if (link && link.rel.indexOf(CONFIG.R.inline) == -1) {
         var m = link.media;
         if (m ) {
             if (m.width && m.height) {
                 oembed.width = m.width;
                 oembed.height = m.height;
-            } else if (m["aspect-ratio"]) {
-                oembed.width = 480;
-                oembed.height = Math.floor(oembed.width / m["aspect-ratio"]);
             }
         }
 
@@ -352,7 +349,7 @@ exports.getOembed = function(uri, data) {
             oembed.url = link.href;
 
         } else {
-            // "player", "survey".
+            // "player", "survey", "reader"
 
             var $el = generateLinkElement(link, {
                 iframelyData: data
@@ -365,6 +362,12 @@ exports.getOembed = function(uri, data) {
     } else {
         oembed.type = "link";
         oembed.url = data.meta.canonical || uri;
+    }
+
+    for(var key in data.meta) {
+        if (!(key in oembed)) {
+            oembed[key] = data.meta[key];
+        }
     }
 
     return oembed;
