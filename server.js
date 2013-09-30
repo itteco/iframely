@@ -50,7 +50,7 @@ function errorHandler(err, req, res, next) {
 
     } else {
 
-        res.writeHead(500, 'Infernal Server Error');
+        res.writeHead(err.code || 500);
         res.end(err.message);
     }
 }

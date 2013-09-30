@@ -1,11 +1,17 @@
 var iframely = require('../../lib/iframely');
 var iframelyMeta = require('../../lib/iframely-meta');
 var utils = require('../../utils');
+var apiUtils = require('./utils');
 var async = require('async');
 var _ = require('underscore');
 var moment = require('moment');
+var jsonxml = require('jsontoxml');
 
 function prepareUri(uri) {
+
+    if (!uri) {
+        return uri;
+    }
 
     if (uri.match(/^\/\//i)) {
         return "http:" + uri;
@@ -256,5 +262,54 @@ module.exports = function(app) {
         regexps.sort();
 
         res.send(regexps);
+    });
+
+    app.get('/oembed', function(req, res, next) {
+
+        var uri = prepareUri(req.query.url);
+
+        if (!uri) {
+            return next(new Error("'url' get param expected"));
+        }
+
+        log('Loading oembed1 for', uri);
+
+        async.waterfall([
+
+            function(cb) {
+
+                iframely.getRawLinks(uri, cb);
+            }
+
+        ], function(error, result) {
+
+            if (error) {
+                if (error == 404 || error.code == 'ENOTFOUND') {
+                    return next(new utils.NotFound('Page not found'));
+                }
+                return next(new Error(error));
+            }
+
+            var oembed = apiUtils.getOembed(uri, result);
+
+            if (req.query.format === "xml") {
+
+                var out = jsonxml({
+                    oembed: oembed
+                }, {
+                    escape: true,
+                    xmlHeader: {
+                        standalone: true
+                    }
+                });
+
+                res.writeHead(200, {'Content-Type': 'text/xml'});
+                res.end(out);
+
+            } else {
+
+                res.send(oembed);
+            }
+        });
     });
 };
