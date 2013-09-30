@@ -302,6 +302,7 @@ exports.getOembed = function(uri, data) {
     }
     if (data.meta.site) {
         oembed.provider_name = data.meta.site;
+        delete data.meta.site;
     }
 
     var thumbnails = filterLinksByRel("thumbnail", data.links);
@@ -343,7 +344,7 @@ exports.getOembed = function(uri, data) {
             }
         }
 
-        if (foundRel == "image") {
+        if (foundRel == CONFIG.R.image) {
 
             oembed.type = "photo";
             oembed.url = link.href;
