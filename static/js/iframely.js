@@ -247,49 +247,65 @@
 
                     // Find video aspect.
                     var media = data.media;
-                    var aspect = media["aspect-ratio"];
+                    var aspect, width;
+
                     if (media) {
-                        [
-                            ["min-width", "min-height"],
-                            ["max-width", "max-height"],
-                            ["width", "height"]
-                        ].forEach(function(dims) {
-                                var w = media[dims[0]];
-                                var h = media[dims[1]];
-                                if (w && h) {
-                                    aspect = w / h;
-                                }
-                            });
-                    }
 
-                    if (aspect) {
-                        // Find images with same aspect.
-                        var thumbnails = iframelyData.links.filter(function(link) {
-                            if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
-                                var m = link.media;
-                                if (m && m.width && m.height) {
-                                    var imgAspect = m.width / m.height;
-                                    return Math.abs(imgAspect - aspect) < 0.1;
-                                }
-                            }
-                        });
+                        aspect = media["aspect-ratio"];
 
-                        if (thumbnails.length) {
-                            // Find largest image.
-                            var maxW = 0, image;
-                            thumbnails.forEach(function(link) {
-                                if (link.media.width > maxW) {
-                                    image = link;
-                                }
-                            });
-
-                            $video.attr("poster", image.href);
+                        if (!aspect) {
+                            [
+                                ["min-width", "min-height"],
+                                ["max-width", "max-height"],
+                                ["width", "height"]
+                            ].forEach(function(dims) {
+                                    width = media[dims[0]];
+                                    var height = media[dims[1]];
+                                    if (width && height) {
+                                        aspect = width / height;
+                                    }
+                                });
                         }
                     }
 
+                    // Find images with same aspect.
+                    var thumbnails = iframelyData.links.filter(function(link) {
+                        if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
+                            var m = link.media;
+                            if (aspect && m && m.width && m.height) {
+                                var imgAspect = m.width / m.height;
+                                return Math.abs(imgAspect - aspect) < 0.1;
+                            }
+                            return true;
+                        }
+                    });
+
+                    // Find largest image.
+                    thumbnails.sort(function(a, b) {
+                        var w1 = a.media && a.media.width;
+                        var w2 = b.media && b.media.width;
+                        if (w1 == w2) {
+                            return 0;
+                        }
+                        if (w1 && w2) {
+                            return w2 - w1;
+                        }
+                        // Images without size goes last.
+                        if (!w1) {
+                            return 1;
+                        }
+                        if (!w2) {
+                            return -1;
+                        }
+                    });
+
+                    if (thumbnails.length) {
+                        $video.attr("poster", thumbnails[0].href);
+                    }
                 }
 
-                $video.append('<source />').children('source')
+                $video.append('<source />')
+                    .children('source')
                     .attr('src', data.href)
                     .attr('type', data.type);
 
