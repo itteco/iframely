@@ -4,6 +4,10 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2013.10.02 -  Version 0.5.3
+
+ + New `/oembed` endpoint, the backwards-compatability adapter for oEmbed v1. See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+
 ### 2013.09.27 -  Version 0.5.2
 
  + added weheartit.com photo plugin

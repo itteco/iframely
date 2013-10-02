@@ -9,6 +9,17 @@ You host the API on your own servers and domain. The primary endpoint is `/ifram
 (see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063))
 
 
+## NEW: `/oembed` endpoint, the adapter for oEmbed v1
+
+v0.5.3 added new endpoint for reverse compatibility of any existing oEmbed consumer implementations. Still, returning responsive widgets code and all good semantic data.
+
+    /oembed?format=json&url=http://vimeo.com/75299268&callback=foo
+
+The `format` and `callback` parameter for JSONP support are both optional. The endpoint only supports JSON output. See [example](http://dev.iframe.ly/oembed?url=http://vimeo.com/62092214)
+
+With this endpoint, you can just change the URL in your existing oEmbed lib and start receiving the data. 
+Iframely will convert its responsive widgets into `<html>`. `photo` and `rich` types are supported. If Iframely doesn't have any embed codes for given URL, it will just return `link` type object. The semantic information as well as thumbnails are returned for all URLs, however. See the list of meta fields below.
+
 
 ## Main `/iframely` API Endpoint
 

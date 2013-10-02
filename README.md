@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
+__NEW: Iframely now provides oEmbed v1 adapter. You can easily plug your existing code to our new endpoint. See [API](http://iframely.com/gateway/API)__
+
 Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
 
 You host the API on your own servers and domain. The primary endpoint is `/iframely?uri=`:
