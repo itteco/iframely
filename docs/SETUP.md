@@ -65,6 +65,7 @@ Depending on your setup, you may need to configure these pathes in your reverse 
 
     /r/.+               -- static files (including iframely.js client library)
     /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON
+    /oembed             -- wrapper around main API. Returns oEmbed v1 JSON and other meta
     /debug              -- optional debugger UI with get params
     /reader.js          -- API endpoint with get params - proxies script to render article
     /render             -- API endpoint with get params - prexies custom widgets if required
