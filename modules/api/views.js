@@ -308,7 +308,7 @@ module.exports = function(app) {
 
             } else {
 
-                res.send(oembed);
+                res.jsonp(oembed);
             }
         });
     });
