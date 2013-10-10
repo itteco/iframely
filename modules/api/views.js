@@ -227,41 +227,55 @@ module.exports = function(app) {
         });
     });
 
+    var supported_plugins_re_cache = null;
+
     app.get('/supported-plugins-re.json', function(req, res, next) {
 
-        log('Loading supported-plugins-re.json');
+        if (supported_plugins_re_cache) {
 
-        var plugins = _.values(iframely.getPlugins());
+            log('Loading supported-plugins-re.json from cache');
 
-        var regexps = [];
-        var domainsDict = {};
+        } else {
 
-        plugins.forEach(function(plugin) {
+            log('Loading supported-plugins-re.json');
 
-            if (plugin.domain) {
+            var plugins = _.values(iframely.getPlugins());
 
-                if (plugin.re && plugin.re.length){
-                    plugin.re.forEach(function(re){
-                        regexps.push({
-                            s: re.source,
-                            m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
+            var regexps = [];
+
+            var domainsDict = {};
+
+            plugins.forEach(function(plugin) {
+
+                if (plugin.domain) {
+
+                    if (plugin.re && plugin.re.length){
+                        plugin.re.forEach(function(re){
+                            regexps.push({
+                                s: re.source,
+                                m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
+                            });
                         });
-                    });
-                } else if (!(plugin.domain in domainsDict)) {
+                    } else if (!(plugin.domain in domainsDict)) {
 
-                    domainsDict[plugin.domain] = true;
+                        domainsDict[plugin.domain] = true;
 
-                    regexps.push({
-                        s: plugin.domain.replace(/\./g, "\\."),
-                        m: ''
-                    });
+                        regexps.push({
+                            s: plugin.domain.replace(/\./g, "\\."),
+                            m: ''
+                        });
+                    }
                 }
-            }
-        });
+            });
 
-        regexps.sort();
+            regexps.sort();
 
-        res.send(regexps);
+            supported_plugins_re_cache = JSON.stringify(regexps);
+        }
+
+        res.writeHead(200, {"Content-Type": "application/json"});
+        res.write(supported_plugins_re_cache);
+        res.end();
     });
 
     app.get('/oembed', function(req, res, next) {
