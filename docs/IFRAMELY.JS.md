@@ -1,4 +1,4 @@
-# Hit The Ground Running With Iframely JS Client Lib
+# Iframely JS Client Lib
 
 [Iframely Gateway](http://iframely.com/gateway) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. 
 

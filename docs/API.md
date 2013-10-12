@@ -1,6 +1,6 @@
 # Iframely Gateway API Reference
 
-Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
+[Iframely Gateway](http://iframely.com/gateway) is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
 
 You host the API on your own servers and domain. The primary endpoint is `/iframely?uri=`:
 
@@ -15,7 +15,7 @@ v0.5.3 added new endpoint for reverse compatibility of any existing oEmbed consu
 
     /oembed?format=json&url=http://vimeo.com/75299268&callback=foo
 
-The `format` and `callback` parameter for JSONP support are both optional. The endpoint only supports JSON output. See [example](http://dev.iframe.ly/oembed?url=http://vimeo.com/62092214)
+The `format` and `callback` parameter for JSONP support are both optional. Default format is JSON. See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
 With this endpoint, you can just change the URL in your existing oEmbed lib and start receiving the data. 
 Iframely will convert its responsive widgets into `<html>`. `photo` and `rich` types are supported. If Iframely doesn't have any embed codes for given URL, it will just return `link` type object. The semantic information as well as thumbnails are returned for all URLs, however. See the list of meta fields below.
@@ -36,20 +36,21 @@ Iframely will convert its responsive widgets into `<html>`. `photo` and `rich` t
 **Format:** Result has the following structure:
 
     {
-      "meta": {                                         -- meta object with the unified semantics
-        "title": "BLACK&BLUE",                          -- e.g. title and others
+      "meta": {                       -- meta object with the unified semantics
+        "title": "BLACK&BLUE",        -- e.g. title and others
         ...
       },
-      "links": [                                        -- List of embed widgets
+      "links": [                      -- List of embed widgets
         {
-          "href": "//player.vimeo.com/video/67452063",  -- SRC of embed. 
-          "type": "text/html",                          -- MIME type of embed method.
-          "rel": [                                      -- List of functional use cases. For example,
-            "player"                                    -- `player` - is widget with media playback
+          "href": "//player.vimeo.com/video/67452063",  
+                                      -- SRC of embed
+          "type": "text/html",        -- MIME type of embed method.
+          "rel": [                    -- List of functional use cases. For example,
+            "player"                  -- `player` - is widget with media playback
           ],
-          "title": "BLACK&BLUE",                        -- different titles, for different content on the page
-          "media": {                                    -- "media query" semantics to indicate responsive sizes
-            "aspect-ratio": 1.778                       -- e.g. fluid widget with fixed aspect ratio
+          "title": "BLACK&BLUE",      -- different titles, for different content on the page
+          "media": {                  -- "media query" semantics to indicate responsive sizes
+            "aspect-ratio": 1.778     -- e.g. fluid widget with fixed aspect ratio
           }
         },
         ...
@@ -116,13 +117,13 @@ Iframely API returns `meta` object that may contain the following keys at the mo
 - `quantity`
 
 
-You can get all current attributes are listed in `/meta-mappings` endpoint.
+You can get all current attributes are listed in `/meta-mappings` endpoint. [Check it](http://iframely.com/meta-mappings).
 
 
 
 ## List of Embed Widget Links
 
-`links` is the list of objects with keys `rel`, `href`, `type` and `media`. 
+`links` is the list of objects with fields `rel`, `href`, `type` and `media`. 
 
 You can generate embed codes for it as referenced in [Iframely Protocol](http://iframely.com/oembed2/types) spec.
 
