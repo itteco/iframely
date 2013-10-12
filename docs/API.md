@@ -4,18 +4,20 @@
 
 You host the API on your own servers and domain. The main endpoint:
 
-`http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}`
+[http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
 
-See [example of iframely.com](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063). All endpoints are called using `GET` methods.
+All endpoints are called using `GET` methods.
 
 
 ## NEW: `/oembed` endpoint, the adapter for oEmbed v1
 
 v0.5.3 added new endpoint for reverse compatibility of any existing [oEmbed](http://oembed.com) consumer implementations. Still, returning responsive widgets code and all good semantic data.
 
-`http://{YOURHOST.HERE}/oembed?url=http://vimeo.com/75299268&format=json&callback=foo`
 
-The `format` and `callback` parameter for JSONP support are both optional. Default format is JSON. See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214).
+[http://{YOURHOST.HERE}/oembed?url=http://vimeo.com/75299268&format=json&callback=foo](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+
+
+The `format` and `callback` parameter for JSONP support are both optional. Default format is JSON. 
 
 Given this endpoint, you can just change the URL in your existing oEmbed lib and start receiving the data. Iframely Gateway will convert its responsive widgets into `<html>` field of oEmbed JSON, choosing the best embed object (as oEmbed allows only one).
 
@@ -29,7 +31,7 @@ Parameters:
  - `uri` - (required) URI of the page to be processed.
  - `refresh` - (optional) You can request the cache data to be ingored by sending `true`. Will unconditionally re-fetch the original source page.
  - `group` - (optional) You can add the extra parameter "group=true" to use different output in JSON - the records groupped by link rel. See below.
- - `whitelist=true` will add the domain record from the latest file on the server. See [file format](http://iframely.com/qa/format).
+ - optional `whitelist=true` will add the domain record from the latest file on the server. See [file format](http://iframely.com/qa/format).
 
 Returns JSON of the following structure (see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
 
@@ -145,14 +147,16 @@ Iframely uses supplementary `rels` as the way of attributing to the origin of th
  - `twitter` - link extracted from Twitter Cards semantics.
  - `oembed` - link extracted from oEmbed/1 object.
 
-You would need to make a decision wheather you want to trust specific origins or not or use [Iframely Domains DB](http://iframely.com/qa). Our domains DB will convert a number of domains into responsive widgets and also give you additional `rels`, for example as `ssl` and `autoplay` for players, so that you can make better user experience decisions.
+You would need to make a decision wheather you trust specific origins or not or use [Iframely Domains DB](http://iframely.com/qa). 
+
+Our Domains DB will extend the coverage to 900+ domains, converting oEmbed, Open Graph or Twitter Cards into responsive widgets and also give you additional `rels`, for example `ssl` and `autoplay` for players, so that you can make better user experience decisions.
 
 
 ### MIME `type`
 
 MIME type defines a method to render link as widget.
 
-MIME type is an expected HTTP response "content-type" header of a resource behind '"href"'. Type of content defines rendering method.
+MIME type is an expected HTTP response "content-type" header of a resource behind `"href"`. Type of content defines the rendering method.
 
 There are following `type`s at the moment:
 
