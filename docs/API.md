@@ -4,9 +4,9 @@
 
 You host the API on your own servers and domain. The main endpoint:
 
-[http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
+[http://{YOURHOST.HERE}/iframely?uri={URL}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
 
-All endpoints are called using `GET` methods.
+All endpoints are called using `GET` methods. All URLs needs to be URL-encoded.
 
 
 ## NEW: `/oembed` endpoint, the adapter for oEmbed v1
