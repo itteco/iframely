@@ -6,7 +6,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2013.10.02 -  Version 0.5.3
 
- + New `/oembed` endpoint, the backwards-compatability adapter for oEmbed v1. See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+ + New `/oembed` endpoint, the backwards-compatability adapter for [oEmbed v1](http://oembed.com). See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
 ### 2013.09.27 -  Version 0.5.2
 
@@ -29,12 +29,12 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2013.09.16, Version 0.5.0
 
- + Added optional [Iframely QA Whitelist](http://iframely.com/qa) Functionality: 
+ + Added optional [Iframely Domains DB](http://iframely.com/qa) functionality: 
    - Deny Broken Embeds, 
    - Convert OG Twitter & oEmbed into Responsive players,   
    - Allow whitelisted Twitter Photos
    - Proxy Autoplay and SSL tags from the whitelist
-   - Get Whitelist file from [http://iframely.com/qa/buy](http://iframely.com/qa/buy) and upload to `whitelist` folder
+   - Get domains DB file from [http://iframely.com/qa/buy](http://iframely.com/qa/buy) and upload to `whitelist` folder
  * number of miscellaneous fixes to make gateway compliant with [official release of Iframely Protocol](http://iframely.com/oembed2)
  - Removed [Coub](http://coub.com) - they now support Iframely protocol natively 
  + support new IFTTT embeds ([example](http://iframely.com/debug?uri=https%3A%2F%2Fifttt.com%2Frecipes%2F116160))
@@ -116,3 +116,8 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
  + added instagram video
  + 'iframely-widget' styles used by iframely.js to identify generated widgets
  + crowdranking oembed/1 provider added (Mathias Panzenböck)
+
+
+
+
+(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

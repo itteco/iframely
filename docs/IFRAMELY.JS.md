@@ -122,3 +122,8 @@ This method is useful for example with [Github Gist](http://iframely.com/debug?u
 They insert javascript widget in iframe and we don't know exact size before it is actually loaded.
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
 So iframely.js will resize that iframe to fit content without horizontal scrolling.
+
+
+
+
+(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
