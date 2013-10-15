@@ -1,6 +1,6 @@
 # Deploy Iframely Gateway to Your Own Servers
 
-
+For rapid development, you can implement against community endpoint on [iframely.com](http://iframely.com). Deploy to your own hardware, when it's time to take it live.
 
 ## Stay Secure - Host on Dedicated Domain
 
@@ -70,6 +70,7 @@ Depending on your setup, you may need to configure these pathes in your reverse 
     /reader.js          -- API endpoint with get params - proxies script to render article
     /render             -- API endpoint with get params - prexies custom widgets if required
     /meta-mappings      -- optional API endpoint with available unified meta
+    /supported-plugins-re.json - the list of regexps for plugins
 
 
 
