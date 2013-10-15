@@ -27,6 +27,12 @@ if (CONFIG.allowedOrigins) {
         next();
     });
 }
+app.disable( 'x-powered-by' );
+app.use(function(req, res, next) {
+    
+    res.setHeader('X-Powered-By', 'Iframely');
+    next();
+}); 
 
 require('./modules/api/views')(app);
 require('./modules/debug/views')(app);
