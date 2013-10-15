@@ -11,6 +11,11 @@ var url = require("url");
 
 module.exports = {
 
+    re: [
+        /https:\/\/twitter\.com\/(\w+)\/status\/(\w+)/i,
+        /https?:\/\/pic.twitter\.com\//i
+        ],
+
     mixins: [
         "oembed-author",
         "canonical",
