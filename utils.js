@@ -141,7 +141,7 @@
                                     } else {
                                         this.charset = this.charset || 'utf-8';
                                         if (head.etag) {
-                                            res.set('ETag', head.etag)
+                                            res.set('ETag', head.etag);
                                         }
                                         res.writeHead(head.statusCode || 200, head.headers);
                                         res.end(data.substring(index + 2));
