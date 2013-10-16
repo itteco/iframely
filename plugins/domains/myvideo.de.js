@@ -21,8 +21,7 @@ module.exports = {
             type: CONFIG.T.text_html,            
             rel: CONFIG.R.player,
             "aspect-ratio": 611 / 383,
-            "min-width": 425,
-            "max-width": 611 
+            "min-width": 425
         }
     },
 
