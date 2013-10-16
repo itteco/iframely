@@ -1,11 +1,10 @@
 var iframely = require('../../lib/iframely');
-var iframelyMeta = require('../../lib/iframely-meta');
 var utils = require('../../utils');
 var apiUtils = require('./utils');
-var async = require('async');
 var _ = require('underscore');
 var moment = require('moment');
 var jsonxml = require('jsontoxml');
+var async = require('async');
 
 function prepareUri(uri) {
 
@@ -57,10 +56,13 @@ module.exports = function(app) {
         ], function(error, result) {
 
             if (error) {
+
+                res.tryCacheError(error);
+
                 if (error == 404 || error.code == 'ENOTFOUND') {
                     return next(new utils.NotFound('Page not found'));
                 }
-                return next(new Error(error));
+                return next(new Error("Requested page error: " + error));
             }
 
             var debug = result.debug;
@@ -102,7 +104,7 @@ module.exports = function(app) {
                 }
             }
 
-            res.send(result);
+            res.sendJsonCached(result);
         });
     });
 
@@ -110,7 +112,7 @@ module.exports = function(app) {
 
         var ms = iframely.metaMappings;
 
-        res.send({
+        res.sendJsonCached({
             attributes: _.keys(ms),
             sources: ms
         });
@@ -137,10 +139,13 @@ module.exports = function(app) {
         ], function(error, link) {
 
             if (error) {
-                if (error.code == 'ENOTFOUND') {
+
+                res.tryCacheError(error);
+
+                if (error == 404 || error.code == 'ENOTFOUND') {
                     return next(new utils.NotFound('Page not found'));
                 }
-                return next(new Error(error));
+                return next(new Error("Requested page error: " + error));
             }
 
             if (!link) {
@@ -155,8 +160,9 @@ module.exports = function(app) {
                 uri: JSON.stringify(uri)
             };
 
-            res.setHeader("Content-Type", "text/javascript; charset=utf-8");
-            res.render("article-insertable.js.ejs", context);
+            res.renderCached("article-insertable.js.ejs", context, {
+                "Content-Type": "text/javascript"
+            });
         });
 
     });
@@ -182,7 +188,10 @@ module.exports = function(app) {
         ], function(error, link) {
 
             if (error) {
-                if (error.code == 'ENOTFOUND') {
+
+                res.tryCacheError(error);
+
+                if (error == 404 || error.code == 'ENOTFOUND') {
                     return next(new utils.NotFound('Page not found'));
                 }
                 return next(new Error(error));
@@ -192,90 +201,45 @@ module.exports = function(app) {
                 return next(new utils.NotFound());
             }
 
-            res.render(link._render.template, link.template_context);
+            res.renderCached(link._render.template, link.template_context);
         });
 
     });
-
-    // TODO: check who use that.
-    app.get('/twitter', function(req, res, next) {
-
-        var uri = prepareUri(req.query.uri);
-
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
-        }
-
-        log('Loading twitter for', uri);
-
-        iframelyMeta.getPageData(uri, {
-            meta: true,
-            oembed: false,
-            fullResponse: false
-        }, function(error, data) {
-
-            if (error) {
-                if (error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error(error));
-            }
-
-            res.send({
-                twitter: data.meta.twitter || {}
-            });
-        });
-    });
-
-    var supported_plugins_re_cache = null;
 
     app.get('/supported-plugins-re.json', function(req, res, next) {
 
-        if (supported_plugins_re_cache) {
+        var plugins = _.values(iframely.getPlugins());
 
-            log('Loading supported-plugins-re.json from cache');
+        var regexps = [];
 
-        } else {
+        var domainsDict = {};
 
-            log('Loading supported-plugins-re.json');
+        plugins.forEach(function(plugin) {
 
-            var plugins = _.values(iframely.getPlugins());
+            if (plugin.domain) {
 
-            var regexps = [];
-
-            var domainsDict = {};
-
-            plugins.forEach(function(plugin) {
-
-                if (plugin.domain) {
-
-                    if (plugin.re && plugin.re.length){
-                        plugin.re.forEach(function(re){
-                            regexps.push({
-                                s: re.source,
-                                m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
-                            });
-                        });
-                    } else if (!(plugin.domain in domainsDict)) {
-
-                        domainsDict[plugin.domain] = true;
-
+                if (plugin.re && plugin.re.length){
+                    plugin.re.forEach(function(re){
                         regexps.push({
-                            s: plugin.domain.replace(/\./g, "\\."),
-                            m: ''
+                            s: re.source,
+                            m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
                         });
-                    }
+                    });
+                } else if (!(plugin.domain in domainsDict)) {
+
+                    domainsDict[plugin.domain] = true;
+
+                    regexps.push({
+                        s: plugin.domain.replace(/\./g, "\\."),
+                        m: ''
+                    });
                 }
-            });
+            }
+        });
 
-            regexps.sort();
+        regexps.sort();
 
-            supported_plugins_re_cache = JSON.stringify(regexps);
-        }
-
-        res.writeHead(200, {"Content-Type": "application/json"});
-        res.write(supported_plugins_re_cache);
-        res.end();
+        res.sendJsonCached(regexps);
     });
 
     app.get('/oembed', function(req, res, next) {
@@ -298,6 +262,9 @@ module.exports = function(app) {
         ], function(error, result) {
 
             if (error) {
+
+                res.tryCacheError(error);
+
                 if (error == 404 || error.code == 'ENOTFOUND') {
                     return next(new utils.NotFound('Page not found'));
                 }
@@ -317,12 +284,11 @@ module.exports = function(app) {
                     }
                 });
 
-                res.writeHead(200, {'Content-Type': 'text/xml'});
-                res.end(out);
+                res.sendCached({'Content-Type': 'text/xml'}, out);
 
             } else {
 
-                res.jsonp(oembed);
+                res.jsonpCached(oembed);
             }
         });
     });

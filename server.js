@@ -1,6 +1,5 @@
 GLOBAL.CONFIG = require('./config');
 
-
 var path = require('path');
 var express = require('express');
 var sysUtils = require('./utils');
@@ -29,10 +28,11 @@ if (CONFIG.allowedOrigins) {
 }
 app.disable( 'x-powered-by' );
 app.use(function(req, res, next) {
-    
     res.setHeader('X-Powered-By', 'Iframely');
     next();
 }); 
+
+app.use(sysUtils.cacheMiddleware);
 
 require('./modules/api/views')(app);
 require('./modules/debug/views')(app);

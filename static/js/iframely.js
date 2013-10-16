@@ -41,6 +41,12 @@
         };
     }();
 
+    $.ajaxPrefilter('script', function(options) {
+        if (options.url.indexOf("reader.js") > -1) {
+            options.cache = true;
+        }
+    });
+
     $.iframely = $.iframely || {};
     $.iframely.iframes = $.iframely.iframes || {};
 
