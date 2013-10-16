@@ -1,55 +1,56 @@
 # Iframely Gateway API Reference
 
-Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
+[Iframely Gateway](http://iframely.com/gateway) is powerful [self-hosted embeds endpoint](https://github.com/itteco/iframely), simple API for responsive widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
 
-You host the API on your own servers and domain. The primary endpoint is `/iframely?uri=`:
+You host the API on your own servers and domain. The main endpoint:
 
-    http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}
+[http://{YOURHOST.HERE}/iframely?uri={URL}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
 
-(see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063))
+All endpoints are called using `GET` methods. All URLs need to be URL-encoded.
 
 
 ## NEW: `/oembed` endpoint, the adapter for oEmbed v1
 
-v0.5.3 added new endpoint for reverse compatibility of any existing oEmbed consumer implementations. Still, returning responsive widgets code and all good semantic data.
+v0.5.3 added new endpoint for reverse compatibility of any existing [oEmbed](http://oembed.com) consumer implementations. Still, returning responsive widgets code and all good semantic data.
 
-    /oembed?format=json&url=http://vimeo.com/75299268&callback=foo
 
-The `format` and `callback` parameter for JSONP support are both optional. The endpoint only supports JSON output. See [example](http://dev.iframe.ly/oembed?url=http://vimeo.com/62092214)
+[http://{YOURHOST.HERE}/oembed?url=http://vimeo.com/75299268&format=json&callback=foo](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
-With this endpoint, you can just change the URL in your existing oEmbed lib and start receiving the data. 
-Iframely will convert its responsive widgets into `<html>`. `photo` and `rich` types are supported. If Iframely doesn't have any embed codes for given URL, it will just return `link` type object. The semantic information as well as thumbnails are returned for all URLs, however. See the list of meta fields below.
+
+The `format` and `callback` parameter for JSONP support are both optional. Default format is JSON. 
+
+Given this endpoint, you can just change the URL in your existing oEmbed lib and start receiving the data. Iframely Gateway will convert its responsive widgets into `<html>` field of oEmbed JSON, choosing the best embed object (as oEmbed allows only one).
+
+`photo` and `rich` types are supported. If Iframely doesn't have any embed codes for given URL, it will return `link` type object. The additional unified semantic information as well as `thumbnail`s are returned for all URLs. See the list of meta fields below.
 
 
 ## Main `/iframely` API Endpoint
 
-**Method:** GET. 
-
-**Params:**
+Parameters:
 
  - `uri` - (required) URI of the page to be processed.
  - `refresh` - (optional) You can request the cache data to be ingored by sending `true`. Will unconditionally re-fetch the original source page.
  - `group` - (optional) You can add the extra parameter "group=true" to use different output in JSON - the records groupped by link rel. See below.
+ - optional `whitelist=true` will add the domain record from the latest file on the server. See [file format](http://iframely.com/qa/format).
 
-**Returns:** JSON, see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063).
-
-**Format:** Result has the following structure:
+Returns JSON of the following structure (see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)):
 
     {
-      "meta": {                                         -- meta object with the unified semantics
-        "title": "BLACK&BLUE",                          -- e.g. title and others
+      "meta": {                       -- meta object with the unified semantics
+        "title": "BLACK&BLUE",        -- e.g. title and others
         ...
       },
-      "links": [                                        -- List of embed widgets
+      "links": [                      -- List of embed widgets
         {
-          "href": "//player.vimeo.com/video/67452063",  -- SRC of embed. 
-          "type": "text/html",                          -- MIME type of embed method.
-          "rel": [                                      -- List of functional use cases. For example,
-            "player"                                    -- `player` - is widget with media playback
+          "href": "//player.vimeo.com/video/67452063",  
+                                      -- SRC of embed
+          "type": "text/html",        -- MIME type of embed method.
+          "rel": [                    -- List of functional use cases. For example,
+            "player"                  -- `player` - is widget with media playback
           ],
-          "title": "BLACK&BLUE",                        -- different titles, for different content on the page
-          "media": {                                    -- "media query" semantics to indicate responsive sizes
-            "aspect-ratio": 1.778                       -- e.g. fluid widget with fixed aspect ratio
+          "title": "BLACK&BLUE",      -- different titles, for different content on the page
+          "media": {                  -- "media query" semantics to indicate responsive sizes
+            "aspect-ratio": 1.778     -- e.g. fluid widget with fixed aspect ratio
           }
         },
         ...
@@ -66,7 +67,7 @@ Most web pages have organic `<meta>` data published using different semantics st
 
 [Iframely Gateway](http://iframely.com/gateway) merges various semantics into fields with unified consistent naming keys, so you can reliably use them in your app (if they are present, of course).
 
-Iframely API returns `meta` object that may contain the following keys at the moment:
+Iframely API returns `meta` object that may contain the following fields at the moment:
 
 
 ### General meta:
@@ -116,13 +117,13 @@ Iframely API returns `meta` object that may contain the following keys at the mo
 - `quantity`
 
 
-You can get all current attributes are listed in `/meta-mappings` endpoint.
+You can get all current attributes are listed in `/meta-mappings` endpoint. [Check it](http://iframely.com/meta-mappings).
 
 
 
 ## List of Embed Widget Links
 
-`links` is the list of objects with keys `rel`, `href`, `type` and `media`. 
+`links` is the list of objects with fields `rel`, `href`, `type` and `media`. 
 
 You can generate embed codes for it as referenced in [Iframely Protocol](http://iframely.com/oembed2/types) spec.
 
@@ -146,14 +147,16 @@ Iframely uses supplementary `rels` as the way of attributing to the origin of th
  - `twitter` - link extracted from Twitter Cards semantics.
  - `oembed` - link extracted from oEmbed/1 object.
 
-You would need to make a decision wheather you want to trust specific origins or not or use [Iframely Whitelist File](http://iframely.com/qa).
+You would need to make a decision wheather you trust specific origins or not or use [Iframely Domains DB](http://iframely.com/qa). 
+
+Our Domains DB will extend the coverage to 900+ domains, converting oEmbed, Open Graph or Twitter Cards into responsive widgets and also give you additional `rels`, for example `ssl` and `autoplay` for players, so that you can make better user experience decisions.
 
 
 ### MIME `type`
 
 MIME type defines a method to render link as widget.
 
-MIME type is an expected HTTP response "content-type" header of a resource behind '"href"'. Type of content defines rendering method.
+MIME type is an expected HTTP response "content-type" header of a resource behind `"href"`. Type of content defines the rendering method.
 
 There are following `type`s at the moment:
 
@@ -168,7 +171,7 @@ There are following `type`s at the moment:
   - `"image/svg"`
 
 
-### `media` query
+### Sizes in `media` query
 
 Media section is for media query. Iframely generates attributes as well as puts it into usable JSON.
 
@@ -246,3 +249,9 @@ If will result in the response being groupped by rel:
         ]
       }
     }
+
+
+
+
+
+(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

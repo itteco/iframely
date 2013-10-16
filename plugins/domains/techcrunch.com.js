@@ -9,7 +9,7 @@ module.exports = {
         "oembed-site",
         "oembed-title",
 
-        "oembed-thumbnail"
+        "twitter-image"
     ],
     
     getMeta: function(urlMatch) {
@@ -43,7 +43,7 @@ module.exports = {
 
     getData: function($selector) {
 
-        var $html = $selector('div.body-copy')
+        var $html = $selector('div.article-entry')
 
         if ($html.length) {
 

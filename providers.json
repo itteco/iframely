@@ -290,5 +290,12 @@
             "ifttt\\.com/recipes/.+"
         ],
         "endpoint": "https://ifttt.com/oembed"
+    },
+    {
+        "name": "Polldaddy",
+        "templates": [
+            "polldaddy\\.com/poll/.*"
+        ],
+        "endpoint": "http://polldaddy.com/oembed/"
     }    
 ]

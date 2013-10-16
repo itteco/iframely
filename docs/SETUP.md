@@ -1,6 +1,6 @@
 # Deploy Iframely Gateway to Your Own Servers
 
-
+For rapid development, you can implement against community endpoint on [iframely.com](http://iframely.com). Deploy to your own hardware, when it's time to take it live.
 
 ## Stay Secure - Host on Dedicated Domain
 
@@ -70,6 +70,7 @@ Depending on your setup, you may need to configure these pathes in your reverse 
     /reader.js          -- API endpoint with get params - proxies script to render article
     /render             -- API endpoint with get params - prexies custom widgets if required
     /meta-mappings      -- optional API endpoint with available unified meta
+    /supported-plugins-re.json - the list of regexps for plugins
 
 
 
@@ -87,3 +88,19 @@ To update Iframely package to its latest version run from Iframely home director
 and restart your server afterwards. If you use [Forever](https://github.com/nodejitsu/forever), run for example:
 
     forever restartall
+
+
+
+## Extend functionality with Domains DB
+
+If can greatly extend gateway functionality without writting additional plugins. Just upload you put Domains DB JSON file into `whitelist` folder and, Iframely will start covering extra domains, giving responsive players, twitter photos, etc via standard plugins.  
+
+The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory is used. 
+
+You can get whitelist file with 900+ domains at [http://iframely.com/qa/buy](http://iframely.com/qa/buy). Or get a sample file with top 50 domains from the same page. 
+
+If you wish to create your own whitelist, please, follow [required file format](http://iframely.com/qa/format).
+
+
+
+(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

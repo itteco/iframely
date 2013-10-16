@@ -1,5 +1,7 @@
 # Iframely Embeds Gateway
 
+[https://github.com/itteco/iframely](https://github.com/itteco/iframely)
+
 [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
 __NEW: Iframely now provides oEmbed v1 adapter. You can easily plug your existing code to our new endpoint. See [API](http://iframely.com/gateway/API)__

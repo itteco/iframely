@@ -1,4 +1,4 @@
-# Hit The Ground Running With Iframely JS Client Lib
+# Iframely JS Client Lib
 
 [Iframely Gateway](http://iframely.com/gateway) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. 
 
@@ -16,7 +16,8 @@ iframely.js requires jQuery and [Underscore](http://underscorejs.org/). Include 
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
     <script type="text/javascript" src="http://{YOUR.DOMAIN}}/r3/js/iframely.js"></script>
 
-Where `{YOUR.DOMAIN}}` is the domain name you host Iframely Gateway at. 
+Where `{YOUR.DOMAIN}}` is the domain name you host Iframely Gateway at.
+
 You may also copy iframely.js file to your apps main domain and serve it from there. 
 
 If you have not [set up your Iframely server](http://iframely.com/gateway/setup) yet, you can load iframel.js from [this source](http://iframely.com/r3/js/iframely.js). However, don't use it for production purposes.
@@ -33,7 +34,7 @@ If you have not [set up your Iframely server](http://iframely.com/gateway/setup)
         console.log(data);
     });
 
-The code above will put the following JSON into console [log](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
+Sample code abovewill log the following JSON into console [log](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063):
 
     {
       "meta": {
@@ -96,7 +97,7 @@ You can use `data.meta` to get available meta attributes of your `uri` or `data.
 
 ## Render `links` Widgets
 
-You would need to make a choice which links/widgets you'd like to render from a list given in the response code. Please, refer to [Iframely Protocol](http://iframely.com/oembed2) spec.
+You would need to make a choice which links/widgets you'd like to render from a list given in the response code. Please, refer to [Iframely Protocol](http://iframely.com/oembed2) spec and [API response parameters](http://iframely.com/gateway/API).
 
 Each link in API response from previous example can be rendered in a following way:
 
@@ -111,7 +112,7 @@ Each link in API response from previous example can be rendered in a following w
     });
 
 
-If you'd like to rid `reader` rel iframes (`type="text/html"`) from horizontal scrollbar, call the following method after rendering widgets:
+If you'd like to rid `reader` rel iframes (`type="text/html"`) from horizontal (and sometimes vertical) scrollbar, call the following method after rendering widgets:
 
     $.iframely.registerIframesIn($('body'));
 
@@ -121,4 +122,9 @@ This method is useful for example with [Github Gist](http://iframely.com/debug?u
 [Storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages. 
 They insert javascript widget in iframe and we don't know exact size before it is actually loaded.
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
-So iframely.js will resize that iframe to fit content without horizontal scrolling.
+This way, iframely.js will resize that iframe to fit content without horizontal scrolling.
+
+
+
+
+(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

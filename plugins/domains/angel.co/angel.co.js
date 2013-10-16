@@ -17,7 +17,7 @@ module.exports = {
         return {
             template_context: {
                 title: meta.twitter.title,
-                id: meta.og.image.match(/\/i\/(\d+)-/)[1],
+                id: meta.twitter.image.src.match(/\/i\/(\d+)-/)[1],
                 slug: urlMatch[1]
             },
             type: CONFIG.T.text_html,

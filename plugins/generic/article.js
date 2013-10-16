@@ -2,7 +2,11 @@ module.exports = {
 
     notPlugin: CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === false,
 
-    getData: function(html, meta) {
+    getData: function(html, meta, whitelistRecord) {
+
+        if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
+            return;
+        }
 
         if (/<[^>]*class\s*=[^>]*instapaper_body/i.test(html)) {
             return {
