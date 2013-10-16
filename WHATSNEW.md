@@ -7,8 +7,8 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 ### In progress -  Version 0.5.4
 
  * improve articles loading time: added caching for readability library
+ * improve api response time: caching added over requests to iframely server
  + added oembed reader plugin for proper whitelist record (oembed.link with reader)
-
 
 ### 2013.10.02 -  Version 0.5.3
 
