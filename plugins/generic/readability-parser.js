@@ -1,5 +1,6 @@
 // TODO: move to plugin dir?
 var readability = require('iframely-readability');
+var cache = require('../../lib/cache');
 
 module.exports = {
 
@@ -9,59 +10,77 @@ module.exports = {
             return cb();
         }
 
-        // TODO: handle timeout on top.
+        cache.withCache("rdb:" + url, function(cb) {
 
-        var ignore_readability_error = false;
+            // TODO: handle timeout on top.
 
-        if ("ignore_readability_error" in readability_data) {
-            ignore_readability_error = readability_data["ignore_readability_error"];
-        }
+            var ignore_readability_error = false;
 
-        var errorCallback = function(error) {
-            if (timeout) {
-                clearTimeout(timeout);
-                timeout = null;
-                if (ignore_readability_error) {
-                    cb(null, {
-                        html: readability_data.html,
-                        type: CONFIG.T.safe_html,
-                        rel: CONFIG.R.reader
-                    });
-                } else {
-                    cb(error);
-                }
+            if ("ignore_readability_error" in readability_data) {
+                ignore_readability_error = readability_data["ignore_readability_error"];
             }
-        };
 
-        var timeout = setTimeout(function() {
-            errorCallback('timeout');
-        }, 15000); // TODO: move to plugin config?
-
-        try {
-            readability.parse(readability_data.html, url, {
-                debug: false,
-                returnContentOnly: true,
-                straightifyDocument: true,
-                onParseError: errorCallback,
-                videoIframesEnabled: true
-            }, function(result) {
+            var errorCallback = function(error) {
                 if (timeout) {
                     clearTimeout(timeout);
                     timeout = null;
-
-                    if (result.error) {
-                        cb('readability error');
+                    if (ignore_readability_error) {
+                        cb(null, readability_data.html);
                     } else {
-                        cb(null, {
-                            html: result.content,
-                            type: CONFIG.T.safe_html,
-                            rel: [CONFIG.R.reader, CONFIG.R.inline]
-                        });
+                        cb(null, "error:" + error);
                     }
                 }
-            });
-        } catch (ex) {
-            errorCallback(ex);
-        }
+            };
+
+            var timeout = setTimeout(function() {
+                errorCallback('timeout');
+            }, 5000);
+            // TODO: move to plugin config?
+
+            try {
+                readability.parse(readability_data.html, url, {
+                    debug: false,
+                    returnContentOnly: true,
+                    straightifyDocument: true,
+                    onParseError: errorCallback,
+                    videoIframesEnabled: true
+                }, function(result) {
+                    if (timeout) {
+                        clearTimeout(timeout);
+                        timeout = null;
+
+                        if (result.error) {
+                            cb(null, 'readability error');
+                        } else {
+                            cb(null, result.content);
+                        }
+                    }
+                });
+            } catch (ex) {
+                errorCallback(ex.message);
+            }
+
+        }, function(error, data) {
+            if (error) {
+                cb(error);
+            } else {
+                if (!data) {
+
+                    cb('readability error');
+
+                } else if (data.indexOf("error:") == 0) {
+
+                    cb(data.replace("error:", ""));
+
+                } else {
+
+                    cb(null, {
+                        html: data,
+                        type: CONFIG.T.safe_html,
+                        rel: [CONFIG.R.reader, CONFIG.R.inline]
+                    });
+                }
+            }
+        });
     }
 };
