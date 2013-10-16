@@ -6,6 +6,7 @@
     var fs = require('fs');
     var crypto = require('crypto');
     var moment = require('moment');
+    var _ = require('underscore');
 
     function NotFound(message) {
 
@@ -77,7 +78,7 @@
     var version = require('./package.json').version;
 
     function log() {
-        var args = Array.prototype.slice.apply(arguments);
+        var args = _.compact(Array.prototype.slice.apply(arguments));
         args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
         console.log.apply(console, args);
     }
