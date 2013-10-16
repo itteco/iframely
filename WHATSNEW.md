@@ -4,6 +4,12 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### In progress -  Version 0.5.4
+
+ * improve articles loading time: added caching for readability library
+ + added oembed reader plugin for proper whitelist record (oembed.link with reader)
+
+
 ### 2013.10.02 -  Version 0.5.3
 
  + New `/oembed` endpoint, the backwards-compatability adapter for [oEmbed v1](http://oembed.com). See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
