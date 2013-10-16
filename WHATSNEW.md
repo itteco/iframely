@@ -4,11 +4,15 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
-### In progress -  Version 0.5.4
+### Version 0.5.4
 
- * improve articles loading time: added caching for readability library
- * improve api response time: caching added over requests to iframely server
+ * improve articles loading time: added caching for Readability library
+ * improve api response time: cache each request to Iframely server
  + added oembed reader plugin for proper whitelist record (oembed.link with reader)
+ * updated TechCrunch plugin to properly parse their new site disign
+ * fixed and improved AngelList, MyVideo.de, Bravotv
+ * changed Twitter regexps to allow processing of statues and photos only (eliminating extra load)
+ + added PollDaddy
 
 ### 2013.10.02 -  Version 0.5.3
 
