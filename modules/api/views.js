@@ -284,7 +284,7 @@ module.exports = function(app) {
                     }
                 });
 
-                res.sendCached({'Content-Type': 'text/xml'}, out);
+                res.sendCached('text/xml', out);
 
             } else {
 

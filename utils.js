@@ -4,6 +4,8 @@
     var cache = require('./lib/cache');
     var ejs = require('ejs');
     var fs = require('fs');
+    var crypto = require('crypto');
+    var moment = require('moment');
 
     function NotFound(message) {
 
@@ -72,9 +74,37 @@
         };
     };
 
-    exports.cacheMiddleware = function(req, res, next) {
+    var version = require('./package.json').version;
 
-        var version = require('./package.json').version;
+    function log() {
+        var args = Array.prototype.slice.apply(arguments);
+        args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
+        console.log.apply(console, args);
+    }
+
+    var etag = function(value) {
+        return '"' + crypto.createHash('md5').update(value).digest("hex") + '"';
+    };
+
+    function setResponseToCache(code, content_type, req, res, body) {
+
+        if (!res.get('ETag')) {
+            res.set('ETag', etag(body));
+        }
+
+        var head = {
+            statusCode: code,
+            headers: {
+                'Content-Type': content_type
+            },
+            etag: res.get('ETag')
+        };
+
+        var data = JSON.stringify(head) + '::' + body;
+        cache.set('urlcache:' + version + ':' + req.url, data);
+    }
+
+    exports.cacheMiddleware = function(req, res, next) {
 
         async.waterfall([
 
@@ -98,9 +128,23 @@
                                 }
 
                                 if (head) {
-                                    this.charset = this.charset || 'utf-8';
-                                    res.writeHead(head.statusCode || 200, head.headers);
-                                    res.end(data.substring(index + 2));
+
+                                    // TODO: use single universal log for API.
+                                    log("Using cache for", req.url.replace(/\?.+/, ''), req.query.uri || req.query.url);
+
+                                    var etag = req.headers['if-none-match'];
+
+                                    if (head.etag === etag) {
+                                        res.writeHead(304);
+                                        res.end();
+                                    } else {
+                                        this.charset = this.charset || 'utf-8';
+                                        if (head.etag) {
+                                            res.set('ETag', head.etag)
+                                        }
+                                        res.writeHead(head.statusCode || 200, head.headers);
+                                        res.end(data.substring(index + 2));
+                                    }
                                 } else {
                                     cb();
                                 }
@@ -116,6 +160,7 @@
             }
 
         ], function() {
+
             // Copy from source.
             res.renderCached = function(view, context, headers) {
 
@@ -126,22 +171,16 @@
                 var template = fs.readFileSync(view, 'utf8');
                 var body = ejs.render(template, context);
 
-                var head = {
-                    statusCode: 200,
-                    headers: headers || {
-                        'Content-Type': 'text/html'
-                    }
-                };
-
-                var data = JSON.stringify(head) + '::' + body;
-                cache.set('urlcache:' + version + ':' + req.url, data);
+                setResponseToCache(200, 'text/html', req, res, body);
 
                 this.charset = this.charset || 'utf-8';
                 this.writeHead(200, headers);
                 this.end(body);
             };
+
             // Copy from source.
             res.jsonpCached = function(obj) {
+
                 // allow status / body
                 if (2 == arguments.length) {
                     // res.json(body, status) backwards compat
@@ -173,56 +212,37 @@
                     body = cb + ' && ' + cb + '(' + body + ');';
                 }
 
-                var head = {
-                    statusCode: 200,
-                    headers: {
-                        'Content-Type': this.get('Content-Type')
-                    }
-                };
+                setResponseToCache(200, this.get('Content-Type'), req, res, body);
 
-                var data = JSON.stringify(head) + '::' + body;
-                cache.set('urlcache:' + version + ':' + req.url, data);
-
-                return this.send(body);
+                this.send(body);
             };
             res.tryCacheError = function(error) {
+
                 if (typeof error === "number" && Math.floor(error / 100) === 4) {
-                    var head = {
-                        statusCode: error
-                    };
+
                     var value;
                     if (error == 404) {
                         value = 'Page not found';
                     } else {
                         value = 'Requested page error: ' + error;
                     }
-                    var data = JSON.stringify(head) + '::' + value;
-                    cache.set('urlcache:' + version + ':' + req.url, data);
+
+                    setResponseToCache(error, 'text/html', req, res, value);
                 }
             };
-            res.sendCached = function(headers, value) {
-                var head = {
-                    statusCode: 200,
-                    headers: headers
-                };
 
-                var data = JSON.stringify(head) + '::' + value;
-                cache.set('urlcache:' + version + ':' + req.url, data);
+            res.sendCached = function(content_type, body) {
+
+                setResponseToCache(200, content_type, req, res, body);
 
                 this.charset = this.charset || 'utf-8';
-                this.writeHead(200, headers);
-                this.end(value);
+                this.writeHead(200, {'Content-Type': content_type});
+                this.end(body);
             };
-            res.sendJsonCached = function(obj) {
-                var head = {
-                    statusCode: 200,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                };
 
-                var data = JSON.stringify(head) + '::' + JSON.stringify(obj, null, 4);
-                cache.set('urlcache:' + version + ':' + req.url, data);
+            res.sendJsonCached = function(obj) {
+
+                setResponseToCache(200, 'application/json', req, res, JSON.stringify(obj, null, 4));
 
                 this.charset = this.charset || 'utf-8';
                 this.send(obj);
