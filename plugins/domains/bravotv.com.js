@@ -1,8 +1,10 @@
 module.exports = {
 
+    re: /^https?:\/\/www\.bravotv\.com\/([a-z0-9\-]+)\/([a-z0-9\-]+)\/videos\/([a-z0-9\-]+)/i,
+
     mixins: [
         "html-title",
-        "image_src",
+        "og-image",
         "description",
         "favicon"
     ],
@@ -33,6 +35,6 @@ module.exports = {
             "description"
         ]
     },
-        "http://www.bravotv.com/top-chef-masters/season-4/videos/thai-bye"
+        "http://www.bravotv.com/top-chef-masters/season-5/videos/season-5-episode-7"
     ]
 };
