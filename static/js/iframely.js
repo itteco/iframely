@@ -333,7 +333,11 @@
                 var $iframe = $('<iframe>')
                     .addClass("iframely-widget iframely-iframe")
                     .attr('src', data.href)
-                    .attr('frameborder', '0');
+                    .attr('frameborder', '0')
+                    .attr('allowfullscreen', true)
+                    .attr('webkitallowfullscreen', true)
+                    .attr('mozallowfullscreen', true);
+                    
 
                 if (options && options.disableSizeWrapper) {
                     return $iframe;
