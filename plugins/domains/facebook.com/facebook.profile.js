@@ -33,7 +33,7 @@ module.exports = {
                 title: userData.name || userData.username,
                 href: 'https://graph.facebook.com/'+userData.id+'/picture?width=600',
                 type: CONFIG.R.image,
-                rel: CONFIG.R.image
+                rel: CONFIG.R.thumbnail
             }]);
         });
     },
