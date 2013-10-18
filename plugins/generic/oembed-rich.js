@@ -3,7 +3,11 @@ var jquery = require('jquery');
 module.exports = {
 
     getLink: function(oembed) {
-        if (oembed.type != "video") {
+
+        var richReader = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich', "reader");
+        var video = oembed.type === "video";
+
+        if (!video && !richReader) {
             return;
         }
 
@@ -15,13 +19,32 @@ module.exports = {
         var $iframe = $container.find('iframe');
 
         if ($iframe.length == 1) {
+
+            var rel = [CONFIG.R.oembed];
+
+            if (richReader) {
+                // Iframed reader.
+                rel.push(CONFIG.R.reader);
+            } else {
+                // Iframed player.
+                rel.push(CONFIG.R.player);
+            }
+
             return {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.oembed],
+                rel: rel,
                 width: oembed.width,
                 height: oembed.height
-            }
+            };
+
+        } else if (richReader) {
+
+            return {
+                html: oembed.html || oembed.html5,
+                type: CONFIG.T.safe_html,
+                rel: [CONFIG.R.reader, CONFIG.R.inline]
+            };
         }
     }/*,
 

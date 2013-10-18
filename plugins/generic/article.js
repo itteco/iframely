@@ -4,7 +4,9 @@ module.exports = {
 
     getData: function(html, meta, whitelistRecord) {
 
-        if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
+        if (whitelistRecord.isAllowed
+            && (whitelistRecord.isAllowed('oembed.link', "reader")
+            || whitelistRecord.isAllowed('oembed.rich', "reader"))) {
             return;
         }
 
