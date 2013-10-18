@@ -2,7 +2,7 @@ var jquery = require('jquery');
 
 module.exports = {
 
-    getLink: function(oembed) {
+    getLink: function(oembed, whitelistRecord) {
 
         var richReader = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich', "reader");
         var video = oembed.type === "video";
