@@ -48,8 +48,9 @@ module.exports = function(app) {
                 iframely.getRawLinks(uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    forceMeta: req.query.meta,
-                    forceOembed: req.query.meta
+                    forceMeta: req.query.meta === "true",
+                    forceOembed: req.query.meta === "true",
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
@@ -132,7 +133,7 @@ module.exports = function(app) {
 
             function(cb) {
                 iframely.getRawReaderLink(uri, {
-                    disableCache: req.query.disableCache === "true"
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
@@ -181,7 +182,7 @@ module.exports = function(app) {
 
             function(cb) {
                 iframely.getRawRenderLink(uri, {
-                    disableCache: req.query.disableCache === "true"
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
