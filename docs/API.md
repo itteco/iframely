@@ -2,9 +2,9 @@
 
 [Iframely Gateway](http://iframely.com/gateway) is powerful [self-hosted embeds endpoint](https://github.com/itteco/iframely), simple API for responsive widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
 
-You host the API on your own servers and domain. The main endpoint:
+You host the API on your own servers and domain (however, feel free to use API hosts of iframely.com for your dev or open-source purposes). 
 
-[{YOURHOST.HERE}/iframely?uri={URL}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
+* The main endpoint: [{YOURHOST.HERE}/iframely?uri={URL}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
 
 All endpoints are called using `GET` methods. All URLs need to be URL-encoded.
 
@@ -14,7 +14,7 @@ All endpoints are called using `GET` methods. All URLs need to be URL-encoded.
 v0.5.3 added new endpoint for reverse compatibility of any existing [oEmbed](http://oembed.com) consumer implementations. Still, returning responsive widgets code and all good semantic data.
 
 
-[{YOURHOST.HERE}/oembed?url=http://vimeo.com/75299268&format=json&callback=foo](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+* [{YOURHOST.HERE}/oembed?url={URL}&format=json&callback=foo](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
 
 The `format` and `callback` parameter for JSONP support are both optional. Default format is JSON. 
