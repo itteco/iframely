@@ -4,7 +4,7 @@
 
 You host the API on your own servers and domain. The main endpoint:
 
-[http://{YOURHOST.HERE}/iframely?uri={URL}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
+[{YOURHOST.HERE}/iframely?uri={URL}](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
 
 All endpoints are called using `GET` methods. All URLs need to be URL-encoded.
 
@@ -14,7 +14,7 @@ All endpoints are called using `GET` methods. All URLs need to be URL-encoded.
 v0.5.3 added new endpoint for reverse compatibility of any existing [oEmbed](http://oembed.com) consumer implementations. Still, returning responsive widgets code and all good semantic data.
 
 
-[http://{YOURHOST.HERE}/oembed?url=http://vimeo.com/75299268&format=json&callback=foo](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+[{YOURHOST.HERE}/oembed?url=http://vimeo.com/75299268&format=json&callback=foo](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
 
 The `format` and `callback` parameter for JSONP support are both optional. Default format is JSON. 
