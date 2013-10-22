@@ -338,7 +338,7 @@ exports.getOembed = function(uri, data) {
         return link;
     });
 
-    var inlineReader = _.intersection(link.rel, [CONFIG.R.inline, CONFIG.R.reader]).length == 2;
+    var inlineReader = link && _.intersection(link.rel, [CONFIG.R.inline, CONFIG.R.reader]).length == 2;
 
     if (link && !inlineReader) {
         var m = link.media;
