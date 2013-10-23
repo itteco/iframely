@@ -39,7 +39,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        log('Loading oembed2 for', uri);
+        log('Loading /iframely for', uri);
 
         async.waterfall([
 
@@ -127,7 +127,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        log('Loading reader for', uri);
+        log('Loading /reader for', uri);
 
         async.waterfall([
 
@@ -176,7 +176,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        log('Loading render for', uri);
+        log('Loading /render for', uri);
 
         async.waterfall([
 
@@ -251,7 +251,7 @@ module.exports = function(app) {
             return next(new Error("'url' get param expected"));
         }
 
-        log('Loading oembed1 for', uri);
+        log('Loading /oembed for', uri);
 
         async.waterfall([
 

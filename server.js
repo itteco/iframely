@@ -1,5 +1,11 @@
 GLOBAL.CONFIG = require('./config');
 
+
+console.log("");
+console.log("Starting Iframely...");
+console.log("Base URL for embed links that require renders:", CONFIG.baseAppUrl);
+
+
 var path = require('path');
 var express = require('express');
 var sysUtils = require('./utils');
@@ -33,6 +39,7 @@ app.use(function(req, res, next) {
 }); 
 
 app.use(sysUtils.cacheMiddleware);
+
 
 require('./modules/api/views')(app);
 require('./modules/debug/views')(app);
@@ -76,4 +83,8 @@ app.get('/', function(req, res) {
 });
 
 app.listen(CONFIG.port);
-console.log('Listening on port', CONFIG.port);
+
+console.log('Iframely listening on port', CONFIG.port);
+console.log('- support@iframely.com - if you need help');
+console.log('- twitter.com/iframely - for news & updates');
+console.log('- github.com/itteco/iframely - star & contribute');
