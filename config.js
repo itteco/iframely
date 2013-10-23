@@ -10,6 +10,7 @@
         CACHE_TTL: 24 * 60 * 60,
 
         metaLoadingTimeout: 15 * 1000,
+        USER_AGENT: "Mozilla/5.0 (compatible; Iframely/"+ require('./package.json').version +"; +http://iframely.com/)",
 
         T: {
             text_html: "text/html",
