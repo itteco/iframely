@@ -9,7 +9,7 @@
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
 
-        metaLoadingTimeout: 15 * 1000,
+        metaLoadingTimeout: 5 * 1000,
 
         T: {
             text_html: "text/html",
