@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <title>iframe.ly debug tool</title>
+    <title>Iframely dev debug tool</title>
     <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/css/debug.css" />
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -22,12 +22,12 @@
     <div class="row-fluid">
         <div class="span2">
             <p style="padding: 5px;">
-                Feel free to contact <a href="mailto:ivan@iframely.com">ivan@iframely.com</a> with questions of feedback
+                Feel free to contact <a href="mailto:ivan@iframely.com">ivan@iframely.com</a> with questions or feedback
             </p>
             <% if (DEBUG) { %>
             <p style="padding: 5px;">
                 Bookmarklet:
-                <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug&nbsp;in&nbsp;iframe.ly</a>
+                <a style="padding: 2px; border: solid grey 1px;" onclick="return false;" href="javascript: var win=window.open('<%- CONFIG.baseAppUrl %>/debug?uri='+encodeURIComponent(document.location.href),'_blank');win.focus();">debug&nbsp;in&nbsp;iframely</a>
                 <br>
                 You can drag&drop it to your bookmarks to test web pages quickly with iframely.
             <p>

@@ -43,7 +43,7 @@ app.use(sysUtils.cacheMiddleware);
 
 require('./modules/api/views')(app);
 require('./modules/debug/views')(app);
-require('./modules/test-dashboard/views')(app);
+require('./modules/tests-ui/views')(app);
 
 app.use(logErrors);
 app.use(errorHandler);
