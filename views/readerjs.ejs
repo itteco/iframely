@@ -162,7 +162,7 @@
     if (window.jQuery === undefined || window.jQuery.fn.jquery < '1.9.1') {
         var scriptTag = document.createElement('script');
         scriptTag.setAttribute("type","text/javascript");
-        scriptTag.setAttribute("src", "<%= CONFIG.baseStaticUrl %>/js/jquery-1.9.1.min.js");
+        scriptTag.setAttribute("src", "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js");
         if (scriptTag.readyState) {
             scriptTag.onreadystatechange = function () {
                 if (this.readyState == 'complete' || this.readyState == 'loaded') {

@@ -161,7 +161,7 @@ module.exports = function(app) {
                 uri: JSON.stringify(uri)
             };
 
-            res.renderCached("article-insertable.js.ejs", context, {
+            res.renderCached("readerjs.ejs", context, {
                 "Content-Type": "text/javascript"
             });
         });
