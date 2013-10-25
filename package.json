@@ -59,7 +59,7 @@
     "main": "./lib/iframely",
 
     "scripts": {
-        "test": "vows test/main.js --isolate --spec"
+        "test": "./node_modules/vows/bin/vows test/main.js --isolate --spec"
     },
 
     "engines": {
