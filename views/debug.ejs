@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Iframely dev debug tool</title>
-    <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<%= CONFIG.baseStaticUrl %>/css/debug.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.1/css/bootstrap.min.css" />
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/2.3.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
     <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/debug.js"></script>
     <script type="text/javascript" src="<%= CONFIG.baseStaticUrl %>/js/iframely.js"></script>
@@ -66,7 +65,7 @@
                 API Call:
                 <a target="_blank" id="api-uri"></a>
             </div>
-            <div class="s-loader loader" style="display: none;"></div>
+            <div class="s-loader loader" style="display: none;">Loading...</div>
             <div class="alert" id="status" style="display: none;"></div>
 
             <div class="s-result-div" style="display: none;">
