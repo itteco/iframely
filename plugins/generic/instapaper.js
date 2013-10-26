@@ -51,8 +51,9 @@ module.exports = {
                 cb();
             }
         });
-    }
+    },
 
-    // TODO: add tests.
-
+    tests: [
+        "http://www.theverge.com/2013/1/24/3904134/google-redesign-how-larry-page-engineered-beautiful-revolution"
+    ]
 };
