@@ -78,6 +78,37 @@
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
             }
+        },
+
+        // if present, will be added to whitelist (even absent one) as record for top level domain: "*"
+        // you can change default behavior of the system using this setting. 
+        // E.g. allowing all open-graph players, denying twitter photos, etc.
+        // If absent or empty, all generic media parsers will be disabled by default (only domain plugins will work)
+        // More about format: http://iframely.com/qa/format
+
+        WHITELIST_WILDCARD: {  
+              "twitter": {
+                "player": "allow",
+                "photo": "deny"
+              },
+              "oembed": {
+                "video": "allow",
+                "photo": "allow",
+                "rich": "allow",
+                "link": "deny"
+              },
+              "og": {
+                "video": ["allow", "ssl"]
+              },
+              "iframely": {
+                "survey": "allow",
+                "reader": "allow",
+                "player": "allow",
+                "image": "allow",
+              },
+              "html-meta": {
+                "video": ["allow", "responsive"]
+              }
         }
     };
 
