@@ -40,6 +40,8 @@ At the very least, you need to properly configure:
 - If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
 - `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
 
+The important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the gateway with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers,meta and thumbnails ones only. See the [record format description](http://iframely.com/qa/format).
+
 There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable
 
 You can also fine-tune API response time by disabling image size detection or readability parsing. 
