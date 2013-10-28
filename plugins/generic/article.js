@@ -2,11 +2,35 @@ module.exports = {
 
     notPlugin: CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === false,
 
-    getData: function(html, meta, whitelistRecord) {
+    getData: function(url, html, meta, whitelistRecord) {  
 
+        // articles are usually on 3rd level of a domain directory: domain.name/***/***
+        if (!/^https?:\/\/[^/]+\/[^/]+\/[^/]+/i.test(url)
+            //with the exception of default wordpress slugs like domain.name?p=123
+            && !/^https?:\/\/[^?]+\?p=.+/i.test(url)
+            && !/^https?:\/\/.*(blog|article|post).*/i.test(url)) return;
+
+        // Skip those which potentially have oembed articles
         if (whitelistRecord.isAllowed
             && (whitelistRecord.isAllowed('oembed.link', "reader")
             || whitelistRecord.isAllowed('oembed.rich', "reader"))) {
+            return;
+        }
+
+        if (meta.twitter && meta.twitter.player) {
+            // Skip if has twitter player.
+            return;
+        }
+
+        if (meta.og 
+            && ((meta.og.type && !{'article':1, 'blog':1}[meta.og.type]) || meta.og.video)
+            && !/^https?:\/\/.*(blog|article|post).*/i.test(url)) {
+            // Skip if og type is not article explicitly.
+            return;
+        }
+
+        if (meta.video_src) {
+            // Skip if video_src is given
             return;
         }
 
@@ -16,24 +40,10 @@ module.exports = {
             }
         }
 
-        if (meta.twitter && meta.twitter.player) {
-            // Skip if has twitter player.
-            return;
-        }
-
-        if (meta.og && ((meta.og.type && !{'article':1, 'blog':1}[meta.og.type]) || meta.og.video)) {
-            // Skip if og type is not article explicitly.
-            return;
-        }
-
-        if (meta.video_src) {
-            // Skip if video_src is given
-            return;
-        }        
-
         var isArticle = html.match(/<article\b/i);
 
         if (!isArticle){
+            //Should have at least 1 block of text with more than 300 symbols
             (html.match(/((?!:\/\/)(?!%[0-9abcdef][0-9abcdef])[^<>={}\\/]){300,}/gi) || []).some(function(item) {
                 if (item.match(/;/) && !item.match(/&#?[a-z0-9/-]+;/i)){
                     return false
