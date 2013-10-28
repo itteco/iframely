@@ -73,7 +73,7 @@
 //              apiKey: 'INSERT YOUR VALUE' // not required, but recommended
             },
             readability: {
-                enabled: true
+                enabled: false
             },
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
@@ -94,7 +94,7 @@
               "oembed": {
                 "video": "allow",
                 "photo": "allow",
-                "rich": "allow",
+                "rich": "deny",
                 "link": "deny"
               },
               "og": {
