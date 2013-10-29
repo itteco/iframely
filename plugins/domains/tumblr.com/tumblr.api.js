@@ -3,7 +3,7 @@ var _ = require('underscore');
 
 module.exports = {
 
-    re: /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/post\/(\d+)(?:\/[a-z0-9-]+)?/i,
+    re: /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
 
     mixins: [
         "favicon"
@@ -11,11 +11,11 @@ module.exports = {
 
     getMeta: function(tumblr_post) {
         return {
-            title: tumblr_post.title || $('<div>').html(tumblr_post.caption).text(),
+            title: tumblr_post.title || $('<div>').html(tumblr_post.caption).text() || tumblr_post.blog_name,
             site: 'tumblr',
             author: tumblr_post.blog_name,
             author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',
-            canonical: tumblr_post.post_url,
+            canonical: tumblr_post.permalink_url || tumblr_post.post_url,
             tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
             shortlink: tumblr_post.short_url,
             date: tumblr_post.timestamp * 1000,
@@ -40,13 +40,20 @@ module.exports = {
 
     getData: function(urlMatch, request, cb) {
 
+        if (!CONFIG.providerOptions.tumblr || !CONFIG.providerOptions.tumblr.consumer_key) {
+            cb (new Error ("No tumblr.consumer_key configured"));
+            return;
+        }        
+
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
                 api_key: CONFIG.providerOptions.tumblr.consumer_key,
-                id: urlMatch[2]
+                id: urlMatch[3]
             },
-            json: true
+            json: true,
+            limit: 1, 
+            timeout: 1000
         }, function (error, response, body) {
 
             if (error) {
