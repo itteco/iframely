@@ -50,7 +50,12 @@ app.use(errorHandler);
 
 
 function logErrors(err, req, res, next) {
-    console.error(err.stack);
+    if (CONFIG.RICH_LOG_ENABLED) {
+        console.error(err.stack);
+    } else {
+        console.log(err.message);
+    }
+
     next(err);
 }
 
