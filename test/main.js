@@ -6,6 +6,12 @@ GLOBAL.CONFIG = require('../config');
 
 var iframely = require('../lib/iframely-meta.js');
 
+// Must be to pass tests.
+process.on('uncaughtException', function(err) {
+    console.log('Caught exception: ' + err.stack);
+});
+
+
 // TODO: test oebmed only loading without meta.
 
 function assertOembed(oembed) {

@@ -4,31 +4,27 @@ module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
-        var richReader = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich', "reader");
-        var video = oembed.type === "video";
+        var reader = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich', "reader");
+        var rich = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich');
+        var video = oembed.type === "video" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video');
 
-        if (!video && !richReader) {
+        if (!video && !rich && !reader) {
             return;
         }
 
+        var rel = [CONFIG.R.oembed];
+        rel.push(video ? CONFIG.R.player : CONFIG.R.reader);
+
+
         var $container = jquery('<div>');
-        try{
+        try {
             $container.html(oembed.html5 || oembed.html);
-        } catch(ex) {}
+        } catch (ex) {}
 
-        var $iframe = $container.find('iframe');
+        var $iframe = $container.find('iframe')
 
+        // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
-
-            var rel = [CONFIG.R.oembed];
-
-            if (richReader) {
-                // Iframed reader.
-                rel.push(CONFIG.R.reader);
-            } else {
-                // Iframed player.
-                rel.push(CONFIG.R.player);
-            }
 
             return {
                 href: $iframe.attr('src'),
@@ -38,29 +34,43 @@ module.exports = {
                 height: oembed.height
             };
 
-        } else if (richReader) {
+        // otherwise apply renders
+        } else { 
 
-            return {
-                html: oembed.html || oembed.html5,
-                type: CONFIG.T.safe_html,
-                rel: [CONFIG.R.reader, CONFIG.R.inline]
-            };
+            if (reader) {
+
+                rel.push (CONFIG.R.inline);
+                return {
+                    html: oembed.html || oembed.html5,
+                    type: CONFIG.T.safe_html,
+                    rel: rel
+                };                
+
+            } else {
+
+                return {
+                    type: CONFIG.T.text_html,
+                    rel: rel,
+                    template: "embed-html",
+                    template_context: {
+                        title: oembed.title,
+                        html: oembed.html || oembed.html5
+                    },
+                    width: oembed.width,  
+                    height: oembed.height
+                }
+            }
         }
-    }/*,
+    },
 
-    getData: function(oembed) {
 
-        if (oembed.type != "video") {
-            return;
-        }
+    // tests are only applicable with the whitelist, otherwise will throw errors on Test UI
+    tests: [
+        "http://sports.pixnet.net/album/video/183041064", // This is one oEmbed.video with a <script>!
+        "http://video.yandex.ua/users/enema-bandit/view/11/?ncrnd=4917#hq",  //oEmbed.video - iframe
+        "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295", //Behance oEmbed rich
+        "http://www.behance.net/gallery/REACH/8080889", // Behance default, with '100%' height
+        "http://list.ly/list/303-alternatives-to-twitter-bootstrap-html5-css3-responsive-framework" //oembed rich reader
+    ]
 
-        return {
-            embed_html: oembed.html,
-            // TODO: tie rel from data to nested link.
-            rel: [CONFIG.R.player, CONFIG.R.oembed],
-            width: oembed.width,
-            height: oembed.height
-        };
-    }
-    */
 };

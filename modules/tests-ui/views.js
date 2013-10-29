@@ -177,7 +177,7 @@
                 good.items = pluginTests.filter(function(p) { return !p.hasError; });
                 bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
-                res.render('test-dashboard/index',{
+                res.render('tests-ui',{
                     groups: groups,
                     time: moment().format("DD-MM-YY HH:mm"),
                     progress: progress,

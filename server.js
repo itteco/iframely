@@ -43,14 +43,19 @@ app.use(sysUtils.cacheMiddleware);
 
 require('./modules/api/views')(app);
 require('./modules/debug/views')(app);
-require('./modules/test-dashboard/views')(app);
+require('./modules/tests-ui/views')(app);
 
 app.use(logErrors);
 app.use(errorHandler);
 
 
 function logErrors(err, req, res, next) {
-    console.error(err.stack);
+    if (CONFIG.RICH_LOG_ENABLED) {
+        console.error(err.stack);
+    } else {
+        console.log(err.message);
+    }
+
     next(err);
 }
 
