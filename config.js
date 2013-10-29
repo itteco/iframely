@@ -11,7 +11,7 @@
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
 
-        metaLoadingTimeout: 15 * 1000,
+        metaLoadingTimeout: 5 * 1000,
         USER_AGENT: "Mozilla/5.0 (compatible; Iframely/" + version + "; +http://iframely.com/)",
 
         T: {
