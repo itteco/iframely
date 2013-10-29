@@ -17,7 +17,7 @@
         - memcached - https://github.com/3rd-Eden/node-memcached
         */
         CACHE_ENGINE: 'node-cache',
-        CACHE_TTL: 24 * 60 * 60, // In seconds.
+        CACHE_TTL: 0, // In milliseconds. 0 for 'never expire' to let cache engine decide itself when to evict the record
 
         /*
         // Redis cache options.
@@ -52,7 +52,7 @@
         },
         */
 
-        metaLoadingTimeout: 15 * 1000,
+        metaLoadingTimeout: 5 * 1000,
 
         providerOptions: {
             "twitter.status": {
