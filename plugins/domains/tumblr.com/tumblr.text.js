@@ -1,15 +1,15 @@
 module.exports = {
 
-    getData: function(tumblr_post) {
+    getLink: function(tumblr_post) {
 
         if (tumblr_post.type !== "text") {
             return;
         }
 
         return {
-            readability_data: {
-                html: tumblr_post.body
-            }
+            html: tumblr_post.body,
+            type: CONFIG.T.safe_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
     },
 
