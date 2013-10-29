@@ -157,7 +157,7 @@ vows.describe('Tests')
                 assert.isUndefined(data.fullResponse);
             },
             'has meta': hasMeta
-        },
+        }/*,
 
         'image size': {
             topic: function() {
@@ -168,6 +168,6 @@ vows.describe('Tests')
                 assert.equal(data.height, 211);
                 assert.equal(data.format, "JPEG");
             }
-        }
+        }*/
 
     })['export'](module);
