@@ -29,10 +29,5 @@ This license applies to all parts of Iframely that are not externally
 maintained libraries. Such external libraries are subject to licensing 
 terms of respective copyright holders. 
 
-External libraries, attached to Iframely: 
-- jQuery, copyright jQuery Foundation, Inc.
-- Bootstrap, copyright Twitter, Inc.
-- Underscore, copyright Jeremy Ashkenas, DocumentCloud
-
 `package.json` file lists the dependencies on external libraries that are
 not part of Iframely.

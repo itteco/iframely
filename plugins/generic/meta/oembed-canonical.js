@@ -1,8 +1,10 @@
 module.exports = {
 
     getMeta: function(oembed) {
-        return {
-            canonical: oembed.url
-        };
+    	if (oembed.type != "photo") {
+	        return {
+	            canonical: oembed.url
+	        };
+    	}
     }
 };

@@ -39,7 +39,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        log('Loading oembed2 for', uri);
+        log('Loading /iframely for', uri);
 
         async.waterfall([
 
@@ -48,8 +48,9 @@ module.exports = function(app) {
                 iframely.getRawLinks(uri, {
                     debug: req.query.debug,
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    forceMeta: req.query.meta,
-                    forceOembed: req.query.meta
+                    forceMeta: req.query.meta === "true",
+                    forceOembed: req.query.meta === "true",
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
@@ -126,13 +127,13 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        log('Loading reader for', uri);
+        log('Loading /reader for', uri);
 
         async.waterfall([
 
             function(cb) {
                 iframely.getRawReaderLink(uri, {
-                    disableCache: req.query.disableCache === "true"
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
@@ -160,7 +161,7 @@ module.exports = function(app) {
                 uri: JSON.stringify(uri)
             };
 
-            res.renderCached("article-insertable.js.ejs", context, {
+            res.renderCached("readerjs.ejs", context, {
                 "Content-Type": "text/javascript"
             });
         });
@@ -175,13 +176,13 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        log('Loading render for', uri);
+        log('Loading /render for', uri);
 
         async.waterfall([
 
             function(cb) {
                 iframely.getRawRenderLink(uri, {
-                    disableCache: req.query.disableCache === "true"
+                    disableCache: req.query.refresh === "true"
                 }, cb);
             }
 
@@ -250,7 +251,7 @@ module.exports = function(app) {
             return next(new Error("'url' get param expected"));
         }
 
-        log('Loading oembed1 for', uri);
+        log('Loading /oembed for', uri);
 
         async.waterfall([
 

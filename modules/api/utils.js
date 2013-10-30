@@ -197,7 +197,10 @@ var renders = {
             var $iframe = $('<iframe>')
                 .addClass("iframely-widget iframely-iframe")
                 .attr('src', data.href)
-                .attr('frameborder', '0');
+                .attr('frameborder', '0')
+                .attr('allowfullscreen', true)
+                .attr('webkitallowfullscreen', true)
+                .attr('mozallowfullscreen', true);
 
             if (options && options.disableSizeWrapper) {
                 return $iframe;
@@ -335,7 +338,9 @@ exports.getOembed = function(uri, data) {
         return link;
     });
 
-    if (link && link.rel.indexOf(CONFIG.R.inline) == -1) {
+    var inlineReader = link && _.intersection(link.rel, [CONFIG.R.inline, CONFIG.R.reader]).length == 2;
+
+    if (link && !inlineReader) {
         var m = link.media;
         if (m ) {
             if (m.width && m.height) {

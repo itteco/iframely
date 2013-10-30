@@ -1,10 +1,15 @@
-// TODO: move to plugin dir?
+
 var readability = require('iframely-readability');
 var cache = require('../../lib/cache');
 
 module.exports = {
 
     getLink: function(url, readability_data, whitelistRecord, cb) {
+
+        //ignore text parsers if config says to do so
+        if (CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === false) {
+            return cb();
+        }
 
         if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             return cb();

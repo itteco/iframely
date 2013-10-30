@@ -243,7 +243,10 @@
 
             res.sendJsonCached = function(obj) {
 
-                setResponseToCache(200, 'application/json', req, res, JSON.stringify(obj, null, 4));
+                var app = this.app;
+                var replacer = app.get('json replacer');
+                var spaces = app.get('json spaces');
+                setResponseToCache(200, 'application/json', req, res, JSON.stringify(obj, replacer, spaces));
 
                 this.charset = this.charset || 'utf-8';
                 this.send(obj);

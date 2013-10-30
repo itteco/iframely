@@ -63,16 +63,6 @@
 
     function loadDependencies() {
         (function($) {
-            var cssHref = "<%= CONFIG.baseStaticUrl %>/css/article.css";
-
-            if (!$('link[href="'+cssHref+'"]').length) {
-                var cssLink = $("<link>", {
-                    rel: "stylesheet",
-                    type: "text/css",
-                    href: cssHref
-                });
-                $(window.document).find('head').append(cssLink);
-            }
 
             if (typeof($.fn.objectfit) != 'function'){
                 $.fn.objectfit = function(options) {
@@ -162,7 +152,7 @@
     if (window.jQuery === undefined || window.jQuery.fn.jquery < '1.9.1') {
         var scriptTag = document.createElement('script');
         scriptTag.setAttribute("type","text/javascript");
-        scriptTag.setAttribute("src", "<%= CONFIG.baseStaticUrl %>/js/jquery-1.9.1.min.js");
+        scriptTag.setAttribute("src", "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js");
         if (scriptTag.readyState) {
             scriptTag.onreadystatechange = function () {
                 if (this.readyState == 'complete' || this.readyState == 'loaded') {

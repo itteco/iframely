@@ -17,7 +17,7 @@
         - memcached - https://github.com/3rd-Eden/node-memcached
         */
         CACHE_ENGINE: 'node-cache',
-        CACHE_TTL: 24 * 60 * 60, // In seconds.
+        CACHE_TTL: 0, // In milliseconds. 0 for 'never expire' to let cache engine decide itself when to evict the record
 
         /*
         // Redis cache options.
@@ -52,7 +52,7 @@
         },
         */
 
-        metaLoadingTimeout: 15 * 1000,
+        metaLoadingTimeout: 5 * 1000,
 
         providerOptions: {
             "twitter.status": {
@@ -73,11 +73,42 @@
 //              apiKey: 'INSERT YOUR VALUE' // not required, but recommended
             },
             readability: {
-                enabled: true
+                enabled: false
             },
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
             }
+        },
+
+        // if present, will be added to whitelist (even absent one) as record for top level domain: "*"
+        // you can change default behavior of the system using this setting. 
+        // E.g. allowing all open-graph players, denying twitter photos, etc.
+        // If absent or empty, all generic media parsers will be disabled by default (only domain plugins will work)
+        // More about format: http://iframely.com/qa/format
+
+        WHITELIST_WILDCARD: {  
+              "twitter": {
+                "player": "allow",
+                "photo": "deny"
+              },
+              "oembed": {
+                "video": "allow",
+                "photo": "allow",
+                "rich": "deny",
+                "link": "deny"
+              },
+              "og": {
+                "video": ["allow", "ssl"]
+              },
+              "iframely": {
+                "survey": "allow",
+                "reader": "allow",
+                "player": "allow",
+                "image": "allow",
+              },
+              "html-meta": {
+                "video": ["allow", "responsive"]
+              }
         }
     };
 
