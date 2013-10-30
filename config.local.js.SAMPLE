@@ -75,6 +75,10 @@
             readability: {
                 enabled: false
             },
+            images: {
+                loadSize: false,
+                checkFavicon: false
+            },
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
             }
