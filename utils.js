@@ -229,6 +229,10 @@
                     }
 
                     setResponseToCache(error, 'text/html', req, res, value);
+                    
+                } else if (error.match(/^timeout/)) {
+
+                    setResponseToCache(500, 'text/html', req, res, 'Requested page error: ' + error);
                 }
             };
 
