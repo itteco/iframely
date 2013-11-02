@@ -230,7 +230,7 @@
 
                     setResponseToCache(error, 'text/html', req, res, value);
 
-                } else if (error.match(/^timeout/)) {
+                } else if (typeof error === "string" && error.match(/^timeout/)) {
 
                     setResponseToCache(500, 'text/html', req, res, 'Requested page error: ' + error, CONFIG.CACHE_TTL_PAGE_TIMEOUT);
                 }
