@@ -74,7 +74,11 @@ function errorHandler(err, req, res, next) {
 }
 
 process.on('uncaughtException', function(err) {
-    console.log(err.stack);
+    if (CONFIG.DEBUG) {
+        console.log(err.stack);
+    } else {
+        console.log(err.message);
+    }
 });
 
 app.get(CONFIG.relativeStaticUrl + '/*', function(req, res, next) {
