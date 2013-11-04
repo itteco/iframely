@@ -2,14 +2,14 @@ module.exports = {
 
 
     re: [
-        /^http:\/\/lifehacker\.com\/[a-z0-9-]+/i,
+        /^http:\/\/(\w+\.)?lifehacker\.com\/[a-z0-9-]+/i,
         /^http:\/\/(\w+\.)?gawker\.com\/[a-z0-9-]+/i,
-        /^http:\/\/jezebel\.com\/[a-z0-9-]+/i,
+        /^http:\/\/(\w+\.)?jezebel\.com\/[a-z0-9-]+/i,
         /^http:\/\/(\w+\.)?gizmodo\.com\/[a-z0-9-]+/i,
-        /^http:\/\/deadspin\.com\/[a-z0-9-]+/i,
-        /^http:\/\/io9\.com\/[a-z0-9-]+/i,
-        /^http:\/\/kotaku\.com\/[a-z0-9-]+/i,
-        /^http:\/\/jalopnik\.com\/[a-z0-9-]+/i
+        /^http:\/\/(\w+\.)?deadspin\.com\/[a-z0-9-]+/i,
+        /^http:\/\/(\w+\.)?io9\.com\/[a-z0-9-]+/i,
+        /^http:\/\/(\w+\.)?kotaku\.com\/[a-z0-9-]+/i,
+        /^http:\/\/(\w+\.)?jalopnik\.com\/[a-z0-9-]+/i
     ],
 
 
