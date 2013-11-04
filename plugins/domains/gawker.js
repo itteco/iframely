@@ -7,7 +7,9 @@ module.exports = {
         /^http:\/\/jezebel\.com\/[a-z0-9-]+/i,
         /^http:\/\/(\w+\.)?gizmodo\.com\/[a-z0-9-]+/i,
         /^http:\/\/deadspin\.com\/[a-z0-9-]+/i,
-        /^http:\/\/io9\.com\/[a-z0-9-]+/i
+        /^http:\/\/io9\.com\/[a-z0-9-]+/i,
+        /^http:\/\/kotaku\.com\/[a-z0-9-]+/i,
+        /^http:\/\/jalopnik\.com\/[a-z0-9-]+/i
     ],
 
 
