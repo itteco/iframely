@@ -18,7 +18,7 @@ module.exports = {
 
         jsdom.env({
             html: html,
-            src: [jqueruSrc],
+            src: [jquerySrc],
             done: function(err, window) {
 
                 if (err) {
