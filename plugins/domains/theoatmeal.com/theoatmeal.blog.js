@@ -1,5 +1,3 @@
-var $ = require('jquery');
-
 module.exports = {
 
     re: /^http:\/\/theoatmeal\.com\/blog\/[a-z0-9_-]+/i,
@@ -16,7 +14,7 @@ module.exports = {
         var $body = $selector('.post_body');
         var text = $body.text();
 
-        if ($.trim(text)) {
+        if ($selector.trim(text)) {
             return {
                 readability_data: {
                     html: $body.html()

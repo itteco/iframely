@@ -2,7 +2,6 @@ var _ = require('underscore');
 var FeedParser = require('feedparser');
 var request = require('request');
 var async = require('async');
-var $ = require('jquery');
 var jsdom = require('jsdom');
 var url = require('url');
 
@@ -158,14 +157,18 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
         },
 
         function createWindow(data, cb) {
-            jsdom.env(data.fullResponse, cb);
+            jsdom.env({
+                html: data.fullResponse,
+                src: [jquerySrc],
+                done: cb
+            });
         },
 
         function(window, cb) {
 
-            var $selector = $.create(window);
+            var $ = window.$;
 
-            var $links = $selector(selector);
+            var $links = $(selector);
 
             var urls = [];
             $links.each(function() {
@@ -188,6 +191,8 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
                     }
                 }
             });
+
+            window.close();
 
             if (urls.length) {
                 cb(null, urls);
