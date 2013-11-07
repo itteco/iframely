@@ -1,6 +1,8 @@
 GLOBAL.CONFIG = require('./config');
 
-var heapdump = require('heapdump');
+if (CONFIG.DEBUG) {
+    var heapdump = require('heapdump');
+}
 
 console.log("");
 console.log("Starting Iframely...");
