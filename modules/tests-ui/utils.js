@@ -158,9 +158,7 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
         },
 
         function createWindow(data, cb) {
-            jsdom.env({
-                html: data.fullResponse
-            }, cb);
+            jsdom.env(data.fullResponse, cb);
         },
 
         function(window, cb) {

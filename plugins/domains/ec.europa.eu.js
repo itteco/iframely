@@ -23,7 +23,7 @@ module.exports = {
             href: ec_data["video_src"],
             rel: CONFIG.R.player,
             type: CONFIG.T.flash,
-            "aspect-ratio": ec_data["video_width"] / ec_data["video_height"],
+            "aspect-ratio": ec_data["video_width"] / ec_data["video_height"]
         }]
     },
 

@@ -21,7 +21,7 @@
         "jslint":       "0.1.9",
         "async":        "0.2.8",
         "underscore":   "1.4.4",
-        "jsdom":        "0.2",
+        "jsdom":        "0.8.8",
         "request":      "2.9",
         "express":      "3.2.4",
         "send":         "0.1.0",

@@ -17,9 +17,7 @@ module.exports = {
 
     getLink: function(url, instapaper_flag, html, cb) {
 
-        jsdom.env({
-            html: html
-        }, function(err, window) {
+        jsdom.env(html, function(err, window) {
 
             if (err) {
                 return cb(err);
