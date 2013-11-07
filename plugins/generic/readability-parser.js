@@ -55,7 +55,7 @@ module.exports = {
                         timeout = null;
 
                         if (result.error) {
-                            cb(null, 'readability error');
+                            cb(null, 'error:' + result.error);
                         } else {
                             cb(null, result.content);
                         }

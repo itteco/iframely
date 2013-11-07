@@ -1,5 +1,3 @@
-var $ = require('jquery');
-
 module.exports = {
 
     re: /\/wiki\/File:/i,
