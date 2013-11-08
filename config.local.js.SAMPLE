@@ -10,6 +10,14 @@
         port: 8061,
 
         /*
+        ssl: {
+            key: require('fs').readFileSync(__dirname + '/key.pem'),
+            cert: require('fs').readFileSync(__dirname + '/cert.pem'),
+            port: 443
+        },
+        */
+
+        /*
         Supported cache engines:
         - no-cache - no caching will be used.
         - node-cache - good for debug, node memory will be used (https://github.com/tcs-de/nodecache).

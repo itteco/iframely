@@ -89,6 +89,11 @@ app.get('/', function(req, res) {
 
 app.listen(CONFIG.port);
 
+if (CONFIG.ssl) {
+  var options = { key: CONFIG.ssl.key, cert: CONFIG.ssl.cert };
+  require('https').createServer(options, app).listen(CONFIG.ssl.port);
+}
+
 console.log('Iframely listening on port', CONFIG.port);
 console.log('- support@iframely.com - if you need help');
 console.log('- twitter.com/iframely - for news & updates');
