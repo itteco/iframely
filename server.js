@@ -1,9 +1,5 @@
 GLOBAL.CONFIG = require('./config');
 
-if (CONFIG.DEBUG) {
-    var heapdump = require('heapdump');
-}
-
 console.log("");
 console.log("Starting Iframely...");
 console.log("Base URL for embed links that require renders:", CONFIG.baseAppUrl);
