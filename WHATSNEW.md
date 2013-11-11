@@ -7,11 +7,12 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 ### 2013.11.11, Version 0.5.6
 
 Please, run following to update package dependencies:
+
     rm -r node_modules/iframely-readability
     npm update
 
  * Fixed JSDOM memory leaks in `iframely-readability` package and when using `$selector` plugin requirement
- * Fixed IE<=9.0 window resize events (#29 - stings instead of JSON in `postMessage`)
+ * Fixed IE<=9.0 window resize events (#29 - strings instead of JSON in `postMessage`)
  + HTTPs support (thanks @fent)
  + Links to files now get properly proxied (see #31). Images and video files now be properly rendered. Javascript is excluded for security reasons.
  + [Domains] Plugins for entire Gawker family (Life Hacker, Gawker, Gizmodo, Jezebel, Deadspin, io9, kotaku, jalopnik)
