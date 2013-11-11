@@ -6,7 +6,9 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2013.11.11, Version 0.5.6
 
-Please, run `npm update` to update package dependencies.
+Please, run following to update package dependencies:
+    rm -r node_modules/iframely-readability
+    npm update
 
  * Fixed JSDOM memory leaks in `iframely-readability` package and when using `$selector` plugin requirement
  * Fixed IE<=9.0 window resize events (#29 - stings instead of JSON in `postMessage`)
