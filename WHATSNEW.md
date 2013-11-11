@@ -4,9 +4,19 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
-### 2013.10.30, Version 0.5.6
+### 2013.11.11, Version 0.5.6
 
- * Fixed memory leaks when using $selector plugin requirement.
+Please, run `npm update` to update package dependencies.
+
+ * Fixed JSDOM memory leaks in `iframely-readability` package and when using `$selector` plugin requirement
+ * Fixed IE<=9.0 window resize events (#29 - stings instead of JSON in `postMessage`)
+ + HTTPs support (thanks @fent)
+ + Links to files now get properly proxied (see #31). Images and video files now be properly rendered. Javascript is excluded for security reasons.
+ + [Domains] Plugins for entire Gawker family (Life Hacker, Gawker, Gizmodo, Jezebel, Deadspin, io9, kotaku, jalopnik)
+ * [Domains] Fix Livestream, Twitcam, official.fm, NHL, Angel List and Giphy plugins
+ * [Domains] Allow responsive Prezi (no more browser freezes detected)
+ - [Domains] Disable Vevo as they don't publish embeds in meta at the moment :\
+ + [Domains] Explicit Habrahabr.ru parser (conflicted with Tumblr custom domains)
 
 ### 2013.10.30, Version 0.5.5
 
