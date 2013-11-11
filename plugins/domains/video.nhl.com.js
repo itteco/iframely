@@ -7,7 +7,7 @@ module.exports = {
         "og-description",
 
         "favicon",
-        "twitter-player",
+        "twitter-player-responsive",
         "og-image"
     ],
 
