@@ -4,7 +4,7 @@
 
      Iframely consumer client lib - for resizing iframes only.
 
-     Versrion 0.5.4
+     Versrion 0.5.6
 
      */
 
