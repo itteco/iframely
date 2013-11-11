@@ -4,10 +4,12 @@
 
     $.iframely = $.iframely || {};
 
-    var XD = function(){
+    var windowMessaging = function(){
 
         return {
             postMessage : function(message, target_url, target) {
+
+                message = JSON.stringify(message);
 
                 target_url = target_url || '*';
 
@@ -23,12 +25,22 @@
 
             receiveMessage : function(callback) {
 
+                function cb(e) {
+                    var message;
+                    try {
+                        message = JSON.parse(e.data);
+                    } catch (ex) {
+                    }
+
+                    callback(e, message);
+                }
+
                 // browser supports window.postMessage
                 if (window['postMessage']) {
                     if (window['addEventListener']) {
-                        window[callback ? 'addEventListener' : 'removeEventListener']('message', callback, !1);
+                        window[callback ? 'addEventListener' : 'removeEventListener']('message', cb, !1);
                     } else {
-                        window[callback ? 'attachEvent' : 'detachEvent']('onmessage', callback);
+                        window[callback ? 'attachEvent' : 'detachEvent']('onmessage', cb);
                     }
                 }
             }
@@ -38,10 +50,10 @@
     var windowId;
     var heightGetter;
 
-    XD.receiveMessage(function(e) {
+    windowMessaging.receiveMessage(function(e, message) {
 
-        if (e.data.method == "register") {
-            windowId = e.data.windowId;
+        if (message && message.method && message.method === "register") {
+            windowId = message.windowId;
 
             var height;
 
@@ -50,7 +62,7 @@
 
                 if (h && h != height && (h > height || !height)) {
                     height = h;
-                    XD.postMessage({
+                    windowMessaging.postMessage({
                         windowId: windowId,
                         method: 'resize',
                         height: height

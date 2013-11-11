@@ -8,8 +8,10 @@ module.exports = {
         "canonical",
         "author",
         "og-site",
+        "twitter-title",
         "keywords",
-        "og-image",
+        "twitter-image",
+        "twitter-player-whitelisted",
         "favicon"
     ],
 
@@ -24,7 +26,7 @@ module.exports = {
     getLinks: function(urlMatch) {
 
         // http://media.giphy.com/media/YJ88JyDL61jeo/original.gif
-        var original = "http://media.giphy.com/media/" + urlMatch[1] + "/original.gif";
+        var original = "http://media.giphy.com/media/" + urlMatch[1] + "/giphy.gif";
 
         return {
             href: original,

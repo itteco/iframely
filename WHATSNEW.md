@@ -4,12 +4,31 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2013.11.11, Version 0.5.6
+
+Please, run following to update package dependencies:
+
+    rm -r node_modules/iframely-readability
+    npm update
+
+ * Fixed JSDOM memory leaks in `iframely-readability` package and when using `$selector` plugin requirement
+ * Fixed IE<=9.0 window resize events (#29 - strings instead of JSON in `postMessage`)
+ + HTTPs support (thanks @fent)
+ + Links to files now get properly proxied (see #31). Images and video files now be properly rendered. Javascript is excluded for security reasons.
+ + [Domains] Plugins for entire Gawker family (Life Hacker, Gawker, Gizmodo, Jezebel, Deadspin, io9, kotaku, jalopnik)
+ * [Domains] Fix Livestream, Twitcam, official.fm, NHL, Angel List and Giphy plugins
+ * [Domains] Allow responsive Prezi (no more browser freezes detected)
+ - [Domains] Disable Vevo as they don't publish embeds in meta at the moment :\
+ + [Domains] Explicit Habrahabr.ru parser (conflicted with Tumblr custom domains)
+
 ### 2013.10.30, Version 0.5.5
 
  * Iframely now has the wildcard whitelist record, which gives you an option to decide upfront which generic parsers to allow. For example, you default to white list open graph videos, but deny Twitter photos. The settings will be overwritten if you have a record for specific domains. 
  * HEADS UP: Please, create a `WHITELIST_WILDCARD` in your local config (or copy from sample config). If this record is absent, Iframely will only allow the parsers from domain plugins and those that have explicit domain record in the domains DB.
+ * Fixed that nasty bandwidth leak on high load
  * Improved overall performance by adding Gzip encoding for outgoing traffic (to 3rd party sites that Iframely parses). Improves response times and saves traffic for both you and destination domains. 
- * Decreased server load if Readability parsing is enabled with a better pattern to detect potential articles. 
+ * Decreased server load if Readability parsing is enabled with a better pattern to detect potential articles.
+ * Replaced custom code for image size detection with arnaud-lb/imagesize.js lib. Run `npm install` when updating.
  * Fixed Tumblr parsers, and extended it to Tumblr's custom domains.
  - Removed client-side jQuery and Bootstrap from the content of the package.
  * Improve image size loading with 'imagesize' package.

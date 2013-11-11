@@ -36,11 +36,7 @@ module.exports = {
             href: 'http://prezi.com/embed/' + urlMatch[1] + '/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;',
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
-
-            // The player is theoretically responsive. 
-            // However, it seems, the flash would render the browser irresponsive if container is bigger. C'est la vie. 
-            width: 550,
-            height: 400
+            "aspect-ratio": 550 / 400
         }
     },
 

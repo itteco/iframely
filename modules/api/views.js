@@ -94,7 +94,9 @@ module.exports = function(app) {
             }
 
             if (req.query.whitelist) {
-                result.whitelist = iframely.whitelist.findWhitelistRecordFor(uri) || {};
+                // if whitelist record's domain is "*" - ignore this wildcard
+                var whitelistRecord = iframely.whitelist.findWhitelistRecordFor(uri) || {} ;
+                result.whitelist = whitelistRecord.isDefault ? {} : whitelistRecord;
             }
 
             if (req.query.meta) {

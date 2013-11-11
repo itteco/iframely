@@ -5,7 +5,7 @@ module.exports = {
         "og-image",
         "canonical",
 
-        "twitter-player",
+        "twitter-player-whitelisted",
         "favicon"
     ],
 

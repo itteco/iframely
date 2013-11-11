@@ -4,7 +4,7 @@
 
      Iframely consumer client lib - for resizing iframes only.
 
-     Versrion 0.5.4
+     Versrion 0.5.6
 
      */
 
@@ -12,6 +12,8 @@
 
         return {
             postMessage : function(message, target_url, target) {
+
+                message = JSON.stringify(message);
 
                 target_url = target_url || '*';
 
@@ -27,12 +29,22 @@
 
             receiveMessage : function(callback) {
 
+                function cb(e) {
+                    var message;
+                    try {
+                        message = JSON.parse(e.data);
+                    } catch (ex) {
+                    }
+
+                    callback(e, message);
+                }
+
                 // browser supports window.postMessage
                 if (window['postMessage']) {
                     if (window['addEventListener']) {
-                        window[callback ? 'addEventListener' : 'removeEventListener']('message', callback, !1);
+                        window[callback ? 'addEventListener' : 'removeEventListener']('message', cb, !1);
                     } else {
-                        window[callback ? 'attachEvent' : 'detachEvent']('onmessage', callback);
+                        window[callback ? 'attachEvent' : 'detachEvent']('onmessage', cb);
                     }
                 }
             }
@@ -42,11 +54,11 @@
     $.iframely = $.iframely || {};
     $.iframely.iframes = $.iframely.iframes || {};
 
-    windowMessaging.receiveMessage(function(e) {
+    windowMessaging.receiveMessage(function(e, message) {
         var $iframe;
-        if (e.data && e.data.windowId && ($iframe = $.iframely.iframes[e.data.windowId])) {
-            if ($.iframely.setIframeHeight && e.data.method == "resize" && e.data.height) {
-                $.iframely.setIframeHeight($iframe, e.data.height);
+        if (message && message.windowId && ($iframe = $.iframely.iframes[message.windowId])) {
+            if ($.iframely.setIframeHeight && message.method === "resize" && message.height) {
+                $.iframely.setIframeHeight($iframe, message.height);
             }
         }
     });
