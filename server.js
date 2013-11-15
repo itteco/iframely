@@ -4,6 +4,8 @@ console.log("");
 console.log("Starting Iframely...");
 console.log("Base URL for embed links that require renders:", CONFIG.baseAppUrl);
 
+//
+var heapdump = require('heapdump');
 
 var path = require('path');
 var express = require('express');
