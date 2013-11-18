@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/vube\.com\/([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]+)/i,
+    re: /^http:\/\/vube\.com\/([^\/]+)\/([a-zA-Z0-9_-]+)/i,
 
     getData: function(urlMatch, request, cb) {
         request({
