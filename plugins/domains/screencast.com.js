@@ -11,7 +11,6 @@ module.exports = {
     ],
 
     getLink: function($selector) {
-        console.log('i was here');
 
         var $el = $selector('img.embeddedObject');
         var isImage = true;
@@ -35,7 +34,6 @@ module.exports = {
         else {
 
             var flashVars = $selector('#scPlayer param[name="flashVars"]').attr('value');
-            console.log(flashVars);
         
             result = {
                 href: $el.attr('data') + '?thumb=' + flashVars.split('&thumb=')[1],
