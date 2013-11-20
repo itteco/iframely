@@ -9,8 +9,7 @@ module.exports = {
         "keywords",
         "canonical",
 
-        "og-image",
-        "favicon"
+        "og-image"
     ],
 
     getLinks: function(meta) {
@@ -24,6 +23,10 @@ module.exports = {
             type: CONFIG.T.flash,
             rel: [CONFIG.R.player, CONFIG.R.autoplay],
             "aspect-ratio": 576/414
+        }, {
+            href: "http://watch.travelchannel.com/Content/themes/travelchannel/favicon.ico",
+            type: CONFIG.T.image_icon,
+            rel: CONFIG.R.icon
         }];
     },
 

@@ -4,7 +4,6 @@ module.exports = {
         "canonical",
         "oembed-site",
         "oembed-author",
-        "keywords",
         "favicon"
     ],
 
@@ -41,7 +40,6 @@ module.exports = {
         skipMixins: [
             "og-title",
             "oembed-title",
-            "keywords",
             "canonical"
         ]
     }]
