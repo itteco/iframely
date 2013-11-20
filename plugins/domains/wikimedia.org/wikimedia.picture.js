@@ -24,7 +24,7 @@ module.exports = {
 
         if ($imgs.length) {
             $imgs.each(function() {
-                var $img = $(this);
+                var $img = $selector(this);
 
                 var width, height;
 
