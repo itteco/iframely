@@ -110,7 +110,7 @@ module.exports = function(app) {
             res.sendJsonCached(result);
 
             if (global.gc) {
-                console.log('GC called');
+                //console.log('GC called');
                 global.gc();
             };
         });
