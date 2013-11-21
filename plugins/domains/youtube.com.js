@@ -71,7 +71,7 @@ module.exports = {
             width: 480,
             height: 360
         }, {
-            href: '//www.youtube.com/embed/' + youtube_gdata.id,
+            href: '//www.youtube.com/embed/' + youtube_gdata.id + '?rel=0',
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
             "aspect-ratio": (youtube_gdata.aspectRatio === "widescreen") ? 16/9 : 4/3
