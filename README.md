@@ -175,3 +175,7 @@ The authors and maintainers of the package are these guys from [Itteco](http://i
 Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/itteco/iframely/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
