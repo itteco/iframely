@@ -52,6 +52,8 @@ module.exports = {
 
     getLinks: function(youtube_gdata) {
 
+        var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+
         return [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
             type: CONFIG.T.image_png,
@@ -71,7 +73,7 @@ module.exports = {
             width: 480,
             height: 360
         }, {
-            href: '//www.youtube.com/embed/' + youtube_gdata.id,
+            href: '//www.youtube.com/embed/' + youtube_gdata.id + params,
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
             "aspect-ratio": (youtube_gdata.aspectRatio === "widescreen") ? 16/9 : 4/3

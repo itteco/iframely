@@ -19,8 +19,10 @@ module.exports = {
 
     getLink: function(oembed) {
 
+        var params = (CONFIG.providerOptions.vimeo && CONFIG.providerOptions.vimeo.get_params) ? CONFIG.providerOptions.vimeo.get_params : "";
+
         return [{
-            href: "//player.vimeo.com/video/" + oembed.video_id,
+            href: "//player.vimeo.com/video/" + oembed.video_id + params,
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": oembed.width / oembed.height
