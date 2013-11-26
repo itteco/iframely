@@ -8,22 +8,12 @@ module.exports = {
         "oembed-title",
         "oembed-thumbnail",
         "oembed-site",
-        "oembed-author"
+        "oembed-author",
+        "twitter-image",
+        "favicon",        
     ],
 
-    // getMeta: function(meta) {
-    //     console.log(meta);
-    //     return {
-    //         title: meta.og.title,
-    //         description: meta.description
-    //     };
-    // },
-
-    getLink: function(urlMatch) {
-        console.log('=== url Match ===');
-        console.log(urlMatch);
-        console.log('=== url Match ===');
-
+   getLink: function(urlMatch) {
         return [{
             href: "http://www.haikudeck.com/e/"+urlMatch[1],
             type: CONFIG.T.text_html,
@@ -32,8 +22,11 @@ module.exports = {
         }];
     },
 
+    tests: [{
+        page: "http://www.haikudeck.com/gallery/featured",
+        selector: "h4 a"
 
-    tests: [
-        "http://slid.es/timkindberg/ui-router"
+    },
+        "http://www.haikudeck.com/p/cvVNYemLrm/gone-viral---from-unbearably-boring-to-engaging-contagious-content"
     ]
 };

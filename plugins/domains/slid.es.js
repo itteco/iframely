@@ -5,16 +5,16 @@ module.exports = {
 
     mixins: [
         "canonical",
-        "oembed-title",
-        "oembed-thumbnail",
-        "oembed-site",
-        "oembed-author"
+        "twitter-title",
+        "twitter-image",
+        "og-site",
+        "favicon"
     ],
 
     getMeta: function(meta) {
+
         return {
-            title: meta.og.title,
-            description: meta.description
+            author: meta.og.title.split('by ')[1],
         };
     },
 
