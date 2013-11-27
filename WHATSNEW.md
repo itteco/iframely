@@ -4,6 +4,39 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+
+### 2013.11.28, Version 0.5.7
+
+This maintenance update is focused on domain plugins. Please remember to update regularly as domains change their websites and we maintain Iframely plugins accordingly.
+
+ + Finally, a plugin for Vube.com (Alexa rank 69, and they had API issues before)
+ + Added plugin for Codepen.io
+ + Plugin for Dribbble
+ + Screencast (including videos)
+ + Tinypic
+ + Pastebin
+ + About.me
+ + Plugins for Haiku Deck & Slid.es (courtesy @peacemoon)
+ + Fixes for CNN videos
+ + Fixes for BravoTV, Eventbrite, Angellist and Wikimedia
+ + By popular demand: Customization of YouTube and Vimeo players. 
+
+To customize YouTube and Vimeo embeds, add your settings to the local config file (which is git-ignored when updating):
+
+        providerOptions: {
+        	// ...
+
+            // List of query parameters to add to YouTube and Vimeo frames
+            // Start it with leading "?". Or omit alltogether for default values
+            youtube: {
+                get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters
+            },
+            vimeo: {
+                get_params: "?byline=0&badge=0"     // http://developer.vimeo.com/player/embedding
+            }
+        }
+
+
 ### 2013.11.11, Version 0.5.6
 
 Please, run following to update package dependencies:
