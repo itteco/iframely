@@ -29,10 +29,12 @@ To customize YouTube and Vimeo embeds, add your settings to the local config fil
             // List of query parameters to add to YouTube and Vimeo frames
             // Start it with leading "?". Or omit alltogether for default values
             youtube: {
-                get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters
+                get_params: "?rel=0&showinfo=1"
+                // https://developers.google.com/youtube/player_parameters
             },
             vimeo: {
-                get_params: "?byline=0&badge=0"     // http://developer.vimeo.com/player/embedding
+                get_params: "?byline=0&badge=0"
+                // http://developer.vimeo.com/player/embedding
             }
         }
 
