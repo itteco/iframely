@@ -7,7 +7,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2013.11.28, Version 0.5.7
 
-This maintenance update is focused on domain plugins. Please remember to update regularly as domains change their websites and we maintain Iframely plugins accordingly.
+This maintenance update is focused on domain plugins. Please remember to update regularly as domains change their websites and we maintain Iframely plugins accordingly. 
 
  + Finally, a plugin for Vube.com (Alexa rank 69, and they had API issues before)
  + Added plugin for Codepen.io
@@ -37,6 +37,9 @@ To customize YouTube and Vimeo embeds, add your settings to the local config fil
                 // http://developer.vimeo.com/player/embedding
             }
         }
+
+
+Also, [Iframely Domains DB](http://iframely.com/qa) has recently reached 1500 entries.
 
 
 ### 2013.11.11, Version 0.5.6
