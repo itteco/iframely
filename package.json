@@ -19,8 +19,6 @@
     
     "dependencies": {
 
-        "heapdump":     "0.1.0",
-
         "jslint":       "0.1.9",
         "async":        "0.2.8",
         "underscore":   "1.4.4",
