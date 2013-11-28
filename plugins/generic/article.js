@@ -73,6 +73,7 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://habrahabr.ru"
+        page: "http://technorati.com/blogs/top100/",
+        selector: ".latest"
     }]
 };

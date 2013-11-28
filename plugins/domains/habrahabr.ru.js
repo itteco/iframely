@@ -37,6 +37,16 @@ module.exports = {
 
     tests: [
         "http://habrahabr.ru/sandbox/71772/",
-        "http://habrahabr.ru/post/194130/"
+        "http://habrahabr.ru/post/194130/",
+        {
+            skipMixins: [ // Sandbox items don't have meta. Ant it's ok.
+                "canonical",
+                "og-description", 
+                "keywords",
+                "og-title",
+                "og-image",
+                "html-title"
+            ]
+        }
     ]
 };

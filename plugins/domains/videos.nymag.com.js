@@ -8,7 +8,6 @@ module.exports = {
     mixins: [
         "html-title",
         "image_src",
-        "copyright",
         "description",
         "keywords",
         "favicon"
@@ -31,7 +30,7 @@ module.exports = {
     },
         "http://videos.nymag.com/video/Models-Studio-Jourdan-Dunn-2;toprated",
         {
-            skipMixins: ["copyright"]
+            skipMixins: ["description"]
         }
     ]
 };

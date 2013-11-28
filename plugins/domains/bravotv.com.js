@@ -3,38 +3,35 @@ module.exports = {
     re: /^https?:\/\/www\.bravotv\.com\/([a-z0-9\-]+)\/([a-z0-9\-]+)\/videos\/([a-z0-9\-]+)/i,
 
     mixins: [
-        "html-title",
+        "og-title",
         "og-image",
-        "description",
         "favicon"
     ],
 
-    getLink: function(html) {
+// Get src "http://player.theplatform.com/p/PHSl-B/yT7k3t_YLXoZ/select/30PGw6rTJxLQ?fee…t-happens-live/season-10/videos/after-show-andy-gets-a-bar-mitzvah-present"
+// Convert to "http://player.theplatform.com/p/PHSl-B/yT7k3t_YLXoZ/embed/select/30PGw6rTJxLQ"
 
-        var videoIdMatch = html.match(/"(_(vid)\d+)"/);
+    getLink: function($selector) {
 
-        var videoId = videoIdMatch ? videoIdMatch[1] : null;
+        var videoFrame = $selector('#tp-global-player');
 
-        if (videoId) {
+        if (videoFrame) {
             return {
-                href: 'http://www.bravotv.com/video/embed/?/' + videoId,
+                href: videoFrame.attr('src').replace('/select/', '/embed/select/').split('?')[0],
                 type: CONFIG.T.text_html,
                 rel: CONFIG.R.player,
-                width: 400,
-                height: 225
+                "aspect-ratio": videoFrame.attr('width') / videoFrame.attr('height')
             }
         }
     },
 
     tests: [{
         page: "http://www.bravotv.com/videos",
-        selector: "#content .title a"
+        selector: ".post .video a"
     }, {
         skipMixins: [
             "image_src",
             "description"
         ]
-    },
-        "http://www.bravotv.com/top-chef-masters/season-5/videos/season-5-episode-7"
-    ]
+    }]
 };

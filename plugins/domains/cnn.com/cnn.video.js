@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/(\w+\.)?cnn\.com\/video\//i,
+    re: /^http:\/\/(edition\.)?cnn\.com\/video\//i,
 
     mixins: [
         "canonical",
