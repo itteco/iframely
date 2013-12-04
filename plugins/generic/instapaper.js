@@ -19,6 +19,10 @@ module.exports = {
         jsdom.env({
             html: html,
             src: [jquerySrc],
+            features: {
+                FetchExternalResources: false,
+                ProcessExternalResources: false
+            },
             done: function(err, window) {
 
                 if (err) {
