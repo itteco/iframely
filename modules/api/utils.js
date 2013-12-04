@@ -378,3 +378,32 @@ exports.getOembed = function(uri, data) {
 
     return oembed;
 };
+
+
+
+//== Testing/debug.
+
+var mongoose, db, model;
+
+// DB connect.
+try {
+    mongoose = require('mongoose');
+    db = mongoose.createConnection(CONFIG.tests.mongodb);
+    model = db.model('AppTest', new mongoose.Schema({}));
+} catch (ex) {}
+
+GLOBAL.registerCall = function(name) {
+
+    if (!model) {
+        return;
+    }
+
+    var op = {};
+    op[name] = 1;
+
+    model.collection.update({_id: '0'}, {
+        $inc: op
+    }, {
+        upsert: true
+    });
+};
