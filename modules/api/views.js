@@ -69,10 +69,9 @@ module.exports = function(app) {
             var debug = result.debug;
 
             if (!req.query.debug) {
-                // Plugins are part of API.
-                iframely.disposeObject(result.debug);
-                iframely.disposeObject(result.time);
+                // Debug used later. Do not dispose.
                 delete result.debug;
+                // Plugins are part of API. Do not dispose.
                 delete result.plugins;
                 delete result.time;
             }
@@ -112,6 +111,7 @@ module.exports = function(app) {
 
             res.sendJsonCached(result);
 
+            iframely.disposeObject(debug);
             iframely.disposeObject(result);
 
             if (global.gc) {
