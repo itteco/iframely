@@ -71,8 +71,11 @@ module.exports = function(app) {
             if (!req.query.debug) {
                 // Debug used later. Do not dispose.
                 delete result.debug;
+
                 // Plugins are part of API. Do not dispose.
                 delete result.plugins;
+
+                iframely.disposeObject(result.time);
                 delete result.time;
             }
 
