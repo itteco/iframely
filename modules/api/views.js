@@ -69,6 +69,9 @@ module.exports = function(app) {
             var debug = result.debug;
 
             if (!req.query.debug) {
+                // Plugins are part of API.
+                iframely.disposeObject(result.debug);
+                iframely.disposeObject(result.time);
                 delete result.debug;
                 delete result.plugins;
                 delete result.time;
@@ -109,10 +112,12 @@ module.exports = function(app) {
 
             res.sendJsonCached(result);
 
+            iframely.disposeObject(result);
+
             if (global.gc) {
                 //console.log('GC called');
                 global.gc();
-            };
+            }
         });
     });
 
@@ -298,6 +303,8 @@ module.exports = function(app) {
 
                 res.jsonpCached(oembed);
             }
+
+            iframely.disposeObject(result);
         });
     });
 };
