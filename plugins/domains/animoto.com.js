@@ -1,5 +1,3 @@
-var jquery = require('jquery');
-
 module.exports = {
 
     mixins: [

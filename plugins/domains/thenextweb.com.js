@@ -1,5 +1,3 @@
-var jquery = require('jquery');
-
 module.exports = {
 
     re: /^https?:\/\/thenextweb\.com\/(\w+\/)?\d{4}\/\d{2}\/\d{2}\/.*/i,
