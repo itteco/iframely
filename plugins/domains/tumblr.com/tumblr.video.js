@@ -1,8 +1,6 @@
-var $ = require('jquery');
-
 module.exports = {
 
-    getLinks: function(tumblr_post) {
+    getLinks: function(tumblr_post, $empty) {
 
         if (tumblr_post.type !== "video") {
             return;
@@ -21,7 +19,7 @@ module.exports = {
 
             var p = tumblr_post.player[0];
 
-            var $c = $('<div>').append(p.embed_code);
+            var $c = $empty('<div>').append(p.embed_code);
             var $iframe = $c.find('iframe');
 
             if ($iframe.length) {

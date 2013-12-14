@@ -1,10 +1,8 @@
-var jquery = require('jquery');
-
 module.exports = {
 
-    getLink: function(oembed) {
+    getLink: function(oembed, $empty) {
 
-        var $container = jquery('<div>');
+        var $container = $empty('<div>');
         try{
             $container.html(oembed.html5 || oembed.html);
         } catch(ex) {}

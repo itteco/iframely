@@ -1,5 +1,5 @@
 var URL = require("url");
-var jQuery = require("jquery");
+var _ = require("underscore");
 
 module.exports = {
 
@@ -35,7 +35,7 @@ module.exports = {
     },
 
     getMeta: function(magnatune_meta) {
-        var meta = jQuery.extend({}, magnatune_meta);
+        var meta = _.extend({}, magnatune_meta);
         delete meta.embed_url;
         return meta;
     },

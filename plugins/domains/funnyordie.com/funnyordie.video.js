@@ -1,5 +1,3 @@
-var jquery = require('jquery');
-
 var re = /^http:\/\/www\.funnyordie\.com\/videos\//i;
 
 module.exports = {
@@ -17,9 +15,9 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, $empty) {
 
-        var $container = jquery('<div>');
+        var $container = $empty('<div>');
         try {
             $container.html(oembed.html);
         } catch(ex) {}

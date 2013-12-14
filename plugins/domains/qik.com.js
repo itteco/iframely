@@ -1,5 +1,3 @@
-var jquery = require('jquery');
-
 module.exports = {
 
     // TODO: check thumbnail.
@@ -11,9 +9,9 @@ module.exports = {
         "geo-url"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, $empty) {
 
-        var $container = jquery('<div />');
+        var $container = $empty('<div />');
         $container.html(oembed.html);
         var $embed = $container.find('embed');
 

@@ -1,4 +1,3 @@
-var $ = require('jquery');
 var _ = require('underscore');
 
 module.exports = {
@@ -12,9 +11,9 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function(tumblr_post) {
+    getMeta: function(tumblr_post, $empty) {
         return {
-            title: tumblr_post.title || $('<div>').html(tumblr_post.caption).text() || tumblr_post.blog_name,
+            title: tumblr_post.title || $empty('<div>').html(tumblr_post.caption).text() || tumblr_post.blog_name,
             site: 'tumblr',
             author: tumblr_post.blog_name,
             author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',

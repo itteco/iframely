@@ -1,8 +1,6 @@
-var jquery = require('jquery');
-
 module.exports = {
 
-    getLink: function(oembed, whitelistRecord) {
+    getLink: function(oembed, whitelistRecord, $empty) {
 
         var reader = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich', "reader");
         var rich = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich');
@@ -16,7 +14,7 @@ module.exports = {
         rel.push(video ? CONFIG.R.player : CONFIG.R.reader);
 
 
-        var $container = jquery('<div>');
+        var $container = $empty('<div>');
         try {
             $container.html(oembed.html5 || oembed.html);
         } catch (ex) {}
