@@ -287,8 +287,6 @@ var filterLinksByRel = function(rel, links, options) {
     return result;
 };
 
-var rels = ["player", "survey", "reader", "image"];
-
 exports.getOembed = function(uri, data) {
 
     var oembed = {
@@ -333,7 +331,7 @@ exports.getOembed = function(uri, data) {
     }
 
     var link;
-    var foundRel = _.find(rels, function(rel) {
+    var foundRel = _.find(CONFIG.OEMBED_RELS_PRIORITY, function(rel) {
         link = filterLinksByRel(rel, data.links, {returnOne: true});
         return link;
     });

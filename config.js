@@ -122,7 +122,9 @@
             "og",
             "twitter",
             "iframely"
-        ]
+        ],
+
+        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader"]
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");
