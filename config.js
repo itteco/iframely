@@ -13,6 +13,8 @@
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
 
+        CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 300 * 1024 * 1024, // 300 MB.
+
         metaLoadingTimeout: 5 * 1000,
         USER_AGENT: "Mozilla/5.0 (compatible; Iframely/" + version + "; +http://iframely.com/)",
 
