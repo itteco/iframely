@@ -1,3 +1,4 @@
+var jquery = require('jquery');
 
 var re = /http:\/\/www\.collegehumor\.com\/(video|embed)\/([0-9]+)\.*/;
 
@@ -13,9 +14,9 @@ module.exports = {
         "oembed-thumbnail"
     ],
 
-    getLink: function(oembed, $empty) {
+    getLink: function(oembed) {
 
-        var $container = $empty('<div>');
+        var $container = jquery('<div>');
         try{
             $container.html(oembed.html);
         } catch(ex) {}

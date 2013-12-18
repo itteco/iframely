@@ -1,19 +1,5 @@
+var $ = require('jquery');
 var _ = require('underscore');
-var jsdom = require('jsdom');
-
-var $;
-
-jsdom.env({
-    html: '<html><head></head><body></body></html>',
-    src: [jquerySrc],
-    done: function(error, window) {
-        if (error) {
-            console.error('Error initializing jqeury for utils.js');
-        } else {
-            $ = window.$;
-        }
-    }
-});
 
 function wrapContainer($element, data) {
 

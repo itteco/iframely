@@ -1,3 +1,5 @@
+var jQuery = require("jquery");
+
 // API reference:
 // https://firefox-marketplace-api.readthedocs.org/en/latest/topics/apps.html
 
@@ -5,7 +7,7 @@ module.exports = {
 
     re: /^https?:\/\/marketplace\.firefox\.com\/(?:api\/v1\/(?:apps|fireplace)\/)?app\/([-_%\.a-z0-9]+)/i,
 
-    getData: function (urlMatch, request, $empty, cb) {
+    getData: function (urlMatch, request, cb) {
         var infoUri = "https://marketplace.firefox.com/api/v1/fireplace/app/"+urlMatch[1]+"/";
 
         request({
@@ -46,7 +48,7 @@ module.exports = {
             title:            firefox_marketplace_data.name,
             date:             firefox_marketplace_data.created,
             author:           firefox_marketplace_data.current_version.developer_name,
-            description:      $empty('<div>'+firefox_marketplace_data.description+'</div>').text(),
+            description:      jQuery('<div>'+firefox_marketplace_data.description+'</div>').text(),
             canonical:        "https://marketplace.firefox.com/app/"+firefox_marketplace_data.slug
             /*,
             support_url:      firefox_marketplace_data.support_url,
