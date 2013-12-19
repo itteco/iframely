@@ -1,10 +1,10 @@
-# Iframely Gateway for Responsive Embeds
+## Iframely Gateway
 
 [We](http://itteco.com) believe the responsive embeds is the future of the Web. 
 
 Iframely is advanced self-hosted embeds API to help you join the future. In response to `url` request, it gives  responsive embeds data and semantic meta for a requested web page.
 
-[Here’s a quick API call for Vimeo video](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
+[>> Here’s a quick API call for Vimeo video](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
 
 In a sense, Iframely is a self-hosted oEmbed endpoint, with slightly extended data format and adjusted HTML part to facilitate responsive widgets.
 
@@ -14,8 +14,8 @@ Iframely is a Node.JS app, though API is HTTP-based and you can use it from with
 
 - HTTP API for meta semantics, thumbnails (including sizes), photo images, video players and readers.
 - `oembed` endpoint for easy migration of existing implementations (it is a fallback though and thus not as powerful as main API).
-- Generic parsers for [Iframely Protocol](http://iframely.com/oembed2), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed v1](http://oembed.com/) and optional Readability articles.
-- Over _100 parsers_ for specific domains, like YouTube, Vimeo, SoundCloud, Instagram, Facebook, Imgur, etc.
+- Generic parsers for [Iframely Protocol](http://iframely.com/oembed2), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed](http://oembed.com/). Plus optional readability.
+- Over _100 parsers_ for specific domains, like YouTube, Vimeo, SoundCloud, Instagram, Facebook, Imgur.
 - Plugins infrastructure to extend the logic or to implement additional domain or generic parsers.
 - Built-in caching for performance optimizations (Memcached, Redis or in-memory engines).
 
@@ -27,7 +27,7 @@ Domains QA is how we make money to keep maintaining this project. Thanks for you
 
 ## How-to
 
-To jump start with Iframely, we suggest you [try our visual debug tool](http://iframely.com/debug) where you can check any URL and see embed codes.
+To jump start with Iframely, we suggest you [try our visual debug tool](http://iframely.com/debug) where you can check any URL.
 
 Next: 
 
@@ -39,15 +39,18 @@ Next:
 - [Get our Domains QA DB](http://iframely.com/qa)
 - Or [create your own whitelist](http://iframely.com/qa/format).
 
-You may skip some steps and jump right into coding by using our community endpoint, hosted at [http://iframely.com/iframely?uri=](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063). It’s not recommended for production use as we continuously run experiments on that server.
+You may skip some steps and get straight to coding by using our community endpoint, hosted at [http://iframely.com/iframely?uri=](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063). 
+
+(It’s not recommended for production use as we continuously run experiments on that server.)
 
 ## Sample Apps & Demos
 
-Some cool demos are on the way. In the meantime, try some standalone apps Itteco developed on top of Iframely technology (well, it was more "in parallel with", actually):
+Some cool demos are on the way. In the meantime, try our standalone apps that Itteco developed on top of Iframely technology (well, it was more "in parallel with", actually):
 
-* [iframe.ly](http://iframe.ly) -  convenient web shortener
-* [Nowork FM](http://nowork.fm) - simple social intranet for your team
-* [Iframely for Gmail](https://chrome.google.com/webstore/detail/iframely-for-gmail/bbafbcjnlgfbemjemgliogmfdlkocjmi) (as seen on Lifehacker, PC World & others) - watch videos, view photos and read articles in your inbox.
+* [iframe.ly](http://iframe.ly) -  convenient web shortener;
+* [Nowork FM](http://nowork.fm) - simple social intranet for your team;
+* [Iframely for Gmail](https://chrome.google.com/webstore/detail/iframely-for-gmail/bbafbcjnlgfbemjemgliogmfdlkocjmi) (as seen on Lifehacker, PC World & others) - watch videos, view photos and read articles in your inbox;
+* [Iframely for WordPress](http://wordpress.org/plugins/iframely/).
 
 
 ## Contribute
@@ -62,7 +65,7 @@ If you are a publisher and would like to make your embeds available under [Ifram
 
 ## License & Authors
 
-MIT License. (c)2012-2014 Itteco Software Corp. 
+MIT License. (c) 2012-2014 Itteco Software Corp. 
 
 Specifically:
 
