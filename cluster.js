@@ -20,6 +20,38 @@ if (cluster.isMaster) {
 
     require('./server');
 
+
+    if (CONFIG.CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS && CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
+
+        var usage = require('usage');
+        var stats = [];
+        setInterval(function() {
+            usage.lookup(process.pid, function(error, result) {
+
+                if (error) {
+                    console.error('Error getting process stats', err);
+                    return;
+                }
+
+                stats.push(result.cpu);
+
+                if (stats.length > CONFIG.CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS) {
+                    stats.shift();
+
+                    var sum = 0;
+                    stats.forEach(function(cpu) {
+                        sum += cpu;
+                    });
+                    var averageCpu = sum / stats.length;
+                    
+                    if (averageCpu > CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
+                        console.log('alert');
+                    }
+                }
+            });
+        }, 1000);
+    }
+
     if (CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED) {
         setInterval(function() {
 
