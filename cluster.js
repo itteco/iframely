@@ -43,9 +43,10 @@ if (cluster.isMaster) {
                         sum += cpu;
                     });
                     var averageCpu = sum / stats.length;
-                    
+
                     if (averageCpu > CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
-                        console.log('alert');
+                        console.log('--- Cluster: worker ' + process.pid + ' used too much CPU, exiting...');
+                        process.exit(1);
                     }
                 }
             });
