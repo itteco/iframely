@@ -1,4 +1,5 @@
 var cluster = require('cluster');
+var sysUtils = require('./utils');
 var numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {
@@ -9,10 +10,10 @@ if (cluster.isMaster) {
     }
 
     cluster.on('fork', function(worker) {
-        console.log('--- Cluster: worker ' + worker.process.pid + ' started');
+        sysUtils.log('Cluster: worker ' + worker.process.pid + ' started');
     });
     cluster.on('exit', function(worker, code, signal) {
-        console.log('--- Cluster: Worker ' + worker.process.pid + ' died (code: ' + code + '), restarting...');
+        sysUtils.log('Cluster: Worker ' + worker.process.pid + ' died (code: ' + code + '), restarting...');
         cluster.fork();
     });
 
@@ -45,7 +46,7 @@ if (cluster.isMaster) {
                     var averageCpu = sum / stats.length;
 
                     if (averageCpu > CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
-                        console.log('--- Cluster: worker ' + process.pid + ' used too much CPU, exiting...');
+                        sysUtils.log('Cluster: worker ' + process.pid + ' used too much CPU, exiting...');
                         process.exit(1);
                     }
                 }
@@ -58,7 +59,7 @@ if (cluster.isMaster) {
 
             var mem = process.memoryUsage().rss;
             if (mem > CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED) {
-                console.log('--- Cluster: worker ' + process.pid + ' used too much memory, exiting...');
+                sysUtils.log('Cluster: worker ' + process.pid + ' used too much memory, exiting...');
                 process.exit(1);
             }
 

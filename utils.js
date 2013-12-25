@@ -1,5 +1,7 @@
 (function() {
 
+    GLOBAL.CONFIG = require('./config');
+
     var async = require('async');
     var cache = require('./lib/cache');
     var ejs = require('ejs');
@@ -258,5 +260,11 @@
             next();
         });
     };
+
+    exports.log = function() {
+        var args = Array.prototype.slice.apply(arguments);
+        args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
+        console.log.apply(console, args);
+    }
 
 })();
