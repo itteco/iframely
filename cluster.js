@@ -13,7 +13,7 @@ if (cluster.isMaster) {
         sysUtils.log('Cluster: worker ' + worker.process.pid + ' started');
     });
     cluster.on('exit', function(worker, code, signal) {
-        sysUtils.log('Cluster: Worker ' + worker.process.pid + ' died (code: ' + code + '), restarting...');
+        sysUtils.log('Cluster: worker ' + worker.process.pid + ' died (code: ' + code + '), restarting...');
         cluster.fork();
     });
 
@@ -46,7 +46,7 @@ if (cluster.isMaster) {
                     var averageCpu = sum / stats.length;
 
                     if (averageCpu > CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
-                        sysUtils.log('Cluster: worker ' + process.pid + ' used too much CPU, exiting...');
+                        sysUtils.log('Cluster: worker ' + process.pid + ' used too much CPU (' + averageCpu + '%), exiting...');
                         process.exit(1);
                     }
                 }
@@ -59,7 +59,7 @@ if (cluster.isMaster) {
 
             var mem = process.memoryUsage().rss;
             if (mem > CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED) {
-                sysUtils.log('Cluster: worker ' + process.pid + ' used too much memory, exiting...');
+                sysUtils.log('Cluster: worker ' + process.pid + ' used too much memory (' + Math.round(mem / (1024*1024)) + ' MB), exiting...');
                 process.exit(1);
             }
 
