@@ -9,3 +9,7 @@ iframely-*.json
 
 node_modules083
 node_modules2
+
+lib/new/test.html
+
+lib/new/test.js
