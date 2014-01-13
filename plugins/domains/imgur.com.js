@@ -3,55 +3,37 @@ module.exports = {
     re: /http:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
 
     mixins: [
-        "twitter-title",
-        "description",
-        "canonical",
-        "keywords",
-
         "favicon",
-        "twitter-image-rel-image"
+        "oembed-video-responsive",
+        "oembed-photo",
+        "og-image",
+        "og-site"
     ],
 
-    getMeta: function() {
+    getMeta: function(meta) {
         return {
-            site: "imgur"
+            title: meta.twitter.title.replace('- Imgur', ''),
         };
     },
 
-    getLink: function(urlMatch, meta) {
+    getLink: function(oembed) {
 
-        var links = [];
+        if (oembed.type === "photo" && oembed.url) {
 
-        var m, url;
-        // If twitter image ID not equals url ID.
-        if (meta.twitter
-            && (url = meta.twitter.image.url || meta.twitter.image)
-            && (m = url.match(/http:\/\/i\.imgur\.com\/(\w+)\.\w+/i)) && m[1] != urlMatch[1]) {
-            links.push({
-                href: "http://imgur.com/a/" + urlMatch[1] + "/embed",
-                rel: CONFIG.R.player,
-                type: CONFIG.T.text_html,
-                "aspect-ratio": 4/3
-            });
-        }
-
-        var src;
-        if (meta.twitter && meta.twitter.image && (src = meta.twitter.image.url) && src.match(/\.(jpg|png|gif)$/)) {
-            links.push({
-                href: src.replace(/\.(jpg|png|gif)$/, "b.$1"),
-                rel: CONFIG.R.thumbnail,
+            return {
+                href: oembed.url,
                 type: CONFIG.T.image,
-                width: 160,
-                height: 160
-            });
+                rel: [CONFIG.R.image, CONFIG.R.oembed],
+                width: oembed.width,
+                height: oembed.height
+            };
         }
-
-        return links;
-    },
+    },    
 
     tests: [{
         pageWithFeed: "http://imgur.com/"
     },
-        "http://imgur.com/Ks3qs"
+        "http://imgur.com/Ks3qs",
+        "http://imgur.com/gallery/IiDwq"
     ]
 };

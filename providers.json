@@ -297,5 +297,12 @@
             "polldaddy\\.com/poll/.*"
         ],
         "endpoint": "http://polldaddy.com/oembed/"
-    }    
+    },
+    {
+        "name": "Imgur",
+        "templates": [
+            "imgur\\.com/.*"
+        ],
+        "endpoint": "http://api.imgur.com/oembed.{format}"
+    }
 ]
