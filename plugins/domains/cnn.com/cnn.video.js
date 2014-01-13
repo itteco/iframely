@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/(edition\.)?cnn\.com\/video\//i,
+    re: /^http:\/\/((edition|www)\.)?cnn\.com\/video\//i,
 
     mixins: [
         "canonical",
@@ -33,6 +33,7 @@ module.exports = {
         "http://edition.cnn.com/video/data/2.0/video/world/2013/06/25/intl-snowden-wikileaks-connection-kristinn-hrafnsson-intv.cnn.html",
         "http://edition.cnn.com/video/data/2.0/video/world/2013/06/27/lklv-barnett-safrica-mandela-health.cnn.html",
         "http://edition.cnn.com/video/data/2.0/video/bestoftv/2013/06/26/intl-india-flood-missing-robertson-pkg.cnn.html",
+        "http://www.cnn.com/video/data/2.0/video/showbiz/2013/12/17/wolf-of-wall-street-jordan-belfort-orig-jtb.cnn.html",
         {
             noFeeds: true
         }
