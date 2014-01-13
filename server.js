@@ -93,6 +93,7 @@ app.get('/', function(req, res) {
     res.end();
 });
 
+process.title = "iframely";
 app.listen(CONFIG.port);
 
 if (CONFIG.ssl) {
