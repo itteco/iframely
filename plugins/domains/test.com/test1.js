@@ -2,10 +2,12 @@ module.exports = {
 
     provides: 'test_data1',
 
-    getData: function() {
-        return {
-            test_data1: true
-        };
+    getData: function(meta, cb) {
+        setTimeout(function() {
+            cb(null, {
+                test_data1: true
+            });
+        }, 1000);
     },
 
     tests: {
