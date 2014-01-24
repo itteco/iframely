@@ -14,7 +14,6 @@ module.exports = {
     ],
 
     getLink: function(meta) {
-        console.log("i was here");
 
         return {
             href: meta["canonical"] + "?videoembed=true",

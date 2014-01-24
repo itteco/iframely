@@ -1,4 +1,4 @@
-var re = /http:\/\/www\.collegehumor\.com\/picture\/([0-9]+)\.*/;
+var re = /http:\/\/www\.collegehumor\.com\/(picture|post)\/([0-9]+)\.*/;
 
 module.exports = {
 
@@ -13,7 +13,7 @@ module.exports = {
         "keywords",
 
         "favicon",
-        "twitter-image-rel-image"
+        "og-image-rel-image"
     ],
 
     tests: [{
