@@ -1,4 +1,4 @@
-var re = /http:\/\/www\.collegehumor\.com\/(picture|post)\/([0-9]+)\.*/;
+var re = /http:\/\/www\.collegehumor\.com\/(picture|post)\/([0-9]+)\.*/i;
 
 module.exports = {
 
