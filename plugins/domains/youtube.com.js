@@ -6,7 +6,9 @@ module.exports = {
         /^https?:\/\/youtu.be\/([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/(?:www\.)?youtube\.com\/tv#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)$/i],
+        /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
+        /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i
+    ],
         
 
     getData: function(urlMatch, request, cb) {
