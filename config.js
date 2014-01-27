@@ -7,6 +7,9 @@
 
     var config = {
 
+        WHITELIST_URL: 'http://iframely.com/qa/sample.json',
+        WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,
+
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
