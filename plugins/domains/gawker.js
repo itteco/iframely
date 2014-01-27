@@ -9,7 +9,8 @@ module.exports = {
         /^http:\/\/(\w+\.)?deadspin\.com\/[a-z0-9-]+/i,
         /^http:\/\/(\w+\.)?io9\.com\/[a-z0-9-]+/i,
         /^http:\/\/(\w+\.)?kotaku\.com\/[a-z0-9-]+/i,
-        /^http:\/\/(\w+\.)?jalopnik\.com\/[a-z0-9-]+/i
+        /^http:\/\/(\w+\.)?jalopnik\.com\/[a-z0-9-]+/i,
+        /^http:\/\/(\w+\.)?kinja\.com\/[a-z0-9-]+/i
     ],
 
 

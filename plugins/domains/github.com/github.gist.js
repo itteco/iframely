@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/gist\.github\.com\/(\w+\/)?(\d+)/i,
+    re: /^https?:\/\/gist\.github\.com\/(\w+\/)(\w+)/i,
 
     mixins: [
         "og-title",
@@ -8,13 +8,13 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function(urlMatch, meta) {
+    getLink: function(urlMatch) {
         return {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.reader,
             template: "embed-html",
             template_context: {
-                title: meta.og.title,
+                title: urlMatch[2],
                 html: '<script type="text/javascript" src="https://gist.github.com/' + urlMatch[2] +'.js"></script>'
             }
         };
@@ -25,6 +25,8 @@ module.exports = {
         selector: ".creator a:last"
     },
         "https://gist.github.com/3054754",
-        "https://gist.github.com/2719090"
+        "https://gist.github.com/2719090",
+        "https://gist.github.com/schisamo/163c34f3f6335bc12d45",
+        "https://gist.github.com/iparamonau/635df38fa737a1d80d23"
     ]
 };

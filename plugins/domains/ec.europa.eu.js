@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /http:\/\/ec\.europa\.eu\/avservices\/video/i
+        /http:\/\/ec\.europa\.eu\/avservices\/(video|focus)/i
     ],
 
     mixins: [
@@ -62,6 +62,7 @@ module.exports = {
 
 
     tests: [
-        "http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I082398"
+        "http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I082398",
+        "http://ec.europa.eu/avservices/focus/index.cfm?sitelang=en&focusid=351"
         ]
 };

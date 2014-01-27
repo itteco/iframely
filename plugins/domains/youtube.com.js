@@ -4,8 +4,12 @@ module.exports = {
         /^https?:\/\/www\.youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)$/i,
         /^https?:\/\/(?:www\.)?youtube\.com\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/youtu.be\/([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/(?:www\.)?youtube\.com\/tv#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/,
-        /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/],
+        /^https?:\/\/(?:www\.)?youtube\.com\/tv#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
+        /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
+        /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
+        /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i
+    ],
+        
 
     getData: function(urlMatch, request, cb) {
 
@@ -83,6 +87,7 @@ module.exports = {
     tests: [{
         feed: "http://gdata.youtube.com/feeds/api/videos"
     },
-        "http://www.youtube.com/watch?v=etDRmrB9Css"
+        "http://www.youtube.com/watch?v=etDRmrB9Css",
+        "http://www.youtube.com/embed/Q_uaI28LGJk"
     ]
 };

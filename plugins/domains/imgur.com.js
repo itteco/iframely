@@ -3,55 +3,61 @@ module.exports = {
     re: /http:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
 
     mixins: [
-        "twitter-title",
-        "description",
-        "canonical",
-        "keywords",
-
         "favicon",
-        "twitter-image-rel-image"
+        "oembed-video-responsive",
+        "og-site"
     ],
 
-    getMeta: function() {
+    getMeta: function(meta) {
         return {
-            site: "imgur"
+            title: meta.twitter.title.replace('- Imgur', ''),
         };
     },
 
-    getLink: function(urlMatch, meta) {
+    getLink: function(oembed, meta) {
 
         var links = [];
 
-        var m, url;
-        // If twitter image ID not equals url ID.
-        if (meta.twitter
-            && (url = meta.twitter.image.url || meta.twitter.image)
-            && (m = url.match(/http:\/\/i\.imgur\.com\/(\w+)\.\w+/i)) && m[1] != urlMatch[1]) {
-            links.push({
-                href: "http://imgur.com/a/" + urlMatch[1] + "/embed",
-                rel: CONFIG.R.player,
-                type: CONFIG.T.text_html,
-                "aspect-ratio": 4/3
-            });
-        }
+        // processing photos. 
+        // But in some cases, oembed photo shows the kitten instead of proper image. 
+        // In this cases - fall back to twitter photo
+        if (oembed.type === "photo" && oembed.url && oembed.url === meta.twitter.image.url) {
 
-        var src;
-        if (meta.twitter && meta.twitter.image && (src = meta.twitter.image.url) && src.match(/\.(jpg|png|gif)$/)) {
             links.push({
-                href: src.replace(/\.(jpg|png|gif)$/, "b.$1"),
-                rel: CONFIG.R.thumbnail,
+                href: oembed.url,
                 type: CONFIG.T.image,
-                width: 160,
-                height: 160
+                rel: [CONFIG.R.image, CONFIG.R.thumbnail, CONFIG.R.oembed],
+                width: oembed.width,
+                height: oembed.height
+            });
+
+        } else if (meta.twitter.image && meta.twitter.image.url) { // the kitten!
+
+            links.push({
+                href: meta.twitter.image.url,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.image, CONFIG.R.thumbnail, CONFIG.R.twitter],
+                width: meta.twitter.image.width,
+                height: meta.twitter.image.height
+            });
+
+        } else { // likely a gallery, push thumbnail
+
+            links.push({
+                href: meta.image_src,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.thumbnail, CONFIG.R.og],
             });
         }
 
         return links;
-    },
+    },    
 
     tests: [{
         pageWithFeed: "http://imgur.com/"
     },
-        "http://imgur.com/Ks3qs"
+        "http://imgur.com/Ks3qs",
+        "http://imgur.com/gallery/IiDwq",
+        "http://imgur.com/r/aww/tFKv2zQ" // kitten bomb
     ]
 };

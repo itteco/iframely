@@ -18,7 +18,7 @@
         CLUSTER_MAX_CPU_LOAD_IN_PERCENT: 95,
 
         metaLoadingTimeout: 5 * 1000,
-        USER_AGENT: "Mozilla/5.0 (compatible; Iframely/" + version + "; +http://iframely.com/)",
+        USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
 
         T: {
             text_html: "text/html",

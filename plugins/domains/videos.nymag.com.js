@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^http:\/\/videos\.nymag\.com\/video\/([a-z0-9\-]+)/i,
-        /^http:\/\/videos\.nymag\.com\/list\/\w+\/video\/([a-z0-9\-]+)/i
+        /^http:\/\/videos\.nymag\.com\/video\/([a-zA-Z0-9\-]+)/i,
+        /^http:\/\/videos\.nymag\.com\/list\/\w+\/video\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: [

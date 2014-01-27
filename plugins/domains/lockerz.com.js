@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/lockerz.com\/u\/([^/]+\/decalz\/[^/]+\/[a-z0-9_-]+)/i
+        /^http:\/\/lockerz\.com\/u\/([^/]+\/decalz\/[^/]+\/[a-z0-9_-]+)/i
     ],
 
     mixins: [
