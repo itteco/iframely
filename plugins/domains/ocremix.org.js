@@ -1,5 +1,4 @@
 var URL = require('url');
-var jQuery = require('jquery');
 
 module.exports = {
 
@@ -15,10 +14,10 @@ module.exports = {
         var main = $selector('#panel-main');
         var remix = $selector('h1').clone();
         var meta = main.find("ul strong");
-        var game = meta.filter(function () { return jQuery.text(this) === 'Game'; }).next('a');
-        var remixers = meta.filter(function () { return jQuery.text(this) === 'ReMixer(s)'; }).nextAll('a');
-        var composers = meta.filter(function () { return jQuery.text(this) === 'Composer(s)'; }).nextAll('a');
-        var songs = meta.filter(function () { return jQuery.text(this) === 'Song(s)'; }).nextAll('a');
+        var game = meta.filter(function () { return $selector.text(this) === 'Game'; }).next('a');
+        var remixers = meta.filter(function () { return $selector.text(this) === 'ReMixer(s)'; }).nextAll('a');
+        var composers = meta.filter(function () { return $selector.text(this) === 'Composer(s)'; }).nextAll('a');
+        var songs = meta.filter(function () { return $selector.text(this) === 'Song(s)'; }).nextAll('a');
         var youtube_url = $selector("#ytplayer").attr("data");
         var body = main.children("div").first().clone();
 
@@ -53,7 +52,7 @@ module.exports = {
 
         function parseLinks (elements) {
             return elements.toArray().map(function (element) {
-                element = jQuery(element);
+                element = $selector(element);
                 return {
                     name: element.text(),
                     url:  URL.resolve(url, element.attr('href'))

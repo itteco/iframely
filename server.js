@@ -1,16 +1,22 @@
-GLOBAL.CONFIG = require('./config');
+var sysUtils = require('./utils');
 
 console.log("");
 console.log("Starting Iframely...");
 console.log("Base URL for embed links that require renders:", CONFIG.baseAppUrl);
 
 try {
+    if (CONFIG.nodetime) {
+        require('nodetime').profile({
+            accountKey: CONFIG.nodetime,
+            appName: 'Node.js Application'
+        });
+    }
     var heapdump = require('heapdump');
 } catch (ex) {}
 
 var path = require('path');
 var express = require('express');
-var sysUtils = require('./utils');
+
 var NotFound = sysUtils.NotFound;
 
 var app = express();
