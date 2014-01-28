@@ -9,6 +9,9 @@
 
         port: 8061,
 
+        // Set your whitelist url.
+        WHITELIST_URL: 'http://iframely.com/qa/sample.json',
+
         /*
         ssl: {
             key: require('fs').readFileSync(__dirname + '/key.pem'),
