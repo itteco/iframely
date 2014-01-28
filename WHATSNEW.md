@@ -5,6 +5,40 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+### 2014.01.28, Version 0.5.8
+
+Happy 2014! While we work on re-implementing of Iframely's core to make it even faster and more robust, here's the long overdue maintanance release. 
+
+New features:
+
+ + Cluster mode. To run Iframely as cluster - `node cluster`. It is useful for 64bit hardware, and also as a way to manage server's uptime. 
+ + Domains DB whitelist file can now be loaded via URL. Set `WHITELIST_URL` in your local config file to your custom access URL, and Iframely will keep loading central whitelist as our QA updates it. Local whitelist files still prevail over loading via URL.
+
+Domain maintanance: 
+
+ + Added Brightcove parser _and_ all hosted players
+ + Added PBS.org videos _and_ all hosted sites
+ + Custom parser for Vevo (as replacement of the old .fixme one)
+ + Support SmugMug galleries
+ + Custom parser for Yahoo Screen
+ + Custom parser for Imgur's static URLs (#31)
+ * Properly fix Imgur's kitten bombs in oEmbed
+ + Added Imgur's galleries
+ + Parser for Globe And Mail videos
+ + Parser for Pando Daily videos
+ * Fix Google+ posts by removing unsupported URL schemes
+ * Fix Metacafe for their new URL scheme
+ * New URL scheme for CollegeHumor pictures
+ * Allow YouTube own embeds URLs as input parameter 
+ * Changed user-agent string so that all Yahoo sites don't redirect to their mobile versions (thus, blocking all whitelist records)
+ * Restore responsiveness of Viddy, Trutv, Revision3
+ * Fix for whitelisted Twitter Photo, when there is a fallback to OG image
+ * Allow older GitHub gists (the ones without a title and different URL scheme)
+ * Fix 9gag photos
+ * Cover more URLs on CNN videos, Wistia, Kinja and ec.europa.eu
+ * Some peformance improvements
+
+
 ### 2013.11.28, Version 0.5.7
 
 This maintenance update is focused on domain plugins. Please remember to update regularly as domains change their websites and we maintain Iframely plugins accordingly. 
@@ -59,6 +93,7 @@ Please, run following to update package dependencies:
  - [Domains] Disable Vevo as they don't publish embeds in meta at the moment :\
  + [Domains] Explicit Habrahabr.ru parser (conflicted with Tumblr custom domains)
 
+
 ### 2013.10.30, Version 0.5.5
 
  * Iframely now has the wildcard whitelist record, which gives you an option to decide upfront which generic parsers to allow. For example, you default to white list open graph videos, but deny Twitter photos. The settings will be overwritten if you have a record for specific domains. 
@@ -71,6 +106,7 @@ Please, run following to update package dependencies:
  - Removed client-side jQuery and Bootstrap from the content of the package.
  * Improve image size loading with 'imagesize' package.
 
+
 ### 2013.10.16, Version 0.5.4
 
  * improve articles loading time: added caching for Readability library
@@ -81,9 +117,11 @@ Please, run following to update package dependencies:
  * changed Twitter regexps to allow processing of statues and photos only (eliminating extra load)
  + added PollDaddy
 
+
 ### 2013.10.02, Version 0.5.3
 
  + New `/oembed` endpoint, the backwards-compatability adapter for [oEmbed v1](http://oembed.com). See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+
 
 ### 2013.09.27, Version 0.5.2
 
@@ -99,6 +137,7 @@ Please, run following to update package dependencies:
  * fixed smugmug.com photo plugin to work with new url schema
  * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
  * support international domains for huffingtonpost.com
+
 
 ### 2013.09.17, Version 0.5.1
 
@@ -118,6 +157,7 @@ Please, run following to update package dependencies:
  * fix parsing alternate oembed links
  * fix telly.com plugin 
 
+
 ### 2013.08.13, Version 0.4.4
 
  + added tumblr.com meta plugin
@@ -130,9 +170,11 @@ Please, run following to update package dependencies:
  * fixed slideshare.net plugin
  + added huffingtonpost.com plugin
 
+
 ### 2013.08.08, Version 0.4.3
 
  + added mixbit.com plugin
+
 
 ### 2013.08.06, Version 0.4.2
 
@@ -142,6 +184,7 @@ Please, run following to update package dependencies:
  + added pinterest product meta
  * check if favicon exists
  * fix instapaper resolving relative urls
+
 
 ### 2013.07.19, Version 0.4.0
 
@@ -160,6 +203,7 @@ Please, run following to update package dependencies:
  * fixed businessinsider.com plugin
  * fixed: iframely selects better media sizes for duplicate http/https links from different plugins, giving priority to the ones that produce responsive widget
 
+
 ### 2013.07.11, Version 0.3.10
 
  * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
@@ -170,12 +214,14 @@ Please, run following to update package dependencies:
  * fixed iframed widgets buggy resizing
  * fixed dynamic reader embedding
 
+
 ### 2013.07.05, Version 0.3.9
 
  + tindeck.com (Mathias Panzenböck)
  + maps.google.com (Mathias Panzenböck)
  + magnatune.com (Mathias Panzenböck)
  + ocreamix.org (Mathias Panzenböck)
+
 
 ### 2013.06.28, Version 0.3.8
 
@@ -187,6 +233,7 @@ Please, run following to update package dependencies:
  + guardian.co.uk videos
  + wikimedia articles and pictures
  + parse links by iframely (oEmbed/2) spec
+
 
 ### 2013.06.27, Version 0.3.7
 
