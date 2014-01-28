@@ -7,14 +7,21 @@
 
     var config = {
 
+        WHITELIST_URL: 'http://iframely.com/qa/sample.json',
+        WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
+
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
 
+        CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 500 * 1024 * 1024, // 500 MB.
+        CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS: 20,   // if 20 seconds load over 95% - restart worker.
+        CLUSTER_MAX_CPU_LOAD_IN_PERCENT: 95,
+
         metaLoadingTimeout: 5 * 1000,
-        USER_AGENT: "Mozilla/5.0 (compatible; Iframely/" + version + "; +http://iframely.com/)",
+        USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
 
         T: {
             text_html: "text/html",
@@ -122,7 +129,9 @@
             "og",
             "twitter",
             "iframely"
-        ]
+        ],
+
+        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader"]
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");

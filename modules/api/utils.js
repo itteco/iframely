@@ -71,15 +71,7 @@ var renders = {
                 && data.href;
         },
         generate: function(data) {
-            return $('<script>')
-                .addClass("iframely-widget iframely-script")
-                .attr('type', data.type)
-                .attr('src', data.href);
-            var $container = $('<div>')
-                .attr('iframely-container-for', data.href)
-                .append($script);
-
-            return $container;
+            return '<script class="iframely-widget iframely-script" type="' + data.type + '" src="' + data.href + '"></script>';
         }
     },
     "image": {
@@ -287,8 +279,6 @@ var filterLinksByRel = function(rel, links, options) {
     return result;
 };
 
-var rels = ["player", "survey", "reader", "image"];
-
 exports.getOembed = function(uri, data) {
 
     var oembed = {
@@ -333,7 +323,7 @@ exports.getOembed = function(uri, data) {
     }
 
     var link;
-    var foundRel = _.find(rels, function(rel) {
+    var foundRel = _.find(CONFIG.OEMBED_RELS_PRIORITY, function(rel) {
         link = filterLinksByRel(rel, data.links, {returnOne: true});
         return link;
     });
@@ -342,7 +332,7 @@ exports.getOembed = function(uri, data) {
 
     if (link && !inlineReader) {
         var m = link.media;
-        if (m ) {
+        if (m) {
             if (m.width && m.height) {
                 oembed.width = m.width;
                 oembed.height = m.height;
@@ -361,8 +351,13 @@ exports.getOembed = function(uri, data) {
                 iframelyData: data
             });
 
-            var $html = $('<div>').append($el);
-            oembed.html = $html.html();
+            if (typeof $el === "string") {
+                oembed.html = $el;
+            } else {
+                var $html = $('<div>').append($el);
+                oembed.html = $html.html();
+            }
+
         }
 
     } else {

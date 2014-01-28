@@ -1,5 +1,5 @@
 var URL = require("url");
-var jQuery = require('jquery');
+var _ = require('underscore');
 var QueryString = require("querystring");
 
 var TypeMap = {
@@ -72,7 +72,7 @@ module.exports = {
 
         delete query.output;
 
-        var iframe_query = jQuery.extend({},query,{ie: 'UTF8', output: 'embed'});
+        var iframe_query = _.extend({},query,{ie: 'UTF8', output: 'embed'});
 
         if (!query.spn && query.sspn) {
             iframe_query.spn = query.sspn;

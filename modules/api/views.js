@@ -23,11 +23,7 @@ function prepareUri(uri) {
     return uri;
 }
 
-function log() {
-    var args = Array.prototype.slice.apply(arguments);
-    args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
-    console.log.apply(console, args);
-}
+var log = utils.log;
 
 module.exports = function(app) {
 
@@ -69,8 +65,13 @@ module.exports = function(app) {
             var debug = result.debug;
 
             if (!req.query.debug) {
+                // Debug used later. Do not dispose.
                 delete result.debug;
+
+                // Plugins are part of API. Do not dispose.
                 delete result.plugins;
+
+                iframely.disposeObject(result.time);
                 delete result.time;
             }
 
@@ -109,10 +110,13 @@ module.exports = function(app) {
 
             res.sendJsonCached(result);
 
+            iframely.disposeObject(debug);
+            iframely.disposeObject(result);
+
             if (global.gc) {
                 //console.log('GC called');
                 global.gc();
-            };
+            }
         });
     });
 
@@ -298,6 +302,8 @@ module.exports = function(app) {
 
                 res.jsonpCached(oembed);
             }
+
+            iframely.disposeObject(result);
         });
     });
 };

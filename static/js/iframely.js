@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Versrion 0.5.6
+     Versrion 0.5.8
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -223,11 +223,6 @@
                     .addClass("iframely-widget iframely-script")
                     .attr('type', data.type)
                     .attr('src', data.href);
-                var $container = $('<div>')
-                    .attr('iframely-container-for', data.href)
-                    .append($script);
-
-                return $container;
             }
         },
         "image": {
