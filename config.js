@@ -8,7 +8,7 @@
     var config = {
 
         WHITELIST_URL: 'http://iframely.com/qa/sample.json',
-        WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,
+        WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
