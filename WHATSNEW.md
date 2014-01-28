@@ -36,7 +36,7 @@ Domain maintanance:
  * Allow older GitHub gists (the ones without a title and different URL scheme)
  * Fix 9gag photos
  * Cover more URLs on CNN videos, Wistia, Kinja and ec.europa.eu
- * Some peformance improvements
+ * Some performance improvements
 
 
 ### 2013.11.28, Version 0.5.7
