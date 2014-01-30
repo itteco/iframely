@@ -5,6 +5,7 @@ module.exports = {
         "og-site",
         "og-title",
         "og-image",
+        "twitter-image",
         "twitter-author",
         "favicon"
     ],

@@ -5,6 +5,7 @@ module.exports = {
     mixins: [
         "og-title",
         "og-site",
+        "og-image",
         "favicon"
     ],
 

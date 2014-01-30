@@ -10,6 +10,7 @@ module.exports = {
         "og-description",
         "keywords",
         "og-site",
+        "og-image",
         "og-title"
     ],
 
