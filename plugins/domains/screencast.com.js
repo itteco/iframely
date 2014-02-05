@@ -36,7 +36,7 @@ module.exports = {
             var flashVars = $selector('#scPlayer param[name="flashVars"]').attr('value');
         
             result = {
-                href: $el.attr('data') + '?thumb=' + flashVars.split('&thumb=')[1],
+                href: $el.attr('data') + '?'+ flashVars,
                 type: $el.attr('type'),
                 rel: CONFIG.R.player,
                 "aspect-ratio": $el.attr('width') / $el.attr('height')
@@ -49,6 +49,7 @@ module.exports = {
     tests: [ 
         "http://screencast.com/t/kg3Waazl1q",
         "http://screencast.com/t/t1sxDFYO",
-        "http://screencast.com/t/pZ9CEcsnj75"
+        "http://screencast.com/t/pZ9CEcsnj75",
+        "http://screencast.com/t/MjA4M2ViMT"
     ]
 };
