@@ -55,7 +55,9 @@ module.exports = {
 
     tests: [{
         pageWithFeed: "http://imgur.com/"
-    },
+    }, {
+        skipMixins: ["oembed-video-responsive"]
+    },    
         "http://imgur.com/Ks3qs",
         "http://imgur.com/gallery/IiDwq",
         "http://imgur.com/r/aww/tFKv2zQ" // kitten bomb

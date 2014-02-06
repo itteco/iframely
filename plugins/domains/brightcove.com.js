@@ -13,7 +13,7 @@ module.exports = {
     ],
 
     tests: [
-        "http://link.brightcove.com/services/player/bcpid2310914278001?bckey=AQ~~,AAAAybGjzqk~,6NfTc6c241HpkjjX4AvOQfyjXRJdaCi4&bctid=3081545760001",
+        "http://link.brightcove.com/services/player/bcpid1989148206001?bckey=AQ~~,AAAAAFSL1bg~,CmS1EFtcMWELN_eSE9A7gpcGWF5XAVmI&bctid=3123935084001",
         "http://video-embed.masslive.com/services/player/bcpid1949030308001?bctid=3082707357001&bckey=AQ~~,AAAAQBxUOok~,jSZP67EiqBfkIeiCdBewgHg1-uVWQxpS",
         "http://video-embed.cleveland.com/services/player/bcpid1949055968001?bctid=3086114271001&bckey=AQ~~,AAAAQBxUNqE~,xKBGzTdiYSSRqIKPsPdkNW3W_DNtPBTa",
         "http://video.archstl.org/services/player/bcpid1697747652001?bckey=AQ~~,AAABKmWKzxE~,jhq2mLafyYPtb2fDysY2ou3LA4sZBXej&bctid=2766873636001&iframe=true&height=275&width=485",

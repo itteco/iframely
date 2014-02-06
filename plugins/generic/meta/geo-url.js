@@ -8,8 +8,7 @@ module.exports = {
     	    "geo.position": "42.88;-78.88",
     	Sample: http://qik.com/video/52767028
         */
-        var geo = meta.ICBM;
-        if (!geo & meta.geo) geo = meta.geo.position;
+        var geo = meta.icbm || meta["geo.position"];
 
         if (geo) {
 

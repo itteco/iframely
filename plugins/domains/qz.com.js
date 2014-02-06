@@ -45,9 +45,7 @@ module.exports = {
         }];
     },
 
-    tests: [{
-        pageWithFeed: "http://qz.com/"
-    },
+    tests: [
         "http://qz.com/78935/amazon-enterprise-cloud-computing/", {
             skipMixins: [
                 "oembed-thumbnail"

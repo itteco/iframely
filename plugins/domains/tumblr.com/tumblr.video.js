@@ -50,10 +50,7 @@ module.exports = {
         }
     },
 
-    tests: [{
-        page: "http://iwantyoutorockme-yeah.tumblr.com/search/video",
-        selector: ".meta>.date>a"
-    },
+    tests: [
         "http://fyteensontop.tumblr.com/post/58053062280/130812-fanta-fanmeeting-niel-apink-eunji-cut",
         "http://hubol.tumblr.com/post/58053061056/check-out-how-cool-this-class-is"
     ]

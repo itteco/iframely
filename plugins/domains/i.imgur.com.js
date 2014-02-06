@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png)$/i,
+    re: /https?:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png)$/i,
 
     getMeta: function(urlMatch) {
         return {

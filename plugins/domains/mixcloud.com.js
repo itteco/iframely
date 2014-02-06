@@ -13,6 +13,6 @@ module.exports = {
 
     tests: [{
         page: "http://www.mixcloud.com/categories/comedy/",
-        selector: ".latest-cc .mx-link"
+        selector: "h3.card-cloudcast-title a"
     }]
 };

@@ -13,10 +13,7 @@ module.exports = {
         "favicon"
     ],
 
-    tests: [ {
-        page: "http://www.sliderocket.com/gallery/",
-        selector: ".target-link"
-    },
+    tests: [ 
         "http://portal.sliderocket.com/SlideRocket-Presentations/Hoshyar-Foundation"
     ]
 };

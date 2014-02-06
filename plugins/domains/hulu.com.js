@@ -39,10 +39,7 @@ module.exports = {
         }];
     },
 
-    tests: [{
-        page: "http://www.hulu.com/browse/picks/trending-now",
-        selector: ".thumbnail a"
-    },
+    tests: [
         "http://www.hulu.com/watch/494551"
     ]    
 };

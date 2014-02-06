@@ -69,10 +69,7 @@ module.exports = {
             });
     },
 
-    tests: [{
-        page: "https://twitter.com/TSwiftOnTour",
-        selector: ".tweet-timestamp"
-    },
+    tests: [
         "https://twitter.com/TSwiftOnTour/status/343846711346737153"
     ]
 };
