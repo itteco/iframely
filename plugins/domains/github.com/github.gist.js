@@ -3,11 +3,16 @@ module.exports = {
     re: /^https?:\/\/gist\.github\.com\/(\w+\/)(\w+)/i,
 
     mixins: [
-        "og-title",
         "og-site",
         "og-image",
         "favicon"
     ],
+
+    getMeta: function(meta) {        
+        return {
+            title: (meta.og && meta.og.title) ? meta.og.title : meta["html-title"]
+        }
+    },
 
     getLink: function(urlMatch) {
         return {
@@ -24,6 +29,8 @@ module.exports = {
     tests: [{
         page: "https://gist.github.com/discover",
         selector: ".creator a:last"
+    }, {
+        skipMixins: ["og-image"]
     },
         "https://gist.github.com/3054754",
         "https://gist.github.com/2719090",
