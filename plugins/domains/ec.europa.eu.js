@@ -12,19 +12,35 @@ module.exports = {
 
     getLinks: function(ec_data) {
 
-        return [
+        var links = [];
 
-        {
+        links.push ({
             href: ec_data["image_src"],
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail
-        },
-        {
-            href: ec_data["video_src"],
-            rel: CONFIG.R.player,
-            type: CONFIG.T.flash,
-            "aspect-ratio": ec_data["video_width"] / ec_data["video_height"]
-        }]
+        }); 
+
+        if (ec_data["video_src"]) {
+
+            links.push({
+                href: ec_data["video_src"],
+                rel: CONFIG.R.player,
+                type: CONFIG.T.flash,
+                "aspect-ratio": ec_data["video_width"] / ec_data["video_height"]
+            })
+        }
+
+        if (ec_data["twitter:player"]) {
+
+            links.push({
+                href: ec_data["twitter:player"].replace("https://", "http://"),
+                rel: [CONFIG.R.player, CONFIG.R.autoplay],
+                type: CONFIG.T.text_html,
+                "aspect-ratio": ec_data["twitter:player:width"] / ec_data["twitter:player:height"]
+            })
+        }
+
+        return links;
     },
 
     getMeta: function(ec_data) {
@@ -47,7 +63,7 @@ module.exports = {
 
         for (i=0; i < $meta.length; i++) {
             if ($meta[i].name) {
-                data[$meta[i].name]=$meta[i].content;
+                data[$meta[i].name] = $meta[i].content || $meta[i].getAttribute('value');
             }
         }
 
