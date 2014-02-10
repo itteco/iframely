@@ -48,7 +48,7 @@
         "node-cache":   "0.3.2",
 
         "jquery":       "1.8.3",
-        "iframely-readability":      "https://github.com/itteco/node-readability/tarball/memory-leak-tests",
+        "iframely-readability":      "git://github.com/itteco/node-readability.git",
 
         "cheerio":      "git://github.com/nleush/cheerio.git#load-by-domhandler",
 
