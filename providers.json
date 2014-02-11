@@ -304,5 +304,12 @@
             "imgur\\.com/.*"
         ],
         "endpoint": "http://api.imgur.com/oembed.{format}"
-    }
+    },
+    {
+        "name": "Meetup",
+        "templates": [
+            "www.meetup\\.com/.*"
+        ],
+        "endpoint": "http://api.meetup.com/oembed"
+    }    
 ]
