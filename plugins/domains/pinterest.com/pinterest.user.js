@@ -40,10 +40,10 @@ module.exports = {
         };
     },
 
-    tests: [{
-        page: "http://pinterest.com/all/science_nature/",
-        selector: ".pinUserAttribution a.firstAttribution"
-    },
+    tests: [
+
+        // No Test Feed here not to violate "scrapping" restrictions of Pinterest
+        
         "http://pinterest.com/bcij/",
         "http://pinterest.com/franktofineart/"
     ]

@@ -24,6 +24,10 @@ module.exports = {
             type: CONFIG.T.image,
             rel: CONFIG.R.icon, 
             href: "https://polldaddy.com/favicon.ico"
+        }, {
+            type: CONFIG.T.image,
+            rel: CONFIG.R.thumbnail,
+            href: "http://polldaddy.com/images/pd-swirl.png"
         }];
     },
 

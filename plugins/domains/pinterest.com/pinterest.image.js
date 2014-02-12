@@ -39,10 +39,10 @@ module.exports = {
         };
     },
 
-    tests: [{
-        page: "http://pinterest.com/all/science_nature/",
-        selector: ".pinImageWrapper"
-    },
+    tests: [
+
+        // No Test Feed here not to violate "scrapping" restrictions of Pinterest
+        
         "http://pinterest.com/pin/30258628719483308/"
     ]
 };

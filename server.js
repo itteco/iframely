@@ -2,17 +2,7 @@ var sysUtils = require('./utils');
 
 console.log("");
 console.log("Starting Iframely...");
-console.log("Base URL for embed links that require renders:", CONFIG.baseAppUrl);
-
-try {
-    if (CONFIG.nodetime) {
-        require('nodetime').profile({
-            accountKey: CONFIG.nodetime,
-            appName: 'Node.js Application'
-        });
-    }
-    var heapdump = require('heapdump');
-} catch (ex) {}
+console.log("Base URL for embeds that require hosted renders:", CONFIG.baseAppUrl);
 
 var path = require('path');
 var express = require('express');
@@ -99,6 +89,7 @@ app.get('/', function(req, res) {
     res.end();
 });
 
+process.title = "iframely";
 app.listen(CONFIG.port);
 
 if (CONFIG.ssl) {
@@ -106,7 +97,8 @@ if (CONFIG.ssl) {
     require('https').createServer(options, app).listen(CONFIG.ssl.port);
 }
 
+console.log('');
 console.log('Iframely listening on port', CONFIG.port);
-console.log('- support@iframely.com - if you need help');
-console.log('- twitter.com/iframely - for news & updates');
-console.log('- github.com/itteco/iframely - star & contribute');
+console.log(' - support@iframely.com - if you need help');
+console.log(' - twitter.com/iframely - news & updates');
+console.log(' - github.com/itteco/iframely - star & contribute');

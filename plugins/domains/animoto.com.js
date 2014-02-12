@@ -5,7 +5,8 @@ module.exports = {
         "oembed-description",
         "oembed-author",
         "oembed-thumbnail",
-        "oembed-video-responsive"
+        "oembed-video-responsive",
+        "og-image"
     ],
 
     getLink: function() {

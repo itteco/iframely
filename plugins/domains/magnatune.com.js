@@ -71,7 +71,7 @@ module.exports = {
 
     tests: [{
         page: "http://magnatune.com/",
-        selector: "p td font a:has(font)"
+        selector: "div[id^='row'] a"
     },
         "http://magnatune.com/artists/albums/sieber-hidden/",
         "http://magnatune.com/artists/albums/fallingyou-adore/lofi_play"

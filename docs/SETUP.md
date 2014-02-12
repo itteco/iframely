@@ -35,16 +35,16 @@ Edit the sample config file as you need. You may also override any values from m
 
 At the very least, you need to properly configure:
 
-- `baseAppUrl` - the domain you host Iframely Gateway on
+- `baseAppUrl` - the domain you host Iframely Gateway on. This is required for some embeds that need custom renders.
 - `CACHE_ENGINE` - the caching middleware you'd prefer to use (No Cache, Redis, Memcached or Node.js in-memory cache)
 - If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
 - `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
 
 The important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the gateway with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers,meta and thumbnails ones only. See the [record format description](http://iframely.com/qa/format).
 
-There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable
+There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable.
 
-You can also fine-tune API response time by disabling image size detection or readability parsing. 
+You can also fine-tune API response time by disabling image size detection or readability parser. 
 
 
 
@@ -53,6 +53,11 @@ You can also fine-tune API response time by disabling image size detection or re
 Starting the server is simple. From Iframely home directory:
 
     node server
+
+To run server in cluster mode, use
+
+    node cluster
+
 
 We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
@@ -99,7 +104,7 @@ If can greatly extend gateway functionality without writting additional plugins.
 
 The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory is used. 
 
-You can get whitelist file with 900+ domains at [http://iframely.com/qa/buy](http://iframely.com/qa/buy). Or get a sample file with top 50 domains from the same page. 
+You can get whitelist file with 2000+ domains at [iframely.com/qa/buy](http://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will make Iframely to load domains DB from the server automatically. If neither local file or `WHITELIST_URL` are provided, Iframely will get a free file with top 100 domains from [iframely.com/qa/sample.json](http://iframely.com/qa/sample.json). 
 
 If you wish to create your own whitelist, please, follow [required file format](http://iframely.com/qa/format).
 

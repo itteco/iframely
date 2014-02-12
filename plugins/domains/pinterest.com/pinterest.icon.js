@@ -10,7 +10,7 @@ module.exports = {
         };
     },
 
-    tests: [{
+    tests: {
         noTest: true
-    }]
+    }
 };
