@@ -21,6 +21,9 @@
         CLUSTER_MAX_CPU_LOAD_IN_PERCENT: 95,
 
         metaLoadingTimeout: 5 * 1000,
+
+        IMAGE_SIZE_TIMEOUT: 2 * 1000,
+
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
 
         T: {

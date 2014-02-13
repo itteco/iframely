@@ -17,4 +17,4 @@ post plugins:
 - Filter unique hrefs.
 - Removed http/https duplication
 - Sort links in order of REL according to CONFIG.REL_GROUPS.
-
+- safe html
