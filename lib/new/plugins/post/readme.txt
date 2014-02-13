@@ -1,3 +1,8 @@
+Dependencies loading not supported.
+Async errors handling not supported.
+Result data not supported - direct link change by ref.
+Timing not supported.
+
 post plugins:
 - render html
 + get image size
