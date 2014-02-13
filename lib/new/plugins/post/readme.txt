@@ -1,6 +1,7 @@
 post plugins:
 - render html
-- get image size / check image 404
++ get image size
+- check image 404
 - check favicon 404
 - meta: unify date
 - merge QA rels
@@ -14,7 +15,7 @@ post plugins:
 - Filter non string hrefs.
 - remove autoplay: link.href = link.href.replace(/(auto_play)=true/i, '$1=false');
 - resolve links in current domain
-- Filter unique hrefs.
++ Filter unique hrefs.
 - Removed http/https duplication
 - Sort links in order of REL according to CONFIG.REL_GROUPS.
 - safe html
