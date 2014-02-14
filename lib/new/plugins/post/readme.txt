@@ -22,13 +22,12 @@ Exact sequence:
 + moveMediaAttrs
 + makeMediaResponsive (after moveMediaAttrs)
 
-add params:
-- options
-- whitelistRecord
+TODO:
+- sourceId: 'fb' for video_src
+- !!!! moveMediaAttr after check image size
 
 hardcode in core:
 - remove canonical links
-- meta: unify date
 - Sort links in order of REL according to CONFIG.REL_GROUPS.
 
 later:
