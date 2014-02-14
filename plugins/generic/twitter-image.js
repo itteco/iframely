@@ -26,12 +26,12 @@ module.exports = {
         if (meta.twitter.card == "gallery") {
             var i; // JSLint :\\
 
-            for (i=3; i>=0; i--) {
-                if (meta.twitter['image'+i]) 
+            for (i = 3; i >= 0; i--) {
+                if (meta.twitter['image' + i])
                     links.push({
-                        href: meta.twitter['image'+i].src || meta.twitter['image'+i],
+                        href: meta.twitter['image' + i].src || meta.twitter['image' + i],
                         type: CONFIG.T.image,
-                        rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],                        
+                        rel: [CONFIG.R.thumbnail, CONFIG.R.twitter]
                     });
             }
         }

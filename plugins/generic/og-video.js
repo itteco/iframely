@@ -10,7 +10,7 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.og],
                 width: meta.og.video.width,
                 height: meta.og.video.height
-            }]
+            }];
 
             if (whitelistRecord.isAllowed('og.video', 'ssl')) {
                 players.push({
@@ -19,7 +19,7 @@ module.exports = {
                     rel: [CONFIG.R.player, CONFIG.R.og],
                     width: meta.og.video.width,
                     height: meta.og.video.height
-                })
+                });
             }
         
             return players;

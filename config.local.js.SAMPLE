@@ -135,7 +135,7 @@
                 "survey": "allow",
                 "reader": "allow",
                 "player": "allow",
-                "image": "allow",
+                "image": "allow"
               },
               "html-meta": {
                 "video": ["allow", "responsive"]
