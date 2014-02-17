@@ -67,8 +67,8 @@
         },
         */
 
-        // If there's no response from remote server, the timeout will occur after 
-        metaLoadingTimeout: 5 * 1000, //ms
+        // If there's no response from remote server, the timeout will occur after
+        RESPONSE_TIMEOUT: 5 * 1000, //ms
 
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.

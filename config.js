@@ -20,9 +20,7 @@
         CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS: 20,   // if 20 seconds load over 95% - restart worker.
         CLUSTER_MAX_CPU_LOAD_IN_PERCENT: 95,
 
-        metaLoadingTimeout: 5 * 1000,
-
-        IMAGE_SIZE_TIMEOUT: 2 * 1000,
+        RESPONSE_TIMEOUT: 5 * 1000,
 
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
 
