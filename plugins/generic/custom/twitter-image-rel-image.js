@@ -1,16 +1,16 @@
 module.exports = {
 
-    getLink: function(meta) {
+    getLink: function(twitter) {
 
-        if (!meta.twitter || !meta.twitter.image)
+        if (!twitter.image)
             return;
 
         return {
-            href: meta.twitter.image.url || meta.twitter.image.src || meta.twitter.image,
+            href: twitter.image.url || twitter.image.src || twitter.image,
             type: CONFIG.T.image,
             rel: [CONFIG.R.image, CONFIG.R.twitter],
-            width: meta.twitter.image.width,
-            height: meta.twitter.image.height
+            width: twitter.image.width,
+            height: twitter.image.height
         };
     }
 };

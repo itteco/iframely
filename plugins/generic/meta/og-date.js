@@ -1,12 +1,12 @@
 module.exports = {
 
-    getMeta: function(meta) {
+    getMeta: function(og) {
 
-        if (!meta.og || !meta.og.article)
+        if (!og.article)
             return;
 
         return {
-            date: meta.og.article.published_time || meta.og.article.modified_time
+            date: og.article.published_time || og.article.modified_time
         };
     }
 };

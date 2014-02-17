@@ -1,11 +1,6 @@
 module.exports = {
 
-    getMeta: function(meta) {
-
-        var og = meta.og;
-
-        if (!og)
-            return;
+    getMeta: function(og, meta) {
 
         var price = og.price || (meta.product && meta.product.price);
 

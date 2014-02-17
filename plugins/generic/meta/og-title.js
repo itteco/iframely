@@ -1,12 +1,9 @@
 module.exports = {
 
-    getMeta: function(meta) {
-
-        if (!meta.og)
-            return;
+    getMeta: function(og) {
 
         return {
-            title: meta.og.title
+            title: og.title
         };
     }
 };

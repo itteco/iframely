@@ -2,9 +2,9 @@ module.exports = {
 
     lowestPriority: true,
 
-    getMeta: function(meta) {
+    getMeta: function(twitter) {
 
-        if (!meta.twitter || !meta.twitter.creator)
+        if (!twitter.creator)
             return;
 
         return {

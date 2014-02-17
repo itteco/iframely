@@ -1,12 +1,9 @@
 module.exports = {
 
-    getMeta: function(meta) {
-
-        if (!meta.twitter)
-            return;
+    getMeta: function(twitter) {
 
         return {
-            title: meta.twitter.title
+            title: twitter.title
         };
     }
 };

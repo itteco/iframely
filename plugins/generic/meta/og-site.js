@@ -2,13 +2,10 @@ module.exports = {
 
     lowestPriority: true,
 
-    getMeta: function(meta) {
-
-        if (!meta.og)
-            return;
+    getMeta: function(og) {
 
         return {
-            site: meta.og.site_name
+            site: og.site_name
         };
     }
 };

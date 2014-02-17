@@ -1,12 +1,12 @@
 module.exports = {
 
-    getLink: function(meta) {
+    getLink: function(twitter) {
         return {
-            href: meta.twitter.player.value,
+            href: twitter.player.value,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.twitter],
-            width: meta.twitter.player.width,
-            height: meta.twitter.player.height
+            width: twitter.player.width,
+            height: twitter.player.height
         };
     }
 };

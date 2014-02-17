@@ -1,37 +1,37 @@
 module.exports = {
 
-    getLinks: function(meta, whitelistRecord) {
+    getLinks: function(twitter, whitelistRecord) {
 
-        if (!meta.twitter || !meta.twitter.image)
+        if (!twitter.image)
             return;
 
         var rel;
         var links = [];
 
         // TODO: make whitelistRecord.isAllowed always existing method?
-        if (meta.twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
+        if (twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             rel = CONFIG.R.image;
         } else {
             rel = CONFIG.R.thumbnail;
         }
 
         links.push({
-            href: meta.twitter.image.url || meta.twitter.image.src || meta.twitter.image,
+            href: twitter.image.url || twitter.image.src || twitter.image,
             type: CONFIG.T.image,
             rel: [rel, CONFIG.R.twitter],
-            width: meta.twitter.image.width,
-            height: meta.twitter.image.height
+            width: twitter.image.width,
+            height: twitter.image.height
         });
 
-        if (meta.twitter.card == "gallery") {
+        if (twitter.card == "gallery") {
             var i; // JSLint :\\
 
-            for (i = 3; i >= 0; i--) {
-                if (meta.twitter['image' + i])
+            for (i=3; i>=0; i--) {
+                if (twitter['image'+i]) 
                     links.push({
-                        href: meta.twitter['image' + i].src || meta.twitter['image' + i],
+                        href: twitter['image'+i].src || twitter['image'+i],
                         type: CONFIG.T.image,
-                        rel: [CONFIG.R.thumbnail, CONFIG.R.twitter]
+                        rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],                        
                     });
             }
         }

@@ -1,12 +1,9 @@
 module.exports = {
 
-    getMeta: function(meta) {
-
-        if (!meta.og)
-            return;
+    getMeta: function(og) {
 
         return {
-            duration: meta.og.duration || (meta.og.video && meta.og.video.duration)
+            duration: og.duration || (og.video && og.video.duration)
         }
     }
 };
