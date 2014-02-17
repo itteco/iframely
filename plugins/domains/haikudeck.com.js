@@ -14,12 +14,12 @@ module.exports = {
     ],
 
    getLink: function(urlMatch) {
-        return [{
-            href: "http://www.haikudeck.com/e/"+urlMatch[1],
+        return {
+            href: "http://www.haikudeck.com/e/" + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": 640 / 541
-        }];
+        };
     },
 
     tests: [{
