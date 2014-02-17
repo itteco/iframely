@@ -21,14 +21,14 @@ Exact sequence:
 + Skip "deny" links in debug mode.
 + moveMediaAttrs
 + makeMediaResponsive (after moveMediaAttrs)
++ !!!! moveMediaAttr after check image size
 
 TODO:
 - sourceId: 'fb' for video_src
-- !!!! moveMediaAttr after check image size
 
 hardcode in core:
-- remove canonical links
-- Sort links in order of REL according to CONFIG.REL_GROUPS.
++ remove canonical links
++ Sort links in order of REL according to CONFIG.REL_GROUPS.
 
 later:
 - render html
