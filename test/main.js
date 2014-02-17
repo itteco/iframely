@@ -4,7 +4,7 @@ var assert = require('assert'),
 
 GLOBAL.CONFIG = require('../config');
 
-var iframely = require('../lib/iframely-meta.js');
+var iframely = require('../lib/_old/iframely-meta.js');
 
 // Must be to pass tests.
 process.on('uncaughtException', function(err) {

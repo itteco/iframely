@@ -1,6 +1,6 @@
 
 var readability = require('iframely-readability');
-var cache = require('../../lib/cache');
+var cache = require('../../lib/_old/cache');
 
 module.exports = {
 

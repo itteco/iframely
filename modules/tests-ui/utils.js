@@ -5,8 +5,8 @@ var async = require('async');
 var jsdom = require('jsdom');
 var url = require('url');
 
-var iframely = require("../../lib/iframely");
-var iframelyMeta = require("../../lib/iframely-meta");
+var iframely = require("../../lib/_old/iframely");
+var iframelyMeta = require("../../lib/_old/iframely-meta");
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 

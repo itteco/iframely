@@ -3,7 +3,7 @@
     GLOBAL.CONFIG = require('./config');
 
     var async = require('async');
-    var cache = require('./lib/cache');
+    var cache = require('./lib/_old/cache');
     var ejs = require('ejs');
     var fs = require('fs');
     var crypto = require('crypto');

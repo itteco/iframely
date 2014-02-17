@@ -1,4 +1,4 @@
-var iframely = require('../../lib/iframely');
+var iframely = require('../../lib/_old/iframely');
 var utils = require('../../utils');
 var apiUtils = require('./utils');
 var _ = require('underscore');

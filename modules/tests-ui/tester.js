@@ -14,8 +14,8 @@ var _ = require('underscore');
 
 var models = require('./models');
 
-var iframely = require('../../lib/iframely');
-var cache = require('../../lib/cache');
+var iframely = require('../../lib/_old/iframely');
+var cache = require('../../lib/_old/cache');
 var utils = require('./utils');
 
 var testOnePlugin = false;
