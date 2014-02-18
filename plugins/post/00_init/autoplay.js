@@ -1,6 +1,6 @@
 module.exports = {
 
-    prepareLink: function(uri, link) {
+    prepareLink: function(link) {
 
         if (link.rel.indexOf(CONFIG.R.player) > -1) {
             link.href = link.href.replace(/(auto_play)=true/i, '$1=false');

@@ -1,9 +1,9 @@
 var utils = require('../../../utils');
-var url = require('url');
+var urlLib = require('url');
 
 module.exports = {
 
-    prepareLink: function(uri, link, options, cb) {
+    prepareLink: function(url, link, options, cb) {
 
         // TODO: resolve href if no protocol? e.g. "//domain.com/img"
 
@@ -26,7 +26,7 @@ module.exports = {
 
         // Start link processing.
 
-        var uri = url.resolve(uri, link.href);
+        var uri = urlLib.resolve(url, link.href);
 
         utils.getUriStatus(uri, options, function(error, data) {
 

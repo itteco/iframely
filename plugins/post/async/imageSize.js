@@ -1,10 +1,10 @@
 var utils = require('../../../utils');
-var url = require('url');
+var urlLib = require('url');
 var mediaPlugin = require('../media');
 
 module.exports = {
 
-    prepareLink: function(uri, link, options, cb) {
+    prepareLink: function(url, link, options, cb) {
 
         // Check if need link processing.
 
@@ -28,7 +28,7 @@ module.exports = {
 
         // Start link processing.
 
-        var href = url.resolve(uri, link.href);
+        var href = urlLib.resolve(url, link.href);
 
         utils.getImageMetadata(href, options, function(error, data) {
 

@@ -2,6 +2,8 @@ module.exports = {
 
     lowestPriority: true,
 
+    provides: 'self',
+
     getData: function(meta) {
 
         var p = meta["parsely-page"];

@@ -1,6 +1,6 @@
 module.exports = {
 
-    prepareLink: function(uri, link) {
+    prepareLink: function(url, link) {
 
         if (!link.href) {
             // Skip not full data.
@@ -34,7 +34,7 @@ module.exports = {
         // Resolve uri.
         if (!link.href.match(/^(https?:)?\/\//)) {
             // Skip urls starting from http(s) or //.
-            link.href = url.resolve(uri, link.href);
+            link.href = url.resolve(url, link.href);
         }
     }
 };

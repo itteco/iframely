@@ -125,3 +125,5 @@ CollectingHandlerForMutliTarget.prototype._emitEventsFor = function(cbs) {
 };
 
 module.exports = CollectingHandlerForMutliTarget;
+
+module.exports.notPlugin = true;

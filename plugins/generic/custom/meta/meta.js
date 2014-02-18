@@ -1,13 +1,13 @@
-var HTMLMetaHandler = require('../../../lib/handlers/HTMLMetaHandler');
+var HTMLMetaHandler = require('./HTMLMetaHandler');
 
 module.exports = {
 
     provides: 'self',
 
-    getData: function(uri, htmlparser, cb) {
+    getData: function(url, htmlparser, cb) {
 
         var metaHandler = new HTMLMetaHandler(
-            uri,
+            url,
             htmlparser.request.response.headers["content-type"],
             function(error, meta) {
                 //console.log('meta', error, meta);

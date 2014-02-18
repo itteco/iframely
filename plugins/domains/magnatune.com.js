@@ -13,6 +13,8 @@ module.exports = {
         "favicon"
     ],
 
+    provides: 'magnatune_meta',
+
     getData: function(url, urlMatch, meta) {
 
         var image_url = URL.parse(meta.og.image);

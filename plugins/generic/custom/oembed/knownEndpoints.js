@@ -4,8 +4,8 @@ module.exports = {
 
     provides: ['oembedLinks', '__noOembedLinks'],
 
-    getData: function(uri) {
-        var oembedLinks = oembedUtils.findOembedLinks(uri);
+    getData: function(url) {
+        var oembedLinks = oembedUtils.findOembedLinks(url);
         return {
             oembedLinks: oembedLinks,
             __noOembedLinks: !oembedLinks || !oembedLinks.length || null    // null - means value not in context.

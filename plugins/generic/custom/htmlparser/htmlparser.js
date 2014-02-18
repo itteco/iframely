@@ -2,10 +2,10 @@ var _ = require('underscore');
 var htmlparser2 = require('htmlparser2');
 var Parser = htmlparser2.Parser;
 
-var utils = require('../../../lib/utils');
+var utils = require('../../../../lib/utils');
 var getUrl = utils.getUrl;
 
-var CollectingHandlerForMutliTarget = require('../../../lib/handlers/CollectingHandlerForMutliTarget');
+var CollectingHandlerForMutliTarget = require('./CollectingHandlerForMutliTarget');
 
 
 module.exports = {
@@ -15,11 +15,11 @@ module.exports = {
         'nonHtmlContentType'
     ],
 
-    getData: function(uri, options, cb) {
+    getData: function(url, options, cb) {
 
         var request;
 
-        getUrl(uri, _.extend({}, options, {
+        getUrl(url, _.extend({}, options, {
             followRedirect: false
         }))
             .on('error', cb)
@@ -65,7 +65,7 @@ module.exports = {
             });
     },
 
-    getLink: function(uri, nonHtmlContentType) {
+    getLink: function(url, nonHtmlContentType) {
 
         // HEADS UP: do not ever remove the below check for 'javascript' in content type
         // if left allowed, it'll make apps vulnerable for XSS attacks as such files will be rendered
@@ -74,7 +74,7 @@ module.exports = {
         }
 
         return {
-            href: uri,
+            href: url,
             type: nonHtmlContentType,
             rel: [(nonHtmlContentType.indexOf('image') !== -1) ? CONFIG.R.image : CONFIG.R.file]
             // client-side iframely.js will also properly render video/mp4 files this way

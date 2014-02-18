@@ -12,6 +12,8 @@ module.exports = {
         "favicon"
     ],
 
+    provides: 'tumblr_post',
+
     getMeta: function(tumblr_post) {
         return {
             title: tumblr_post.title || $('<div>').html(tumblr_post.caption).text() || tumblr_post.blog_name,

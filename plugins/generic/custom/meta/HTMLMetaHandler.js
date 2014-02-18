@@ -2,7 +2,7 @@ var decodeHTML5 = require('entities').decodeHTML5;
 var _ = require('underscore');
 var url = require('url');
 
-var utils = require('./../utils');
+var utils = require('./../../../../lib/utils');
 
 var getCharset = utils.getCharset;
 var encodeText = utils.encodeText;
@@ -279,3 +279,5 @@ function merge(parentObj, props, value) {
 }
 
 module.exports = HTMLMetaHandler;
+
+module.exports.notPlugin = true;

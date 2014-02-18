@@ -4,12 +4,12 @@ module.exports = {
 
     provides: 'self',
 
-    getData: function(uri, htmlparser, cb) {
+    getData: function(url, htmlparser, cb) {
 
         // TODO: encode result.
 
         var readability = new Readability({
-            pageURL: uri
+            pageURL: url
         });
         // Moved to top, because JSLINT error: Move 'var' declarations to the top of the function.
         var skipLevel;

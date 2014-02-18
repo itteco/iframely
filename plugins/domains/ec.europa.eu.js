@@ -10,6 +10,8 @@ module.exports = {
         "keywords"
     ],
 
+    provides: 'ec_data',
+
     getLinks: function(ec_data) {
 
         var links = [];

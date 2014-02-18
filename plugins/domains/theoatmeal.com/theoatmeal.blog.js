@@ -9,6 +9,8 @@ module.exports = {
         "favicon"
     ],
 
+    provides: 'theoatmeal_body',
+
     getData: function($selector) {
 
         var $body = $selector('.post_body');

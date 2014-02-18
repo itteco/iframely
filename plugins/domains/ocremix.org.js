@@ -10,6 +10,8 @@ module.exports = {
         'favicon'
     ],
 
+    provides: 'ocremix_meta',
+
     getData: function(url, urlMatch, $selector) {
         var main = $selector('#panel-main');
         var remix = $selector('h1').clone();
