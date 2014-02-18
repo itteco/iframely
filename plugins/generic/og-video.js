@@ -2,7 +2,7 @@ module.exports = {
 
     getLinks: function(og, whitelistRecord) {
 
-        if (og.video && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {
+        //if (og.video && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {
 
             var players = [{
                 href: og.video.url || og.video,
@@ -23,6 +23,6 @@ module.exports = {
             }
         
             return players;
-        }
+        //}
     }
 };

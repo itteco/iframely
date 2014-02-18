@@ -4,6 +4,7 @@ module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
+/*
         var reader = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich', "reader");
         var rich = oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich');
         var video = oembed.type === "video" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video');
@@ -11,7 +12,7 @@ module.exports = {
         if (!video && !rich && !reader) {
             return;
         }
-
+*/
         var rel = [CONFIG.R.oembed];
         rel.push(video ? CONFIG.R.player : CONFIG.R.reader);
 
@@ -21,7 +22,7 @@ module.exports = {
             $container.html(oembed.html5 || oembed.html);
         } catch (ex) {}
 
-        var $iframe = $container.find('iframe')
+        var $iframe = $container.find('iframe');
 
         // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
@@ -36,7 +37,7 @@ module.exports = {
 
         // otherwise apply renders
         } else { 
-
+/*
             if (reader) {
 
                 rel.push (CONFIG.R.inline);
@@ -47,7 +48,7 @@ module.exports = {
                 };                
 
             } else {
-
+*/
                 return {
                     type: CONFIG.T.text_html,
                     rel: rel,
@@ -59,7 +60,7 @@ module.exports = {
                     width: oembed.width,  
                     height: oembed.height
                 }
-            }
+//            }
         }
     },
 

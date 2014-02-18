@@ -2,7 +2,7 @@ module.exports = {
 
     getMeta: function(meta) {
 
-    	var dc = meta.dc || meta.dcterms;
+        var dc = meta.dc || meta.dcterms;
 
         if (dc && dc.title) {
             return {

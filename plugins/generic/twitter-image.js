@@ -9,7 +9,7 @@ module.exports = {
         var links = [];
 
         // TODO: make whitelistRecord.isAllowed always existing method?
-        if (twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
+        if (whitelistRecord && twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             rel = CONFIG.R.image;
         } else {
             rel = CONFIG.R.thumbnail;
@@ -27,12 +27,13 @@ module.exports = {
             var i; // JSLint :\\
 
             for (i=3; i>=0; i--) {
-                if (twitter['image'+i]) 
+                if (twitter['image'+i]) {
                     links.push({
                         href: twitter['image'+i].src || twitter['image'+i],
                         type: CONFIG.T.image,
-                        rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],                        
+                        rel: [CONFIG.R.thumbnail, CONFIG.R.twitter]
                     });
+                }
             }
         }
 

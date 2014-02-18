@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(twitter, whitelistRecord) {
 
-        if (twitter.player && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.player')) {
+        //if (twitter.player && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.player')) {
 
             return {
                 href: twitter.player.value || twitter.player,
@@ -11,6 +11,6 @@ module.exports = {
                 width: twitter.player.width,
                 height: twitter.player.height
             };
-        }
+        //}
     }
 };
