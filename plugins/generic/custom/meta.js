@@ -1,4 +1,4 @@
-var HTMLMetaHandler = require('../../handlers/HTMLMetaHandler');
+var HTMLMetaHandler = require('../../../lib/handlers/HTMLMetaHandler');
 
 module.exports = {
 
