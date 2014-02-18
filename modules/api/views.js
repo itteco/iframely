@@ -1,10 +1,10 @@
-var iframely = require('../../lib/_old/iframely');
+var iframelyCore = require('../../lib/core');
 var utils = require('../../utils');
-var apiUtils = require('./utils');
 var _ = require('underscore');
+var async = require('async');
+var apiUtils = require('./utils');
 var moment = require('moment');
 var jsonxml = require('jsontoxml');
-var async = require('async');
 
 function prepareUri(uri) {
 
@@ -41,12 +41,11 @@ module.exports = function(app) {
 
             function(cb) {
 
-                iframely.getRawLinks(uri, {
-                    debug: req.query.debug,
+                iframelyCore.run(uri, {
+                    debug: req.query.debug === "true",
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
                     forceMeta: req.query.meta === "true",
-                    forceOembed: req.query.meta === "true",
-                    disableCache: req.query.refresh === "true"
+                    forceOembed: req.query.meta === "true"
                 }, cb);
             }
 
@@ -107,11 +106,16 @@ module.exports = function(app) {
                     raw_meta.oembed = debug[0].context.oembed;
                 }
             }
-
+/*
+            result.links = result.links.map(function(link) {
+                return _.extend({}, link);
+            });
+*/
             res.sendJsonCached(result);
 
-            iframely.disposeObject(debug);
-            iframely.disposeObject(result);
+
+            //iframely.disposeObject(debug);
+            //iframely.disposeObject(result);
 
             if (global.gc) {
                 //console.log('GC called');
@@ -120,104 +124,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/meta-mappings', function(req, res, next) {
-
-        var ms = iframely.metaMappings;
-
-        res.sendJsonCached({
-            attributes: _.keys(ms),
-            sources: ms
-        });
-    });
-
-    app.get('/reader.js', function(req, res, next) {
-
-        var uri = prepareUri(req.query.uri);
-
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
-        }
-
-        log('Loading /reader for', uri);
-
-        async.waterfall([
-
-            function(cb) {
-                iframely.getRawReaderLink(uri, {
-                    disableCache: req.query.refresh === "true"
-                }, cb);
-            }
-
-        ], function(error, link) {
-
-            if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error("Requested page error: " + error));
-            }
-
-            if (!link) {
-                return next(new utils.NotFound());
-            }
-
-            var htmlArray = (link.html || "").match(/.{1,8191}/g) || "";
-
-            var context = {
-                embedCode: JSON.stringify(htmlArray),
-                widgetId: JSON.stringify(1),
-                uri: JSON.stringify(uri)
-            };
-
-            res.renderCached("readerjs.ejs", context, {
-                "Content-Type": "text/javascript"
-            });
-        });
-
-    });
-
-    app.get('/render', function(req, res, next) {
-
-        var uri = prepareUri(req.query.uri);
-
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
-        }
-
-        log('Loading /render for', uri);
-
-        async.waterfall([
-
-            function(cb) {
-                iframely.getRawRenderLink(uri, {
-                    disableCache: req.query.refresh === "true"
-                }, cb);
-            }
-
-        ], function(error, link) {
-
-            if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error(error));
-            }
-
-            if (!link) {
-                return next(new utils.NotFound());
-            }
-
-            res.renderCached(link._render.template, link.template_context);
-        });
-
-    });
-
+/*
     app.get('/supported-plugins-re.json', function(req, res, next) {
 
         var plugins = _.values(iframely.getPlugins());
@@ -306,4 +213,5 @@ module.exports = function(app) {
             iframely.disposeObject(result);
         });
     });
+    */
 };
