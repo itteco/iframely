@@ -2,7 +2,7 @@ var decodeHTML5 = require('entities').decodeHTML5;
 var _ = require('underscore');
 var url = require('url');
 
-var utils = require('./../../../../lib/utils');
+var utils = require('../../../lib/utils');
 
 var getCharset = utils.getCharset;
 var encodeText = utils.encodeText;

@@ -1,4 +1,4 @@
-var utils = require('../../../../lib/utils');
+var utils = require('../../../lib/utils');
 
 var getUrl = utils.getUrl;
 var getCharset = utils.getCharset;

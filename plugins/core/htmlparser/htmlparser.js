@@ -2,7 +2,7 @@ var _ = require('underscore');
 var htmlparser2 = require('htmlparser2');
 var Parser = htmlparser2.Parser;
 
-var utils = require('../../../../lib/utils');
+var utils = require('../../../lib/utils');
 var getUrl = utils.getUrl;
 
 var CollectingHandlerForMutliTarget = require('./CollectingHandlerForMutliTarget');
