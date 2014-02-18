@@ -1,3 +1,5 @@
+var urlLib = require('url');
+
 module.exports = {
 
     prepareLink: function(url, link) {
@@ -34,7 +36,7 @@ module.exports = {
         // Resolve uri.
         if (!link.href.match(/^(https?:)?\/\//)) {
             // Skip urls starting from http(s) or //.
-            link.href = url.resolve(url, link.href);
+            link.href = urlLib.resolve(url, link.href);
         }
     }
 };

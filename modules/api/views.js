@@ -70,7 +70,7 @@ module.exports = function(app) {
                 // Plugins are part of API. Do not dispose.
                 delete result.plugins;
 
-                iframely.disposeObject(result.time);
+                //iframely.disposeObject(result.time);
                 delete result.time;
             }
 
@@ -92,13 +92,14 @@ module.exports = function(app) {
                 }
                 result.links = groups;
             }
-
+/*
             if (req.query.whitelist) {
                 // if whitelist record's domain is "*" - ignore this wildcard
                 var whitelistRecord = iframely.whitelist.findWhitelistRecordFor(uri) || {} ;
                 result.whitelist = whitelistRecord.isDefault ? {} : whitelistRecord;
             }
-
+*/
+            /*
             if (req.query.meta) {
                 var raw_meta = result['raw-meta'] = {};
                 if (debug.length > 0) {
@@ -106,6 +107,7 @@ module.exports = function(app) {
                     raw_meta.oembed = debug[0].context.oembed;
                 }
             }
+            */
 /*
             result.links = result.links.map(function(link) {
                 return _.extend({}, link);
