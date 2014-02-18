@@ -347,9 +347,8 @@ function processUrl() {
         $result.renderObject(data);
 
         var clearData = $.extend(true, {}, data);
-        delete clearData.debug;
+        delete clearData.allData;
         delete clearData.time;
-        delete clearData.plugins;
         if (clearData.meta) {
             delete clearData.meta._sources;
         }
@@ -360,10 +359,14 @@ function processUrl() {
         $response.renderObject(clearData);
 
         // Render context.
-        var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || [];
+        var contexts = data.allData && data.allData
+            .filter(function(d) {
+                return d.method.name === 'getData';
+            })
+            .map(function(d) {
+                return d.data;
+            }) || [];
         var DISABLED_REQUIREMENTS = [
-            "request",
-            "html",
             "cb"
         ];
         contexts.forEach(function(context) {
