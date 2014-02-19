@@ -5,8 +5,12 @@ var async = require('async');
 var jsdom = require('jsdom');
 var url = require('url');
 
-var iframely = require("../../lib/_old/iframely");
-var iframelyMeta = require("../../lib/_old/iframely-meta");
+var iframelyGetPluginData = require('../../lib/core').getPluginData;
+
+var pluginLoader = require('../../lib/loader/pluginLoader');
+var plugins = pluginLoader._plugins,
+    DEFAULT_PARAMS = [].concat(pluginLoader.DEFAULT_PARAMS, pluginLoader.POST_PLUGIN_DEFAULT_PARAMS),
+    PLUGIN_METHODS = pluginLoader.PLUGIN_METHODS;
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 
@@ -23,13 +27,11 @@ exports.getErrors = function(debugData) {
 
     var errors = [];
 
-    debugData.debug.forEach(function(level, levelIdx) {
-        level.data.forEach(function(methodData) {
-            if (methodData.error) {
-                var methodId = methodData.method.pluginId + " - " + methodData.method.name;
-                errors.push(methodId + ": " + methodData.error);
-            }
-        });
+    debugData.allData.forEach(function(methodData) {
+        if (methodData.error) {
+            var methodId = methodData.method.pluginId + " - " + methodData.method.name;
+            errors.push(methodId + ": " + methodData.error);
+        }
     });
 
     if (errors.length) {
@@ -102,15 +104,12 @@ exports.fetchUrlsByPageOnFeed = function(pageWithFeed, otpions, cb) {
 
     async.waterfall([
 
-        function fetchPageMeta(cb) {
-            iframelyMeta.getPageData(pageWithFeed, {
-                oembed: false,
-                fullResponse: false
-            }, cb);
+        function(cb) {
+            iframelyGetPluginData(pageWithFeed, 'meta', cb);
         },
 
-        function findFeedUrl(data, cb) {
-            var alternate = data.meta.alternate;
+        function(meta, cb) {
+            var alternate = meta.alternate;
 
             var feeds;
 
@@ -148,25 +147,11 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
 
     async.waterfall([
 
-        function fetchPageBody(cb) {
-            iframelyMeta.getPageData(page, {
-                oembed: false,
-                meta: false,
-                fullResponse: true
-            }, cb);
+        function(cb) {
+            iframelyGetPluginData(page, 'cheerio', cb);
         },
 
-        function createWindow(data, cb) {
-            jsdom.env({
-                html: data.fullResponse,
-                src: [jquerySrc],
-                done: cb
-            });
-        },
-
-        function(window, cb) {
-
-            var $ = window.$;
+        function($, cb) {
 
             var $links = $(selector);
 
@@ -191,8 +176,6 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
                     }
                 }
             });
-
-            window.close();
 
             if (urls.length) {
                 cb(null, urls);
@@ -251,7 +234,7 @@ function findAllPluginMethods(pluginId, plugins, result, skipped) {
 
     });
 
-    iframely.PLUGIN_METHODS.forEach(function(method) {
+    PLUGIN_METHODS.forEach(function(method) {
 
         var methodId = pluginId + " - " + method;
         if (method in plugin.methods && result.mandatory.indexOf(methodId) == -1 && result.skipped.indexOf(methodId) == -1) {
@@ -271,70 +254,65 @@ function findUsedMethods(options, debugData, result) {
 
     // Find debug data for specific link.
 
-    var defaultContext = debugData.debug[0] && debugData.debug[0].context;
-    defaultContext.request = true;
-    defaultContext.$selector = true;
-
     result = result || [];
 
-    debugData.debug.forEach(function(level, levelIdx) {
-        if (options.maxLevel <= levelIdx) {
+    debugData.debug.forEach(function(methodData, levelIdx) {
+
+        if (options.maxLevel >= levelIdx) {
             return;
         }
-        level.data.forEach(function(methodData) {
 
-            if (!methodData.data) {
-                return;
+        if (!methodData.data) {
+            return;
+        }
+
+        var resultData = methodData.data;
+        if (!(resultData instanceof Array)) {
+            resultData = [resultData];
+        }
+
+        resultData.forEach(function(l) {
+
+            var good = false;
+            if (options.link) {
+                good = l.sourceId === options.link.sourceId;
             }
 
-            var resultData = methodData.data;
-            if (!(resultData instanceof Array)) {
-                resultData = [resultData];
+            if (options.findByMeta) {
+                var pluginId = debugData.meta._sources[options.findByMeta];
+                good = pluginId === methodData.method.pluginId
+                        && methodData.method.name === 'getMeta'
+                        && options.findByMeta in l;
             }
 
-            resultData.forEach(function(l) {
+            if (options.findByData) {
+                good = _.intersection(_.keys(l), options.findByData).length > 0;
+            }
 
-                var good = false;
-                if (options.link) {
-                    good =
-                        l.sourceId == options.link.sourceId
-                    ||  l.duplicateId == options.link.sourceId;
+            if (good) {
+
+                var methodId = methodData.method.pluginId + " - " + methodData.method.name;
+
+                var exists = result.indexOf(methodId) > -1;
+                if (exists) {
+                    return
                 }
 
-                if (options.findByMeta) {
-                    var s = debugData.meta._sources[options.findByMeta];
-                    good = s.pluginId == methodData.method.pluginId && s.method == methodData.method.name;
+                result.push(methodId);
+
+                var params = plugins[methodData.method.pluginId].methods[methodData.method.name];
+
+                // Find parent data source.
+
+                var findSourceForRequirements = _.difference(params, DEFAULT_PARAMS);
+
+                if (findSourceForRequirements.length > 0) {
+                    findUsedMethods({
+                        maxLevel: levelIdx,
+                        findByData: findSourceForRequirements
+                    }, debugData, result);
                 }
-
-                if (options.findByData) {
-                    good = _.intersection(_.keys(l), options.findByData).length > 0;
-                }
-
-                if (good) {
-
-                    var methodId = methodData.method.pluginId + " - " + methodData.method.name;
-
-                    var exists = result.indexOf(methodId) > -1
-                    if (exists) {
-                        return
-                    }
-
-                    result.push(methodId);
-
-                    var params = debugData.plugins[methodData.method.pluginId].methods[methodData.method.name];
-
-                    // Find parent data source.
-
-                    var findSourceForRequirements = _.difference(params, defaultContext);
-
-                    if (findSourceForRequirements.length > 0) {
-                        findUsedMethods({
-                            maxLevel: levelIdx,
-                            findByData: findSourceForRequirements
-                        }, debugData, result);
-                    }
-                }
-            });
+            }
         });
     });
 
