@@ -14,11 +14,13 @@ module.exports = {
             return cb();
         }
 
+        var media = link.media || {};
+
         var match =
             // Check link type.
             (/^image/.test(link.type))
             // Check if has no media info.
-            && ((!link.width || !link.height) && !link["aspect-ratio"])
+            && ((!media.width || !media.height) && !media["aspect-ratio"])
             // Check if not favicon.
             && (link.rel.indexOf(CONFIG.R.icon) === -1);
 
