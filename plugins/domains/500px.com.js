@@ -6,9 +6,9 @@ module.exports = {
         "oembed-site",
         "description",
         "oembed-thumbnail",
-        "favicon",
         "canonical",
-        "twitter-image-rel-image"
+        "og-image-rel-image",
+        "favicon"
     ],
 
     getMeta: function(meta) {

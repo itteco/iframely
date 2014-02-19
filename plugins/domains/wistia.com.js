@@ -7,7 +7,7 @@ module.exports = {
         "oembed-title",
         "oembed-thumbnail",
         "oembed-duration",
-        "twitter-player-responsive"
+        "oembed-video-responsive"
     ],
 
     getLink: function() {

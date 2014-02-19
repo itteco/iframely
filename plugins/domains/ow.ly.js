@@ -1,5 +1,9 @@
 module.exports = {
 
+    re: [
+        /^https?:\/\/ow\.ly\/i\//i
+    ],    
+
     mixins: [
         "og-title",
         "canonical",

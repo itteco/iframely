@@ -1,6 +1,6 @@
 module.exports = {
 
-    getLinks: function(meta) {
+    getLink: function(meta) {
 
         function findIcons(links, filter) {
             var key, l;
@@ -57,6 +57,6 @@ module.exports = {
             });
         }
 
-        return links;
+        return links[0];
     }
 };

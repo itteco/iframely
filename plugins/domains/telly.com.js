@@ -23,10 +23,6 @@ module.exports = {
     },
 
     tests: [
-    /*{
-        page: "http://blog.telly.com/",
-        selector: ".main_content a"
-    },*/
         "http://telly.com/Q84DI7"
     ]
 };
