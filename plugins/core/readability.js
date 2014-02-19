@@ -4,9 +4,6 @@ module.exports = {
 
     provides: 'self',
 
-    // Disable for now.
-    notPlugin: true,
-
     getData: function(url, htmlparser, cb) {
 
         // TODO: encode result.
