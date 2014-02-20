@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var jquery = require('jquery');
 
 module.exports = {
 
@@ -21,7 +21,7 @@ module.exports = {
 
             var p = tumblr_post.player[0];
 
-            var $c = $('<div>').append(p.embed_code);
+            var $c = jquery('<div>').append(p.embed_code);
             var $iframe = $c.find('iframe');
 
             if ($iframe.length) {
