@@ -14,7 +14,7 @@ module.exports = {
         }
 */
         var rel = [CONFIG.R.oembed];
-        rel.push(video ? CONFIG.R.player : CONFIG.R.reader);
+//        rel.push(video ? CONFIG.R.player : CONFIG.R.reader);
 
 
         var $container = jquery('<div>');
@@ -26,6 +26,8 @@ module.exports = {
 
         // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
+
+            rel.push(CONFIG.R.player);
 
             return {
                 href: $iframe.attr('src'),
@@ -49,6 +51,8 @@ module.exports = {
 
             } else {
 */
+                rel.push(CONFIG.R.reader);
+
                 return {
                     type: CONFIG.T.text_html,
                     rel: rel,

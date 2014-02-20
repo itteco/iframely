@@ -2,10 +2,7 @@ var _ = require("underscore");
 
 module.exports = {
 
-    getLinks: function(meta, whitelistRecord) {
-
-        if (!meta.og)
-            return;
+    getLinks: function(og, meta, whitelistRecord) {
 
         var rel;
         // TODO: make whitelistRecord.isAllowed always existing method?
@@ -15,8 +12,8 @@ module.exports = {
             rel = [CONFIG.R.thumbnail, CONFIG.R.og];
         }
 
-        if (meta.og.image instanceof Array) {
-            return _.flatten(meta.og.image.map(function(image) {
+        if (og.image instanceof Array) {
+            return _.flatten(og.image.map(function(image) {
                 return [{
                     href: image.url || image,
                     type: image.type || CONFIG.T.image,
@@ -31,19 +28,19 @@ module.exports = {
                     height: image.height
                 }]
             }));
-        } else if (meta.og.image) {
+        } else if (og.image) {
             return [{
-                href: meta.og.image.url || meta.og.image,
-                type: meta.og.image.type || CONFIG.T.image,
+                href: og.image.url || og.image,
+                type: og.image.type || CONFIG.T.image,
                 rel: rel,
-                width: meta.og.image.width,
-                height: meta.og.image.height
+                width: og.image.width,
+                height: og.image.height
             }, {
-                href: meta.og.image.secure_url,
-                type: meta.og.image.type || CONFIG.T.image,
+                href: og.image.secure_url,
+                type: og.image.type || CONFIG.T.image,
                 rel: rel,
-                width: meta.og.image.width,
-                height: meta.og.image.height
+                width: og.image.width,
+                height: og.image.height
             }];
         }
     },

@@ -8,7 +8,7 @@ module.exports = {
             return;
 
         return {
-            author: meta.twitter.creator.value || meta.twitter.creator
+            author: twitter.creator.value || twitter.creator
         };
     }
 };

@@ -2,6 +2,8 @@ module.exports = {
 
     getLinks: function(og, whitelistRecord) {
 
+        if (og.video) {
+
         //if (og.video && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {
 
             var players = [{
@@ -12,7 +14,7 @@ module.exports = {
                 height: og.video.height
             }]
 
-            if (whitelistRecord.isAllowed('og.video', 'ssl')) {
+            if (whitelistRecord && whitelistRecord.isAllowed('og.video', 'ssl')) {
                 players.push({
                     href: og.video.secure_url,
                     type: og.video.type || CONFIG.T.text_html,
@@ -23,6 +25,6 @@ module.exports = {
             }
         
             return players;
-        //}
+        }
     }
 };

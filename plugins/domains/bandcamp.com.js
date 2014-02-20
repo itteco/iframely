@@ -13,14 +13,23 @@ module.exports = {
         "og-title"
     ],
 
-    getMeta: function(meta) {
+    getMeta: function(meta, twitter) {
+
+        if (twitter.site !== 'bandcamp') {
+            return;
+        }
+
         return {
             site: "Bandcamp",
             author: meta.og.site_name
         };
     },
 
-    getLinks: function(meta) {
+    getLinks: function(meta, twitter) {
+
+        if (twitter.site !== 'bandcamp') {
+            return;
+        }
 
         if (meta.og && meta.og.video && meta.twitter.site == "bandcamp") {
 
