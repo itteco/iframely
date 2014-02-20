@@ -53,29 +53,30 @@ module.exports = {
         }
     },
 
-    getData: function($selector) {
+    getData: function(cheerio) {
 
-        var $meta = $selector('.append-bottom meta');
-        var $links = $selector('.append-bottom link');
+        var $meta = cheerio('.append-bottom meta');
+        var $links = cheerio('.append-bottom link');
         var data = {};
-
 
         var i;  // Sorry folks, have to declare it here, otherwise JSLint would not compile it 
                 // http://stackoverflow.com/questions/4646455/jslint-error-move-all-var-declarations-to-the-top-of-the-function        
 
-        for (i=0; i < $meta.length; i++) {
-            if ($meta[i].name) {
-                data[$meta[i].name] = $meta[i].content || $meta[i].getAttribute('value');
+        for (i = 0; i < $meta.length; i++) {
+            var $el = cheerio($meta[i]);
+            if ($el.attr('name')) {
+                data[$el.attr('name')] = $el.attr('content') || $el.attr('value');
             }
         }
 
-        for (i=0; i < $links.length; i++) {
-            data[$links[i].rel]=$links[i].href;
+        for (i = 0; i < $links.length; i++) {
+            var $el = cheerio($links[i]);
+            data[$el.attr('rel')] = $el.attr('href');
         }
 
         return {
             ec_data: data
-        }
+        };
     },
 
 
