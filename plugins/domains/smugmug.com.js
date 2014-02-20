@@ -74,6 +74,7 @@ module.exports = {
         skipMixins: [
             "og-title",
             "oembed-title",
+            "oembed-author",
             "canonical"
         ]
     }]
