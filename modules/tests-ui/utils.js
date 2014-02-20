@@ -8,14 +8,15 @@ var url = require('url');
 var iframelyGetPluginData = require('../../lib/core').getPluginData;
 
 var pluginLoader = require('../../lib/loader/pluginLoader');
+var pluginUtils = require('../../lib/loader/utils');
 var plugins = pluginLoader._plugins,
-    DEFAULT_PARAMS = [].concat(pluginLoader.DEFAULT_PARAMS, pluginLoader.POST_PLUGIN_DEFAULT_PARAMS),
-    PLUGIN_METHODS = pluginLoader.PLUGIN_METHODS;
+    DEFAULT_PARAMS = [].concat(pluginUtils.DEFAULT_PARAMS, pluginUtils.POST_PLUGIN_DEFAULT_PARAMS),
+    PLUGIN_METHODS = pluginUtils.PLUGIN_METHODS;
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 
     var usedMethods = getAllUsedMethods(debugData);
-    var pluginMethods = findAllPluginMethods(pluginId, debugData.plugins);
+    var pluginMethods = findAllPluginMethods(pluginId, plugins);
 
     return {
         mandatory: _.difference(pluginMethods.mandatory, usedMethods),
@@ -256,11 +257,7 @@ function findUsedMethods(options, debugData, result) {
 
     result = result || [];
 
-    debugData.debug.forEach(function(methodData, levelIdx) {
-
-        if (options.maxLevel >= levelIdx) {
-            return;
-        }
+    debugData.allData.forEach(function(methodData) {
 
         if (!methodData.data) {
             return;
@@ -286,7 +283,11 @@ function findUsedMethods(options, debugData, result) {
             }
 
             if (options.findByData) {
-                good = _.intersection(_.keys(l), options.findByData).length > 0;
+                try {
+                    good = _.intersection(_.keys(l), options.findByData).length > 0;
+                } catch(ex) {
+                    good = false;
+                }
             }
 
             if (good) {
@@ -308,7 +309,6 @@ function findUsedMethods(options, debugData, result) {
 
                 if (findSourceForRequirements.length > 0) {
                     findUsedMethods({
-                        maxLevel: levelIdx,
                         findByData: findSourceForRequirements
                     }, debugData, result);
                 }

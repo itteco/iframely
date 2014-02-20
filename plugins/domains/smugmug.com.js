@@ -12,7 +12,7 @@ module.exports = {
 
     getMeta: function(oembed) {
         return {
-            title: oembed.title || oembed.gallery_title,
+            title: oembed.title || oembed.gallery_title
         };
     },
 

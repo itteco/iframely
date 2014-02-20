@@ -1,3 +1,5 @@
+var sax = require('sax');
+
 var utils = require('../../../lib/utils');
 
 var getUrl = utils.getUrl;
