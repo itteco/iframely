@@ -14,5 +14,5 @@ module.exports = {
     tests: [{
         page: "http://www.mixcloud.com/categories/comedy/",
         selector: "h3.card-cloudcast-title a"
-    }]
+    }, "http://www.mixcloud.com/adamkvasnica3/my-cup-of-tea"]
 };

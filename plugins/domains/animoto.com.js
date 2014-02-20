@@ -4,6 +4,7 @@ module.exports = {
         "oembed-title",
         "oembed-description",
         "oembed-author",
+        "oembed-site",
         "oembed-thumbnail",
         "oembed-video-responsive"
     ],
