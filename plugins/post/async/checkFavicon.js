@@ -30,7 +30,7 @@ module.exports = {
 
         utils.getUriStatus(uri, options, function(error, data) {
 
-            error = error || data.error;
+            error = error;
 
             if (error) {
                 // Unknown error.

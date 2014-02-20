@@ -63,7 +63,9 @@ function moveMediaAttrs(link, options) {
             }
         });
 
-        if (link._imageMeta && !link._imageMeta.error) {
+        var _imageMeta = link._imageMeta;
+
+        if (_imageMeta && _imageMeta.width && _imageMeta.height && _imageMeta.type && !link._imageMeta.error) {
             m.width = link._imageMeta.width;
             m.height = link._imageMeta.height;
             link.type = "image/" + link._imageMeta.type.toLowerCase()

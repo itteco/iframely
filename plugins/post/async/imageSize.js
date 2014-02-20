@@ -35,22 +35,18 @@ module.exports = {
         utils.getImageMetadata(href, options, function(error, data) {
 
             if (error) {
-                // Unknown error.
+
                 if (options.debug) {
                     link._imageMeta = {
                         error: "Load image error: " + error.toString()
                     };
                 }
-            } else if (data.error) {
-                if (data.error == 404) {
+
+                if (error === 404) {
                     // Image not found. Exclude link from results.
-                    link.error = data.error;
-                } else if (options.debug) {
-                    // Unknown error.
-                    link._imageMeta = {
-                        error: "Load image error: " + data.error
-                    };
+                    link.error = error;
                 }
+
             } else {
                 link._imageMeta = {
                     type: data.format,
@@ -61,6 +57,7 @@ module.exports = {
 
             // Store timing.
             if (options.debug && data && data._time) {
+                link._imageMeta = link._imageMeta || {};
                 link._imageMeta.time = data && data._time;
             }
 
