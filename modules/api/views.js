@@ -2,9 +2,7 @@ var iframelyCore = require('../../lib/core');
 var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
-var apiUtils = require('./utils');
-var moment = require('moment');
-var jsonxml = require('jsontoxml');
+var cache = require('../../lib/_old/cache');
 
 function prepareUri(uri) {
 
@@ -24,6 +22,8 @@ function prepareUri(uri) {
 }
 
 var log = utils.log;
+
+var version = require('../../package.json').version;
 
 module.exports = function(app) {
 
@@ -61,7 +61,14 @@ module.exports = function(app) {
                 return next(new Error("Requested page error: " + error));
             }
 
-            var debug = result.debug;
+            if (result.safe_html) {
+                cache.set('html:' + version + ':' + uri, result.safe_html);
+                result.links.unshift({
+                    href: CONFIG.baseAppUrl + "/reader.js?uri=" + encodeURIComponent(uri),
+                    type: CONFIG.T.javascript,
+                    rel: [CONFIG.R.reader, CONFIG.R.inline]
+                });
+            }
 
             if (!req.query.debug) {
                 // Debug used later. Do not dispose.
@@ -125,6 +132,62 @@ module.exports = function(app) {
             }
         });
     });
+
+    app.get('/reader.js', function(req, res, next) {
+
+        var uri = prepareUri(req.query.uri);
+
+        if (!uri) {
+            return next(new Error("'uri' get param expected"));
+        }
+
+        log('Loading /reader for', uri);
+
+        async.waterfall([
+
+            function(cb) {
+
+                cache.withCache('html:' + version + ':' + uri, function(cb) {
+
+                    iframelyCore.run(uri, {}, function(error, data) {
+
+                        if (!data || !data.safe_html) {
+                            error = 404;
+                        }
+
+                        cb(error, data && data.safe_html);
+                    });
+
+                }, cb);
+
+            }
+
+        ], function(error, html) {
+
+            if (error) {
+
+                res.tryCacheError(error);
+
+                if (error == 404 || error.code == 'ENOTFOUND') {
+                    return next(new utils.NotFound('Page not found'));
+                }
+                return next(new Error("Requested page error: " + error));
+            }
+
+            var htmlArray = (html || "").match(/.{1,8191}/g) || "";
+
+            var context = {
+                embedCode: JSON.stringify(htmlArray),
+                widgetId: JSON.stringify(1),
+                uri: JSON.stringify(uri)
+            };
+
+            res.renderCached("readerjs.ejs", context, {
+                "Content-Type": "text/javascript"
+            });
+        });
+
+    })
 
 /*
     app.get('/supported-plugins-re.json', function(req, res, next) {
