@@ -2,7 +2,7 @@ var iframelyCore = require('../../lib/core');
 var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
-var cache = require('../../lib/_old/cache');
+var cache = require('../../lib/cache');
 
 function prepareUri(uri) {
 
