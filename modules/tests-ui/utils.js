@@ -2,7 +2,6 @@ var _ = require('underscore');
 var FeedParser = require('feedparser');
 var request = require('request');
 var async = require('async');
-var jsdom = require('jsdom');
 var url = require('url');
 
 var iframelyGetPluginData = require('../../lib/core').getPluginData;
