@@ -344,7 +344,7 @@
                     .attr('allowfullscreen', true)
                     .attr('webkitallowfullscreen', true)
                     .attr('mozallowfullscreen', true);
-                    
+
 
                 if (options && options.disableSizeWrapper) {
                     return $iframe;
@@ -544,7 +544,7 @@
         }
 
         function isHttps(href) {
-            return href.indexOf('//:') == 0 || href.indexOf('https://') == 0;
+            return /^(?:https:)?\/\/.+/i.test(href);
         }
 
         var result = links && links.filter && links.filter(function(link) {
