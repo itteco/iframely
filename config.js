@@ -67,7 +67,6 @@
             survey: "survey",
 
             iframely: "iframely",
-            instapaper: "instapaper",
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
