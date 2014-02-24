@@ -14,7 +14,6 @@ module.exports = {
         return [{
             type: CONFIG.T.text_html,
             rel: CONFIG.R.survey,
-            template: "embed-html",
             template_context: {
                 title: oembed.title,
                 html: oembed.html

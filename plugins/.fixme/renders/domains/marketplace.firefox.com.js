@@ -24,17 +24,8 @@ module.exports = {
 
             if (data.app_type) {
 
-                var img = data.previews && data.previews.length && data.previews[0].image_url;
-
                 cb(null, {
-                    firefox_marketplace_data: data,
-                    readability_data: {
-                        html:
-                            (img ? '<p><img src="' + img + '"></p>' : '') +
-                            '<p>' + data.description + (data.current_version.release_notes ?
-                            '</p>\n<h3>Release Notes</h3>\n<p>' + data.current_version.release_notes + '</p>' :
-                            '</p>'),
-                    }
+                    firefox_marketplace_data: data
                 });
             }
             else {
@@ -88,6 +79,18 @@ module.exports = {
                 rel:   CONFIG.R.thumbnail,
                 title: preview.caption
             });
+        });
+
+        var img = firefox_marketplace_data.previews && firefox_marketplace_data.previews.length && firefox_marketplace_data.previews[0].image_url;
+
+        links.push({
+            type:  CONFIG.T.text_html,
+            rel:   [CONFIG.R.thumbnail, CONFIG.R.inline],
+            html:
+                (img ? '<p><img src="' + img + '"></p>' : '') +
+                    '<p>' + firefox_marketplace_data.description + (firefox_marketplace_data.current_version.release_notes ?
+                    '</p>\n<h3>Release Notes</h3>\n<p>' + firefox_marketplace_data.current_version.release_notes + '</p>' :
+                    '</p>')
         });
 
         return links;

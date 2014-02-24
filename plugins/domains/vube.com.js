@@ -51,8 +51,8 @@ module.exports = {
             rel: CONFIG.R.thumbnail
         }, {
             html: html,
-            type: CONFIG.T.safe_html,
-            rel: CONFIG.R.player,
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.inline],
             "aspect-ratio": 0.565,
             "max-width": 800
         }];
