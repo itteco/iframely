@@ -1,4 +1,5 @@
 var iframelyCore = require('../../lib/core');
+var iframelyUtils = require('../../lib/utils');
 var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
@@ -72,7 +73,8 @@ module.exports = function(app) {
 
             var render_link = _.find(result.links, function(link) {
                 return link.rel.indexOf(CONFIG.R.inline) === -1
-                    && link.type === CONFIG.T.text_html;
+                    && link.type === CONFIG.T.text_html
+                    && (link.html || link._render);
             });
             if (render_link) {
                 cache.set('render_link:' + version + ':' + uri, _.extend({}, render_link)); // Copy to keep removed fields.
@@ -82,6 +84,16 @@ module.exports = function(app) {
                 delete render_link.template_context;
                 delete render_link._render;
             }
+
+            result.links.forEach(function(link) {
+                if (link._render) {
+                    link.html = iframelyUtils.renderFileTemplate(link._render.template, link.template_context);
+                    delete link.template;
+                    delete link.template_context;
+                    delete link._render;
+                }
+            });
+
 
             if (!req.query.debug) {
                 // Debug used later. Do not dispose.
@@ -247,7 +259,11 @@ module.exports = function(app) {
                 return next(new utils.NotFound());
             }
 
-            res.renderCached(link._render.template, link.template_context);
+            if (link.html) {
+                res.sendCached(CONFIG.T.text_html, link.html);
+            } else {
+                res.renderCached(link._render.template, link.template_context);
+            }
         });
 
     });
