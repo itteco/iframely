@@ -71,22 +71,13 @@ module.exports = {
 
     getLink: function(title, twitter_oembed) {
 
-        return [{
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.reader],
-            template_context: {
-                title: title,
-                html: twitter_oembed.html
-            },
-            "min-width": c["min-width"],
-            "max-width": c["max-width"]
-        }, {
+        return {
             type: CONFIG.T.text_html,
             html: twitter_oembed.html,
             rel: [CONFIG.R.oembed, CONFIG.R.reader, CONFIG.R.inline],
             "min-width": c["min-width"],
             "max-width": c["max-width"]
-        }];
+        };
     },
 
     tests: [
