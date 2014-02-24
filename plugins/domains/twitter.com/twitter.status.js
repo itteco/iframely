@@ -55,18 +55,23 @@ module.exports = {
                 oembed.title = meta['html-title'].replace(/Twitter\s*\/?\s*/, " ");
 
                 cb(null, {
-                    title: oembed.title,
-                    twitter_oembed: oembed,
-                    author: oembed.author_name,
-                    author_url: oembed.author_url,
-                    site: oembed.site_name || oembed.provider_name
+                    twitter_oembed: oembed
                 });
             });
     },
 
-    getLink: function(title, twitter_oembed, cb) {
+    getMeta: function(twitter_oembed) {
+        return {
+            title: twitter_oembed.title,
+            author: twitter_oembed.author_name,
+            author_url: twitter_oembed.author_url,
+            site: twitter_oembed.site_name || twitter_oembed.provider_name
+        };
+    },
 
-        cb(null, [{
+    getLink: function(title, twitter_oembed) {
+
+        return [{
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.oembed, CONFIG.R.reader],
             template_context: {
@@ -81,7 +86,7 @@ module.exports = {
             rel: [CONFIG.R.oembed, CONFIG.R.reader, CONFIG.R.inline],
             "min-width": c["min-width"],
             "max-width": c["max-width"]
-        }]);
+        }];
     },
 
     tests: [
