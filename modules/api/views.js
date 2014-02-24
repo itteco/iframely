@@ -70,6 +70,19 @@ module.exports = function(app) {
                 });
             }
 
+            var render_link = _.find(result.links, function(link) {
+                return link.rel.indexOf(CONFIG.R.inline) === -1
+                    && link.type === CONFIG.T.text_html;
+            });
+            if (render_link) {
+                cache.set('render_link:' + version + ':' + uri, _.extend({}, render_link)); // Copy to keep removed fields.
+                render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
+                delete render_link.html;
+                delete render_link.template;
+                delete render_link.template_context;
+                delete render_link._render;
+            }
+
             if (!req.query.debug) {
                 // Debug used later. Do not dispose.
                 delete result.debug;
@@ -187,7 +200,57 @@ module.exports = function(app) {
             });
         });
 
-    })
+    });
+
+    app.get('/render', function(req, res, next) {
+
+        var uri = prepareUri(req.query.uri);
+
+        if (!uri) {
+            return next(new Error("'uri' get param expected"));
+        }
+
+        log('Loading /render for', uri);
+
+        async.waterfall([
+
+            function(cb) {
+
+                cache.withCache('render_link:' + version + ':' + uri, function(cb) {
+
+                    iframelyCore.run(uri, {}, function(error, result) {
+
+                        var render_link = result && _.find(result.links, function(link) {
+                            return link.rel.indexOf(CONFIG.R.inline) === -1
+                                && link.type === CONFIG.T.text_html;
+                        });
+
+                        cb(error, render_link);
+                    });
+
+                }, cb);
+            }
+
+        ], function(error, link) {
+
+            if (error) {
+
+                res.tryCacheError(error);
+
+                if (error == 404 || error.code == 'ENOTFOUND') {
+                    return next(new utils.NotFound('Page not found'));
+                }
+                return next(new Error(error));
+            }
+
+            if (!link) {
+                return next(new utils.NotFound());
+            }
+
+            res.renderCached(link._render.template, link.template_context);
+        });
+
+    });
 
 /*
     app.get('/supported-plugins-re.json', function(req, res, next) {

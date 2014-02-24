@@ -52,18 +52,27 @@ module.exports = {
             } else {
 */
                 rel.push(CONFIG.R.reader);
+                rel.push(CONFIG.R.inline);
 
-                return {
-                    type: CONFIG.T.text_html,
-                    rel: rel,
-                    template: "embed-html",
-                    template_context: {
-                        title: oembed.title,
-                        html: oembed.html || oembed.html5
-                    },
-                    width: oembed.width,  
-                    height: oembed.height
-                }
+//                return {
+//                    type: CONFIG.T.text_html,
+//                    rel: rel,
+//                    template: "embed-html",
+//                    template_context: {
+//                        title: oembed.title,
+//                        html: oembed.html || oembed.html5
+//                    },
+//                    width: oembed.width,
+//                    height: oembed.height
+//                }
+
+            return {
+                type: CONFIG.T.text_html,
+                rel: rel,
+                html: oembed.html || oembed.html5,
+                width: oembed.width,
+                height: oembed.height
+            }
 //            }
         }
     },

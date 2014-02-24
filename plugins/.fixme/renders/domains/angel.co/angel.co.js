@@ -25,7 +25,7 @@ module.exports = {
         var result = [{
                 href: (meta.og && meta.og.image) ? meta.og.image : meta.twitter.image.src,
                 type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
+                rel: CONFIG.R.thumbnail
             }];
 
         if (meta.twitter && meta.twitter.title) {
