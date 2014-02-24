@@ -14,8 +14,8 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            type: CONFIG.T.safe_html,
-            rel: CONFIG.R.reader,
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline],
             html: '<p data-height="600" data-theme-id="0" data-slug-hash="' + urlMatch[3] + '" data-user="' + urlMatch[1] 
                         + '" data-default-tab="result" class="codepen"></p><script async src="//codepen.io/assets/embed/ei.js"></script>',
             height: 600
