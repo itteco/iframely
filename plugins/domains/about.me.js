@@ -17,6 +17,8 @@ module.exports = {
 
     getLink: function(urlMatch) {
 
+        // Can be embedded inline, but need to research API.
+
         return {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.reader,
