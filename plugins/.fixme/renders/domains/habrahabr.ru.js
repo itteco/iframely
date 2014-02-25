@@ -30,7 +30,7 @@ module.exports = {
             return {
                 html: html,
                 type: CONFIG.T.safe_html,
-                rel: [CONFIG.R.reader, CONFIG.R.inline]                
+                rel: [CONFIG.R.reader, CONFIG.R.inline]
             };
         }
     },    

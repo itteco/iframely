@@ -55,6 +55,7 @@ module.exports = {
                 oembed.title = meta['html-title'].replace(/Twitter\s*\/?\s*/, " ");
 
                 cb(null, {
+                    title: oembed.title,
                     twitter_oembed: oembed
                 });
             });

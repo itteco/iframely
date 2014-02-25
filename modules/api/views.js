@@ -4,6 +4,7 @@ var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
 var cache = require('../../lib/cache');
+var apiUtils = require('./utils');
 
 function prepareUri(uri) {
 
@@ -287,7 +288,7 @@ module.exports = function(app) {
 
         res.sendJsonCached(regexps);
     });
-
+*/
     app.get('/oembed', function(req, res, next) {
 
         var uri = prepareUri(req.query.url);
@@ -302,7 +303,7 @@ module.exports = function(app) {
 
             function(cb) {
 
-                iframely.getRawLinks(uri, cb);
+                iframelyCore.run(uri, cb);
             }
 
         ], function(error, result) {
@@ -337,8 +338,8 @@ module.exports = function(app) {
                 res.jsonpCached(oembed);
             }
 
-            iframely.disposeObject(result);
+            //iframely.disposeObject(result);
         });
     });
-    */
+
 };
