@@ -134,7 +134,7 @@
             "iframely"
         ],
 
-        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader"]
+        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader", "app"]
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");
