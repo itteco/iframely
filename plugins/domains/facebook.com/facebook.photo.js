@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 module.exports = {
 
     re: /^https?:\/\/www\.facebook\.com\/photo\.php/i,
@@ -8,16 +10,16 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function($selector) {
+    getLink: function(cheerio) {
 
-        var $image = $selector('img#fbPhotoImage');
+        var $image = cheerio('img#fbPhotoImage');
 
         if ($image.attr('width') == 1) {
             return;
         }
 
         var preview = $image.attr('src');
-        var title = $selector('.hasCaption').text().trim();
+        var title = cheerio('.hasCaption').text().replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (preview) {
             return {
