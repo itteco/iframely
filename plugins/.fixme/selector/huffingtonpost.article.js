@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: /^http:\/\/www\.(huffingtonpost|huffpostmaghreb)\.(com|ca|fr|it|jp|es|co\.uk)\//i,
 
     mixins: [
@@ -16,14 +18,14 @@ module.exports = {
         "favicon"
     ],
 
-    getData: function($selector) {
+    getLink: function(cheerio) {
 
-        var $body = $selector('.entry_body_text,.articleBody');
+        var $body = cheerio('.entry_body_text,.articleBody');
         $body.find('.video_box_title,.promo_holder').remove();
         return {
-            readability_data: {
-                html: $body.html()
-            }
+            html: $body.html(),
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
     },
 

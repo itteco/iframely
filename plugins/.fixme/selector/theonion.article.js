@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: /^http:\/\/www\.theonion\.com\/article\/*/i,
 
     mixins: [
@@ -11,13 +13,13 @@ module.exports = {
         "og-title"
     ],
 
-    getData: function($selector) {
+    getLink: function(cheerio) {
 
-        var $html = $selector('article.full-article')
+        var $html = cheerio('article.full-article')
 
         if ($html.length) {
 
-            var $image = $selector('figure.article-image img');
+            var $image = cheeio('figure.article-image img');
 
             var html = '';
 
@@ -28,9 +30,9 @@ module.exports = {
             html += $html.html();
 
             return {
-                readability_data: {
-                    html: html
-                }
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.reader, CONFIG.R.inline]
             };
         }
     },

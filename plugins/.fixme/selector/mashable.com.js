@@ -1,10 +1,10 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: /^https?:\/\/mashable\.com\/\d{4}\/\d{2}\/\d{2}\/.*/i,
 
     mixins: [
-        // TODO: reuse plugin
-        //"parsely-page",
         "canonical",
         "shortlink",
         "og-site",
@@ -28,26 +28,16 @@ module.exports = {
         }
     },
 
-    getData: function($selector) {
+    getLink: function(cheerio) {
 
-        var $html = $selector('section.article-content')
+        var $html = cheerio('section.article-content')
 
         if ($html.length) {
 
-            var $image = $selector('figure.article-image img');
-
-            var html = '';
-
-            if ($image.length) {
-                html = $image.parent().html();
-            }
-
-            html += $html.html();
-
             return {
-                readability_data: {
-                    html: html
-                }
+                html: $html.html(),
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.reader, CONFIG.R.inline]
             };
         }
     },

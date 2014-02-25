@@ -40,9 +40,9 @@ module.exports = {
 
                 return tumblr_post.player.map(function(p) {
                     return {
-                        type: 'text/html',
-                        rel: CONFIG.R.player,
                         html: p.embed_code,
+                        type: CONFIG.T.text_html,
+                        rel: [CONFIG.R.player, CONFIG.R.inline],
                         width: p.width
                     };
                 });

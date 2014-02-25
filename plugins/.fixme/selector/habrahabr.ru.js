@@ -1,5 +1,6 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
 
     re: [
         /^http:\/\/habrahabr\.ru\/(post|sandbox)\/(\d+)/i
@@ -17,9 +18,9 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function($selector) {
+    getLink: function(cheerio) {
 
-        var $html = $selector('div.content')
+        var $html = cheerio('div.content')
 
         if ($html.length) {
 
@@ -29,8 +30,8 @@ module.exports = {
 
             return {
                 html: html,
-                type: CONFIG.T.safe_html,
-                rel: [CONFIG.R.reader, CONFIG.R.inline]
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.reader, CONFIG.R.inline]                
             };
         }
     },    

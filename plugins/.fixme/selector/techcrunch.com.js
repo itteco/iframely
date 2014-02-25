@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: [
         /^http:\/\/techcrunch\.com\/([0-9]+)\/([0-9]+)\/([0-9\-]+)/i
     ],
@@ -20,30 +22,10 @@ module.exports = {
         }
     },
 
-    getLinks: function() {
+    getLinks: function(cheerio) {
 
-        return [
-
-        // Logo.
-        {
-            href: "//tctechcrunch2011.files.wordpress.com/2011/11/techcrunch_transparent.png",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.logo
-        },
-
-        // Favicon.
-        {
-            href: "//s2.wp.com/wp-content/themes/vip/tctechcrunch2/images/favicon.ico?m=1357660109g",
-            rel: CONFIG.R.icon,
-            type: CONFIG.T.image_png,
-            width: 72,
-            height: 72
-        }];
-    },
-
-    getData: function($selector) {
-
-        var $html = $selector('div.article-entry')
+        var links = [];
+        var $html = cheerio('div.article-entry')
 
         if ($html.length) {
 
@@ -51,14 +33,31 @@ module.exports = {
 
             html += $html.html();
 
-            return {
-                readability_data: {
-                    html: html
-                }
-            };
+            links.push ({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.reader, CONFIG.R.inline]
+            });
         }
-    },
 
+        links.push ({
+            // Logo.
+            href: "//tctechcrunch2011.files.wordpress.com/2011/11/techcrunch_transparent.png",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.logo
+        });
+
+        links.push ({
+            // Favicon.
+            href: "//s2.wp.com/wp-content/themes/vip/tctechcrunch2/images/favicon.ico?m=1357660109g",
+            rel: CONFIG.R.icon,
+            type: CONFIG.T.image_png,
+            width: 72,
+            height: 72
+        });
+
+        return links;
+    },
 
     tests: [{
         pageWithFeed: "http://techcrunch.com/"

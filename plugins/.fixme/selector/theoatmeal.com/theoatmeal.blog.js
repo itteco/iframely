@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: /^http:\/\/theoatmeal\.com\/blog\/[a-z0-9_-]+/i,
 
     mixins: [
@@ -9,30 +11,13 @@ module.exports = {
         "favicon"
     ],
 
-    provides: 'theoatmeal_body',
+    getLink: function(cheerio) {
 
-    getData: function($selector) {
-
-        var $body = $selector('.post_body');
+        var $body = cheerio('.post_body');
         var text = $body.text();
 
-        if ($selector.trim(text)) {
-            return {
-                readability_data: {
-                    html: $body.html()
-                }
-            };
-        } else {
-            return {
-                theoatmeal_body: $body.html()
-            };
-        }
-    },
-
-    // TODO: make generic plugin?
-    getLink: function(theoatmeal_body) {
         return {
-            html: theoatmeal_body,
+            html: $body.html(),
             type: CONFIG.T.safe_html,
             rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
