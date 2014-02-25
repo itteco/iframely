@@ -4,7 +4,25 @@ module.exports = {
 
     re: /^https?:\/\/www\.facebook\.com\/(?!login\.php).+/i,
 
-    getLink: function(url, meta) {
+    getMeta: function(facebook_post) {
+        return {
+            title: facebook_post.title
+        };
+    },
+
+    getLink: function(facebook_post) {
+        return {
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline],
+            template_context: {
+                title: facebook_post.title,
+                url: facebook_post.url
+            },
+            width: 552
+        };
+    },
+
+    getData: function(url, meta) {
 
         var badRe = [
             // From profile.
@@ -29,15 +47,11 @@ module.exports = {
         title = title.replace(/ \| Facebook$/, "");
 
         return {
-            title: title,
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline],
-            template_context: {
+            facebook_post: {
                 title: title,
                 url: url
-            },
-            width: 552
-        }
+            }
+        };
     },
 
     tests: [
