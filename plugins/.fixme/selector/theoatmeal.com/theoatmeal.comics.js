@@ -2,6 +2,8 @@ var re = /^http:\/\/theoatmeal\.com\/comics\/[a-z0-9_-]+/i;
 
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: re,
 
     mixins: [
@@ -15,15 +17,15 @@ module.exports = {
         };
     },
 
-    getLink: function($selector) {
+    getLink: function(cheerio) {
 
-        var $comic = $selector('#comic');
+        var $comic = cheerio('#comic');
 
         $comic.find('#content_footer2').remove();
 
         return {
             html: $comic.html(),
-            type: CONFIG.T.safe_html,
+            type: CONFIG.T.text_html,
             rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
     },

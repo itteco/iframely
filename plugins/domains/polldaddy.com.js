@@ -13,11 +13,8 @@ module.exports = {
 
         return [{
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.survey,
-            template_context: {
-                title: oembed.title,
-                html: oembed.html
-            },
+            rel: [CONFIG.R.survey],
+            html: oembed.html,
             "min-width": 332
         }, {
             type: CONFIG.T.image,

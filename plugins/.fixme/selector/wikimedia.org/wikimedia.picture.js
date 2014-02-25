@@ -7,24 +7,24 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function($selector) {
+    getMeta: function(cheerio) {
         return  {
-            title: $selector("#firstHeading").text().replace(/^[^:]:/, "").replace(/\.\w+$/, ""),
-            description: $selector("td.description").text(),
-            date: $selector("time.dtstart[datetime]").attr("datetime"),
-            author: $selector("#fileinfotpl_aut").next().text()
+            title: cheerio("#firstHeading").text().replace(/^[^:]:/, "").replace(/\.\w+$/, ""),
+            description: cheerio("td.description").text(),
+            date: cheerio("time.dtstart[datetime]").attr("datetime"),
+            author: cheerio("#fileinfotpl_aut").next().text()
         }
     },
 
-    getLinks: function($selector) {
+    getLinks: function(cheerio) {
 
         var links = [];
 
-        var $imgs = $selector('.mw-thumbnail-link');
+        var $imgs = cheerio('.mw-thumbnail-link');
 
         if ($imgs.length) {
             $imgs.each(function() {
-                var $img = $selector(this);
+                var $img = cheerio(this);
 
                 var width, height;
 
@@ -45,7 +45,7 @@ module.exports = {
             });
         }
 
-        var $img = $selector(".fullImageLink img");
+        var $img = cheerio(".fullImageLink img");
         if ($img.length) {
 
             var width = $img.attr('width');

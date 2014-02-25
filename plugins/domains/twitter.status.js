@@ -69,7 +69,7 @@ module.exports = {
         };
     },
 
-    getLink: function(title, twitter_oembed) {
+    getLink: function(twitter_oembed) {
 
         return {
             type: CONFIG.T.text_html,

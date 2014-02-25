@@ -1,39 +1,43 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     mixins: [
         "copyright",
         "favicon"
     ],
 
-    getMeta: function($selector) {
+    getMeta: function(cheerio) {
         return  {
-            title: $selector("#firstHeading").text()
+            title: cheerio("#firstHeading").text()
         }
     },
 
-    getLink: function($selector) {
+    getLinks: function(cheerio) {
 
-        var $img = $selector(".tright .thumbimage");
+        var links = [];
+
+        var $img = cheerio(".tright .thumbimage");
 
         if ($img.length) {
-            return {
+            links.push ({
                 href: $img.attr('src'),
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail,
                 width: $img.attr('width'),
                 height: $img.attr('height')
-            };
+            });
         }
-    },
 
-    getData: function($selector) {
-        var $html = $selector("#bodyContent");
+        var $html = cheerio("#bodyContent");
 
-        return {
-            readability_data: {
-                html: $html.html()
-            }
-        };
+        links.push ({
+            html: $html.html(),
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline]
+        });
+
+        return links;
     },
 
     tests: [

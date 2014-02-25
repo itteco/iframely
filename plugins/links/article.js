@@ -19,5 +19,10 @@ module.exports = {
 	            readability_flag: true
 	        };
     	}
-    }
+    },
+
+    tests: [{
+        page: "http://technorati.com/blogs/top100/",
+        selector: ".latest"
+    }]    
 };

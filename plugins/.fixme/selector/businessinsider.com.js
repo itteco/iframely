@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: /^https?:\/\/(?:www\.)?businessinsider\.com\/[\w\-]{10,}/i,
 
     mixins: [
@@ -7,18 +9,18 @@ module.exports = {
         "twitter-image"
     ],
 
-    getData: function($selector) {
+    getLink: function(cheerio) {
 
-        var $content = $selector('.intro-content');
+        var $content = cheerio('.intro-content');
 
         if ($content.length == 0) {
-            $content = $selector('.post-content');
+            $content = cheerio('.post-content');
         }
 
         return {
-            readability_data: {
-                html:$content.html()
-            }
+            html: $content.html(),
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline]
         };
     },
 

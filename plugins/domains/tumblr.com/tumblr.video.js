@@ -40,10 +40,10 @@ module.exports = {
 
                 return tumblr_post.player.map(function(p) {
                     return {
-                        embed_html: {
-                            embed_html: p.embed_code,
-                            width: p.width
-                        }
+                        html: p.embed_code,
+                        type: CONFIG.T.text_html,
+                        rel: [CONFIG.R.player, CONFIG.R.inline],
+                        width: p.width
                     };
                 });
             }

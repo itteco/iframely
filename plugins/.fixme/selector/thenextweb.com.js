@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     re: /^https?:\/\/thenextweb\.com\/(\w+\/)?\d{4}\/\d{2}\/\d{2}\/.*/i,
 
     mixins: [
@@ -12,36 +14,27 @@ module.exports = {
         "og-title",
         "date",
 
+        "og-image",
         "favicon"
     ],
 
-    getLink: function(meta) {
-        return {
-            href: meta.og.image,
-            type: CONFIG.T.image,
-            rel: [CONFIG.R.thumbnail, CONFIG.R.og],
-            width: 300,
-            height: 250
-        };
-    },
+    getLink: function(cheerio) {
 
-    getData: function($selector) {
-
-        var $content = $selector('.article-body');
+        var $content = cheerio('.article-body');
 
         if ($content.length) {
             var html = $content.html();
 
-            var $image = $selector('.article-featured-image img');
+            var $image = cheerio('.article-featured-image img');
 
             if ($image.length) {
                 html = $image.parent().html() + html;
             }
 
             return {
-                readability_data: {
-                    html: html
-                }
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.reader, CONFIG.R.inline]
             };
         }
     },
