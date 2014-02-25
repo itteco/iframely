@@ -2,7 +2,8 @@ module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
-        if (oembed.type === "link" && oembed.html) { // && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
+        if (oembed.type === "link" && oembed.html && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
+            
             return {
                 html: oembed.html,
                 type: CONFIG.T.safe_html,

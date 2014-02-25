@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
-        if (oembed.type === "photo" && oembed.url) { //&& whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.photo')) {
+        if (oembed.type === "photo" && oembed.url && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.photo')) {
 
             return {
                 href: oembed.url,
@@ -11,6 +11,7 @@ module.exports = {
                 width: oembed.width,
                 height: oembed.height
             };
+            
         }
     }
 };
