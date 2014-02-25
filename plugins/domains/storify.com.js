@@ -26,7 +26,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: CONFIG.R.app,
             html: '<script type="text/javascript" src="' + src + '"></script>',
             "orientation": 'portrait',
             "min-width": 320,

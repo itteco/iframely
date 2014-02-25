@@ -73,9 +73,9 @@ module.exports = function(app) {
             }
 
             var render_link = _.find(result.links, function(link) {
-                return link.rel.indexOf(CONFIG.R.inline) === -1
-                    && link.type === CONFIG.T.text_html
-                    && link.html;
+                return link.html
+                    && link.rel.indexOf(CONFIG.R.inline) === -1
+                    && link.type === CONFIG.T.text_html;
             });
             if (render_link) {
                 cache.set('render_link:' + version + ':' + uri, _.extend({
@@ -223,7 +223,8 @@ module.exports = function(app) {
                     iframelyCore.run(uri, {}, function(error, result) {
 
                         var render_link = result && _.find(result.links, function(link) {
-                            return link.rel.indexOf(CONFIG.R.inline) === -1
+                            return link.html
+                                && link.rel.indexOf(CONFIG.R.inline) === -1
                                 && link.type === CONFIG.T.text_html;
                         });
 

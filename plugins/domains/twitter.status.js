@@ -75,7 +75,7 @@ module.exports = {
         return {
             type: CONFIG.T.text_html,
             html: twitter_oembed.html,
-            rel: [CONFIG.R.oembed, CONFIG.R.reader, CONFIG.R.inline],
+            rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline],
             "min-width": c["min-width"],
             "max-width": c["max-width"]
         };

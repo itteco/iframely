@@ -40,6 +40,7 @@
 
         REL_GROUPS: [
             "reader",
+            "app",
             "player",
             "survey",
             "image",
@@ -65,6 +66,7 @@
             reader: "reader",
             file: "file",
             survey: "survey",
+            app: "app",
 
             iframely: "iframely",
             og: "og",
@@ -84,6 +86,7 @@
         REL: {
             "iframely": [
                 "reader",
+                "app",
                 "player",
                 "survey",
                 "image",

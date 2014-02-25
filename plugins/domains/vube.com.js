@@ -2,6 +2,8 @@ module.exports = {
 
     re: /^http:\/\/vube\.com\/([^\/]+)\/([a-zA-Z0-9_-]+)/i,
 
+    provides: 'vube',
+
     getData: function(urlMatch, request, cb) {
         request({
             uri: "http://vube.com/api/v2/video/" + urlMatch[2],

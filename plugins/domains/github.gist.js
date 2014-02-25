@@ -17,7 +17,7 @@ module.exports = {
     getLink: function(urlMatch) {
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: CONFIG.R.app,
             html: '<script type="text/javascript" src="https://gist.github.com/' + urlMatch[2] +'.js"></script>'
         };
     },

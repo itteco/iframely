@@ -16,7 +16,7 @@ module.exports = {
     getLink: function(oembed) {
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.inline],
             html: oembed.html
         };
     },

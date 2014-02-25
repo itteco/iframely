@@ -21,7 +21,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: CONFIG.R.app,
             html: '<script type="text/javascript" src="' + "//about.me/embed/" + urlMatch[1] +  '"></script>'
         };
     },
