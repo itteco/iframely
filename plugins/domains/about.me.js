@@ -22,11 +22,7 @@ module.exports = {
         return {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.reader,
-            template: "embed-html",
-            template_context: {
-                title: urlMatch[1],
-                html: '<script type="text/javascript" src="' + "//about.me/embed/" + urlMatch[1] +  '"></script>'
-            }            
+            html: '<script type="text/javascript" src="' + "//about.me/embed/" + urlMatch[1] +  '"></script>'
         };
     },
 

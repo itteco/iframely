@@ -18,11 +18,7 @@ module.exports = {
         return {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.reader,
-            template: "embed-html",
-            template_context: {
-                title: urlMatch[2],
-                html: '<script type="text/javascript" src="https://gist.github.com/' + urlMatch[2] +'.js"></script>'
-            }
+            html: '<script type="text/javascript" src="https://gist.github.com/' + urlMatch[2] +'.js"></script>'
         };
     },
 
