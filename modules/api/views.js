@@ -78,7 +78,9 @@ module.exports = function(app) {
                     && link.html;
             });
             if (render_link) {
-                cache.set('render_link:' + version + ':' + uri, _.extend({}, render_link)); // Copy to keep removed fields.
+                cache.set('render_link:' + version + ':' + uri, _.extend({
+                    title: result.meta.title
+                }, render_link)); // Copy to keep removed fields.
                 render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
                 delete render_link.html;
             }
@@ -225,6 +227,8 @@ module.exports = function(app) {
                                 && link.type === CONFIG.T.text_html;
                         });
 
+                        result.title = result.meta.title;
+
                         cb(error, render_link);
                     });
 
@@ -247,7 +251,10 @@ module.exports = function(app) {
                 return next(new utils.NotFound());
             }
 
-            res.sendCached(CONFIG.T.text_html, link.html);
+            res.renderCached('embed-html.ejs', {
+                title: link.title,
+                html: link.html
+            });
         });
 
     });
