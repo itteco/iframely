@@ -31,7 +31,7 @@ module.exports = {
         return {
             title: title,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.reader, CONFIG.R.inline],
             template_context: {
                 title: title,
                 url: url
