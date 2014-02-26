@@ -13,7 +13,7 @@ module.exports = {
 
         var widget = {
             type: CONFIG.T.text_html,
-            rel:[CONFIG.R.oembed, CONFIG.R.reader]
+            rel:[CONFIG.R.oembed, CONFIG.R.app]
         };
 
         var $container = jquery('<div>');
