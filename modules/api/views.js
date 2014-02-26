@@ -6,6 +6,7 @@ var async = require('async');
 var cache = require('../../lib/cache');
 var apiUtils = require('./utils');
 var whitelist = require('../../lib/whitelist');
+var pluginLoader = require('../../lib/loader/pluginLoader');
 
 function prepareUri(uri) {
 
@@ -97,17 +98,6 @@ module.exports = function(app) {
                         title: result.meta.title
                     }, render_link)); // Copy to keep removed fields.
                 }
-            }
-
-            if (!req.query.debug) {
-                // Debug used later. Do not dispose.
-                delete result.debug;
-
-                // Plugins are part of API. Do not dispose.
-                delete result.plugins;
-
-                //iframely.disposeObject(result.time);
-                delete result.time;
             }
 
             if (req.query.group) {
@@ -274,6 +264,44 @@ module.exports = function(app) {
             });
         });
 
+    });
+
+    app.get('/supported-plugins-re.json', function(req, res, next) {
+
+        var plugins = pluginLoader._plugins;
+
+        var regexps = [];
+
+        var domainsDict = {};
+
+        for(var pluginId in plugins) {
+
+            var plugin = plugins[pluginId];
+
+            if (plugin.domain) {
+
+                if (plugin.re && plugin.re.length){
+                    plugin.re.forEach(function(re){
+                        regexps.push({
+                            s: re.source,
+                            m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
+                        });
+                    });
+                } else if (!(plugin.domain in domainsDict)) {
+
+                    domainsDict[plugin.domain] = true;
+
+                    regexps.push({
+                        s: plugin.domain.replace(/\./g, "\\."),
+                        m: ''
+                    });
+                }
+            }
+        }
+
+        regexps.sort();
+
+        res.sendJsonCached(regexps);
     });
 
     app.get('/oembed', function(req, res, next) {
