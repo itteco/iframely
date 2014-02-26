@@ -46,8 +46,7 @@ module.exports = function(app) {
                 iframelyCore.run(uri, {
                     debug: req.query.debug === "true",
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    forceMeta: req.query.meta === "true",
-                    forceOembed: req.query.meta === "true"
+                    forceParams: req.query.forceMeta === "true" ? ["meta", "oembed"] : null
                 }, cb);
             }
 

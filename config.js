@@ -106,7 +106,7 @@
                 "video",
                 "photo"
             ],
-            "html-meta": [
+            "html-meta": [  // TODO: Need change to 'fb'.
                 "video"
             ]
         },
