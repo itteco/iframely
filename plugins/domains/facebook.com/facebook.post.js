@@ -4,6 +4,8 @@ module.exports = {
 
     re: /^https?:\/\/www\.facebook\.com\/(?!login\.php).+/i,
 
+    provides: 'facebook_post',
+
     getMeta: function(facebook_post) {
         return {
             title: facebook_post.title
