@@ -5,7 +5,7 @@ module.exports = {
     getLink: function(oembed, whitelistRecord) {
 
 
-        if (!(oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich'))) {
+        if (!(oembed.type === "rich" && whitelistRecord && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich'))) {
             return;
         }
 
