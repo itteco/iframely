@@ -6,7 +6,7 @@ module.exports = {
 
     getData: function(meta) {
 
-        if (meta.og && meta.og.type === "article") {
+        if (meta.og && (meta.og.type === "article" || meta.og.type === "blog")) {
 
             return {
                 __enable_readability: true
