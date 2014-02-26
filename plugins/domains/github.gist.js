@@ -26,7 +26,7 @@ module.exports = {
         page: "https://gist.github.com/discover",
         selector: ".creator a:last"
     }, {
-        skipMixins: ["og-image"]
+        skipMixins: ["og-image", "og-site"]
     },
         "https://gist.github.com/3054754",
         "https://gist.github.com/2719090",

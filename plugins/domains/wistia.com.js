@@ -6,8 +6,7 @@ module.exports = {
         "oembed-site",
         "oembed-title",
         "oembed-thumbnail",
-        "oembed-duration",
-        "oembed-video-responsive"
+        "oembed-duration"
     ],
 
     getLinks: function(oembed, urlMatch) {
