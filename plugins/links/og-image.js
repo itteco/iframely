@@ -2,15 +2,9 @@ var _ = require("underscore");
 
 module.exports = {
 
-    getLinks: function(og, meta, whitelistRecord) {
+    getLinks: function(og) {
 
-        var rel;
-        // TODO: make whitelistRecord.isAllowed always existing method?
-        if (whitelistRecord && (meta.twitter && meta.twitter.card === "photo" && meta.twitter.image) && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
-            rel = [CONFIG.R.image, CONFIG.R.og, CONFIG.R.twitter];
-        } else {
-            rel = [CONFIG.R.thumbnail, CONFIG.R.og];
-        }
+        var rel = [CONFIG.R.thumbnail, CONFIG.R.og];
 
         if (og.image instanceof Array) {
             return _.flatten(og.image.map(function(image) {

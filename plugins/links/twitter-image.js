@@ -1,27 +1,51 @@
 module.exports = {
 
-    getLinks: function(twitter, whitelistRecord) {
+    getLinks: function(twitter, meta, whitelistRecord) {
 
-        if (!twitter.image)
+        if (!twitter.image && !twitter.card == "photo")
             return;
 
-        var rel;
+        var rel = [CONFIG.R.twitter];
         var links = [];
 
-        // TODO: make whitelistRecord.isAllowed always existing method?
+
         if (whitelistRecord && twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
-            rel = CONFIG.R.image;
+            rel.push(CONFIG.R.image);
+
+            if (twitter.image && (twitter.image.url || twitter.image.src || (typeof twitter.image === 'string'))) {
+
+                links.push({
+                    href: twitter.image.url || twitter.image.src || twitter.image,
+                    type: CONFIG.T.image,
+                    rel: rel,
+                    width: twitter.image.width,
+                    height: twitter.image.height
+                });
+
+            } else if (meta.og.image) { //falback to og
+
+                links.push({
+                    href: meta.og.image.url || meta.og.image,
+                    type: meta.og.image.type || CONFIG.T.image,
+                    rel: rel,
+                    width: meta.og.image.width,
+                    height: meta.og.image.height
+                });
+
+            }
+
         } else {
-            rel = CONFIG.R.thumbnail;
+            rel.push(CONFIG.R.thumbnail);
+
+            links.push({
+                href: twitter.image.url || twitter.image.src || twitter.image,
+                type: CONFIG.T.image,
+                rel: rel,
+                width: twitter.image.width,
+                height: twitter.image.height
+            });            
         }
 
-        links.push({
-            href: twitter.image.url || twitter.image.src || twitter.image,
-            type: CONFIG.T.image,
-            rel: [rel, CONFIG.R.twitter],
-            width: twitter.image.width,
-            height: twitter.image.height
-        });
 
         if (twitter.card == "gallery") {
             var i; // JSLint :\\
