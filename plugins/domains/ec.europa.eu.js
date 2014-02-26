@@ -36,7 +36,7 @@ module.exports = {
 
             links.push({
                 href: ec_data["twitter:player"].replace("https://", "http://"),
-                rel: [CONFIG.R.player, CONFIG.R.autoplay],
+                rel: CONFIG.R.player,
                 type: CONFIG.T.text_html,
                 "aspect-ratio": ec_data["twitter:player:width"] / ec_data["twitter:player:height"]
             })
@@ -55,8 +55,8 @@ module.exports = {
 
     getData: function(cheerio) {
 
-        var $meta = cheerio('.append-bottom meta');
-        var $links = cheerio('.append-bottom link');
+        var $meta = cheerio('meta');
+        var $links = cheerio('link');
         var data = {};
 
         var i;  // Sorry folks, have to declare it here, otherwise JSLint would not compile it 
