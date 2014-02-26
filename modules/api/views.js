@@ -49,10 +49,7 @@ module.exports = function(app) {
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: req.query.whitelist === 'true',
-                    getWhitelistRecord: function(uri) {
-                        console.log('get uri', uri);
-                        return whitelist.findWhitelistRecordFor(uri);
-                    }
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor
                 }, cb);
             }
 
