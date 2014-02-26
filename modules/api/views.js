@@ -135,20 +135,7 @@ module.exports = function(app) {
                 result.whitelist = whitelistRecord.isDefault ? {} : whitelistRecord;
             }
 */
-            /*
-            if (req.query.meta) {
-                var raw_meta = result['raw-meta'] = {};
-                if (debug.length > 0) {
-                    raw_meta.meta = debug[0].context.meta;
-                    raw_meta.oembed = debug[0].context.oembed;
-                }
-            }
-            */
-/*
-            result.links = result.links.map(function(link) {
-                return _.extend({}, link);
-            });
-*/
+
             res.sendJsonCached(result);
 
 
@@ -178,7 +165,9 @@ module.exports = function(app) {
 
                 cache.withCache('html:' + version + ':' + uri, function(cb) {
 
-                    iframelyCore.run(uri, {}, function(error, data) {
+                    iframelyCore.run(uri, {
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, function(error, data) {
 
                         if (!data || !data.safe_html) {
                             error = 404;
@@ -234,7 +223,9 @@ module.exports = function(app) {
 
                 cache.withCache('render_link:' + version + ':' + uri, function(cb) {
 
-                    iframelyCore.run(uri, {}, function(error, result) {
+                    iframelyCore.run(uri, {
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, function(error, result) {
 
                         var render_link = result && _.find(result.links, function(link) {
                             return link.html
@@ -285,43 +276,6 @@ module.exports = function(app) {
 
     });
 
-/*
-    app.get('/supported-plugins-re.json', function(req, res, next) {
-
-        var plugins = _.values(iframely.getPlugins());
-
-        var regexps = [];
-
-        var domainsDict = {};
-
-        plugins.forEach(function(plugin) {
-
-            if (plugin.domain) {
-
-                if (plugin.re && plugin.re.length){
-                    plugin.re.forEach(function(re){
-                        regexps.push({
-                            s: re.source,
-                            m: ''+ (re.global?'g':'')+(re.ignoreCase?'i':'')+(re.multiline?'m':'')
-                        });
-                    });
-                } else if (!(plugin.domain in domainsDict)) {
-
-                    domainsDict[plugin.domain] = true;
-
-                    regexps.push({
-                        s: plugin.domain.replace(/\./g, "\\."),
-                        m: ''
-                    });
-                }
-            }
-        });
-
-        regexps.sort();
-
-        res.sendJsonCached(regexps);
-    });
-*/
     app.get('/oembed', function(req, res, next) {
 
         var uri = prepareUri(req.query.url);
@@ -336,7 +290,9 @@ module.exports = function(app) {
 
             function(cb) {
 
-                iframelyCore.run(uri, cb);
+                iframelyCore.run(uri, {
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor
+                }, cb);
             }
 
         ], function(error, result) {
