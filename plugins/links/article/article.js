@@ -9,5 +9,10 @@ module.exports = {
         return {
             safe_html: utils.encodeText(meta.charset, readability.getHTML())
         };
-    }
+    },
+
+    tests: [{
+        page: "http://technorati.com/blogs/top100/",
+        selector: ".latest"
+    }]    
 };
