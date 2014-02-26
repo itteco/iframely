@@ -82,6 +82,18 @@ module.exports = function(app) {
                 }, render_link)); // Copy to keep removed fields.
                 render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
                 delete render_link.html;
+            } else {
+                // Cache non inline link to later render for older consumers.
+                render_link = _.find(result.links, function(link) {
+                    return link.html
+                        && link.rel.indexOf(CONFIG.R.inline) > -1
+                        && link.type === CONFIG.T.text_html;
+                });
+                if (render_link) {
+                    cache.set('render_link:' + version + ':' + uri, _.extend({
+                        title: result.meta.title
+                    }, render_link)); // Copy to keep removed fields.
+                }
             }
 
             if (!req.query.debug) {
@@ -227,7 +239,18 @@ module.exports = function(app) {
                                 && link.type === CONFIG.T.text_html;
                         });
 
-                        result.title = result.meta.title;
+                        if (!render_link) {
+                            // Cache non inline link to later render for older consumers.
+                            render_link = _.find(result.links, function(link) {
+                                return link.html
+                                    && link.rel.indexOf(CONFIG.R.inline) > -1
+                                    && link.type === CONFIG.T.text_html;
+                            });
+                        }
+
+                        if (render_link) {
+                            render_link.title = result.meta.title;
+                        }
 
                         cb(error, render_link);
                     });
