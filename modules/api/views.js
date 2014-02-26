@@ -5,6 +5,7 @@ var _ = require('underscore');
 var async = require('async');
 var cache = require('../../lib/cache');
 var apiUtils = require('./utils');
+var whitelist = require('../../lib/whitelist');
 
 function prepareUri(uri) {
 
@@ -46,7 +47,12 @@ module.exports = function(app) {
                 iframelyCore.run(uri, {
                     debug: req.query.debug === "true",
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    forceParams: req.query.forceMeta === "true" ? ["meta", "oembed"] : null
+                    forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
+                    whitelist: req.query.whitelist === 'true',
+                    getWhitelistRecord: function(uri) {
+                        console.log('get uri', uri);
+                        return whitelist.findWhitelistRecordFor(uri);
+                    }
                 }, cb);
             }
 
