@@ -73,6 +73,7 @@ module.exports = function(app) {
                     type: CONFIG.T.javascript,
                     rel: [CONFIG.R.reader, CONFIG.R.inline]
                 });
+                delete result.safe_html;
             }
 
             var render_link = _.find(result.links, function(link) {

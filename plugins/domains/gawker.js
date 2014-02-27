@@ -27,7 +27,7 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(meta, cheerio) {
+    getData: function(meta, cheerio) {
 
         var $html = cheerio('div.post-content');
 
@@ -47,9 +47,7 @@ module.exports = {
             html += $html.html();
 
             return {
-                html: html,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.inline]
+                safe_html: html
             };
         }
 

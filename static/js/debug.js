@@ -160,7 +160,7 @@ function showEmbeds($embeds, data, filterByRel) {
 
                 var debug = findDebugInfo(link, data);
 
-                var pluginId = debug.method.pluginId;
+                var pluginId = debug && debug.method.pluginId;
 
                 // Links head.
                 plugins.push(pluginId + '-' + counter);
