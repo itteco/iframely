@@ -361,7 +361,13 @@
                     && data.html;
             },
             generate: function(data, options) {
-                return $(data.html);
+                var $el;
+                try {
+                    $el = $(data.html);
+                } catch(e) {
+                    $el = $('<div>').append(data.html);
+                }
+                return $el;
             }
         }
     };
