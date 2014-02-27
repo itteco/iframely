@@ -101,6 +101,8 @@ module.exports = function(app) {
                 }
             }
 
+            iframelyCore.sortLinks(result.links);
+
             if (req.query.group) {
                 var links = result.links;
                 var groups = {};
