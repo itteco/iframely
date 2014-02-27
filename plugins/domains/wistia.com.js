@@ -20,7 +20,7 @@ module.exports = {
             href: "http://wistia.com/favicon.ico",
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
-        }]
+        }];
     },
 
 
