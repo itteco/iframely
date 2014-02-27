@@ -39,10 +39,10 @@
         },
 
         REL_GROUPS: [
-            "reader",
             "app",
             "player",
             "survey",
+            "reader",
             "image",
             "thumbnail",
             "logo",
