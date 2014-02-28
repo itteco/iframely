@@ -224,8 +224,10 @@
                 if (typeof error === "number" && Math.floor(error / 100) === 4) {
 
                     var value;
-                    if (error == 404) {
+                    if (error === 404) {
                         value = 'Page not found';
+                    } else if (error === 408) {
+                        value = 'Requested page timeout';
                     } else {
                         value = 'Requested page error: ' + error;
                     }
