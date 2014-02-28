@@ -39,6 +39,10 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /iframely for', uri);
 
         async.waterfall([
@@ -150,6 +154,10 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /reader for', uri);
 
         async.waterfall([
@@ -206,6 +214,10 @@ module.exports = function(app) {
 
         if (!uri) {
             return next(new Error("'uri' get param expected"));
+        }
+
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
         }
 
         log('Loading /render for', uri);
@@ -313,6 +325,10 @@ module.exports = function(app) {
 
         if (!uri) {
             return next(new Error("'url' get param expected"));
+        }
+
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
         }
 
         log('Loading /oembed for', uri);
