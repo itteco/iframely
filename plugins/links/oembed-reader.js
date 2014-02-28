@@ -1,8 +1,10 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     getLink: function(oembed, whitelistRecord) {
 
-        if (oembed.type === "link" && oembed.html && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
+        if (oembed.type === "link" && oembed.html && whitelistRecord && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
             
             return {
                 html: oembed.html,
