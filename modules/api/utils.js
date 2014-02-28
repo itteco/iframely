@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $ = require('cheerio');
 var _ = require('underscore');
 
 function wrapContainer($element, data) {
@@ -200,6 +200,17 @@ var renders = {
                 return wrapContainer($iframe, data);
             }
         }
+    },
+    "inline": {
+        test: function(data) {
+            return data.type === "text/html"
+                && data.rel.indexOf('inline') > -1
+                && !data.href
+                && data.html;
+        },
+        generate: function(data, options) {
+            return $(data.html);
+        }
     }
 };
 
@@ -361,8 +372,14 @@ exports.getOembed = function(uri, data) {
         }
 
     } else {
-        oembed.type = "link";
-        oembed.url = data.meta.canonical || uri;
+
+        if (link && link.html) {
+            oembed.type = "rich";
+            oembed.html = link.html;
+        } else {
+            oembed.type = "link";
+            oembed.url = data.meta.canonical || uri;
+        }
     }
 
     for(var key in data.meta) {

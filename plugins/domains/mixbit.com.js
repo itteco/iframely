@@ -9,6 +9,8 @@ module.exports = {
         };
     },
 
+    provides: 'mixbit',
+
     getData: function(urlMatch, request, cb) {
         request({
             uri: "https://api.mixbit.com/api/v1/msee/project/" + urlMatch[1],

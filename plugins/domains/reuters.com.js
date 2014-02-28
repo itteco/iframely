@@ -9,6 +9,7 @@ module.exports = {
         "canonical",
         "description",
         "meta-title",
+        "image_src",
         "keywords"
     ],
 

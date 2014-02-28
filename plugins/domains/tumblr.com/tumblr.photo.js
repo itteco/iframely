@@ -2,6 +2,11 @@ var _ = require('underscore');
 
 module.exports = {
 
+    re: [
+        /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
+        /^http:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
+    ],    
+
     getLinks: function(tumblr_post) {
 
         if (tumblr_post.type !== "photo") {
@@ -44,6 +49,8 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://lincolnmotorco.tumblr.com/"
     },
-        "http://fewthistle.tumblr.com/post/58045916432"
+        "http://fewthistle.tumblr.com/post/58045916432",
+        "http://memesdabola.com/post/77805975089/qual-sera-o-resultado-que-o-porto-trara-de-lisboa",
+        "http://www.staskhrustalev.com/post/76759388227"
     ]
 };

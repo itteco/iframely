@@ -6,17 +6,21 @@ module.exports = {
         "oembed-site",
         "oembed-title",
         "oembed-thumbnail",
-        "oembed-duration",
-        "twitter-player-responsive"
+        "oembed-duration"
     ],
 
-    getLink: function() {
+    getLinks: function(oembed, urlMatch) {
 
-        return {
+        return [{
+            href: "//fast.wistia.net/embed/iframe/" + urlMatch[2],
+            type: CONFIG.T.text_html,
+            rel: CONFIG.R.player,
+            "aspect-ratio": oembed.width / oembed.height
+        }, {
             href: "http://wistia.com/favicon.ico",
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
-        }
+        }];
     },
 
 

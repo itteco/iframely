@@ -352,6 +352,23 @@
                     return wrapContainer($iframe, data);
                 }
             }
+        },
+        "inline": {
+            test: function(data) {
+                return data.type === "text/html"
+                    && data.rel.indexOf('inline') > -1
+                    && !data.href
+                    && data.html;
+            },
+            generate: function(data, options) {
+                var $el;
+                try {
+                    $el = $(data.html);
+                } catch(e) {
+                    $el = $('<div>').append(data.html);
+                }
+                return $el;
+            }
         }
     };
 

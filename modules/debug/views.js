@@ -1,4 +1,4 @@
-var iframely = require('../../lib/iframely');
+var iframelyCore = require('../../lib/core');
 var utils = require('../../utils');
 var async = require('async');
 

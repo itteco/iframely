@@ -1,15 +1,18 @@
 module.exports = {
 
-    getLink: function(tumblr_post) {
+    re: [
+        /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
+        /^http:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
+    ],
+
+    getData: function(tumblr_post) {
 
         if (tumblr_post.type !== "text") {
             return;
         }
 
         return {
-            html: tumblr_post.body,
-            type: CONFIG.T.safe_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline]
+            safe_html: tumblr_post.body
         };
     },
 

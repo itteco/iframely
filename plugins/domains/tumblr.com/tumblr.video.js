@@ -1,6 +1,11 @@
-var $ = require('jquery');
+var jquery = require('jquery');
 
 module.exports = {
+
+    re: [
+        /^http:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
+        /^http:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
+    ], 
 
     getLinks: function(tumblr_post) {
 
@@ -21,13 +26,15 @@ module.exports = {
 
             var p = tumblr_post.player[0];
 
-            var $c = $('<div>').append(p.embed_code);
+            var $c = jquery('<div>').append(p.embed_code);
             var $iframe = $c.find('iframe');
 
             if ($iframe.length) {
 
                 var width = $iframe.attr('width');
                 var height = $iframe.attr('height');
+
+                console.log('i was here');
 
                 return {
                     href: $iframe.attr('src'),
@@ -40,10 +47,10 @@ module.exports = {
 
                 return tumblr_post.player.map(function(p) {
                     return {
-                        embed_html: {
-                            embed_html: p.embed_code,
-                            width: p.width
-                        }
+                        html: p.embed_code,
+                        type: CONFIG.T.text_html,
+                        rel: [CONFIG.R.player, CONFIG.R.inline],
+                        width: p.width
                     };
                 });
             }
@@ -52,6 +59,7 @@ module.exports = {
 
     tests: [
         "http://fyteensontop.tumblr.com/post/58053062280/130812-fanta-fanmeeting-niel-apink-eunji-cut",
-        "http://hubol.tumblr.com/post/58053061056/check-out-how-cool-this-class-is"
+        "http://hubol.tumblr.com/post/58053061056/check-out-how-cool-this-class-is",
+        "http://blog.instagram.com/post/53448889009/video-on-instagram"
     ]
 };

@@ -9,6 +9,7 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-duration",
+        "oembed-thumbnail",
         "oembed-site"
     ],
 

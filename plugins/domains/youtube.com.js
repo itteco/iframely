@@ -9,7 +9,8 @@ module.exports = {
         /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i
     ],
-        
+
+    provides: 'youtube_gdata',
 
     getData: function(urlMatch, request, cb) {
 

@@ -20,7 +20,8 @@
         CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS: 20,   // if 20 seconds load over 95% - restart worker.
         CLUSTER_MAX_CPU_LOAD_IN_PERCENT: 95,
 
-        metaLoadingTimeout: 5 * 1000,
+        RESPONSE_TIMEOUT: 5 * 1000,
+
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
 
         T: {
@@ -38,10 +39,11 @@
         },
 
         REL_GROUPS: [
-            "reader",
+            "app",
             "player",
             "survey",
             "image",
+            "reader",
             "thumbnail",
             "logo",
             "icon"
@@ -64,9 +66,9 @@
             reader: "reader",
             file: "file",
             survey: "survey",
+            app: "app",
 
             iframely: "iframely",
-            instapaper: "instapaper",
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
@@ -84,6 +86,7 @@
         REL: {
             "iframely": [
                 "reader",
+                "app",
                 "player",
                 "survey",
                 "image",
@@ -103,7 +106,7 @@
                 "video",
                 "photo"
             ],
-            "html-meta": [
+            "html-meta": [  // TODO: Need change to 'fb'.
                 "video"
             ]
         },
@@ -131,7 +134,7 @@
             "iframely"
         ],
 
-        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader"]
+        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader", "app"]
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");

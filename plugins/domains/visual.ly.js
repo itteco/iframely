@@ -6,8 +6,7 @@ module.exports = {
         "canonical",
         "description",
         "shortlink",
-        "dc-title",
-        "favicon"
+        "dc-title"
     ],
 
     getLinks: function(meta) {
@@ -27,6 +26,10 @@ module.exports = {
             href: original,
             type: CONFIG.T.image,
             rel: CONFIG.R.image
+        }, {
+            href: "//visual.ly/favicon.ico",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
         }];
     },
 

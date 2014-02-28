@@ -17,14 +17,12 @@ module.exports = {
 
     getLink: function(urlMatch) {
 
+        // Can be embedded inline, but need to research API.
+
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
-            template: "embed-html",
-            template_context: {
-                title: urlMatch[1],
-                html: '<script type="text/javascript" src="' + "//about.me/embed/" + urlMatch[1] +  '"></script>'
-            }            
+            rel: CONFIG.R.app,
+            html: '<script type="text/javascript" src="' + "//about.me/embed/" + urlMatch[1] +  '"></script>'
         };
     },
 

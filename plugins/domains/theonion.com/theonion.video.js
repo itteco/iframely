@@ -11,9 +11,9 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function($selector) {
+    getLink: function(cheerio) {
 
-        var $video = $selector('video');
+        var $video = cheerio('video');
         if (!$video.length || !$video.attr('id')) return;
 
         return {

@@ -20,12 +20,11 @@ module.exports = {
 
     getLink: function(url, meta) {
 
-        var title = meta["html-title"];
+        var title = meta['html-title'];
 
         return {
-            title: title,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.reader, CONFIG.R.inline],
             template_context: {
                 title: title,
                 uri: url.replace("u/0/", "")

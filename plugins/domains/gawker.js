@@ -1,5 +1,6 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
 
     re: [
         /^http:\/\/(\w+\.)?lifehacker\.com\/[a-z0-9-]+/i,
@@ -26,14 +27,14 @@ module.exports = {
         "og-title"
     ],
 
-    getData: function(meta, $selector) {
+    getData: function(meta, cheerio) {
 
-        var $html = $selector('div.post-content');
+        var $html = cheerio('div.post-content');
 
         if ($html.length) {
 
-            var $image = $selector('span.img-border.mbs img');
-            var $iframe = $selector('span.flex-video iframe');
+            var $image = cheerio('span.img-border.mbs img');
+            var $iframe = cheerio('span.flex-video iframe');
 
             var html = '';
 
@@ -46,9 +47,7 @@ module.exports = {
             html += $html.html();
 
             return {
-                readability_data: {
-                    html: html
-                }
+                safe_html: html
             };
         }
 

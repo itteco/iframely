@@ -142,7 +142,6 @@ You can generate embed codes for it as referenced in [Iframely Protocol](http://
 
 Iframely uses supplementary `rels` as the way of attributing to the origin of the data:
 
- - `readability` or `instapaper` - article extracted using instapaper classes.
  - `og` - link extracted from Open Graph markup. Beware, `players` rendered through `og` have higher chance of being unreliable. 
  - `twitter` - link extracted from Twitter Cards semantics.
  - `oembed` - link extracted from oEmbed/1 object.
