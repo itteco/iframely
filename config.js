@@ -42,8 +42,8 @@
             "app",
             "player",
             "survey",
-            "reader",
             "image",
+            "reader",
             "thumbnail",
             "logo",
             "icon"
