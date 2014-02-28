@@ -318,5 +318,12 @@
             "www\\.haikudeck\\.com/p/.*"
         ],
         "endpoint": "http://www.haikudeck.com/oembed"
-    }        
+    },
+    {
+        "name": "Behance",
+        "templates": [
+            "www\\.behance\\.net/gallery/.*"
+        ],
+        "endpoint": "http://www.behance.net/services/oembed"
+    }            
 ]
