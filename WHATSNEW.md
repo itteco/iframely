@@ -4,6 +4,19 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2014.03.XX, Version 0.6.0
+
+ * improve parsing speed with htmlparser
+ * improve css selector speed with cheerio (jQuery replacement)
+ * improve readability speed with readabilitySAX
+ * core params moved to plugins: readability, cheerio, meta, oembed
+ * new plugins' params: og, twitter, oembed
+ * new plugins params dependency system: domain plugin requests params, iframely core will search plugins which provides them
+ * more asynchronous plugins work: plugin waits only for its own dependencies
+ * link post processing plugins to simplify core
+ * extract caching from core except checkFavicon.js plugin work
+ * new rel - app
+ * extract full page rendering from plugins, plugin will render only widget
 
 ### 2014.01.28, Version 0.5.8
 
