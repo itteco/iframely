@@ -14,23 +14,24 @@ Iframely got several times faster response time, increased traffic capacity, and
 
 Please, run `npm install` to update the package dependencies. 
 
-Beware: The interfaces of Iframely core lib have slightly changed and remain unstable as we continue to work on release of Iframely as Node.js lib. The HTTP API endpoints interfaces remained intact.
+_Beware_: The interfaces of Iframely core lib have slightly changed and remain unstable as we continue to work on release of Iframely as Node.js lib. The HTTP API endpoints interfaces remained intact.
 
 
-Functional changes:
+**Functional changes**:
 
  * Iframely core lib doesn't have hosted renders of its own any longer. It will produce `html` for the server API to build upon.
  * As a result, the `/oembed` endpoint now has the native `html` of e.g. Twitter, Facebook and Google+ statuses, GitHub gists, Instagram, etc. (as renders were inside the lib, it had hosted wrappers before).
- * We added new functional `rel` - `app`, so that lib can output native embeds html for statuses, oembed type rich, etc.
+ * We added new functional `rel`  - `app` - so that lib can output native embeds html for statuses, oembed type rich, etc.
  * There is now cache in Iframely's core lib any longer (except for favicons). Response caching has been moved to the API endpoint views.
- * Domain plugin maintanance included necessary fixes. Plus several redundant domain plugins were removed, and some were added, like Behance and Behance hosted sites, Droplr.
+ * Domain plugin maintenance included necessary fixes. Plus several redundant domain plugins were removed, and some were added, like Behance and Behance hosted sites, Droplr.
+* Readability is now called strictly when `og:type` is article (if Readability is allowed in config, of course)
 
 
-Details of internal changes in the core lib:
+**Details of internal changes in the core lib**:
 
  * Overall streaming approach for parsers, including migration to `htmlparser2`, `cheerio` and `readabilitySAX`.
  * The plugins architecture is extended to the core params as well. Initial core parameters `meta`, `oembed`, `og`, `twitter`, `cheerio`, `readability` are now returned by system plugins rather than a hardcode.
- * The processing wave for plugins is now strictly asynchronious and supports streaming pipes. A plugin is now called as soon as all the params it depends upon are available.
+ * The processing wave for plugins is now strictly asynchronous and supports streaming pipes. A plugin is now called as soon as all the params it depends upon are available.
  * Post processing of the embed links and meta has been moved to system plugins as well, to make it asynchronous too. 
 
 
@@ -38,14 +39,14 @@ Details of internal changes in the core lib:
 
 ### 2014.01.28, Version 0.5.8
 
-Happy 2014! While we work on re-implementing of Iframely's core to make it even faster and more robust, here's the long overdue maintanance release. 
+Happy 2014! While we work on re-implementing of Iframely's core to make it even faster and more robust, here's the long overdue maintenance release. 
 
 New features:
 
  + Cluster mode. To run Iframely as cluster - `node cluster`. It is useful for 64bit hardware, and also as a way to manage server's uptime. 
  + Domains DB whitelist file can now be loaded via URL. Set `WHITELIST_URL` in your local config file to your custom access URL, and Iframely will keep loading central whitelist as our QA updates it. Local whitelist files still prevail over loading via URL.
 
-Domain maintanance: 
+Domain maintenance: 
 
  + Added Brightcove parser _and_ all hosted players
  + Added PBS.org videos _and_ all hosted sites
@@ -89,10 +90,10 @@ This maintenance update is focused on domain plugins. Please remember to update 
 To customize YouTube and Vimeo embeds, add your settings to the local config file (which is git-ignored when updating):
 
         providerOptions: {
-        	// ...
+          // ...
 
             // List of query parameters to add to YouTube and Vimeo frames
-            // Start it with leading "?". Or omit alltogether for default values
+            // Start it with leading "?". Or omit altogether for default values
             youtube: {
                 get_params: "?rel=0&showinfo=1"
                 // https://developers.google.com/youtube/player_parameters
@@ -143,7 +144,7 @@ Please, run following to update package dependencies:
  * improve articles loading time: added caching for Readability library
  * improve api response time: cache each request to Iframely server
  + added oembed reader plugin for proper whitelist record (oembed.link with reader)
- * updated TechCrunch plugin to properly parse their new site disign
+ * updated TechCrunch plugin to properly parse their new site design
  * fixed and improved AngelList, MyVideo.de, Bravotv
  * changed Twitter regexps to allow processing of statues and photos only (eliminating extra load)
  + added PollDaddy
@@ -151,7 +152,7 @@ Please, run following to update package dependencies:
 
 ### 2013.10.02, Version 0.5.3
 
- + New `/oembed` endpoint, the backwards-compatability adapter for [oEmbed v1](http://oembed.com). See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
+ + New `/oembed` endpoint, the backwards compatability adapter for [oEmbed v1](http://oembed.com). See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
 
 ### 2013.09.27, Version 0.5.2
@@ -196,8 +197,8 @@ Please, run following to update package dependencies:
  + added tumblr.com video plugin
  + added tumblr.com text plugin
  * fixed animoto.com plugin
- * updated guardian.com plguin domain
- * updated businessinsider.com plguin
+ * updated guardian.com plugin domain
+ * updated businessinsider.com plugin
  * fixed slideshare.net plugin
  + added huffingtonpost.com plugin
 
@@ -214,7 +215,7 @@ Please, run following to update package dependencies:
  + added facebook embeds plugin
  + added pinterest product meta
  * check if favicon exists
- * fix instapaper resolving relative urls
+ * fix instapapper resolving relative urls
 
 
 ### 2013.07.19, Version 0.4.0
