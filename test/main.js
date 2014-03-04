@@ -4,7 +4,8 @@ var assert = require('assert'),
 
 GLOBAL.CONFIG = require('../config');
 
-var iframely = require('../lib/iframely-meta.js');
+var iframely = require('../lib/core').getPluginData;
+var utils = require('../lib/utils');
 
 // Must be to pass tests.
 process.on('uncaughtException', function(err) {
@@ -55,113 +56,59 @@ function assertOembed(oembed) {
     var notError = function(error, data) {
         assert.isNull(error);
     };
-    var hasMeta = function(error, data) {
-        assert.isObject(data.meta);
+    var hasMeta = function(error, meta) {
+        assert.isObject(meta);
     };
-    var hasAlternateLinks = function(error, data) {
-        assert.isArray(data.meta.alternate);
+    var hasAlternateLinks = function(error, meta) {
+        assert.isArray(meta.alternate);
     };
-    var hasValidOEmbedObject = function(error, data) {
-        assertOembed(data.oembed);
+    var hasValidOEmbedObject = function(error, oembed) {
+        assertOembed(oembed);
     };
     var hasFullResponse = function(error, data) {
         assert.isString(data.fullResponse);
     };
+
+// TODO: do rest of tests.
 
 vows.describe('Tests')
     .addBatch({
 
         'qik meta': {
             topic: function() {
-                iframely.getPageData("http://qik.com/video/52767028", {_debugCache: true}, this.callback);
+                iframely("http://qik.com/video/52767028", 'meta', this.callback);
             },
             'not error': notError,
-            'has meta': hasMeta,
-            'has alternate links': hasAlternateLinks,
-            'has valid oEmbed object': hasValidOEmbedObject,
-            'has fullResponse': hasFullResponse,
-            'not from cache': function(error, data) {
-                assert.isFalse(data._debugCache.metaGotFromCache);
-                assert.isFalse(data._debugCache.oembedGotFromCache);
-                assert.isFalse(data._debugCache.fullResponseGotFromCache);
-            },
-
-            '- repeat test with cache': {
-                topic: function() {
-                    iframely.getPageData("http://qik.com/video/52767028", {_debugCache: true}, this.callback);
-                },
-                'not error': notError,
-                'has meta': hasMeta,
-                'has alternate links': hasAlternateLinks,
-                'has valid oEmbed object': hasValidOEmbedObject,
-                'has fullResponse': hasFullResponse,
-                'all from cache': function(error, data) {
-                    assert.isTrue(data._debugCache.metaGotFromCache);
-                    assert.isTrue(data._debugCache.oembedGotFromCache);
-                    assert.isTrue(data._debugCache.fullResponseGotFromCache);
-                }
-            }
+            'has meta': hasMeta
         },
 
-        'getPageData without fullResponse': {
+        'qik oembed': {
             topic: function() {
-                iframely.getPageData("https://vimeo.com/63683408", {fullResponse: false}, this.callback);
+                iframely("http://qik.com/video/52767028", 'oembed', this.callback);
             },
             'not error': notError,
-            'no fullResponse': function(error, data) {
-                assert.isUndefined(data.fullResponse);
-            },
-            'has meta': hasMeta,
-            'has alternate links': hasAlternateLinks,
             'has valid oEmbed object': hasValidOEmbedObject
         },
 
-        'getPageData without oEmbed': {
+        'vimeo meta': {
             topic: function() {
-                iframely.getPageData("https://vimeo.com/64114843", {oembed: false}, this.callback);
+                iframely("https://vimeo.com/63683408", 'meta', this.callback);
             },
             'not error': notError,
-            'no oembed': function(error, data) {
-                assert.isUndefined(data.oembed);
-            },
-            'has meta': hasMeta,
-            'has fullResponse': hasFullResponse,
-
-            '- repeat with oEmbed + another data from cache': {
-                topic: function() {
-                    iframely.getPageData("https://vimeo.com/64114843", {_debugCache: true}, this.callback);
-                },
-                'not error': notError,
-                'has meta': hasMeta,
-                'has alternate links': hasAlternateLinks,
-                'has valid oEmbed object': hasValidOEmbedObject,
-                'has fullResponse': hasFullResponse,
-                'all from cache except oembed': function(error, data) {
-                    assert.isTrue(data._debugCache.metaGotFromCache);
-                    assert.isFalse(data._debugCache.oembedGotFromCache);
-                    assert.isTrue(data._debugCache.fullResponseGotFromCache);
-                }
-            }
+            'has meta': hasMeta
         },
 
-        'getPageData without fullResponse and oEmbed': {
+        'vimeo oembed': {
             topic: function() {
-                iframely.getPageData("https://vimeo.com/65475425", {oembed: false, fullResponse: false}, this.callback);
+                iframely("https://vimeo.com/63683408", 'oembed', this.callback);
             },
             'not error': notError,
-            'has meta': hasMeta,
-            'no oembed': function(error, data) {
-                assert.isUndefined(data.oembed);
-            },
-            'no fullResponse': function(error, data) {
-                assert.isUndefined(data.fullResponse);
-            },
-            'has meta': hasMeta
+            'has valid oEmbed object': hasValidOEmbedObject
         },
 
         'image size': {
             topic: function() {
-                iframely.getImageMetadata("http://www.google.com/logos/2013/dia_dos_namorados_2013-1529005-hp.jpg", this.callback)
+                utils.getImageMetadata("http://www.google.com/logos/2013/dia_dos_namorados_2013-1529005-hp.jpg", this.callback)
             },
             'has correct size and type': function(error, data) {
                 assert.equal(data.width, 400);
@@ -169,5 +116,4 @@ vows.describe('Tests')
                 assert.equal(data.format, "jpeg");
             }
         }
-
     })['export'](module);

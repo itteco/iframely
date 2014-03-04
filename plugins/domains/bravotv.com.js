@@ -11,9 +11,9 @@ module.exports = {
 // Get src "http://player.theplatform.com/p/PHSl-B/yT7k3t_YLXoZ/select/30PGw6rTJxLQ?fee…t-happens-live/season-10/videos/after-show-andy-gets-a-bar-mitzvah-present"
 // Convert to "http://player.theplatform.com/p/PHSl-B/yT7k3t_YLXoZ/embed/select/30PGw6rTJxLQ"
 
-    getLink: function($selector) {
+    getLink: function(cheerio) {
 
-        var videoFrame = $selector('#tp-global-player');
+        var videoFrame = cheerio('#tp-global-player');
 
         if (videoFrame) {
             return {
@@ -25,7 +25,9 @@ module.exports = {
         }
     },
 
-    tests: [{
+    tests: [
+    "http://www.bravotv.com/inside-the-actors-studio/season-20/videos/matthew-mcconaughey-biggest-personal-moment",
+    {
         page: "http://www.bravotv.com/videos",
         selector: ".post .video a"
     }, {

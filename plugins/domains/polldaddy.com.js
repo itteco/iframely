@@ -13,17 +13,17 @@ module.exports = {
 
         return [{
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.survey,
-            template: "embed-html",
-            template_context: {
-                title: oembed.title,
-                html: oembed.html
-            },
+            rel: [CONFIG.R.survey],
+            html: oembed.html,
             "min-width": 332
         }, {
             type: CONFIG.T.image,
             rel: CONFIG.R.icon, 
             href: "https://polldaddy.com/favicon.ico"
+        }, {
+            type: CONFIG.T.image,
+            rel: CONFIG.R.thumbnail,
+            href: "http://polldaddy.com/images/pd-swirl.png"
         }];
     },
 

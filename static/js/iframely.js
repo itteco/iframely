@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Versrion 0.5.8
+     Versrion 0.6.0
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -344,13 +344,30 @@
                     .attr('allowfullscreen', true)
                     .attr('webkitallowfullscreen', true)
                     .attr('mozallowfullscreen', true);
-                    
+
 
                 if (options && options.disableSizeWrapper) {
                     return $iframe;
                 } else {
                     return wrapContainer($iframe, data);
                 }
+            }
+        },
+        "inline": {
+            test: function(data) {
+                return data.type === "text/html"
+                    && data.rel.indexOf('inline') > -1
+                    && !data.href
+                    && data.html;
+            },
+            generate: function(data, options) {
+                var $el;
+                try {
+                    $el = $(data.html);
+                } catch(e) {
+                    $el = $('<div>').append(data.html);
+                }
+                return $el;
             }
         }
     };
@@ -544,7 +561,7 @@
         }
 
         function isHttps(href) {
-            return href.indexOf('//:') == 0 || href.indexOf('https://') == 0;
+            return /^(?:https:)?\/\/.+/i.test(href);
         }
 
         var result = links && links.filter && links.filter(function(link) {

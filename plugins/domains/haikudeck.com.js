@@ -4,21 +4,22 @@ module.exports = {
     ],
 
     mixins: [
-        "canonical",
         "oembed-title",
         "oembed-thumbnail",
         "oembed-site",
-        "oembed-author",
-        "twitter-image",
-        "favicon",        
+        "oembed-author"
     ],
 
-   getLink: function(urlMatch) {
+   getLinks: function(urlMatch) {
         return [{
-            href: "http://www.haikudeck.com/e/"+urlMatch[1],
+            href: "http://www.haikudeck.com/e/" + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": 640 / 541
+        }, {
+            href: "http://static.haikudeck.com/images/haikudeck-icon.png",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon,            
         }];
     },
 

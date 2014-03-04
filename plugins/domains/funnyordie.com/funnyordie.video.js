@@ -14,6 +14,7 @@ module.exports = {
         "oembed-duration",
         "og-description",
 
+        "og-image",
         "favicon"
     ],
 

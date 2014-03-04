@@ -1,0 +1,329 @@
+[
+    {
+        "name": "Blip",
+        "templates": [
+            "blip\\.tv/.*"
+        ],
+        "endpoint": "http://blip.tv/oembed/"
+    },
+    {
+        "name": "Flickr",
+        "templates": [
+            "(www\\.)?flickr\\.com/.*"
+        ],
+        "endpoint": "http://www.flickr.com/services/oembed/"
+    },
+    {
+        "name": "Hulu",
+        "templates": [
+            "(www\\.)?hulu\\.com/watch/.*"
+        ],
+        "endpoint": "http://www.hulu.com/api/oembed.{format}"
+    },
+    {
+        "name": "Scribd",
+        "templates": [
+            "(www\\.)?scribd\\.com/doc/.*"
+        ],
+        "endpoint": "http://www.scribd.com/services/oembed"
+    },
+    {
+        "name": "Viddler",
+        "templates": [
+            ".*\\.viddler\\.com/v/.*"
+        ],
+        "endpoint": "http://www.viddler.com/oembed"
+    },
+    {
+        "name": "Vimeo",
+        "templates": [
+            "(www\\.)?vimeo\\.com/.*"
+        ],
+        "endpoint": "http://vimeo.com/api/oembed.{format}"
+    },
+    {
+        "name": "YouTube",
+        "templates": [
+            "(www\\.)?youtube\\.com/watch.*",
+            "youtu\\.be/*"
+        ],
+        "endpoint": "http://www.youtube.com/oembed"
+    },
+    {
+        "name": "Qik",
+        "templates": [
+            "qik\\.com/video/.*",
+            "qik\\.com/.*"
+        ],
+        "endpoint": "http://qik.com/api/oembed.{format}"
+    },
+    {
+        "name": "Revision3",
+        "templates": [
+            "(.*\\.)?revision3\\.com/.*"
+        ],
+        "endpoint": "http://revision3.com/api/oembed/"
+    },
+    {
+        "name": "CollegeHumor",
+        "templates": [
+            "www\\.collegehumor\\.com/video/.*"
+        ],
+        "endpoint": "http://www.collegehumor.com/oembed.{format}"
+    },
+    {
+        "name": "Poll Everywhere",
+        "templates": [
+            "www\\.polleverywhere\\.com/polls/.*",
+            "www\\.polleverywhere\\.com/multiple_choice_polls/.*",
+            "www\\.polleverywhere\\.com/free_text_polls/.*"
+        ],
+        "endpoint": "http://www.polleverywhere.com/services/oembed/"
+    },
+    {
+        "name": "My Opera",
+        "templates": [
+            "my\\.opera\\.com/.*"
+        ],
+        "endpoint": "http://my.opera.com/service/oembed"
+    },
+    {
+        "name": "iFixit",
+        "templates": [
+            "www\\.ifixit\\.com/.+/.+/.*"
+        ],
+        "endpoint": "http://www.ifixit.com/Embed"
+    },
+    {
+        "name": "SmugMug",
+        "templates": [
+            "(.*\\.smugmug\\.com/[^#]*)#!i=(\\d+)&k=(\\w+)"
+        ],
+        "endpoint": "http://api.smugmug.com/services/oembed/?format={format}&url=http://{1}%23{2}_{3}"
+    },
+    {
+        "name": "SmugMug new",
+        "templates": [
+            ".*\\.smugmug\\.com/[^#]+$"
+        ],
+        "endpoint": "http://api.smugmug.com/services/oembed/?format={format}&url={url}"
+    },
+    {
+        "name": "SlideShare",
+        "templates": [
+            "\\w+\\.slideshare\\.net/.+/.*"
+        ],
+        "endpoint": "http://www.slideshare.net/api/oembed/2"
+    },
+    {
+        "name": "WordPress.com",
+        "templates": [
+            ".*\\.wordpress.com",
+            "wp\\.me/.*"
+        ],
+        "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=iframely&url={url}"
+    },
+    {
+        "name": "Twitter",
+        "templates": [
+            "twitter\\.com/#?!?/?\\w+/status/(\\d+)"
+        ],
+        "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}?id={1}"
+    },
+    {
+        "name": "Gist",
+        "templates": [
+            "gist\\.github\\.com/(.+)"
+        ],
+        "endpoint": "https://github.com/api/oembed"
+    },
+    {
+        "name": "dotSUB",
+        "templates": [
+            "dotsub\\.com/view/.+"
+        ],
+        "endpoint": "http://dotsub.com/services/oembed"
+    },
+    {
+        "name": "Instagr.am",
+        "templates": [
+            "[\\w\\.]*instagram\\.com/p/([a-zA-Z0-9-]+)",
+            "instagr\\.am/p/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "http://api.instagram.com/oembed"
+    },
+    {
+        "name": "DailyMotion",
+        "templates": [
+            "www\\.dailymotion\\.com/video/.+"
+        ],
+        "endpoint": "http://www.dailymotion.com/services/oembed"
+    },
+    {
+        "name": "SoundCloud",
+        "templates": [
+            "soundcloud\\.com/.+"
+        ],
+        "endpoint": "http://soundcloud.com/oembed"
+    },
+    {
+        "name": "Animoto",
+        "templates": [
+            "animoto\\.com/play/.+"
+        ],
+        "endpoint": "http://animoto.com/oembeds/create.{format}?automated=true&options=start_hq&url={url}"
+
+    },
+    {
+        "name": "Dailymotion",
+        "templates": [
+            "dailymotion\\.com/video/.+"
+        ],
+        "endpoint": "http://www.dailymotion.com/services/oembed"
+    },
+    {
+        "name": "Rdio",
+        "templates": [
+            "rdio\\.com/people/[^/]+/playlists/.+",
+            "rdio\\.com/artist/[^/]+/album/.+"
+        ],
+        "endpoint": "http://www.rdio.com/api/oembed"
+    },
+    {
+        "name": "500px",
+        "templates": [
+            "500px\\.com/photo/(\\d+).*"
+        ],
+        "endpoint": "http://500px.com/photo/{1}/oembed.{format}"
+    },
+    {
+        "name": "Dipdive",
+        "templates": [
+            "\\w+\\.dipdive\\.com/media/.*"
+        ],
+        "endpoint": "http://api.dipdive.com/oembed.{format}"
+    },
+    {
+        "name": "Speaker Deck",
+        "templates": [
+            "speakerdeck\\.com/.*"
+        ],
+        "endpoint": "https://speakerdeck.com/oembed.{format}"
+    },
+    {
+        "name": "Yandex Video",
+        "templates": [
+            "video\\.yandex\\.ru/users/[^/]+/view/.+"
+        ],
+        "endpoint": "http://video.yandex.ru/oembed.{format}"
+    },
+    {
+        "name": "qz.com",
+        "templates": [
+            "qz\\.com/\\d+/[a-zA-Z0-9_-]+/"
+        ],
+        "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=iframely&url={url}"
+    },
+    {
+        "name": "Techcrunch",
+        "templates": [
+            "techcrunch\\.com/[0-9]/[0-9]/[0-9]+/"
+        ],
+        "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=iframely&url={url}"
+    },    
+    {
+        "name": "Mixcloud",
+        "templates": [
+            "www\\.mixcloud\\.com/.+/.+/.*"
+        ],
+        "endpoint": "http://www.mixcloud.com/oembed/"
+    },
+    {
+        "name": "Kickstarter",
+        "templates": [
+            "\\w+\\.kickstarter\\.com/projects/.*"
+        ],
+        "endpoint": "http://www.kickstarter.com/services/oembed"
+    },
+    {
+        "name": "Coub",
+        "templates": [
+            "coub\\.com/view/.*"
+        ],
+        "endpoint": "http://coub.com/api/oembed.{format}"
+    },
+    {
+        "name": "Screenr",
+        "templates": [
+            "\\w+\\.screenr\\.com/[a-zA-Z0-9_-]+/"
+        ],
+        "endpoint": "http://www.screenr.com/api/oembed.{format}"
+    },
+    {
+        "name": "Funny or Die",
+        "templates": [
+            "www.funnyordie.com/videos/.+"
+        ],
+        "endpoint": "http://www.funnyordie.com/oembed.{format}"
+    },
+    {
+        "name": "Wistia",
+        "templates": [
+            ".*\\.wistia.com/medias/.*"
+        ],
+        "endpoint": "http://fast.wistia.com/oembed.{format}"
+    },
+    {
+        "name": "crowdranking",
+        "templates": [
+            "crowdranking.com/crowdrankings/.+",
+            "crowdranking.com/rankings/.+",
+            "crowdranking.com/topics/.+",
+            "crowdranking.com/widgets/.+",
+            "crowdranking.com/r/.+"
+        ],
+        "endpoint": "http://crowdranking.com/api/oembed.{format}"
+    },
+    {
+        "name": "IFTTT",
+        "templates": [
+            "ifttt\\.com/recipes/.+"
+        ],
+        "endpoint": "https://ifttt.com/oembed"
+    },
+    {
+        "name": "Polldaddy",
+        "templates": [
+            "polldaddy\\.com/poll/.*"
+        ],
+        "endpoint": "http://polldaddy.com/oembed/"
+    },
+    {
+        "name": "Imgur",
+        "templates": [
+            "imgur\\.com/.*"
+        ],
+        "endpoint": "http://api.imgur.com/oembed.{format}"
+    },
+    {
+        "name": "Meetup",
+        "templates": [
+            "www\\.meetup\\.com/.*"
+        ],
+        "endpoint": "http://api.meetup.com/oembed"
+    },
+    {
+        "name": "Haiku Deck",
+        "templates": [
+            "www\\.haikudeck\\.com/p/.*"
+        ],
+        "endpoint": "http://www.haikudeck.com/oembed"
+    },
+    {
+        "name": "Behance",
+        "templates": [
+            "www\\.behance\\.net/gallery/.*"
+        ],
+        "endpoint": "http://www.behance.net/services/oembed"
+    }            
+]

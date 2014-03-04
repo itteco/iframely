@@ -50,7 +50,6 @@ module.exports = {
     },
 
     tests: [
-        "https://soundcloud.com/palomafaith/picking-up-the-pieces-4",
         "https://soundcloud.com/louislaroche/kate-bush-running-up-that-hill-llr-remix-full",
         "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         {

@@ -11,8 +11,8 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function($selector) {
-        var $img = $selector('img.full-image:first').prev();
+    getLink: function(cheerio) {
+        var $img = cheerio('img.full-image').first().prev();
         return {
             href: $img.attr("data-original"),
             rel: CONFIG.R.image,

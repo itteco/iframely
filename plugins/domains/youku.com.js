@@ -26,10 +26,7 @@ module.exports = {
         }]
     },
 
-    tests: [{
-        page: "http://www.youku.com/",
-        selector: "#focusvideo .v_title a"
-    },
+    tests: [
         "http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842"
     ]
 };

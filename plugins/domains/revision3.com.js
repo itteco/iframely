@@ -10,6 +10,8 @@ module.exports = {
         "canonical",
         "video",
         "og-description",
+        "og-image",
+        "twitter-image",
         "favicon"
     ],
 

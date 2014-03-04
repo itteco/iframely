@@ -6,6 +6,7 @@ module.exports = {
 
     mixins: [
         "og-site",
+        "og-image",
         "favicon"
     ],
 
@@ -25,12 +26,8 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
-            template: "embed-html",
-            template_context: {
-                title: meta.og.title,
-                html: '<script type="text/javascript" src="' + src + '"></script>'
-            },
+            rel: CONFIG.R.app,
+            html: '<script type="text/javascript" src="' + src + '"></script>',
             "orientation": 'portrait',
             "min-width": 320,
             "max-width": 900

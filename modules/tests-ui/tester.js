@@ -6,17 +6,17 @@ if (!CONFIG.tests) {
     return;
 }
 
-// Set before "cache.js" loaded from iframely.js.
-CONFIG.CACHE_ENGINE = 'no-cache';
 
 var async = require('async');
 var _ = require('underscore');
 
 var models = require('./models');
 
-var iframely = require('../../lib/iframely');
-var cache = require('../../lib/cache');
+var iframely = require('../../lib/core').run;
 var utils = require('./utils');
+
+var pluginLoader = require('../../lib/loader/pluginLoader');
+var plugins = pluginLoader._plugins;
 
 var testOnePlugin = false;
 
@@ -249,7 +249,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                 plugin: pluginTest._id,
                 urls: urls
             });
-            testUrlsSet.errors = errors.length ? errors : undefined
+            testUrlsSet.errors = errors.length ? errors : undefined;
             testUrlsSet.save(cb);
         },
 
@@ -290,7 +290,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
-                        if (error == "timeout") {
+                        if (error.indexOf("timeout") > -1) {
                             logEntry.warnings = [error];
                         } else if (error.stack) {
                             logEntry.errors = [error.stack];
@@ -298,7 +298,6 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                             logEntry.errors = [JSON.stringify(error)];
                         }
                     }
-
 
                     if (data) {
 
@@ -312,11 +311,6 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         });
 
                         logEntry.rel = rels;
-
-                        if (data.debug[0].context.errors) {
-                            logEntry.errors = logEntry.errors || [];
-                            logEntry.errors = logEntry.errors.concat(data.debug[0].context.errors);
-                        }
 
                         // Method errors.
                         var errors = utils.getErrors(data);
@@ -362,9 +356,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     callback('timeout');
                 }, CONFIG.tests.single_test_timeout);
 
-                iframely.getRawLinks(url, {
-                    debug: true,
-                    disableCache: true
+                iframely(url, {
+                    debug: true
                 }, callback);
 
             }, cb);
@@ -398,8 +391,6 @@ function findPluginLastModifiedDate(plugin, plugins) {
 }
 
 function testAll(cb) {
-
-    var plugins = iframely.getPlugins();
 
     // Get all plugins with tests.
     var pluginsList = _.values(plugins).filter(function(plugin) {

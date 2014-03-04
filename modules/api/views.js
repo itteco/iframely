@@ -1,10 +1,12 @@
-var iframely = require('../../lib/iframely');
+var iframelyCore = require('../../lib/core');
+var iframelyUtils = require('../../lib/utils');
 var utils = require('../../utils');
-var apiUtils = require('./utils');
 var _ = require('underscore');
-var moment = require('moment');
-var jsonxml = require('jsontoxml');
 var async = require('async');
+var cache = require('../../lib/cache');
+var apiUtils = require('./utils');
+var whitelist = require('../../lib/whitelist');
+var pluginLoader = require('../../lib/loader/pluginLoader');
 
 function prepareUri(uri) {
 
@@ -25,6 +27,8 @@ function prepareUri(uri) {
 
 var log = utils.log;
 
+var version = require('../../package.json').version;
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
@@ -35,18 +39,22 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /iframely for', uri);
 
         async.waterfall([
 
             function(cb) {
 
-                iframely.getRawLinks(uri, {
-                    debug: req.query.debug,
+                iframelyCore.run(uri, {
+                    debug: req.query.debug === "true",
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    forceMeta: req.query.meta === "true",
-                    forceOembed: req.query.meta === "true",
-                    disableCache: req.query.refresh === "true"
+                    forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
+                    whitelist: req.query.whitelist === 'true',
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor
                 }, cb);
             }
 
@@ -62,18 +70,42 @@ module.exports = function(app) {
                 return next(new Error("Requested page error: " + error));
             }
 
-            var debug = result.debug;
-
-            if (!req.query.debug) {
-                // Debug used later. Do not dispose.
-                delete result.debug;
-
-                // Plugins are part of API. Do not dispose.
-                delete result.plugins;
-
-                iframely.disposeObject(result.time);
-                delete result.time;
+            if (result.safe_html) {
+                cache.set('html:' + version + ':' + uri, result.safe_html);
+                result.links.unshift({
+                    href: CONFIG.baseAppUrl + "/reader.js?uri=" + encodeURIComponent(uri),
+                    type: CONFIG.T.javascript,
+                    rel: [CONFIG.R.reader, CONFIG.R.inline]
+                });
+                delete result.safe_html;
             }
+
+            var render_link = _.find(result.links, function(link) {
+                return link.html
+                    && link.rel.indexOf(CONFIG.R.inline) === -1
+                    && link.type === CONFIG.T.text_html;
+            });
+            if (render_link) {
+                cache.set('render_link:' + version + ':' + uri, _.extend({
+                    title: result.meta.title
+                }, render_link)); // Copy to keep removed fields.
+                render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
+                delete render_link.html;
+            } else {
+                // Cache non inline link to later render for older consumers.
+                render_link = _.find(result.links, function(link) {
+                    return link.html
+                        && link.rel.indexOf(CONFIG.R.inline) > -1
+                        && link.type === CONFIG.T.text_html;
+                });
+                if (render_link) {
+                    cache.set('render_link:' + version + ':' + uri, _.extend({
+                        title: result.meta.title
+                    }, render_link)); // Copy to keep removed fields.
+                }
+            }
+
+            iframelyCore.sortLinks(result.links);
 
             if (req.query.group) {
                 var links = result.links;
@@ -93,40 +125,24 @@ module.exports = function(app) {
                 }
                 result.links = groups;
             }
-
+/*
             if (req.query.whitelist) {
                 // if whitelist record's domain is "*" - ignore this wildcard
                 var whitelistRecord = iframely.whitelist.findWhitelistRecordFor(uri) || {} ;
                 result.whitelist = whitelistRecord.isDefault ? {} : whitelistRecord;
             }
-
-            if (req.query.meta) {
-                var raw_meta = result['raw-meta'] = {};
-                if (debug.length > 0) {
-                    raw_meta.meta = debug[0].context.meta;
-                    raw_meta.oembed = debug[0].context.oembed;
-                }
-            }
+*/
 
             res.sendJsonCached(result);
 
-            iframely.disposeObject(debug);
-            iframely.disposeObject(result);
+
+            //iframely.disposeObject(debug);
+            //iframely.disposeObject(result);
 
             if (global.gc) {
                 //console.log('GC called');
                 global.gc();
             }
-        });
-    });
-
-    app.get('/meta-mappings', function(req, res, next) {
-
-        var ms = iframely.metaMappings;
-
-        res.sendJsonCached({
-            attributes: _.keys(ms),
-            sources: ms
         });
     });
 
@@ -138,17 +154,34 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /reader for', uri);
 
         async.waterfall([
 
             function(cb) {
-                iframely.getRawReaderLink(uri, {
-                    disableCache: req.query.refresh === "true"
+
+                cache.withCache('html:' + version + ':' + uri, function(cb) {
+
+                    iframelyCore.run(uri, {
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, function(error, data) {
+
+                        if (!data || !data.safe_html) {
+                            error = 404;
+                        }
+
+                        cb(error, data && data.safe_html);
+                    });
+
                 }, cb);
+
             }
 
-        ], function(error, link) {
+        ], function(error, html) {
 
             if (error) {
 
@@ -160,11 +193,7 @@ module.exports = function(app) {
                 return next(new Error("Requested page error: " + error));
             }
 
-            if (!link) {
-                return next(new utils.NotFound());
-            }
-
-            var htmlArray = (link.html || "").match(/.{1,8191}/g) || "";
+            var htmlArray = (html || "").match(/.{1,8191}/g) || "";
 
             var context = {
                 embedCode: JSON.stringify(htmlArray),
@@ -187,13 +216,44 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /render for', uri);
 
         async.waterfall([
 
             function(cb) {
-                iframely.getRawRenderLink(uri, {
-                    disableCache: req.query.refresh === "true"
+
+                cache.withCache('render_link:' + version + ':' + uri, function(cb) {
+
+                    iframelyCore.run(uri, {
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, function(error, result) {
+
+                        var render_link = result && _.find(result.links, function(link) {
+                            return link.html
+                                && link.rel.indexOf(CONFIG.R.inline) === -1
+                                && link.type === CONFIG.T.text_html;
+                        });
+
+                        if (!render_link) {
+                            // Cache non inline link to later render for older consumers.
+                            render_link = _.find(result.links, function(link) {
+                                return link.html
+                                    && link.rel.indexOf(CONFIG.R.inline) > -1
+                                    && link.type === CONFIG.T.text_html;
+                            });
+                        }
+
+                        if (render_link) {
+                            render_link.title = result.meta.title;
+                        }
+
+                        cb(error, render_link);
+                    });
+
                 }, cb);
             }
 
@@ -213,20 +273,25 @@ module.exports = function(app) {
                 return next(new utils.NotFound());
             }
 
-            res.renderCached(link._render.template, link.template_context);
+            res.renderCached('embed-html.ejs', {
+                title: link.title,
+                html: link.html
+            });
         });
 
     });
 
     app.get('/supported-plugins-re.json', function(req, res, next) {
 
-        var plugins = _.values(iframely.getPlugins());
+        var plugins = pluginLoader._plugins;
 
         var regexps = [];
 
         var domainsDict = {};
 
-        plugins.forEach(function(plugin) {
+        for(var pluginId in plugins) {
+
+            var plugin = plugins[pluginId];
 
             if (plugin.domain) {
 
@@ -247,7 +312,7 @@ module.exports = function(app) {
                     });
                 }
             }
-        });
+        }
 
         regexps.sort();
 
@@ -262,13 +327,19 @@ module.exports = function(app) {
             return next(new Error("'url' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /oembed for', uri);
 
         async.waterfall([
 
             function(cb) {
 
-                iframely.getRawLinks(uri, cb);
+                iframelyCore.run(uri, {
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor
+                }, cb);
             }
 
         ], function(error, result) {
@@ -303,7 +374,8 @@ module.exports = function(app) {
                 res.jsonpCached(oembed);
             }
 
-            iframely.disposeObject(result);
+            //iframely.disposeObject(result);
         });
     });
+
 };

@@ -25,7 +25,7 @@ module.exports = {
     getLink: function(url) {
         return [{
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.reader, CONFIG.R.inline],
             template: "pinterest.widget",
             template_context: {
                 url: url,
@@ -40,10 +40,10 @@ module.exports = {
         }];
     },
 
-    tests: [{
-        page: "http://pinterest.com/all/science_nature/",
-        selector: ".pinUserAttribution a.lastAttribution"
-    },
+    tests: [
+
+        // No Test Feed here not to violate "scrapping" restrictions of Pinterest
+        
         "http://pinterest.com/bcij/art-mosaics/",
         "http://pinterest.com/bcij/aging-gracefully/"
     ]

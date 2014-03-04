@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "0.5.8",
+    "version": "0.6.0",
     
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": ["oembed", "embed", "open graph", "og", "twitter cards"],
@@ -22,7 +22,6 @@
         "jslint":       "0.1.9",
         "async":        "0.2.8",
         "underscore":   "1.4.4",
-        "jsdom":        "0.8.8",
         "request":      "2.9",
         "express":      "3.2.4",
         "send":         "0.1.0",
@@ -48,7 +47,9 @@
         "node-cache":   "0.3.2",
 
         "jquery":       "1.8.3",
-        "iframely-readability":      "git://github.com/itteco/node-readability.git",
+        "readabilitySAX":"1.6.1",
+
+        "cheerio":      "git://github.com/nleush/cheerio.git#load-by-domhandler",
 
         "usage":        "*"
     },

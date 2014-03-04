@@ -27,6 +27,8 @@ module.exports = {
     tests: [ {
         page: "http://dribbble.com/",
         selector: ".dribbble-link"
+    }, {
+        skipMixins: ["twitter-author"]
     },
         "http://dribbble.com/shots/1311850-Winter-Is-Coming"
     ]

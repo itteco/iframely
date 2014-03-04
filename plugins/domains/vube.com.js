@@ -2,6 +2,8 @@ module.exports = {
 
     re: /^http:\/\/vube\.com\/([^\/]+)\/([a-zA-Z0-9_-]+)/i,
 
+    provides: 'vube',
+
     getData: function(urlMatch, request, cb) {
         request({
             uri: "http://vube.com/api/v2/video/" + urlMatch[2],
@@ -51,8 +53,8 @@ module.exports = {
             rel: CONFIG.R.thumbnail
         }, {
             html: html,
-            type: CONFIG.T.safe_html,
-            rel: CONFIG.R.player,
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.inline],
             "aspect-ratio": 0.565,
             "max-width": 800
         }];

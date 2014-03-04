@@ -10,23 +10,32 @@ module.exports = {
         "og-description",
 
         "favicon",
-        "og-image"
+        "og-image",
+        "image_src"
     ],
 
-    getLink: function(meta) {
+    getLinks: function(meta) {
 
         var video_url = meta.og.video.url;
+        var links = [];
 
         var m = video_url.match(/\.(mp4|ogg|webm)$/);
 
-        if (m) {
-            return {
-                href: meta.og.video.url,
-                type: "video/" + m[1],
-                rel: CONFIG.R.player,
-                "aspect-ratio": meta.og.video.width / meta.og.video.height
-            };
-        }
+        links.push({
+            href: meta.og.video.url,
+            type: m ? "video/" + m[1] : meta.og.video.type,
+            rel: CONFIG.R.player,
+            "aspect-ratio": meta.og.video.width / meta.og.video.height
+        });
+
+        links.push({
+            href: meta.og.video.secure_url,
+            type: meta.og.video.type,
+            rel: [CONFIG.R.player, CONFIG.R.autoplay],
+            "aspect-ratio": meta.og.video.width / meta.og.video.height
+        });
+
+        return links;
     },
 
     tests: [

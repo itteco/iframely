@@ -9,7 +9,8 @@ module.exports = {
         /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i
     ],
-        
+
+    provides: 'youtube_gdata',
 
     getData: function(urlMatch, request, cb) {
 
@@ -77,7 +78,7 @@ module.exports = {
             width: 480,
             height: 360
         }, {
-            href: '//www.youtube.com/embed/' + youtube_gdata.id + params,
+            href: 'https://www.youtube.com/embed/' + youtube_gdata.id + params,
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
             "aspect-ratio": (youtube_gdata.aspectRatio === "widescreen") ? 16/9 : 4/3

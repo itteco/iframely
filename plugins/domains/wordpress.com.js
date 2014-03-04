@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     mixins: [
         "oembed-author",
         "oembed-site",
@@ -13,8 +15,8 @@ module.exports = {
 
         return {
             html: oembed.html,
-            type: CONFIG.T.safe_html,
-            rel: CONFIG.R.reader
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.reader, CONFIG.R.inline] 
         }
     },
 

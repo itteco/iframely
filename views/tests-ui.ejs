@@ -46,6 +46,16 @@
                 <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
             </ul>
         <% } %>
+
+        <% if (totalCount) { %>
+            <p>Speed:</p>
+            <ul>
+                <li>average request time (with timeouts): <strong><%= averageTime %></strong></li>
+                <li>total requests count (with timeouts): <strong><%= totalCount %></strong></li>
+                <li>average good request time (without timeouts): <strong><%= averageOkTime %></strong></li>
+                <li>goot requests count (without timeouts): <strong><%= totalOkCount %></strong></li>
+            </ul>
+        <% } %>
     <% } %>
 
     <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">Mark all to test</a> (test will run in background after <%= CONFIG.tests.relaunch_script_period / (60 * 1000) %> mins if properly configured)</p>

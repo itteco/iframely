@@ -38,10 +38,7 @@ module.exports = {
     },
 
 
-    tests: [ {
-        page: "http://www.vevo.com/videos/topvideos",
-        selector: ".videoItemImage"
-    },
+    tests: [ 
         "http://www.vevo.com/watch/royksopp/the-girl-and-the-robot/FRA110900110"
     ]
 };

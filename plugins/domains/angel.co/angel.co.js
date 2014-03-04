@@ -25,7 +25,7 @@ module.exports = {
         var result = [{
                 href: (meta.og && meta.og.image) ? meta.og.image : meta.twitter.image.src,
                 type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
+                rel: CONFIG.R.thumbnail
             }];
 
         if (meta.twitter && meta.twitter.title) {
@@ -36,10 +36,10 @@ module.exports = {
                     slug: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.reader,
+                rel: [CONFIG.R.reader, CONFIG.R.inline],
                 width: 560 + 40 + 10,
                 height: 300 + 40 + 10
-            })
+            });
         }
         
         return result;

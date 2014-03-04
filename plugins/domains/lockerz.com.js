@@ -6,7 +6,6 @@ module.exports = {
 
     mixins: [
         "canonical",
-        "favicon",
         "author",
         "og-title",
         "twitter-image-rel-image"
@@ -17,6 +16,14 @@ module.exports = {
             site: "Lockerz"
         };
     },
+
+    getLink: function() {
+        return {
+            href: "http://lockerz.com/favicon.ico",
+            rel: CONFIG.R.icon,
+            type: CONFIG.T.image
+        };
+    },    
 
     tests: [ 
         "http://lockerz.com/u/patricia.varela/decalz/25781980/louis_3"

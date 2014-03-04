@@ -21,7 +21,7 @@ module.exports = {
         }
     },
 
-    tests: [{
-        pageWithFeed: "http://pastebin.com/ZjTA1Q4Z"
-    }]
+    tests: [
+        "http://pastebin.com/ZjTA1Q4Z"
+    ]
 };
