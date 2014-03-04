@@ -34,7 +34,8 @@ module.exports = {
 
             }
 
-        } else {
+        } else if (twitter.image) {
+
             rel.push(CONFIG.R.thumbnail);
 
             links.push({
