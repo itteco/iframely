@@ -24,7 +24,7 @@ module.exports = {
 
     tests: [{
         page: "https://gist.github.com/discover",
-        selector: ".creator a:last"
+        selector: ".creator a:nth-child(3)"
     }, {
         skipMixins: ["og-image", "og-site"]
     },
