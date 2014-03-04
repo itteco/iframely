@@ -4,19 +4,37 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
-### 2014.03.XX, Version 0.6.0
 
- * improve parsing speed with htmlparser
- * improve css selector speed with cheerio (jQuery replacement)
- * improve readability speed with readabilitySAX
- * core params moved to plugins: readability, cheerio, meta, oembed
- * new plugins' params: og, twitter, oembed
- * new plugins params dependency system: domain plugin requests params, iframely core will search plugins which provides them
- * more asynchronous plugins work: plugin waits only for its own dependencies
- * link post processing plugins to simplify core
- * extract caching from core except checkFavicon.js plugin work
- * new rel - app
- * extract full page rendering from plugins, plugin will render only widget
+
+### 2014.03.04, Version 0.6.0
+
+And, after substantial refactoring, we have a shiny new core! 
+
+Iframely got several times faster response time, increased traffic capacity, and smaller memory footprint. Now, the processing time for cache misses depends solely on latency of the _start_ of a server response from URL's origin host. The technical details of the refactoring follow below. In a nutshell, we've adapted the streaming approach pioneered by [Felix Böhm](https://github.com/fb55) and migrated to libs that are based on this approach. 
+
+Please, run `npm install` to update the package dependencies. 
+
+Beware: The interfaces of Iframely core lib have slightly changed and remain unstable as we continue to work on release of Iframely as Node.js lib. The HTTP API endpoints interfaces remained intact.
+
+
+Functional changes:
+
+ * Iframely core lib doesn't have hosted renders of its own any longer. It will produce `html` for the server API to build upon.
+ * As a result, the `/oembed` endpoint now has the native `html` of e.g. Twitter, Facebook and Google+ statuses, GitHub gists, Instagram, etc. (as renders were inside the lib, it had hosted wrappers before).
+ * We added new functional `rel` - `app`, so that lib can output native embeds html for statuses, oembed type rich, etc.
+ * There is now cache in Iframely's core lib any longer (except for favicons). Response caching has been moved to the API endpoint views.
+ * Domain plugin maintanance included necessary fixes. Plus several redundant domain plugins were removed, and some were added, like Behance and Behance hosted sites, Droplr.
+
+
+Details of internal changes in the core lib:
+
+ * Overall streaming approach for parsers, including migration to `htmlparser2`, `cheerio` and `readabilitySAX`.
+ * The plugins architecture is extended to the core params as well. Initial core parameters `meta`, `oembed`, `og`, `twitter`, `cheerio`, `readability` are now returned by system plugins rather than a hardcode.
+ * The processing wave for plugins is now strictly asynchronious and supports streaming pipes. A plugin is now called as soon as all the params it depends upon are available.
+ * Post processing of the embed links and meta has been moved to system plugins as well, to make it asynchronous too. 
+
+
+ 
 
 ### 2014.01.28, Version 0.5.8
 
