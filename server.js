@@ -90,6 +90,8 @@ app.get('/', function(req, res) {
 });
 
 process.title = "iframely";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 app.listen(CONFIG.port);
 
 if (CONFIG.ssl) {
