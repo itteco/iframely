@@ -57,6 +57,8 @@ function logErrors(err, req, res, next) {
     next(err);
 }
 
+var errors = [401, 403, 408];
+
 function errorHandler(err, req, res, next) {
 
     if (err instanceof NotFound) {
@@ -66,7 +68,19 @@ function errorHandler(err, req, res, next) {
 
     } else {
 
-        res.writeHead(err.code || 500);
+        var code = err.code || 500;
+
+        errors.map(function(e) {
+            if (err.message.indexOf(e) > - 1) {
+                code = e;
+            }
+        });
+
+        if (err.message.indexOf('timeout') > -1) {
+            code = 408;
+        }
+
+        res.writeHead(code);
         res.end(err.message);
     }
 }
