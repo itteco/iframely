@@ -12,12 +12,6 @@ module.exports = {
 
     getLinks: function(oembed) {
 
-        var html = oembed.html;
-
-        if (oembed.thumbnail_url) {
-            html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + html;
-        }
-
         return [
 
         // Logo.
@@ -37,14 +31,21 @@ module.exports = {
             "type": CONFIG.T.image_png,
             "width": 72,
             "height": 72
-        },
+        }]
+    },
+
+    getData: function(oembed) {
+
+        var html = oembed.html;
+
+        if (oembed.thumbnail_url) {
+            html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + html;
+        }        
 
         // Reader.
-        {
-            html: html,
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline]
-        }];
+        return {
+            safe_html: html,
+        };
     },
 
     tests: [
