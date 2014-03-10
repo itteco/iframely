@@ -22,7 +22,7 @@ module.exports = {
             {
                 href: embed,
                 type: CONFIG.T.text_html,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.player : CONFIG.R.reader,
+                rel: (meta.og && meta.og.video) ? CONFIG.R.player : CONFIG.R.app,
                 width: 616,
                 height: 714
             },
