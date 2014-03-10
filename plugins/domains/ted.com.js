@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /^http:\/\/ted\.com\/talks\//i,
+
     mixins: [
         "canonical",
         "oembed-title",

@@ -325,5 +325,12 @@
             "www\\.behance\\.net/gallery/.*"
         ],
         "endpoint": "http://www.behance.net/services/oembed"
-    }            
+    },
+    {
+        "name": "Ted",
+        "templates": [
+            "ted\\.com/talks/.*"
+        ],
+        "endpoint": "http://www.ted.com/talks/oembed.{format}"
+    }
 ]
