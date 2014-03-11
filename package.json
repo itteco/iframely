@@ -60,7 +60,7 @@
 
     "iframely-proxy-plugins": true,
 
-    "main": "./lib/iframely",
+    "main": "./lib/core",
 
     "scripts": {
         "test": "./node_modules/vows/bin/vows test/main.js --isolate --spec"
