@@ -36,7 +36,7 @@ module.exports = {
                     slug: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.inline],
+                rel: [CONFIG.R.app, CONFIG.R.inline],
                 width: 560 + 40 + 10,
                 height: 300 + 40 + 10
             });
