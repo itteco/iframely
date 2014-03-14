@@ -2,8 +2,7 @@ module.exports = {
 
     getLink: function (meta, whitelistRecord) {
 
-        // TODO: remove that.
-        //if (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video'))) {
+        if (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video'))) {
         
             return {
                 href: meta.video_src,
@@ -12,6 +11,6 @@ module.exports = {
                 width: meta.video_width,
                 height: meta.video_height
             };
-        //}
+        }
     }
 };

@@ -24,9 +24,13 @@ module.exports = {
             limit: 1, 
             timeout: 1000
         }, function(error, response, body) {
-            
-            if (error) return cb(error);
 
+            if (error) {
+                return cb(error);
+            }
+            if (body.message) {
+                return cb(body.message);
+            }
             cb(null, {
                 getty: body
             });
