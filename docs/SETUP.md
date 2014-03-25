@@ -100,11 +100,11 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 
 ## Extend functionality with Domains DB
 
-If can greatly extend gateway functionality without writting additional plugins. Just upload you put Domains DB JSON file into `whitelist` folder and, Iframely will start covering extra domains, giving responsive players, twitter photos, etc via standard plugins.  
+You can greatly extend gateway functionality without writting additional plugins. Just upload Domains DB JSON file into `whitelist` folder and Iframely will start covering extra domains, generating responsive players, twitter photos, etc via generic plugins.
 
-The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory is used. 
+The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory prevails. 
 
-You can get whitelist file with 2000+ domains at [iframely.com/qa/buy](http://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will make Iframely to load domains DB from the server automatically. If neither local file or `WHITELIST_URL` are provided, Iframely will get a free file with top 100 domains from [iframely.com/qa/sample.json](http://iframely.com/qa/sample.json). 
+You can get whitelist file with 2000+ domains at [iframely.com/qa/buy](http://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will instruct Iframely to load domains DB from the server periodically. If neither local file nor `WHITELIST_URL` are provided, Iframely will use a free file with top 100 domains from [iframely.com/qa/sample.json](http://iframely.com/qa/sample.json). 
 
 If you wish to create your own whitelist, please, follow [required file format](http://iframely.com/qa/format).
 
