@@ -6,6 +6,10 @@ module.exports = {
 
     provides: 'facebook_post',
 
+    mixins: [
+        "favicon"
+    ],    
+
     getMeta: function(facebook_post) {
         return {
             title: facebook_post.title,

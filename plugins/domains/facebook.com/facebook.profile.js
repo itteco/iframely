@@ -8,6 +8,7 @@ module.exports = {
 
     mixins: [
         "html-title",
+        "favicon",        
         "description"
     ],
 
