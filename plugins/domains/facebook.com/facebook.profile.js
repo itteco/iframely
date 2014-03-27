@@ -6,6 +6,11 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/(?!photo)([^\/\?#]+)$/i
     ],
 
+    mixins: [
+        "html-title",
+        "description"
+    ],
+
     getLink: function(url, request, cb) {
 
         var urlMatch;

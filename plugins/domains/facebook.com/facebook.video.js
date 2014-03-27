@@ -10,7 +10,8 @@ module.exports = {
     ],
 
     mixins: [
-        "favicon"
+        "favicon",
+        "description"
     ],
 
     getMeta: function(meta) {

@@ -19,11 +19,9 @@ module.exports = {
         }
 
         var preview = $image.attr('src');
-        var title = cheerio('.hasCaption').text().replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (preview) {
             return {
-                title: title,
                 href: preview,
                 type: CONFIG.R.image,
                 rel: CONFIG.R.image

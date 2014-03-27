@@ -8,7 +8,8 @@ module.exports = {
 
     getMeta: function(facebook_post) {
         return {
-            title: facebook_post.title
+            title: facebook_post.title,
+            site: "Facebook"
         };
     },
 
@@ -24,7 +25,7 @@ module.exports = {
         };
     },
 
-    getData: function(url, meta) {
+    getData: function(url, meta, cb) {
 
         var badRe = [
             // From profile.
@@ -42,18 +43,22 @@ module.exports = {
         });
 
         if (!good) {
-            return;
+            cb (null, null);
         }
 
-        var title = meta["html-title"];
-        title = title.replace(/ \| Facebook$/, "");
+        if (meta["html-title"] == "Facebook") {
+            // the content is not public
+            cb("private FB post at " + url);
+        }
 
-        return {
+        var title = meta["description"] ? meta["description"]: meta["html-title"].replace(/ \| Facebook$/, "");
+
+        cb(null, {
             facebook_post: {
                 title: title,
                 url: url
             }
-        };
+        });
     },
 
     tests: [
