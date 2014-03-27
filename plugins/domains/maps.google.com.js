@@ -92,7 +92,7 @@ module.exports = {
 
         var links = [{
             href: 'https://maps.google.com/maps?'+QueryString.stringify(iframe_query),
-            rel: CONFIG.R.reader,
+            rel: CONFIG.R.app,
             type: CONFIG.T.text_html,
             "min-width":  100,
             "min-height": 100

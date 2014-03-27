@@ -8,20 +8,12 @@ module.exports = {
         "canonical",
         "author",
         "og-site",
-        "twitter-title",
+        "og-title",
         "keywords",
         "twitter-image",
         "twitter-player-whitelisted",
         "favicon"
     ],
-
-    getMeta: function (meta) {
-
-        return {
-            shortlink: meta.og.url
-        }
-
-    },
 
     getLinks: function(urlMatch) {
 

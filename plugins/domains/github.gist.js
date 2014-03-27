@@ -9,8 +9,11 @@ module.exports = {
     ],
 
     getMeta: function(meta) {        
-        return {
-            title: (meta.og && meta.og.title) ? meta.og.title : meta["html-title"]
+        return (meta.og && meta.og.title) ? {
+            title: meta.og.title,
+            description: meta["html-title"]
+        } : {
+            title: meta["html-title"]
         }
     },
 

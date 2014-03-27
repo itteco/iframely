@@ -5,6 +5,7 @@ module.exports = {
     mixins: [
         "html-title",
         "copyright",
+        "description",
 
         "favicon"
     ],
