@@ -38,11 +38,11 @@ module.exports = {
                         title: data.entry.title['$t'],
                         uploaded: data.entry.published['$t'],
                         uploader: data.entry.author[0].name['$t'],
-                        category: data.entry['media$group']['media$category'][0].label,
+                        category: data.entry['media$group']['media$category'] ? data.entry['media$group']['media$category'][0].label : "",
                         description: data.entry['media$group']['media$description']['$t'],
                         duration: data.entry['media$group']['yt$duration'].seconds,
-                        likeCount: data.entry['yt$rating'].numLikes,
-                        viewCount: data.entry['yt$statistics'].viewCount,
+                        likeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numLikes : 0,
+                        viewCount: data.entry['yt$statistics'] ? data.entry['yt$statistics'].viewCount : 0,
 
                         hd: data.entry['yt$hd'] != null,
                         widescreen: data.entry['media$group']['yt$aspectRatio'] && data.entry['media$group']['yt$aspectRatio']['$t'] == "widescreen",
@@ -98,8 +98,8 @@ module.exports = {
                 href: youtube_gdata.thumbnailBase + 'maxresdefault.jpg',
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
-                width: 1920,  // sometimes the sizes are 1280x720, but it is impossible to tell based on API. 
-                height: 1080  // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
+                width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
+                height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
             });
         }
 
