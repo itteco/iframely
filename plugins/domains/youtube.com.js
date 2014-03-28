@@ -20,7 +20,7 @@ module.exports = {
             uri: statsUri,
             qs: {
                 v: 2,
-                alt: "jsonc"
+                alt: "json" // Unfortunatelly, even though `jsonc` is much simpler, it doesn't output `hd` attribute
             },
             json: true
         }, function(error, b, data) {
@@ -29,10 +29,26 @@ module.exports = {
                 return cb(error);
             }
 
-            if (data.data) {
+            if (data.entry) {
 
                 cb(null, {
-                    youtube_gdata: data.data
+                    youtube_gdata: {
+
+                        id: data.entry['media$group']['yt$videoid']['$t'],
+                        title: data.entry.title['$t'],
+                        uploaded: data.entry.published['$t'],
+                        uploader: data.entry.author[0].name['$t'],
+                        category: data.entry['media$group']['media$category'][0].label,
+                        description: data.entry['media$group']['media$description']['$t'],
+                        duration: data.entry['media$group']['yt$duration'].seconds,
+                        likeCount: data.entry['yt$rating'].numLikes,
+                        viewCount: data.entry['yt$statistics'].viewCount,
+
+                        hd: data.entry['yt$hd'] != null,
+                        widescreen: data.entry['media$group']['yt$aspectRatio'] && data.entry['media$group']['yt$aspectRatio']['$t'] == "widescreen",
+
+                        thumbnailBase: data.entry['media$group']['media$thumbnail'][0].url.replace(/[a-zA-Z0-9\.]+$/, '')
+                    }
                 });
             } else {
                 cb(statsUri + " returned no data");
@@ -50,7 +66,6 @@ module.exports = {
             duration: youtube_gdata.duration,
             likes: youtube_gdata.likeCount,
             views: youtube_gdata.viewCount,
-            comments: youtube_gdata.commentCount,
             site: "YouTube"
         };
     },
@@ -59,30 +74,46 @@ module.exports = {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
 
-        return [{
+        var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
             type: CONFIG.T.image_png,
             rel: CONFIG.R.icon,
             width: 32,
             height: 32
         }, {
-            href: youtube_gdata.thumbnail.sqDefault,
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image_jpeg,
-            width: 120,
-            height: 90
-        }, {
-            href: youtube_gdata.thumbnail.hqDefault,
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image_jpeg,
-            width: 480,
-            height: 360
-        }, {
             href: 'https://www.youtube.com/embed/' + youtube_gdata.id + params,
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
-            "aspect-ratio": (youtube_gdata.aspectRatio === "widescreen") ? 16/9 : 4/3
+            "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
+        }, {
+            href: youtube_gdata.thumbnailBase + 'mqdefault.jpg',
+            rel: CONFIG.R.thumbnail,
+            type: CONFIG.T.image_jpeg,
+            width: 320,
+            height: 180
         }];
+
+        if (youtube_gdata.hd) {
+            links.push({
+                href: youtube_gdata.thumbnailBase + 'maxresdefault.jpg',
+                rel: CONFIG.R.thumbnail,
+                type: CONFIG.T.image_jpeg,
+                width: 1920,  // sometimes the sizes are 1280x720, but it is impossible to tell based on API. 
+                height: 1080  // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
+            });
+        }
+
+        if (!youtube_gdata.widescreen) {
+            links.push({
+                href: youtube_gdata.thumbnailBase + 'hqdefault.jpg',
+                rel: CONFIG.R.thumbnail,
+                type: CONFIG.T.image_jpeg,
+                width: 480,
+                height: 360
+            });
+        }
+
+        return links;
     },
 
     tests: [{
