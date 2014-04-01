@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
+    re: /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
 
     mixins: [
         "favicon",
@@ -24,7 +24,7 @@ module.exports = {
         if (oembed.type === "photo" && oembed.url && oembed.url === meta.twitter.image.url) {
 
             links.push({
-                href: oembed.url,
+                href: oembed.url.replace("http://", "//"),
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.image, CONFIG.R.thumbnail, CONFIG.R.oembed],
                 width: oembed.width,
@@ -34,7 +34,7 @@ module.exports = {
         } else if (meta.twitter.image && meta.twitter.image.url) { // the kitten!
 
             links.push({
-                href: meta.twitter.image.url,
+                href: meta.twitter.image.url.replace("http://", "//"),
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.image, CONFIG.R.thumbnail, CONFIG.R.twitter],
                 width: meta.twitter.image.width,
@@ -60,6 +60,7 @@ module.exports = {
     },    
         "http://imgur.com/Ks3qs",
         "http://imgur.com/gallery/IiDwq",
+        "https://imgur.com/gallery/B3X48s9",
         "http://imgur.com/r/aww/tFKv2zQ" // kitten bomb
     ]
 };
