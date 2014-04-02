@@ -8,6 +8,7 @@ module.exports = {
         "oembed-thumbnail",
         "oembed-author",
         "oembed-site",
+        "oembed-title"
     ],
 
     getLink: function(oembed) {
