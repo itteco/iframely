@@ -332,5 +332,12 @@
             "ted\\.com/talks/.*"
         ],
         "endpoint": "http://www.ted.com/talks/oembed.{format}"
+    },
+    {
+        "name": "Codepen",
+        "templates": [
+            "codepen\\.io/.*/pen/.*"
+        ],
+        "endpoint": "http://codepen.io/api/oembed"
     }
 ]
