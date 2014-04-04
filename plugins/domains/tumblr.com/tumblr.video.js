@@ -7,20 +7,20 @@ module.exports = {
         /^http:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
     ], 
 
-    getLinks: function(tumblr_post) {
+    getLinks: function(tumblr_post, cb) {
 
         if (tumblr_post.type !== "video") {
-            return;
+            cb(null);
         }
 
         if (tumblr_post.video_url) {
 
-            return {
+            cb(null, {
                 href: tumblr_post.video_url,
                 type: CONFIG.T.video_mp4,
                 rel: CONFIG.R.player,
                 "aspect-ratio": tumblr_post.thumbnail_height ? tumblr_post.thumbnail_width / tumblr_post.thumbnail_height : null
-            };
+            });
 
         } else if (tumblr_post.player) {
 
@@ -36,23 +36,31 @@ module.exports = {
 
                 console.log('i was here');
 
-                return {
+                cb(null, {
                     href: $iframe.attr('src'),
                     type: CONFIG.T.text_html,
                     rel: CONFIG.R.player,
                     "aspect-ratio": height ? width / height : null
-                };
+                });
 
             } else {
 
-                return tumblr_post.player.map(function(p) {
-                    return {
-                        html: p.embed_code,
-                        type: CONFIG.T.text_html,
-                        rel: [CONFIG.R.player, CONFIG.R.inline],
-                        width: p.width
-                    };
-                });
+                if (tumblr_post.permalink_url) {
+
+                    cb({
+                        redirect: tumblr_post.permalink_url
+                    });
+
+                } else {
+                    cb(null, tumblr_post.player.map(function(p) {
+                        return {
+                            html: p.embed_code,
+                            type: CONFIG.T.text_html,
+                            rel: [CONFIG.R.player, CONFIG.R.inline],
+                            width: p.width
+                        };
+                    }));
+                } 
             }
         }
     },
@@ -61,5 +69,6 @@ module.exports = {
         "http://fyteensontop.tumblr.com/post/58053062280/130812-fanta-fanmeeting-niel-apink-eunji-cut",
         "http://hubol.tumblr.com/post/58053061056/check-out-how-cool-this-class-is",
         "http://blog.instagram.com/post/53448889009/video-on-instagram"
+        // + this one is re-direct to hulu: http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more
     ]
 };
