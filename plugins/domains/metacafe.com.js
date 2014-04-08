@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.metacafe\.com\/watch\/([a-zA-Z0-9\-]+)/i
+        /^https?:\/\/www\.metacafe\.com\/watch\/(\d+)/i
     ],
 
     mixins: [
