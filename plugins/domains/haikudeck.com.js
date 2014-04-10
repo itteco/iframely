@@ -13,7 +13,7 @@ module.exports = {
         return {
             href: "http://static.haikudeck.com/images/haikudeck-icon.png",
             type: CONFIG.T.image,
-            rel: CONFIG.R.icon,            
+            rel: CONFIG.R.icon
         };
     },
 
