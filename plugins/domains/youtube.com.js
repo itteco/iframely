@@ -7,7 +7,8 @@ module.exports = {
         /^https?:\/\/(?:www\.)?youtube\.com\/tv#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i
+        /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i,
+        /^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9]+\?v=([\-_a-zA-Z0-9]+)$/i
     ],
 
     provides: 'youtube_gdata',
@@ -120,6 +121,7 @@ module.exports = {
         feed: "http://gdata.youtube.com/feeds/api/videos"
     },
         "http://www.youtube.com/watch?v=etDRmrB9Css",
-        "http://www.youtube.com/embed/Q_uaI28LGJk"
+        "http://www.youtube.com/embed/Q_uaI28LGJk",
+        "http://www.youtube.com/user/barclaysfootballtv?v=f82lmOZ_Zcg"
     ]
 };
