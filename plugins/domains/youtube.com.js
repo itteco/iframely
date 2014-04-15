@@ -51,7 +51,7 @@ module.exports = {
                     }
                 });
             } else {
-                cb(statsUri + " returned no data");
+                cb({responseStatusCode: 404});
             }
         });
     },
