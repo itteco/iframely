@@ -134,7 +134,11 @@
             "iframely"
         ],
 
-        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader", "app"]
+        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader", "app"],
+        providerOptions: {
+            "readability": {},
+            "twitter.status": {}
+        }
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");
