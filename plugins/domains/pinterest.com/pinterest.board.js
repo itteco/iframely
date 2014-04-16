@@ -25,7 +25,7 @@ module.exports = {
     getLink: function(url) {
         return [{
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.inline],
             template: "pinterest.widget",
             template_context: {
                 url: url,

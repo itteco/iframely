@@ -1,6 +1,6 @@
 # Iframely JS Client Lib
 
-[Iframely Gateway](http://iframely.com/gateway) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. 
+[Iframely Gateway](http://iframely.com/gateway) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. If you'd prefer to render a widget from the data yourself, please refer to [Iframely Protocol's MIME Types](http://iframely.com/oembed2/types) and their mapping to embeds HTML.
 
 You may find `iframely.js` lib in `/static/js/iframely.js` folder. 
 

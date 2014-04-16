@@ -1,14 +1,22 @@
-var _ = require('underscore');
-
 module.exports = {
 
-    re: /^https?:\/\/www\.facebook\.com\/(?!login\.php).+/i,
+    re: [       
+        /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink)\.php\?[^\/]+(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/posts\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.]+\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/notes\/([a-zA-Z0-9\.\-]+)\/[^\/]+\/(\d{10,})/i
+    ],
 
     provides: 'facebook_post',
 
+    mixins: [
+        "favicon"
+    ],    
+
     getMeta: function(facebook_post) {
         return {
-            title: facebook_post.title
+            title: facebook_post.title,
+            site: "Facebook"
         };
     },
 
@@ -20,40 +28,25 @@ module.exports = {
                 title: facebook_post.title,
                 url: facebook_post.url
             },
-            width: 552
+            width: 466
         };
     },
 
-    getData: function(url, meta) {
+    getData: function(url, meta, cb) {
 
-        var badRe = [
-            // From profile.
-            /^https?:\/\/(?:(?:www|m)\.)?facebook\.com\/(?!photo)([^\/\?#]+)(?:\?|#|\/?$)/i,
-            /^https?:\/\/www\.facebook\.com\/(?!photo)([^\/\?#]+)$/i,
+        if (meta["html-title"] == "Facebook") {
+            // the content is not public
+            cb({responseStatusCode: 403});
+        }        
 
-            // From video.
-            /^https?:\/\/www\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-            /^https?:\/\/www\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-            /^https?:\/\/www\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i
-        ];
+        var title = meta["description"] ? meta["description"]: meta["html-title"].replace(/ \| Facebook$/, "");
 
-        var good = _.every(badRe, function(re) {
-            return !url.match(re);
-        });
-
-        if (!good) {
-            return;
-        }
-
-        var title = meta["html-title"];
-        title = title.replace(/ \| Facebook$/, "");
-
-        return {
+        cb(null, {
             facebook_post: {
                 title: title,
                 url: url
             }
-        };
+        });
     },
 
     tests: [

@@ -21,7 +21,7 @@ module.exports = {
             doc = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader],
+                rel: CONFIG.R.player,
                 "aspect-ratio": oembed.width / oembed.height 
             }
         }

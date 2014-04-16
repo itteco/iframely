@@ -24,7 +24,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.inline],
             template_context: {
                 title: title,
                 uri: url.replace("u/0/", "")

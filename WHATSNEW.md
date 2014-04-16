@@ -6,6 +6,68 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 
 
+### 2014.04.16, Version 0.6.2
+
+
+__SOME BIG NEWS__: Iframely is now also available as [hosted cloud API](http://iframe.ly).
+
+
+Generic changes this build:
+
+* Iframely now properly proxies HTTP error codes, such as 401, 403, 404. If origin host times out, Iframely will return 408. 
+* Iframely will also generate 404 on private or removed YouTube videos and on private Facebook posts.
+* HTTPS is no longer strict. The HTTPS origins with SSL certificate issues will be tolerated and parsed. For example, some Linux distributions will have GoDaddy as unknown signing authority and such deployments will otherwise not be able to parse such origins.
+* `application/xhtml+xml` is now allowed MIME type of the origin URLs. For example, this makes Facebook’s mobile pages work.
+* Fixed a bug, where some domain plugins that used `oembed-video-responsive` mixin did not actually work without a whitelist file.
+* Direct links to images are now returned with rel `file` instead of `image`. `type` will still be actual MIME type of the file. 
+* Changed rel `reader` to `app` for some plugins. For example, Instagram, Facebook, Google+, Twitter are now `app`
+
+oEmbed endpoint:
+
+* Fixes the output of original `html` in oEmbed for non `inline app`.
+* Fixes the size without 'px' in oEmbed `html`, which screwed up at least SoundCloud embeds codes in oEmbed endpoint.
+* Fix to pre-refactor version and do not return `autoplay` widget as oEmbed video.
+
+
+Facebook:
+
+* Ignore (403) private Facebook statuses.
+* Better (HTML5) embed codes for posts.
+* Remove the old `photo` plugin. Now photos are returned as posts only.
+* Let FB mobile links to be parsed.
+
+YouTube:
+
+* White-list all hosted YouTube in Open Graph tags.
+* Thumbnails with black stripes - no more. Plus `maxresdefault` thumbnail where possible.
+* Return 404 when API returns no data (video removed).
+
+New domains:
+
+* 56.com, vk.com, mail.ru
+* GettyImages. Yay!
+* MIT videos
+* ebaumsworld.com
+
+Other domains:
+
+* Fixed TED. (no more oEmbed auto discovery on the pages)
+* Support of HaikuDeck's new URL scheme.
+* Better titles and descriptions for number of domains.
+* HTTPs URLs and API response for Imgur.
+* Tweaks for Vevo regexp to allow more URLs.
+* Return QZ as `safe_html` for better reader implementation.
+* Codepen is now faster as they rolled out support of oEmbed.
+* Tumblr: If image/video caption is actually a post, return it as such and reduce title to the first sentence of it.
+* Tumblr: re-direct to original video URL if embed code isn't iframe (e.g. for Hulu embeds).
+* Exclude hosted YouTube from Metacafe parser (will be handled by generic one).
+* slide.es changed domain name to slides.com.
+* video.pandodaily.com - no more (switched to YouTube channel).
+
+
+
+
+
 ### 2014.03.04, Version 0.6.0
 
 And, after substantial refactoring, we have a shiny new core! 

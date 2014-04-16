@@ -1,6 +1,6 @@
 module.exports = {
     re: [
-        /^http?:\/\/slid\.es\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
+        /^http?:\/\/slides\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
     ],
 
     mixins: [
@@ -30,6 +30,6 @@ module.exports = {
 
 
     tests: [
-        "http://slid.es/timkindberg/ui-router"
+        "http://slides.com/timkindberg/ui-router"
     ]
 };

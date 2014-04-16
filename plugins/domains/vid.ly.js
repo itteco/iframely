@@ -16,13 +16,13 @@ module.exports = {
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail
         }, {
-        	href: "//vid.ly/favicon.ico",
-        	type: CONFIG.T.image,
-        	rel: CONFIG.R.icon
-        }]
+            href: "//vid.ly/favicon.ico",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
+        }];
     },
 
-    tests: [ 
+    tests: [
         "http://vid.ly/9a5q8t"
     ]
 };

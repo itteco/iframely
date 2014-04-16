@@ -18,7 +18,6 @@ module.exports = {
 
     mixins: [
         "canonical",
-        "description",
         "favicon"
     ],
 
@@ -66,7 +65,8 @@ module.exports = {
             title: twitter_oembed.title,
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
-            site: twitter_oembed.site_name || twitter_oembed.provider_name
+            site: twitter_oembed.site_name || twitter_oembed.provider_name,
+            description: twitter_oembed.html.replace(/<(.*?)>/g, '')
         };
     },
 

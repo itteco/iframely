@@ -2,16 +2,23 @@ module.exports = {
 
     getLink: function (meta, whitelistRecord) {
 
-        // TODO: remove that.
-        //if (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video'))) {
+        if (whitelistRecord && whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video')) {
         
-            return {
+            var player = {
                 href: meta.video_src,
                 type: meta.video_type || CONFIG.T.text_html,
                 rel: CONFIG.R.player,
-                width: meta.video_width,
-                height: meta.video_height
             };
-        //}
+
+            if (whitelistRecord.isAllowed('html-meta.video', 'responsive')) {
+                player['aspect-ratio'] = meta.video_width / meta.video_height;                
+            } else {
+                player.width = meta.video_width;
+                player.height = meta.video_height;
+            };
+
+            return player;
+
+        }
     }
 };

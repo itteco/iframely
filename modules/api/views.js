@@ -1,10 +1,9 @@
 var iframelyCore = require('../../lib/core');
-var iframelyUtils = require('../../lib/utils');
 var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
 var cache = require('../../lib/cache');
-var apiUtils = require('./utils');
+var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 
@@ -354,7 +353,7 @@ module.exports = function(app) {
                 return next(new Error(error));
             }
 
-            var oembed = apiUtils.getOembed(uri, result);
+            var oembed = oembedUtils.getOembed(uri, result);
 
             if (req.query.format === "xml") {
 

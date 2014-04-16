@@ -11,9 +11,13 @@ module.exports = {
     provides: 'tumblr_post',
 
     getMeta: function(tumblr_post) {
+
+        var caption = jquery('<div>').html(tumblr_post.caption).text();
+        if (caption && caption.length > 160) caption = caption.split(/[.,!?]/)[0];
+
         return {
-            title: tumblr_post.title || jquery('<div>').html(tumblr_post.caption).text() || tumblr_post.blog_name,
-            site: 'tumblr',
+            title: tumblr_post.title || caption || tumblr_post.blog_name,
+            site: 'Tumblr',
             author: tumblr_post.blog_name,
             author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',
             canonical: tumblr_post.permalink_url || tumblr_post.post_url,
