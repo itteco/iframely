@@ -9,7 +9,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 ### 2014.04.16, Version 0.6.2
 
 
-__SOME BIG NEWS__: Iframely is now also available as [hosted cloud API](http://iframe.ly)
+__SOME BIG NEWS__: Iframely is now also available as [hosted cloud API](http://iframe.ly).
 
 
 Generic changes this build:
@@ -32,15 +32,15 @@ oEmbed endpoint:
 Facebook:
 
 * Ignore (403) private Facebook statuses.
-* Better (HTML5) post embed codes.
+* Better (HTML5) embed codes for posts.
 * Remove the old `photo` plugin. Now photos are returned as posts only.
 * Let FB mobile links to be parsed.
 
 YouTube:
 
 * White-list all hosted YouTube in Open Graph tags.
-* Thumbnails with black stripes - no more. Plus maxresdefault thumbnail where where possible.
-* Return 404 when API returns no data (video deleted).
+* Thumbnails with black stripes - no more. Plus `maxresdefault` thumbnail where possible.
+* Return 404 when API returns no data (video removed).
 
 New domains:
 
