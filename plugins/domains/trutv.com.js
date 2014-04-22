@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www\.trutv\.com\/(shows\/[\w-]+\/videos\/[\w-]+)\.html/i,
+    re: /https?:\/\/www\.trutv\.com\/(shows\/[\w-]+\/videos\/[\w-]+)\.html/i,
 
     mixins: [
         "og-title",
