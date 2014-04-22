@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(og) {
 
-        if (!(og.video || og.video.url)) return;
+        if (!og.video || !og.video.url) return;
         
         var video_src = og.video.url || og.video;
 

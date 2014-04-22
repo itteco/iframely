@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/www\.theglobeandmail\.com\/[a-z\/\-]+video\/video+/i
+        /^https?:\/\/www\.theglobeandmail\.com\/[a-z\/\-]+video\/video+/i
     ],
 
     mixins: [

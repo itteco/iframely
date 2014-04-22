@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/live\.wsj\.com\/#!([\w-]+)/i,
+    re: /^https?:\/\/live\.wsj\.com\/#!([\w-]+)/i,
 
     // TODO: make redirect to allthingsd. There is better meta.
 

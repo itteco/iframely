@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.travelchannel\.com\/video\/[\w-]+/i,
+    re: /^https?:\/\/www\.travelchannel\.com\/video\/[\w-]+/i,
 
     mixins: [
         "og-title",

@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/my\.mail\.ru\/video\//i
+        /^https?:\/\/my\.mail\.ru\/video\//i
     ],
 
     mixins: [

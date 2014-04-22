@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /http:\/\/ec\.europa\.eu\/avservices\/(video|focus)/i
+        /https?:\/\/ec\.europa\.eu\/avservices\/(video|focus)/i
     ],
 
     mixins: [

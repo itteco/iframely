@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/prezi\.com\/([a-z0-9\-]+)\/([a-z0-9\-]+)/i
+        /^https?:\/\/prezi\.com\/([a-z0-9\-]+)\/([a-z0-9\-]+)/i
     ],
 
     mixins: [

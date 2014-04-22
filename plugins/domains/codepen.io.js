@@ -2,7 +2,7 @@ var jquery = require('jquery');
 
 module.exports = {
 
-    re: /http:\/\/codepen\.io\/([a-z0-9\-]+)\/(pen|details)\/([a-z0-9\-]+)/i,
+    re: /https?:\/\/codepen\.io\/([a-z0-9\-]+)\/(pen|details)\/([a-z0-9\-]+)/i,
 
     mixins: [
         "oembed-thumbnail",

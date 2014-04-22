@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/9gag\.com\/gag\/([a-z0-9\-]+)/i
+        /^https?:\/\/9gag\.com\/gag\/([a-z0-9\-]+)/i
     ],
 
     mixins: [

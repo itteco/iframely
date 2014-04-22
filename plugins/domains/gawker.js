@@ -3,16 +3,16 @@ module.exports = {
     notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
 
     re: [
-        /^http:\/\/(\w+\.)?lifehacker\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?gawker\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?jezebel\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?gizmodo\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?deadspin\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?io9\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?kotaku\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?jalopnik\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?kinja\.com\/[a-z0-9\-]+/i,
-        /^http:\/\/(\w+\.)?cink\.hu\/[a-z0-9\-]+/i
+        /^https?:\/\/(\w+\.)?lifehacker\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?gawker\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?jezebel\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?gizmodo\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?deadspin\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?io9\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?kotaku\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?jalopnik\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?kinja\.com\/[a-z0-9\-]+/i,
+        /^https?:\/\/(\w+\.)?cink\.hu\/[a-z0-9\-]+/i
     ],
 
 

@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /(http:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/).*/i,
+    re: /(https?:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/).*/i,
 
     mixins: [
         "html-title",

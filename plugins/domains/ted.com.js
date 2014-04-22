@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/ted\.com\/talks\//i,
+    re: /^https?:\/\/(www\.)?ted\.com\/talks\//i,
 
     mixins: [
         "canonical",

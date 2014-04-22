@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/vube\.com\/([^\/]+)\/([a-zA-Z0-9_-]+)/i,
+    re: /^https?:\/\/vube\.com\/([^\/]+)\/([a-zA-Z0-9_-]+)/i,
 
     provides: 'vube',
 

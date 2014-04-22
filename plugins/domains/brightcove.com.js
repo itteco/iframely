@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i,
+        /^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i,
         /\.(com|org)\/services\/player\/bcpid(\d+)\?/i  //the hosted players
     ],
 

@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^http:\/\/www\.56\.com\/\w{3}\/v_([a-zA-Z0-9]+).html/i,
-        /^http:\/\/www\.56\.com\/\w{3}\/play_[a-zA-Z0-9\-]+_vid\-([a-zA-Z0-9]+).html/i
+        /^https?:\/\/www\.56\.com\/\w{3}\/v_([a-zA-Z0-9]+).html/i,
+        /^https?:\/\/www\.56\.com\/\w{3}\/play_[a-zA-Z0-9\-]+_vid\-([a-zA-Z0-9]+).html/i
     ],
 
     mixins: [

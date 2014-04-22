@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^http:\/\/live\.huffingtonpost\.com\/r\/archive\/segment\/[\w-]+\/(\w+)/i,
-        /^http:\/\/live\.huffingtonpost\.com\/r\/segment\/[\w-]+\/(\w+)/i,
-        /^http:\/\/live\.huffingtonpost\.com\/r\/segment\/(\w+)/i
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/archive\/segment\/[\w-]+\/(\w+)/i,
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/segment\/[\w-]+\/(\w+)/i,
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/segment\/(\w+)/i
     ],
 
     mixins: [

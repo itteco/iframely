@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/www\.gogoyoko\.com\/song\/([0-9\-]+)/i
+        /^https?:\/\/www\.gogoyoko\.com\/song\/([0-9\-]+)/i
     ],
 
     mixins: [

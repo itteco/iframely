@@ -4,7 +4,7 @@ var jQuery = require("jquery");
 module.exports = {
 
     re: [
-        /^http:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(?:lofi_play)?)?(?:[\?#].*)?$/i
+        /^https?:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(?:lofi_play)?)?(?:[\?#].*)?$/i
     ],
 
     mixins: [

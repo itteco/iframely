@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www\.theguardian\.com\/\w+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
+    re: /https?:\/\/www\.theguardian\.com\/\w+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
 
     mixins: [
         "canonical",

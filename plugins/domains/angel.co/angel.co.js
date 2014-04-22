@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https:\/\/angel\.co\/([a-z-]+)/i,
+    re: /^https?:\/\/angel\.co\/([a-z-]+)/i,
 
     mixins: [
         "keywords",

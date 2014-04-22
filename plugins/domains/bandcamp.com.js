@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^http:\/\/([a-z0-9-]+\.bandcamp\.com)\/(album|track)\/(\w+)/i,
-        /^http:\/\/([a-z-\.]+)\/(album|track)\/([a-z-]+)/
+        /^https?:\/\/([a-z0-9-]+\.bandcamp\.com)\/(album|track)\/(\w+)/i,
+        /^https?:\/\/([a-z-\.]+)\/(album|track)\/([a-z-]+)/
     ],
 
     mixins: [
