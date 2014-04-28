@@ -42,7 +42,7 @@ module.exports = {
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
-                rel: CONFIG.R.image,
+                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : CONFIG.R.image,
                 width: 612,
                 height: 612
             }];
