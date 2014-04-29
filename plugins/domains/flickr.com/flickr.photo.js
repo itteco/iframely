@@ -25,7 +25,7 @@ module.exports = {
                     width: size.width,
                     height: size.height,
                     type: "image/jpeg",
-                    rel: size.width > 500 ? CONFIG.R.image : CONFIG.R.thumbnail
+                    rel: size.width >= 800 || size.label == "Original" ? CONFIG.R.image : CONFIG.R.thumbnail
                 };
             }) || [];
 
