@@ -1,56 +1,62 @@
-## Iframely Gateway
+## Quick Intro
 
-[We](http://itteco.com) believe the responsive embeds is the future of the Web. 
+[Iframely](http://iframely.com) is super fast web parsing API that gives your app responsive embed codes of web URLs. 
 
-Iframely is advanced self-hosted embeds API to help you join the future. In response to `url` request, it gives  responsive embeds data and semantic meta for a requested web page.
+Like YouTube and Vimeo players, Instagram photos, Twitter Statuses, Google Maps, and others you see on blogs and social apps out there. Plus thumbnails, titles and other meta data for any URL.  [Here’s some samples](iframely.com/domains).
 
-[>> Here’s a quick API call for Vimeo video](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
+Iframely’s open-source package covers over 100 specific domains off-the-shelf, plus generic _oEmbed_, _Twitter Cards_ and _Open Graph_ parsers.  You can easily extend it by developing your own plugins.  The readability parser is optional
 
-In a sense, Iframely is a self-hosted oEmbed endpoint, with slightly extended data format and adjusted HTML part to facilitate responsive widgets.
+## Domain plugins included
 
-Iframely is a Node.JS app, though API is HTTP-based and you can use it from within any environments.
+Here's the list of domains that package includes specific plugins for:
 
-## Features
+AngelList, CNN, College Humor, Facebook, Flickr, Funny or Die, Huffington Post, Pinterest, Google Plus, The Globe and Mail, The Guardian, The Onion, Travel Channel, Tumblr (including custom domains), 500px, 56.com, 9Gag, About.me, Animoto, Bandcamp, Behance, Blip.tv, Bravo TV, BrightCove (including hosted), CodePen, Droplr, DailyMotion, DotSUB, Dribbble, Ebaums World, Eurocommision, Eventbrite, all Gawker domains (Lifehacker, Gizmodo, etc.) - for those who use Readability plugin, Getty Images, Giphy, GitHub Gists, Gogoyoko, Haiku Deck, Hulu, Imgur, Instagram, Issuu, iTunes, JSFiddle, Keek, Kickstarter, Live Wall Street Journal, Liveleak, Livestream, Lockerz, Lolwall, Magnatune, Mail.ru, Google Maps, Metacafe, MixBit, Mixcloud, MyVideo.de, Official.fm, Open Street Map, Ow.ly, Pastebin, Path, PBS.org, PollDaddy, Prezi, QZ, Rdio, Tapestry, Reuters, Revision3, Yahoo Screen, Screencast, Screenr, Scribd, Slid.es, Slidecaptain, Sliderocket, Smugmug, Socialcam, Someecards, Soundcloud, Speakerdeck, Spotify, Spreecast, Storify, TED, Telly, Tindeck, Tinypic, Trutv, Twitpic, Twitter, Ustream, QQ, Vevo, Vid.ly, Viddler, Viddy, MIT videos, Yandex.ru,  NYmag videos, Vimeo, Vine.co, Visual.ly, VK.com, Vube.com, weheartit, Wistia, WordPress, yFrog, Youku, Youtube.
 
-- HTTP API for meta semantics, thumbnails (including sizes), photo images, video players and readers.
-- `oembed` endpoint for easy migration of existing implementations (it is a fallback though and thus not as powerful as main API).
-- Generic parsers for [Iframely Protocol](http://iframely.com/oembed2), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed](http://oembed.com/). Plus optional readability.
-- Over _100 parsers_ for specific domains, like YouTube, Vimeo, SoundCloud, Instagram, Facebook, Imgur.
-- Plugins infrastructure to extend the logic or to implement additional domain or generic parsers.
-- Built-in caching for performance optimizations (Memcached, Redis or in-memory engines).
 
-Last, but not least:
+## Extend with Domains DB
 
-- [Domains Whitelist](http://iframely.com/qa/buy) file that acts as gigantic plugin to extend coverage to 2000+ domains.
+You can extend the coverage of generic open-source parsers to over 1500 domains with the help of Iframely Domains DB. 
 
-Domains QA is how we make money to keep maintaining this project. Thanks for your support and understanding.
+We manually test, regression-test and whitelist domains that publish embeds either oEmbed, Twitter Cards or Open Graph protocols. The database is available for $99, and its easily pluggable into Iframely Gateway. 
 
-## How-to
+[Get Domains DB here.](http://iframely.com/qa)
 
-To jump start with Iframely, we suggest you [try our visual debug tool](http://iframely.com/debug) where you can check any URL.
+By default, your open-source installation will be linked to our [TOP 100](http://iframely.com/qa/sample.json) free domains list. If you feel like, create your own whitelist file [following this format](http://iframely.com/gateway/dbformat). 
 
-Next: 
 
-- [Get started with API](http://iframely.com/gateway/API);
-- [Use iframely.js jQuery lib](http://iframely.com/gateway/iframelyjs)  that wraps the API and renders embeds;
-- Or [render a responsive widget yourself](http://iframely.com/oembed2/types);
-- [Host your own server](http://iframely.com/gateway/setup);
-- Understand API format or publish embed (aka [Iframely Protocol for Responsive Embeds](http://iframely.com/oembed2));
-- [Get our Domains QA DB](http://iframely.com/qa)
-- Or [create your own whitelist](http://iframely.com/qa/format).
 
-You may skip some steps and get straight to coding by using our community endpoint, hosted at [http://iframely.com/iframely?uri=](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063). 
+## Or use as Cloud API
 
-(It’s not recommended for production use as we continuously run experiments on that server.)
+Iframely is also available as Cloud API. 
 
-## Sample Apps & Demos
+It is the same great API (plus all 1500+ whitelisted domains), but without the need of your own hardware. It acts as the web shortener (we give you short ID of the URL in the database), and is available for just $29/mo. 
 
-Some cool demos are on the way. In the meantime, try our standalone apps that Itteco developed on top of Iframely technology (well, it was more "in parallel with", actually):
+[Sign up here.](http://iframe.ly) 
 
-* [iframe.ly](http://iframe.ly) -  convenient web shortener;
-* [Nowork FM](http://nowork.fm) - simple social intranet for your team;
-* [Iframely for Gmail](https://chrome.google.com/webstore/detail/iframely-for-gmail/bbafbcjnlgfbemjemgliogmfdlkocjmi) (as seen on Lifehacker, PC World & others) - watch videos, view photos and read articles in your inbox;
-* [Iframely for WordPress](http://wordpress.org/plugins/iframely/).
+
+
+## Iframely protocol (oEmbed/2)
+
+Iframely API can consume embeds published under Iframely Protocol (oEmbed/2). It is based on oEmbed, RDFa and HTML5 (namely, media queries) and is focused on responsive embeds and functional use cases.  
+
+If you are a publisher, learn [more about the protocol here](http://iframely.com/oembed2). And [add your domain here](http://iframely.com/qa/request). Also list your domain if you just publish in oEmbed v1, Twitter players or Open Graph video.
+
+
+
+## Get started with API
+
+To get started with API, read [API Docs](http://iframely.com/gateway/API) or use our visual [URL Checker](http://iframely.com/debug). 
+
+[>> Here’s a sample API call for Vimeo video](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
+
+Essentially, the API’s JSON data format emulates `meta` representation of URL’s  `head` and `link rel=…` list of responsive embeds, as if domain actually published in Iframely Protocol. 
+
+Iframely API is also available as oEmbed v1, for the ease of your migration.
+
+You may jump start your development by using our [Cloud API](http://iframe.ly)  (which is nearly identical to open-source) with the free plan. 
+
+Or [read here how to install](http://iframely.com/gateway/setup) and configure gateway yourself. 
+
 
 
 ## Contribute
@@ -75,6 +81,4 @@ Specifically:
 Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
 
 [![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
-
-
 
