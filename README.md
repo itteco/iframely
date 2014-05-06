@@ -2,9 +2,9 @@
 
 [Iframely](http://iframely.com) is super fast web parsing API that gives your app responsive embed codes of web URLs. 
 
-Like YouTube and Vimeo players, Instagram photos, Twitter Statuses, Google Maps, and others you see on blogs and social apps out there. Plus thumbnails, titles and other meta data for any URL.  [Here’s some samples](iframely.com/domains).
+Like YouTube and Vimeo players, Instagram photos, Twitter Statuses, Google Maps, and others you see on blogs and social apps out there. Plus thumbnails, titles and other meta data for any URL.  [Here’s some samples](http://iframely.com/domains).
 
-Iframely’s open-source package covers over 100 specific domains off-the-shelf, plus generic _oEmbed_, _Twitter Cards_ and _Open Graph_ parsers.  You can easily extend it by developing your own plugins.  The readability parser is optional
+Iframely’s open-source package covers over 100 specific domains off-the-shelf, plus generic _oEmbed_, _Twitter Cards_ and _Open Graph_ parsers.  You can easily extend it by developing your own plugins.  There's also optional readability parser.
 
 ## Domain plugins included
 
