@@ -74,22 +74,6 @@ function assertOembed(oembed) {
 vows.describe('Tests')
     .addBatch({
 
-        'qik meta': {
-            topic: function() {
-                iframely("http://qik.com/video/52767028", 'meta', this.callback);
-            },
-            'not error': notError,
-            'has meta': hasMeta
-        },
-
-        'qik oembed': {
-            topic: function() {
-                iframely("http://qik.com/video/52767028", 'oembed', this.callback);
-            },
-            'not error': notError,
-            'has valid oEmbed object': hasValidOEmbedObject
-        },
-
         'vimeo meta': {
             topic: function() {
                 iframely("https://vimeo.com/63683408", 'meta', this.callback);
