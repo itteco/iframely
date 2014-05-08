@@ -89,11 +89,37 @@
         return '"' + crypto.createHash('md5').update(value).digest("hex") + '"';
     };
 
+    function getUnifiedCacheUrl(req) {
+
+        // Remove 'refresh' param and order keys.
+
+        var urlObj = urlLib.parse(req.url, true);
+
+        var query = urlObj.query;
+
+        delete query.refresh;
+        delete urlObj.search;
+
+        var newQuery = {};
+
+        var keys = _.keys(query);
+        keys.sort();
+        keys.forEach(function(key) {
+            newQuery[key] = query[key];
+        });
+
+        urlObj.query = newQuery;
+
+        return urlLib.format(urlObj);
+    }
+
     function setResponseToCache(code, content_type, req, res, body, ttl) {
 
         if (!res.get('ETag')) {
             res.set('ETag', etag(body));
         }
+
+        var url = getUnifiedCacheUrl(req);
 
         var head = {
             statusCode: code,
@@ -104,7 +130,7 @@
         };
 
         var data = JSON.stringify(head) + '::' + body;
-        cache.set('urlcache:' + version + ':' + req.url, data, {ttl: ttl});
+        cache.set('urlcache:' + version + ':' + url, data, {ttl: ttl});
     }
 
     exports.cacheMiddleware = function(req, res, next) {
@@ -115,9 +141,11 @@
                 var refresh = req.query.refresh === "true";
                 if (!refresh) {
 
-                    cache.get('urlcache:' + version + ':' + req.url, function(error, data) {
+                    var url = getUnifiedCacheUrl(req);
+
+                    cache.get('urlcache:' + version + ':' + url, function(error, data) {
                         if (error) {
-                            console.error('Error getting response from cache', req.url, error);
+                            console.error('Error getting response from cache', url, error);
                         }
                         if (data) {
                             var index = data.indexOf("::");
@@ -127,7 +155,7 @@
                                 try {
                                     head = JSON.parse(headStr);
                                 } catch(ex) {
-                                    console.error('Error parsing response status from cache', req.url, headStr);
+                                    console.error('Error parsing response status from cache', url, headStr);
                                 }
 
                                 if (head) {
