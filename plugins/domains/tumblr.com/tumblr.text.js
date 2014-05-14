@@ -15,13 +15,15 @@ module.exports = {
         var $post = jquery('<div>').html(tumblr_post.body);
         var $images = $post.find('img');
 
-                    // Could be more than 1 image, true. 
-        return {    // But the response time will be unacceptable as post-processing will check alll image sizes.
-            href: $images[0].src,
-            title: $images[0].alt,
-            type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail
-        };
+        if ($images.length > 0) {
+                        // Could be more than 1 image, true. 
+            return {    // But the response time will be unacceptable as post-processing will check alll image sizes.
+                href: $images[0].src,
+                title: $images[0].alt,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            };
+        }
     },
 
     getData: function (tumblr_post) {
