@@ -8,7 +8,7 @@ module.exports = {
         "canonical",
         "og-site",
         "og-title",
-        "twitter-image",
+        "og-image",
         "favicon"
     ],
 
