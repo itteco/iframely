@@ -8,7 +8,7 @@ module.exports = {
     ],
 
     getLink: function (meta) {
-        if (meta.twitter && meta.twitter.image) {
+        if (meta.twitter && meta.twitter.card == "photo" && meta.twitter.image) {
             return {
                 href: meta.twitter.image.url || meta.twitter.image,
                 type: CONFIG.T.image,
