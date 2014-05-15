@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/video\.mit\.edu\/watch\/[a-zA-Z\-]+\-(\d+)/i
+        /^https?:\/\/video\.mit\.edu\/watch\/[a-zA-Z\-]+\-(\d+)/i
     ],
 
     mixins: [

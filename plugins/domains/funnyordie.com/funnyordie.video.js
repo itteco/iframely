@@ -1,6 +1,6 @@
 var jquery = require('jquery');
 
-var re = /^http:\/\/www\.funnyordie\.com\/videos\//i;
+var re = /^https?:\/\/www\.funnyordie\.com\/videos\//i;
 
 module.exports = {
 

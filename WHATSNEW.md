@@ -5,6 +5,36 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+### 2014.05.15, Version 0.6.3
+
+
+Big ones:
+
+ + added Twitter Stream parser (mp4 videos). It is now in whitelist also. [Get your domains whitelist here](http://iframely.com/qa).
+ * re-enable proper domain plugins for Pinterest (proper titles, thumbnails, etc)
+
+
+Domains maintenance: 
+
+ * Fixed Vube (they switched to iFrames. Yay.)
+ * White-list and properly handle all YouTube players in Twitter Cards
+ * Proper thumnnails for Tumblr articles
+ * Instagram videos no longer mistakenly return `rel=image`
+ * Switched to better (and more responsive) embeds for Vine
+ * Fixed Behance to support their new URL scheme
+ * Fixes for other domains plugins: Dribbble, Telly, Fiddler
+ * Handle more URLs for: Flickr (including videos and smaller images), CodePen, Someecards, Globe and Mail, Guardian
+ - Removed plugins: QiK (retired as of April 30) and EventBrite (embeds support is inconsistent)
+
+
+Tech matters:
+
+ * add received cookie jar to options to prevent some redirect loops
+ * better handle whitelist re-loads (at some times, whitelist records were lost in transition)
+ * return 415 http code in cases where the charset's encoding is not supported yet
+
+
+
 
 ### 2014.04.16, Version 0.6.2
 

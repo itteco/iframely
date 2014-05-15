@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.theonion\.com\/video\/*/i,
+    re: /^https?:\/\/www\.theonion\.com\/video\/*/i,
 
     mixins: [
         "canonical",

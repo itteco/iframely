@@ -1,41 +1,31 @@
-/************************
- Pinterest is not parser-friendly and we would violate
- their Acceptable Use Policy at http://about.pinterest.com/use/
- if we are to provide a proper embed plugin to their domain
- and thus enable you to violate the same policy.
-
- We can't let your network be blacklisted with Pinterest
- per https://en.help.pinterest.com/entries/22914692
-
- If you notice that their policy changed and we had not updated this plugin yet,
- give us a shout and we'll tweak it promptly.
- *************************/
 
 module.exports = {
 
     re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-z0-9]+)\/?(?:$|\?|#)/i,
 
-    getMeta: function() {
-        return {
-            title: "Pinterest User",
-            site: "Pinterest"
-        };
-    },
+    mixins: [
+        "og-image",
+        "favicon",
+        "canonical",
+        "og-description",
+        "og-site",
+        "og-title"
+    ],    
 
     getLink: function(url) {
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.app, CONFIG.R.inline],
             template: "pinterest.widget",
             template_context: {
                 url: url,
                 title: "Pinterest User",
                 type: "embedUser",
-                width: 800,
+                width: 600,
                 height: 600,
                 pinWidth: 120
             },
-            width: 800,
+            width: 600,
             height: 600+120
         };
     },

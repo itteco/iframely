@@ -1,6 +1,6 @@
 var jquery = require('jquery');
 
-var re = /http:\/\/www\.collegehumor\.com\/(video|embed)\/([0-9]+)\.*/;
+var re = /https?:\/\/www\.collegehumor\.com\/(video|embed)\/([0-9]+)\.*/;
 
 module.exports = {
 

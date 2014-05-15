@@ -9,11 +9,19 @@ module.exports = {
             return;
         }
 
-        var inline = whitelistRecord.isAllowed('oembed.rich', "reader") || whitelistRecord.isAllowed('oembed.rich', "inline");
+        var rels = [CONFIG.R.oembed];
+
+        if (whitelistRecord.isAllowed('oembed.rich', "reader")) rels.push(CONFIG.R.reader);
+        if (whitelistRecord.isAllowed('oembed.rich', "player")) rels.push(CONFIG.R.player);
+        if (rels.length == 1) rels.push(CONFIG.R.app);        
+        // if (whitelistRecord.isAllowed('oembed.rich', "responsive")) rels.push("responsive");
+        if (whitelistRecord.isAllowed('oembed.rich', "inline")) rels.push(CONFIG.R.inline);
+        rels.push ("allow"); // otherwise, rich->players get denied by oembed:video whitelist record
+
 
         var widget = {
-            type: CONFIG.T.text_html,
-            rel:[CONFIG.R.oembed, CONFIG.R.app]
+            rel: rels,
+            type: CONFIG.T.text_html
         };
 
         var $container = jquery('<div>');
@@ -23,25 +31,23 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1) {
+        if ($iframe.length == 1 && !whitelistRecord.isAllowed('oembed.rich', "inline")) {
 
             widget.href = $iframe.attr('src');
         
         } else { 
-            widget.html = oembed.html || oembed.html5; // will render in an iframe
-
-            if (inline) {
-                widget.rel.push(CONFIG.R.inline);
-            }
+            widget.html = oembed.html || oembed.html5; // will render in an iframe, unless "inline" is in rels
         }
 
 
-        if (whitelistRecord.isAllowed('oembed.rich', 'responsive')) {
-            if (oembed.width && oembed.height) {
-                widget['aspect-ratio'] = oembed.width / oembed.height;
-            }
+        if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
+            // Output exact HTML from oEmbed
+            widget.html = oembed.html5 || oembed.html;
+        }
+
+        if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {
+            widget['aspect-ratio'] = oembed.width / oembed.height;
         } else {
             widget.width = oembed.width;
             widget.height = oembed.height

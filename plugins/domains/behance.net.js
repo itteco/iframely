@@ -3,8 +3,9 @@ var jquery = require('jquery');
 module.exports = {
 
     re: [
-        /http:\/\/www\.behance\.net\/gallery\/([a-zA-Z0-9\-\(\)]+)\/([0-9]+)/i,
-        /http:\/\/([a-z-\.]+)\/gallery\/([a-zA-Z0-9\-\(\)]+)\/([0-9]+)/i,
+        /https?:\/\/www\.behance\.net\/gallery\/([a-zA-Z0-9\-\(\)]+)\/([0-9]+)/i,
+        /https?:\/\/www\.behance\.net\/gallery\/([0-9]+)\/([a-zA-Z0-9\-\(\)]+)/i,
+        /https?:\/\/([a-z-\.]+)\/gallery\/([a-zA-Z0-9\-\(\)]+)\/([0-9]+)/i,
     ],
 
     mixins: [

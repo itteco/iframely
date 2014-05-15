@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^http:\/\/www\.vevo\.com\/watch\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)\/([A-Z0-9]+)/i,
-        /^http:\/\/www\.vevo\.com\/watch\/([A-Z0-9]+)/i
+        /^https?:\/\/www\.vevo\.com\/watch\/([a-zA-Z0-9\-]+)\/([a-zA-Z0-9\-]+)\/([A-Z0-9]+)/i,
+        /^https?:\/\/www\.vevo\.com\/watch\/([A-Z0-9]+)/i
     ],
 
     mixins: [

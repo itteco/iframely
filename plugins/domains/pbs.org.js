@@ -2,7 +2,7 @@ module.exports = {
 
     //http://video.pbs.org/video/1863101157/    
     re: [
-        /^http:\/\/video\.(pbs|[a-zA-Z]+)\.org\/video\/(\d+)\//i // + Powered by PBS
+        /^https?:\/\/video\.(pbs|[a-zA-Z]+)\.org\/video\/(\d+)\//i // + Powered by PBS
     ],
 
     mixins: [

@@ -1,7 +1,7 @@
 module.exports = {
   
     re: [
-        /^http:\/\/www\.reuters\.com\/video\/\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-]+\?videoId=(\d+)/i
+        /^https?:\/\/www\.reuters\.com\/video\/\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-]+\?videoId=(\d+)/i
     ],
 
     mixins: [

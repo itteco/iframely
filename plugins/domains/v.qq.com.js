@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^http:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
-        /^http:\/\/v\.qq\.com\/\w+\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
-        /^http:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i
+        /^https?:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
+        /^https?:\/\/v\.qq\.com\/\w+\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
+        /^https?:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i
     ],
 
     mixins: [

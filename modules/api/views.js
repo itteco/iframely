@@ -6,6 +6,7 @@ var cache = require('../../lib/cache');
 var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
+var jsonxml = require('jsontoxml');
 
 function prepareUri(uri) {
 

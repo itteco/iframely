@@ -20,13 +20,28 @@ module.exports = {
             }
 
             var result = sizes && sizes.map(function(size) {
-                return {
-                    href: size.source.replace(/^https?:/i, ""),
-                    width: size.width,
-                    height: size.height,
-                    type: "image/jpeg",
-                    rel: size.width > 500 ? CONFIG.R.image : CONFIG.R.thumbnail
-                };
+
+                if (size.media == "photo") { 
+
+                    return {
+                        href: size.source.replace(/^https?:/i, ""),
+                        width: size.width,
+                        height: size.height,
+                        type: CONFIG.T.image_jpeg,
+                        rel: size.width >= 800 || /original/i.test(size.label) ? CONFIG.R.image : CONFIG.R.thumbnail
+                    }
+
+                } else if (size.media == "video") {
+
+                    return {
+                        href: size.source,
+                        "aspect-ratio": size.width / size.height,
+                        type: /mp4/i.test(size.label) ? CONFIG.T.video_mp4 : CONFIG.T.flash,
+                        rel: CONFIG.R.player
+                    }
+
+                } 
+
             }) || [];
 
             result.push({

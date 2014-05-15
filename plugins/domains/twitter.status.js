@@ -12,7 +12,7 @@ var url = require("url");
 module.exports = {
 
     re: [
-        /https:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
+        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
         /https?:\/\/pic.twitter\.com\//i
         ],
 

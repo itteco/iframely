@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i
+        /^https?:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: [

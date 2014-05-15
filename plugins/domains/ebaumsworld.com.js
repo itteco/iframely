@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/www\.ebaumsworld\.com\/video\/watch\/(\d+)/i
+        /^https?:\/\/www\.ebaumsworld\.com\/video\/watch\/(\d+)/i
     ],
 
     mixins: [

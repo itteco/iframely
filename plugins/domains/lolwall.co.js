@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www.lolwall.co\/lol\/\d+/i,
+    re: /https?:\/\/www.lolwall.co\/lol\/\d+/i,
 
     mixins: [
         "og-title",

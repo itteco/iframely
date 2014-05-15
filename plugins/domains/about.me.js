@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/about\.me\/([a-zA-Z0-9\-]+)/i,
+    re: /https?:\/\/about\.me\/([a-zA-Z0-9\-]+)/i,
 
     mixins: [
         "twitter-image",

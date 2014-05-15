@@ -2,7 +2,7 @@ var URL = require("url");
 
 module.exports = {
 
-    re: /^http:\/\/(?:www\.)?tindeck\.com\/listen\/([-_a-z0-9]+)\/?$/i,
+    re: /^https?:\/\/(?:www\.)?tindeck\.com\/listen\/([-_a-z0-9]+)\/?$/i,
 
     mixins: [
         "og-image",

@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^http:\/\/screencast\.com\/t\//i
+        /^https?:\/\/screencast\.com\/t\//i
     ],
 
     mixins: [
