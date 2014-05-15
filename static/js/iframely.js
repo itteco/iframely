@@ -124,12 +124,15 @@
             url: $.iframely.defaults.endpoint,
             dataType: "json",
             data: {
-                uri: uri,
+                uri: !options.url ? uri : undefined,
+                url: options.url ? uri : undefined,
                 debug: options.debug,
                 mixAllWithDomainPlugin: options.mixAllWithDomainPlugin,
                 refresh: options.refresh,
                 meta: options.meta,
-                whitelist: options.whitelist
+                whitelist: options.whitelist,
+                api_key: options.api_key,
+                origin: options.origin
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);
@@ -586,7 +589,7 @@
         if (result && options.httpsFirst) {
             result.sort(function(a, b) {
                 var sa = isHttps(a.href);
-                var sb = isHttps(a.href);
+                var sb = isHttps(b.href);
                 if (sa == sb) {
                     return 0;
                 }
