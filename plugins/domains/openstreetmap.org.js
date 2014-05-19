@@ -199,10 +199,9 @@ module.exports = {
 
         return [{
             href: embed_url,
-            rel:  CONFIG.R.reader,
+            rel:  CONFIG.R.app,
             type: CONFIG.T.text_html,
-            width:  embed_width,
-            height: embed_height
+            "aspect-ratio": embed_width / embed_height
         }, {
             href: "http://ojw.dev.openstreetmap.org/StaticMap/?"+QueryString.stringify(thumb_query),
             rel:  CONFIG.R.thumbnail,
