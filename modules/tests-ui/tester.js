@@ -290,7 +290,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
-                        if (error.indexOf("timeout") > -1) {
+                        if (typeof(error) === "string" && error.indexOf("timeout") > -1) {
                             logEntry.warnings = [error];
                         } else if (error.stack) {
                             logEntry.errors = [error.stack];
