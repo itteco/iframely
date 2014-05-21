@@ -7,7 +7,7 @@ module.exports = {
             var player = {
                 href: twitter.player.stream.value || twitter.player.stream,
                 type: CONFIG.T.video_mp4,
-                rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
+                rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"]
             };
 
             if (whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.height) {
