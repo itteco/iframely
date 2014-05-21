@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(twitter) {
 
-        if (!twitter.image)
+        if (!twitter.image || !twitter.card == "photo")
             return;
 
         return {
