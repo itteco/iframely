@@ -44,9 +44,10 @@ module.exports = {
 
     getLink: function(microformatVideoObject) {
 
-        if (microformatVideoObject.embedURL) {
+        var url = microformatVideoObject.embedURL || microformatVideoObject.embedUrl;
+        if (url) {
             return {
-                href: microformatVideoObject.embedURL,
+                href: url,
                 type: CONFIG.T.text_html,
                 rel: CONFIG.R.player,
                 width: microformatVideoObject.width,
