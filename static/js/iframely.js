@@ -185,7 +185,7 @@
 
             if (media["aspect-ratio"]) {
 
-                $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
+                $container.css('padding-bottom', Math.round(1000 * 100 / media["aspect-ratio"]) / 1000 + '%');
 
             } else {
 
