@@ -1,6 +1,6 @@
 module.exports = {
 
-    provides: 'microformatVideoObject',
+    provides: 'schemaVideoObject',
 
     getData: function(cheerio, __allowEmbedURL) {
 
@@ -35,24 +35,39 @@ module.exports = {
             });
 
             return {
-                microformatVideoObject: result
+                schemaVideoObject: result
             };
         }
     },
 
     // TODO: parse duration
 
-    getLink: function(microformatVideoObject) {
+    getLink: function(schemaVideoObject, whitelistRecord) {
 
-        var url = microformatVideoObject.embedURL || microformatVideoObject.embedUrl;
-        if (url) {
-            return {
-                href: url,
-                type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
-                width: microformatVideoObject.width,
-                height: microformatVideoObject.height
+        if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl) {
+
+            var player = {
+                href: schemaVideoObject.embedURL || schemaVideoObject.embedUrl,
+                rel: [CONFIG.R.player],
+                type: CONFIG.T.text_html
             };
+
+            if (whitelistRecord.isAllowed('html-meta.embedURL', 'html5')) player.rel.push(CONFIG.R.html5);
+            if (whitelistRecord.isAllowed('html-meta.embedURL', 'autoplay')) player.rel.push(CONFIG.R.autoplay);
+
+            if (whitelistRecord.isAllowed('html-meta.embedURL', 'responsive') || !schemaVideoObject.height) {
+                player["aspect-ratio"] = schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : 4/3;
+            } else {
+                player.width = schemaVideoObject.width;
+                player.height = schemaVideoObject.height;
+            }
+
+            return [player, {
+                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl,
+                rel: CONFIG.R.thumbnail,
+                type: CONFIG.T.image            
+            }]
         }
+
     }
 };

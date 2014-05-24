@@ -78,7 +78,8 @@
 
             inline: "inline",
 
-            autoplay: "autoplay"
+            autoplay: "autoplay",
+            html5: "html5"
         },
 
         // Whitelist settings.
