@@ -48,8 +48,7 @@
 
         "jquery":       "1.8.3",
         "readabilitySAX":"1.6.1",
-
-        "cheerio":      "git://github.com/nleush/cheerio.git#load-by-domhandler",
+        "cheerio":      "0.16.0",
 
         "usage":        "*"
     },
