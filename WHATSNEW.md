@@ -4,6 +4,11 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### Version 0.6.4
+
+ + time.com
+ + imageshack.com
+ + brainquote.com
 
 ### 2014.05.15, Version 0.6.3
 
