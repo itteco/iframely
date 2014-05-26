@@ -18,7 +18,7 @@ module.exports = {
     getLink: function(og, urlMatch) {
         return [{
             href: "http://embed.beatport.com/player/?id=" + urlMatch[2] + "&type=" + urlMatch[1],
-            type: og.video.type,
+            type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             height: og.video.height,
             'min-width': og.video.width
