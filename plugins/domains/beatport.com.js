@@ -15,17 +15,17 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(og) {
+    getLink: function(og, urlMatch) {
         return [{
-            href: og.video.url.replace(/(auto)=1/i, '$1=0'),
+            href: "http://embed.beatport.com/player/?id=" + urlMatch[2] + "&type=" + urlMatch[1],
             type: og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.og],
+            rel: CONFIG.R.player,
             height: og.video.height,
             'min-width': og.video.width
         }, {
             href: og.video.secure_url.replace(/(auto)=1/i, '$1=0'),
             type: og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.og],
+            rel: CONFIG.R.player,
             height: og.video.height,
             'min-width': og.video.width
         }]
