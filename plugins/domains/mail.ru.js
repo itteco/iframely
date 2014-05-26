@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/my\.mail\.ru\/video\//i
+        /^https?:\/\/my\.mail\.ru\/(inbox|mail)\/[a-zA-Z0-9\.\-]+\/video\//i
     ],
 
     mixins: [
@@ -26,7 +26,7 @@ module.exports = {
     },
 
     tests: [
-        "http://my.mail.ru/video/inbox/oleg.kondakov/3/3166.html#video=/inbox/oleg.kondakov/3/3166",
-        "http://my.mail.ru/video/mail/ee.vlz/22396/44907.html#video=/mail/ee.vlz/22396/44907"
+        "http://my.mail.ru/inbox/oleg.kondakov/video/3/1128.html",
+        "http://my.mail.ru/mail/ee.vlz/video/22396/44907.html"
     ]
 };
