@@ -104,7 +104,7 @@ You can greatly extend gateway functionality without writting additional plugins
 
 The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory prevails. 
 
-You can get whitelist file with 2000+ domains at [iframely.com/qa/buy](http://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will instruct Iframely to load domains DB from the server periodically. If neither local file nor `WHITELIST_URL` are provided, Iframely will use a free file with top 100 domains from [iframely.com/qa/sample.json](http://iframely.com/qa/sample.json). 
+You can get whitelist file with 2000+ domains at [iframely.com/qa/buy](http://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will instruct Iframely to load domains DB from the server periodically. If neither local file nor `WHITELIST_URL` are provided, Iframely will use a free file with top 100 domains from [iframely.com/qa/top100.json](http://iframely.com/qa/top100.json). 
 
 If you wish to create your own whitelist, please, follow [required file format](http://iframely.com/qa/format).
 
