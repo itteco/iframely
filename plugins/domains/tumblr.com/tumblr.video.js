@@ -34,8 +34,6 @@ module.exports = {
                 var width = $iframe.attr('width');
                 var height = $iframe.attr('height');
 
-                console.log('i was here');
-
                 cb(null, {
                     href: $iframe.attr('src'),
                     type: CONFIG.T.text_html,
