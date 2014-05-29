@@ -14,7 +14,7 @@ module.exports = {
 
     getMeta: function(meta) {
         return {
-            title: meta.twitter.title.replace('- Imgur', ''),
+            title: meta.twitter.title.replace('- Imgur', '')
         };
     },
 
@@ -54,7 +54,11 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://imgur.com/"
     }, {
-        skipMixins: ["oembed-author"]       // Available for Galleries only
+        skipMixins: [
+            "twitter-image",
+            "oembed-author"         // Available for Galleries only
+        ],
+        skipMethods: ["getLink"]
     },    
         "http://imgur.com/Ks3qs",
         "http://imgur.com/gallery/IiDwq",

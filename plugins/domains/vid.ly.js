@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.)?vid\.ly\/([a-z0-9\-]+)/i
+        /^https?:\/\/(?:www\.)?vid\.ly\/([a-z0-9\-]+)/i,
+        /^https?:\/\/(?:\w+\.cdn\.)?vid\.ly\/([a-z0-9\-]+)\/?.*/i
     ],
 
     getLink: function(urlMatch) {

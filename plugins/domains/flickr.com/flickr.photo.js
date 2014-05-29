@@ -19,17 +19,17 @@ module.exports = {
                 return cb(error);
             }
 
-            var result = sizes && sizes.map(function(size) {
+            var result = sizes && sizes.map(function(size, idx) {
 
-                if (size.media == "photo") { 
+                if (size.media == "photo") {
 
                     return {
                         href: size.source.replace(/^https?:/i, ""),
                         width: size.width,
                         height: size.height,
                         type: CONFIG.T.image_jpeg,
-                        rel: size.width >= 800 || /original/i.test(size.label) ? CONFIG.R.image : CONFIG.R.thumbnail
-                    }
+                        rel: size.width >= 800 || (idx === sizes.length - 1) ? CONFIG.R.image : CONFIG.R.thumbnail
+                    };
 
                 } else if (size.media == "video") {
 
@@ -38,10 +38,8 @@ module.exports = {
                         "aspect-ratio": size.width / size.height,
                         type: /mp4/i.test(size.label) ? CONFIG.T.video_mp4 : CONFIG.T.flash,
                         rel: CONFIG.R.player
-                    }
-
-                } 
-
+                    };
+                }
             }) || [];
 
             result.push({

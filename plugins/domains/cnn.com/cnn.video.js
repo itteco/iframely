@@ -16,26 +16,19 @@ module.exports = {
 
     getLinks: function(meta) {
 
-        var video_url = meta.og.video.url;
-        var links = [];
+        var video = meta.og.video[1];
 
-        var m = video_url.match(/\.(mp4|ogg|webm)$/);
-
-        links.push({
-            href: meta.og.video.url,
-            type: m ? "video/" + m[1] : meta.og.video.type,
+        return [{
+            href: video.url,
+            type: video.type,
             rel: CONFIG.R.player,
-            "aspect-ratio": meta.og.video.width / meta.og.video.height
-        });
-
-        links.push({
-            href: meta.og.video.secure_url,
-            type: meta.og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.autoplay],
-            "aspect-ratio": meta.og.video.width / meta.og.video.height
-        });
-
-        return links;
+            "aspect-ratio": 1.777
+        }, {
+            href: video.secure_url,
+            type: video.type,
+            rel: CONFIG.R.player,
+            "aspect-ratio": 1.777
+        }];
     },
 
     tests: [

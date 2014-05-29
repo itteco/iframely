@@ -1,28 +1,44 @@
+var _ = require("underscore");
+
+function getVideoLinks(video, whitelistRecord) {
+
+    var players = [{
+        href: video.url || video,
+        type: video.type || CONFIG.T.text_html,
+        rel: [CONFIG.R.player, CONFIG.R.og],
+        width: video.width,
+        height: video.height
+    }];
+
+    if (!whitelistRecord || whitelistRecord.isAllowed('og.video', 'ssl')) {
+        players.push({
+            href: video.secure_url,
+            type: video.type || CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.og],
+            width: video.width,
+            height: video.height
+        });
+    }
+
+    return players;
+}
+
 module.exports = {
 
     getLinks: function(og, whitelistRecord) {
 
         if (og.video && (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')))) {
 
-            var players = [{
-                href: og.video.url || og.video,
-                type: og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og],
-                width: og.video.width,
-                height: og.video.height
-            }];
+            if (og.video instanceof Array) {
 
-            if (!whitelistRecord || whitelistRecord.isAllowed('og.video', 'ssl')) {
-                players.push({
-                    href: og.video.secure_url,
-                    type: og.video.type || CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.og],
-                    width: og.video.width,
-                    height: og.video.height
-                });
+                return _.flatten(og.video.map(function(video) {
+                    return getVideoLinks(video, whitelistRecord);
+                }));
+
+            } else if (og.video) {
+
+                return getVideoLinks(og.video, whitelistRecord);
             }
-        
-            return players;
         }
     }
 };

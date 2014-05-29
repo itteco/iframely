@@ -18,7 +18,7 @@ module.exports = {
         
         if (!$el.length) {
             isImage = false;
-            $el = cheerio('#scPlayer')
+            $el = cheerio('#scPlayer');
         }
 
         if (isImage) {

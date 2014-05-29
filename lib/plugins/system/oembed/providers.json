@@ -339,5 +339,13 @@
             "codepen\\.io/.*/pen/.*"
         ],
         "endpoint": "http://codepen.io/api/oembed"
+    },
+    {
+        "name": "Spotify",
+        "templates": [
+            "open\\.spotify\\.com/.*"
+        ],
+        "endpoint": "https://embed.spotify.com/oembed/"
     }
+
 ]

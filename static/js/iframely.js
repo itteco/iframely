@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Versrion 0.6.3
+     Versrion 0.6.4
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -185,7 +185,7 @@
 
             if (media["aspect-ratio"]) {
 
-                $container.css('padding-bottom', Math.round(100 / media["aspect-ratio"]) + '%');
+                $container.css('padding-bottom', Math.round(1000 * 100 / media["aspect-ratio"]) / 1000 + '%');
 
             } else {
 

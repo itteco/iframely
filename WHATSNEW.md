@@ -5,6 +5,43 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+
+### 2014.05.29, Version 0.6.4
+
+This is a domains maintenance release.
+
+
+Domains added:
+
+ + Beatport.com
+ + Time.com
+ + Imageshack.com
+ + Brainquote.com
+ + SportsYapper.com
+
+
+Fixes:
+
+ * Faster Spotify w/ native oEmbed. Plus responsive
+ * Better support for Getty's international URL schemes
+ * Proper (non-) inline tag for Storify. Plus slideshow variant
+ * Fixes for Mail.ru's new URL scheme
+ * Fixed number of plugins with update to latest Cheerio version. Please, run `npm update`.
+ * Exclude `/jobs` slug for AngelList
+ * Fixed Keek
+ * Support vid.ly cdn urls
+ * Removed plugins for Gogoyako (RIP) and Lolwall (no more `/lol/`)
+ * Openstreetmap is actually fairly responsive
+
+
+General improvements: 
+
+ + Custom parser for Schema.org's VideoObject (`embedURL`). It is backed by [our whitelist](http://iframely.com/qa)
+ + Better handling of multiple `og:video`s on the page
+ * Better precision for `aspect-ratio`. We had 1px black stripes on widescreen videos on bigger monitors.
+
+
+
 ### 2014.05.15, Version 0.6.3
 
 

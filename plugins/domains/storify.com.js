@@ -7,6 +7,7 @@ module.exports = {
     mixins: [
         "og-site",
         "og-image",
+        "twitter-player-responsive",
         "favicon"
     ],
 
@@ -26,7 +27,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.inline],
+            rel: CONFIG.R.app,
             html: '<script type="text/javascript" src="' + src + '"></script>',
             "orientation": 'portrait',
             "min-width": 320,

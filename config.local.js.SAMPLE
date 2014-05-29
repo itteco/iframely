@@ -13,7 +13,7 @@
         // You can set your unique whitelist access url here.
         // Iframely will periodically load WL updates from remote file.
         // To get one - go to http://iframely.com/qa
-        WHITELIST_URL: 'http://iframely.com/qa/sample.json',
+        WHITELIST_URL: 'http://iframely.com/qa/top100.json',
 
         // Optional SSL cert, if you serve under HTTPS. 
         /*
