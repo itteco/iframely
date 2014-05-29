@@ -4,7 +4,7 @@ For rapid development, you can implement against community endpoint on [iframely
 
 ## Stay Secure - Host on Dedicated Domain
 
-It is highly recommended that you install [Iframely Gateway](http://iframely.com/gateway) on a dedicated domain. 
+It is highly recommended that you install [Iframely Open-Source](http://iframely.com/get) on a dedicated domain. 
 
 There are few cases, when rendering of embed content is required by the server, for example the articles. Even though Iframely tries to detect and eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see config options below).
 
