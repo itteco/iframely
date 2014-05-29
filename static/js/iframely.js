@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Versrion 0.6.3
+     Versrion 0.6.4
 
      Fetches and renders iframely oebmed/2 widgets.
 
