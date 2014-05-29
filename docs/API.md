@@ -3,7 +3,7 @@
 
 ## For both Cloud and Open-Source version of API
 
-[Iframely API can return](http://iframely.com/docs) either full JSON with the list of embed links, or the simple response as oEmbed. 
+[Iframely API can return](http://iframely.com/docs) either full JSON with the list of embed links, or a simple response as oEmbed. 
 
 Each of the JSON response formats has it’s own API Endpoint relative address and set of get parameters:
 
@@ -12,9 +12,9 @@ Each of the JSON response formats has it’s own API Endpoint relative address a
 
 Depending on whether you use Iframely Cloud API, or Open-Source API, the primary (absolute) host paths will also differ. 
 
-All endpoints are called using `GET` HTTP methods. All URLs need to be URL-encoded.
-
-All endpoints can accept optional `callback` parameter for JSONP support.
+- All endpoints are called using `GET` HTTP methods. 
+- All URLs need to be URL-encoded.
+- All endpoints can accept optional `callback` parameter for JSONP support.
 
 
 ## Cloud API
@@ -23,20 +23,20 @@ The API host for Iframely Cloud is at `http://iframe.ly/api`
 
 ### Shorten and get ID
 
-Iframely Cloud acts as the database for links and URL shortener. Each endpoint is treated as the way for you to shorten URLs and add it to your database. Iframely cloud will add `id` value to the API’s json. Repeat requests will return the same ID.  
+Iframely Cloud acts as the database for links and URL shortener. Each endpoint is treated as the way for you to shorten URLs and add it to your database. Iframely cloud will add `id` value to the root of API JSON. Repeat requests will return the same ID.  
 
-- [http://iframe.ly/api/iframely?url={URL}&api_key={KEY}&origin={hashtag}](iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
-- [http://iframe.ly/api/oembed?url={URL}&api_key={KEY}&origin={hashtag}](iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format.
+- [http://iframe.ly/api/iframely?url={URL}&api_key={KEY}&origin={hashtag}](iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) <br<- for full Iframely JSON,
+- [http://iframe.ly/api/oembed?url={URL}&api_key={KEY}&origin={hashtag}](iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) <br>- for simple oEmbed format.
 
-`api_key` is required ([get your FREE one here](http://iframe.ly)) (unless URL is from iframe.ly domain itself, like `?url=http://iframe.ly/ACcM3Y`). 
+`api_key` is required, unless URL is from iframe.ly domain itself, like `?url=http://iframe.ly/ACcM3Y`. ([Get your FREE one here](http://iframe.ly))  
 
-`origin` parameter is optional. You may filter URLs on your dashboard using origin as #hashtag.
+`origin` parameter is optional. You can filter URLs on your dashboard using origin as #hashtag.
 
 ### Get URL data by ID
 
 When you shorten a URL, you’ll get `id` in the response. This is the short ID of the URL in Iframely DB, unique to your account. 
 
-The short URL (with UI, if any) will be [http://iframe.ly/{SHORT ID}](http://iframe.ly/ACcM3Y.json). This is a permanent address.
+The short URL (with UI, if any) will be [http://iframe.ly/{SHORT ID}](http://iframe.ly/ACcM3Y.json). This is its permanent address.
 
 To query data about this URL any time, you can make public HTTP calls to 
 
@@ -65,4 +65,4 @@ See [how to install & configure](http://iframely.com/docs/host) your Open-Source
 - [About Link Rels, Types and Media Queries](http://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
 - [See more sample URLs and demos](http://iframely.com/domains)
 - [Get your Cloud API Key](http://iframe.ly/api)
-- [How to install & configure](http://iframely.com/docs/host) your Open-Source host. 
+- [How to install & configure](http://iframely.com/docs/host) your open-source host. 

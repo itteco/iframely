@@ -7,10 +7,10 @@ Just like you would expect a `<link>` in `<html>` `<head>` of the page to be.
 Example of a link object:
 
 	{
-		"href": "//coub.com/embed/2pc24rpb", 	-- SRC of embed. The main attribute
-		"rel": ["player", “autoplay”, “html5”],
-		"type": "text/html”,								-- MIME type. Tells: “embed as iFrame”
-		"media": {												-- Media query. Mostly responsive
+		"href": "//coub.com/embed/2pc24rpb",	-- SRC of embed. The main attribute
+		"rel": ["player", "autoplay", "html5"],
+		"type": "text/html",					-- MIME type. Tells: "embed as iFrame"
+		"media": {								-- Media query. Mostly responsive
 			"aspect-ratio": 1.777778
 		}
 	 } 
@@ -45,9 +45,7 @@ Usually these technical rels are available through our [Domains QA DB whitelist]
 
 ### MIME Types
 
-MIME `type` defines a suggested method to render link as widget.
-
-MIME type is an expected HTTP response `content-type` header of a resource behind `href` of a link. Type of content defines the rendering method.
+MIME `type` defines a suggested method to render link as widget. MIME type is an expected HTTP response `content-type` header of a resource behind `href` of a link. Type of content defines the rendering method.
 
 There are following `type`s at the moment:
 
@@ -64,7 +62,7 @@ There are following `type`s at the moment:
 
 Iframely outputs the following `media` query attributes at the moment:
 
- - `aspect-ratio` - our favourite. Available only if **width** and **height** not present
+ - `aspect-ratio` - by far our favourite.
  - `max-width`
  - `min-height`
  - `min-width`

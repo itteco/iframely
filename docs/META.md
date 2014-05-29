@@ -4,7 +4,20 @@ Most web pages have organic `<meta>` data published using different semantics st
 
 Iframely merges various semantics into fields with unified consistent naming keys, so you can reliably use them in your app (if they are available, of course).
 
-Iframely API returns `meta` object that may contain the following fields at the moment:
+Example of `meta`:
+
+	"meta": {
+		"title": "PARADISE BEACH",  
+		"description": "Ilya Trushin",
+		"author_url": "http://coub.com/trucoubs",
+		"author": "Ilya Trushin",
+		"site": "Coub",
+		"canonical": "http://coub.com/view/2pc24rpb",
+		"keywords": "living photo, ... , media"        
+	}
+
+
+Iframely API returns `meta` object that may contain the following fields at the moment.
 
 ## General meta
 

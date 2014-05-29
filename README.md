@@ -1,3 +1,5 @@
+# Iframely API for Responsive Web Embeds
+
 Iframely is fast HTTP API for responsive web embeds. Open-source and self-hosted, or available in the cloud. Here’s [all ways to get Iframely](http://iframely.com/get). 
 
 In response to `url` request, Iframely API returns you the embeds links and semantic meta for a requested web page. It does so by parsing [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards) and general meta on the original page. 
@@ -95,7 +97,7 @@ Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though 
  - [API Endpoints](http://iframely.com/docs/api)
  - [About Link Rels, Types and Media Queries](http://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
  - [Unified META semantics](http://iframely.com/docs/meta) Iframely API scrapes for you.
- - [How to install & configure](http://iframely.com/docs/host) your Open-Source host. 
+ - [How to install & configure](http://iframely.com/docs/host) your open-source host. 
 
 
 ## Help & Support 
