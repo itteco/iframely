@@ -9,7 +9,7 @@ requires a human eye to check if the user experience of the embeds can be relied
 
 The domains DB can be downloaded as JSON file, the format of which is given in this document. It contains the list of domains with `allow` or `deny` tags for each protocol, with supplementary instructions on how to improve the embeds (that are easy to translate into code).
 
-If you use [Iframely Gateway](http://iframely.com/gateway), the Domains DB support is already included. Just upload the latest file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](http://iframely.com/gateway/setup).
+If you use [Iframely Open Source](https://iframely.com/get), the Domains DB support is already included. Just upload the latest file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](http://iframely.com/docs/host).
 
 You can get Domains DB at [http://iframely.com/qa/buy](http://iframely.com/qa/buy).
 
@@ -168,8 +168,6 @@ For `og video` it also verifies the value of `og:video:secure_url` attribute.
 This tag is present if the media starts to play automatically without the user interection. You may opt to isolate such widgets from a user until she confirms the action. For example, putting a thumbnail with a play botton above it, and replacing it with the player once user initites the playback. 
 
 Most of `og video` implementations come with `autoplay`. 
-
-Note that [Iframely Embeds Gateway](http://iframely.com/gateway) tries to replace most vairations of `autoplay=true` and similar get parameters in players' URIs so that playback isn't started automatically.
 
 
 ### Additional `reader` tag
