@@ -11,7 +11,7 @@ module.exports = {
         "og-title",
         "keywords",
         "twitter-image",
-        "twitter-player-whitelisted",
+        "twitter-player-responsive",
         "favicon"
     ],
 
