@@ -21,7 +21,7 @@ module.exports = {
             return {
                 href: "https://youtube.com/embed/" + urlMatch[1] + params,
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": (og.video.height && og.video.width) ? og.video.width / og.video.height : 4/3
             }
 
