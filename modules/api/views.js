@@ -33,7 +33,7 @@ module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (!uri) {
             return next(new Error("'uri' get param expected"));

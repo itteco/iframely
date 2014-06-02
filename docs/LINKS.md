@@ -39,7 +39,7 @@ Iframely also uses supplementary `rels` as the way to suggest technical aspects 
 
 - `autoplay` - if player starts media playback on its load;
 - `html5` - if player is capable of HTML5 playback and will render ok on devices without Flash installed (for example, iOS);
-- `inline` - for `app` indicates that embed widgets can be dynamically added to the page via JavaScript (e.g. doesn’t use `document.write`). Usually goes along with `html` field instead of `href` and indicates that html should be used as `srcset`of an `<iframe>` (as substitute to `href` as `src`). 
+- `inline` - for `app` indicates that embed widgets can be dynamically added to the page via JavaScript (e.g. doesn’t use `document.write`). Usually goes along with `html` field instead of `href` and indicates that html should be used as `srcdoc` of an `<iframe>` (as substitute to `href` as `src`). 
 
 Usually these technical rels are available through our [Domains QA DB whitelist](http://iframely.com/qa). For example, GitHub Gists were not `inline` the last time we checked :\
 
