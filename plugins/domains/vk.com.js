@@ -27,13 +27,12 @@ module.exports = {
         return {
                 href: "//vk.com/video_ext.php?oid=" + oid[1] + "&id=" + vid[1] + "&hash=" + hash[1] ,
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 4/3
             };
     },
 
     tests: [
-        "http://vk.com/video-28416224_167941015?hash=e9112109e2eaf6a2",
         "http://vk.com/video-14099381_167915765"
     ]
 };

@@ -25,7 +25,7 @@ module.exports = {
         return {
             href: "http://www.liveleak.com/ll_embed?f=" + video_href,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 640 / 360 // as per their embed code
         };
     },

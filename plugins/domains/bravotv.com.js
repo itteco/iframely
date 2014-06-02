@@ -19,7 +19,7 @@ module.exports = {
             return {
                 href: videoFrame.attr('src').replace('/select/', '/embed/select/').split('?')[0],
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": videoFrame.attr('width') / videoFrame.attr('height')
             }
         }

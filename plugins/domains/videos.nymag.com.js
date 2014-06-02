@@ -19,7 +19,7 @@ module.exports = {
             title: meta['html-title'].split('"').slice(1,-1).join('"'),
             href: 'http://videos.nymag.com/video/'+ urlMatch[1] +'/player?layout=&title_height=0',
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 1.53
         };
     },
