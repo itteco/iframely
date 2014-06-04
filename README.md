@@ -1,84 +1,105 @@
-## Quick Intro
+# Iframely API for Responsive Web Embeds
 
-[Iframely](http://iframely.com) is super fast web parsing API that gives your app responsive embed codes of web URLs. 
+Iframely is fast HTTP API for responsive web embeds. Open-source and self-hosted, or available in the cloud. Here’s [all ways to get Iframely](http://iframely.com/get). 
 
-Like YouTube and Vimeo players, Instagram photos, Twitter Statuses, Google Maps, and others you see on blogs and social apps out there. Plus thumbnails, titles and other meta data for any URL.  [Here’s some samples](http://iframely.com/domains).
-
-Iframely’s open-source package covers over 100 specific domains off-the-shelf, plus generic _oEmbed_, _Twitter Cards_ and _Open Graph_ parsers.  You can easily extend it by developing your own plugins.  There's also optional readability parser.
-
-## Domain plugins included
-
-Here's the list of domains that package includes specific plugins for:
-
-AngelList, CNN, College Humor, Facebook, Flickr, Funny or Die, Huffington Post, Pinterest, Google Plus, The Globe and Mail, The Guardian, The Onion, Travel Channel, Tumblr (including custom domains), 500px, 56.com, 9Gag, About.me, Animoto, Bandcamp, Behance, Blip.tv, Bravo TV, BrightCove (including hosted), CodePen, Droplr, DailyMotion, DotSUB, Dribbble, Ebaums World, Eurocommision, Eventbrite, all Gawker domains (Lifehacker, Gizmodo, etc.) - for those who use Readability plugin, Getty Images, Giphy, GitHub Gists, Gogoyoko, Haiku Deck, Hulu, Imgur, Instagram, Issuu, iTunes, JSFiddle, Keek, Kickstarter, Live Wall Street Journal, Liveleak, Livestream, Lockerz, Lolwall, Magnatune, Mail.ru, Google Maps, Metacafe, MixBit, Mixcloud, MyVideo.de, Official.fm, Open Street Map, Ow.ly, Pastebin, Path, PBS.org, PollDaddy, Prezi, QZ, Rdio, Tapestry, Reuters, Revision3, Yahoo Screen, Screencast, Screenr, Scribd, Slid.es, Slidecaptain, Sliderocket, Smugmug, Socialcam, Someecards, Soundcloud, Speakerdeck, Spotify, Spreecast, Storify, TED, Telly, Tindeck, Tinypic, Trutv, Twitpic, Twitter, Ustream, QQ, Vevo, Vid.ly, Viddler, Viddy, MIT videos, Yandex.ru,  NYmag videos, Vimeo, Vine.co, Visual.ly, VK.com, Vube.com, weheartit, Wistia, WordPress, yFrog, Youku, Youtube.
+In response to `url` request, Iframely API returns you the embeds links and semantic meta for a requested web page. It does so by parsing [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards) and general meta on the original page. 
 
 
-## Extend with Domains DB
+## Full API JSON
 
-You can extend the coverage of generic open-source parsers to over 1500 domains with the help of Iframely Domains DB. 
+[>> Here’s a quick API call for Coub video](http://iframe.ly/ACcM3Y.json)
 
-We manually test, regression-test and whitelist domains that publish embeds either oEmbed, Twitter Cards or Open Graph protocols. The database is available for $99, and its easily pluggable into Iframely Gateway. 
-
-[Get Domains DB here.](http://iframely.com/qa)
-
-By default, your open-source installation will be linked to our [TOP 100](http://iframely.com/qa/sample.json) free domains list. If you feel like, create your own whitelist file [following this format](http://iframely.com/gateway/dbformat). 
+Basically, it mimics the `<head>` of the origin page, with `<meta>` and list of `<links>` to embed widgets:
 
 
+    {
+        "id": "ACcM3Y",                 -- short ID of a link
+        "url": "http://coub.com/view/2pc24rpb",
 
-## Or use as Cloud API
+        "meta": {                       -- meta object with the semantics
+            "title": "PARADISE BEACH",  -- e.g. title and others
+            "description": "Ilya Trushin",
+            "author_url": "http://coub.com/trucoubs",
+            "author": "Ilya Trushin",
+            "site": "Coub",
+            "canonical": "http://coub.com/view/2pc24rpb",
+            "keywords": "living photo, ... , media"        
+        },
 
-Iframely is also available as Cloud API. 
-
-It is the same great API (plus all 1500+ whitelisted domains), but without the need of your own hardware. It acts as the web shortener (we give you short ID of the URL in the database), and is available for just $29/mo. 
-
-[Sign up here.](http://iframe.ly) 
-
-
-
-## Iframely protocol (oEmbed/2)
-
-Iframely API can consume embeds published under Iframely Protocol (oEmbed/2). It is based on oEmbed, RDFa and HTML5 (namely, media queries) and is focused on responsive embeds and functional use cases.  
-
-If you are a publisher, learn [more about the protocol here](http://iframely.com/oembed2). And [add your domain here](http://iframely.com/qa/request). Also list your domain if you just publish in oEmbed v1, Twitter players or Open Graph video.
-
-
-
-## Get started with API
-
-To get started with API, read [API Docs](http://iframely.com/gateway/API) or use our visual [URL Checker](http://iframely.com/debug). 
-
-[>> Here’s a sample API call for Vimeo video](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063)
-
-Essentially, the API’s JSON data format emulates `meta` representation of URL’s  `head` and `link rel=…` list of responsive embeds, as if domain actually published in Iframely Protocol. 
-
-Iframely API is also available as oEmbed v1, for the ease of your migration.
-
-You may jump start your development by using our [Cloud API](http://iframe.ly)  (which is nearly identical to open-source) with the free plan. 
-
-Or [read here how to install](http://iframely.com/gateway/setup) and configure gateway yourself. 
-
-
-
-## Contribute
-
-We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions.
-
-Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
-
-If you are a publisher and would like to make your embeds available under [Iframely Protocol](http://iframely.com/oembed2) (and thus distributed through this open-source gateway) - please, [add your domain to the our DB](http://iframely.com/qa/request).
+        -- Plus list of embed src links with functional rels . For example,
+        "links": {
+            "player": [{                -- List of player embed widgets
+                "media": {              -- Mostly responsive
+                    "aspect-ratio": 1.777778
+                },
+                                        -- SRC of embed. The main attribute.
+                "href": "//coub.com/embed/2pc24rpb",
+                "rel": ["player", "iframely"],
+                "type": "text/html"     -- MIME type. Tells: "use iframe here".
+            }, {
+                ... 
+                -- Can be multiple variations of the same player. 
+                -- E.g. one that 'autoplay's, one as MP4 video, one with https src.
+            }],
+            "thumbnail": [{
+                "media": {
+                    "height": 360,      -- Exact sizes here. 
+                    "width": 640
+                },                      -- We repeat the same rel
+                "rel": ["thumbnail"],   -- as iframely.js needs it.
+                "type": "image",        -- "use href as src of image"
+                "href": "http://cdn1.aka ... med_1381670134_00040.jpg"
+            }, {
+                ...
+            }],
+                                        -- app, image (as rel)
+            ...                         -- reader, survey
+                                        -- logo (sometimes)
+            "icon": [{
+                ...
+            }]
+        },
+    }
 
 
 
-## License & Authors
+## Or in oEmbed Format
 
-MIT License. (c) 2012-2014 Itteco Software Corp. 
+Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though it is more of a fallback and is slightly less flexible than main endpoint. For example, it skips `autoplay` videos.
 
-Specifically:
+[>> Here’s the same Coub in oEmbed flavor](http://iframe.ly/ACcM3Y.oembed)
 
-- [Nazar Leush](https://github.com/nleush) - _the_ author
-- [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
+	{
+	    "id": "ACcM3Y",
+	    "url": "http://coub.com/view/2pc24rpb",
+	    "type": "rich",
+	    "version": "1.0",
+	    "title": "PARADISE BEACH",
+	    "author": "Ilya Trushin",
+	    "author_url": "http://coub.com/trucoubs",
+	    "provider_name": "Coub",
+	    "thumbnail_url": "http://cdn1 ... /med_1381670134_00040.jpg",
+	    "thumbnail_width": 640,
+	    "thumbnail_height": 360,
+	    "html": "<div class=\"iframely-widget-container\" style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.243%;\"><iframe class=\"iframely-widget iframely-iframe\" src=\"//coub.com/embed/2pc24rpb\" frameborder=\"0\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>",
+	    "duration": 12,
+	    "keywords": "living photo, cinemagraph, ... , media",
+	    "description": "Ilya Trushin",
+	    "canonical": "http://coub.com/view/2pc24rpb"
+	}
 
-Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
+`photo` and `rich` types are supported as oEmbed output. If Iframely doesn't have any embed codes for given URL, oEmbed will return `link` type object. The additional unified semantic information as well as `thumbnail`s are returned for all URLs. See the list of meta fields below.
 
-[![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
 
+## Read Next:
+
+ - [See more sample URLs and demos](http://iframely.com/domains)
+ - [API Endpoints](http://iframely.com/docs/api)
+ - [About Link Rels, Types and Media Queries](http://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
+ - [Unified META semantics](http://iframely.com/docs/meta) Iframely API scrapes for you.
+ - [How to install & configure](http://iframely.com/docs/host) your open-source host. 
+
+
+## Help & Support 
+
+If you need any quick help, don’t hesitate to tweet to [@iframely](https://twitter.com/iframely) or [send an email](mailto:support@iframely.com).
