@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Versrion 0.6.4
+     Versrion 0.6.5
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -284,7 +284,7 @@
                     }
 
                     // Find images with same aspect.
-                    var thumbnails = iframelyData.links.filter(function(link) {
+                    var thumbnails = iterateLinks(iframelyData.links, function(link) {
                         if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
@@ -393,17 +393,13 @@
 
     $.iframely.findBestFittedLink = function(targetWidth, targetHeight, links) {
 
-        if (!links || links.length == 0) {
-            return;
-        }
-
-        var sizedLinks = links.filter(function(link) {
+        var sizedLinks = iterateLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
 
         if (sizedLinks.length == 0) {
-            return links[0];
+            return firstLink(links);
         }
 
         var targetAspect = targetWidth / targetHeight;
@@ -482,17 +478,13 @@
     // This not works with scaling. Not used yet.
     $.iframely.findBestSizedLink = function(targetWidth, targetHeight, links) {
 
-        if (!links || links.length == 0) {
-            return;
-        }
-
-        var sizedLinks = links.filter(function(link) {
+        var sizedLinks = iterateLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
 
         if (sizedLinks.length == 0) {
-            return links[0];
+            return firstLink(links);
         }
 
         var fits = [];
@@ -565,7 +557,7 @@
             return /^(?:https:)?\/\/.+/i.test(href);
         }
 
-        var result = links && links.filter && links.filter(function(link) {
+        var result = iterateLinks(links, function(link) {
 
             if (options.httpsOnly) {
                 if (!isHttps(link.href)) {
@@ -610,5 +602,59 @@
 
         return result;
     };
+
+    function iterateLinks(links, cb) {
+
+        if (links) {
+
+            if (links instanceof Array) {
+
+                return links.filter(cb);
+
+            } else if (typeof links === 'object') {
+
+                var result = [];
+
+                for(var id in links) {
+                    var items = links[id];
+                    if (items instanceof Array) {
+                        items.forEach(function(item) {
+                            if (cb(item)) {
+                                result.push(item);
+                            }
+                        });
+                    }
+                }
+
+                return result;
+            }
+        }
+    }
+
+    function firstLink(links) {
+
+        if (links) {
+
+            if (links instanceof Array) {
+
+                if (links.length > 0) {
+                    return links[0];
+                } else {
+                    return;
+                }
+
+            } else if (typeof links === 'object') {
+
+                for(var id in links) {
+                    var items = links[id];
+                    if (items instanceof Array) {
+                        if (items.length > 0) {
+                            return items[0];
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 })( jQuery );
