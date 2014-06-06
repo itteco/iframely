@@ -284,7 +284,7 @@
                     }
 
                     // Find images with same aspect.
-                    var thumbnails = iterateLinks(iframelyData.links, function(link) {
+                    var thumbnails = filterLinks(iframelyData.links, function(link) {
                         if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
@@ -393,7 +393,7 @@
 
     $.iframely.findBestFittedLink = function(targetWidth, targetHeight, links) {
 
-        var sizedLinks = iterateLinks(links, function(link) {
+        var sizedLinks = filterLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
@@ -478,7 +478,7 @@
     // This not works with scaling. Not used yet.
     $.iframely.findBestSizedLink = function(targetWidth, targetHeight, links) {
 
-        var sizedLinks = iterateLinks(links, function(link) {
+        var sizedLinks = filterLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
@@ -557,7 +557,7 @@
             return /^(?:https:)?\/\/.+/i.test(href);
         }
 
-        var result = iterateLinks(links, function(link) {
+        var result = filterLinks(links, function(link) {
 
             if (options.httpsOnly) {
                 if (!isHttps(link.href)) {
@@ -603,7 +603,7 @@
         return result;
     };
 
-    function iterateLinks(links, cb) {
+    function filterLinks(links, cb) {
 
         if (links) {
 
