@@ -156,7 +156,7 @@
 
         var media = data.media;
 
-        if (media && media.height && media.width) {
+        if (media && media.height && media.width && !media["aspect-ratio"]) {
             $element.attr('width', media.width);
             $element.attr('height', media.height);
             return $element;
@@ -169,7 +169,7 @@
             .css('position', 'absolute');
 
         var $container = $('<div>')
-            .addClass("iframely-widget-container")
+            //.addClass("iframely-widget-container")
             .css('left', 0)
             .css('width', '100%')
             .css('height', 0)
@@ -201,7 +201,7 @@
             // Min/max width can be controlled by one more parent div.
             if (media["max-width"] || media["min-width"]) {
                 var $widthLimiterContainer = $('<div>')
-                    .addClass("iframely-outer-container")
+                    //.addClass("iframely-outer-container")
                     .append($container);
                 ["max-width", "min-width"].forEach(function(attr) {
                     if (media[attr]) {
@@ -256,8 +256,7 @@
 
                 var iframelyData = options && options.iframelyData;
 
-                var $video = $('<video controls>Your browser does not support HTML5 video.</video>')
-                    .addClass("iframely-widget iframely-video");
+                var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
 
                 if (iframelyData && iframelyData.links) {
 
