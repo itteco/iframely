@@ -347,7 +347,6 @@
                     .attr('webkitallowfullscreen', true)
                     .attr('mozallowfullscreen', true);
 
-
                 if (options && options.disableSizeWrapper) {
                     return $iframe;
                 } else {
