@@ -33,7 +33,7 @@ module.exports = {
 
             if (id)
                 thumbnail = {
-                    href: 'https://speakerd.s3.amazonaws.com/presentations/' + id + '/thumb_slide_0.jpg',
+                    href: 'https://speakerd.s3.amazonaws.com/presentations/' + id + '/slide_0.jpg',
                     type: CONFIG.T.image,
                     rel: [CONFIG.R.thumbnail]                    
                 }
