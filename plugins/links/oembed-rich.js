@@ -16,6 +16,7 @@ module.exports = {
         if (rels.length == 1) rels.push(CONFIG.R.app);        
         // if (whitelistRecord.isAllowed('oembed.rich', "responsive")) rels.push("responsive");
         if (whitelistRecord.isAllowed('oembed.rich', "inline")) rels.push(CONFIG.R.inline);
+        if (whitelistRecord.isAllowed('oembed.rich', "html5")) rels.push(CONFIG.R.html5);
         rels.push ("allow"); // otherwise, rich->players get denied by oembed:video whitelist record
 
 
