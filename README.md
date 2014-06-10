@@ -62,8 +62,7 @@ Basically, it mimics the `<head>` of the origin page, with `<meta>` and list of 
 
         -- HTML field is only available in Cloud API
         "html": "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.243%;\">
-        <iframe src=\"//iframe.ly/ACcM3Y\" style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\">
-        </iframe></div>"
+        <iframe src=\"//iframe.ly/ACcM3Y\" style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
     }
 
 
