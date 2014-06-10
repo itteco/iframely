@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 var _ = require('underscore');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
 
     getMeta: function(tumblr_post) {
 
-        var caption = jquery('<div>').html(tumblr_post.caption).text();
+        var caption = $('<div>').html(tumblr_post.caption).text();
         if (caption && caption.length > 160) caption = caption.split(/[.,!?]/)[0];
 
         return {
