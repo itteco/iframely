@@ -1,8 +1,8 @@
 # Link Attributes in Iframely JSON
 
-`links`  in [Iframely API](http://iframely.com/docs) is the list of objects with fields `rel`, `href`, `type` and `media`. 
+`links`  in [Iframely API](http://iframely.com/docs) is the list of objects with fields `rel`, `href`, `type` and `media`. Just like you would expect a `<link>` in `<html>` `<head>` of the page to be. 
 
-Just like you would expect a `<link>` in `<html>` `<head>` of the page to be.
+Links are used as the raw data which you can use to render a responsive widget. 
 
 Example of a link object:
 
@@ -16,6 +16,14 @@ Example of a link object:
 	 } 
 
 At times, Iframely will return `html` attribute instead of `href`. For example, for Twitter and Facebook Statuses, or elsewhere with very specific  embed codes.
+
+## Hosted widgets
+
+A foreword before we go further with `links`: if you are using [Cloud API](http://iframe.ly), Iframely will also give you a simple `html` field to use as embed code in API response. 
+
+It is possible to do so in Cloud API, as we also offer hosted wigets there, and may proxy each frame view. It is helpful if you want to quickly handle SSL, iOS-Flash and autoplay issues. 
+
+If you opt to rely on our `html` field, we suggest you check the functional `rels` before using the code to see if the use cases fit your app.
 
 ## Functional Rels
 

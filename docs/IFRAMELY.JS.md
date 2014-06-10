@@ -1,6 +1,6 @@
 # Iframely JS Client Lib
 
-[Iframely Open-Source](https://github.com/itteco/iframely) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. If you'd prefer to render a widget from the data yourself, please refer to [How to Render a Widget](http://iframely.com/docs/links).
+[Iframely Open-Source](https://github.com/itteco/iframely) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. If you'd prefer to render a widget from the data yourself, please refer to [How to Render a Widget](http://iframely.com/docs/links). If you are using [Cloud API](http://iframe.ly), you don't need iframely.js as the embed code will be provided to you by API as the `html` field of JSON response.
 
 You may find `iframely.js` lib in `/static/js/iframely.js` folder. 
 
