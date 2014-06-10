@@ -71,7 +71,7 @@ In Open-Source version, you will need to render the code yourself. [See how](htt
 
 ## Or in oEmbed Format
 
-Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though it is more of a fallback and is slightly less flexible than main endpoint. For example, it skips `autoplay` videos.
+Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though it is more of a fallback and is slightly less flexible than main endpoint. For example, it skips `autoplay` videos. If you want to include those in Cloud API, add `&iframe=1` parameter to your call.
 
 [>> Here’s the same Coub in oEmbed flavor](http://iframe.ly/ACcM3Y.oembed)
 
@@ -94,7 +94,7 @@ Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though 
 	    "canonical": "http://coub.com/view/2pc24rpb"
 	}
 
-`photo` and `rich` types are supported as oEmbed output. If Iframely doesn't have any embed codes for given URL, oEmbed will return `link` type object. The additional unified semantic information as well as `thumbnail`s are returned for all URLs. See the list of meta fields below.
+`photo`, `video` and `rich` types are supported as oEmbed output. If Iframely doesn't have any embed codes for given URL, oEmbed will return `link` type object. The additional unified semantic information as well as `thumbnail`s are returned for all URLs. See the list of meta fields below.
 
 
 ## Read Next:
