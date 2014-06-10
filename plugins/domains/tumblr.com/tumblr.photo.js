@@ -28,7 +28,7 @@ module.exports = {
 
         tumblr_post.photos.forEach(function(photo) {
 
-            var title = photo.caption;
+            var title = photo.caption || tumblr_post.caption;
 
             addImage(title, photo.original_size, CONFIG.R.image);
             var originalWidth = photo.original_size.width;
