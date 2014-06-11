@@ -629,6 +629,8 @@
                 return result;
             }
         }
+
+        return [];
     }
 
     function firstLink(links) {
