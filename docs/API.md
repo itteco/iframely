@@ -7,8 +7,8 @@
 
 Each of the JSON response formats has it’s own API Endpoint relative address and set of get parameters:
 
-- [/iframely?url=](iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
-- [/oembed?url=](iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format. 
+- [/iframely?url=](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
+- [/oembed?url=](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format. 
 
 Depending on whether you use Iframely Cloud API, or Open-Source API, the primary (absolute) host paths will also differ. 
 
@@ -25,8 +25,8 @@ The API host for Iframely Cloud is at `http://iframe.ly/api`
 
 Iframely Cloud acts as the database for links and URL shortener. Each endpoint is treated as the way for you to shorten URLs and add it to your database. Iframely cloud will add `id` value to the root of API JSON. Repeat requests will return the same ID.  
 
-- [http://iframe.ly/api/iframely?url={URL}&api_key={KEY}&origin={hashtag}](iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) <br>- for full Iframely JSON,
-- [http://iframe.ly/api/oembed?url={URL}&api_key={KEY}&origin={hashtag}](iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) <br>- for simple oEmbed format.
+- [http://iframe.ly/api/iframely?url={URL}&api_key={KEY}&origin={hashtag}](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) <br>- for full Iframely JSON,
+- [http://iframe.ly/api/oembed?url={URL}&api_key={KEY}&origin={hashtag}](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) <br>- for simple oEmbed format.
 
 `api_key` is required, unless URL is from iframe.ly domain itself, like `?url=http://iframe.ly/ACcM3Y`. ([Get your FREE one here](http://iframe.ly))  
 
@@ -55,8 +55,8 @@ The exact path to your Open Source API host depends on your config and setup you
 
 Basically, it is:
 
-- [{YOURHOST.HERE}/iframely?url=](iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
-- [{YOURHOST.HERE}/oembed?url=](iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format. 
+- [{YOURHOST.HERE}/iframely?url=](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
+- [{YOURHOST.HERE}/oembed?url=](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format. 
 
 The only differences in JSON format with Cloud API is the absence of `id` value and also the fact that full Iframely JSON is not grouped by `rel` in Open-Source API. To get it grouped, just add `&group=true` to the response. The open-source API also does not have `html` field, so you'd need to generate the embed codes yourself, depending on your app needs. [See how](http://iframely.com/docs/links).
 
