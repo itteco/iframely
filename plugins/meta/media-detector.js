@@ -1,7 +1,5 @@
 module.exports = {
 
-    notPlugin: true,
-
     getMeta: function(meta) {
 
         var has = false;
@@ -19,7 +17,7 @@ module.exports = {
 
         if (has) {
             return {
-                can_have_player: true
+                media: 'player'
             };
         }
     }
