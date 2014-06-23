@@ -92,4 +92,5 @@ If you’d like to generate a responsive embed code yourself, please refer to
 
 - ["Responsive embeds"](http://amobil.se/2011/11/responsive-embeds/) by [Anders M. Andersen](https://twitter.com/andmag) / 2011
 - [Creating Intrinsic Ratios for Video](http://alistapart.com/article/creating-intrinsic-ratios-for-video) by [Thierry Koblentz](https://twitter.com/thierrykoblentz) / 2009
+- [How to Generate Responsive Embed Codes](http://iframely.com/oembed2/types) from Iframely Protocol
 
