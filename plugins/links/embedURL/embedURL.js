@@ -46,10 +46,18 @@ module.exports = {
 
         if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl) {
 
+            var type = CONFIG.T.text_html;
+
+            if (schemaVideoObject.playerType) {
+                if (schemaVideoObject.playerType.indexOf('Flash') > -1) {
+                    type = CONFIG.T.flash;
+                }
+            }
+
             var player = {
                 href: schemaVideoObject.embedURL || schemaVideoObject.embedUrl,
                 rel: [CONFIG.R.player],
-                type: CONFIG.T.text_html
+                type: type
             };
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', 'html5')) player.rel.push(CONFIG.R.html5);
