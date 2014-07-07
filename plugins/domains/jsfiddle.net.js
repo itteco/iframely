@@ -14,7 +14,7 @@ module.exports = {
         return {
             href: urlMatch[1] + "embedded/",
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader
+            rel: CONFIG.R.app
         };
     },
 
