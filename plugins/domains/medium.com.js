@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https:\/\/medium\.com\/@?([\w-]+)/i,
+    re: /^https:\/\/medium\.com\/@?[\w-]+/i,
 
     mixins: [
         "og-image",
@@ -27,11 +27,24 @@ module.exports = {
                 type: CONFIG.T.text_html
             };
         }
+
+        if (og.type === 'article') {
+            var id = url.split('/').splice(-1)[0];
+            return {
+                href: 'https://api.medium.com/embed?type=story&path=' + encodeURIComponent('/p/' + id),
+                height: 333,
+                rel: CONFIG.R.summary,
+                type: CONFIG.T.text_html
+            };
+        }
     },
 
     tests: [{
         page: 'https://medium.com/top-100',
         selector: 'a.avatar'
+    }, {
+        page: 'https://medium.com/top-100',
+        selector: '.postItem-title a'
     },
         "https://medium.com/@startswithabang",
         "https://medium.com/better-humans"
