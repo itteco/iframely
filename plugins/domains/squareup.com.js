@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /^https:\/\/squareup\.com\/market\/[\w-]+\/[\w-]+/i,
+
     mixins: [
         "og-image",
         "favicon",
