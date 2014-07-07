@@ -26,8 +26,7 @@ module.exports = {
     },
 
     tests: [{
-        page: 'http://mixlr.com/live/acoustic-folk/',
-        selector: 'a.profile_image'
+        noFeeds: true
     },
         "http://mixlr.com/voice-of-charity/"
     ]
