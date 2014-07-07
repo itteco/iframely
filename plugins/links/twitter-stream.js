@@ -10,14 +10,14 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"]
             };
 
-            if (whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.height) {
+            if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.height) {
                 player['aspect-ratio'] = twitter.player.width / twitter.player.height;
             } else {
                 player.width = twitter.player.width;
                 player.height = twitter.player.height;
             }
 
-            if (whitelistRecord.isAllowed('twitter.stream', 'autoplay')) {
+            if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'autoplay')) {
                 player.rel.push(CONFIG.R.autoplay);
             }
 

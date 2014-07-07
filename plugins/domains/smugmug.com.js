@@ -4,10 +4,17 @@ module.exports = {
 
     mixins: [
         "canonical",
+        "favicon",
         "oembed-site",
         "oembed-author",
+        "oembed-video",
+        "oembed-duration",
         "og-image", // fallback for the thumbnails
-        "favicon"
+        "og-video",
+        "twitter-description",
+        "twitter-stream",
+        "twitter-image",
+        "twitter-stream"
     ],
 
     getMeta: function(oembed) {
@@ -66,16 +73,28 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://www.smugmug.com/popular/today"
+        pageWithFeed: "http://www.smugmug.com/popular/today",
+        getUrl: function(url) {
+            return url.indexOf('smugmug.com/') > -1 ? url : null;
+        }
     },
         "http://www.smugmug.com/popular/all#!i=789708429&k=sPdffjw",
         "http://normbetzphotos.smugmug.com/BASKETBALL-201314/HS-VS-MAUMELLE-1-23-14",
-        {
+        "http://cedricwalter.smugmug.com/Computers/Joomla/i-726WRdK/A",
+    {
+        skipMethods: ['getLink'],
         skipMixins: [
             "og-title",
             "oembed-title",
             "oembed-author",
-            "canonical"
+            "canonical",
+            "oembed-video",
+            "og-video",
+            "twitter-stream",
+            "twitter-image",
+            "twitter-description",
+            "twitter-stream",
+            "oembed-duration"
         ]
     }]
 };
