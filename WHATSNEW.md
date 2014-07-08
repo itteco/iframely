@@ -24,6 +24,7 @@ Domains added:
  + medium.com
  + mixlr.com
  + twitch.tv
+ + arte.tv
 
 
 Domains maintenance:
