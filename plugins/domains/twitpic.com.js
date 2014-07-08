@@ -14,7 +14,7 @@ module.exports = {
         if (meta.twitter.card === "player") return {
                 href: meta.twitter.player.value || meta.twitter.player,
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 width: meta.twitter.player.width,
                 height: meta.twitter.player.height
             };

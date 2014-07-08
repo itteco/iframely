@@ -23,7 +23,7 @@ module.exports = {
             player = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 height: oembed.height,
                 "min-width": oembed.width
             }

@@ -12,8 +12,13 @@ module.exports = {
         "og-title"
     ],    
 
-    getLink: function(url) {
-        return [{
+    getLink: function(url, og) {
+
+        if (og.type !== 'pinterestapp:pinboard') {
+            return;
+        }
+
+        return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline],
             template: "pinterest.widget",
@@ -27,13 +32,13 @@ module.exports = {
             },
             width: 600,
             height: 600+120
-        }];
+        };
     },
 
-    tests: [
-
+    tests: [{
         // No Test Feed here not to violate "scrapping" restrictions of Pinterest
-        
+        noFeeds: true
+    },
         "http://pinterest.com/bcij/art-mosaics/",
         "http://pinterest.com/bcij/aging-gracefully/"
     ]

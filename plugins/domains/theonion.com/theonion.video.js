@@ -19,7 +19,7 @@ module.exports = {
         return {
             href: 'http://www.theonion.com/video_embed/?id=' + $video.attr('id'),
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 480 / 270
         };
     },

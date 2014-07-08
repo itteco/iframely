@@ -25,7 +25,7 @@ module.exports = {
             return {
                 href: meta.og.url + "/embed",
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 4/3   // It's actually more flexible, but it'll be better handled at oEmbed endpoint this way.
             };
         }

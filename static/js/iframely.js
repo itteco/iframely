@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Versrion 0.6.4
+     Versrion 0.6.5
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -156,7 +156,7 @@
 
         var media = data.media;
 
-        if (media && media.height && media.width) {
+        if (media && media.height && media.width && !media["aspect-ratio"]) {
             $element.attr('width', media.width);
             $element.attr('height', media.height);
             return $element;
@@ -169,7 +169,7 @@
             .css('position', 'absolute');
 
         var $container = $('<div>')
-            .addClass("iframely-widget-container")
+            //.addClass("iframely-widget-container")
             .css('left', 0)
             .css('width', '100%')
             .css('height', 0)
@@ -201,7 +201,7 @@
             // Min/max width can be controlled by one more parent div.
             if (media["max-width"] || media["min-width"]) {
                 var $widthLimiterContainer = $('<div>')
-                    .addClass("iframely-outer-container")
+                    //.addClass("iframely-outer-container")
                     .append($container);
                 ["max-width", "min-width"].forEach(function(attr) {
                     if (media[attr]) {
@@ -256,8 +256,7 @@
 
                 var iframelyData = options && options.iframelyData;
 
-                var $video = $('<video controls>Your browser does not support HTML5 video.</video>')
-                    .addClass("iframely-widget iframely-video");
+                var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
 
                 if (iframelyData && iframelyData.links) {
 
@@ -285,7 +284,7 @@
                     }
 
                     // Find images with same aspect.
-                    var thumbnails = iframelyData.links.filter(function(link) {
+                    var thumbnails = filterLinks(iframelyData.links, function(link) {
                         if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
@@ -348,7 +347,6 @@
                     .attr('webkitallowfullscreen', true)
                     .attr('mozallowfullscreen', true);
 
-
                 if (options && options.disableSizeWrapper) {
                     return $iframe;
                 } else {
@@ -395,17 +393,13 @@
 
     $.iframely.findBestFittedLink = function(targetWidth, targetHeight, links) {
 
-        if (!links || links.length == 0) {
-            return;
-        }
-
-        var sizedLinks = links.filter(function(link) {
+        var sizedLinks = filterLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
 
         if (sizedLinks.length == 0) {
-            return links[0];
+            return firstLink(links);
         }
 
         var targetAspect = targetWidth / targetHeight;
@@ -484,17 +478,13 @@
     // This not works with scaling. Not used yet.
     $.iframely.findBestSizedLink = function(targetWidth, targetHeight, links) {
 
-        if (!links || links.length == 0) {
-            return;
-        }
-
-        var sizedLinks = links.filter(function(link) {
+        var sizedLinks = filterLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
 
         if (sizedLinks.length == 0) {
-            return links[0];
+            return firstLink(links);
         }
 
         var fits = [];
@@ -567,7 +557,7 @@
             return /^(?:https:)?\/\/.+/i.test(href);
         }
 
-        var result = links && links.filter && links.filter(function(link) {
+        var result = filterLinks(links, function(link) {
 
             if (options.httpsOnly) {
                 if (!isHttps(link.href)) {
@@ -612,5 +602,61 @@
 
         return result;
     };
+
+    function filterLinks(links, cb) {
+
+        if (links) {
+
+            if (links instanceof Array) {
+
+                return links.filter(cb);
+
+            } else if (typeof links === 'object') {
+
+                var result = [];
+
+                for(var id in links) {
+                    var items = links[id];
+                    if (items instanceof Array) {
+                        items.forEach(function(item) {
+                            if (cb(item)) {
+                                result.push(item);
+                            }
+                        });
+                    }
+                }
+
+                return result;
+            }
+        }
+
+        return [];
+    }
+
+    function firstLink(links) {
+
+        if (links) {
+
+            if (links instanceof Array) {
+
+                if (links.length > 0) {
+                    return links[0];
+                } else {
+                    return;
+                }
+
+            } else if (typeof links === 'object') {
+
+                for(var id in links) {
+                    var items = links[id];
+                    if (items instanceof Array) {
+                        if (items.length > 0) {
+                            return items[0];
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 })( jQuery );

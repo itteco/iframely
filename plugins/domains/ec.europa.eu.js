@@ -36,7 +36,7 @@ module.exports = {
 
             links.push({
                 href: ec_data["twitter:player"].replace("https://", "http://"),
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": ec_data["twitter:player:width"] / ec_data["twitter:player:height"]
             })

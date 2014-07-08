@@ -12,7 +12,12 @@ module.exports = {
         "og-title"
     ],    
 
-    getLink: function(url) {
+    getLink: function(url, og) {
+
+        if (og.type !== 'profile') {
+            return;
+        }
+
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline],
@@ -30,10 +35,10 @@ module.exports = {
         };
     },
 
-    tests: [
-
+    tests: [{
         // No Test Feed here not to violate "scrapping" restrictions of Pinterest
-        
+        noFeeds: true
+    },
         "http://pinterest.com/bcij/",
         "http://pinterest.com/franktofineart/"
     ]

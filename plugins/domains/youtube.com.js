@@ -83,7 +83,7 @@ module.exports = {
             height: 32
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_gdata.id + params,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
         }, {

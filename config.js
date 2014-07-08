@@ -67,6 +67,7 @@
             file: "file",
             survey: "survey",
             app: "app",
+            summary: "summary",
 
             iframely: "iframely",
             og: "og",

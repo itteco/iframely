@@ -5,6 +5,48 @@ This is the history of the [Iframely Gateway](http://iframely.com/gateway) chang
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+### 2014.07.08, Version 0.6.5
+
+Domains added:
+
+ + podbean.com
+ + slide.ly
+ + clip.vn
+ + squareup.com
+ + quizlet.com
+ + video.nationalgeographic.com
+ + channel9.msdn.com/Events
+ + c-span.org
+ + indiegogo.com
+ + rapgenius.com
+ + vgtv.no
+ + sverigesradio.se
+ + medium.com
+ + mixlr.com
+ + twitch.tv
+ + arte.tv
+
+
+Domains maintenance:
+
+ * Fixed 9gag.com to find nice source image - big image or animated gif
+ * Fixed pinterest.com to prevent working on non-content urls
+ * Fixed thumbnail for speakerdeck.com
+ * Added video embed for smugmug.com
+ + Added html5 tag to text/html players domains that support it
+
+
+General improvements:
+
+ + Added smart cache invalidation for iframely data per domain and plugin. Now plugin results cache will be invalidated after plugin file update or whitelist domain record update.
+ * Better support for open graph arrays
+ * Added support of grouped links in iframely.js
+ * Improved serverside oembed html attribute generation
+ + Added meta plugin to detect page media (e.g. 'player', 'reader')
+ * Fix detecting correct charset when response headers charset not equals to html meta tag charset. Response header has priority now.
+ + Updated iconv-lite to support more encodings. Please, run `npm update`.
+ + Return 403 for non indexing content, according to [How to block Iframely API](http://iframely.com/docs/block-iframely).
+
 
 ### 2014.05.29, Version 0.6.4
 

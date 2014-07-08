@@ -10,7 +10,7 @@ module.exports = {
         return [{
             href: "https://d132d9vcg4o0oh.cloudfront.net/embeded.html?link=" + urlMatch[1] + "&new=1&autoplay=false",
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 640 / 360
         }, {
             href: "//vid.ly/" + urlMatch[1] + "/poster",

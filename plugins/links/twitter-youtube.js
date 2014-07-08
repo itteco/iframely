@@ -22,7 +22,7 @@ module.exports = {
             return {
                 href: "https://youtube.com/embed/" + urlMatch[1] + params,
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": (twitter.player.height && twitter.player.width) ? twitter.player.width / twitter.player.height : 4/3
             }
 

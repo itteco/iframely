@@ -14,7 +14,7 @@ module.exports = {
         return [{
             href: "//fast.wistia.net/embed/iframe/" + urlMatch[2],
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": oembed.width / oembed.height
         }, {
             href: "http://wistia.com/favicon.ico",

@@ -24,7 +24,7 @@ module.exports = {
         return [{
             href: "//player.vimeo.com/video/" + oembed.video_id + params,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": oembed.width / oembed.height
         }, {
             href: "http://a.vimeocdn.com/images_v6/apple-touch-icon-72.png",

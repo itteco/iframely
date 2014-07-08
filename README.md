@@ -59,13 +59,19 @@ Basically, it mimics the `<head>` of the origin page, with `<meta>` and list of 
                 ...
             }]
         },
+
+        -- HTML field is only available in Cloud API
+        "html": "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.243%;\">
+        <iframe src=\"//iframe.ly/ACcM3Y\" style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
     }
 
 
+`html` field contains the responsive embed code, which is provided by Cloud API and which also resolves SSL, Flash-on-iOS and autoplay issues. 
+In Open-Source version, you will need to render the code yourself. [See how](http://iframely.com/docs/links). 
 
 ## Or in oEmbed Format
 
-Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though it is more of a fallback and is slightly less flexible than main endpoint. For example, it skips `autoplay` videos.
+Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though it is more of a fallback and is slightly less flexible than main endpoint. For example, it skips `autoplay` videos. If you want to include those in Cloud API, add `&iframe=1` parameter to your call.
 
 [>> Here’s the same Coub in oEmbed flavor](http://iframe.ly/ACcM3Y.oembed)
 
@@ -88,7 +94,7 @@ Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though 
 	    "canonical": "http://coub.com/view/2pc24rpb"
 	}
 
-`photo` and `rich` types are supported as oEmbed output. If Iframely doesn't have any embed codes for given URL, oEmbed will return `link` type object. The additional unified semantic information as well as `thumbnail`s are returned for all URLs. See the list of meta fields below.
+`photo`, `video` and `rich` types are supported as oEmbed output. If Iframely doesn't have any embed codes for given URL, oEmbed will return `link` type object. The additional unified semantic information as well as `thumbnail`s are returned for all URLs. See the list of meta fields below.
 
 
 ## Read Next:

@@ -12,9 +12,9 @@ module.exports = {
 
     getLink: function(urlMatch) {
         return {
-            href: urlMatch[0] + "embedded/",
+            href: urlMatch[1] + "embedded/",
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader
+            rel: CONFIG.R.app
         };
     },
 

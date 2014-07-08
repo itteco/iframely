@@ -22,7 +22,7 @@ module.exports = {
             {
                 href: embed,
                 type: CONFIG.T.text_html,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.player : CONFIG.R.app,
+                rel: (meta.og && meta.og.video) ? [CONFIG.R.player, CONFIG.R.html5]: CONFIG.R.app,
                 width: 616,
                 height: 714
             },
@@ -51,7 +51,7 @@ module.exports = {
             links.push({
                 href: meta.og.video.url || meta.og.video,
                 type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og],
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height,
                 "max-width": meta.og.video.width,
                 "max-height": meta.og.video.height

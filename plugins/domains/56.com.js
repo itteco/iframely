@@ -18,7 +18,7 @@ module.exports = {
         return {
                 href: "http://www.56.com/iframe/" + urlMatch[1],
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 480 / 405
             };
     },

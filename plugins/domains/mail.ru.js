@@ -22,7 +22,7 @@ module.exports = {
         return {
                 href: "http://api.video.mail.ru/videos/embed/" + og.url.match(/video\/([a-zA-Z0-9\.\-\/]+)/)[1],
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
             };
     },

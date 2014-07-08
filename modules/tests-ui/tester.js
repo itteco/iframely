@@ -6,6 +6,7 @@ if (!CONFIG.tests) {
     return;
 }
 
+process.title = "iframely";
 
 var async = require('async');
 var _ = require('underscore');
@@ -375,21 +376,6 @@ function processPluginTests(pluginTest, plugin, count, cb) {
     ], cb);
 };
 
-function findPluginLastModifiedDate(plugin, plugins) {
-
-    var modified = plugin.modified;
-
-    plugin.module.mixins && plugin.module.mixins.forEach(function(mixin) {
-        var m = findPluginLastModifiedDate(plugins[mixin], plugins);
-
-        if (m > modified) {
-            modified = m;
-        }
-    });
-
-    return modified;
-}
-
 function testAll(cb) {
 
     // Get all plugins with tests.
@@ -442,7 +428,7 @@ function testAll(cb) {
                     function filterAndSort(pluginTests, cb) {
 
                         pluginTests.forEach(function(pluginTest) {
-                            var modified = findPluginLastModifiedDate(plugins[pluginTest._id], plugins);
+                            var modified = plugins[pluginTest._id].getPluginLastModifiedDate();
                             if (pluginTest.last_test_started_at && pluginTest.last_test_started_at < modified) {
                                 pluginTest.last_test_started_at = null;
                             }

@@ -23,7 +23,7 @@ module.exports = {
         return [{
             href: urlMatch[0]+"/embed",
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 640 / 360
         }];
     },

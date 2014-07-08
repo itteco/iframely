@@ -20,7 +20,6 @@ module.exports = {
         pageWithFeed: "http://www.collegehumor.com/pictures",
         getUrl: function(url) {
             if (url.match(re)) {
-                console.log(url);
                 return url;
             }
         }

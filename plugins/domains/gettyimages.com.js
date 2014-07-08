@@ -3,7 +3,7 @@ var jquery = require('jquery');
 module.exports = {
 
     // Photos only for now. TODO: Stay tuned for when video embeds become available
-    re: /^https?:\/\/www\.gettyimages\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/detail\/(\w+)\/[a-z0-9\-]+\/(\d+)/i,
+    re: /^https?:\/\/www\.gettyimages\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/detail\/([a-zA-Z0-9\-]+)\/[a-zA-Z0-9\-]+\/(\d+)/i,
 
     provides: 'getty',
 

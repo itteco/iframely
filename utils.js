@@ -11,6 +11,9 @@
     var _ = require('underscore');
     var urlLib = require('url');
 
+    var whitelist = require('./lib/whitelist');
+    var pluginLoader = require('./lib/loader/pluginLoader');
+
     function NotFound(message) {
 
         if (typeof message === 'object') {
@@ -90,6 +93,48 @@
         return '"' + crypto.createHash('md5').update(value).digest("hex") + '"';
     };
 
+    function prepareUri(uri) {
+
+        if (!uri) {
+            return uri;
+        }
+
+        if (uri.match(/^\/\//i)) {
+            return "http:" + uri;
+        }
+
+        if (!uri.match(/^https?:\/\//i)) {
+            return "http://" + uri;
+        }
+
+        return uri;
+    }
+
+    function getKeyForUri(uri) {
+
+        if (!uri) {
+            return;
+        }
+
+        var result = 0;
+
+        var whitelistRecord = whitelist.findRawWhitelistRecordFor(uri);
+        if (whitelistRecord) {
+            result =+ new Date(whitelistRecord.date).getTime();
+        }
+
+        var plugin = pluginLoader.findDomainPlugin(uri);
+        if (plugin) {
+            result =+ plugin.getPluginLastModifiedDate().getTime();
+        }
+
+        if (result) {
+            result = Math.round(result / 1000);
+        }
+
+        return result || null;
+    }
+
     function getUnifiedCacheUrl(req) {
 
         // Remove 'refresh' param and order keys.
@@ -131,7 +176,13 @@
         };
 
         var data = JSON.stringify(head) + '::' + body;
-        cache.set('urlcache:' + version + ':' + url, data, {ttl: ttl});
+
+        var linkValidationKey, uri = prepareUri(req.query.uri || req.query.url);
+        if (uri) {
+            linkValidationKey = getKeyForUri(uri);
+        }
+
+        cache.set('urlcache:' + version + (linkValidationKey || '') + ':' + url, data, {ttl: ttl});
     }
 
     exports.cacheMiddleware = function(req, res, next) {
@@ -144,7 +195,12 @@
 
                     var url = getUnifiedCacheUrl(req);
 
-                    cache.get('urlcache:' + version + ':' + url, function(error, data) {
+                    var linkValidationKey, uri = prepareUri(req.query.uri || req.query.url);
+                    if (uri) {
+                        linkValidationKey = getKeyForUri(uri);
+                    }
+
+                    cache.get('urlcache:' + version + (linkValidationKey || '') + ':' + url, function(error, data) {
                         if (error) {
                             console.error('Error getting response from cache', url, error);
                         }

@@ -21,7 +21,7 @@ module.exports = {
             return {
                 href: "http://embedded-video.guardianapps.co.uk/?a=false&u=" + meta["content-id"],
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 460 / 397
             };
         }
