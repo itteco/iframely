@@ -1,6 +1,8 @@
+var re = /^http:\/\/www\.arte\.tv\/guide\/(\w+)\/([\d-]+)\//i;
+
 module.exports = {
 
-    re: /^http:\/\/www\.arte\.tv\/guide\/(\w+)\/([\d-]+)\//i,
+    re: re,
 
     mixins: [
         "og-image",
@@ -35,7 +37,11 @@ module.exports = {
     },
 
     tests: [{
-        noFeeds: true
+        page: 'http://www.arte.tv/guide/de',
+        selector: 'li a',
+        getUrl: function(url) {
+            if (url.match(re)) return url;
+        }
     },
         "http://www.arte.tv/guide/fr/050305-000/valery-giscard-d-estaing-et-helmut-schmidt#details-functions-share"
     ]
