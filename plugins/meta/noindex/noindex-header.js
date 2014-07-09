@@ -6,6 +6,8 @@ module.exports = {
         var headers = htmlparser.request.response.headers;
         if (pluginUtils.checkRobots(headers['x-robots-tag'], cb)) {
             return;
+        } else {
+            cb();
         }
     }
 };
