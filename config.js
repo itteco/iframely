@@ -10,6 +10,8 @@
         WHITELIST_URL: 'http://iframely.com/qa/top100.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
+        WHITELIST_LOG_URL: 'http://iframely.com/whitelist-log',
+
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
