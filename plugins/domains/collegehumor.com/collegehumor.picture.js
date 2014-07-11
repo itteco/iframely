@@ -16,6 +16,16 @@ module.exports = {
         "og-image-rel-image"
     ],
 
+    getLink: function(urlMatch) {
+        return {
+            href: 'http://www.collegehumor.com/e/' + urlMatch[2],
+            type: CONFIG.T.text_html,
+            rel: CONFIG.R.reader,
+            'max-width': 627,
+            'min-height': 369
+        };
+    },
+
     tests: [{
         pageWithFeed: "http://www.collegehumor.com/pictures",
         getUrl: function(url) {
