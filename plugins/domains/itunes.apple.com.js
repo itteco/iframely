@@ -41,7 +41,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: rel,
             "orientation": rel == CONFIG.R.player ? 'landscape' : 'portrait',
-            "min-width": 320,
+            "min-width": 320
         };
     },
 
