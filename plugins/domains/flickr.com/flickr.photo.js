@@ -46,7 +46,7 @@ module.exports = {
 
             result.splice(0, 0, {
                 href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
-                rel: [CONFIG.R.image, CONFIG.R.app],
+                rel: [CONFIG.R.image, CONFIG.R.player],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": last.width / last.height
             });
