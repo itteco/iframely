@@ -2,7 +2,7 @@ var gUtils = require('./utils');
 
 module.exports = {
 
-    re: /^https?:\/\/www\.flickr\.com\/photos\/[@a-zA-Z0-9_\.-]+\/(\d+).*?$/i,
+    re: /^https?:\/\/www\.flickr\.com\/photos\/([@a-zA-Z0-9_\.-]+)\/(\d+).*?$/i,
 
     mixins: [
         "oembed-title",
@@ -13,7 +13,7 @@ module.exports = {
 
     getLink: function(urlMatch, request, cb) {
 
-        gUtils.getPhotoSizes(urlMatch[1], request, function(error, sizes) {
+        gUtils.getPhotoSizes(urlMatch[2], request, function(error, sizes) {
 
             if (error) {
                 return cb(error);
@@ -41,6 +41,15 @@ module.exports = {
                     };
                 }
             }) || [];
+
+            var last = sizes[sizes.length - 1];
+
+            result.splice(0, 0, {
+                href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
+                rel: [CONFIG.R.image, CONFIG.R.app],
+                type: CONFIG.T.text_html,
+                "aspect-ratio": last.width / last.height
+            });
 
             result.push({
                 href: "http://l.yimg.com/g/favicon.ico",
