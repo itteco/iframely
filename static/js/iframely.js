@@ -152,6 +152,26 @@
         endpoint: "//iframely.com/iframely"
     };
 
+    $.iframely.get = function(endpoint, query, cb) {
+        $.ajax({
+            url: endpoint,
+            dataType: "json",
+            data: query,
+            success: function(data, textStatus, jqXHR) {
+                cb(null, data, jqXHR);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                var responseJSON = function() {
+                    try {
+                        return JSON.parse(jqXHR.responseText);
+                    } catch(e) {};
+                }();
+
+                cb((responseJSON && responseJSON.error) || jqXHR.status || errorThrown.message, responseJSON, jqXHR);
+            }
+        });
+    }
+
     function wrapContainer($element, data) {
 
         var media = data.media;
@@ -284,7 +304,7 @@
                     }
 
                     // Find images with same aspect.
-                    var thumbnails = filterLinks(iframelyData.links, function(link) {
+                    var thumbnails = $.iframely.filterLinks(iframelyData.links, function(link) {
                         if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
@@ -393,7 +413,7 @@
 
     $.iframely.findBestFittedLink = function(targetWidth, targetHeight, links) {
 
-        var sizedLinks = filterLinks(links, function(link) {
+        var sizedLinks = $.iframely.filterLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
@@ -478,7 +498,7 @@
     // This not works with scaling. Not used yet.
     $.iframely.findBestSizedLink = function(targetWidth, targetHeight, links) {
 
-        var sizedLinks = filterLinks(links, function(link) {
+        var sizedLinks = $.iframely.filterLinks(links, function(link) {
             var media = link.media;
             return media && media.width && media.height;
         });
@@ -557,7 +577,7 @@
             return /^(?:https:)?\/\/.+/i.test(href);
         }
 
-        var result = filterLinks(links, function(link) {
+        var result = $.iframely.filterLinks(links, function(link) {
 
             if (options.httpsOnly) {
                 if (!isHttps(link.href)) {
@@ -603,7 +623,7 @@
         return result;
     };
 
-    function filterLinks(links, cb) {
+    $.iframely.filterLinks = function(links, cb) {
 
         if (links) {
 
