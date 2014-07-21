@@ -16,7 +16,7 @@ module.exports = {
         return {
             href: '//sverigesradio.se/embed?url=' + encodeURIComponent(url),
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             'min-width': 210,
             height: 150
         };

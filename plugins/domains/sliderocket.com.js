@@ -9,7 +9,7 @@ module.exports = {
         "copyright",
 
         "og-image",        
-        "oembed-video-responsive",
+        "oembed-video-responsive-nonhtml5",
         "favicon"
     ],
 

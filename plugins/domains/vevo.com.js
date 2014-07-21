@@ -37,7 +37,7 @@ module.exports = {
         return {
             href: "http://cache.vevo.com/m/html/embed.html?video=" + id,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 575 / 324
         };
     },
