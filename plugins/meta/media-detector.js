@@ -34,10 +34,6 @@ module.exports = {
             if (meta.og && meta.og.type && meta.og.type === 'article') {
                 has_reader = true;
             }
-
-            if (meta.twitter && meta.twitter.card === 'summary_large_image') {
-                has_reader = true;
-            }
         }
 
         if (has_reader) {
