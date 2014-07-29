@@ -15,16 +15,16 @@ module.exports = {
     getMeta: function() {
         return {
             site: "Tapestry"
-        }
+        };
     },
 
     getLink: function(urlMatch) {
         return {
-            href: "http://embed.readtapestry.com/s/" + urlMatch[1] + "/",
+            href: "http://cdn.readtapestry.com/stories/" + urlMatch[1] + "/index.html",
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 852/480
-        }
+        };
     },
 
     tests: [

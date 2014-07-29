@@ -21,6 +21,6 @@ module.exports = {
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
         "http://open.spotify.com/user/davadija/playlist/3uIJTf7ArvF7VmeO41F8T5",
-        "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi",
+        "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi"
     ]
 };
