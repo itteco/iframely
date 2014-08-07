@@ -1,6 +1,6 @@
 # Iframely Gateway Changelog
 
-This is the history of the [Iframely Gateway](http://iframely.com/gateway) changes. 
+This is the history of the Iframely Gateway changes. 
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
