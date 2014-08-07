@@ -7,6 +7,15 @@ module.exports = {
         /^https?:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
     ],
 
+    getMeta: function (tumblr_post) {
+        if (tumblr_post.type == "text") {
+            return {
+                media: 'reader'
+            }
+        }
+    },
+
+
     getLink: function (tumblr_post) {
         if (tumblr_post.thumbnail_url) {
             return;
@@ -41,8 +50,10 @@ module.exports = {
 
     tests: [
         "http://blog.dribbble.com/post/83410866615",
-        "http://tiffany-anc.tumblr.com/post/58056730720/truth-what-filthy-thought-are-you-thinking-right-now",
         "http://asimpleweirdlass.tumblr.com/post/58054585454/nakakatakot-kanina-ang-dilim-sa-street-tapos",
-        "http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more"
+        "http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more",
+        "http://pin.it/gotOeRU",
+        "http://blog.path.com/post/76550009909/stickers-xoxo-and-valentines",
+        "http://blog.slides.com/post/84828911898/slides-turns-one-year-old"
     ]
 };
