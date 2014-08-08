@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/vk\.com\/video\-/i
+        /^https?:\/\/vk\.com\/video/i
     ],
 
     mixins: [
