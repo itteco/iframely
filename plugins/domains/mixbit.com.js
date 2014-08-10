@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /^https?:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
+    re: [
+        /^https?:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
+        /^https?:\/\/mixbit\.com\/s\/(\_\w+)(?:\/.+)?/i
+    ],
 
     getMeta: function(mixbit) {
         return {
