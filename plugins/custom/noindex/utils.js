@@ -1,6 +1,6 @@
 exports.notPlugin = true;
 
-var NO_INDEX_TAGS = ['noindex', 'nofollow', 'noarchive', 'none'];
+var NO_INDEX_TAGS = ['noindex'];
 
 exports.checkRobots = function(noindexHeader, cb) {
     if (noindexHeader) {
