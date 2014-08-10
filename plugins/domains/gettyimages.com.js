@@ -55,7 +55,8 @@ module.exports = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
                 rel: CONFIG.R.image,
-                "aspect-ratio": $iframe.attr('width') / $iframe.attr('height')
+                "aspect-ratio": $iframe.attr('width') / $iframe.attr('height'),
+                "max-width": $iframe.attr('width')
             };
 
         }
