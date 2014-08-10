@@ -11,6 +11,15 @@ module.exports = {
         "favicon"
     ],
 
+    getMeta: function (meta) {
+
+        if (meta.music)
+        return {
+            duration: meta.music.duration
+        }
+
+    },
+
     tests: [{
         page: "http://www.mixcloud.com/categories/comedy/",
         selector: "h3.card-cloudcast-title a"
