@@ -8,10 +8,8 @@ module.exports = {
         "oembed-site",
 
         "canonical",
-        "video",
         "og-description",
         "og-image",
-        "twitter-image",
         "favicon"
     ],
 
@@ -26,7 +24,7 @@ module.exports = {
 
         if ($iframe.length == 1) {
             return {
-                href: $iframe.attr('src').replace(/(&width=[\d]+|&height=[\d]+)/g, ""),
+                href: $iframe.attr('src').replace(/(&width=[\d]+|&height=[\d]+)/g, "").replace("http:", ""),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.width / oembed.height
