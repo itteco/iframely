@@ -3,9 +3,9 @@ var _ = require('underscore');
 
 module.exports = {
 
-    getLinks: function(meta) {
+    getLinks: function(meta, whitelistRecord) {
         return _.flatten(_.keys(meta).map(function(key) {
-            return utils.parseMetaLinks(key, meta[key]);
+            return utils.parseMetaLinks(key, meta[key], whitelistRecord);
         }));
     },
 

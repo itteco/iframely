@@ -32,7 +32,7 @@ module.exports = {
         }
     },
 
-    parseMetaLinks: function(key, value) {
+    parseMetaLinks: function(key, value, whitelistRecord) {
 
         if (typeof value !== "object" || typeof value === "string") {
             return [];
@@ -56,6 +56,13 @@ module.exports = {
 
         if (rels.length == 1 && _.intersection(rels, EXISTING_PROVIDERS).length > 0) {
             return [];
+        }
+
+        if (whitelistRecord) {
+            var tags = whitelistRecord.getQATags({}, rels);
+            if (tags.indexOf('allow') === -1) {
+                return [];
+            }
         }
 
         var links = [];
