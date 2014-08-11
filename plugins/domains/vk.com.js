@@ -33,6 +33,6 @@ module.exports = {
     },
 
     tests: [
-        "http://vk.com/video-14099381_167915765"
+        "http://vk.com/video-27646396_169400815"
     ]
 };
