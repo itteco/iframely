@@ -1,4 +1,5 @@
 var _ = require("underscore");
+var utils = require('./utils');
 
 function getVideoLinks(video, whitelistRecord) {
 
@@ -31,9 +32,9 @@ module.exports = {
 
             if (og.video instanceof Array) {
 
-                return _.flatten(og.video.map(function(video) {
+                return utils.mergeMediaSize(_.flatten(og.video.map(function(video) {
                     return getVideoLinks(video, whitelistRecord);
-                }));
+                })));
 
             } else if (og.video) {
 
