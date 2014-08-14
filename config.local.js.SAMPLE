@@ -8,6 +8,10 @@
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",
 
+        SKIP_OEMBED_RE_LIST: [
+            // /^https?:\/\/yourdomain\.com\//,
+        ],
+
         port: 8061,
 
         // You can set your unique whitelist access url here.

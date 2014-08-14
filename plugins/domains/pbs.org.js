@@ -21,8 +21,8 @@ module.exports = {
         // http://video.pbs.org/viralplayer/1863101157
         return {
             href: "http://video."+ urlMatch[1] +".org/viralplayer/"+ urlMatch[2],
-            type: CONFIG.T.text_html,            
-            rel: CONFIG.R.player,
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 512/376
         }
     },

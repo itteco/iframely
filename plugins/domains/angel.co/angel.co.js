@@ -4,45 +4,29 @@ module.exports = {
 
     mixins: [
         "keywords",
-        "favicon"
+        "favicon",
+        "twitter-title",
+        "twitter-image",
+        "twitter-description",
+        "canonical"
     ],
 
-    getMeta: function(urlMatch, meta) {
-        // AngelList is weird: they give Twitter Cards for companies (no og), but OG only for people profiles. 
-        // Thus, the IFs
+    getLink: function(urlMatch, twitter) {
 
-        var semantics = meta.twitter ? meta.twitter : meta.og;
-
-        return {
-            title: semantics.title,
-            description: semantics.description,
-            canonical: urlMatch[0]
-        }
-    },
-
-    getLink: function(urlMatch, meta) {
-
-        var result = [{
-                href: (meta.og && meta.og.image) ? meta.og.image : meta.twitter.image.src,
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail
-            }];
-
-        if (meta.twitter && meta.twitter.title) {
-            result.push({
+        if (twitter.image && twitter.image.src) {
+            return {
                 template_context: {
-                    title: meta.twitter.title,
-                    id: meta.twitter.image.src.match(/\/i\/(\d+)-/)[1],
+                    title: twitter.title,
+                    id: twitter.image.src.match(/\/i\/(\d+)-/)[1],
                     slug: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.inline],
                 width: 560 + 40 + 10,
                 height: 300 + 40 + 10
-            });
+            }
         }
-        
-        return result;
+
     },
 
     tests: [{

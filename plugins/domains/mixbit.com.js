@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /^https?:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
+    re: [
+        /^https?:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
+        /^https?:\/\/mixbit\.com\/s\/(\_\w+)(?:\/.+)?/i
+    ],
 
     getMeta: function(mixbit) {
         return {
@@ -42,7 +45,7 @@ module.exports = {
         }, {
             href: "https://mixbit.com/embed/" + mixbit.project_id,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": mixbit.video_width / mixbit.video_height
         }];
     },

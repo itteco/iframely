@@ -10,6 +10,60 @@ module.exports = {
 
     notPlugin: true,
 
+    mergeMediaSize: function(links) {
+
+        if (links && links instanceof Array) {
+
+            // Search first link with media.
+
+            var media = null,
+                i = 0;
+
+            while(!media && i < links.length) {
+
+                var link = links[i];
+
+                // Get all media attrs from link (if has).
+                for(var j = 0; j < CONFIG.MEDIA_ATTRS.length; j++) {
+                    var attr = CONFIG.MEDIA_ATTRS[j];
+                    if (link[attr]) {
+                        if (!media) {
+                            media = {};
+                        }
+                        media[attr] = link[attr];
+                    }
+                }
+                i++;
+            }
+
+            if (media) {
+
+                i = 0;
+
+                while(i < links.length) {
+
+                    var hasMedia = false,
+                        link = links[i];
+
+                    for(var j = 0; !hasMedia && j < CONFIG.MEDIA_ATTRS.length; j++) {
+                        var attr = CONFIG.MEDIA_ATTRS[j];
+                        if (link[attr]) {
+                            hasMedia = true;
+                        }
+                    }
+
+                    if (!hasMedia) {
+                        _.extend(link, media);
+                    }
+
+                    i++;
+                }
+            }
+        }
+
+        return links;
+    },
+
     getImageLink: function(attr, meta) {
         var v = meta[attr];
         if (!v) {
@@ -32,7 +86,7 @@ module.exports = {
         }
     },
 
-    parseMetaLinks: function(key, value) {
+    parseMetaLinks: function(key, value, whitelistRecord) {
 
         if (typeof value !== "object" || typeof value === "string") {
             return [];
@@ -56,6 +110,13 @@ module.exports = {
 
         if (rels.length == 1 && _.intersection(rels, EXISTING_PROVIDERS).length > 0) {
             return [];
+        }
+
+        if (whitelistRecord) {
+            var tags = whitelistRecord.getQATags({}, rels);
+            if (tags.indexOf('allow') === -1) {
+                return [];
+            }
         }
 
         var links = [];

@@ -1,10 +1,11 @@
 module.exports = {
 
     re: [       
-        /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink)\.php\?[^\/]+(\d{10,})/i,
-        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/posts\/(\d{10,})/i,
-        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.]+\/(\d{10,})/i,
-        /^https?:\/\/(www|m)\.facebook\.com\/notes\/([a-zA-Z0-9\.\-]+)\/[^\/]+\/(\d{10,})/i
+        /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink|story)\.php\?[^\/]+(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.\-]+\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/notes\/([a-zA-Z0-9\.\-]+)\/[^\/]+\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
     ],
 
     provides: 'facebook_post',
@@ -41,10 +42,15 @@ module.exports = {
 
         var title = meta["description"] ? meta["description"]: meta["html-title"].replace(/ \| Facebook$/, "");
 
+        // Little hack for FB mobile URLs, as FB embeds don't recognize it's own mobile links.
+        var redirect;
+        if (url.indexOf("m.facebook.com/story.php") > -1) 
+            redirect = url.replace("m.facebook.com/story.php", "www.facebook.com/permalink.php");
+
         cb(null, {
             facebook_post: {
                 title: title,
-                url: url
+                url: redirect || url
             }
         });
     },

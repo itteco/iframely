@@ -2,7 +2,7 @@
 
     var async = require('async');
 
-    var API_URI = 'http://api.flickr.com/services/rest';
+    var API_URI = 'https://api.flickr.com/services/rest';
 
     // TODO: config.providerOptions.flickr !!!
 
@@ -35,7 +35,7 @@
                 jar: false
             },
             function (error, response, body) {
-                callback(error, body && body.user && body.user.nsid);
+                callback(error || (body && body.message), body && body.user && body.user.nsid);
             });
     };
 
@@ -53,7 +53,7 @@
                 jar: false
             },
             function (error, response, body) {
-                callback(error, body && body.sizes && body.sizes.size);
+                callback(error || (body && body.message), body && body.sizes && body.sizes.size);
             });
     };
 
@@ -73,7 +73,7 @@
                 jar: false
             },
             function (error, response, body) {
-                callback(error, body && body.photos && body.photos.photo);
+                callback(error || (body && body.message), body && body.photos && body.photos.photo);
             });
     };
 
@@ -92,7 +92,7 @@
                 jar: false
             },
             function (error, response, body) {
-                callback(error, body && body.photoset && body.photoset.photo);
+                callback(error || (body && body.message), body && body.photoset && body.photoset.photo);
             });
     };
 

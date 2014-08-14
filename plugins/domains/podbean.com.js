@@ -17,7 +17,7 @@ module.exports = {
             return {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 width: $iframe.attr('width'),
                 height: $iframe.attr('height')
             };
@@ -32,7 +32,7 @@ module.exports = {
                 return {
                     href: 'http://www.podbean.com/media/player/audio/postId/' + id_match[1] + '/url/' + encodeURI(url) + '/initByJs/1/auto/1',
                     type: CONFIG.T.text_html,
-                    rel: CONFIG.R.player,
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
                     'min-width': 225,
                     height: 100
                 };

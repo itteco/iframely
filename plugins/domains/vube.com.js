@@ -20,14 +20,15 @@ module.exports = {
         return {
             href: "http://vube.com/embed/video/" + urlMatch[2] + "?autoplay=false&fit=true",
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player, 
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 640/435
         }
 
     },
 
     tests: [{
-        noFeeds: true
+        noFeeds: true,
+        skipMixins: ['twitter-description']
     },
         "http://vube.com/De5tro/vE6XViQkTU/L/vote?t=s",
         "http://vube.com/SHIBAN/u2QvJwDVmw?t=s",

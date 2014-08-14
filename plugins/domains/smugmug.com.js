@@ -17,9 +17,9 @@ module.exports = {
         "twitter-stream"
     ],
 
-    getMeta: function(oembed) {
+    getMeta: function(oembed, twitter) {
         return {
-            title: oembed.title || oembed.gallery_title
+            title: oembed.title || oembed.gallery_title || twitter.title
         };
     },
 
@@ -67,8 +67,8 @@ module.exports = {
                 });
             }
 
-        } // else it's oembed link with no thumnbnail or other useful info
-
+        } // else it's oembed link with no thumnbnail or other useful info.
+        
         return links;
     },
 
@@ -79,7 +79,6 @@ module.exports = {
         }
     },
         "http://www.smugmug.com/popular/all#!i=789708429&k=sPdffjw",
-        "http://normbetzphotos.smugmug.com/BASKETBALL-201314/HS-VS-MAUMELLE-1-23-14",
         "http://cedricwalter.smugmug.com/Computers/Joomla/i-726WRdK/A",
     {
         skipMethods: ['getLink'],

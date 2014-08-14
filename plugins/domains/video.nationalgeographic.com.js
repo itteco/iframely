@@ -19,7 +19,7 @@ module.exports = {
             return {
                 href: 'http://player.d.nationalgeographic.com/players/ngsvideo/share/?feed=' + feed + '&guid=' + guid + '&link=http://video.nationalgeographic.com/video/',
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 'aspect-ratio': 863/495
             };
         }

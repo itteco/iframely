@@ -46,6 +46,14 @@ module.exports = {
 
     },
 
+    getMeta: function(oembed) {
+
+        if (oembed.type === "video" || oembed.type === "audio") 
+            return {
+                media: "player"
+            }
+    },
+
 
     // tests are only applicable with the whitelist, otherwise will throw errors on Test UI
     tests: [

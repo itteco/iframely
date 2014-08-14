@@ -7,7 +7,7 @@ module.exports = {
         var has_player = false;
 
         if (meta.og) {
-            if (meta.og.video || (meta.og.type && meta.og.type.indexOf('video') === 0)) {
+            if (meta.og.video || (meta.og.type && meta.og.type.indexOf('video') > -1)) {
                 has_player = true;
             }
         }
@@ -16,6 +16,9 @@ module.exports = {
                 has_player = true;
             }
         }
+        if (meta.video_src || meta.video_type) {
+            has_player = true;
+        }        
 
         if (has_player) {
             return {
@@ -32,10 +35,6 @@ module.exports = {
         if (has_thumbnail) {
 
             if (meta.og && meta.og.type && meta.og.type === 'article') {
-                has_reader = true;
-            }
-
-            if (meta.twitter && meta.twitter.card === 'summary_large_image') {
                 has_reader = true;
             }
         }

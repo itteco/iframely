@@ -2,7 +2,7 @@
 module.exports = {
 
     re: [
-        /https?:\/\/www\.slidecaptain\.com\/flows\/([a-zA-Z0-9]+)\/([a-zA-Z0-9\-]+)/i
+        /https?:\/\/(www|app)\.slidecaptain\.com\/flows\/([a-zA-Z0-9]+)\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: [
@@ -23,7 +23,7 @@ module.exports = {
         if (meta.og.url) {
 
             return {
-                href: meta.og.url + "/embed",
+                href: meta.og.url.replace("www.", "app.") + "/embed",
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 4/3   // It's actually more flexible, but it'll be better handled at oEmbed endpoint this way.

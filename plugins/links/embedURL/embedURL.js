@@ -4,9 +4,9 @@ module.exports = {
 
     getData: function(cheerio, __allowEmbedURL) {
 
-        var videoObjectSchema = 'http://schema.org/VideoObject';
+        var videoObjectSchema = 'VideoObject';
 
-        var $scope = cheerio('[itemscope][itemtype="' + videoObjectSchema + '"]');
+        var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
 
         if ($scope.length) {
 
@@ -23,7 +23,7 @@ module.exports = {
                 }
 
                 var $parentScope = $el.parents('[itemscope]');
-                if ($parentScope.attr('itemtype') !== videoObjectSchema) {
+                if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
                     return;
                 }
 
@@ -40,7 +40,7 @@ module.exports = {
         }
     },
 
-    // TODO: parse duration
+    // TODO: Duration (convert format PY0M0D0TH0M2S36 into ours)
 
     getLink: function(schemaVideoObject, whitelistRecord) {
 
@@ -49,10 +49,14 @@ module.exports = {
             var type = CONFIG.T.text_html;
 
             if (schemaVideoObject.playerType) {
-                if (schemaVideoObject.playerType.indexOf('Flash') > -1) {
+                if (schemaVideoObject.playerType.toLowerCase().indexOf('Flash') > -1) {
                     type = CONFIG.T.flash;
                 }
-            }
+            } else if (schemaVideoObject.encodingFormat) {
+                if (schemaVideoObject.encodingFormat.toLowerCase().indexOf('mp4') > -1) {
+                    type = CONFIG.T.video_mp4;
+                }                
+            }            
 
             var player = {
                 href: schemaVideoObject.embedURL || schemaVideoObject.embedUrl,
@@ -76,6 +80,6 @@ module.exports = {
                 type: CONFIG.T.image            
             }]
         }
-
     }
+
 };

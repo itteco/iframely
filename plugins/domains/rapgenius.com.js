@@ -1,5 +1,7 @@
 module.exports = {
 
+    re:  /^https?:\/\/(\w+)\.genius\.com\/(?!jobs)([a-z-]+)/i,
+
     mixins: [
         "og-image",
         "canonical",
@@ -8,19 +10,17 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(og, twitter) {
-        var id = twitter.app.url.iphone.match(/\d/)[0];
+    getLink: function(urlMatch, twitter) {
+        var id = twitter.app.url.iphone.match(/\d+/)[0];
         return {
-            html: '<div id="rg_embed_link_' + id + '" class="rg_embed_link">Read <a href="http://rapgenius.com/D12-my-band-lyrics">' + og.title + '</a> on Rap Genius</div><script src="//rapgenius.com/songs/' + id + '/embed.js?dark=1"></script>',
+            html: '<div id="rg_embed_link_' + id + '" class="rg_embed_link">Read <a href="http://rapgenius.com/D12-my-band-lyrics">' + twitter.title + '</a> on Genius</div><script src="//' + urlMatch[1] + '.genius.com/songs/' + id + '/embed.js?dark=1"></script>',
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.app
+            rel: [CONFIG.R.app, CONFIG.R.inlile]
         };
     },
 
-    tests: [{
-        page: 'http://rapgenius.com/',
-        selector: 'a.song_link'
-    },
-        "http://rock.rapgenius.com/Bruce-springsteen-4th-of-july-asbury-park-sandy-lyrics"
+    tests: [
+        "http://rock.genius.com/Bruce-springsteen-4th-of-july-asbury-park-sandy-lyrics",
+        "http://rap.genius.com/Beyonce-flawless-remix-lyrics"
     ]
 };

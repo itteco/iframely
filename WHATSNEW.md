@@ -1,8 +1,13 @@
 # Iframely Gateway Changelog
 
-This is the history of the [Iframely Gateway](http://iframely.com/gateway) changes. 
+This is the history of the Iframely Gateway changes. 
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
+
+
+### 2014.08.14, Version 0.6.6 
+
+Maintenance version with number of small fixes and improvements in domain parsers and better parser for pages with several Open Graph videos.
 
 
 ### 2014.07.08, Version 0.6.5
