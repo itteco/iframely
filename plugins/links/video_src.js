@@ -7,7 +7,7 @@ module.exports = {
             var player = {
                 href: meta.video_src,
                 type: meta.video_type || CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: CONFIG.R.player
             };
 
             if (whitelistRecord.isAllowed('html-meta.video', 'responsive')) {
@@ -15,10 +15,9 @@ module.exports = {
             } else {
                 player.width = meta.video_width;
                 player.height = meta.video_height;
-            };
+            }
 
             return player;
-
         }
     }
 };
