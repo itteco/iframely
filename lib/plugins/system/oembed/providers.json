@@ -248,7 +248,8 @@
     {
         "name": "Coub",
         "templates": [
-            "coub\\.com/view/.*"
+            "coub\\.com/view/.*",
+            "coub\\.com/embed/.*"
         ],
         "endpoint": "http://coub.com/api/oembed.{format}"
     },
