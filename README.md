@@ -1,6 +1,6 @@
 # Iframely API for Responsive Web Embeds
 
-Iframely is fast HTTP API for responsive web embeds. [Open-source](https://github.com/itteco/iframely) and self-hosted, or available [in the cloud](http://iframe.ly). 
+Iframely is fast HTTP API for responsive web embeds. [Open-source](https://github.com/itteco/iframely) and self-hosted, or available [in the cloud](https://iframely.com). 
 
 In response to `url` request, Iframely API returns you the embeds links and semantic meta for a requested web page. It does so by parsing [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards) and general meta on the original page. 
 
@@ -67,7 +67,7 @@ Basically, it mimics the `<head>` of the origin page, with `<meta>` and list of 
 
 
 `html` field contains the responsive embed code, which is provided by Cloud API and which also resolves SSL, Flash-on-iOS and autoplay issues. 
-In Open-Source version, you will need to render the code yourself. [See how](http://iframely.com/docs/links). 
+In Open-Source version, you will need to render the code yourself. [See how](https://iframely.com/docs/links). 
 
 ## Or in oEmbed Format
 
@@ -99,11 +99,11 @@ Iframely comes with oEmbed adapter. It can return embeds as oEmbed JSON, though 
 
 ## Read Next:
 
- - [See more sample URLs and demos](http://iframely.com/domains)
- - [API Endpoints](http://iframely.com/docs/api)
- - [About Link Rels, Types and Media Queries](http://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
- - [Unified META semantics](http://iframely.com/docs/meta) Iframely API scrapes for you.
- - [How to install & configure](http://iframely.com/docs/host) your open-source host. 
+ - [Try Iframely with any Twitter feed](https://iframely.com/try)
+ - [API Endpoints](https://iframely.com/docs/api)
+ - [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
+ - [Unified META semantics](https://iframely.com/docs/meta) Iframely API scrapes for you.
+ - [How to install & configure](https://iframely.com/docs/host) your open-source host. 
 
 
 ## Help & Support 

@@ -3,7 +3,7 @@
 
 ## For both Cloud and Open-Source versions of API
 
-[Iframely API can return](http://iframely.com/docs) either full JSON with the list of embed links, or a simple response as oEmbed. 
+[Iframely API can return](https://iframely.com/docs) either full JSON with the list of embed links, or a simple response as oEmbed. 
 
 Each of the JSON response formats has it’s own API Endpoint relative address and set of get parameters:
 
@@ -28,11 +28,11 @@ Iframely Cloud acts as the database for links and URL shortener. Each endpoint i
 - [http://iframe.ly/api/iframely?url={URL}&api_key={KEY}&origin={hashtag}](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) <br>- for full Iframely JSON,
 - [http://iframe.ly/api/oembed?url={URL}&api_key={KEY}&origin={hashtag}](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) <br>- for simple oEmbed format.
 
-`api_key` is required, unless URL is from iframe.ly domain itself, like `?url=http://iframe.ly/ACcM3Y`. ([Get your FREE one here](http://iframe.ly))  
+`api_key` is required, unless URL is from iframe.ly domain itself, like `?url=http://iframe.ly/ACcM3Y`. ([Get yours here](https://iframely.com/api))  
 
 `origin` parameter is optional. You can filter URLs on your dashboard using origin as #hashtag.
 
-The response will contain embed links and other meta right away, along with the short `id` for future reference. If you're using [Cloud API](http://iframe.ly), the response will also contain `html` of a hosted widget so that you don't need to render the embed code yourself. 
+The response will contain embed links and other meta right away, along with the short `id` for future reference. If you're using [Cloud API](https://iframely.com), the response will also contain `html` of a hosted widget so that you don't need to render the embed code yourself. 
 
 
 ### Get URL data by ID
@@ -61,11 +61,11 @@ Basically, it is:
 The only differences in JSON format with Cloud API is the absence of `id` value and also the fact that full Iframely JSON is not grouped by `rel` in Open-Source API. To get it grouped, just add `&group=true` to the response. The open-source API also does not have `html` field, so you'd need to generate the embed codes yourself, depending on your app needs. [See how](http://iframely.com/docs/links).
 
 
-Also, see [how to install & configure](http://iframely.com/docs/host) your Open-Source host. 
+Also, see [how to install & configure](https://iframely.com/docs/host) your Open-Source host. 
 
 ## Read Next:
 
-- [About Link Rels, Types and Media Queries](http://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
-- [See more sample URLs and demos](http://iframely.com/domains)
-- [Get your Cloud API Key](http://iframe.ly/api)
-- [How to install & configure](http://iframely.com/docs/host) your open-source host. 
+- [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
+- [Try it with any Twitter feed](https://iframely.com/try)
+- [Get your Cloud API Key](https://iframely.com/api)
+- [How to install & configure](https://iframely.com/docs/host) your open-source host. 
