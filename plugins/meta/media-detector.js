@@ -7,7 +7,7 @@ module.exports = {
         var has_player = false;
 
         if (meta.og) {
-            if (meta.og.video || (meta.og.type && meta.og.type.indexOf('video') > -1)) {
+            if (meta.og.video || (meta.og.type && (meta.og.type.indexOf('video') > -1 || meta.og.type.indexOf('movie') > -1))) {
                 has_player = true;
             }
         }
