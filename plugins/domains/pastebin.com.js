@@ -12,7 +12,10 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function (urlMatch) {
+    getLink: function (urlMatch, og) {
+
+        // Do not process generic marketing web pages on Pastebin.com
+        if (!/\- Pastebin.com$/.test(og.title)) return; 
 
         return {
             href: "http://pastebin.com/embed_iframe.php?i="+ urlMatch[1],
