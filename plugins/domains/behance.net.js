@@ -6,6 +6,7 @@ module.exports = {
         /https?:\/\/www\.behance\.net\/gallery\/([a-zA-Z0-9\-\(\)]+)\/([0-9]+)/i,
         /https?:\/\/www\.behance\.net\/gallery\/([0-9]+)\/([a-zA-Z0-9\-\(\)]+)/i,
         /https?:\/\/([a-z-\.]+)\/gallery\/([a-zA-Z0-9\-\(\)]+)\/([0-9]+)/i,
+        /https?:\/\/([a-z-\.]+)\/gallery\/([0-9]+)\/([a-zA-Z0-9\-\(\)]+)/i
     ],
 
     mixins: [
@@ -36,7 +37,7 @@ module.exports = {
         if ($iframe.length == 1) {
 
             return {
-                href: $iframe.attr('src'),
+                href: $iframe.attr('src').replace("http://", "https://"),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.oembed],
                 "min-width": oembed.thumbnail_width,
@@ -55,7 +56,8 @@ module.exports = {
         "http://portfolios.scad.edu/gallery/Privy-Boards-Graphic-Shirts/11126843",
         "http://portfolios.mica.edu/gallery/Bombora-Branding-Project-for-Surf-Company-(GD-HW)/12415809",
         "http://www.adccreativecrush.org/gallery/Veuve-Clicquot/5998331",
-        "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295"
+        "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295",
+        "http://portfolios.corcoran.edu/gallery/19270813/Porsche-Concept-Road-Version"
     ]
 
 };
