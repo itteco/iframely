@@ -9,6 +9,7 @@ module.exports = {
     ],
 
     getLink: function(og) {
+// TODO: make // to relative url (og.image.url)
         return {
             href: og.image.url,
             rel: [CONFIG.R.og, og.image.width > 200 ? CONFIG.R.image : CONFIG.R.thumbnail],

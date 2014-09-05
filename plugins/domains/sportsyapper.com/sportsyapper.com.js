@@ -16,7 +16,7 @@ module.exports = {
 
         return {
             template_context: {
-                id: urlMatch[1],
+                id: urlMatch[1]
             },
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline]

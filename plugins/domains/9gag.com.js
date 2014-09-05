@@ -31,7 +31,7 @@ module.exports = {
 
         if (image) {
             return {
-                href: image,
+                href: image.replace(/^https?:/, ''),
                 type: CONFIG.T.image,
                 rel: CONFIG.R.image
             };
