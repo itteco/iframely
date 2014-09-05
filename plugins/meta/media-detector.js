@@ -7,7 +7,9 @@ module.exports = {
         var has_player = false;
 
         if (meta.og) {
-            if (meta.og.video || (meta.og.type && (meta.og.type.indexOf('video') > -1 || meta.og.type.indexOf('movie') > -1))) {
+
+            if (meta.og.video || (meta.og.type && meta.og.type.match(/video|movie/i))) {
+
                 has_player = true;
             }
         }
@@ -34,7 +36,7 @@ module.exports = {
 
         if (has_thumbnail) {
 
-            if (meta.og && meta.og.type && meta.og.type === 'article') {
+            if (meta.og && meta.og.type && meta.og.type.match(/article/i)) {
                 has_reader = true;
             }
         }
