@@ -43,6 +43,7 @@ module.exports = {
                         description: data.entry['media$group']['media$description']['$t'],
                         duration: data.entry['media$group']['yt$duration'].seconds,
                         likeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numLikes : 0,
+                        dislikeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numDislikes : 0,
                         viewCount: data.entry['yt$statistics'] ? data.entry['yt$statistics'].viewCount : 0,
 
                         hd: data.entry['yt$hd'] != null,
@@ -66,6 +67,7 @@ module.exports = {
             description: youtube_gdata.description,
             duration: youtube_gdata.duration,
             likes: youtube_gdata.likeCount,
+            dislikes: youtube_gdata.dislikeCount,
             views: youtube_gdata.viewCount,
             site: "YouTube"
         };
