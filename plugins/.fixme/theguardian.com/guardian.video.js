@@ -17,7 +17,7 @@ module.exports = {
     getLink: function(meta) {
 
         // Only "World news" has embedable videos.
-        if (meta.video && meta.video.tag && meta.video.tag.indexOf("World news") > -1) {
+        if (meta.video && meta.video.tag && meta.video.tag.indexOf("World news") > -1 && meta["content-id"]) {
             return {
                 href: "http://embedded-video.guardianapps.co.uk/?a=false&u=" + meta["content-id"],
                 type: CONFIG.T.text_html,
