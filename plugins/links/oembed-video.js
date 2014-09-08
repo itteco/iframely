@@ -28,7 +28,7 @@ module.exports = {
             player.href = $iframe.attr('src');
 
             if (whitelistRecord && (whitelistRecord.isAllowed('oembed.video', 'ssl') || whitelistRecord.isAllowed('oembed.rich', 'ssl'))) {
-                player.href = player.href.replace(/^https?:\/\//i, '//');
+                player.href = player.href.replace(/^http:\/\//i, '//');
             }
 
         } else { 

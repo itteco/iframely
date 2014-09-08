@@ -16,7 +16,7 @@ module.exports = {
             var href = $iframe.attr('src');
 
             if (whitelistRecord && (whitelistRecord.isAllowed('oembed.video', 'ssl') || whitelistRecord.isAllowed('oembed.rich', 'ssl'))) {
-                href = href.replace(/^https?:\/\//i, '//');
+                href = href.replace(/^http:\/\//i, '//');
             }
 
             return {
