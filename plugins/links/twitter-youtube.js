@@ -3,9 +3,8 @@ module.exports = {
     // e.g. http://www.kinitv.com/video/3495O8
     getLink: function(twitter) {
 
-        if (!twitter.player || !twitter.player.value) return;
-        
         var video_src = twitter.player.value || twitter.player;
+        if (!video_src) return;
 
         var urlMatch = video_src.match(/^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
                     || video_src.match(/^https?:\/\/www\.youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
