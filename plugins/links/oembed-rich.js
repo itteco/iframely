@@ -36,6 +36,10 @@ module.exports = {
         if ($iframe.length == 1 && !whitelistRecord.isAllowed('oembed.rich', "inline")) {
 
             widget.href = $iframe.attr('src');
+
+            if (whitelistRecord && whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
+                widget.href = widget.href.replace(/^http:\/\//i, '//');
+            }
         
         } else { 
             widget.html = oembed.html || oembed.html5; // will render in an iframe, unless "inline" is in rels
