@@ -54,7 +54,6 @@ module.exports = {
         "http://portfolios.aiga.org/gallery/Bodega-Portraits/2752591",
         "http://portfolios.sva.edu/gallery/Threshold-Furniture-Design/720916",
         "http://portfolios.scad.edu/gallery/Privy-Boards-Graphic-Shirts/11126843",
-        "http://portfolios.mica.edu/gallery/Bombora-Branding-Project-for-Surf-Company-(GD-HW)/12415809",
         "http://www.adccreativecrush.org/gallery/Veuve-Clicquot/5998331",
         "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295",
         "http://portfolios.corcoran.edu/gallery/19270813/Porsche-Concept-Road-Version"
