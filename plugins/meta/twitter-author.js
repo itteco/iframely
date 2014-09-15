@@ -8,7 +8,7 @@ module.exports = {
             return;
 
         return {
-            author: twitter.creator.value || twitter.creator
+            author: (twitter.creator.value || twitter.creator).replace(/^@/, '')
         };
     }
 };
