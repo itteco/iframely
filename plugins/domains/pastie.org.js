@@ -1,7 +1,5 @@
 module.exports = {
 
-    // Embed code fonts color equals background color.
-
     re: /http:\/\/pastie\.org\/(\d+)/i,
 
     getMeta: function(urlMatch) {
@@ -12,10 +10,14 @@ module.exports = {
 
     getLink: function(urlMatch) {
         return {
-            html: '<script type="text/javascript" src="http://pastie.org/' + urlMatch[1] +'.js"></script>',
-            type: CONFIG.T.text_html,
-            rel: CONFIG.R.app
+            href: "http://pastie.org/" + urlMatch[1] +".js",
+            type: CONFIG.T.javascript, 
+            rel: CONFIG.R.reader // not inline :\
         };
-    }
+    },
+
+    tests: [ 
+        "http://pastie.org/807135"
+    ]    
 
 };
