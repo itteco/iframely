@@ -7,8 +7,7 @@ module.exports = {
     mixins: [
         "og-site",
         "og-image",
-        // apparently, Storify is hot-linking Twitter images, which are fine on twitter.com, but are not allowed on other domains.
-        // "twitter-player-responsive",
+        "twitter-player-responsive",
         "favicon"
     ],
 
