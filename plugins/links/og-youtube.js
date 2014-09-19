@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(og) {
         
-        var video_src = og.video.url || og.video;
+        var video_src = (og.video && og.video.url) || og.video;
         if (!video_src) return;
 
         var urlMatch = video_src.match(/^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
