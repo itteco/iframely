@@ -52,7 +52,12 @@ module.exports = {
         }
 
         if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {
-            widget['aspect-ratio'] = oembed.width / oembed.height;
+            if ($iframe.length == 1 && $iframe.attr('width') == '100%') {
+                widget.height = $iframe.attr('height') || oembed.height
+
+            } else {
+                widget['aspect-ratio'] = oembed.width / oembed.height;
+            }
         } else {
             widget.width = oembed.width;
             widget.height = oembed.height
