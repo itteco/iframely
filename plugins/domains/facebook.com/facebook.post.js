@@ -27,7 +27,8 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.inline],
             template_context: {
                 title: facebook_post.title,
-                url: facebook_post.url
+                url: facebook_post.url,
+                width: 466
             },
             width: 466
         };
