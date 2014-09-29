@@ -52,7 +52,9 @@ module.exports = {
         }
 
         if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {
-            if ($iframe.length == 1 && $iframe.attr('width') == '100%') {
+
+            // Fixed height case: <iframe width="100%" height="675"
+            if ($iframe.length == 1 && $iframe.attr('width') === '100%' && (!$iframe.attr('height') || $iframe.attr('height').match(/\d+/))) {
 
                 widget.height = oembed.height || $iframe.attr('height');
 
