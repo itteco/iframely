@@ -82,6 +82,7 @@ module.exports = function(app) {
 
             var render_link = _.find(result.links, function(link) {
                 return link.html
+                    && !link.href
                     && link.rel.indexOf(CONFIG.R.inline) === -1
                     && link.type === CONFIG.T.text_html;
             });
