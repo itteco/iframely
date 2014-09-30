@@ -57,7 +57,8 @@ module.exports = function(app) {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: req.query.ssl === 'true',
                     filterNonHTML5: req.query.html5 === 'true',
-                    filterAutoplay: req.query.noautoplay === 'true'
+                    filterAutoplay: req.query.noautoplay === 'true',
+                    maxwidth: req.query.maxwidth && parseInt(req.query.maxwidth)
                 }, cb);
             }
 

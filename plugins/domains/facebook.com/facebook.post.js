@@ -1,3 +1,5 @@
+var DEFAULT_WIDTH = 466;
+
 module.exports = {
 
     re: [       
@@ -21,16 +23,16 @@ module.exports = {
         };
     },
 
-    getLink: function(facebook_post) {
+    getLink: function(facebook_post, options) {
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline],
             template_context: {
                 title: facebook_post.title,
                 url: facebook_post.url,
-                width: 466
+                width: options.maxwidth || DEFAULT_WIDTH
             },
-            width: 466
+            width: options.maxwidth || DEFAULT_WIDTH
         };
     },
 
