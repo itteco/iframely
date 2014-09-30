@@ -25,7 +25,7 @@ module.exports = {
             } else if (meta.og.image) { //falback to og
 
                 links.push({
-                    href: meta.og.image.url || (meta.og.image instanceof Array) ? meta.og.image[0] : meta.og.image,
+                    href: meta.og.image.url || ((meta.og.image instanceof Array) ? meta.og.image[0] : meta.og.image),
                     type: meta.og.image.type || CONFIG.T.image,
                     rel: rel,
                     width: meta.og.image.width,
