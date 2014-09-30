@@ -1,6 +1,6 @@
 module.exports = {
 
-    getMeta: function(meta) {
+    getMeta: function(meta, url) {
 
         // Player.
 
@@ -8,7 +8,7 @@ module.exports = {
 
         if (meta.og) {
 
-            if (meta.og.video || (meta.og.type && meta.og.type.match(/video|movie/i))) {
+            if (meta.og.video || (meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/video|movie/i) || /\/video\//i.test(url))) {
 
                 has_player = true;
             }
@@ -36,7 +36,7 @@ module.exports = {
 
         if (has_thumbnail) {
 
-            if (meta.og && meta.og.type && meta.og.type.match(/article/i)) {
+            if (/article|blog|news|post|noticia/i.test(url) || (meta.og && meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/article|post/i))) {
                 has_reader = true;
             }
         }
