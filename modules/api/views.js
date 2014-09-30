@@ -54,7 +54,9 @@ module.exports = function(app) {
                     mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: req.query.whitelist === 'true',
-                    getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    filterNonSSL: req.query.ssl === 'true',
+                    filterNonHTML5: req.query.html5 === 'true'
                 }, cb);
             }
 
