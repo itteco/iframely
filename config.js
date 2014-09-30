@@ -48,7 +48,8 @@
             "reader",
             "thumbnail",
             "logo",
-            "icon"
+            "icon",
+            "file"
         ],
 
         MEDIA_ATTRS: [
