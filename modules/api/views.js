@@ -55,9 +55,9 @@ module.exports = function(app) {
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: req.query.whitelist === 'true',
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    filterNonSSL: req.query.ssl === 'true',
-                    filterNonHTML5: req.query.html5 === 'true',
-                    filterAutoplay: req.query.noautoplay === 'true',
+                    filterNonSSL: req.query.ssl === 'true' || req.query.ssl === '1',
+                    filterNonHTML5: req.query.html5 === 'true' || req.query.html5 === '1',
+                    filterAutoplay: req.query.autoplay === 'true' || req.query.autoplay === '1',
                     maxwidth: (req.query.maxwidth || req.query['max-width']) && parseInt(req.query.maxwidth || req.query['max-width'])
                 }, cb);
             }
