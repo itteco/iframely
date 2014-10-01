@@ -17,6 +17,11 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": oembed.width / oembed.height
         }, {
+            href: "//fast.wistia.net/embed/iframe/" + urlMatch[2] + "?autoPlay=true",
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
+            "aspect-ratio": oembed.width / oembed.height
+        }, {
             href: "http://wistia.com/favicon.ico",
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
