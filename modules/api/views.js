@@ -58,7 +58,7 @@ module.exports = function(app) {
                     filterNonSSL: req.query.ssl === 'true',
                     filterNonHTML5: req.query.html5 === 'true',
                     filterAutoplay: req.query.noautoplay === 'true',
-                    maxwidth: req.query.maxwidth && parseInt(req.query.maxwidth)
+                    maxwidth: (req.query.maxwidth || req.query['max-width']) && parseInt(req.query.maxwidth || req.query['max-width'])
                 }, cb);
             }
 
@@ -343,7 +343,11 @@ module.exports = function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    filterNonSSL: req.query.ssl === 'true',
+                    filterNonHTML5: req.query.html5 === 'true',
+                    filterAutoplay: req.query.noautoplay === 'true',
+                    maxwidth: (req.query.maxwidth || req.query['max-width']) && parseInt(req.query.maxwidth || req.query['max-width'])
                 }, cb);
             }
 
