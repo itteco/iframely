@@ -29,6 +29,16 @@ var log = utils.log;
 
 var version = require('../../package.json').version;
 
+function getBooleanParam(req, param) {
+    var v = req.query[param];
+    return v === 'true' || v === '1';
+}
+
+function getIntParam(req, param) {
+    var v = req.query[param];
+    return v && parseInt(v);
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
@@ -50,15 +60,15 @@ module.exports = function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    debug: req.query.debug === "true",
-                    mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
+                    debug: getBooleanParam(req, 'debug'),
+                    mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
-                    whitelist: req.query.whitelist === 'true',
+                    whitelist: getBooleanParam(req, 'whitelist'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    filterNonSSL: req.query.ssl === 'true' || req.query.ssl === '1',
-                    filterNonHTML5: req.query.html5 === 'true' || req.query.html5 === '1',
-                    filterAutoplay: req.query.autoplay === 'true' || req.query.autoplay === '1',
-                    maxwidth: (req.query.maxwidth || req.query['max-width']) && parseInt(req.query.maxwidth || req.query['max-width'])
+                    filterNonSSL: getBooleanParam(req, 'ssl'),
+                    filterNonHTML5: getBooleanParam(req, 'html5'),
+                    prioritizeAutoplay: getBooleanParam(req, 'autoplay'),
+                    maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
@@ -344,10 +354,9 @@ module.exports = function(app) {
 
                 iframelyCore.run(uri, {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    filterNonSSL: req.query.ssl === 'true',
-                    filterNonHTML5: req.query.html5 === 'true',
-                    filterAutoplay: req.query.noautoplay === 'true',
-                    maxwidth: (req.query.maxwidth || req.query['max-width']) && parseInt(req.query.maxwidth || req.query['max-width'])
+                    filterNonSSL: getBooleanParam(req, 'ssl'),
+                    filterNonHTML5: getBooleanParam(req, 'html5'),
+                    maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
