@@ -81,6 +81,7 @@
             logo: "logo",
 
             inline: "inline",
+            ssl: "ssl",
 
             autoplay: "autoplay",
             html5: "html5"

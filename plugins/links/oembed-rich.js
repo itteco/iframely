@@ -53,7 +53,7 @@ module.exports = {
 
         if (widget.html && whitelistRecord.isAllowed('oembed.rich', "ssl")) {
             // For pure HTML, the only way to detect SSL is to take it from Whitelist.
-            widget.rel.push ('ssl');
+            widget.rel.push (CONFIG.R.ssl);
         }
 
         if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {

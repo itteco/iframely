@@ -17,7 +17,7 @@ module.exports = {
         return {
             html: oembed.html.replace (/style=\"[^\"]+\"/i, ""),
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline],
+            rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl],
         }
 
     },

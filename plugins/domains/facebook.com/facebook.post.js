@@ -26,7 +26,7 @@ module.exports = {
     getLink: function(facebook_post, options) {
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             template_context: {
                 title: facebook_post.title,
                 url: facebook_post.url,
