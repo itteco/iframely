@@ -379,7 +379,8 @@
             generate: function(data, options) {
 
                 var $embed = $('<embed>')
-                    .attr('src', data.href);
+                    .attr('src', data.href)
+                    .attr('type', 'application/x-shockwave-flash');
 
                 if (options && options.disableSizeWrapper) {
                     return $embed;
