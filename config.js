@@ -28,6 +28,7 @@
 
         T: {
             text_html: "text/html",
+            maybe_text_html: "maybe_text_html",
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",

@@ -4,12 +4,12 @@ function getVideoLinks(video) {
 
     return [{
         href: video.url || video,
-        type: video.type || CONFIG.T.text_html,
+        type: video.type || CONFIG.T.maybe_text_html,
         rel: [CONFIG.R.player, CONFIG.R.og],
         "aspect-ratio": video.width / video.height
     }, {
         href: video.secure_url,
-        type: video.type || CONFIG.T.text_html,
+        type: video.type || CONFIG.T.maybe_text_html,
         rel: [CONFIG.R.player, CONFIG.R.og],
         "aspect-ratio": video.width / video.height
     }];

@@ -20,7 +20,7 @@ module.exports = {
 
         else return {
             href: meta.video_src,
-            type: meta.video_type || CONFIG.T.text_html,
+            type: meta.video_type || CONFIG.T.maybe_text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": meta.video_width / meta.video_height
         };
