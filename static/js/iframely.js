@@ -372,16 +372,29 @@
                 }
             }
         },
+        "flash": {
+            test: function(data) {
+                return data.type === "application/x-shockwave-flash" && data.href;
+            },
+            generate: function(data, options) {
+
+                var $embed = $('<embed>')
+                    .attr('src', data.href);
+
+                if (options && options.disableSizeWrapper) {
+                    return $embed;
+                } else {
+                    return wrapContainer($embed, data);
+                }
+            }
+        },
         "iframe": {
             test: function(data) {
-                return (data.type == "text/html"
-                    || data.type == "application/x-shockwave-flash")
-                    && data.href;
+                return data.type == "text/html" && data.href;
             },
             generate: function(data, options) {
 
                 var $iframe = $('<iframe>')
-                    //.addClass("iframely-widget iframely-iframe")
                     .attr('src', data.href)
                     .attr('frameborder', '0')
                     .attr('allowfullscreen', true)
