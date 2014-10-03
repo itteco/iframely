@@ -16,7 +16,7 @@ module.exports = {
     getMeta: function(oembed) {
 
         return {
-            date: oembed.air_date,
+            date: oembed.air_date
         };
     },
 
