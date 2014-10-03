@@ -3,6 +3,7 @@ var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
 var cache = require('../../lib/cache');
+var iframelyUtils = require('../../lib/utils');
 var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
@@ -65,9 +66,6 @@ module.exports = function(app) {
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    filterNonSSL: getBooleanParam(req, 'ssl'),
-                    filterNonHTML5: getBooleanParam(req, 'html5'),
-                    prioritizeAutoplay: getBooleanParam(req, 'autoplay'),
                     maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
@@ -121,6 +119,15 @@ module.exports = function(app) {
             }
 
             iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5')
+            });
+
+            iframelyUtils.generateLinksHtml(result, {
+                prioritizeAutoplay: getBooleanParam(req, 'autoplay')
+            });
 
             if (req.query.group) {
                 var links = result.links;
