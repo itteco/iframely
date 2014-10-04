@@ -1,6 +1,6 @@
 module.exports = {
 
-    re:  /^https?:\/\/(\w+)\.genius\.com\/(?!jobs)([a-z-]+)/i,
+    re:  /^https?:\/\/([\w\-]+)\.genius\.com\/(?!jobs)([a-z-]+)/i,
 
     mixins: [
         "og-image",
