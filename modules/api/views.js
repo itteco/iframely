@@ -126,7 +126,7 @@ module.exports = function(app) {
             });
 
             iframelyUtils.generateLinksHtml(result, {
-                prioritizeAutoplay: getBooleanParam(req, 'autoplay')
+                autoplayMode: getBooleanParam(req, 'autoplay')
             });
 
             if (req.query.group) {
