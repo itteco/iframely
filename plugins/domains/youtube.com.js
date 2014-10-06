@@ -77,6 +77,7 @@ module.exports = {
     getLinks: function(youtube_gdata) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+        var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
         var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
@@ -87,6 +88,11 @@ module.exports = {
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
+            type: CONFIG.T.text_html,
+            "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
+        }, {
+            href: 'https://www.youtube.com/embed/' + youtube_gdata.id + autoplay,
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
             "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
         }, {

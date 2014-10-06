@@ -51,6 +51,11 @@ module.exports = {
             widget.html = oembed.html5 || oembed.html;
         }
 
+        if (widget.html && whitelistRecord.isAllowed('oembed.rich', "ssl")) {
+            // For pure HTML, the only way to detect SSL is to take it from Whitelist.
+            widget.rel.push (CONFIG.R.ssl);
+        }
+
         if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {
 
             // Fixed height case: <iframe width="100%" height="675"

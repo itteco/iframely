@@ -3,6 +3,7 @@ var utils = require('../../utils');
 var _ = require('underscore');
 var async = require('async');
 var cache = require('../../lib/cache');
+var iframelyUtils = require('../../lib/utils');
 var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
@@ -29,6 +30,16 @@ var log = utils.log;
 
 var version = require('../../package.json').version;
 
+function getBooleanParam(req, param) {
+    var v = req.query[param];
+    return v === 'true' || v === '1';
+}
+
+function getIntParam(req, param) {
+    var v = req.query[param];
+    return v && parseInt(v);
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
@@ -50,11 +61,12 @@ module.exports = function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    debug: req.query.debug === "true",
-                    mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
+                    debug: getBooleanParam(req, 'debug'),
+                    mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
-                    whitelist: req.query.whitelist === 'true',
-                    getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    whitelist: getBooleanParam(req, 'whitelist'),
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
@@ -82,6 +94,7 @@ module.exports = function(app) {
 
             var render_link = _.find(result.links, function(link) {
                 return link.html
+                    && !link.href
                     && link.rel.indexOf(CONFIG.R.inline) === -1
                     && link.type === CONFIG.T.text_html;
             });
@@ -106,6 +119,15 @@ module.exports = function(app) {
             }
 
             iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5')
+            });
+
+            iframelyUtils.generateLinksHtml(result, {
+                autoplayMode: getBooleanParam(req, 'autoplay')
+            });
 
             if (req.query.group) {
                 var links = result.links;
@@ -338,7 +360,10 @@ module.exports = function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    filterNonSSL: getBooleanParam(req, 'ssl'),
+                    filterNonHTML5: getBooleanParam(req, 'html5'),
+                    maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
@@ -353,6 +378,13 @@ module.exports = function(app) {
                 }
                 return next(new Error(error));
             }
+
+            iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5')
+            });
 
             var oembed = oembedUtils.getOembed(uri, result);
 

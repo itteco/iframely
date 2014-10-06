@@ -16,7 +16,7 @@ module.exports = {
 
     getLinks: function(urlMatch, meta) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
-        var embed = 'http://instagram.com/p/' + urlMatch[1] + '/embed/';
+        var embed = '//instagram.com/p/' + urlMatch[1] + '/embed/';
 
         var links = [
             {
@@ -50,7 +50,7 @@ module.exports = {
         if (meta.og && meta.og.video) {
             links.push({
                 href: meta.og.video.url || meta.og.video,
-                type: meta.og.video.type || CONFIG.T.text_html,
+                type: meta.og.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height,
                 "max-width": meta.og.video.width,

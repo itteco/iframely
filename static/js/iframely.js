@@ -153,7 +153,10 @@
                 meta: options.meta,
                 whitelist: options.whitelist,
                 api_key: options.api_key,
-                origin: options.origin
+                origin: options.origin,
+                autoplay: options.autoplay,
+                ssl: options.ssl,
+                html5: options.html5
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);
@@ -297,7 +300,7 @@
 
                 var iframelyData = options && options.iframelyData;
 
-                var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
+                var $video = $('<video controls' + (data.rel.indexOf('autoplay') > -1 ? ' autoplay' : '') + '>Your browser does not support HTML5 video.</video>');
 
                 if (iframelyData && iframelyData.links) {
 
@@ -372,16 +375,30 @@
                 }
             }
         },
+        "flash": {
+            test: function(data) {
+                return data.type === "application/x-shockwave-flash" && data.href;
+            },
+            generate: function(data, options) {
+
+                var $embed = $('<embed>')
+                    .attr('src', data.href)
+                    .attr('type', 'application/x-shockwave-flash');
+
+                if (options && options.disableSizeWrapper) {
+                    return $embed;
+                } else {
+                    return wrapContainer($embed, data);
+                }
+            }
+        },
         "iframe": {
             test: function(data) {
-                return (data.type == "text/html"
-                    || data.type == "application/x-shockwave-flash")
-                    && data.href;
+                return data.type == "text/html" && data.href;
             },
             generate: function(data, options) {
 
                 var $iframe = $('<iframe>')
-                    //.addClass("iframely-widget iframely-iframe")
                     .attr('src', data.href)
                     .attr('frameborder', '0')
                     .attr('allowfullscreen', true)

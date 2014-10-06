@@ -1,7 +1,9 @@
+var DEFAULT_WIDTH = 466;
+
 module.exports = {
 
     re: [       
-        /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink|story)\.php\?[^\/]+(\d{10,})/i, // TODO: add |video| when they fix status embeds for it
+        /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink|story|video)\.php\?[^\/]+(\d{10,})/i,
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.\-]+\/(\d{10,})/i,
         /^https?:\/\/(www|m)\.facebook\.com\/notes\/([a-zA-Z0-9\.\-]+)\/[^\/]+\/(\d{10,})/i,
@@ -21,16 +23,16 @@ module.exports = {
         };
     },
 
-    getLink: function(facebook_post) {
+    getLink: function(facebook_post, options) {
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             template_context: {
                 title: facebook_post.title,
                 url: facebook_post.url,
-                width: 466
+                width: options.maxwidth || DEFAULT_WIDTH
             },
-            width: 466
+            width: options.maxwidth || DEFAULT_WIDTH
         };
     },
 

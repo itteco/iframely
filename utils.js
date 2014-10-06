@@ -190,7 +190,7 @@
         async.waterfall([
 
             function(cb) {
-                var refresh = req.query.refresh === "true";
+                var refresh = req.query.refresh === "true" || req.query.refresh === "1";
                 if (!refresh) {
 
                     var url = getUnifiedCacheUrl(req);
