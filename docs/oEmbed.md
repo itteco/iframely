@@ -38,7 +38,7 @@ This article gives you all you need to know about oEmbed implementation in Ifram
 
 Additional options can be requested as `get` parameters:
 
- - `iframe=true` or `iframe=`1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
+ - `iframe=true` or `iframe=1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
  - `ssl=true` or `1` - will return only embeds that can be completely shown under HTTPs (so not falling back to Iframely summary cards)
  - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
  - `maxwidth=` in pixels will return only embeds that do not exceed the desired width
@@ -49,11 +49,6 @@ Please note that there is no `autoplay` filter for our oEmbed API endpoint. It n
 
 ## Error handling
 
-Iframely will return HTTP error code if HTTP error occurred. It can be `404` for not found resource, `401` or ’403` for webpages requiring authorization, `408` if the origin service takes too much time to respond and times-out, etc. 
+Iframely will return HTTP error code if HTTP error occurred. It can be `404` for not found resource, `401` or `403` for webpages that need authorization, `408` if the origin service takes too much time to respond and times-out, etc. 
 
-The body of the response will also contain error code and message:
-
-	{
-	    “error”: “404”,
-		“message”: “URL not found”
-	}
+The body of the response will also contain error code and message

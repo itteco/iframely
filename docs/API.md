@@ -4,7 +4,7 @@ You send Iframely an URL via HTTP GET request. Iframely will return you semantic
 
 Iframely will generate those elements from a variety of sources, including oEmbed, Twitter Cards and Open Graph. 
 
-Embed codes are in given `html` values for each link or, for the primary media option, at the root level. 
+Embed codes are given in `html` values for each link or, for the primary media option only, duplicated at the root level. 
 
 ## API Request
 
@@ -17,6 +17,8 @@ Embed codes are in given `html` values for each link or, for the primary media o
 ## API Response
 
 [>> Here’s Iframely API response for Coub](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y)
+
+
     {
         "id": "ACcM3Y",                 -- short ID if you request iframe=true
         "url": "http://coub.com/view/2pc24rpb",
@@ -43,10 +45,10 @@ Embed codes are in given `html` values for each link or, for the primary media o
                 },
                                         -- SRC of embed.
                 "href": "//coub.com/embed/2pc24rpb",
-                "rel": ["player", “ssl”, “html5”],
+                "rel": ["player", "ssl", "html5"],
                 "type": "text/html"     -- link’s MIME type
-                                   -- Plus generated HTML code for simplicity of use.
-                “html”: "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"//coub.com/embed/2pc24rpb\"  style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
+                -- Plus generated HTML code for simplicity of use.
+                "html": "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"//coub.com/embed/2pc24rpb\"  style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
             }, {
                 ... 
                 -- Might have multiple variations of the same player. 
@@ -64,7 +66,7 @@ Embed codes are in given `html` values for each link or, for the primary media o
                 ...
             }],
 
-                                   -- Also possible:
+                                   		-- Also possible:
                                         -- app, image (as rel)
             ...                         -- reader, survey
                                         -- logo (sometimes)
@@ -74,9 +76,11 @@ Embed codes are in given `html` values for each link or, for the primary media o
         },
 
 
-`rel` is the primary information about the use case of the embeds. Can Player, Thumbnail, App, Image, Reader, Survey, icon and logo. [See the detailed description of rels](https://iframely.com/docs/rels). 
+`rel` is the primary information about the use case of the embeds. 
+Might be Player, Thumbnail, App, Image, Reader, Survey, icon and logo. [See the detailed description of rels](https://iframely.com/docs/rels). 
 
-`meta` will contain list of semantic attributes in unified naming format. See the list of [what Iframely might produce as meta](https://iframely.com/docs/meta).
+`meta` will contain list of semantic attributes in unified naming format. 
+See the list of [what Iframely might produce as meta](https://iframely.com/docs/meta).
 
 Array values that only have one element will be wrapped as single object (i.e. without `[]`).
 
@@ -85,7 +89,7 @@ Array values that only have one element will be wrapped as single object (i.e. w
 
 Additional options can be requested as `get` parameters:
 
- - `iframe=true` or `iframe=`1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
+ - `iframe=true` or `iframe=1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
  - `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
  - `ssl=true` or `1` - will return only embeds that can be completely shown under HTTPs (so not falling back to Iframely summary cards)
  - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
@@ -95,12 +99,6 @@ Additional options can be requested as `get` parameters:
 
 ## Error handling
 
-Iframely will return HTTP error code if HTTP error occurred. It can be `404` for not found resource, `401` or ’403` for webpages requiring authorization, `408` if the origin service takes too much time to respond and times-out, etc. 
+Iframely will return HTTP error code if HTTP error occurred. It can be `404` for not found resource, `401` or `403` for webpages with authorization, `408` if the origin service takes too much time to respond and times-out, etc. 
 
-The body of the response will also contain error code and message:
-
-	{
-	    “error”: “404”,
-		“message”: “URL not found”
-	}
-
+The body of the response will also contain error code and message.
