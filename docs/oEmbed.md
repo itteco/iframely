@@ -1,6 +1,6 @@
 # oEmbed API
 
-Iframely gives you classic [oEmbed](http://oembed.com) endpoint, where you send a URL and get embed codes in response. The HTML embed codes will be responsive, if possible.
+Iframely gives you a classic [oEmbed](http://oembed.com) endpoint, where you send a URL and get embed codes in response. The HTML embed codes will be responsive, if possible.
 
 Read details of oEmbed on [http://oembed.com](http://oembed.com).  Basically, you just want to look for `html` field of response. However beware, `photo` type in oEmbed gives image resource as `url` field rather than in `html`.
 
@@ -43,7 +43,8 @@ Additional options can be requested as `get` parameters:
  - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
  - `maxwidth=` in pixels will return only embeds that do not exceed the desired width
  - `origin=` - text value, representing your hashtag of the URL, if you later want to filter it in your desktop. E.g. chat room name, if you got a chat app
- - `callback` - JavaScript function, if you’d like response to be wrapped as JSONP.
+ - `callback` - JavaScript function, if you’d like response to be wrapped as JSONP
+ - `format=xml` - if you'd like to get your oEmbed as XML.
 
 Please note that there is no `autoplay` filter for our oEmbed API endpoint. It never returns the media that autoplays. 
 

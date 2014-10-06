@@ -66,7 +66,7 @@ Embed codes are given in `html` values for each link or, for the primary media o
                 ...
             }],
 
-                                   		-- Also possible:
+                                        -- Also possible:
                                         -- app, image (as rel)
             ...                         -- reader, survey
                                         -- logo (sometimes)
@@ -77,7 +77,7 @@ Embed codes are given in `html` values for each link or, for the primary media o
 
 
 `rel` is the primary information about the use case of the embeds. 
-Might be Player, Thumbnail, App, Image, Reader, Survey, icon and logo. [See the detailed description of rels](https://iframely.com/docs/rels). 
+Might be Player, Thumbnail, App, Image, Reader, Survey, Summary, Icon and Logo. [See the detailed description of rels](https://iframely.com/docs/links). 
 
 `meta` will contain list of semantic attributes in unified naming format. 
 See the list of [what Iframely might produce as meta](https://iframely.com/docs/meta).
