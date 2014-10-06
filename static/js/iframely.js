@@ -153,7 +153,10 @@
                 meta: options.meta,
                 whitelist: options.whitelist,
                 api_key: options.api_key,
-                origin: options.origin
+                origin: options.origin,
+                autoplay: options.autoplay,
+                ssl: options.ssl,
+                html5: options.html5
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);
@@ -297,7 +300,7 @@
 
                 var iframelyData = options && options.iframelyData;
 
-                var $video = $('<video controls>Your browser does not support HTML5 video.</video>');
+                var $video = $('<video controls' + (data.rel.indexOf('autoplay') > -1 ? ' autoplay' : '') + '>Your browser does not support HTML5 video.</video>');
 
                 if (iframelyData && iframelyData.links) {
 
