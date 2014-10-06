@@ -379,6 +379,13 @@ module.exports = function(app) {
                 return next(new Error(error));
             }
 
+            iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5')
+            });
+
             var oembed = oembedUtils.getOembed(uri, result);
 
             if (req.query.format === "xml") {
