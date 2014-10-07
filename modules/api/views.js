@@ -66,7 +66,7 @@ module.exports = function(app) {
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
@@ -122,7 +122,8 @@ module.exports = function(app) {
 
             iframelyUtils.filterLinks(result, {
                 filterNonSSL: getBooleanParam(req, 'ssl'),
-                filterNonHTML5: getBooleanParam(req, 'html5')
+                filterNonHTML5: getBooleanParam(req, 'html5'),
+                maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
             iframelyUtils.generateLinksHtml(result, {
@@ -363,7 +364,7 @@ module.exports = function(app) {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: getBooleanParam(req, 'ssl'),
                     filterNonHTML5: getBooleanParam(req, 'html5'),
-                    maxwidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
@@ -383,7 +384,8 @@ module.exports = function(app) {
 
             iframelyUtils.filterLinks(result, {
                 filterNonSSL: getBooleanParam(req, 'ssl'),
-                filterNonHTML5: getBooleanParam(req, 'html5')
+                filterNonHTML5: getBooleanParam(req, 'html5'),
+                maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
             var oembed = oembedUtils.getOembed(uri, result);

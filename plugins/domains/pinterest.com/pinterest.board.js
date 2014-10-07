@@ -27,11 +27,11 @@ module.exports = {
                 url: url,
                 title: "Pinterest Board",
                 type: "embedBoard",
-                width: options.maxwidth || DEFAULT_WIDTH,
+                width: options.maxWidth || DEFAULT_WIDTH,
                 height: 600,
                 pinWidth: 120
             },
-            width: options.maxwidth || DEFAULT_WIDTH,
+            width: options.maxWidth || DEFAULT_WIDTH,
             height: 600 + 120
         };
     },
