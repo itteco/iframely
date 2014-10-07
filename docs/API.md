@@ -91,7 +91,7 @@ Additional options can be requested as `get` parameters:
 
  - `iframe=true` or `iframe=1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
  - `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
- - `ssl=true` or `1` - will return only embeds that can be completely shown under HTTPs (so not falling back to Iframely summary cards)
+ - `ssl=true` or `1` - will return only embeds that can be used under HTTPs without active SSL mixed-content warnings (images and mp4 videos trigger only passive warnings and thus will be passed)
  - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
  - `maxwidth=` in pixels will return only embeds that do not exceed the desired width
  - `origin=` - text value, representing your hashtag of the URL, if you later want to filter it in your desktop. E.g. chat room name, if you got a chat app
