@@ -1,8 +1,40 @@
 # Iframely Gateway Changelog
 
-This is the history of the Iframely Gateway changes. 
+This is the history of the Iframely Gateway changes. Updates that are older than 1 year are not shown.
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
+
+
+### 2014.10.15, Version 0.7.0
+
+**API Params.**
+
+This release introduces filtering parameters both in [oEmbed API](https://iframely.com/docs/oembed-api) and [Iframely API](https://iframely.com/docs/iframely-api) formats. 
+
+The optional parameters in API calls are:
+
+- `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
+ - `ssl=true` or `1` - will return only embeds that can be used under HTTPs without active SSL mixed-content warnings (images and mp4 videos trigger only passive warnings and thus will be passed)
+ - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
+ - `maxwidth=` in pixels will return only embeds that do not exceed the desired width
+
+**API Format changes** 
+
+The [Iframely API](https://iframely.com/docs/iframely-api) response has number of improvements.
+
+- We added a root level `html` and `rel` fields that include embed data from most appropriate link according to your filtering params. 
+- For each embed link, we also added a field `html` with the generated HTML code to simplify server-server integrations (so that [iframely.js](https://iframely.com/docs/iframelyjs) isn’t required). This does not include image MIME type.
+-  Supplementary rel `ssl` is now included for all links that are SSL-proof. 
+
+These changes should be backwards-compatible. Report any compatibility issues you encounter on [GitHub](https://github.com/itteco/iframely).
+
+**Other improvements**
+
+- As usual, number of domain maintenance, including autoplay variants for YouTube, Vimeo, SoundCloud and Wistia
+- Facebook posts and Pinterest embeds can now be adjusted based on your `max-width` value
+- Added some domains, such as IMDB, Break.com, Zing.vn, Stitcher podcasts, Prostopleer
+- PDF documents embeds via Google Docs Viewer
+
 
 
 ### 2014.08.14, Version 0.6.6 
@@ -330,124 +362,6 @@ Please, run following to update package dependencies:
 
  + New `/oembed` endpoint, the backwards compatability adapter for [oEmbed v1](http://oembed.com). See [example](http://iframely.com/oembed?url=http://vimeo.com/62092214)
 
-
-### 2013.09.27, Version 0.5.2
-
- + added weheartit.com photo plugin
- + added travelchannel.com video player plugin
- + added live.huffingtonpost.com player plugin
- + added allthingsd.com player plugin
- + added [Google+ Posts](https://developers.google.com/+/web/embedded-post/) plugin
- + added support of new url schema for openstreetmap.org (Mathias Panzenböck)
- + added helper functions to iframely.js: easy find links by rel and best fit size
- * fixed matching domain plugins for urls with varying domains like `maps.google.co.uk` and `maps.google.com`
- * fixed pinterest matching regexps
- * fixed smugmug.com photo plugin to work with new url schema
- * instagram plugin now supports [native instagram embeds](http://blog.instagram.com/post/55095847329/introducing-instagram-web-embeds)
- * support international domains for huffingtonpost.com
-
-
-### 2013.09.17, Version 0.5.1
-
- * fix encoding issues for non-latin characters
-
-### 2013.09.16, Version 0.5.0
-
- + Added optional [Iframely Domains DB](http://iframely.com/qa) functionality: 
-   - Deny Broken Embeds, 
-   - Convert OG Twitter & oEmbed into Responsive players,   
-   - Allow whitelisted Twitter Photos
-   - Proxy Autoplay and SSL tags from the whitelist
-   - Get domains DB file from [http://iframely.com/qa/buy](http://iframely.com/qa/buy) and upload to `whitelist` folder
- * number of miscellaneous fixes to make gateway compliant with [official release of Iframely Protocol](http://iframely.com/oembed2)
- - Removed [Coub](http://coub.com) - they now support Iframely protocol natively 
- + support new IFTTT embeds ([example](http://iframely.com/debug?uri=https%3A%2F%2Fifttt.com%2Frecipes%2F116160))
- * fix parsing alternate oembed links
- * fix telly.com plugin 
-
-
-### 2013.08.13, Version 0.4.4
-
- + added tumblr.com meta plugin
- + added tumblr.com photo plugin
- + added tumblr.com video plugin
- + added tumblr.com text plugin
- * fixed animoto.com plugin
- * updated guardian.com plugin domain
- * updated businessinsider.com plugin
- * fixed slideshare.net plugin
- + added huffingtonpost.com plugin
-
-
-### 2013.08.08, Version 0.4.3
-
- + added mixbit.com plugin
-
-
-### 2013.08.06, Version 0.4.2
-
- + added v.qq.com plugin
- + added angel.co embeds plugin
- + added facebook embeds plugin
- + added pinterest product meta
- * check if favicon exists
- * fix instapapper resolving relative urls
-
-
-### 2013.07.19, Version 0.4.0
-
- + added readtapestry.com plugin
- + added whosay.com photo plugin
- + added jsfiddle.net plugin
- + added theoatmeal.com plugin
- + added lolwall.co plugin
- + added openstreetmap.org plugin (Mathias Panzenböck)
- + added marketplace.firefox.com plugin (Mathias Panzenböck)
- * fixed smugmug.com plugin
- + added pinterest.com pin-board widget plugin
- + added pinterest.com user widget plugin
- + added pinterest.com pin widget plugin
- * fixed facebook.video plugin
- * fixed businessinsider.com plugin
- * fixed: iframely selects better media sizes for duplicate http/https links from different plugins, giving priority to the ones that produce responsive widget
-
-
-### 2013.07.11, Version 0.3.10
-
- * port to htmlparser2, SAX was buggy (Mathias Panzenböck)
- + added /supported-plugins-re.json endpoint
- + added /twitter endpoint to get only twitter meta
- * fixed timeout on waiting full response
- * fixed iframely-link plugin
- * fixed iframed widgets buggy resizing
- * fixed dynamic reader embedding
-
-
-### 2013.07.05, Version 0.3.9
-
- + tindeck.com (Mathias Panzenböck)
- + maps.google.com (Mathias Panzenböck)
- + magnatune.com (Mathias Panzenböck)
- + ocreamix.org (Mathias Panzenböck)
-
-
-### 2013.06.28, Version 0.3.8
-
- + trutv.com
- + video.nhl.com
- + cnn.com videos
- + issuu.com
- + imgur.com galleries
- + guardian.co.uk videos
- + wikimedia articles and pictures
- + parse links by iframely (oEmbed/2) spec
-
-
-### 2013.06.27, Version 0.3.7
-
- + added instagram video
- + 'iframely-widget' styles used by iframely.js to identify generated widgets
- + crowdranking oembed/1 provider added (Mathias Panzenböck)
 
 
 
