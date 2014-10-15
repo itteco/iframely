@@ -34,6 +34,7 @@ These changes should be backwards-compatible. Report any compatibility issues yo
 - Facebook posts and Pinterest embeds can now be adjusted based on your `max-width` value
 - Added some domains, such as IMDB, Break.com, Zing.vn, Stitcher podcasts, Prostopleer
 - PDF documents embeds via Google Docs Viewer
+- Embed codes for Flash now go with `<embed>` html. To make this accurate, Flash and text/html links are double-checked for MIME-type. This involves additional HTTP request for the URL parsers and adds a little time to processing. 
 
 
 
