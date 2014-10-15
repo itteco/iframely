@@ -2,7 +2,7 @@ var DEFAULT_WIDTH = 466;
 
 module.exports = {
 
-    re: [       
+    re: [
         /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink|story|video)\.php\?[^\/]+(\d{10,})/i,
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.\-]+\/(\d{10,})/i,
