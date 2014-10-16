@@ -13,17 +13,17 @@ module.exports = {
 
     getLink: function(og, url) {
 
-        if (og.type === 'profile' || og.type === 'medium:collection') {
+        if (og.type === 'profile' || og.type === 'medium-com:collection') {
 
             var t = 'profile';
-            if (og.type === 'medium:collection') {
+            if (og.type === 'medium-com:collection') {
                 t = 'collection';
             }
 
             return {
                 html: '<script async src="https://static.medium.com/embed.js"></script><a class="m-' + t + '" href="' + url + '">' + og.title + '</a>',
                 width: 400,
-                rel: [CONFIG.R.app, CONFIG.R.inline],
+                rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
                 type: CONFIG.T.text_html
             };
         }

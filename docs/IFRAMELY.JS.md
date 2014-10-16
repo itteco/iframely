@@ -1,8 +1,8 @@
 # Iframely JS Client Lib
 
-[Iframely Open-Source](https://github.com/itteco/iframely) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. If you'd prefer to render a widget from the data yourself, please refer to [How to Render a Widget](http://iframely.com/docs/links). 
+[Iframely Open-Source](https://github.com/itteco/iframely) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. If you'd prefer to render a widget from the data yourself, please refer to [How to Render a Widget](https://iframely.com/docs/links). 
 
-If you are using [Cloud API](http://iframe.ly), you don't need iframely.js as the embed code will be provided to you by API as the `html` field of JSON response.
+If you are using [Cloud API](https://iframely.com), you don't need iframely.js as the embed code will be provided to you by API as the `html` field of JSON response.
 
 You may find `iframely.js` lib in `/static/js/iframely.js` folder. 
 
@@ -21,7 +21,7 @@ Where `{YOUR.DOMAIN}}` is the domain name you host Iframely Gateway at.
 
 You may also copy iframely.js file to your apps main domain and serve it from there. 
 
-If you have not [set up host](http://iframely.com/docs/host) yet, you can load iframel.js from [this source](http://iframely.com/r3/js/iframely.js). However, don't use it for production purposes. But rather copy it to your servers.
+If you have not [set up host](https://iframely.com/docs/host) yet, you can load iframel.js from [this source](http://iframely.com/r3/js/iframely.js). However, don't use it for production purposes. But rather copy it to your servers.
 
 
 
@@ -90,7 +90,7 @@ Sample code abovewill log the following JSON into console [log](http://iframely.
     }
 
 
-The format of this JSON object is given in [API description](http://iframely.com/docs/api).
+The format of this JSON object is given in [API description](https://iframely.com/docs/api).
 
 You can use `data.meta` to get available meta attributes of your `uri` or `data.links` to render some widgets from it.
 
@@ -98,7 +98,7 @@ You can use `data.meta` to get available meta attributes of your `uri` or `data.
 
 ## Render `links` Widgets
 
-You would need to make a choice which links/widgets you'd like to render from a list given in the response code. [API response parameters](http://iframely.com/docs/api).
+You would need to make a choice which links/widgets you'd like to render from a list given in the response code. [API response parameters](https://iframely.com/docs/api).
 
 Each link in API response from previous example can be rendered in a following way:
 

@@ -1,13 +1,15 @@
 module.exports = {
 
-    getMeta: function(meta) {
+    getMeta: function(meta, url) {
 
         // Player.
 
         var has_player = false;
 
         if (meta.og) {
-            if (meta.og.video || (meta.og.type && meta.og.type.indexOf('video') > -1)) {
+
+            if (meta.og.video || (meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/video|movie/i) || /\/video\//i.test(url))) {
+
                 has_player = true;
             }
         }
@@ -18,7 +20,10 @@ module.exports = {
         }
         if (meta.video_src || meta.video_type) {
             has_player = true;
-        }        
+        }
+        if (meta.medium === 'video') {
+            has_player = true;
+        }
 
         if (has_player) {
             return {
@@ -34,7 +39,7 @@ module.exports = {
 
         if (has_thumbnail) {
 
-            if (meta.og && meta.og.type && meta.og.type === 'article') {
+            if (/article|blog|news|post|noticia/i.test(url) || (meta.og && meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/article|post/i))) {
                 has_reader = true;
             }
         }

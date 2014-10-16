@@ -2,7 +2,8 @@ module.exports = {
 
     mixins: [
         "oembed-title",
-        "oembed-thumbnail",
+        // "oembed-thumbnail", - broken at the moment. Plus takes long to read, thus slowing overall processing.
+        "twitter-image",
         "oembed-site",
         "oembed-author",
 

@@ -248,7 +248,8 @@
     {
         "name": "Coub",
         "templates": [
-            "coub\\.com/view/.*"
+            "coub\\.com/view/.*",
+            "coub\\.com/embed/.*"
         ],
         "endpoint": "http://coub.com/api/oembed.{format}"
     },
@@ -346,6 +347,13 @@
             "open\\.spotify\\.com/.*"
         ],
         "endpoint": "https://embed.spotify.com/oembed/"
-    }
+    },
+    {
+        "name": "Issuu",
+        "templates": [
+            "issuu\\.com/.*"
+        ],
+        "endpoint": "http://issuu.com/oembed"
+    }    
 
 ]

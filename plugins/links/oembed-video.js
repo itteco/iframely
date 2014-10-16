@@ -26,6 +26,11 @@ module.exports = {
         // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
             player.href = $iframe.attr('src');
+
+            if (whitelistRecord && whitelistRecord.isAllowed('oembed.video', 'ssl')) {
+                player.href = player.href.replace(/^http:\/\//i, '//');
+            }
+
         } else { 
             player.html = oembed.html || oembed.html5; // will render in an iframe
         }
@@ -39,7 +44,7 @@ module.exports = {
         }
 
         if (whitelistRecord.isAllowed('oembed.video', 'autoplay')) {
-            player.rel.push (CONFIG.R.autoplay);
+            player.rel.push(CONFIG.R.autoplay);
         }
 
         return player;
@@ -48,10 +53,11 @@ module.exports = {
 
     getMeta: function(oembed) {
 
-        if (oembed.type === "video" || oembed.type === "audio") 
+        if (oembed.type === "video" || oembed.type === "audio") {
             return {
                 media: "player"
-            }
+            };
+        }
     },
 
 

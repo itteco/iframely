@@ -7,7 +7,6 @@ module.exports = {
         "oembed-video-responsive"
     ],
 
-
     getLink: function() {
 
         return {

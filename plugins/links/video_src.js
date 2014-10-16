@@ -6,7 +6,7 @@ module.exports = {
         
             var player = {
                 href: meta.video_src,
-                type: meta.video_type || CONFIG.T.text_html,
+                type: meta.video_type || CONFIG.T.maybe_text_html,
                 rel: CONFIG.R.player
             };
 

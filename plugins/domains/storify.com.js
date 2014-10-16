@@ -27,7 +27,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.player],
+            rel: [CONFIG.R.reader, CONFIG.R.ssl],
             html: '<script type="text/javascript" src="' + src + '"></script>',
             "orientation": 'portrait',
             "min-width": 320,

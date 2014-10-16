@@ -19,7 +19,7 @@ module.exports = {
         function addImage(title, image, rel) {
             links.push({
                 title: title,
-                href: image.url,
+                href: image.url.replace(/^https?:/, ''),
                 type: CONFIG.T.image,
                 rel: rel,
                 width: image.width,

@@ -13,7 +13,7 @@ module.exports = {
 
         return [{
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.survey],
+            rel: [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.inline],
             html: oembed.html,
             "min-width": 332
         }, {

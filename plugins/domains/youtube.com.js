@@ -8,7 +8,8 @@ module.exports = {
         /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
         /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9]+\?v=([\-_a-zA-Z0-9]+)$/i
+        /^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9]+\?v=([\-_a-zA-Z0-9]+)$/i,
+        /^https?:\/\/www\.youtube\-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i
     ],
 
     provides: 'youtube_gdata',
@@ -43,6 +44,7 @@ module.exports = {
                         description: data.entry['media$group']['media$description']['$t'],
                         duration: data.entry['media$group']['yt$duration'].seconds,
                         likeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numLikes : 0,
+                        dislikeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numDislikes : 0,
                         viewCount: data.entry['yt$statistics'] ? data.entry['yt$statistics'].viewCount : 0,
 
                         hd: data.entry['yt$hd'] != null,
@@ -66,6 +68,7 @@ module.exports = {
             description: youtube_gdata.description,
             duration: youtube_gdata.duration,
             likes: youtube_gdata.likeCount,
+            dislikes: youtube_gdata.dislikeCount,
             views: youtube_gdata.viewCount,
             site: "YouTube"
         };
@@ -74,6 +77,7 @@ module.exports = {
     getLinks: function(youtube_gdata) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+        var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
         var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
@@ -84,6 +88,11 @@ module.exports = {
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
+            type: CONFIG.T.text_html,
+            "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
+        }, {
+            href: 'https://www.youtube.com/embed/' + youtube_gdata.id + autoplay,
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
             "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
         }, {
