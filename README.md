@@ -6,16 +6,16 @@ HTTP API are available as [oEmbed](https://iframely.com/docs/oembed-api) or [Ifr
 
 In response to `url` request, APIs returns you the embeds and meta for a requested web page. Below are samples from [hosted API](https://iframely.com), just to show you the format:
 
-[>> Here’s API call for Coub video](http://iframe.ly/ACcM3Y.json)
-[>> Same one, but as oEmbed](http://iframe.ly/ACcM3Y.oembed)
+- [>> Here’s API call for Coub video](http://iframe.ly/ACcM3Y.json)
+- [>> Same one, but as oEmbed](http://iframe.ly/ACcM3Y.oembed)
 
 Iframely does it by parsing [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards) and general meta on the original page. Or by using specific domain plugins in the package. 
 
-There are over 150 custom domains included as open-source. Plus, there is a whitelist option that acts like a gigantic plugin for generic parsers. You can [create your own whitelist]() or [get one](https://iframely.com/plans) with [over 1600 domains](https://iframely.com/try) from Iframely. By default, our whitelist with Top 100 domains is included for free with your package. 
+There are over 150 custom domains included as open-source. Plus, there is a whitelist option for oEmbed, Open Graph and Twitter Cards that acts like a gigantic plugin for generic parsers. You can [create your own whitelist](https://iframely.com/docs/whitelist-format) or [get one](https://iframely.com/plans) with [over 1600 domains](https://iframely.com/try) from Iframely. By default, our whitelist with Top 100 domains is included for free with your package. 
 
 ## Read Next:
 
- - [Try Iframely Demo with any Twitter feed](https://iframely.com/try)
+ - [Try Iframely demo with any Twitter feed](https://iframely.com/try)
  - [API in Iframely format](https://iframely.com/docs/iframely-api) (`iframe=true` option is only available for hosted API)
  - [API in oEmbed format](https://iframely.com/docs/oembed-api)
  - [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
