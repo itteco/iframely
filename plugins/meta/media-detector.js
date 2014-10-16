@@ -20,7 +20,10 @@ module.exports = {
         }
         if (meta.video_src || meta.video_type) {
             has_player = true;
-        }        
+        }
+        if (meta.medium === 'video') {
+            has_player = true;
+        }
 
         if (has_player) {
             return {
