@@ -1,3 +1,4 @@
+var DEFAULT_WIDTH = 600;
 
 module.exports = {
 
@@ -12,7 +13,7 @@ module.exports = {
         "og-title"
     ],    
 
-    getLink: function(url, og) {
+    getLink: function(url, og, options) {
 
         if (og.type !== 'profile') {
             return;
@@ -26,11 +27,11 @@ module.exports = {
                 url: url,
                 title: "Pinterest User",
                 type: "embedUser",
-                width: 600,
+                width: options.maxWidth || DEFAULT_WIDTH,
                 height: 600,
                 pinWidth: 120
             },
-            width: 600,
+            width: options.maxWidth || DEFAULT_WIDTH,
             height: 600+120
         };
     },
