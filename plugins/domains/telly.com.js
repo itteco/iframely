@@ -1,9 +1,8 @@
 module.exports = {
 
-    re: /^https?:\/\/telly\.com\/(\w+)$/i,
+    re: /^https?:\/\/telly\.com\/(\w+)/i,
 
     //twitvid will re-direct here
-    //TODO: extract YouTube & Vimeo players
     mixins: [
         "canonical",
         "og-site",
@@ -14,7 +13,7 @@ module.exports = {
 
     getLink: function(urlMatch, meta) {
         return {
-            href: "https://telly.com/embed.php?guid=" + urlMatch[1] + "&autoplay=0",
+            href: "http://telly.com/embed.php?guid=" + urlMatch[1] + "&autoplay=0",
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 480/360
