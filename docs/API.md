@@ -1,71 +1,104 @@
-# Iframely API Endpoints
+# Iframely API for Responsive Embeds
+
+You send Iframely an URL via HTTP GET request. Iframely will return you semantics `meta` and embeds `links`, which both can be imagined as the `<head>` elements of the web page requested. 
+
+Iframely will generate those elements from a variety of sources, including oEmbed, Twitter Cards and Open Graph. 
+
+Embed codes are given in `html` values for each link or, for the primary media option only, duplicated at the root level. 
+
+## API Request
+
+[>> http://iframe.ly/api/iframely?url=… &api_key= …](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y).
+
+ - `url` and `api_key` parameters are required. 
+ - `url` needs to be URL-encoded.
+ - `api_key` isn’t required if URL is from `iframe.ly/*` domain. 
+
+## API Response
+
+[>> Here’s Iframely API response for Coub](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y)
 
 
-## For both Cloud and Open-Source versions of API
+    {
+        "id": "ACcM3Y",                 -- short ID if you request iframe=true
+        "url": "http://coub.com/view/2pc24rpb",
 
-[Iframely API can return](https://iframely.com/docs) either full JSON with the list of embed links, or a simple response as oEmbed. 
+		-- rel use cases and html  code for primary variant of embed,
+		"rel": ["player", "ssl"],	-- check it for `autoplay` if you request it
+		"html": "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"//coub.com/embed/2pc24rpb\" style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
 
-Each of the JSON response formats has it’s own API Endpoint relative address and set of get parameters:
+        "meta": {                       -- meta object with the semantics
+            "title": "PARADISE BEACH",  -- e.g. title and others
+            "description": "Ilya Trushin",
+            "author_url": "http://coub.com/trucoubs",
+            "author": "Ilya Trushin",
+            "site": "Coub",
+            "canonical": "http://coub.com/view/2pc24rpb",
+            "keywords": "living photo, ... , media"        
+        },
 
-- [/iframely?url=](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
-- [/oembed?url=](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format. 
+        -- Plus list of embed src links with functional rels . For example,
+        "links": {
+            "player": [{                -- List of player embed widgets
+                "media": {              -- Media query aspects
+                    "aspect-ratio": 1.777778
+                },
+                                        -- SRC of embed.
+                "href": "//coub.com/embed/2pc24rpb",
+                "rel": ["player", "ssl", "html5"],
+                "type": "text/html"     -- link’s MIME type
+                -- Plus generated HTML code for simplicity of use.
+                "html": "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"//coub.com/embed/2pc24rpb\"  style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
+            }, {
+                ... 
+                -- Might have multiple variations of the same player. 
+                -- E.g. one that 'autoplay's, one as MP4 video, one with https src.
+            }],
+            "thumbnail": [{
+                "media": {
+                    "height": 360,      -- Exact sizes here. 
+                    "width": 640
+                },                      -- We repeat the same rel
+                "rel": ["thumbnail"],   -- as iframely.js needs it.
+                "type": "image",        -- "use href as src of image"
+                "href": "http://cdn1.aka ... med_1381670134_00040.jpg"
+            }, {
+                ...
+            }],
 
-Depending on whether you use Iframely Cloud API, or Open-Source API, the primary (absolute) host paths will also differ. 
-
-- All endpoints are called using `GET` HTTP methods. 
-- All URLs need to be URL-encoded.
-- All endpoints can accept optional `callback` parameter for JSONP support.
-
-
-## Cloud API
-
-The API host for Iframely Cloud is at `http://iframe.ly/api`
-
-### Shorten and get ID or HTML
-
-Iframely Cloud acts as the database for links and URL shortener. Each endpoint is treated as the way for you to shorten URLs and add it to your database. Iframely cloud will add `id` value to the root of API JSON. Repeat requests will return the same ID.  
-
-- [http://iframe.ly/api/iframely?url={URL}&api_key={KEY}&origin={hashtag}](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) <br>- for full Iframely JSON,
-- [http://iframe.ly/api/oembed?url={URL}&api_key={KEY}&origin={hashtag}](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) <br>- for simple oEmbed format.
-
-`api_key` is required, unless URL is from iframe.ly domain itself, like `?url=http://iframe.ly/ACcM3Y`. ([Get yours here](https://iframely.com/api))  
-
-`origin` parameter is optional. You can filter URLs on your dashboard using origin as #hashtag.
-
-The response will contain embed links and other meta right away, along with the short `id` for future reference. If you're using [Cloud API](https://iframely.com), the response will also contain `html` of a hosted widget so that you don't need to render the embed code yourself. 
-
-
-### Get URL data by ID
-
-When you shorten a URL, you’ll get `id` in the response. This is the short ID of the URL in Iframely DB, unique to your account. 
-
-The short URL (with UI, if any) will be [http://iframe.ly/{SHORT ID}](http://iframe.ly/ACcM3Y.json). This is its permanent address.
-
-To query data about this URL any time, you can make public HTTP calls to 
-
-- [iframe.ly/{SHORT ID}.json](http://iframe.ly/ACcM3Y.json) for `iframely` JSON format
-- and to [iframe.ly/{SHORT ID}.oembed](http://iframe.ly/ACcM3Y.oembed) for `oembed` format. 
-
-The queries to this direct JSON objects do not count towards your plan’s limits. 
-
-
-## Open Source API
-
-The exact path to your Open Source API host depends on your config and setup you have in reverse-proxy. 
-
-Basically, it is:
-
-- [{YOURHOST.HERE}/iframely?url=](http://iframe.ly/api/iframely?url=http://iframe.ly/ACcM3Y) - for full Iframely JSON,
-- [{YOURHOST.HERE}/oembed?url=](http://iframe.ly/api/oembed?url=http://iframe.ly/ACcM3Y) - for simple oEmbed format. 
-
-The only differences in JSON format with Cloud API is the absence of `id` value and also the fact that full Iframely JSON is not grouped by `rel` in Open-Source API. To get it grouped, just add `&group=true` to the response. The open-source API also does not have `html` field, so you'd need to generate the embed codes yourself, depending on your app needs. [See how](http://iframely.com/docs/links).
+                                        -- Also possible:
+                                        -- app, image (as rel)
+            ...                         -- reader, survey
+                                        -- logo (sometimes)
+            "icon": [{
+                ...
+            }]
+        },
 
 
-Also, see [how to install & configure](https://iframely.com/docs/host) your Open-Source host. 
+`rel` is the primary information about the use case of the embeds. 
+Might be Player, Thumbnail, App, Image, Reader, Survey, Summary, Icon and Logo. [See the detailed description of rels](https://iframely.com/docs/links). 
 
-## Read Next:
+`meta` will contain list of semantic attributes in unified naming format. 
+See the list of [what Iframely might produce as meta](https://iframely.com/docs/meta).
 
-- [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
-- [Try it with any Twitter feed](https://iframely.com/try)
-- [Get your Cloud API Key](https://iframely.com/api)
-- [How to install & configure](https://iframely.com/docs/host) your open-source host. 
+Array values that only have one element will be wrapped as single object (i.e. without `[]`).
+
+
+## Optional request parameters
+
+Additional options can be requested as `get` parameters:
+
+ - `iframe=true` or `iframe=1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
+ - `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
+ - `ssl=true` or `1` - will return only embeds that can be used under HTTPs without active SSL mixed-content warnings (images and mp4 videos trigger only passive warnings and thus will be passed)
+ - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
+ - `maxwidth=` in pixels will return only embeds that do not exceed the desired width
+ - `origin=` - text value, representing your hashtag of the URL, if you later want to filter it in your desktop. E.g. chat room name, if you got a chat app
+ - `callback` - JavaScript function, if you’d like response to be wrapped as JSONP.
+
+## Error handling
+
+Iframely will return HTTP error code if HTTP error occurred. It can be `404` for not found resource, `401` or `403` for webpages with authorization, `408` if the origin service takes too much time to respond and times-out, etc. 
+
+The body of the response will also contain error code and message.

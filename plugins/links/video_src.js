@@ -15,10 +15,9 @@ module.exports = {
             } else {
                 player.width = meta.video_width;
                 player.height = meta.video_height;
-            };
+            }
 
             return player;
-
         }
     }
 };

@@ -9,7 +9,7 @@ module.exports = {
             date = date[0];
         }
 
-        //if no date - try to extract it from URL, like /2014/12/03 
+        //if no date - try to extract it from URL, like /2014/12/03
         if (!date) {
             var urlMatch = url.match(/\/(\d{4})\/(\d{2})\/(\d{2})/);
             if (urlMatch) {
