@@ -148,7 +148,11 @@
         }
     };
 
-    var local_config_path = path.resolve(__dirname, "config.local.js");
+    var local_config_path = path.resolve(
+      __dirname,
+      "config." + (process.env.NODE_ENV || "local") + ".js"
+    );
+
     if (fs.existsSync(local_config_path)) {
         var local = require(local_config_path);
         _.extend(config, local);
