@@ -156,7 +156,8 @@
                 origin: options.origin,
                 autoplay: options.autoplay,
                 ssl: options.ssl,
-                html5: options.html5
+                html5: options.html5,
+                iframe: options.iframe
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);
