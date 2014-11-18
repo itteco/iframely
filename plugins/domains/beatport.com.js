@@ -34,6 +34,8 @@ module.exports = {
     tests: [{
         page: "http://www.beatport.com/",
         selector: "a.itemRenderer-title"
+    }, {
+        skipMixins: ["og-description"]
     },
         "http://www.beatport.com/track/kiss-bitches-original-mix/5374571",
         "http://mixes.beatport.com/mix/happy-ch-electro-pop-vol-006/163618",
