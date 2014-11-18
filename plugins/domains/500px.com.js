@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /^https:\/\/500px\.com\/photo.+/,
+
     mixins: [
         "og-title",
         "oembed-author",
