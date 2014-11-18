@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/pastebin\.com\/([a-zA-Z0-9]+)/i
+        /^https?:\/\/pastebin\.com\/(?!search)([a-zA-Z0-9]+)/i
     ],
 
     mixins: [
