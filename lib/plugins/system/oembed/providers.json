@@ -23,9 +23,9 @@
     {
         "name": "Scribd",
         "templates": [
-            "(www\\.)?scribd\\.com/doc/.*"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read)/(.*)"
         ],
-        "endpoint": "http://www.scribd.com/services/oembed"
+        "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
     {
         "name": "Viddler",

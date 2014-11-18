@@ -31,8 +31,8 @@ module.exports = {
         return [doc, {
                 href: '//www.scribd.com/favicon.ico',
                 type: CONFIG.T.image,
-                rel: CONFIG.R.icon,
-        }]
+                rel: CONFIG.R.icon
+        }];
     },
 
     tests: [{
