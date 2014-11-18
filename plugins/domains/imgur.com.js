@@ -18,7 +18,18 @@ module.exports = {
         };
     },
 
-    getLink: function(oembed) {
+    getLink: function(oembed, og) {
+
+        if (og.type === 'video.other' && og.video && og.video.length > 1 && og.video[1].type === 'video/mp4') {
+            var v = og.video[1];
+            return {
+                href: v.url.replace("http://", "//"),
+                type: v.type,
+                rel: [CONFIG.R.player, CONFIG.R.og],
+                width: v.width,
+                height: v.height
+            }
+        }
 
         if (oembed.type === "photo" && oembed.url) {
 
@@ -64,6 +75,8 @@ module.exports = {
         "http://imgur.com/gallery/IiDwq",
         "http://imgur.com/a/yMoaT",
         "https://imgur.com/gallery/B3X48s9",
-        "http://imgur.com/r/aww/tFKv2zQ"    // kitten bomb before, doesn't seem to show up any longer
+        "http://imgur.com/r/aww/tFKv2zQ",    // kitten bomb before, doesn't seem to show up any longer
+        "http://imgur.com/gallery/bSE9nTM",
+        "http://imgur.com/gallery/EqmEsJj"
     ]
 };
