@@ -38,7 +38,7 @@
         "htmlparser2":  "3.1.x",
         "entities":     "0.3.x",
         "imagesize":    "1.0.0",
-        "iconv-lite":   "0.4.3",
+        "iconv-lite":   "git://github.com/nleush/iconv-lite.git",
         "mimelib":      "0.2",
         "oauth":        "0.9",
 
