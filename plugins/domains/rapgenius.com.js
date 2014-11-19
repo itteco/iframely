@@ -3,6 +3,7 @@ module.exports = {
     re: /^https?:\/\/(?:[\w\-]+\.)?genius\.com\/(?!jobs)([a-z-]+)/i,
 
     mixins: [
+        "favicon",
         "og-image",
         "canonical",
         "og-description",
@@ -19,7 +20,10 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        page: 'http://rap.genius.com/',
+        selector: '.song_link'
+    },
         "http://rock.genius.com/Bruce-springsteen-4th-of-july-asbury-park-sandy-lyrics",
         "http://rap.genius.com/Beyonce-flawless-remix-lyrics"
     ]
