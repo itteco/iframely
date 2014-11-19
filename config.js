@@ -25,6 +25,7 @@
         RESPONSE_TIMEOUT: 5 * 1000,
 
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
+        VERSION: version,
 
         T: {
             text_html: "text/html",
