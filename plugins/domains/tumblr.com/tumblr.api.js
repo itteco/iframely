@@ -5,7 +5,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
+        /^https?:\/\/([a-z-\.]+)\/(post|post)\/(\d{11,13})(?:\/[a-z0-9-]+)?/i
     ],
 
     provides: 'tumblr_post',
@@ -54,8 +54,8 @@ module.exports = {
         if (!CONFIG.providerOptions.tumblr || !CONFIG.providerOptions.tumblr.consumer_key) {
             cb (new Error ("No tumblr.consumer_key configured"));
             return;
-        }        
-console.log("http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts")
+        }
+
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {

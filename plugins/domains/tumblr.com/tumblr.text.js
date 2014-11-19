@@ -37,6 +37,8 @@ module.exports = {
 
     getData: function (tumblr_post) {
 
+        if (!(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true)) return;
+
         if (tumblr_post.type !== "text") {
 
             var caption = jquery('<div>').html(tumblr_post.caption).text();
