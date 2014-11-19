@@ -3,7 +3,6 @@ module.exports = {
     re: /https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
 
     mixins: [
-        "oembed-icon",
         "oembed-thumbnail",
         "oembed-author",
         "oembed-title",
@@ -14,11 +13,17 @@ module.exports = {
 
         if (!oembed.html) return;
 
-        return {
+        return [{
             html: oembed.html.replace (/style=\"[^\"]+\"/i, ""),
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl],
-        }
+            rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl]
+        }, {
+            href: "http://issuu.com/apple-touch-icon-76x76@2x.png",
+            rel: [CONFIG.R.icon],
+            type: CONFIG.T.image_png,
+            width: 152,
+            height: 152
+        }];
 
     },
 
