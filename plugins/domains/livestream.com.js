@@ -10,7 +10,9 @@ module.exports = {
     ],
 
     getLink: function (meta) {
-        if (meta.twitter && meta.twitter.player) 
+
+        if (meta.twitter && meta.twitter.player) {
+
             return {
                 href: meta.twitter.player.value,
                 type: CONFIG.T.text_html,
@@ -18,23 +20,25 @@ module.exports = {
                 "aspect-ratio": meta.twitter.player.width / meta.twitter.player.height
             };
 
-        else return {
-            href: meta.video_src,
-            type: meta.video_type || CONFIG.T.maybe_text_html,
-            rel: CONFIG.R.player,
-            "aspect-ratio": meta.video_width / meta.video_height
-        };
+        } else {
+
+            return {
+                href: meta.video_src,
+                type: meta.video_type || CONFIG.T.maybe_text_html,
+                rel: CONFIG.R.player,
+                "aspect-ratio": meta.video_width / meta.video_height
+            };
+        }
     },    
 
-    tests: [ 
-        "http://new.livestream.com/wbc2013/Melbourne2013/videos/19800974",
-        "http://www.livestream.com/28thwcars/video?clipId=pla_641e42cf-6646-44ac-980f-1d0e96c79103&utm_source=lslibrary&utm_medium=ui-thumb",
-        "http://www.livestream.com/28thwcars/",
-        "http://twitcam.livestream.com/fll8j",
-        {
-            skipMixins: [
-                "canonical"
-            ]
-        }        
+    tests: [{
+        page: 'http://www.livestream.com/guide/livetv',
+        selector: '.thumbnail'
+    }, {
+        skipMixins: [
+            "canonical"
+        ]
+    },
+        "http://www.livestream.com/28thwcars/"
     ]
 };
