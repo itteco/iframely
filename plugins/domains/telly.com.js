@@ -4,9 +4,7 @@ module.exports = {
 
     //twitvid will re-direct here
     mixins: [
-        "canonical",
-        "og-site",
-        "og-title",
+        "html-title",
         "og-image",
         "favicon"
     ],
@@ -22,6 +20,8 @@ module.exports = {
 
     tests: [
         "http://telly.com/Q84DI7",
-        "http://telly.com/1AUHUCN"
+        "http://telly.com/1AUHUCN",
+        "http://telly.com/1OVQ8K7",
+        "http://telly.com/1OVQ8HU"
     ]
 };

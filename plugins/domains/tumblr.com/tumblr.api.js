@@ -55,7 +55,7 @@ module.exports = {
             cb (new Error ("No tumblr.consumer_key configured"));
             return;
         }        
-
+console.log("http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts")
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
