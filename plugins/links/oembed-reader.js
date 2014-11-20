@@ -12,10 +12,5 @@ module.exports = {
                 rel: [CONFIG.R.reader, CONFIG.R.inline]
             };
         }
-    },
-
-    // TODO: tests.
-    tests: [
-        "http://finance.fortune.cnn.com/2013/01/04/december-jobs-report/"
-    ]
+    }
 };

@@ -62,9 +62,10 @@ module.exports = {
 
 
     // tests are only applicable with the whitelist, otherwise will throw errors on Test UI
+    /*
     tests: [
-        "http://sports.pixnet.net/album/video/183041064", // This is one oEmbed.video with a <script>!
-        "http://video.yandex.ua/users/enema-bandit/view/11/?ncrnd=4917#hq",  //oEmbed.video - iframe
+        "http://sports.pixnet.net/album/video/183041064", 
+        "http://video.yandex.ua/users/enema-bandit/view/11/?ncrnd=4917#hq"
     ]
-
+    */
 };
