@@ -34,7 +34,7 @@ module.exports = {
     
     tests: [
         "https://cloud.real.com/e/K48Bu?autoplay=true",
-        "https://cloud.real.com/s/K48Bu",
-        "https://cloud.real.com/share/XiyWV7wBN2ZmM6wNmR2HOAzfzf2VAqvuMV8RoPJN4s6cA3RLsFUNU30sBbin14vm5NAl0a7dTLS85KgQaPfYOoTzSJoH3-7t3MYfPpH_eo1qJE8zr_SgIJ-KfZZYUedV#reshare/direct"
+        "https://cloud.real.com/s/K48Bu"
+        // Direct file: "https://cloud.real.com/share/XiyWV7wBN2ZmM6wNmR2HOAzfzf2VAqvuMV8RoPJN4s6cA3RLsFUNU30sBbin14vm5NAl0a7dTLS85KgQaPfYOoTzSJoH3-7t3MYfPpH_eo1qJE8zr_SgIJ-KfZZYUedV#reshare/direct"
     ]
 };
