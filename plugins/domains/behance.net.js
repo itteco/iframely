@@ -46,7 +46,9 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        skipMixins: ["copyright", "og-description"]
+    },
         "http://www.behance.net/gallery/ORBITAL-MECHANICS/10105739",
         "http://www.behance.net/gallery/TRIGGER/9939801",
         "http://www.behance.net/gallery/MEGA-CITIES/8406797",
