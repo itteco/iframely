@@ -5,10 +5,9 @@ module.exports = {
     mixins: [
         "og-image",
         "favicon",
-        "twitter-author",
         "og-product",
         "canonical",
-        "twitter-description",
+        "og-description",
         "keywords",
         "og-site",
         "og-title"

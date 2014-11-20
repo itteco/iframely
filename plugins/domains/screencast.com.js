@@ -50,6 +50,9 @@ module.exports = {
         "http://screencast.com/t/kg3Waazl1q",
         "http://screencast.com/t/t1sxDFYO",
         "http://screencast.com/t/pZ9CEcsnj75",
-        "http://screencast.com/t/MjA4M2ViMT"
+        "http://screencast.com/t/MjA4M2ViMT",
+        {
+            skipMixins: ['description']
+        }
     ]
 };

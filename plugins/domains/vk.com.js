@@ -35,7 +35,7 @@ module.exports = {
     },
 
     tests: [
-        "http://vk.com/video-27646396_169400815",
-        "http://vk.com/video_ext.php?oid=5574528&id=163176972&hash=9da191f48fc6ce1d&hd=1"
+        "http://vk.com/video-27646396_169400815"
+        // "http://vk.com/video_ext.php?oid=5574528&id=163176972&hash=9da191f48fc6ce1d&hd=1" - direct video link
     ]
 };
