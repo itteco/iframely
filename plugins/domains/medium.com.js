@@ -41,10 +41,10 @@ module.exports = {
 
     tests: [{
         page: 'https://medium.com/top-100',
-        selector: 'a.avatar'
+        selector: '.link--secondary'
     }, {
         page: 'https://medium.com/top-100',
-        selector: '.postItem-title a'
+        selector: '.block-title a'
     },
         "https://medium.com/@startswithabang",
         "https://medium.com/better-humans"
