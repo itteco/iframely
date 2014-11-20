@@ -64,7 +64,7 @@ module.exports = {
 
         if (og.image && og.image instanceof Array) {
             var gifs = og.image.filter(function(link) {
-                return link.url.match(/\.gif$/i);
+                return link.url && link.url.match(/\.gif$/i);
             });
 
             if (gifs.length) {
