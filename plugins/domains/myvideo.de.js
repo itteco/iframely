@@ -8,7 +8,6 @@ module.exports = {
         "canonical",
         "og-title",
         "og-site",
-        "keywords",
 
         "og-image",
         "favicon"
@@ -26,6 +25,9 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://www.myvideo.de/Top_100/Top_100_Charts"
-    }]
+        page: "http://www.myvideo.de/Top_100/Top_100_Charts",
+        selector: ".chartlist--videolist-item-title"
+    },
+        "http://www.myvideo.de/watch/9790416/Balbina_Seife_feat_Maeckes"
+    ]
 };
