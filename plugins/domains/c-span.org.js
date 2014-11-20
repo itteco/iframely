@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.c-span\.org\/video\/\?([\d-]+)\/[\w-]+/i,
+    re: /^http:\/\/www\.c-span\.org\/video\/\?([\d-]+)(\/[\w-]+)/i,
 
     mixins: [
         "og-image",
@@ -12,18 +12,13 @@ module.exports = {
     ],
 
     getLink: function(urlMatch, cheerio) {
-        var id$ = cheerio("#video-embed[data-progid]");
 
-        if (id$.length) {
-            var program_id = id$.attr('data-progid');
-            return {
-                href: 'http://static.c-span.org/assets/swf/CSPANPlayer.1399044287.swf?pid=' + urlMatch[1] + '&system=http://www.c-span.org/common/services/flashXml.php?programid=' + program_id,
-                rel: CONFIG.R.player,
-                type: CONFIG.T.flash,
-                'aspect-ratio': 1024/616
-            };
-
-        }
+        return {
+            href: "http://www.c-span.org/video/standalone/?" + urlMatch[1] + urlMatch[2],
+            rel: CONFIG.R.player,
+            type: CONFIG.T.text_html,
+            'aspect-ratio': 1024/616
+        };
     },
 
     tests: [{
