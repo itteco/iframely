@@ -5,31 +5,20 @@ module.exports = {
     ],
 
     mixins: [
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-title"
+        "oembed-thumbnail",
+        "oembed-site",
+        "oembed-title"
+
     ],
 
-    getMeta: function () {
-
+    getLinks: function(oembed) {
         return {
-            site: "Droplr"
-        }
-
-    },
-
-    getLinks: function(urlMatch, meta) {
-
-        return [{
-            href: "http://d.pr/i/" + urlMatch[1] + "/medium",
+            href: oembed.url,
             type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail
-        }, {
-            href: "http://d.pr/i/" + urlMatch[1] + "+",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.image
-        }];
+            rel: CONFIG.R.image,
+            width: oembed.width,
+            height: oembed.height
+        };
     },
 
     tests: [

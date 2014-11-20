@@ -354,6 +354,13 @@
             "issuu\\.com/.*"
         ],
         "endpoint": "http://issuu.com/oembed"
-    }    
+    },
+    {
+        "name": "Droplr",
+        "templates": [
+            "d.pr/i/.*"
+        ],
+        "endpoint": "http://d.pr/oembed"
+    }
 
 ]
