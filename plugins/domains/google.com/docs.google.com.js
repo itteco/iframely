@@ -1,5 +1,6 @@
 module.exports = {
 
+    provides: "schemaFileObject",
 
     re: [
         /https:\/\/docs\.google\.com\/(forms|document|presentation|file)\/d\//i
@@ -21,7 +22,6 @@ module.exports = {
         }
 
     },
-
 
     getLink: function(urlMatch, schemaFileObject) {
 
@@ -88,7 +88,13 @@ module.exports = {
         "https://docs.google.com/document/d/1KHLQiZkTFvMvBHmYgntEQtNxXswOQISjkbpnRO3jLrk/edit",
         "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/edit#slide=id.p",
         "https://docs.google.com/forms/d/1mJcBz16JAfxomVXIohDJv8w-AJw8t-jhAd1HgIwTlF8/viewform?c=0&w=1",
-        "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview"
+        "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
+        {
+            skipMixins: [
+                "og-image", "og-title", "og-description"
+            ]
+        }
+
     ]
 
 };
