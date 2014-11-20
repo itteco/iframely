@@ -16,10 +16,10 @@ module.exports = {
     getLink: function (urlMatch) {
 
         return {
-            href: "http://www.reuters.com/resources_v2/flash/video_embed.swf?videoId=" + urlMatch[1] + "&edition=BETAUS",
-            rel: CONFIG.R.player,
-            type: CONFIG.T.flash,
-            "aspect-ratio": 460/259
+            href: "http://www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],            
+            rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+            type: CONFIG.T.text_html,
+            "aspect-ratio": 512/288
         }
     },
 
