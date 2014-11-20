@@ -28,7 +28,7 @@ module.exports = {
 
     tests: [{
         page: "http://www.trutv.com/shows/worlds-dumbest/videos/index.html",
-        selector: ".video-play.fill"
+        selector: "#most-recent a"
     },
         "http://www.trutv.com/shows/worlds-dumbest/videos/bike-jump-fails.html"
     ]

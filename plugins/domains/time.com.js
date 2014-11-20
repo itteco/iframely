@@ -21,7 +21,7 @@ module.exports = {
     },
 
     tests: [{
-        noFeed: true
+        noFeeds: true
     },
         "http://content.time.com/time/video/player/0,32068,3295741285001_2167317,00.html",
         "http://content.time.com/time/video/player/0,32068,3293479731001_2167328,00.html",
