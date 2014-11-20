@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/path\.com\/p\/(\w+)/i
+        /^https?:\/\/path\.com\/p\/(\w+)/i,
+        /^https?:\/\/path\.com\/moment\/(\w+)/i
     ],
 
     mixins: [
