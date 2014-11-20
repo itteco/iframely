@@ -1,10 +1,10 @@
 # Deploy Iframely Gateway to Your Own Servers
 
-For rapid development, you can implement against community endpoint on [iframely.com](http://iframely.com). Deploy to your own hardware, when it's time to take it live.
+For rapid development, you can implement against community endpoint on [iframely.com](https://iframely.com). Deploy to your own hardware, when it's time to take it live.
 
 ## Stay Secure - Host on Dedicated Domain
 
-It is highly recommended that you install [Iframely Gateway](http://iframely.com/gateway) on a dedicated domain. 
+It is highly recommended that you install [Iframely Open-Source](https://iframely.com/get) on a dedicated domain. 
 
 There are few cases, when rendering of embed content is required by the server, for example the articles. Even though Iframely tries to detect and eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see config options below).
 
@@ -35,16 +35,16 @@ Edit the sample config file as you need. You may also override any values from m
 
 At the very least, you need to properly configure:
 
-- `baseAppUrl` - the domain you host Iframely Gateway on
+- `baseAppUrl` - the domain you host Iframely Gateway on. This is required for some embeds that need custom renders.
 - `CACHE_ENGINE` - the caching middleware you'd prefer to use (No Cache, Redis, Memcached or Node.js in-memory cache)
 - If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
 - `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
 
-The important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the gateway with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers,meta and thumbnails ones only. See the [record format description](http://iframely.com/qa/format).
+The important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the gateway with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers,meta and thumbnails ones only. See the [record format description](https://iframely.com/qa/format).
 
-There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable
+There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable.
 
-You can also fine-tune API response time by disabling image size detection or readability parsing. 
+You can also fine-tune API response time by disabling image size detection or readability parser. 
 
 
 
@@ -53,6 +53,11 @@ You can also fine-tune API response time by disabling image size detection or re
 Starting the server is simple. From Iframely home directory:
 
     node server
+
+To run server in cluster mode, use
+
+    node cluster
+
 
 We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
@@ -95,11 +100,11 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 
 ## Extend functionality with Domains DB
 
-If can greatly extend gateway functionality without writting additional plugins. Just upload you put Domains DB JSON file into `whitelist` folder and, Iframely will start covering extra domains, giving responsive players, twitter photos, etc via standard plugins.  
+You can greatly extend gateway functionality without writting additional plugins. Just upload Domains DB JSON file into `whitelist` folder and Iframely will start covering extra domains, generating responsive players, twitter photos, etc via generic plugins.
 
-The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory is used. 
+The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory prevails. 
 
-You can get whitelist file with 900+ domains at [http://iframely.com/qa/buy](http://iframely.com/qa/buy). Or get a sample file with top 50 domains from the same page. 
+You can get whitelist file with over 1600 domains at [iframely.com/qa/buy](https://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will instruct Iframely to load domains DB from the server periodically. If neither local file nor `WHITELIST_URL` are provided, Iframely will use a free file with top 100 domains from [iframely.com/qa/top100.json](http://iframely.com/qa/top100.json). 
 
 If you wish to create your own whitelist, please, follow [required file format](http://iframely.com/qa/format).
 

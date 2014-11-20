@@ -134,10 +134,25 @@
                     return next(new Error(error));
                 }
 
+                var totalTime = 0,
+                    totalCount = 0,
+                    totalOkTime = 0,
+                    totalOkCount = 0;
+
                 pluginTests.forEach(function(pluginTest) {
 
                     if (!pluginTest.last_page_logs_dict) {
                         return;
+                    }
+
+                    for(var id in pluginTest.last_page_logs_dict) {
+                        var log = pluginTest.last_page_logs_dict[id];
+                        totalTime += log.response_time;
+                        totalCount++;
+                        if (!log.hasTimeout()) {
+                            totalOkTime += log.response_time;
+                            totalOkCount++;
+                        }
                     }
 
                     var testedUrls = _.keys(pluginTest.last_page_logs_dict);
@@ -177,10 +192,17 @@
                 good.items = pluginTests.filter(function(p) { return !p.hasError; });
                 bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
+                var averageTime = Math.round(totalTime / (totalCount || 1));
+                var averageOkTime = Math.round(totalOkTime / (totalOkCount || 1));
+
                 res.render('tests-ui',{
                     groups: groups,
                     time: moment().format("DD-MM-YY HH:mm"),
                     progress: progress,
+                    averageTime: averageTime,
+                    totalCount: totalCount,
+                    averageOkTime: averageOkTime,
+                    totalOkCount: totalOkCount,
                     format: function(d) {
                         if (!d) {
                             return "–";

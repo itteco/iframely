@@ -1,6 +1,8 @@
 # Iframely JS Client Lib
 
-[Iframely Gateway](http://iframely.com/gateway) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. 
+[Iframely Open-Source](https://github.com/itteco/iframely) package includes the client javascript wrapper of the API, so you don't need to spend time on it yourself. If you'd prefer to render a widget from the data yourself, please refer to [How to Render a Widget](https://iframely.com/docs/links). 
+
+If you are using [Cloud API](https://iframely.com), you don't need iframely.js as the embed code will be provided to you by API as the `html` field of JSON response.
 
 You may find `iframely.js` lib in `/static/js/iframely.js` folder. 
 
@@ -19,7 +21,7 @@ Where `{YOUR.DOMAIN}}` is the domain name you host Iframely Gateway at.
 
 You may also copy iframely.js file to your apps main domain and serve it from there. 
 
-If you have not [set up your Iframely server](http://iframely.com/gateway/setup) yet, you can load iframel.js from [this source](http://iframely.com/r3/js/iframely.js). However, don't use it for production purposes.
+If you have not [set up host](https://iframely.com/docs/host) yet, you can load iframel.js from [this source](http://iframely.com/r3/js/iframely.js). However, don't use it for production purposes. But rather copy it to your servers.
 
 
 
@@ -88,7 +90,7 @@ Sample code abovewill log the following JSON into console [log](http://iframely.
     }
 
 
-The format of this JSON object is given in [API description](http://iframely.com/gateway/API).
+The format of this JSON object is given in [API description](https://iframely.com/docs/api).
 
 You can use `data.meta` to get available meta attributes of your `uri` or `data.links` to render some widgets from it.
 
@@ -96,7 +98,7 @@ You can use `data.meta` to get available meta attributes of your `uri` or `data.
 
 ## Render `links` Widgets
 
-You would need to make a choice which links/widgets you'd like to render from a list given in the response code. Please, refer to [Iframely Protocol](http://iframely.com/oembed2) spec and [API response parameters](http://iframely.com/gateway/API).
+You would need to make a choice which links/widgets you'd like to render from a list given in the response code. [API response parameters](https://iframely.com/docs/api).
 
 Each link in API response from previous example can be rendered in a following way:
 
@@ -119,11 +121,8 @@ You can call it once after all or after each rendering operation.
 
 This method is useful for example with [Github Gist](http://iframely.com/debug?uri=https%3A%2F%2Fgist.github.com%2Fkswlee%2F3054754) or
 [Storify](http://iframely.com/debug?uri=http%3A%2F%2Fstorify.com%2FCNN%2F10-epic-fast-food-fails) pages. 
+
 They insert javascript widget in iframe and we don't know exact size before it is actually loaded.
+
 After widget is rendered, custom script in that iframe sends message to parent about new window size.
 This way, iframely.js will resize that iframe to fit content without horizontal scrolling.
-
-
-
-
-(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

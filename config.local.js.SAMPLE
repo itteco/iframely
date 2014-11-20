@@ -4,11 +4,22 @@
         DEBUG: false,
         RICH_LOG_ENABLED: false,
 
+        // For embeds that require render, baseAppUrl will be used as the host.
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",
 
+        SKIP_OEMBED_RE_LIST: [
+            // /^https?:\/\/yourdomain\.com\//,
+        ],
+
         port: 8061,
 
+        // You can set your unique whitelist access url here.
+        // Iframely will periodically load WL updates from remote file.
+        // To get one - go to http://iframely.com/qa
+        WHITELIST_URL: 'http://iframely.com/qa/top100.json',
+
+        // Optional SSL cert, if you serve under HTTPS. 
         /*
         ssl: {
             key: require('fs').readFileSync(__dirname + '/key.pem'),
@@ -60,8 +71,11 @@
         },
         */
 
-        metaLoadingTimeout: 5 * 1000,
+        // If there's no response from remote server, the timeout will occur after
+        RESPONSE_TIMEOUT: 5 * 1000, //ms
 
+
+        // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
             "twitter.status": {
                 "max-width": 550,
@@ -78,21 +92,30 @@
                 apiKey: 'INSERT YOUR VALUE'
             },
             "google.maps": {
-//              apiKey: 'INSERT YOUR VALUE' // not required, but recommended
+            //  apiKey: 'INSERT YOUR VALUE' // not required, but recommended
             },
             readability: {
                 enabled: false
             },
             images: {
-                loadSize: false,
-                checkFavicon: false
+                loadSize: false, // if true, will try an load first bytes of all images to get/confirm the sizes
+                checkFavicon: false // if true, will verify all favicons
             },
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
+            },
+
+            // List of query parameters to add to YouTube and Vimeo frames
+            // Start it with leading "?". Or omit alltogether for default values
+            youtube: {
+                get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters
+            },
+            vimeo: {
+                get_params: "?byline=0&badge=0"     // http://developer.vimeo.com/player/embedding
             }
         },
 
-        // if present, will be added to whitelist (even absent one) as record for top level domain: "*"
+        // WHITELIST_WILDCARD, if present, will be added to whitelist (even absent one) as record for top level domain: "*"
         // you can change default behavior of the system using this setting. 
         // E.g. allowing all open-graph players, denying twitter photos, etc.
         // If absent or empty, all generic media parsers will be disabled by default (only domain plugins will work)
@@ -116,7 +139,7 @@
                 "survey": "allow",
                 "reader": "allow",
                 "player": "allow",
-                "image": "allow",
+                "image": "allow"
               },
               "html-meta": {
                 "video": ["allow", "responsive"]

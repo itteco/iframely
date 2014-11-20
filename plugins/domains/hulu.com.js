@@ -9,13 +9,14 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-duration",
+        "oembed-thumbnail",
         "oembed-site"
     ],
 
     getMeta: function(oembed) {
 
         return {
-            date: oembed.air_date,
+            date: oembed.air_date
         };
     },
 
@@ -39,10 +40,7 @@ module.exports = {
         }];
     },
 
-    tests: [{
-        page: "http://www.hulu.com/browse/picks/trending-now",
-        selector: ".thumbnail a"
-    },
+    tests: [
         "http://www.hulu.com/watch/494551"
     ]    
 };

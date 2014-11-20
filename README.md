@@ -1,181 +1,45 @@
-# Iframely Embeds Gateway
+# Iframely API for Responsive Web Embeds
 
-[https://github.com/itteco/iframely](https://github.com/itteco/iframely)
+Iframely is fast and simple HTTP API for responsive web embeds. It also can be used as Node.js library. 
 
-[![Build Status](https://travis-ci.org/itteco/iframely.png?branch=master)](https://travis-ci.org/itteco/iframely)
+HTTP API are available as [oEmbed](https://iframely.com/docs/oembed-api) or [Iframely API](https://iframely.com/docs/iframely-api) formats. Iframely formats basically mimics the `<head>` section of the page with its `meta` and `links` elements.
 
-__NEW: Iframely now provides oEmbed v1 adapter. You can easily plug your existing code to our new endpoint. See [API](http://iframely.com/gateway/API)__
+In response to `url` request, APIs returns you the embeds and meta for a requested web page. Below are samples from [hosted API](https://iframely.com), just to show you the format:
 
-Iframely Gateway is powerful self-hosted endpoint, simple API for responsive embed widgets and meta. It returns JSON object with all parsed embed and semantic meta data for the requested URL. 
+- [>> Here’s API call for Coub video](http://iframe.ly/ACcM3Y.json)
+- [>> Same one, but as oEmbed](http://iframe.ly/ACcM3Y.oembed)
 
-You host the API on your own servers and domain. The primary endpoint is `/iframely?uri=`:
+Iframely does it by parsing [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards) and general meta on the original page. Or by using specific domain plugins in the package. 
 
-    http://{YOURHOST.HERE}/iframely?uri={url encoded http link to a web page}
+There are over 150 custom domains included as open-source. Plus, there is a whitelist option for oEmbed, Open Graph and Twitter Cards that acts like a gigantic plugin for generic parsers. You can [create your own whitelist](https://iframely.com/docs/whitelist-format) or [get one](https://iframely.com/plans) with [over 1600 domains](https://iframely.com/try) from Iframely. By default, our whitelist with Top 100 domains is included for free with your package. 
 
-(see [example](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063))
+## Read Next:
 
-Iframely provides out-of-the-box:
+ - [Try Iframely demo with any Twitter feed](https://iframely.com/try)
+ - [API in Iframely format](https://iframely.com/docs/iframely-api) (`iframe=true` option is only available for hosted API)
+ - [API in oEmbed format](https://iframely.com/docs/oembed-api)
+ - [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) (players, thumbnails, app, reader, survey, slideshow, etc)
+ - [META semantics](https://iframely.com/docs/meta) Iframely API scrapes for you.
+ - [How to install & configure](https://iframely.com/docs/host) your open-source host. 
 
- - Generic parsers of [Iframely Protocol](http://iframely.com/oembed2), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards), [oEmbed v1](http://oembed.com/) and optional Readability articles
- - More than __100 parsers__ for specific domains, like YouTube, Vimeo, Soundcloud, Instagram, etc.
- - Plugins arсhitecture to extend the logic or to implement additional domain or generic parsers
- - Caching for performance optimizations (Memached, Redis or in-memory engines)
- - API for unified/merged meta semantics, thumbnails (incl sizes), video, players, articles
+## Contribute
 
+We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions. Our support email is support at iframely.com
 
-Iframely API response mimics the [Iframely Protocol For Responsive Embeds](http://iframely.com/oembed2). It also merges various meta fields into a list that you could rely on in your code.
+Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
-Iframely is Node.JS app (and/or package), though you can use it from other environments via API.
+If you are a publisher and would like to make your embeds available under [Iframely Protocol](http://iframely.com/oembed2) (and thus distributed through this open-source gateway) - please, [add your domain to the our DB](http://iframely.com/qa/request).
 
 
-(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT.
 
+## License & Authors
 
+MIT License. (c) 2012-2014 Itteco Software Corp. 
 
-## Get Started
+Specifically:
 
-You might wish to read [Iframely Protocol](http://iframely.com/oembed2) spec to get a better intro into structure of the API responses and overall concept for responsive embeds.
-
-The custom domain plugins (all 100+ of them) and generic parsers in Iframely gateway convert domains into Iframely Protocol compliant publishers. Iframely gateway acts as the connector with this regard and by the same time is the embeds Consumer app.
-
-
-### A Picture is Worth a Thousand Words
-
-Please, head to [Iframely Visual Debugger](http://iframely.com/debug) tool to see what Iframely Gateway will be returning. 
-
-Once you [deploy Iframely](http://iframely.com/gateway/setup) to your own servers, you will have your own copy of technical debug tool at `/debug` address.
-
-You can also get a debugger as [Google Chrome extension here](https://chrome.google.com/webstore/detail/iframely-semantic-url-deb/lhemgegopokbfknihjcefbaamgoojfjf).
-
-
-### Community API Endpoint
-
-__Important__: To jump-start with your dev effort, you may use skip installation and use our [community endpoint](http://iframely.com/iframely?uri=http%3A%2F%2Fvimeo.com%2F67452063) to rapidly develop against it:
-
-    http://iframely.com/iframely?uri={URL encoded URI here}
-
-
-This endpoint is hosted courtesy of Itteco and has the latest version of Iframely gateway on it. It is subject to restarts and rate-limits and thus _is not suitable for production use_.
-
-__Please__ [deploy Iframely](http://iframely.com/gateway/setup) on your own hardware before going live.
-
-
-### Understand the API Response
-
-In response to `/iframely?uri=` requests, Iframely will return JSON with the embed links and unified meta semantics.
-
-
-Response structure is close resemblance of the following analogue of `<head>` part of the URL's page:
-
-    <head>
-        <meta name="..." value="..."/>
-        <link rel="iframely player" href="..." type="text/html" media="aspect-ratio: 1.778" title="...">
-    </head>
-
-JSON response will have the following format:
-
-    {
-      "meta": {                                         -- meta object with the unified semantics
-        "title": "BLACK&BLUE",                          -- e.g. title and others
-        ...
-      },
-      "links": [                                        -- List of embed widgets
-        {
-          "href": "//player.vimeo.com/video/67452063",  -- SRC of embed. 
-          "type": "text/html",                          -- MIME type of embed method.
-          "rel": [                                      -- List of functional use cases. For example,
-            "player"                                    -- `player` - is widget with media playback
-          ],
-          "title": "BLACK&BLUE",                        -- different titles, for different content on the page
-          "media": {                                    -- "media query" semantics to indicate responsive sizes
-            "aspect-ratio": 1.778                       -- e.g. fluid widget with fixed aspect ratio
-          }
-        },
-        ...
-      ]
-    }
-
-
-### Render Responsive Widget
-
-You can use included `iframely.js` jQuery library to communicate with Iframely API and to render the embeds. 
-
-It wraps Iframely API and includes responsive trick and best practices mentioned in [Iframely Protocol](http://iframely.com/oembed2/types).
-
-For dev effort, you can source it from `http://iframely.com/r3/js/iframely.js` (again, not production-ready).
-
-[Read more about iframely.js](http://iframely.com/gateway/iframelyjs)
-
-
-### Deploy to Your Servers Whenever You're Ready
-
-To get a copy of Iframely, you have three options:
-
-* [Download the latest release](https://github.com/itteco/iframely/zipball/master).
-* Install via NPM: `npm install iframely`.
-* Clone the repo: `git clone git://github.com/itteco/iframely.git`.
-
-We recommend hosting it on a separate domain for CORS security of your main app.
-
-[Read Setup and Configuration Instructions](http://iframely.com/gateway/setup)
-
-
-### Get Whitelist File
-
-Itteco provides [Whitelist DB](http://iframely.com/qa) - the first independently run embeds QA service. 
-
-We cover [Iframely Protocol](http://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
-
-There are technical/security considerations that can be resolved algorithmically, but it really 
-requires a human eye to check if the user experience of the embeds can be relied on. 
-
-The whitelist is a JSON file with the list of domains and `ok` or `reject` tags for each protocol. 
-
-The whitelist support is already included into Gateway. Just upload the latest whitelist file to the root of your Iframely server. See [setup instructions](http://iframely.com/gateway/setup).
-
-
-And [Get Whitelist File here](http://iframely.com/qa/buy)
-
-
-## Sample Apps & Demos
-
-Itteco has developed couple demo services based on Iframely technology (well, it was more "in parrallel with", actually):
-
-* [Iframe.ly](http://iframe.ly) - the web shortener
-* [Nowork FM](http://nowork.fm) - simple intranet for your team
-* [Iframely for Gmail](https://chrome.google.com/webstore/detail/iframely-for-gmail/bbafbcjnlgfbemjemgliogmfdlkocjmi) - watch videos, view photos and read articles in your inbox.
-
-Feel free to try it to get an inspiration and idea of the possibilities. 
-
-
-
-## Be Our Friend
-
-We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions.
-
-Fork and do a pull-request, if you'de like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
-
-If you are a publisher and would like to make your embeds available under [Iframely Protocol](http://iframely.com/oembed2) (and thus distributed through this open-source gateway) - please, [add your domain to the whitelist](http://iframely.com/qa/request).
-
-
-We encourage you to help other folks get up to speed with Iframely by following community channels:
-
-- Business questions and answers are handled via [Iframely topic on Quora](http://www.quora.com/Iframely)
-- Technical Q&A - [iframely tag on StackOverflow](http://stackoverflow.com/questions/tagged/iframely)
-- News & Experiences. [#iframely](https://twitter.com/search?q=iframely&src=typd&mode=realtime) or [@iframely](https://twitter.com/iframely) on Twitter
-
-
-## Authors
-
-The authors and maintainers of the package are these guys from [Itteco](http://itteco.com):
-
- - [Nazar Leush](https://github.com/nleush) - __the__ author
- - [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
+- [Nazar Leush](https://github.com/nleush) - _the_ author
+- [Ivan Paramonau](https://twitter.com/iparamonau) - coffee, donuts & inspiration
 
 Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
-
-
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/itteco/iframely/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

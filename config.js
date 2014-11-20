@@ -7,17 +7,28 @@
 
     var config = {
 
+        WHITELIST_URL: 'http://iframely.com/qa/top100.json',
+        WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
+
+        WHITELIST_LOG_URL: 'http://iframely.com/whitelist-log',
+
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
 
-        metaLoadingTimeout: 5 * 1000,
-        USER_AGENT: "Mozilla/5.0 (compatible; Iframely/" + version + "; +http://iframely.com/)",
+        CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 500 * 1024 * 1024, // 500 MB.
+        CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS: 20,   // if 20 seconds load over 95% - restart worker.
+        CLUSTER_MAX_CPU_LOAD_IN_PERCENT: 95,
+
+        RESPONSE_TIMEOUT: 5 * 1000,
+
+        USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
 
         T: {
             text_html: "text/html",
+            maybe_text_html: "maybe_text_html",
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
@@ -31,13 +42,15 @@
         },
 
         REL_GROUPS: [
-            "reader",
+            "app",
             "player",
             "survey",
             "image",
+            "reader",
             "thumbnail",
             "logo",
-            "icon"
+            "icon",
+            "file"
         ],
 
         MEDIA_ATTRS: [
@@ -57,9 +70,10 @@
             reader: "reader",
             file: "file",
             survey: "survey",
+            app: "app",
+            summary: "summary",
 
             iframely: "iframely",
-            instapaper: "instapaper",
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
@@ -68,8 +82,10 @@
             logo: "logo",
 
             inline: "inline",
+            ssl: "ssl",
 
-            autoplay: "autoplay"
+            autoplay: "autoplay",
+            html5: "html5"
         },
 
         // Whitelist settings.
@@ -77,6 +93,7 @@
         REL: {
             "iframely": [
                 "reader",
+                "app",
                 "player",
                 "survey",
                 "image",
@@ -96,7 +113,7 @@
                 "video",
                 "photo"
             ],
-            "html-meta": [
+            "html-meta": [  // TODO: Need change to 'fb'.
                 "video"
             ]
         },
@@ -122,7 +139,13 @@
             "og",
             "twitter",
             "iframely"
-        ]
+        ],
+
+        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader", "app"],
+        providerOptions: {
+            "readability": {},
+            "twitter.status": {}
+        }
     };
 
     var local_config_path = path.resolve(__dirname, "config.local.js");

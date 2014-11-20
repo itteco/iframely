@@ -2,8 +2,8 @@ module.exports = {
 
     re: [
         /^https?:\/\/[\w\.]*instagram\.com\/p\/([a-zA-Z0-9_-]+)/i,
-        /^http:\/\/instagr\.am\/p\/([a-zA-Z0-9_-]+)/i,
-        /^http:\/\/instagram\.com\/p\/([a-zA-Z0-9_-]+)$/i
+        /^https?:\/\/instagr\.am\/p\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/instagram\.com\/p\/([a-zA-Z0-9_-]+)$/i
     ],
 
     mixins: [
@@ -16,13 +16,13 @@ module.exports = {
 
     getLinks: function(urlMatch, meta) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
-        var embed = 'http://instagram.com/p/' + urlMatch[1] + '/embed/';
+        var embed = '//instagram.com/p/' + urlMatch[1] + '/embed/';
 
         var links = [
             {
                 href: embed,
                 type: CONFIG.T.text_html,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.player : CONFIG.R.reader,
+                rel: (meta.og && meta.og.video) ? [CONFIG.R.player, CONFIG.R.html5]: CONFIG.R.app,
                 width: 616,
                 height: 714
             },
@@ -42,7 +42,7 @@ module.exports = {
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
-                rel: CONFIG.R.image,
+                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : CONFIG.R.image,
                 width: 612,
                 height: 612
             }];
@@ -50,8 +50,8 @@ module.exports = {
         if (meta.og && meta.og.video) {
             links.push({
                 href: meta.og.video.url || meta.og.video,
-                type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og],
+                type: meta.og.video.type || CONFIG.T.maybe_text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height,
                 "max-width": meta.og.video.width,
                 "max-height": meta.og.video.height

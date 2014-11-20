@@ -21,7 +21,7 @@ module.exports = {
             doc = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader],
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.width / oembed.height 
             }
         }
@@ -33,7 +33,7 @@ module.exports = {
 
             if (id)
                 thumbnail = {
-                    href: 'https://speakerd.s3.amazonaws.com/presentations/' + id + '/thumb_slide_0.jpg',
+                    href: 'https://speakerd.s3.amazonaws.com/presentations/' + id + '/slide_0.jpg',
                     type: CONFIG.T.image,
                     rel: [CONFIG.R.thumbnail]                    
                 }

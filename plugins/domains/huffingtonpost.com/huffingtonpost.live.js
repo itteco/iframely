@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^http:\/\/live\.huffingtonpost\.com\/r\/archive\/segment\/[\w-]+\/(\w+)/i,
-        /^http:\/\/live\.huffingtonpost\.com\/r\/segment\/[\w-]+\/(\w+)/i,
-        /^http:\/\/live\.huffingtonpost\.com\/r\/segment\/(\w+)/i
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/archive\/segment\/[\w-]+\/(\w+)/i,
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/segment\/[\w-]+\/(\w+)/i,
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/segment\/(\w+)/i
     ],
 
     mixins: [
@@ -19,12 +19,12 @@ module.exports = {
             type: CONFIG.T.icon
         }, {
             href: 'http://embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1],
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": 480/270
         }, {
             href: 'https://s.embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1],
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": 480/270
         }];

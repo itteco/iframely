@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/www\.trutv\.com\/(shows\/[\w-]+\/videos\/[\w-]+)\.html/i,
+    re: /https?:\/\/www\.trutv\.com\/(shows\/[\w-]+\/videos\/[\w-]+)\.html/i,
 
     mixins: [
         "og-title",
@@ -22,8 +22,7 @@ module.exports = {
             href: "http://i.cdn.turner.com/trutv/trutv.com/video/cvp/v2/assets/trutv_embed_container.swf?site=tru&context=embed&profile=6&contentId=" + urlMatch[1],
             type: CONFIG.T.flash,
             rel: CONFIG.R.player,
-            width: 608,
-            height: 372
+            "aspect-ratio": 608 / 372
         };
     },
 

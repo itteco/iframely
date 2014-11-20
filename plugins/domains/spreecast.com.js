@@ -24,15 +24,15 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             width: 500,
-            height: 470        	
+            height: 470
         }, {
-        	href: "https://d35ncmvcdy3liz.cloudfront.net/production/201305171505_88dc0c8/images/favicon.ico",
-        	type: CONFIG.T.image,
-        	rel: CONFIG.R.icon
-        }]
+            href: "https://d35ncmvcdy3liz.cloudfront.net/production/201305171505_88dc0c8/images/favicon.ico",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
+        }];
     },
 
-    tests: [ 
+    tests: [
         "http://www.spreecast.com/events/how-to-invest-with-index-funds-and-etfs/"
     ]
 };

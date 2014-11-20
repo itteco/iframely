@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
+
     mixins: [
         "oembed-author",
         "oembed-site",
@@ -9,12 +11,6 @@ module.exports = {
     ],
 
     getLinks: function(oembed) {
-
-        var html = oembed.html;
-
-        if (oembed.thumbnail_url) {
-            html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + html;
-        }
 
         return [
 
@@ -35,19 +31,24 @@ module.exports = {
             "type": CONFIG.T.image_png,
             "width": 72,
             "height": 72
-        },
+        }]
+    },
+
+    getData: function(oembed) {
+
+        var html = oembed.html;
+
+        if (oembed.thumbnail_url) {
+            html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + html;
+        }        
 
         // Reader.
-        {
-            html: html,
-            type: CONFIG.T.safe_html,
-            rel: CONFIG.R.reader
-        }];
+        return {
+            safe_html: html,
+        };
     },
 
-    tests: [{
-        pageWithFeed: "http://qz.com/"
-    },
+    tests: [
         "http://qz.com/78935/amazon-enterprise-cloud-computing/", {
             skipMixins: [
                 "oembed-thumbnail"

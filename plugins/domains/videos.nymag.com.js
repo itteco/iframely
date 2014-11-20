@@ -1,14 +1,13 @@
 module.exports = {
 
     re: [
-        /^http:\/\/videos\.nymag\.com\/video\/([a-z0-9\-]+)/i,
-        /^http:\/\/videos\.nymag\.com\/list\/\w+\/video\/([a-z0-9\-]+)/i
+        /^https?:\/\/videos\.nymag\.com\/video\/([a-zA-Z0-9\-]+)/i,
+        /^https?:\/\/videos\.nymag\.com\/list\/\w+\/video\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: [
         "html-title",
         "image_src",
-        "copyright",
         "description",
         "keywords",
         "favicon"
@@ -20,7 +19,7 @@ module.exports = {
             title: meta['html-title'].split('"').slice(1,-1).join('"'),
             href: 'http://videos.nymag.com/video/'+ urlMatch[1] +'/player?layout=&title_height=0',
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 1.53
         };
     },
@@ -31,7 +30,7 @@ module.exports = {
     },
         "http://videos.nymag.com/video/Models-Studio-Jourdan-Dunn-2;toprated",
         {
-            skipMixins: ["copyright"]
+            skipMixins: ["description"]
         }
     ]
 };

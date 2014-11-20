@@ -22,6 +22,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.viddler.com/v/5b70e34a"
+        "http://www.viddler.com/v/3027cd1f"
     ]
 };

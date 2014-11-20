@@ -1,19 +1,20 @@
 module.exports = {
 
-    re: /(http:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/).*/i,
+    re: /(https?:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/).*/i,
 
     mixins: [
         "html-title",
         "copyright",
+        "description",
 
         "favicon"
     ],
 
     getLink: function(urlMatch) {
         return {
-            href: urlMatch[0] + "embedded/",
+            href: urlMatch[1] + "embedded/",
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader
+            rel: CONFIG.R.app
         };
     },
 

@@ -16,7 +16,7 @@ module.exports = {
 
         return [{
             href: "http://player.youku.com/embed/"+ urlMatch[1],
-            type: CONFIG.T.text_html,            
+            type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": 16/10 //As stated it in docs
         }, {
@@ -26,10 +26,7 @@ module.exports = {
         }]
     },
 
-    tests: [{
-        page: "http://www.youku.com/",
-        selector: "#focusvideo .v_title a"
-    },
+    tests: [
         "http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842"
     ]
 };

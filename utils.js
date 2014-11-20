@@ -1,5 +1,7 @@
 (function() {
 
+    GLOBAL.CONFIG = require('./config');
+
     var async = require('async');
     var cache = require('./lib/cache');
     var ejs = require('ejs');
@@ -7,6 +9,10 @@
     var crypto = require('crypto');
     var moment = require('moment');
     var _ = require('underscore');
+    var urlLib = require('url');
+
+    var whitelist = require('./lib/whitelist');
+    var pluginLoader = require('./lib/loader/pluginLoader');
 
     function NotFound(message) {
 
@@ -87,11 +93,79 @@
         return '"' + crypto.createHash('md5').update(value).digest("hex") + '"';
     };
 
+    function prepareUri(uri) {
+
+        if (!uri) {
+            return uri;
+        }
+
+        if (uri.match(/^\/\//i)) {
+            return "http:" + uri;
+        }
+
+        if (!uri.match(/^https?:\/\//i)) {
+            return "http://" + uri;
+        }
+
+        return uri;
+    }
+
+    function getKeyForUri(uri) {
+
+        if (!uri) {
+            return;
+        }
+
+        var result = 0;
+
+        var whitelistRecord = whitelist.findRawWhitelistRecordFor(uri);
+        if (whitelistRecord) {
+            result =+ new Date(whitelistRecord.date).getTime();
+        }
+
+        var plugin = pluginLoader.findDomainPlugin(uri);
+        if (plugin) {
+            result =+ plugin.getPluginLastModifiedDate().getTime();
+        }
+
+        if (result) {
+            result = Math.round(result / 1000);
+        }
+
+        return result || null;
+    }
+
+    function getUnifiedCacheUrl(req) {
+
+        // Remove 'refresh' param and order keys.
+
+        var urlObj = urlLib.parse(req.url, true);
+
+        var query = urlObj.query;
+
+        delete query.refresh;
+        delete urlObj.search;
+
+        var newQuery = {};
+
+        var keys = _.keys(query);
+        keys.sort();
+        keys.forEach(function(key) {
+            newQuery[key] = query[key];
+        });
+
+        urlObj.query = newQuery;
+
+        return urlLib.format(urlObj);
+    }
+
     function setResponseToCache(code, content_type, req, res, body, ttl) {
 
         if (!res.get('ETag')) {
             res.set('ETag', etag(body));
         }
+
+        var url = getUnifiedCacheUrl(req);
 
         var head = {
             statusCode: code,
@@ -102,7 +176,13 @@
         };
 
         var data = JSON.stringify(head) + '::' + body;
-        cache.set('urlcache:' + version + ':' + req.url, data, {ttl: ttl});
+
+        var linkValidationKey, uri = prepareUri(req.query.uri || req.query.url);
+        if (uri) {
+            linkValidationKey = getKeyForUri(uri);
+        }
+
+        cache.set('urlcache:' + version + (linkValidationKey || '') + ':' + url, data, {ttl: ttl});
     }
 
     exports.cacheMiddleware = function(req, res, next) {
@@ -110,12 +190,19 @@
         async.waterfall([
 
             function(cb) {
-                var refresh = req.query.refresh === "true";
+                var refresh = req.query.refresh === "true" || req.query.refresh === "1";
                 if (!refresh) {
 
-                    cache.get('urlcache:' + version + ':' + req.url, function(error, data) {
+                    var url = getUnifiedCacheUrl(req);
+
+                    var linkValidationKey, uri = prepareUri(req.query.uri || req.query.url);
+                    if (uri) {
+                        linkValidationKey = getKeyForUri(uri);
+                    }
+
+                    cache.get('urlcache:' + version + (linkValidationKey || '') + ':' + url, function(error, data) {
                         if (error) {
-                            console.error('Error getting response from cache', req.url, error);
+                            console.error('Error getting response from cache', url, error);
                         }
                         if (data) {
                             var index = data.indexOf("::");
@@ -125,7 +212,7 @@
                                 try {
                                     head = JSON.parse(headStr);
                                 } catch(ex) {
-                                    console.error('Error parsing response status from cache', req.url, headStr);
+                                    console.error('Error parsing response status from cache', url, headStr);
                                 }
 
                                 if (head) {
@@ -222,7 +309,8 @@
                 if (typeof error === "number" && Math.floor(error / 100) === 4) {
 
                     var value;
-                    if (error == 404) {
+
+                    if (error === 404) {
                         value = 'Page not found';
                     } else {
                         value = 'Requested page error: ' + error;
@@ -232,7 +320,7 @@
 
                 } else if (typeof error === "string" && error.match(/^timeout/)) {
 
-                    setResponseToCache(500, 'text/html', req, res, 'Requested page error: ' + error, CONFIG.CACHE_TTL_PAGE_TIMEOUT);
+                    setResponseToCache(408, 'text/html', req, res, 'Requested page error: ' + error, CONFIG.CACHE_TTL_PAGE_TIMEOUT);
                 }
             };
 
@@ -258,5 +346,11 @@
             next();
         });
     };
+
+    exports.log = function() {
+        var args = Array.prototype.slice.apply(arguments);
+        args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
+        console.log.apply(console, args);
+    }
 
 })();

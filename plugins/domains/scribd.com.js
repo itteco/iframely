@@ -21,7 +21,7 @@ module.exports = {
 
         if ($iframe.length == 1) {
             doc = {
-                href: $iframe.attr('src'),
+                href: $iframe.attr('src').replace("http://", "//"),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.oembed],
                 "aspect-ratio": $iframe.attr('data-aspect-ratio')
@@ -37,7 +37,7 @@ module.exports = {
 
     tests: [{
         page: "http://www.scribd.com/collections/4201493/Best-of-Day",
-        selector: "a.title"
+        selector: "a.booklink"
     },
         "http://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013"
     ]

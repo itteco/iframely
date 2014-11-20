@@ -1,11 +1,10 @@
-var jquery = require('jquery');
-
 module.exports = {
 
     mixins: [
         "oembed-title",
         "oembed-description",
         "oembed-author",
+        "oembed-site",
         "oembed-thumbnail",
         "oembed-video-responsive"
     ],

@@ -1,43 +1,61 @@
-var _ = require('underscore');
+var DEFAULT_WIDTH = 466;
 
 module.exports = {
 
-    re: /^https?:\/\/www\.facebook\.com\/(?!login\.php).+/i,
+    re: [
+        /^https?:\/\/(www|m)\.facebook\.com\/(photo|permalink|story|video)\.php\?[^\/]+(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.\-]+\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/notes\/([a-zA-Z0-9\.\-]+)\/[^\/]+\/(\d{10,})/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
+    ],
 
-    getLink: function(url, meta) {
+    provides: 'facebook_post',
 
-        var badRe = [
-            // From profile.
-            /^https?:\/\/(?:(?:www|m)\.)?facebook\.com\/(?!photo)([^\/\?#]+)(?:\?|#|\/?$)/i,
-            /^https?:\/\/www\.facebook\.com\/(?!photo)([^\/\?#]+)$/i,
+    mixins: [
+        "favicon"
+    ],    
 
-            // From video.
-            /^https?:\/\/www\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-            /^https?:\/\/www\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-            /^https?:\/\/www\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i
-        ];
-
-        var good = _.every(badRe, function(re) {
-            return !url.match(re);
-        });
-
-        if (!good) {
-            return;
-        }
-
-        var title = meta["html-title"];
-        title = title.replace(/ \| Facebook$/, "");
-
+    getMeta: function(facebook_post) {
         return {
-            title: title,
+            title: facebook_post.title,
+            site: "Facebook"
+        };
+    },
+
+    getLink: function(facebook_post, options) {
+        return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             template_context: {
-                title: title,
-                url: url
+                title: facebook_post.title,
+                url: facebook_post.url,
+                width: options.maxWidth || DEFAULT_WIDTH
             },
-            width: 552
-        }
+            width: options.maxWidth || DEFAULT_WIDTH
+        };
+    },
+
+    getData: function(url, meta, cb) {
+
+        if (meta["html-title"] == "Facebook") {
+            // the content is not public
+            cb({responseStatusCode: 403});
+        }        
+
+        var title = meta["description"] ? meta["description"]: meta["html-title"].replace(/ \| Facebook$/, "");
+
+        // Little hack for FB mobile URLs, as FB embeds don't recognize it's own mobile links.
+        var redirect;
+        if (url.indexOf("m.facebook.com/story.php") > -1) 
+            redirect = url.replace("m.facebook.com/story.php", "www.facebook.com/permalink.php");
+
+        cb(null, {
+            facebook_post: {
+                title: title,
+                url: redirect || url
+            }
+        });
     },
 
     tests: [

@@ -48,81 +48,40 @@ $.fn.renderObject = function(o) {
     return this;
 };
 
-function findDebugInfo(options, data) {
+function findDebugInfo(link, data) {
 
     // Find debug data for specific link.
 
-    var defaultContext = data.debug[0] && data.debug[0].context || {};
-    defaultContext.request = true;
-    defaultContext.$selector = true;
+    var result;
 
-    var result = [];
-    data.debug.forEach(function(level, levelIdx) {
-        if (options.maxLevel <= levelIdx) {
+    _.find(data.allData, function(dataItem) {
+
+        if (dataItem.method.name.indexOf('getLink') === -1) {
             return;
         }
-        level.data.forEach(function(methodData) {
 
-            if (!methodData.data) {
-                return;
-            }
+        var linkData = dataItem.data;
 
-            var linkData = methodData.data;
-            if (!(linkData instanceof Array)) {
-                linkData = [linkData];
-            }
+        if (!linkData) {
+            return;
+        }
 
-            linkData.forEach(function(l) {
+        if (!(linkData instanceof Array)) {
+            linkData = [linkData];
+        }
 
-                var good = false;
-                if (options.link) {
-                    good = l.sourceId == options.link.sourceId;
-                }
-
-                if (options.findByData) {
-                    good = _.intersection(_.keys(l), options.findByData).length > 0;
-                }
-
-                if (good) {
-
-                    var r = {};
-                    r.plugin = methodData.method.pluginId;
-                    r.method = methodData.method.name;
-                    if (methodData.method.parents) {
-                        r["mixed-in"] = methodData.method.parents;
-                    }
-                    var params = data.plugins[methodData.method.pluginId].methods[methodData.method.name];
-                    r.context = params.slice();
-                    r.data = $.extend(true, {}, l);
-                    r.time = methodData.time;
-                    delete r.data.sourceId;
-
-                    // Find parent data source.
-
-                    var findSourceForRequirements = _.difference(params, defaultContext);
-
-                    if (findSourceForRequirements.length > 0) {
-                        r.customContextSource = findDebugInfo({
-                            maxLevel: levelIdx,
-                            findByData: findSourceForRequirements
-                        }, data);
-                    }
-
-                    for(var k in r.context) {
-                        var c = r.context[k];
-                        if (c in defaultContext && c != "cb" && c != "$selector") {
-                            // Link to context.
-                            r.context[k] = "[contextLink]" + c + "[/contextLink]";
-                        }
-                    }
-
-                    result.push(r);
-                }
-            });
+        var goodLinks = linkData.filter(function(l) {
+            return l.sourceId === link.sourceId;
         });
+
+        if (goodLinks.length) {
+            result = _.extend({}, dataItem);
+            result.data = goodLinks[0];
+            return true;
+        }
     });
 
-    return (result.length == 1 && result[0]) || result;
+    return result;
 }
 
 function storeHistoryState() {
@@ -199,14 +158,16 @@ function showEmbeds($embeds, data, filterByRel) {
 
             } else {
 
-                var debug = findDebugInfo({link: link}, data);
+                var debug = findDebugInfo(link, data);
+
+                var pluginId = debug && debug.method.pluginId;
 
                 // Links head.
-                plugins.push(debug.plugin + '-' + counter);
-                usedPlugins[debug.plugin] = true;
+                plugins.push(pluginId + '-' + counter);
+                usedPlugins[pluginId] = true;
                 var head;
                 if (DEBUG) {
-                    head = debug.plugin;
+                    head = pluginId;
                 } else {
                     var rels = _.intersection(link.rel, REL_GROUPS);
                     if (rels.length) {
@@ -214,10 +175,10 @@ function showEmbeds($embeds, data, filterByRel) {
                     } else if (link.rel.length) {
                         head = link.rel[0];
                     } else {
-                        head = debug.plugin;
+                        head = pluginId;
                     }
                 }
-                $embeds.append('<h2 data-plugin="' + debug.plugin + '-' + counter + '">' + head + '</h2>');
+                $embeds.append('<h2 data-plugin="' + pluginId + '-' + counter + '">' + head + '</h2>');
                 counter += 1;
 
                 // Links preview.
@@ -286,13 +247,10 @@ function showEmbeds($embeds, data, filterByRel) {
             if (key == "_sources") {
                 return;
             }
-            var pluginId = data.meta._sources[key].pluginId;
-            var plugin = data.plugins[pluginId];
+            var pluginId = data.meta._sources[key];
             usedPlugins[pluginId] = true;
 
-            var method = plugin.methods[data.meta._sources[key].method];
-
-            $meta.append('<tr>' + (DEBUG ? ('<td>' + plugin.id + '</td><td>' + method.join(', ') + '</td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
+            $meta.append('<tr>' + (DEBUG ? ('<td>' + pluginId + '</td><td></td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
         });
 
         $embeds.prepend($meta);
@@ -389,9 +347,8 @@ function processUrl() {
         $result.renderObject(data);
 
         var clearData = $.extend(true, {}, data);
-        delete clearData.debug;
+        delete clearData.allData;
         delete clearData.time;
-        delete clearData.plugins;
         if (clearData.meta) {
             delete clearData.meta._sources;
         }
@@ -402,10 +359,14 @@ function processUrl() {
         $response.renderObject(clearData);
 
         // Render context.
-        var contexts = data.debug && data.debug.map(function(d) { return d.context; }) || [];
+        var contexts = data.allData && data.allData
+            .filter(function(d) {
+                return d.method.name === 'getData';
+            })
+            .map(function(d) {
+                return d.data;
+            }) || [];
         var DISABLED_REQUIREMENTS = [
-            "request",
-            "html",
             "cb"
         ];
         contexts.forEach(function(context) {

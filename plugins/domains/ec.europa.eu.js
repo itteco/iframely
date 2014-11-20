@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /http:\/\/ec\.europa\.eu\/avservices\/video/i
+        /https?:\/\/ec\.europa\.eu\/avservices\/(video|focus)/i
     ],
 
     mixins: [
@@ -10,21 +10,39 @@ module.exports = {
         "keywords"
     ],
 
+    provides: 'ec_data',
+
     getLinks: function(ec_data) {
 
-        return [
+        var links = [];
 
-        {
+        links.push ({
             href: ec_data["image_src"],
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail
-        },
-        {
-            href: ec_data["video_src"],
-            rel: CONFIG.R.player,
-            type: CONFIG.T.flash,
-            "aspect-ratio": ec_data["video_width"] / ec_data["video_height"]
-        }]
+        }); 
+
+        if (ec_data["video_src"]) {
+
+            links.push({
+                href: ec_data["video_src"],
+                rel: CONFIG.R.player,
+                type: CONFIG.T.flash,
+                "aspect-ratio": ec_data["video_width"] / ec_data["video_height"]
+            })
+        }
+
+        if (ec_data["twitter:player"]) {
+
+            links.push({
+                href: ec_data["twitter:player"].replace("https://", "http://"),
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                type: CONFIG.T.text_html,
+                "aspect-ratio": ec_data["twitter:player:width"] / ec_data["twitter:player:height"]
+            })
+        }
+
+        return links;
     },
 
     getMeta: function(ec_data) {
@@ -35,33 +53,35 @@ module.exports = {
         }
     },
 
-    getData: function($selector) {
+    getData: function(cheerio) {
 
-        var $meta = $selector('.append-bottom meta');
-        var $links = $selector('.append-bottom link');
+        var $meta = cheerio('meta');
+        var $links = cheerio('link');
         var data = {};
-
 
         var i;  // Sorry folks, have to declare it here, otherwise JSLint would not compile it 
                 // http://stackoverflow.com/questions/4646455/jslint-error-move-all-var-declarations-to-the-top-of-the-function        
 
-        for (i=0; i < $meta.length; i++) {
-            if ($meta[i].name) {
-                data[$meta[i].name]=$meta[i].content;
+        for (i = 0; i < $meta.length; i++) {
+            var $el = cheerio($meta[i]);
+            if ($el.attr('name')) {
+                data[$el.attr('name')] = $el.attr('content') || $el.attr('value');
             }
         }
 
-        for (i=0; i < $links.length; i++) {
-            data[$links[i].rel]=$links[i].href;
+        for (i = 0; i < $links.length; i++) {
+            var $el = cheerio($links[i]);
+            data[$el.attr('rel')] = $el.attr('href');
         }
 
         return {
             ec_data: data
-        }
+        };
     },
 
 
     tests: [
-        "http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I082398"
+        "http://ec.europa.eu/avservices/video/player.cfm?sitelang=en&ref=I082398",
+        "http://ec.europa.eu/avservices/focus/index.cfm?sitelang=en&focusid=351"
         ]
 };

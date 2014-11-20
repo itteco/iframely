@@ -2,16 +2,20 @@ var _ = require('underscore');
 var FeedParser = require('feedparser');
 var request = require('request');
 var async = require('async');
-var jsdom = require('jsdom');
 var url = require('url');
 
-var iframely = require("../../lib/iframely");
-var iframelyMeta = require("../../lib/iframely-meta");
+var iframelyGetPluginData = require('../../lib/core').getPluginData;
+
+var pluginLoader = require('../../lib/loader/pluginLoader');
+var pluginUtils = require('../../lib/loader/utils');
+var plugins = pluginLoader._plugins,
+    DEFAULT_PARAMS = [].concat(pluginUtils.DEFAULT_PARAMS, pluginUtils.POST_PLUGIN_DEFAULT_PARAMS),
+    PLUGIN_METHODS = pluginUtils.PLUGIN_METHODS;
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 
     var usedMethods = getAllUsedMethods(debugData);
-    var pluginMethods = findAllPluginMethods(pluginId, debugData.plugins);
+    var pluginMethods = findAllPluginMethods(pluginId, plugins);
 
     return {
         mandatory: _.difference(pluginMethods.mandatory, usedMethods),
@@ -23,13 +27,11 @@ exports.getErrors = function(debugData) {
 
     var errors = [];
 
-    debugData.debug.forEach(function(level, levelIdx) {
-        level.data.forEach(function(methodData) {
-            if (methodData.error) {
-                var methodId = methodData.method.pluginId + " - " + methodData.method.name;
-                errors.push(methodId + ": " + methodData.error);
-            }
-        });
+    debugData.allData.forEach(function(methodData) {
+        if (methodData.error) {
+            var methodId = methodData.method.pluginId + " - " + methodData.method.name;
+            errors.push(methodId + ": " + methodData.error);
+        }
     });
 
     if (errors.length) {
@@ -102,15 +104,12 @@ exports.fetchUrlsByPageOnFeed = function(pageWithFeed, otpions, cb) {
 
     async.waterfall([
 
-        function fetchPageMeta(cb) {
-            iframelyMeta.getPageData(pageWithFeed, {
-                oembed: false,
-                fullResponse: false
-            }, cb);
+        function(cb) {
+            iframelyGetPluginData(pageWithFeed, 'meta', cb);
         },
 
-        function findFeedUrl(data, cb) {
-            var alternate = data.meta.alternate;
+        function(meta, cb) {
+            var alternate = meta.alternate;
 
             var feeds;
 
@@ -148,25 +147,11 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
 
     async.waterfall([
 
-        function fetchPageBody(cb) {
-            iframelyMeta.getPageData(page, {
-                oembed: false,
-                meta: false,
-                fullResponse: true
-            }, cb);
+        function(cb) {
+            iframelyGetPluginData(page, 'cheerio', cb);
         },
 
-        function createWindow(data, cb) {
-            jsdom.env({
-                html: data.fullResponse,
-                src: [jquerySrc],
-                done: cb
-            });
-        },
-
-        function(window, cb) {
-
-            var $ = window.$;
+        function($, cb) {
 
             var $links = $(selector);
 
@@ -191,8 +176,6 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
                     }
                 }
             });
-
-            window.close();
 
             if (urls.length) {
                 cb(null, urls);
@@ -251,7 +234,7 @@ function findAllPluginMethods(pluginId, plugins, result, skipped) {
 
     });
 
-    iframely.PLUGIN_METHODS.forEach(function(method) {
+    PLUGIN_METHODS.forEach(function(method) {
 
         var methodId = pluginId + " - " + method;
         if (method in plugin.methods && result.mandatory.indexOf(methodId) == -1 && result.skipped.indexOf(methodId) == -1) {
@@ -271,70 +254,64 @@ function findUsedMethods(options, debugData, result) {
 
     // Find debug data for specific link.
 
-    var defaultContext = debugData.debug[0] && debugData.debug[0].context;
-    defaultContext.request = true;
-    defaultContext.$selector = true;
-
     result = result || [];
 
-    debugData.debug.forEach(function(level, levelIdx) {
-        if (options.maxLevel <= levelIdx) {
+    debugData.allData.forEach(function(methodData) {
+
+        if (!methodData.data) {
             return;
         }
-        level.data.forEach(function(methodData) {
 
-            if (!methodData.data) {
-                return;
+        var resultData = methodData.data;
+        if (!(resultData instanceof Array)) {
+            resultData = [resultData];
+        }
+
+        resultData.forEach(function(l) {
+
+            var good = false;
+            if (options.link) {
+                good = l.sourceId === options.link.sourceId;
             }
 
-            var resultData = methodData.data;
-            if (!(resultData instanceof Array)) {
-                resultData = [resultData];
+            if (options.findByMeta) {
+                var pluginId = debugData.meta._sources[options.findByMeta];
+                good = pluginId === methodData.method.pluginId
+                        && methodData.method.name === 'getMeta'
+                        && options.findByMeta in l;
             }
 
-            resultData.forEach(function(l) {
-
-                var good = false;
-                if (options.link) {
-                    good =
-                        l.sourceId == options.link.sourceId
-                    ||  l.duplicateId == options.link.sourceId;
-                }
-
-                if (options.findByMeta) {
-                    var s = debugData.meta._sources[options.findByMeta];
-                    good = s.pluginId == methodData.method.pluginId && s.method == methodData.method.name;
-                }
-
-                if (options.findByData) {
+            if (options.findByData) {
+                try {
                     good = _.intersection(_.keys(l), options.findByData).length > 0;
+                } catch(ex) {
+                    good = false;
+                }
+            }
+
+            if (good) {
+
+                var methodId = methodData.method.pluginId + " - " + methodData.method.name;
+
+                var exists = result.indexOf(methodId) > -1;
+                if (exists) {
+                    return
                 }
 
-                if (good) {
+                result.push(methodId);
 
-                    var methodId = methodData.method.pluginId + " - " + methodData.method.name;
+                var params = plugins[methodData.method.pluginId].methods[methodData.method.name];
 
-                    var exists = result.indexOf(methodId) > -1
-                    if (exists) {
-                        return
-                    }
+                // Find parent data source.
 
-                    result.push(methodId);
+                var findSourceForRequirements = _.difference(params, DEFAULT_PARAMS);
 
-                    var params = debugData.plugins[methodData.method.pluginId].methods[methodData.method.name];
-
-                    // Find parent data source.
-
-                    var findSourceForRequirements = _.difference(params, defaultContext);
-
-                    if (findSourceForRequirements.length > 0) {
-                        findUsedMethods({
-                            maxLevel: levelIdx,
-                            findByData: findSourceForRequirements
-                        }, debugData, result);
-                    }
+                if (findSourceForRequirements.length > 0) {
+                    findUsedMethods({
+                        findByData: findSourceForRequirements
+                    }, debugData, result);
                 }
-            });
+            }
         });
     });
 

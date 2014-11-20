@@ -1,19 +1,29 @@
 module.exports = {
 
-    re: /^https:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
+    re: [
+        /^https?:\/\/mixbit\.com\/v\/(\w+)(?:\/.+)?/i,
+        /^https?:\/\/mixbit\.com\/s\/(\_\w+)(?:\/.+)?/i
+    ],
 
     getMeta: function(mixbit) {
         return {
             title: mixbit.title,
-            site: "MixBit"
+            site: "MixBit",
+            views: mixbit.view_count,
+            date: mixbit.time_created,
+            author: mixbit.user && mixbit.user.full_name,
+            author_url: mixbit.user && mixbit.user.profile_url
         };
     },
 
+    provides: 'mixbit',
+
     getData: function(urlMatch, request, cb) {
         request({
-            uri: "https://api.mixbit.com/api/v1/msee/project/" + urlMatch[1],
+            uri: "https://a.mixbit.com/v2/videos/" + urlMatch[1],
             json: true
         }, function(error, response, body) {
+
             if (error) {
                 return cb(error);
             }
@@ -40,7 +50,7 @@ module.exports = {
         }, {
             href: "https://mixbit.com/embed/" + mixbit.project_id,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": mixbit.video_width / mixbit.video_height
         }];
     },

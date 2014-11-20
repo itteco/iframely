@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "0.5.6",
+    "version": "0.7.0",
     
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": ["oembed", "embed", "open graph", "og", "twitter cards"],
@@ -18,10 +18,10 @@
     "license": "MIT",
     
     "dependencies": {
+
         "jslint":       "0.1.9",
         "async":        "0.2.8",
         "underscore":   "1.4.4",
-        "jsdom":        "0.8.8",
         "request":      "2.9",
         "express":      "3.2.4",
         "send":         "0.1.0",
@@ -38,7 +38,7 @@
         "htmlparser2":  "3.1.x",
         "entities":     "0.3.x",
         "imagesize":    "1.0.0",
-        "iconv-lite":   "0.2",
+        "iconv-lite":   "0.4.3",
         "mimelib":      "0.2",
         "oauth":        "0.9",
 
@@ -47,7 +47,10 @@
         "node-cache":   "0.3.2",
 
         "jquery":       "1.8.3",
-        "iframely-readability":      "git://github.com/itteco/node-readability.git"
+        "readabilitySAX":"1.6.1",
+        "cheerio":      "0.16.0",
+
+        "usage":        "*"
     },
 
     "devDependencies": {
@@ -56,10 +59,10 @@
 
     "iframely-proxy-plugins": true,
 
-    "main": "./lib/iframely",
+    "main": "./lib/core",
 
     "scripts": {
-        "test": "./node_modules/vows/bin/vows test/main.js --isolate --spec"
+        "test": "vows test/main.js --isolate --spec"
     },
 
     "engines": {

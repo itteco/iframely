@@ -17,16 +17,24 @@ module.exports = {
         } catch(ex) {}
 
         var $iframe = $container.find('iframe');
-        var player, thumbnail;
+        var player, thumbnail, autoplay;
 
         if ($iframe.length == 1) {
             player = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 height: oembed.height,
                 "min-width": oembed.width
-            }
+            };
+
+            autoplay = {
+                href: $iframe.attr('src') + '&auto_play=true',
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
+                height: oembed.height,
+                "min-width": oembed.width
+            };            
         }
 
         if (oembed.thumbnail_url) {
@@ -40,7 +48,7 @@ module.exports = {
         }
 
         return [
-            player, thumbnail, 
+            player, thumbnail, autoplay, 
             {
                 href: '//a1.sndcdn.com/images/soundcloud_app.png?9d68d37',
                 type: CONFIG.T.image,
@@ -50,7 +58,6 @@ module.exports = {
     },
 
     tests: [
-        "https://soundcloud.com/palomafaith/picking-up-the-pieces-4",
         "https://soundcloud.com/louislaroche/kate-bush-running-up-that-hill-llr-remix-full",
         "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         {

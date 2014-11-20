@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:[a-z]+\.)?yfrog\.com\/([a-zA-Z0-9]+)/i,
-        /^http:\/\/twitter\.yfrog\.com\/([a-zA-Z0-9]+)/i
+        /^https?:\/\/twitter\.yfrog\.com\/([a-zA-Z0-9]+)/i
     ],
 
     mixins: [

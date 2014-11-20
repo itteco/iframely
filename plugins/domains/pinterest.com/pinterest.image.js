@@ -1,31 +1,26 @@
-/************************
- Pinterest is not parser-friendly and we would violate
- their Acceptable Use Policy at http://about.pinterest.com/use/
- if we are to provide a proper embed plugin to their domain
- and thus enable you to violate the same policy.
-
- We can't let your network be blacklisted with Pinterest
- per https://en.help.pinterest.com/entries/22914692
-
- If you notice that their policy changed and we had not updated this plugin yet,
- give us a shout and we'll tweak it promptly.
- *************************/
 
 module.exports = {
 
     re: /^https?:\/\/(?:www\.)?pinterest\.com\/pin\/(\d+)/i,
 
-    getMeta: function() {
-        return {
-            title: "Pinterest Image",
-            site: "Pinterest"
-        };
-    },
+    mixins: [
+        "og-image",
+        "favicon",
+        "canonical",
+        "og-description",
+        "og-site",
+        "og-title"
+    ],
 
-    getLink: function(url) {
+    getLink: function(url, og) {
+
+        if (og.type !== 'pinterestapp:pin') {
+            return;
+        }
+
         return {
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             template: "pinterest.widget",
             template_context: {
                 url: url,
@@ -40,8 +35,8 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://pinterest.com/all/science_nature/",
-        selector: ".pinImageWrapper"
+        // No Test Feed here not to violate "scrapping" restrictions of Pinterest
+        noFeeds: true
     },
         "http://pinterest.com/pin/30258628719483308/"
     ]

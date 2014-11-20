@@ -1,57 +1,69 @@
+var jquery = require('jquery');
+
 module.exports = {
 
-    re: /http:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
+    re: /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
 
     mixins: [
-        "twitter-title",
-        "description",
-        "canonical",
-        "keywords",
-
         "favicon",
-        "twitter-image-rel-image"
+        "canonical",
+        "oembed-author",
+        "twitter-image", // both as fall back, and as thumbnails for galleries
+        "oembed-site"
     ],
 
-    getMeta: function() {
+    getMeta: function(meta) {
         return {
-            site: "imgur"
+            title: meta.twitter.title.replace('- Imgur', '')
         };
     },
 
-    getLink: function(urlMatch, meta) {
+    getLink: function(oembed) {
 
-        var links = [];
+        if (oembed.type === "photo" && oembed.url) {
 
-        var m, url;
-        // If twitter image ID not equals url ID.
-        if (meta.twitter
-            && (url = meta.twitter.image.url || meta.twitter.image)
-            && (m = url.match(/http:\/\/i\.imgur\.com\/(\w+)\.\w+/i)) && m[1] != urlMatch[1]) {
-            links.push({
-                href: "http://imgur.com/a/" + urlMatch[1] + "/embed",
-                rel: CONFIG.R.player,
-                type: CONFIG.T.text_html,
-                "aspect-ratio": 4/3
-            });
-        }
-
-        var src;
-        if (meta.twitter && meta.twitter.image && (src = meta.twitter.image.url) && src.match(/\.(jpg|png|gif)$/)) {
-            links.push({
-                href: src.replace(/\.(jpg|png|gif)$/, "b.$1"),
-                rel: CONFIG.R.thumbnail,
+            return {
+                href: oembed.url.replace("http://", "//"),
                 type: CONFIG.T.image,
-                width: 160,
-                height: 160
-            });
+                rel: [CONFIG.R.image, CONFIG.R.thumbnail, CONFIG.R.oembed],
+                width: oembed.width,
+                height: oembed.height
+            };
         }
 
-        return links;
-    },
+
+        if (oembed.type == "rich") {
+            var $container = jquery('<div>');
+            try{
+                $container.html(oembed.html5 || oembed.html);
+            } catch(ex) {}
+
+            var $iframe = $container.find('iframe');
+
+            if ($iframe.length == 1) {
+                return {
+                    href: $iframe.attr('src').replace("http://","//"),
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
+                    "aspect-ratio": oembed.width / oembed.height
+                };
+            }
+        }
+    },    
 
     tests: [{
         pageWithFeed: "http://imgur.com/"
-    },
-        "http://imgur.com/Ks3qs"
+    }, {
+        skipMixins: [
+            "twitter-image",
+            "oembed-author"         // Available for Galleries only
+        ],
+        skipMethods: ["getLink"]
+    },    
+        "http://imgur.com/Ks3qs",
+        "http://imgur.com/gallery/IiDwq",
+        "http://imgur.com/a/yMoaT",
+        "https://imgur.com/gallery/B3X48s9",
+        "http://imgur.com/r/aww/tFKv2zQ"    // kitten bomb before, doesn't seem to show up any longer
     ]
 };

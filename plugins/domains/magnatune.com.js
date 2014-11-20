@@ -4,7 +4,7 @@ var jQuery = require("jquery");
 module.exports = {
 
     re: [
-        /^http:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(?:lofi_play)?)?(?:[\?#].*)?$/i
+        /^https?:\/\/magnatune\.com\/artists\/albums\/([-_a-z0-9]+)(?:\/(?:lofi_play)?)?(?:[\?#].*)?$/i
     ],
 
     mixins: [
@@ -12,6 +12,8 @@ module.exports = {
         "og-image",
         "favicon"
     ],
+
+    provides: 'magnatune_meta',
 
     getData: function(url, urlMatch, meta) {
 
@@ -71,7 +73,7 @@ module.exports = {
 
     tests: [{
         page: "http://magnatune.com/",
-        selector: "p td font a:has(font)"
+        selector: "div[id^='row'] a"
     },
         "http://magnatune.com/artists/albums/sieber-hidden/",
         "http://magnatune.com/artists/albums/fallingyou-adore/lofi_play"

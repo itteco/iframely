@@ -8,8 +8,7 @@ module.exports = {
         "canonical",
         "og-site",
         "og-title",
-        "twitter-image",
-        "twitter-player-responsive",
+        "og-image",
         "favicon"
     ],
 
@@ -17,16 +16,13 @@ module.exports = {
         return {
             href: "https://telly.com/embed.php?guid=" + urlMatch[1] + "&autoplay=0",
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.twitter],
-            "aspect-ratio": meta.twitter.player.width / meta.twitter.player.height
+            rel: [CONFIG.R.player, CONFIG.R.html5],
+            "aspect-ratio": 480/360
         };
     },
 
     tests: [
-    /*{
-        page: "http://blog.telly.com/",
-        selector: ".main_content a"
-    },*/
-        "http://telly.com/Q84DI7"
+        "http://telly.com/Q84DI7",
+        "http://telly.com/1AUHUCN"
     ]
 };

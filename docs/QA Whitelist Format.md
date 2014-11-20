@@ -1,17 +1,17 @@
 # Iframely Domains DB File Format
 
-Itteco provides [Domains DB](http://iframely.com/qa), as the first independently run embeds QA service. 
+Itteco provides [Domains DB](https://iframely.com/qa), as the first independently run embeds QA service. 
 
-We cover [Iframely Protocol](http://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
+We cover [Iframely Protocol](https://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
 
 There are technical/security considerations that can be resolved algorithmically, but it really 
 requires a human eye to check if the user experience of the embeds can be relied on. 
 
 The domains DB can be downloaded as JSON file, the format of which is given in this document. It contains the list of domains with `allow` or `deny` tags for each protocol, with supplementary instructions on how to improve the embeds (that are easy to translate into code).
 
-If you use [Iframely Gateway](http://iframely.com/gateway), the Domains DB support is already included. Just upload the latest file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](http://iframely.com/gateway/setup).
+If you use [Iframely Open Source](https://iframely.com/get), the Domains DB support is already included. Just upload the latest file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](https://iframely.com/docs/host).
 
-You can get Domains DB at [http://iframely.com/qa/buy](http://iframely.com/qa/buy).
+You can get Domains DB at [http://iframely.com/qa/buy](https://iframely.com/qa/buy).
 
 
 
@@ -96,7 +96,7 @@ The basic and most important values in tags list are:
 
 The domain names are given as the top-level keys for the convenience of quering the values. 
 
-However, [Iframely Domains DB](http://iframely.com/qa) supports wildcard entries, such as `"*.sub.domain.com"` and you would need to choose a proper key. 
+However, [Iframely Domains DB](https://iframely.com/qa) supports wildcard entries, such as `"*.sub.domain.com"` and you would need to choose a proper key. 
 
 We suggest the following algorithm. Let's say you have the URL `http://name.sub.domain.com/slug`:
 
@@ -114,7 +114,7 @@ Please, note that `www.domain.com` and `domain.com` are the same in most cases. 
 
 Iframely QA is being done on the following protocols and types:
 
- - `iframely` is for Iframely protocol ([see spec](http://iframely.com/oembed2)) types:
+ - `iframely` is for Iframely protocol ([see spec](https://iframely.com/oembed2)) types:
   - player
   - reader
   - image 
@@ -168,8 +168,6 @@ For `og video` it also verifies the value of `og:video:secure_url` attribute.
 This tag is present if the media starts to play automatically without the user interection. You may opt to isolate such widgets from a user until she confirms the action. For example, putting a thumbnail with a play botton above it, and replacing it with the player once user initites the playback. 
 
 Most of `og video` implementations come with `autoplay`. 
-
-Note that [Iframely Embeds Gateway](http://iframely.com/gateway) tries to replace most vairations of `autoplay=true` and similar get parameters in players' URIs so that playback isn't started automatically.
 
 
 ### Additional `reader` tag

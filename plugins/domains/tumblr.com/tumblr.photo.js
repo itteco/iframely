@@ -1,6 +1,12 @@
 var _ = require('underscore');
+var $ = require('cheerio');
 
 module.exports = {
+
+    re: [
+        /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
+        /^https?:\/\/([a-z-\.]+)\/(post|post)\/(\d{11})(?:\/[a-z0-9-]+)?/i
+    ],    
 
     getLinks: function(tumblr_post) {
 
@@ -13,7 +19,7 @@ module.exports = {
         function addImage(title, image, rel) {
             links.push({
                 title: title,
-                href: image.url,
+                href: image.url.replace(/^https?:/, ''),
                 type: CONFIG.T.image,
                 rel: rel,
                 width: image.width,
@@ -23,7 +29,9 @@ module.exports = {
 
         tumblr_post.photos.forEach(function(photo) {
 
-            var title = photo.caption;
+            var title = photo.caption || tumblr_post.caption;
+            title = $('<div>').html(title).text();
+            if (title && title.length > 160) title = title.split(/[.,!?]/)[0];
 
             addImage(title, photo.original_size, CONFIG.R.image);
             var originalWidth = photo.original_size.width;
@@ -44,6 +52,8 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://lincolnmotorco.tumblr.com/"
     },
-        "http://fewthistle.tumblr.com/post/58045916432"
+        "http://fewthistle.tumblr.com/post/58045916432",
+        "http://memesdabola.com/post/77805975089/qual-sera-o-resultado-que-o-porto-trara-de-lisboa",
+        "http://www.staskhrustalev.com/post/76759388227"
     ]
 };

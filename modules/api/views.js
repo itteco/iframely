@@ -1,10 +1,13 @@
-var iframely = require('../../lib/iframely');
+var iframelyCore = require('../../lib/core');
 var utils = require('../../utils');
-var apiUtils = require('./utils');
 var _ = require('underscore');
-var moment = require('moment');
-var jsonxml = require('jsontoxml');
 var async = require('async');
+var cache = require('../../lib/cache');
+var iframelyUtils = require('../../lib/utils');
+var oembedUtils = require('../../lib/oembed');
+var whitelist = require('../../lib/whitelist');
+var pluginLoader = require('../../lib/loader/pluginLoader');
+var jsonxml = require('jsontoxml');
 
 function prepareUri(uri) {
 
@@ -23,20 +26,32 @@ function prepareUri(uri) {
     return uri;
 }
 
-function log() {
-    var args = Array.prototype.slice.apply(arguments);
-    args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
-    console.log.apply(console, args);
+var log = utils.log;
+
+var version = require('../../package.json').version;
+
+function getBooleanParam(req, param) {
+    var v = req.query[param];
+    return v === 'true' || v === '1';
+}
+
+function getIntParam(req, param) {
+    var v = req.query[param];
+    return v && parseInt(v);
 }
 
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (!uri) {
             return next(new Error("'uri' get param expected"));
+        }
+
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
         }
 
         log('Loading /iframely for', uri);
@@ -45,12 +60,13 @@ module.exports = function(app) {
 
             function(cb) {
 
-                iframely.getRawLinks(uri, {
-                    debug: req.query.debug,
-                    mixAllWithDomainPlugin: req.query.mixAllWithDomainPlugin === "true",
-                    forceMeta: req.query.meta === "true",
-                    forceOembed: req.query.meta === "true",
-                    disableCache: req.query.refresh === "true"
+                iframelyCore.run(uri, {
+                    debug: getBooleanParam(req, 'debug'),
+                    mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
+                    forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
+                    whitelist: getBooleanParam(req, 'whitelist'),
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
@@ -66,13 +82,53 @@ module.exports = function(app) {
                 return next(new Error("Requested page error: " + error));
             }
 
-            var debug = result.debug;
-
-            if (!req.query.debug) {
-                delete result.debug;
-                delete result.plugins;
-                delete result.time;
+            if (result.safe_html) {
+                cache.set('html:' + version + ':' + uri, result.safe_html);
+                result.links.unshift({
+                    href: CONFIG.baseAppUrl + "/reader.js?uri=" + encodeURIComponent(uri),
+                    type: CONFIG.T.javascript,
+                    rel: [CONFIG.R.reader, CONFIG.R.inline]
+                });
+                delete result.safe_html;
             }
+
+            var render_link = _.find(result.links, function(link) {
+                return link.html
+                    && !link.href
+                    && link.rel.indexOf(CONFIG.R.inline) === -1
+                    && link.type === CONFIG.T.text_html;
+            });
+            if (render_link) {
+                cache.set('render_link:' + version + ':' + uri, _.extend({
+                    title: result.meta.title
+                }, render_link)); // Copy to keep removed fields.
+                render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
+                delete render_link.html;
+            } else {
+                // Cache non inline link to later render for older consumers.
+                render_link = _.find(result.links, function(link) {
+                    return link.html
+                        && link.rel.indexOf(CONFIG.R.inline) > -1
+                        && link.type === CONFIG.T.text_html;
+                });
+                if (render_link) {
+                    cache.set('render_link:' + version + ':' + uri, _.extend({
+                        title: result.meta.title
+                    }, render_link)); // Copy to keep removed fields.
+                }
+            }
+
+            iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5'),
+                maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+            });
+
+            iframelyUtils.generateLinksHtml(result, {
+                autoplayMode: getBooleanParam(req, 'autoplay')
+            });
 
             if (req.query.group) {
                 var links = result.links;
@@ -92,32 +148,24 @@ module.exports = function(app) {
                 }
                 result.links = groups;
             }
-
+/*
             if (req.query.whitelist) {
                 // if whitelist record's domain is "*" - ignore this wildcard
                 var whitelistRecord = iframely.whitelist.findWhitelistRecordFor(uri) || {} ;
                 result.whitelist = whitelistRecord.isDefault ? {} : whitelistRecord;
             }
-
-            if (req.query.meta) {
-                var raw_meta = result['raw-meta'] = {};
-                if (debug.length > 0) {
-                    raw_meta.meta = debug[0].context.meta;
-                    raw_meta.oembed = debug[0].context.oembed;
-                }
-            }
+*/
 
             res.sendJsonCached(result);
-        });
-    });
 
-    app.get('/meta-mappings', function(req, res, next) {
 
-        var ms = iframely.metaMappings;
+            //iframely.disposeObject(debug);
+            //iframely.disposeObject(result);
 
-        res.sendJsonCached({
-            attributes: _.keys(ms),
-            sources: ms
+            if (global.gc) {
+                //console.log('GC called');
+                global.gc();
+            }
         });
     });
 
@@ -129,17 +177,34 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /reader for', uri);
 
         async.waterfall([
 
             function(cb) {
-                iframely.getRawReaderLink(uri, {
-                    disableCache: req.query.refresh === "true"
+
+                cache.withCache('html:' + version + ':' + uri, function(cb) {
+
+                    iframelyCore.run(uri, {
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, function(error, data) {
+
+                        if (!data || !data.safe_html) {
+                            error = 404;
+                        }
+
+                        cb(error, data && data.safe_html);
+                    });
+
                 }, cb);
+
             }
 
-        ], function(error, link) {
+        ], function(error, html) {
 
             if (error) {
 
@@ -151,11 +216,7 @@ module.exports = function(app) {
                 return next(new Error("Requested page error: " + error));
             }
 
-            if (!link) {
-                return next(new utils.NotFound());
-            }
-
-            var htmlArray = (link.html || "").match(/.{1,8191}/g) || "";
+            var htmlArray = (html || "").match(/.{1,8191}/g) || "";
 
             var context = {
                 embedCode: JSON.stringify(htmlArray),
@@ -178,13 +239,44 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /render for', uri);
 
         async.waterfall([
 
             function(cb) {
-                iframely.getRawRenderLink(uri, {
-                    disableCache: req.query.refresh === "true"
+
+                cache.withCache('render_link:' + version + ':' + uri, function(cb) {
+
+                    iframelyCore.run(uri, {
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, function(error, result) {
+
+                        var render_link = result && _.find(result.links, function(link) {
+                            return link.html
+                                && link.rel.indexOf(CONFIG.R.inline) === -1
+                                && link.type === CONFIG.T.text_html;
+                        });
+
+                        if (!render_link) {
+                            // Cache non inline link to later render for older consumers.
+                            render_link = _.find(result.links, function(link) {
+                                return link.html
+                                    && link.rel.indexOf(CONFIG.R.inline) > -1
+                                    && link.type === CONFIG.T.text_html;
+                            });
+                        }
+
+                        if (render_link) {
+                            render_link.title = result.meta.title;
+                        }
+
+                        cb(error, render_link);
+                    });
+
                 }, cb);
             }
 
@@ -204,20 +296,25 @@ module.exports = function(app) {
                 return next(new utils.NotFound());
             }
 
-            res.renderCached(link._render.template, link.template_context);
+            res.renderCached('embed-html.ejs', {
+                title: link.title,
+                html: link.html
+            });
         });
 
     });
 
     app.get('/supported-plugins-re.json', function(req, res, next) {
 
-        var plugins = _.values(iframely.getPlugins());
+        var plugins = pluginLoader._plugins;
 
         var regexps = [];
 
         var domainsDict = {};
 
-        plugins.forEach(function(plugin) {
+        for(var pluginId in plugins) {
+
+            var plugin = plugins[pluginId];
 
             if (plugin.domain) {
 
@@ -238,7 +335,7 @@ module.exports = function(app) {
                     });
                 }
             }
-        });
+        }
 
         regexps.sort();
 
@@ -253,13 +350,22 @@ module.exports = function(app) {
             return next(new Error("'url' get param expected"));
         }
 
+        if (uri.split('/')[2].indexOf('.') === -1) {
+            return next(new Error("local domains not supported"));
+        }
+
         log('Loading /oembed for', uri);
 
         async.waterfall([
 
             function(cb) {
 
-                iframely.getRawLinks(uri, cb);
+                iframelyCore.run(uri, {
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    filterNonSSL: getBooleanParam(req, 'ssl'),
+                    filterNonHTML5: getBooleanParam(req, 'html5'),
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                }, cb);
             }
 
         ], function(error, result) {
@@ -274,7 +380,15 @@ module.exports = function(app) {
                 return next(new Error(error));
             }
 
-            var oembed = apiUtils.getOembed(uri, result);
+            iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5'),
+                maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+            });
+
+            var oembed = oembedUtils.getOembed(uri, result);
 
             if (req.query.format === "xml") {
 
@@ -293,6 +407,9 @@ module.exports = function(app) {
 
                 res.jsonpCached(oembed);
             }
+
+            //iframely.disposeObject(result);
         });
     });
+
 };

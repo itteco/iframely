@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var $ = require('cheerio');
 var _ = require('underscore');
 
 function wrapContainer($element, data) {
@@ -71,15 +71,7 @@ var renders = {
                 && data.href;
         },
         generate: function(data) {
-            return $('<script>')
-                .addClass("iframely-widget iframely-script")
-                .attr('type', data.type)
-                .attr('src', data.href);
-            var $container = $('<div>')
-                .attr('iframely-container-for', data.href)
-                .append($script);
-
-            return $container;
+            return '<script class="iframely-widget iframely-script" type="' + data.type + '" src="' + data.href + '"></script>';
         }
     },
     "image": {
@@ -208,6 +200,17 @@ var renders = {
                 return wrapContainer($iframe, data);
             }
         }
+    },
+    "inline": {
+        test: function(data) {
+            return data.type === "text/html"
+                && data.rel.indexOf('inline') > -1
+                && !data.href
+                && data.html;
+        },
+        generate: function(data, options) {
+            return $(data.html);
+        }
     }
 };
 
@@ -287,8 +290,6 @@ var filterLinksByRel = function(rel, links, options) {
     return result;
 };
 
-var rels = ["player", "survey", "reader", "image"];
-
 exports.getOembed = function(uri, data) {
 
     var oembed = {
@@ -333,7 +334,7 @@ exports.getOembed = function(uri, data) {
     }
 
     var link;
-    var foundRel = _.find(rels, function(rel) {
+    var foundRel = _.find(CONFIG.OEMBED_RELS_PRIORITY, function(rel) {
         link = filterLinksByRel(rel, data.links, {returnOne: true});
         return link;
     });
@@ -342,7 +343,7 @@ exports.getOembed = function(uri, data) {
 
     if (link && !inlineReader) {
         var m = link.media;
-        if (m ) {
+        if (m) {
             if (m.width && m.height) {
                 oembed.width = m.width;
                 oembed.height = m.height;
@@ -361,13 +362,24 @@ exports.getOembed = function(uri, data) {
                 iframelyData: data
             });
 
-            var $html = $('<div>').append($el);
-            oembed.html = $html.html();
+            if (typeof $el === "string") {
+                oembed.html = $el;
+            } else {
+                var $html = $('<div>').append($el);
+                oembed.html = $html.html();
+            }
+
         }
 
     } else {
-        oembed.type = "link";
-        oembed.url = data.meta.canonical || uri;
+
+        if (link && link.html) {
+            oembed.type = "rich";
+            oembed.html = link.html;
+        } else {
+            oembed.type = "link";
+            oembed.url = data.meta.canonical || uri;
+        }
     }
 
     for(var key in data.meta) {

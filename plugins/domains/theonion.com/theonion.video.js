@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.theonion\.com\/video\/*/i,
+    re: /^https?:\/\/www\.theonion\.com\/video\/*/i,
 
     mixins: [
         "canonical",
@@ -11,15 +11,15 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function($selector) {
+    getLink: function(cheerio) {
 
-        var $video = $selector('video');
+        var $video = cheerio('video');
         if (!$video.length || !$video.attr('id')) return;
 
         return {
             href: 'http://www.theonion.com/video_embed/?id=' + $video.attr('id'),
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 480 / 270
         };
     },
