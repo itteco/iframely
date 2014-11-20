@@ -36,8 +36,8 @@ module.exports = {
     },
 
     tests: [{
-        page: 'http://quizlet.com/',
-        selector: '.set[data-id] a'
+        page: 'http://quizlet.com/subject/math/?sortBy=mostRecent',
+        selector: '.set-link'
     },
         "http://quizlet.com/43729824/conceptual-physics-final-review-part-1-flash-cards/"
     ]
