@@ -362,6 +362,12 @@
             "d.pr/i/.*"
         ],
         "endpoint": "http://d.pr/oembed"
+    },
+    {
+        "name": "Vine",
+        "templates": [
+            "vine.co/v/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "https://vine.co/oembed/{1}.{format}"
     }
-
 ]
