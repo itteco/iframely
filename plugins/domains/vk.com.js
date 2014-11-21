@@ -19,7 +19,7 @@ module.exports = {
         var video_url = (meta.og && meta.og.video && meta.og.video.url) || url; //for direct links to VK videos
 
         var oid = video_url.match(/oid=([\-_a-zA-Z0-9]+)/);
-        var vid = video_url.match(/vid=([\-_a-zA-Z0-9]+)/) || video_url.match(/id=([\-_a-zA-Z0-9]+)/);
+        var vid = video_url.match(/vid=([\-_a-zA-Z0-9]+)/) || video_url.match(/\Wid=([\-_a-zA-Z0-9]+)/);
         var hash = video_url.match(/embed\_hash=([\-_a-zA-Z0-9]+)/) || video_url.match(/hash=([\-_a-zA-Z0-9]+)/);
 
         if (!oid || !vid || !hash) return;
