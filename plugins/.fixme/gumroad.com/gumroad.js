@@ -19,7 +19,7 @@ module.exports = {
                 id: urlMatch[1]
             },
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.ssl],
             'max-width': 676
         };
     },
