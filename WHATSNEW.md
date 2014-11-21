@@ -5,6 +5,24 @@ This is the history of the Iframely Gateway changes. Updates that are older than
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+### 2014.11.21, Version 0.7.1
+
+This version contains mostly the cleanup of the domains plugins. Some of the most significant improvements are these:
+
+ - Proper handling of Imgur gifs that they changed recently
+ - Gallery embed for Flickr user profile pages
+ - Vine plugin uses newly introduced oEmbed endpoint. Processing time is now down to 50-70ms
+ - Google Plus posts with vanity URLs are finally supported
+ - Google Docs support
+ - Handle Tumblr's new 12-digit post IDs
+ - New or improved embed codes for C-Span, Reuters, Comedy Central, Rap Genius, Giphy, Real player cloud
+
+The package dependencies updated some libraries. Please, run `npm update` to use newer verisons.
+
+In the other news, we published [oEmbed API](http://oembedapi.com) for the use in open-source projects. Take a look.
+
+
+
 ### 2014.10.15, Version 0.7.0
 
 **API Params.**
