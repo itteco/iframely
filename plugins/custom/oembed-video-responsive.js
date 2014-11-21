@@ -1,10 +1,10 @@
-var jquery = require('jquery');
+var cheerio = require('cheerio');
 
 module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
-        var $container = jquery('<div>');
+        var $container = cheerio('<div>');
         try{
             $container.html(oembed.html5 || oembed.html);
         } catch(ex) {}
