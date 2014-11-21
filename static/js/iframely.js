@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.7.0
+     Version 0.7.1
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -156,7 +156,8 @@
                 origin: options.origin,
                 autoplay: options.autoplay,
                 ssl: options.ssl,
-                html5: options.html5
+                html5: options.html5,
+                iframe: options.iframe
             },
             success: function(data, textStatus, jqXHR) {
                 cb(null, data, jqXHR);

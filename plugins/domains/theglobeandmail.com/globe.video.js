@@ -28,7 +28,6 @@ module.exports = {
 
     tests: [
         "http://www.theglobeandmail.com/video/globe-now/video-globe-now-exploding-whale-ontario-election-dogecoin/article18394260/",
-        "http://www.theglobeandmail.com/sports/sports-video/video-rodman-dont-give-us-negativity-for-n-korea/article16230684/",
         "http://www.theglobeandmail.com/report-on-business/video/video-market-view-canadas-wild-weather-how-much-will-it-cost-consumers/article16325843/"
     ]
 };

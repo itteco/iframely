@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /^https:\/\/500px\.com\/photo.+/,
+
     mixins: [
         "og-title",
         "oembed-author",
@@ -28,8 +30,7 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://500px.com/upcoming",
-        selector: ".title a"
+        pageWithFeed: "https://500px.com/flow"
     },
         "http://500px.com/photo/13541787?from=upcoming"
     ]

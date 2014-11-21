@@ -57,6 +57,6 @@ module.exports = {
             });
         }
 
-        return links[0];
+        return links;
     }
 };

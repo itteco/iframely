@@ -45,7 +45,7 @@ module.exports = {
     }, {
         pageWithFeed: 'http://anfieldindex.podbean.com'
     }, {
-        skipMixins: ['keywords']
+        skipMixins: ['keywords', 'favicon']
     },
         "http://thebarometer.podbean.com/e/science-communication-the-ipcc-and-a-goodbye-day-5-at-egu-2014/",
         "http://thehashtaghunter.podbean.com/e/law-of-attraction/"

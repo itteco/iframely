@@ -13,15 +13,25 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(meta) {
+    getLink: function(meta, urlMatch, cb) {
 
-        return {
-            href: meta.og.image,
-            type: CONFIG.T.image,
-            rel: CONFIG.R.image,
-            width: meta.twitter.image.width,
-            height: meta.twitter.image.height
-        };
+        if (meta.og && meta.og.image) {
+
+            cb(null, {
+                href: meta.og.image,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.image,
+                width: meta.twitter.image.width,
+                height: meta.twitter.image.height
+            });
+
+        } else {
+            // Attachments pages doesn't have any meta at the moment :\
+            cb ({
+                redirect: urlMatch[0] + urlMatch[1]
+            });
+
+        }
     },
 
     tests: [ {

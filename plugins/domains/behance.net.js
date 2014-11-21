@@ -46,17 +46,16 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        skipMixins: ["copyright", "og-description"]
+    },
         "http://www.behance.net/gallery/ORBITAL-MECHANICS/10105739",
         "http://www.behance.net/gallery/TRIGGER/9939801",
         "http://www.behance.net/gallery/MEGA-CITIES/8406797",
-        "http://portfolios.academyart.edu/gallery/ESCADA-Brand-Website/4706977",
-        "http://portfolios.aiga.org/gallery/Bodega-Portraits/2752591",
         "http://portfolios.sva.edu/gallery/Threshold-Furniture-Design/720916",
         "http://portfolios.scad.edu/gallery/Privy-Boards-Graphic-Shirts/11126843",
         "http://www.adccreativecrush.org/gallery/Veuve-Clicquot/5998331",
-        "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295",
-        "http://portfolios.corcoran.edu/gallery/19270813/Porsche-Concept-Road-Version"
+        "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295"
     ]
 
 };

@@ -77,10 +77,12 @@ module.exports = {
 
 
     // tests are only applicable with the whitelist, otherwise will throw errors on Test UI
+    /*
     tests: [
         "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295", //Behance oEmbed rich
         "http://www.behance.net/gallery/REACH/8080889", // Behance default, with '100%' height
         "http://list.ly/list/303-alternatives-to-twitter-bootstrap-html5-css3-responsive-framework" //oembed rich reader
     ]
+    */
 
 };

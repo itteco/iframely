@@ -84,6 +84,8 @@ See the list of [what Iframely might produce as meta](https://iframely.com/docs/
 
 Array values that only have one element will be wrapped as single object (i.e. without `[]`).
 
+**For open source users**: 
+*The API response format of [Iframely open-source](https://github.com/itteco/iframely) is a little different by default as it does not have the links array grouped by rel. This is for legacy reasons. To achieve exact same grouped response as in Cloud API, add `&group=true` to your request.*
 
 ## Optional request parameters
 

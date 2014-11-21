@@ -40,7 +40,7 @@ module.exports = {
 
             } else if (stream) {
 
-                return getStreamLinks(twitter, s, whitelistRecord);
+                return getStreamLinks(twitter, stream, whitelistRecord);
             }
         }
     }

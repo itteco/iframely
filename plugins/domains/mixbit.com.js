@@ -51,7 +51,7 @@ module.exports = {
             href: "https://mixbit.com/embed/" + mixbit.project_id,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": mixbit.video_width / mixbit.video_height
+            "aspect-ratio": mixbit.video_width ? (mixbit.video_width / mixbit.video_height) : (16 / 9)
         }];
     },
 

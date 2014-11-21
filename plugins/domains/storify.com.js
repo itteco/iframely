@@ -7,7 +7,7 @@ module.exports = {
     mixins: [
         "og-site",
         "og-image",
-        "twitter-player-responsive",
+        "twitter-player",
         "favicon"
     ],
 

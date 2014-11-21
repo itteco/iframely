@@ -31,13 +31,13 @@ module.exports = {
         return [doc, {
                 href: '//www.scribd.com/favicon.ico',
                 type: CONFIG.T.image,
-                rel: CONFIG.R.icon,
-        }]
+                rel: CONFIG.R.icon
+        }];
     },
 
     tests: [{
-        page: "http://www.scribd.com/collections/4201493/Best-of-Day",
-        selector: "a.booklink"
+        page: "https://www.scribd.com/books/scribd-selects",
+        selector: "a.doc_link.book_link"
     },
         "http://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013"
     ]

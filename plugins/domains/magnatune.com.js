@@ -73,7 +73,7 @@ module.exports = {
 
     tests: [{
         page: "http://magnatune.com/",
-        selector: "div[id^='row'] a"
+        selector: "ol li a:first-child"
     },
         "http://magnatune.com/artists/albums/sieber-hidden/",
         "http://magnatune.com/artists/albums/fallingyou-adore/lofi_play"

@@ -32,7 +32,6 @@ module.exports = {
     tests: [
         "http://appsumo.wistia.com/medias/fudkgyoejs",
         "http://convinceandconvert.wistia.com/medias/52lpg5691w?utm_campaign=Argyle+Social-2013-04&utm_medium=Argyle+Social&utm_source=General+Use&utm_term=2013-04-24-13-23-55",
-        "http://eleiapure.wistia.com/medias/o3z58wpwaj",
         "http://mcgallen.wistia.com/medias/3nd1iitk2s?embedType=seo"
     ]
 };

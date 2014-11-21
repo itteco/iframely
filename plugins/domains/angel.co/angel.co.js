@@ -32,7 +32,5 @@ module.exports = {
     tests: [{
         page: "https://angel.co/",
         selector: ".name a"
-    },
-        "https://angel.co/gumroad/jobs"
-    ]
+    }]
 };

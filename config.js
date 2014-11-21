@@ -25,6 +25,7 @@
         RESPONSE_TIMEOUT: 5 * 1000,
 
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
+        VERSION: version,
 
         T: {
             text_html: "text/html",
@@ -37,6 +38,7 @@
             image_icon: "image/icon",
             image_png: "image/png",
             image_svg: "image/svg",
+            image_gif: "image/gif",
             video_mp4: "video/mp4",
             video_ogg: "video/ogg"
         },
@@ -148,7 +150,11 @@
         }
     };
 
-    var local_config_path = path.resolve(__dirname, "config.local.js");
+    var local_config_path = path.resolve(
+      __dirname,
+      "config." + (process.env.NODE_ENV || "local") + ".js"
+    );
+
     if (fs.existsSync(local_config_path)) {
         var local = require(local_config_path);
         _.extend(config, local);

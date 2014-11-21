@@ -46,7 +46,7 @@ module.exports = {
 
         if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl) {
 
-            var type = CONFIG.T.text_html;
+            var type = CONFIG.T.maybe_text_html;
 
             if (schemaVideoObject.playerType) {
                 if (schemaVideoObject.playerType.toLowerCase().indexOf('Flash') > -1) {

@@ -11,7 +11,7 @@ module.exports = {
 
     getLink: function() {
         return {
-            href: '//d14f1fnryngsxt.cloudfront.net/images/icons/favicon_a015c4373ba7b3d975ea9a8648929200.ico',
+            href: '//d1v3v5jtx1iozq.cloudfront.net/images/icons/touchicon-144-a95f2d0d.png',
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
         }

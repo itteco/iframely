@@ -19,7 +19,7 @@ module.exports = {
     getLink: function (tumblr_post) {
         if (tumblr_post.thumbnail_url) {
             return;
-        };
+        }
 
         var $post = jquery('<div>').html(tumblr_post.body);
         var $images = $post.find('img');
@@ -37,6 +37,8 @@ module.exports = {
 
     getData: function (tumblr_post) {
 
+        if (!(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true)) return;
+
         if (tumblr_post.type !== "text") {
 
             var caption = jquery('<div>').html(tumblr_post.caption).text();
@@ -49,7 +51,6 @@ module.exports = {
     },
 
     tests: [
-        "http://blog.dribbble.com/post/83410866615",
         "http://asimpleweirdlass.tumblr.com/post/58054585454/nakakatakot-kanina-ang-dilim-sa-street-tapos",
         "http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more",
         "http://pin.it/gotOeRU",

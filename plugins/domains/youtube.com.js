@@ -130,7 +130,6 @@ module.exports = {
         feed: "http://gdata.youtube.com/feeds/api/videos"
     },
         "http://www.youtube.com/watch?v=etDRmrB9Css",
-        "http://www.youtube.com/embed/Q_uaI28LGJk",
-        "http://www.youtube.com/user/barclaysfootballtv?v=f82lmOZ_Zcg"
+        "http://www.youtube.com/embed/Q_uaI28LGJk"
     ]
 };

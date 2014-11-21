@@ -31,7 +31,6 @@ module.exports = {
         skipMixins: ['twitter-description']
     },
         "http://vube.com/De5tro/vE6XViQkTU/L/vote?t=s",
-        "http://vube.com/SHIBAN/u2QvJwDVmw?t=s",
-        "http://vube.com/trending/Brigitte+Wickens/9XVTD5KoaO?n=2&t=s"
+        "http://vube.com/SHIBAN/u2QvJwDVmw?t=s"
     ]
 };

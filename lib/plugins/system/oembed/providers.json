@@ -23,9 +23,9 @@
     {
         "name": "Scribd",
         "templates": [
-            "(www\\.)?scribd\\.com/doc/.*"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read)/(.*)"
         ],
-        "endpoint": "http://www.scribd.com/services/oembed"
+        "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
     {
         "name": "Viddler",
@@ -323,7 +323,8 @@
     {
         "name": "Behance",
         "templates": [
-            "www\\.behance\\.net/gallery/.*"
+            "www\\.behance\\.net/gallery/.*",
+            "\\w+\\.\\w+\\.\\w+/gallery/[\\w-]+/\\d+"
         ],
         "endpoint": "http://www.behance.net/services/oembed"
     },
@@ -354,6 +355,19 @@
             "issuu\\.com/.*"
         ],
         "endpoint": "http://issuu.com/oembed"
-    }    
-
+    },
+    {
+        "name": "Droplr",
+        "templates": [
+            "d.pr/i/.*"
+        ],
+        "endpoint": "http://d.pr/oembed"
+    },
+    {
+        "name": "Vine",
+        "templates": [
+            "vine.co/v/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "https://vine.co/oembed/{1}.{format}"
+    }
 ]
