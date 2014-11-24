@@ -14,7 +14,9 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(url, meta) {
+    getLink: function(url, meta, cb) {
+
+        if (meta["html-title"] == "Error | VK") cb ({responseStatusCode: 403});
 
         var video_url = (meta.og && meta.og.video && meta.og.video.url) || url; //for direct links to VK videos
 
@@ -26,12 +28,12 @@ module.exports = {
 
         var aspect = (meta.og && meta.og.video && meta.og.video.height) ? meta.og.video.width / meta.og.video.height : 4/3;
 
-        return {
-                href: "//vk.com/video_ext.php?oid=" + oid[1] + "&id=" + vid[1] + "&hash=" + hash[1] + "&hd=1",
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": aspect
-            };
+        cb (null, {
+            href: "//vk.com/video_ext.php?oid=" + oid[1] + "&id=" + vid[1] + "&hash=" + hash[1] + "&hd=1",
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
+            "aspect-ratio": aspect
+        });
     },
 
     tests: [
