@@ -4,7 +4,7 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
         href: stream.value || stream,
-        type: stream.type || CONFIG.T.video_mp4,
+        type: stream.content_type || CONFIG.T.video_mp4,
         rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
         width: stream.width,
         height: stream.height
