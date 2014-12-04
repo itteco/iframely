@@ -68,6 +68,8 @@ We highly recommend using [Forever](https://github.com/nodejitsu/forever) though
     forever start -l iframely.log cluster.js
 
 
+For production deployments, we recommend the cluster mode. It will properly utilize the CPU if you are on multiple cores. Plus, as with any Node.js memory buffers, it is beneficial for performance to peridically restart the running processes.
+
 
 ## Add Required Locations to Your Reverse Proxy
 
@@ -86,9 +88,10 @@ Depending on your setup, you may need to configure these pathes in your reverse 
 
 ## Update Iframely
 
-Please, update Iframely Gateway as we keep adding features or releasing fixes. 
+Please, keep Iframely up-to-date as we keep adding features or releasing fixes. 
 
-The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
+
+Custom domain plugins may be returning invalid data if your Iframely instance is obsolete. The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
 
 
 To update Iframely package to its latest version run from Iframely home directory:
@@ -99,6 +102,7 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 
     forever restartall
 
+If you fork, make sure to merge from the upstream for the newer versions.
 
 
 ## Extend functionality with Domains DB
