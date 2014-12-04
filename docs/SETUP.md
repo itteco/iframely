@@ -1,6 +1,8 @@
 # Deploy Iframely Gateway to Your Own Servers
 
-For rapid development, you can implement against community endpoint on [iframely.com](https://iframely.com). Deploy to your own hardware, when it's time to take it live.
+The source-code of [Iframely APIs](https://iframely.com) is hosted [on GitHub](https://github.com/itteco/iframely). It's the Node.js code published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of hosted widgets via [Short URLs](https://iframely.com/docs/url-shortener)).
+
+Here are the instructions to get your instance of APIs up and running.
 
 ## Stay Secure - Host on Dedicated Domain
 
@@ -21,8 +23,6 @@ Node.js version 0.8 and higher is required (was tested up to 0.10). Install it f
 
 It will also install all the package dependencies.
 
-If you're using Mac OS, you might need to install [ImageMagic CLI](http://www.imagemagick.org/script/binary-releases.php#macosx) tools to make image size detection work. 
-
 
 ## Configure Iframely
 
@@ -40,12 +40,15 @@ At the very least, you need to properly configure:
 - If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
 - `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
 
-The important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the gateway with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers,meta and thumbnails ones only. See the [record format description](https://iframely.com/qa/format).
 
-There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable.
+If you got Iframely whitelist with [Domains DB](https://iframely.com/qa), configure the direct link to it as `WHITELIST_URL`. (Default points to Top 100 domains list).
 
-You can also fine-tune API response time by disabling image size detection or readability parser. 
+Otherwise, the important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the generic parsers with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers, meta and thumbnails ones only. See the [record format description](https://iframely.com/qa/format).
 
+There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable. Parsers for Twitter, Flickr and Tumblr won't work without the access tokens to their APIs.
+
+
+Readability parser to get the HTML of the articles is optional and is turned off by default as it affects the processing time of the URLs. If need be, you can also fine-tune API response time by disabling image size detection.
 
 
 ## Run Server
@@ -62,7 +65,7 @@ To run server in cluster mode, use
 We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
     npm install -g forever
-    forever start -l iframely.log server.js
+    forever start -l iframely.log cluster.js
 
 
 
