@@ -66,7 +66,8 @@ module.exports = function(app) {
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
+                    promoUri: req.query.promoUri
                 }, cb);
             }
 
