@@ -43,7 +43,15 @@
             video_ogg: "video/ogg"
         },
 
+        PROMO_RELS: [
+            "app",
+            "player",
+            "survey",
+            "image"
+        ],
+
         REL_GROUPS: [
+            "promo",
             "app",
             "player",
             "survey",
