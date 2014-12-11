@@ -4,11 +4,18 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
         href: stream.value || stream,
-        type: stream.content_type || CONFIG.T.video_mp4,
+        type: stream.content_type,
         rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
         width: stream.width,
         height: stream.height
     };
+
+    if (player.type !== "video/mp4"
+        && player.type !== "video/webm"
+        && player.type !== "video/ogg") {
+
+        player.type = CONFIG.T.video_mp4;
+    }
 
     if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.width && twitter.player.height) {
         player['aspect-ratio'] = twitter.player.width / twitter.player.height;
