@@ -47,7 +47,8 @@
             "app",
             "player",
             "survey",
-            "image"
+            "image",
+            "thumbnail"
         ],
 
         REL_GROUPS: [
@@ -95,7 +96,9 @@
             ssl: "ssl",
 
             autoplay: "autoplay",
-            html5: "html5"
+            html5: "html5",
+
+            promo: "promo"
         },
 
         // Whitelist settings.
