@@ -10,7 +10,7 @@ module.exports = {
 
     getLink: function(twitter) {
         return {
-            href: twitter.player.stream[0],
+            href: twitter.player.stream[1].value,
             type: CONFIG.T.video_webm,
             rel: [CONFIG.R.player, CONFIG.R.gifv],
             width: twitter.player.width,
