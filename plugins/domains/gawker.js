@@ -1,7 +1,5 @@
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     re: [
         /^https?:\/\/(\w+\.)?lifehacker\.com\/[a-z0-9\-]+/i,
         /^https?:\/\/(\w+\.)?gawker\.com\/[a-z0-9\-]+/i,
@@ -27,7 +25,7 @@ module.exports = {
         "og-title"
     ],
 
-    getData: function(meta, cheerio) {
+    getData: function(meta, cheerio, readabilityEnabled) {
 
         var $html = cheerio('div.post-content');
 
