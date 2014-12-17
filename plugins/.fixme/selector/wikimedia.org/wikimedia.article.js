@@ -1,19 +1,17 @@
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     mixins: [
         "copyright",
         "favicon"
     ],
 
-    getMeta: function(cheerio) {
+    getMeta: function(cheerio, readabilityEnabled) {
         return  {
             title: cheerio("#firstHeading").text()
         }
     },
 
-    getLinks: function(cheerio) {
+    getLinks: function(cheerio, readabilityEnabled) {
 
         var links = [];
 

@@ -2,8 +2,6 @@ var re = /^http:\/\/theoatmeal\.com\/comics\/[a-z0-9_-]+/i;
 
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     re: re,
 
     mixins: [
@@ -11,13 +9,13 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function(meta) {
+    getMeta: function(meta, readabilityEnabled) {
         return {
             title: meta["html-title"].replace(" - The Oatmeal", "")
         };
     },
 
-    getLink: function(cheerio) {
+    getLink: function(cheerio, readabilityEnabled) {
 
         var $comic = cheerio('#comic');
 

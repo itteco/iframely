@@ -35,9 +35,7 @@ module.exports = {
         }
     },
 
-    getData: function (tumblr_post) {
-
-        if (!(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true)) return;
+    getData: function (tumblr_post, readabilityEnabled) {
 
         if (tumblr_post.type !== "text") {
 

@@ -2,8 +2,6 @@ var utils = require('../../../lib/utils');
 
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     getData: function(readability, meta, __enable_readability) {
 
         return {

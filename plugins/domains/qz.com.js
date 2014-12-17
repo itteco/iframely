@@ -1,7 +1,5 @@
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     mixins: [
         "oembed-author",
         "oembed-site",
@@ -10,7 +8,7 @@ module.exports = {
         "oembed-thumbnail"
     ],
 
-    getLinks: function(oembed) {
+    getLinks: function(oembed, readabilityEnabled) {
 
         return [
 
@@ -34,7 +32,7 @@ module.exports = {
         }]
     },
 
-    getData: function(oembed) {
+    getData: function(oembed, readabilityEnabled) {
 
         var html = oembed.html;
 
@@ -44,7 +42,7 @@ module.exports = {
 
         // Reader.
         return {
-            safe_html: html,
+            safe_html: html
         };
     },
 

@@ -1,7 +1,5 @@
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     re: /^http:\/\/theoatmeal\.com\/blog\/[a-z0-9_-]+/i,
 
     mixins: [
@@ -11,7 +9,7 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function(cheerio) {
+    getLink: function(cheerio, readabilityEnabled) {
 
         var $body = cheerio('.post_body');
         var text = $body.text();
