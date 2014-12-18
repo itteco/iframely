@@ -45,9 +45,7 @@
         },
 
         PROMO_RELS: [
-            "app",
             "player",
-            "survey",
             "image",
             "thumbnail"
         ],
