@@ -1,28 +1,16 @@
 module.exports = {
 
-    re: /https?:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png)$/i,
+    re: /https?:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png|gifv)$/i,
 
-    getMeta: function(urlMatch) {
-        return {
-            title: urlMatch[1] + "- Imgur",
-            site: "Imgur"
-        };
+    getLink: function(urlMatch, cb) {
+
+        cb ({
+            redirect: "http://imgur.com/" + urlMatch[1]
+        });
     },
 
-    getLinks: function(url) {
-
-        return [{
-            href: url.replace("http:", ""),
-            type: CONFIG.T.image,
-            rel: [CONFIG.R.image, CONFIG.R.thumbnail],
-        }, {
-            href: "//imgur.com/favicon.ico",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon
-        }];
-    },    
-
     tests: [
-        "https://i.imgur.com/F5iTjVS.jpg"
+        "https://i.imgur.com/F5iTjVS.jpg",
+        "http://i.imgur.com/mtfSGqo.gifv"
     ]
 };
