@@ -3,7 +3,7 @@ module.exports = {
     provides: "schemaFileObject",
 
     re: [
-        /https:\/\/docs\.google\.com\/(forms|document|presentation|file)\/d\//i
+        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|file)\/d\//i
     ],
 
     mixins: [
