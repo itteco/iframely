@@ -67,7 +67,8 @@ module.exports = function(app) {
                     whitelist: getBooleanParam(req, 'whitelist'),
                     readability: getBooleanParam(req, 'readability'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
+                    promoUri: req.query.promoUri
                 }, cb);
             }
 

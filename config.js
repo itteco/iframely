@@ -40,10 +40,18 @@
             image_svg: "image/svg",
             image_gif: "image/gif",
             video_mp4: "video/mp4",
-            video_ogg: "video/ogg"
+            video_ogg: "video/ogg",
+            video_webm: "video/webm"
         },
 
+        PROMO_RELS: [
+            "player",
+            "image",
+            "thumbnail"
+        ],
+
         REL_GROUPS: [
+            "promo",
             "app",
             "player",
             "survey",
@@ -87,7 +95,10 @@
             ssl: "ssl",
 
             autoplay: "autoplay",
-            html5: "html5"
+            html5: "html5",
+            gifv: "gifv",
+
+            promo: "promo"
         },
 
         // Whitelist settings.

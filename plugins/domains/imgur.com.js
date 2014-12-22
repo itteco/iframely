@@ -27,7 +27,7 @@ module.exports = {
             links.push({
                 href: v.url.replace("http://", "//"),
                 type: v.type,
-                rel: [CONFIG.R.player, CONFIG.R.og],
+                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.gifv],
                 width: v.width,
                 height: v.height
             });
