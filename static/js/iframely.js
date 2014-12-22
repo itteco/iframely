@@ -331,7 +331,7 @@
                         }
                     }
 
-                    var hasPromo = filterLinks(iframelyData.links, function(link) {
+                    var hasPromo = $.iframely.filterLinks(iframelyData.links, function(link) {
                         return link.rel.indexOf('promo') > -1;
                     }).length;
 
