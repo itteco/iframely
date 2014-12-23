@@ -10,15 +10,20 @@ module.exports = {
         "favicon",
         "og-title",
         "og-image",
-        "og-description"
+        "og-description",
+        "twitter-player-responsive"
     ],
 
     getMeta: function (schemaFileObject) {
 
         return {
             title: schemaFileObject.name,
-            canonical: schemaFileObject.url,
             site: "Google Docs"
+
+            // Silence canonical to bypass the validation and allow player.href=canonical
+            // Especially for video files and presentations:
+
+            // canonical: schemaFileObject.url
         }
 
     },
@@ -34,7 +39,9 @@ module.exports = {
             };            
 
             if (schemaFileObject.playerType) {
-                file.rel.push(CONFIG.R.player);
+                // file.rel.push(CONFIG.R.player);
+                // There is a problem with player as embedURL: x-frame-options is SAMEORIGIN
+                return;
             } 
 
             if (urlMatch[1] === "forms" || urlMatch[1] === "document" ) {
@@ -87,11 +94,13 @@ module.exports = {
         "https://docs.google.com/document/d/17jg1RRL3RI969cLwbKBIcoGDsPwqaEdBxafGNYGwiY4/preview?sle=true",
         "https://docs.google.com/document/d/1KHLQiZkTFvMvBHmYgntEQtNxXswOQISjkbpnRO3jLrk/edit",
         "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/edit#slide=id.p",
+        "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/preview",
         "https://docs.google.com/forms/d/1mJcBz16JAfxomVXIohDJv8w-AJw8t-jhAd1HgIwTlF8/viewform?c=0&w=1",
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
+        "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
         {
             skipMixins: [
-                "og-image", "og-title", "og-description"
+                "og-image", "og-title", "og-description", "twitter-player-responsive"
             ]
         }
 
