@@ -13,9 +13,9 @@ module.exports = {
         "og-title"
     ],    
 
-    getLink: function(url, og, options) {
+    getLink: function(url, twitter, options) {
 
-        if (og.type !== 'pinterestapp:pinboard') {
+        if (twitter.app && twitter.app.iphone && twitter.app.iphone.indexOf('board/') == -1) {
             return;
         }
 
@@ -41,6 +41,7 @@ module.exports = {
         noFeeds: true
     },
         "http://pinterest.com/bcij/art-mosaics/",
-        "http://pinterest.com/bcij/aging-gracefully/"
+        "http://pinterest.com/bcij/aging-gracefully/",
+        "https://www.pinterest.com/mimimememe/office-humor-work-jokes/"
     ]
 };
