@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /^https:\/\/www\.indiegogo\.com\/projects\/([\w-]+)/i,
+    re: [
+        /^https:\/\/www\.indiegogo\.com\/projects\/([\w-]+)/i,
+        /^https:\/\/life\.indiegogo\.com\/fundraisers\/([\w-]+)/i
+    ],
 
     mixins: [
         "og-site",
