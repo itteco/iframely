@@ -1,4 +1,4 @@
-# Deploy Iframely Gateway to Your Own Servers
+# Deploy Iframely to Your Own Servers
 
 The source-code of [Iframely APIs](https://iframely.com) is hosted [on GitHub](https://github.com/itteco/iframely). It's the Node.js code published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of hosted widgets via [Short URLs](https://iframely.com/docs/url-shortener)).
 
@@ -6,7 +6,7 @@ Here are the instructions to get your instance of APIs up and running.
 
 ## Stay Secure - Host on Dedicated Domain
 
-It is highly recommended that you install [Iframely Open-Source](https://iframely.com/get) on a dedicated domain. 
+It is highly recommended that you install the parsers on a dedicated domain. 
 
 There are few cases, when rendering of embed content is required by the server, for example the articles. Even though Iframely tries to detect and eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see config options below).
 
