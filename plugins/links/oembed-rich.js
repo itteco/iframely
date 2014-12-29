@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var cheerio = require('cheerio');
 
 module.exports = {
 
@@ -25,7 +25,7 @@ module.exports = {
             type: CONFIG.T.text_html
         };
 
-        var $container = jquery('<div>');
+        var $container = cheerio('<div>');
         try {
             $container.html(oembed.html5 || oembed.html);
         } catch (ex) {}
