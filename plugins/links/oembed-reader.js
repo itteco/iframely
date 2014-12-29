@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(oembed, whitelistRecord, readabilityEnabled) {
 
-        if (oembed.type === "link" && oembed.html && whitelistRecord && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
+        if (oembed.type === "link" && oembed.html && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.link', "reader")) {
             
             return {
                 html: oembed.html,

@@ -11,7 +11,7 @@ function getVideoLinks(video, whitelistRecord) {
         height: video.height
     }];
 
-    if (!whitelistRecord || whitelistRecord.isAllowed('og.video', 'ssl')) {
+    if (whitelistRecord.isAllowed('og.video', 'ssl')) {
         players.push({
             href: video.secure_url,
             type: video.type || CONFIG.T.maybe_text_html,
@@ -28,7 +28,7 @@ module.exports = {
 
     getLinks: function(og, whitelistRecord) {
 
-        if (og.video && (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')))) {
+        if (og.video && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {
 
             if (og.video instanceof Array) {
 

@@ -17,14 +17,14 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
         player.type = CONFIG.T.video_mp4;
     }
 
-    if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.width && twitter.player.height) {
+    if (whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.width && twitter.player.height) {
         player['aspect-ratio'] = twitter.player.width / twitter.player.height;
     } else {
         player.width = twitter.player.width;
         player.height = twitter.player.height;
     }
 
-    if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'autoplay')) {
+    if (whitelistRecord.isAllowed('twitter.stream', 'autoplay')) {
         player.rel.push(CONFIG.R.autoplay);
     }
 
@@ -35,7 +35,7 @@ module.exports = {
 
     getLink: function(twitter, whitelistRecord) {
 
-        if (twitter.player && twitter.player.stream && (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.stream')))) {
+        if (twitter.player && twitter.player.stream && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.stream')) {
 
             var stream = twitter.player.stream;
 

@@ -5,7 +5,7 @@ module.exports = {
     getLink: function(oembed, whitelistRecord) {
 
 
-        if (!(oembed.type === "rich" && whitelistRecord && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich'))) {
+        if (!(oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich'))) {
             return;
         }
 
@@ -37,7 +37,7 @@ module.exports = {
 
             widget.href = $iframe.attr('src');
 
-            if (whitelistRecord && whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
+            if (whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
                 widget.href = widget.href.replace(/^http:\/\//i, '//');
             }
         

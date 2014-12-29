@@ -9,7 +9,7 @@ module.exports = {
         var links = [];
 
 
-        if (whitelistRecord && twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
+        if (twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             rel.push(CONFIG.R.image);
 
             if (twitter.image && (twitter.image.url || twitter.image.src || (typeof twitter.image === 'string'))) {

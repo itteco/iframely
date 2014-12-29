@@ -5,7 +5,7 @@ module.exports = {
     getLink: function(oembed, whitelistRecord) {
 
 
-        if (!(oembed.type === "video" && whitelistRecord && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video'))) {
+        if (!(oembed.type === "video" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video'))) {
             return;
         }
 
@@ -27,7 +27,7 @@ module.exports = {
         if ($iframe.length == 1) {
             player.href = $iframe.attr('src');
 
-            if (whitelistRecord && whitelistRecord.isAllowed('oembed.video', 'ssl')) {
+            if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
                 player.href = player.href.replace(/^http:\/\//i, '//');
             }
 
