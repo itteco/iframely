@@ -5,7 +5,6 @@ module.exports = {
     mixins: [
         "og-site",
         "og-image",
-        "image_src",
         "canonical",
         "favicon",
         "twitter-description",
@@ -25,8 +24,6 @@ module.exports = {
 
     tests: [{
         pageWithFeed: 'https://www.indiegogo.com'
-    }, {
-        skipMixins: ['image_src']
     },
         "https://www.indiegogo.com/projects/the-intel-80386-and-80486/"
     ]

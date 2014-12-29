@@ -5,13 +5,12 @@ module.exports = {
     re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-z0-9]+)\/([\w\-]+)\/?(?:$|\?|#)/i,
 
     mixins: [
-        "og-image",
         "favicon",
         "canonical",
-        "twitter-description",
+        "description",
         "og-site",
-        "og-title"
-    ],    
+        "html-title"
+    ],
 
     getLink: function(url, twitter, options) {
 

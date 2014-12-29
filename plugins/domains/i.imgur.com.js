@@ -9,8 +9,7 @@ module.exports = {
         });
     },
 
-    tests: [
-        "https://i.imgur.com/F5iTjVS.jpg",
-        "http://i.imgur.com/mtfSGqo.gifv"
-    ]
+    tests: [{
+        noFeeds: true
+    }]
 };

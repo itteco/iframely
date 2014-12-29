@@ -6,7 +6,7 @@ module.exports = {
         "canonical",
         "description",
         "shortlink",
-        "dc-title"
+        "twitter-title"
     ],
 
     getLinks: function(meta) {
@@ -34,13 +34,13 @@ module.exports = {
     },
 
     tests: [{
-        pageWithFeed: "http://visual.ly/"
+        noFeed: true,
+        skipMixins: [
+            "description"
+        ]
     },
-        "http://visual.ly/spring-cleaning-improve-energy-efficiency",
-        {
-            skipMixins: [
-                "description"
-            ]
-        }
+        "http://visual.ly/marketer%E2%80%99s-guide-pinterest-video",
+        "http://visual.ly/causes",
+        "http://visual.ly/spring-cleaning-improve-energy-efficiency"
     ]
 };
