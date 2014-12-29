@@ -38,7 +38,7 @@ module.exports = {
 
         if (oembed.thumbnail_url) {
             html = '<img src="' + oembed.thumbnail_url + '" /><br><br>' + html;
-        }        
+        }
 
         // Reader.
         return {

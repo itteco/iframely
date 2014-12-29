@@ -325,6 +325,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         // Search unused methods.
                         var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
+
                         // Error on mandatory methods.
                         if (unusedMethods.mandatory.length > 0) {
                             logEntry.errors = logEntry.errors || [];
@@ -358,7 +359,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                 }, CONFIG.tests.single_test_timeout);
 
                 iframely(url, {
-                    debug: true
+                    debug: true,
+                    readability: true
                 }, callback);
 
             }, cb);

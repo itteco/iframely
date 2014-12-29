@@ -101,6 +101,9 @@ module.exports = {
         {
             skipMixins: [
                 "og-image", "og-title", "og-description", "twitter-player-responsive"
+            ],
+            skipMethods: [
+                "getLink"
             ]
         }
 
