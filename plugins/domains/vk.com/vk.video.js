@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/vk\.com\/video/i
+        /^https?:\/\/vk\.com\/video/i,
+        /^https?:\/\/m\.vk\.com\/video/i
     ],
 
     mixins: [
@@ -27,7 +28,7 @@ module.exports = {
         var hash = video_url.match(/embed\_hash=([\-_a-zA-Z0-9]+)/) || video_url.match(/hash=([\-_a-zA-Z0-9]+)/);
 
         if (!oid || !vid || !hash) {
-            return cb(null, null);
+            return cb({responseStatusCode: 403});
         }
 
         var aspect = (meta.og && meta.og.video && meta.og.video.height) ? meta.og.video.width / meta.og.video.height : 4/3;
@@ -38,10 +39,5 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": aspect
         });
-    },
-
-    tests: [
-        "http://vk.com/video-27646396_169400815"
-        // "http://vk.com/video_ext.php?oid=5574528&id=163176972&hash=9da191f48fc6ce1d&hd=1" - direct video link
-    ]
+    }
 };
