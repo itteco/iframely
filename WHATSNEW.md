@@ -17,7 +17,10 @@ Other changes in this version:
  - Gfycat is a new embeds provider (with `gifv` player)
  - HBR.org, tudou.com, forgifs.com, Google Drive - also added as new providers
  - As whitelist is available to everyone now, we removed some of domains that are covered all right by generic parsers
+ - Whitelist now works for hosted oEmbed domains too. It looks at oEmbed discovery and if no domain record found, adds one by API domain. It coveres, for example, all custom domains of SmugMug, WordPress and Behance.
  - Number of domains have been cleaned up. Pinterest boards, for one. 
+
+ Cheerio library has been updated to a newer version. Please, `npm update`.
 
 
  Happy 2015 again! And thanks for all your support in 2014!
