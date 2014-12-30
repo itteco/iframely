@@ -113,7 +113,7 @@ module.exports = {
         }
 
         // Apply whitelist except for thumbnails.
-        if (whitelistRecord && rels.indexOf('thumbnail') === -1) {
+        if (rels.indexOf('thumbnail') === -1) {
             var tags = whitelistRecord.getQATags({}, rels);
             if (tags.indexOf('allow') === -1) {
                 return [];

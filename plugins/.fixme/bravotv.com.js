@@ -26,7 +26,7 @@ module.exports = {
     },
 
     tests: [
-    "http://www.bravotv.com/inside-the-actors-studio/season-20/videos/matthew-mcconaughey-biggest-personal-moment",
+        "http://www.bravotv.com/inside-the-actors-studio/season-20/videos/matthew-mcconaughey-biggest-personal-moment",
     {
         page: "http://www.bravotv.com/videos",
         selector: ".post .video a"

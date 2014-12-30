@@ -13,18 +13,26 @@ module.exports = {
         "oembed-video-responsive"
     ],
 
-    getLink: function () {
+    getLink: function (url, cb) { 
 
-        return {
-            href: "http://static1.dmcdn.net/images/apple-touch-icon.png.vcbf86c6fe83fbbe11",
-            type: CONFIG.T.image_icon,
-            rel: CONFIG.R.icon
+        if (url.match(/^https?:\/\/www\.dailymotion\.com\/swf\/video\//i)) {
+            cb ({
+                redirect: url.replace(/\/swf/, '')
+            })
+            
+        } else {
+            cb(null, {
+                href: "http://static1.dmcdn.net/images/apple-touch-icon.png.vcbf86c6fe83fbbe11",
+                type: CONFIG.T.image_icon,
+                rel: CONFIG.R.icon
+            });
         }
-
     },
 
     tests: [ 
         "http://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
-        "http://www.dailymotion.com/video/xryxxi_best-maid-ever_redband" // age-restricted
+        "http://www.dailymotion.com/video/xryxxi_best-maid-ever_redband", // age-restricted
+        "http://www.dailymotion.com/swf/video/xcv6dv_pixels-by-patrick-jean_creation",
+        "http://www.dailymotion.com/embed/video/xcv6dv_pixels-by-patrick-jean_creation"
     ]
 };

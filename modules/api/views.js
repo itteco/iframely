@@ -65,8 +65,10 @@ module.exports = function(app) {
                     mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
+                    readability: getBooleanParam(req, 'readability'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
+                    promoUri: req.query.promoUri
                 }, cb);
             }
 
@@ -190,7 +192,8 @@ module.exports = function(app) {
                 cache.withCache('html:' + version + ':' + uri, function(cb) {
 
                     iframelyCore.run(uri, {
-                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                        readability: true
                     }, function(error, data) {
 
                         if (!data || !data.safe_html) {

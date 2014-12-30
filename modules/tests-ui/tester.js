@@ -12,10 +12,10 @@ var async = require('async');
 var _ = require('underscore');
 
 var models = require('./models');
-
-var iframely = require('../../lib/core').run;
 var utils = require('./utils');
 
+var iframely = require('../../lib/core').run;
+var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var plugins = pluginLoader._plugins;
 
@@ -325,6 +325,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         // Search unused methods.
                         var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
+
                         // Error on mandatory methods.
                         if (unusedMethods.mandatory.length > 0) {
                             logEntry.errors = logEntry.errors || [];
@@ -358,7 +359,9 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                 }, CONFIG.tests.single_test_timeout);
 
                 iframely(url, {
-                    debug: true
+                    debug: true,
+                    readability: true,
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor
                 }, callback);
 
             }, cb);

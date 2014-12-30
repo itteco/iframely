@@ -5,7 +5,7 @@ module.exports = {
     mixins: [
         "og-title",
         "canonical",
-        "site",
+        "og-site",
         "twitter-description",
         "twitter-author",
 

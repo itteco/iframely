@@ -1,10 +1,12 @@
-# Deploy Iframely Gateway to Your Own Servers
+# Deploy Iframely to Your Own Servers
 
-For rapid development, you can implement against community endpoint on [iframely.com](https://iframely.com). Deploy to your own hardware, when it's time to take it live.
+The source-code of [Iframely APIs](https://iframely.com) is hosted [on GitHub](https://github.com/itteco/iframely). It's the Node.js code published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of hosted widgets via [Short URLs](https://iframely.com/docs/url-shortener)).
+
+Here are the instructions to get your instance of APIs up and running.
 
 ## Stay Secure - Host on Dedicated Domain
 
-It is highly recommended that you install [Iframely Open-Source](https://iframely.com/get) on a dedicated domain. 
+It is highly recommended that you install the parsers on a dedicated domain. 
 
 There are few cases, when rendering of embed content is required by the server, for example the articles. Even though Iframely tries to detect and eliminate any insecure code of 3rd parties, for cross-domain security of your application, it will be wiser to keep render endpoints under different domain and allow your main domain in CORS settings (see config options below).
 
@@ -20,8 +22,6 @@ Node.js version 0.8 and higher is required (was tested up to 0.10). Install it f
     npm install
 
 It will also install all the package dependencies.
-
-If you're using Mac OS, you might need to install [ImageMagic CLI](http://www.imagemagick.org/script/binary-releases.php#macosx) tools to make image size detection work. 
 
 
 ## Configure Iframely
@@ -40,12 +40,23 @@ At the very least, you need to properly configure:
 - If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
 - `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
 
-The important piece to configure is `WHITELIST_WILDCARD`. This record indicates the default behavior of the the gateway with regards to various embeds protocols and types. For example, you can allow or deny Open Graph videos, any oEmbed types or Twitter Players. If you leave this record empty or omit it alltogether, no additional rich parsers will be enabled, leaving domain providers,meta and thumbnails ones only. See the [record format description](https://iframely.com/qa/format).
 
-There are also some provider-specific values you might want to configure (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable.
+There are also some provider-specific values that are required for some domain plugins to work (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable. Parsers for Twitter, Flickr and Tumblr won't work without the access tokens to their APIs.
 
-You can also fine-tune API response time by disabling image size detection or readability parser. 
 
+Readability parser to get the HTML of the articles is optional and is turned off by default as it affects the processing time of the URLs. If need be, you can also fine-tune API response time by disabling image size detection.
+
+## Configure cache storage
+
+Iframely has built-in cache with support of Memcached, Redis and Node.js in-memory cache module. 
+
+In your local config file, define caching parameters:
+
+        CACHE_ENGINE: 'redis',
+        CACHE_TTL: 0, // In milliseconds. 0 for 'never expire' to let cache engine decide itself when to evict the record
+
+
+Valid cache engine values are `no-cache`, `node-cache` (default), `redis` and `memcached`. For Redis and Memcached, the connection options are also required. See sample config file.
 
 
 ## Run Server
@@ -62,8 +73,10 @@ To run server in cluster mode, use
 We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
     npm install -g forever
-    forever start -l iframely.log server.js
+    forever start -l iframely.log cluster.js
 
+
+For production deployments, we recommend the cluster mode. It will properly utilize the CPU if you are on multiple cores. Plus, as with any Node.js memory buffers, it is beneficial for performance to peridically restart the running processes.
 
 
 ## Add Required Locations to Your Reverse Proxy
@@ -71,9 +84,9 @@ We highly recommend using [Forever](https://github.com/nodejitsu/forever) though
 Depending on your setup, you may need to configure these pathes in your reverse proxy settings to point to Iframely's Node.js instance:
 
     /r/.+               -- static files (including iframely.js client library)
-    /iframely           -- main API endpoint with get params - returns oEmbed/2 as JSON
-    /oembed             -- wrapper around main API. Returns oEmbed v1 JSON and other meta
-    /debug              -- optional debugger UI with get params
+    /iframely           -- main API endpoint with get params 
+    /oembed             -- oEmbed API endpoint
+    /debug              -- optional debugger UI, if you write your own domain plugins
     /reader.js          -- API endpoint with get params - proxies script to render article
     /render             -- API endpoint with get params - prexies custom widgets if required
     /meta-mappings      -- optional API endpoint with available unified meta
@@ -83,9 +96,10 @@ Depending on your setup, you may need to configure these pathes in your reverse 
 
 ## Update Iframely
 
-Please, update Iframely Gateway as we keep adding features or releasing fixes. 
+Please, keep Iframely up-to-date as we keep adding features or releasing fixes. 
 
-The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
+
+Custom domain plugins may be returning invalid data if your Iframely instance is obsolete. The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
 
 
 To update Iframely package to its latest version run from Iframely home directory:
@@ -96,18 +110,8 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 
     forever restartall
 
-
-
-## Extend functionality with Domains DB
-
-You can greatly extend gateway functionality without writting additional plugins. Just upload Domains DB JSON file into `whitelist` folder and Iframely will start covering extra domains, generating responsive players, twitter photos, etc via generic plugins.
-
-The file name is expected to be of "iframely-*.json" pattern. Lastest filename uploaded to this directory prevails. 
-
-You can get whitelist file with over 1600 domains at [iframely.com/qa/buy](https://iframely.com/qa/buy). Setting `WHITELIST_URL` in config file to your personal access URL will instruct Iframely to load domains DB from the server periodically. If neither local file nor `WHITELIST_URL` are provided, Iframely will use a free file with top 100 domains from [iframely.com/qa/top100.json](http://iframely.com/qa/top100.json). 
-
-If you wish to create your own whitelist, please, follow [required file format](http://iframely.com/qa/format).
+If you fork, make sure to merge from the upstream for the newer versions.
 
 
 
-(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
+(c) 2013-2015 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

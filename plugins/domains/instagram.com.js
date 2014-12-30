@@ -49,7 +49,15 @@ module.exports = {
 
         if (meta.og && meta.og.video) {
             links.push({
-                href: meta.og.video.url || meta.og.video,
+                href: meta.og.video.url,
+                type: meta.og.video.type || CONFIG.T.maybe_text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                "aspect-ratio": meta.og.video.width / meta.og.video.height,
+                "max-width": meta.og.video.width,
+                "max-height": meta.og.video.height
+            });
+            links.push({
+                href: meta.og.video.secure_url,
                 type: meta.og.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height,

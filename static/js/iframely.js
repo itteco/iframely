@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.7.1
+     Version 0.7.2
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -301,7 +301,10 @@
 
                 var iframelyData = options && options.iframelyData;
 
-                var $video = $('<video controls' + (data.rel.indexOf('autoplay') > -1 ? ' autoplay' : '') + '>Your browser does not support HTML5 video.</video>');
+                var givf = data.rel.indexOf('gifv') > -1;
+                var autoplay = data.rel.indexOf('autoplay') > -1 || givf;
+
+                var $video = $('<video' + (givf ? ' loop muted' : ' controls') + (autoplay ? ' autoplay' : '') + '>Your browser does not support HTML5 video.</video>');
 
                 if (iframelyData && iframelyData.links) {
 
@@ -328,9 +331,18 @@
                         }
                     }
 
+                    var hasPromo = $.iframely.filterLinks(iframelyData.links, function(link) {
+                        return link.rel.indexOf('promo') > -1;
+                    }).length;
+
                     // Find images with same aspect.
                     var thumbnails = $.iframely.filterLinks(iframelyData.links, function(link) {
-                        if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1)) {
+
+                        if (hasPromo && link.rel.indexOf('promo') === -1) {
+                            return;
+                        }
+
+                        if (renders["image"].test(link) && (link.rel.indexOf('thumbnail') > -1 || link.rel.indexOf('image') > -1) && link.type.indexOf('gif') === -1 && !link.href.match(/\.gif(?:[#\?].*)?$/i)) {
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
                                 var imgAspect = m.width / m.height;

@@ -1,7 +1,5 @@
 module.exports = {
 
-    notPlugin:  !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.enabled === true),
-
     mixins: [
         "wikimedia.article"
     ],

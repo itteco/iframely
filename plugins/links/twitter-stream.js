@@ -4,20 +4,27 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
         href: stream.value || stream,
-        type: stream.type || CONFIG.T.video_mp4,
+        type: stream.content_type,
         rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
         width: stream.width,
         height: stream.height
     };
 
-    if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.width && twitter.player.height) {
+    if (player.type !== "video/mp4"
+        && player.type !== "video/webm"
+        && player.type !== "video/ogg") {
+
+        player.type = CONFIG.T.video_mp4;
+    }
+
+    if (whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.width && twitter.player.height) {
         player['aspect-ratio'] = twitter.player.width / twitter.player.height;
     } else {
         player.width = twitter.player.width;
         player.height = twitter.player.height;
     }
 
-    if (whitelistRecord && whitelistRecord.isAllowed('twitter.stream', 'autoplay')) {
+    if (whitelistRecord.isAllowed('twitter.stream', 'autoplay')) {
         player.rel.push(CONFIG.R.autoplay);
     }
 
@@ -28,7 +35,7 @@ module.exports = {
 
     getLink: function(twitter, whitelistRecord) {
 
-        if (twitter.player && twitter.player.stream && (!whitelistRecord || (whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.stream')))) {
+        if (twitter.player && twitter.player.stream && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.stream')) {
 
             var stream = twitter.player.stream;
 

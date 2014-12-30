@@ -5,17 +5,16 @@ module.exports = {
     re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-z0-9]+)\/([\w\-]+)\/?(?:$|\?|#)/i,
 
     mixins: [
-        "og-image",
         "favicon",
         "canonical",
-        "twitter-description",
+        "description",
         "og-site",
-        "og-title"
-    ],    
+        "html-title"
+    ],
 
-    getLink: function(url, og, options) {
+    getLink: function(url, twitter, options) {
 
-        if (og.type !== 'pinterestapp:pinboard') {
+        if (twitter.app && twitter.app.iphone && twitter.app.iphone.indexOf('board/') == -1) {
             return;
         }
 
@@ -41,6 +40,7 @@ module.exports = {
         noFeeds: true
     },
         "http://pinterest.com/bcij/art-mosaics/",
-        "http://pinterest.com/bcij/aging-gracefully/"
+        "http://pinterest.com/bcij/aging-gracefully/",
+        "https://www.pinterest.com/mimimememe/office-humor-work-jokes/"
     ]
 };

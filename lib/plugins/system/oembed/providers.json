@@ -155,7 +155,8 @@
     {
         "name": "DailyMotion",
         "templates": [
-            "www\\.dailymotion\\.com/video/.+"
+            "www\\.dailymotion\\.com/video/.+",
+            "www\\.dailymotion\\.com/embed/video/.+"
         ],
         "endpoint": "http://www.dailymotion.com/services/oembed"
     },

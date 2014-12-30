@@ -7,7 +7,7 @@
 
     var config = {
 
-        WHITELIST_URL: 'http://iframely.com/qa/top100.json',
+        WHITELIST_URL: 'http://iframely.com/qa/whitelist.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         WHITELIST_LOG_URL: 'http://iframely.com/whitelist-log',
@@ -40,10 +40,18 @@
             image_svg: "image/svg",
             image_gif: "image/gif",
             video_mp4: "video/mp4",
-            video_ogg: "video/ogg"
+            video_ogg: "video/ogg",
+            video_webm: "video/webm"
         },
 
+        PROMO_RELS: [
+            "player",
+            "image",
+            "thumbnail"
+        ],
+
         REL_GROUPS: [
+            "promo",
             "app",
             "player",
             "survey",
@@ -87,7 +95,10 @@
             ssl: "ssl",
 
             autoplay: "autoplay",
-            html5: "html5"
+            html5: "html5",
+            gifv: "gifv",
+
+            promo: "promo"
         },
 
         // Whitelist settings.

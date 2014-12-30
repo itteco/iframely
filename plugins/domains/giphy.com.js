@@ -24,7 +24,7 @@ module.exports = {
 
         return {
             href: original,
-            type: CONFIG.T.image,
+            type: CONFIG.T.image_gif,
             rel: CONFIG.R.image
         };
     },

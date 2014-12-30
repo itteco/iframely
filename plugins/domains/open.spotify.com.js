@@ -7,6 +7,7 @@ module.exports = {
         "oembed-video-responsive"
     ],
 
+    // keep dependency on oEmbed only. Otherwise, there's redirect to relative path and no embeds as a result
     getLink: function() {
 
         return {

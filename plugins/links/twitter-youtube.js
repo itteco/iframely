@@ -1,8 +1,10 @@
 module.exports = {
 
-    // e.g. http://www.kinitv.com/video/3495O8
-    getLink: function(twitter) {
+    provides: '__promoUri',    
 
+    // e.g. http://www.kinitv.com/video/3495O8
+    getData: function(twitter) {
+        
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
         if (!video_src) return;
 
@@ -16,15 +18,10 @@ module.exports = {
 
         if (urlMatch) {
 
-            var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
-
             return {
-                href: "https://youtube.com/embed/" + urlMatch[1] + params,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": (twitter.player.height && twitter.player.width) ? twitter.player.width / twitter.player.height : 4/3
+                __promoUri: "https://www.youtube.com/watch?v=" + urlMatch[1]
             }
-
         }
     }
+
 };

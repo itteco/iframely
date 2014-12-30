@@ -1,10 +1,10 @@
-var jquery = require('jquery');
+var cheerio = require('cheerio');
 
 module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
-        var $container = jquery('<div>');
+        var $container = cheerio('<div>');
         try{
             $container.html(oembed.html5 || oembed.html);
         } catch(ex) {}
@@ -15,7 +15,7 @@ module.exports = {
 
             var href = $iframe.attr('src');
 
-            if (whitelistRecord && (whitelistRecord.isAllowed('oembed.video', 'ssl') || whitelistRecord.isAllowed('oembed.rich', 'ssl'))) {
+            if (whitelistRecord.isAllowed('oembed.video', 'ssl') || whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
                 href = href.replace(/^http:\/\//i, '//');
             }
 
