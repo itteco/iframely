@@ -14,7 +14,7 @@ In response to `url` request, APIs returns you the embeds and meta for a request
 Iframely can also be used as Node.js library. 
 
 
-![Action time](http://media.giphy.com/media/yoJC2yAEMsobCNhXr2/giphy.gif)
+![Action time](https://media.giphy.com/media/yoJC2yAEMsobCNhXr2/giphy.gif)
 
 ## Get started:
 
