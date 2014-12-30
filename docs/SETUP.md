@@ -46,6 +46,18 @@ There are also some provider-specific values that are required for some domain p
 
 Readability parser to get the HTML of the articles is optional and is turned off by default as it affects the processing time of the URLs. If need be, you can also fine-tune API response time by disabling image size detection.
 
+## Configure cache storage
+
+Iframely has built-in cache with support of Memcached, Redis and Node.js in-memory cache module. 
+
+In your local config file, define caching parameters:
+
+        CACHE_ENGINE: 'redis',
+        CACHE_TTL: 0, // In milliseconds. 0 for 'never expire' to let cache engine decide itself when to evict the record
+
+
+Valid cache engine values are `no-cache`, `node-cache` (default), `redis` and `memcached`. For Redis and Memcached, the connection options are also required. See sample config file.
+
 
 ## Run Server
 
@@ -102,4 +114,4 @@ If you fork, make sure to merge from the upstream for the newer versions.
 
 
 
-(c) 2013 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
+(c) 2013-2015 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

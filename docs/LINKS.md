@@ -52,6 +52,7 @@ Iframely also uses supplementary `rels` as the way to suggest technical aspects 
 - `ssl` flag indicates that embed media can be loaded via HTTPs;
 - `html5` - if player is capable of HTML5 playback and will render ok on devices without Flash installed (for example, iOS);
 - `inline` - for `app` indicates that embed widgets can be dynamically added to the page via JavaScript (e.g. doesn’t use `document.write`). Usually goes along with `html` field instead of `href` and indicates that html should be used as `srcdoc` of an `<iframe>` (as substitute to `href` as `src`). 
+- `gifv` - indicates that player represents a gif converted to MP4 and needs to be embedded as autoloop mutted video.
 
 These technical rels are result of our manual QA of the domains and are taken from our Domains DB (and therefore can change over time). For example, GitHub Gists were not `inline` the last time we checked :\ 
 
