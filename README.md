@@ -13,9 +13,6 @@ In response to `url` request, APIs returns you the embeds and meta for a request
 
 Iframely can also be used as Node.js library. 
 
-
-![Action time](https://media.giphy.com/media/yoJC2yAEMsobCNhXr2/giphy.gif)
-
 ## Get started:
 
 The simplest way to see Iframely in action is by using our [Chrome plugin](https://chrome.google.com/webstore/detail/iframely-url-previews/bbafbcjnlgfbemjemgliogmfdlkocjmi). This way you will see the embeds on your (or any really) site right away (but not on GitHub due to Content-Security-Policy, sorry). 
