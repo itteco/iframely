@@ -12,10 +12,10 @@ var async = require('async');
 var _ = require('underscore');
 
 var models = require('./models');
-
-var iframely = require('../../lib/core').run;
 var utils = require('./utils');
 
+var iframely = require('../../lib/core').run;
+var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var plugins = pluginLoader._plugins;
 
@@ -360,7 +360,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                 iframely(url, {
                     debug: true,
-                    readability: true
+                    readability: true,
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor
                 }, callback);
 
             }, cb);
