@@ -154,7 +154,7 @@
             "iframely"
         ],
 
-        OEMBED_RELS_PRIORITY: ["player", "survey", "image", "reader", "app"],
+        OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         providerOptions: {
             "readability": {},
             "twitter.status": {}

@@ -10,22 +10,16 @@ module.exports = {
         "oembed-title",
         "oembed-site",
         "oembed-author",
+        "oembed-thumbnail",
+        "oembed-rich",
 
         "favicon"
     ],
 
     getLinks: function(urlMatch, meta) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
-        var embed = '//instagram.com/p/' + urlMatch[1] + '/embed/';
 
         var links = [
-            {
-                href: embed,
-                type: CONFIG.T.text_html,
-                rel: (meta.og && meta.og.video) ? [CONFIG.R.player, CONFIG.R.html5]: CONFIG.R.app,
-                width: 616,
-                height: 714
-            },
             // Images.
             {
                 href: src + 't',
