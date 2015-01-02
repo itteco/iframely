@@ -1,6 +1,6 @@
 # Iframely API for Responsive Embeds
 
-You send Iframely an URL via HTTP GET request. Iframely will return you semantics `meta` and embeds `links`, which both can be imagined as the `<head>` elements of the web page requested. 
+You send Iframely an URL via HTTP GET request. Iframely will return you semantics `meta` and embeds `links`, which both mimic the `<head>` elements of the web page requested. 
 
 Iframely will generate those elements from a variety of sources, including oEmbed, Twitter Cards and Open Graph. 
 
