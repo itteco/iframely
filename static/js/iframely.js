@@ -346,7 +346,7 @@
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
                                 var imgAspect = m.width / m.height;
-                                return Math.abs(imgAspect - aspect) < 0.1;
+                                return Math.abs(imgAspect - aspect) < 0.15;
                             }
                             return true;
                         }
