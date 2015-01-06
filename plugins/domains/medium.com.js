@@ -33,7 +33,7 @@ module.exports = {
             return {
                 href: 'https://api.medium.com/embed?type=story&path=' + encodeURIComponent('/p/' + id),
                 height: 333,
-                rel: CONFIG.R.summary,
+                rel: [CONFIG.R.summary, CONFIG.R.html5],
                 type: CONFIG.T.text_html
             };
         }

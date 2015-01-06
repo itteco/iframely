@@ -39,7 +39,7 @@ module.exports = {
             return {
                 href: $iframe.attr('src').replace("http://", "https://"),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.oembed],
+                rel: [CONFIG.R.reader, CONFIG.R.oembed, CONFIG.R.html5],
                 "min-width": oembed.thumbnail_width,
                 "min-height": oembed.thumbnail_height
             };
