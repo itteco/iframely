@@ -1,3 +1,5 @@
+This documents needs to be cleaned up and finalized.
+
 ## Write a Plugin
 
  - TODO [Plugin structure](#plugin-structure)

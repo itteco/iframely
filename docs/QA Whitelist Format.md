@@ -11,7 +11,7 @@ The domains DB can be downloaded as JSON file, the format of which is given in t
 
 If you use [Iframely Open Source](https://iframely.com/get), the Domains DB support is already included. Just upload the latest file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](https://iframely.com/docs/host).
 
-You can get Domains DB at [http://iframely.com/qa/buy](https://iframely.com/qa/buy).
+You can get our domains DB at [http://iframely.com/qa/whitelist.json](https://iframely.com/qa/whitelist.json).
 
 
 
@@ -96,7 +96,7 @@ The basic and most important values in tags list are:
 
 The domain names are given as the top-level keys for the convenience of quering the values. 
 
-However, [Iframely Domains DB](https://iframely.com/qa) supports wildcard entries, such as `"*.sub.domain.com"` and you would need to choose a proper key. 
+However, whitelist supports wildcard entries, such as `"*.sub.domain.com"` and you would need to choose a proper key. 
 
 We suggest the following algorithm. Let's say you have the URL `http://name.sub.domain.com/slug`:
 

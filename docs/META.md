@@ -59,7 +59,7 @@ Following Open Graph spec:
 
 ## Product info 
 
-Following Pinterest spec, but also with the parsing of Twitter Cards of product type.
+Following Pinterest spec:
 
 - `price`
 - `currency_code`
