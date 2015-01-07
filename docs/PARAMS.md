@@ -1,4 +1,4 @@
-# Optional API call parameters
+# Optional API parameters
 
 
 You may configure API to filter out rich media in [your API settings](https://iframely.com/settings). Or send the same filters in your query-string for each API call individually. If not given with an API call, your defaults will be used. If you haven't set up your preferences, the system-wide settings will be used.
