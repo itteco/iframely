@@ -10,6 +10,7 @@ However, consider this:
  - Even the list of 1600+ is not set in stone due to our whitelisting approach. As we do our every-day QA cycle, some domains get added and some get removed.
  - Add thousands news and blogging website that we provide [summary cards](https://iframely.com/docs/widgets) for.
  - Add *any* direct link to image, MP4 videos or PDF files Iframely recognizes and provides embed codes for.
+ - Plus numerous URL shorteners that mask the origin URL. 
 
 
 This said, giving you a definite list of providers is quite a challenge. We recommend you send us all `/^https?:\/\//i` links you've got and we'll give you the results, if any. 
