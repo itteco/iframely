@@ -46,7 +46,7 @@ If you see an error in our domains whitelist (you can [debug URLs here](http://i
 
 ## License & Authors
 
-MIT License. (c) 2012-2014 Itteco Software Corp. 
+MIT License. (c) 2012-2015 Itteco Software Corp. 
 
 Specifically:
 
