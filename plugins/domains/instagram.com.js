@@ -16,7 +16,7 @@ module.exports = {
         "favicon"
     ],
 
-    getLinks: function(urlMatch, meta) {
+    getLinks: function(urlMatch, meta, oembed) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
 
         var links = [
@@ -53,6 +53,14 @@ module.exports = {
                 type: meta.og.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height
+            });
+        } else {
+            links.push({
+                href: oembed.thumbnail_url,
+                type: CONFIG.T.image_jpeg,
+                rel: CONFIG.R.image,
+                width: oembed.thumbnail_width,
+                height: oembed.thumbnail_height
             });
         }
 
