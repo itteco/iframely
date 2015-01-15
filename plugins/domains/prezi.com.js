@@ -24,7 +24,7 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: 'https://prezi.com/embed/' + urlMatch[1],
+            href: 'https://prezi.com/embed/' + urlMatch[1] + '/',
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": 550 / 400
