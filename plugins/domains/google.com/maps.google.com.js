@@ -31,80 +31,87 @@ module.exports = {
 
         var query = url.query;
 
-        // convert new url scheme to old
-        if (query.output !== 'classic' && url.hash) {
-            var hash = QueryString.parse(url.hash.replace(/^#?!/,''));
+        var config = CONFIG.providerOptions["google.maps"];
+        var links = [];
 
-            if (hash.q) {
-                query.q = hash.q;
-            }
+        if (!config.disableApp) {
+            // convert new url scheme to old
+            if (query.output !== 'classic' && url.hash) {
+                var hash = QueryString.parse(url.hash.replace(/^#?!/, ''));
 
-            if (hash.data) {
-                var data = hash.data.split('!');
-                var lat = 0;
-                var lon = 0;
-                var i;
-
-                for (i = 0; i < data.length; ++ i) {
-                    var arg = data[i];
-                    if (/^1d\d+/.test(arg)) { // visible distance
-                        query.z = diameterToZoom(Number(arg.slice(2)));
-                    }
-                    else if (/^2d./.test(arg)) { // longitude
-                        lon = arg.slice(2);
-                    }
-                    else if (/^3d./.test(arg)) { // latitude
-                        lat = arg.slice(2);
-                    }
-                    else if (arg === '1e0') { // maps
-                        query.t = 'm';
-                    }
-                    else if (arg === '1e2') { // image gallery
-                        query.lci = 'com.panoramio.all';
-                    }
-                    else if (arg === '1e3') { // satellite
-                        query.t = 'h';
-                    }
+                if (hash.q) {
+                    query.q = hash.q;
                 }
-                query.ll = lat+','+lon;
+
+                if (hash.data) {
+                    var data = hash.data.split('!');
+                    var lat = 0;
+                    var lon = 0;
+                    var i;
+
+                    for (i = 0; i < data.length; ++i) {
+                        var arg = data[i];
+                        if (/^1d\d+/.test(arg)) { // visible distance
+                            query.z = diameterToZoom(Number(arg.slice(2)));
+                        } else if (/^2d./.test(arg)) { // longitude
+                            lon = arg.slice(2);
+                        } else if (/^3d./.test(arg)) { // latitude
+                            lat = arg.slice(2);
+                        } else if (arg === '1e0') { // maps
+                            query.t = 'm';
+                        } else if (arg === '1e2') { // image gallery
+                            query.lci = 'com.panoramio.all';
+                        } else if (arg === '1e3') { // satellite
+                            query.t = 'h';
+                        }
+                    }
+                    query.ll = lat + ',' + lon;
+                }
             }
+
+            delete query.output;
+
+            var iframe_query = _.extend({}, query, {
+                ie: 'UTF8',
+                output: 'embed'
+            });
+
+            if (!query.spn && query.sspn) {
+                iframe_query.spn = query.sspn;
+            }
+
+            if (!query.ll && query.sll) {
+                iframe_query.ll = query.sll;
+            }
+
+            if (!query.f && (query.saddr || query.daddr)) {
+                iframe_query.f = 'd';
+            }
+
+            if (iframe_query.spn) {
+                delete iframe_query.z;
+            }
+
+            links.push({
+                href: 'https://maps.google.com/maps?' + QueryString.stringify(iframe_query),
+                rel: CONFIG.R.app,
+                type: CONFIG.T.text_html,
+                "min-width": 100,
+                "min-height": 100
+            });
         }
 
-        delete query.output;
-
-        var iframe_query = _.extend({},query,{ie: 'UTF8', output: 'embed'});
-
-        if (!query.spn && query.sspn) {
-            iframe_query.spn = query.sspn;
-        }
-        
-        if (!query.ll && query.sll) {
-            iframe_query.ll = query.sll;
-        }
-
-        if (!query.f && (query.saddr || query.daddr)) {
-            iframe_query.f = 'd';
-        }
-
-        if (iframe_query.spn) {
-            delete iframe_query.z;
-        }
-
-        var links = [{
-            href: 'https://maps.google.com/maps?'+QueryString.stringify(iframe_query),
-            rel: CONFIG.R.app,
-            type: CONFIG.T.text_html,
-            "min-width":  100,
-            "min-height": 100
-        }];
+        var staticMapWidth = config.staticWidth || 250;
+        var staticMapHeight = config.staticHeight || 250;
 
         var thumb_query = {
             format: 'png',
-            size:   '250x250',
+            size:   staticMapWidth + 'x' + staticMapHeight,
             sensor: 'false',
             center: query.ll||query.sll||query.near||query.saddr||query.daddr||query.q,
             zoom:   14
         };
+
         if (thumb_query.center) {
             var zoom = query.z || query.sz;
             if (Array.isArray(zoom)) {
@@ -118,7 +125,6 @@ module.exports = {
                     thumb_query.zoom = Math.max(zoom-1,0);
                 }
             }
-            var config = CONFIG.providerOptions["google.maps"];
             if (config && config.apiKey) {
                 thumb_query.apiKey = config.apiKey;
             }
@@ -137,12 +143,13 @@ module.exports = {
                 // let 'visible' determine the zoom:
                 delete thumb_query.zoom;
             }
+
             links.push({
                 href: 'http://maps.googleapis.com/maps/api/staticmap?'+QueryString.stringify(thumb_query),
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_png,
-                width:  250,
-                height: 250
+                width:  staticMapWidth,
+                height: staticMapHeight
             });
         }
 
