@@ -5,7 +5,7 @@ module.exports = {
         if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video')) {
         
             var player = {
-                href: meta.video_src,
+                href: meta.video_src.href || meta.video_src,
                 type: meta.video_type || CONFIG.T.maybe_text_html,
                 rel: CONFIG.R.player
             };
