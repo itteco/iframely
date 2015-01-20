@@ -5,7 +5,7 @@ module.exports = {
     getMeta: function(twitter) {
 
         return {
-            site: twitter.site
+            site: (twitter.site && twitter.site.value) || twitter.site
         }
     }
 };
