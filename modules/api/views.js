@@ -258,6 +258,10 @@ module.exports = function(app) {
                         getWhitelistRecord: whitelist.findWhitelistRecordFor
                     }, function(error, result) {
 
+                        if (error) {
+                            return cb(error);
+                        }
+
                         var render_link = result && _.find(result.links, function(link) {
                             return link.html
                                 && link.rel.indexOf(CONFIG.R.inline) === -1
