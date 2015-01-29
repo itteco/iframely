@@ -82,7 +82,8 @@
             var parentStyle = $parent.attr('style');
             var iframeStyle = $iframe.attr('style');
 
-            if (parentStyle.match('position: relative;') &&
+            if (parentStyle && iframeStyle &&
+                parentStyle.match('position: relative;') &&
                 parentStyle.match('width: 100%;') &&
                 parentStyle.match('height: 0px;') &&
                 iframeStyle.match('height: 100%;') &&
