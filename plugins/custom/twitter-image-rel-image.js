@@ -4,7 +4,7 @@ module.exports = {
 
         var isPhotoCard = twitter.card === "photo";
         if (!isPhotoCard && twitter.card instanceof Array) {
-            isPhotoCard = twitter.card.indexOf("photo");
+            isPhotoCard = twitter.card.indexOf("photo") > -1;
         }
 
         if (!twitter.image || !isPhotoCard)
