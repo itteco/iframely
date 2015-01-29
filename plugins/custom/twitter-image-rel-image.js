@@ -2,7 +2,12 @@ module.exports = {
 
     getLink: function(twitter) {
 
-        if (!twitter.image || !twitter.card == "photo")
+        var isPhotoCard = twitter.card === "photo";
+        if (!isPhotoCard && twitter.card instanceof Array) {
+            isPhotoCard = twitter.card.indexOf("photo");
+        }
+
+        if (!twitter.image || !isPhotoCard)
             return;
 
         return {
