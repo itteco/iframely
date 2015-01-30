@@ -4,7 +4,7 @@ module.exports = {
 
     getMeta: function(twitter) {
 
-        if (!twitter.creator)
+        if (!twitter.creator || twitter.creator == twitter.site)
             return;
 
         return {
