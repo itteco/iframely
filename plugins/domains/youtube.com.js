@@ -74,9 +74,33 @@ module.exports = {
         };
     },
 
-    getLinks: function(youtube_gdata) {
+    getLinks: function(url, youtube_gdata) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+
+        /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
+        */
+        try {     
+            var start = url.match(/(?:t|start)=(\d+(?:m)?\d+(?:s)?)/i);
+            var end = url.match(/(?:stop|end)=(\d+(?:m)?\d+(?:s)?)/i);
+
+            if (start) {
+
+                var m = start[1].match(/(\d+)m/);
+                var s = start[1].match(/(\d+)s/);
+                var time = 0;
+                if (m) time = 60 * m[1];
+                if (s) time += 1 * s[1];
+                
+                params = params + (params.indexOf ('?') > -1 ? "&": "?") + "start=" + (time ? time : start[1]);
+            }
+
+            if (end) {
+                params = params + (params.indexOf ('?') > -1 ? "&": "?") + "end=" + end[1];
+            }
+        } catch (ex) {/* and ignore */}
+        // End of time extractions
+
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
         var links = [{
