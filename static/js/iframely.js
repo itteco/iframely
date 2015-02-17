@@ -142,7 +142,9 @@
 
         options = options || {};
 
+        $.support.cors = true;
         $.ajax({
+            crossDomain: true,
             url: $.iframely.defaults.endpoint,
             dataType: "json",
             data: {
@@ -703,7 +705,7 @@
         }
 
         return [];
-    }
+    };
 
     function firstLink(links) {
 
