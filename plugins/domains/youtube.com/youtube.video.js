@@ -12,7 +12,7 @@ module.exports = {
         /^https?:\/\/www\.youtube\-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i
     ],
 
-    provides: 'youtube_gdata',
+    provides: 'youtube_video_gdata',
 
     getData: function(urlMatch, request, cb) {
 
@@ -34,7 +34,7 @@ module.exports = {
             if (data.entry) {
 
                 cb(null, {
-                    youtube_gdata: {
+                    youtube_video_gdata: {
 
                         id: data.entry['media$group']['yt$videoid']['$t'],
                         title: data.entry.title['$t'],
@@ -59,22 +59,22 @@ module.exports = {
         });
     },
 
-    getMeta: function(youtube_gdata) {
+    getMeta: function(youtube_video_gdata) {
         return {
-            title: youtube_gdata.title,
-            date: youtube_gdata.uploaded,
-            author: youtube_gdata.uploader,
-            category: youtube_gdata.category,
-            description: youtube_gdata.description,
-            duration: youtube_gdata.duration,
-            likes: youtube_gdata.likeCount,
-            dislikes: youtube_gdata.dislikeCount,
-            views: youtube_gdata.viewCount,
+            title: youtube_video_gdata.title,
+            date: youtube_video_gdata.uploaded,
+            author: youtube_video_gdata.uploader,
+            category: youtube_video_gdata.category,
+            description: youtube_video_gdata.description,
+            duration: youtube_video_gdata.duration,
+            likes: youtube_video_gdata.likeCount,
+            dislikes: youtube_video_gdata.dislikeCount,
+            views: youtube_video_gdata.viewCount,
             site: "YouTube"
         };
     },
 
-    getLinks: function(url, youtube_gdata) {
+    getLinks: function(url, youtube_video_gdata) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
 
@@ -110,26 +110,26 @@ module.exports = {
             width: 32,
             height: 32
         }, {
-            href: 'https://www.youtube.com/embed/' + youtube_gdata.id + params,
+            href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
+            "aspect-ratio": youtube_video_gdata.widescreen ? 16/9 : 4/3
         }, {
-            href: 'https://www.youtube.com/embed/' + youtube_gdata.id + autoplay,
+            href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_gdata.widescreen ? 16/9 : 4/3
+            "aspect-ratio": youtube_video_gdata.widescreen ? 16/9 : 4/3
         }, {
-            href: youtube_gdata.thumbnailBase + 'mqdefault.jpg',
+            href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: 320,
             height: 180
         }];
 
-        if (youtube_gdata.hd) {
+        if (youtube_video_gdata.hd) {
             links.push({
-                href: youtube_gdata.thumbnailBase + 'maxresdefault.jpg',
+                href: youtube_video_gdata.thumbnailBase + 'maxresdefault.jpg',
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
@@ -137,9 +137,9 @@ module.exports = {
             });
         }
 
-        if (!youtube_gdata.widescreen) {
+        if (!youtube_video_gdata.widescreen) {
             links.push({
-                href: youtube_gdata.thumbnailBase + 'hqdefault.jpg',
+                href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 480,
