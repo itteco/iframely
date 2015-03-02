@@ -5,7 +5,7 @@ function getVideoLinks(video, whitelistRecord) {
 
     var players = [{
         href: video.url || video,
-        type: video.type || CONFIG.T.maybe_text_html,
+        type: CONFIG.T.maybe_text_html,
         rel: [CONFIG.R.player, CONFIG.R.og],
         width: video.width,
         height: video.height
@@ -14,7 +14,7 @@ function getVideoLinks(video, whitelistRecord) {
     if (whitelistRecord.isAllowed('og.video', 'ssl')) {
         players.push({
             href: video.secure_url,
-            type: video.type || CONFIG.T.maybe_text_html,
+            type: CONFIG.T.maybe_text_html,
             rel: [CONFIG.R.player, CONFIG.R.og],
             width: video.width,
             height: video.height

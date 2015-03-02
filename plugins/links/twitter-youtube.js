@@ -26,7 +26,7 @@ module.exports = {
 
         urlMatch = video_src.match(/^https?:\/\/vimeo\.com\/(\d+)/i)
                     || video_src.match(/^https?:\/\/player.vimeo\.com\/video\/(\d+)/i)
-                    || video_src.match(/https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+))/i);
+                    || video_src.match(/https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i);
 
 
         if (urlMatch) {
