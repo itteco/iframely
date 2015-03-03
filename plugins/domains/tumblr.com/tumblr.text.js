@@ -17,18 +17,18 @@ module.exports = {
 
 
     getLink: function (tumblr_post) {
-        if (tumblr_post.thumbnail_url) {
+        if (tumblr_post.thumbnail_url || tumblr_post.type !== "text") {
             return;
         }
 
         var $post = $('<div>').html(tumblr_post.body);
         var $images = $post.find('img');
 
-        if ($images.length > 0) {
+        if ($images.length ) {
                         // Could be more than 1 image, true. 
             return {    // But the response time will be unacceptable as post-processing will check alll image sizes.
-                href: $images[0].src,
-                title: $images[0].alt,
+                href: $images.attr('src'),
+                title: $images.attr('alt'),
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
             };
