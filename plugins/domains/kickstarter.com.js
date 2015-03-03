@@ -74,7 +74,11 @@ module.exports = {
 
     tests: [{
         page: "http://www.kickstarter.com/discover/popular?ref=home_popular",
-        selector: ".green-dark"
+        selector: ".project-title a",
+        skipMixins: [
+            "twitter-player",
+            "og-video"
+        ]
     },
         "http://www.kickstarter.com/projects/1104350651/taktik-premium-protection-system-for-the-iphone",
         "https://www.kickstarter.com/projects/1578116861/toejam-and-earl-back-in-the-groove",
