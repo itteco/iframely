@@ -31,7 +31,9 @@ module.exports = {
 
             var title = photo.caption || tumblr_post.caption;
             title = $('<div>').html(title).text();
-            if (title && title.length > 160) title = title.split(/[.,!?]/)[0];
+            if (title && title.length > 160) {
+                title = title.split(/[.,!?]/)[0];
+            }
 
             addImage(title, photo.original_size, CONFIG.R.image);
             var originalWidth = photo.original_size.width;

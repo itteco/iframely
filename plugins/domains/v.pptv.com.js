@@ -17,7 +17,9 @@ module.exports = {
         var parser =  {
             // Parse <script> tag text in <head>.
             ontext: function(text) {
-                if (end) return;
+                if (end) {
+                    return;
+                }
 
                 var m = text.match(/"swf":"(http:\\\/\\\/player\.pptv\.com\\\/v\\\/\w+\.swf)"/);
                 if (m) {
@@ -32,17 +34,23 @@ module.exports = {
                 }
             },
             onclosetag: function(name) {
-                if (end) return;
+                if (end) {
+                    return;
+                }
                 if (name.toUpperCase() === 'HEAD') {
                     end = true;
                 }
             },
             onerror: function(err) {
-                if (end) return;
+                if (end) {
+                    return;
+                }
                 cb(err);
             },
             onend: function() {
-                if (!end) cb();
+                if (!end) {
+                    cb();
+                }
             }
         };
 

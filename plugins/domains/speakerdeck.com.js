@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -9,7 +9,7 @@ module.exports = {
     ],
 
     getLink: function (oembed) {
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         try {
             $container.html(oembed.html);
         } catch(ex) {}
@@ -31,19 +31,20 @@ module.exports = {
         if (doc) {
             var id = doc.href.match(/\/\/speakerdeck\.com\/player\/([a-z0-9\-]+)/i)[1];
 
-            if (id)
+            if (id) {
                 thumbnail = {
                     href: 'https://speakerd.s3.amazonaws.com/presentations/' + id + '/slide_0.jpg',
                     type: CONFIG.T.image,
-                    rel: [CONFIG.R.thumbnail]                    
-                }
+                    rel: [CONFIG.R.thumbnail]
+                };
+            }
         }
 
         return [doc, thumbnail, {
                 href: 'https://speakerdeck.com/favicon.ico',
                 type: CONFIG.T.image,
-                rel: [CONFIG.R.icon],
-        }]
+                rel: [CONFIG.R.icon]
+        }];
     },
 
 

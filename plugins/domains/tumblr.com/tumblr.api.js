@@ -13,7 +13,9 @@ module.exports = {
     getMeta: function(tumblr_post) {
 
         var caption = tumblr_post.caption ? $('<div>').html(tumblr_post.caption).text() : "";
-        if (caption && caption.length > 160) caption = caption.split(/[.,!?]/)[0];
+        if (caption && caption.length > 160) {
+            caption = caption.split(/[.,!?]/)[0];
+        }
 
         return {
             title: tumblr_post.title || caption || tumblr_post.blog_name,

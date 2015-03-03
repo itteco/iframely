@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 var re = /^https?:\/\/www\.funnyordie\.com\/videos\//i;
 
@@ -20,7 +20,7 @@ module.exports = {
 
     getLink: function(oembed) {
 
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         try {
             $container.html(oembed.html);
         } catch(ex) {}

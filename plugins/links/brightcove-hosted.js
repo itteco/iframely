@@ -5,7 +5,9 @@ module.exports = {
     getData: function(url, twitter) {
         
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
-        if (!video_src || url.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i) ) return;
+        if (!video_src || url.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i) ) {
+            return;
+        }
         // do not process links to itself, otherwise -> infinite recursion 
 
         var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i);
@@ -14,7 +16,7 @@ module.exports = {
 
             return {
                 __promoUri: video_src
-            }
+            };
         }
     }
 

@@ -13,7 +13,9 @@ module.exports = {
     getLink: function(meta) {
 
         var original = meta['image_src'];
-        if (!original) return;
+        if (!original) {
+            return;
+        }
 
         original = original.replace('_th.', '.');
 

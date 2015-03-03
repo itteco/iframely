@@ -77,8 +77,8 @@ module.exports = {
         zoom   = Number(query.zoom);
 
         // lat & lon
-        if ('lat' in query) lat = Number(query.lat);
-        if ('lon' in query) lon = Number(query.lon);
+        if ('lat' in query) { lat = Number(query.lat); }
+        if ('lon' in query) { lon = Number(query.lon); }
 
         // bounding box
         if ('minlat' in query && 'minlon' in query && 'maxlat' in query && 'maxlon' in query) {
@@ -167,8 +167,11 @@ module.exports = {
         }
 
         zoom = isNaN(zoom) ? 10 : Math.floor(zoom);
-        if (zoom < 0)       zoom =  0;
-        else if (zoom > 18) zoom = 18;
+        if (zoom < 0) {
+            zoom =  0;
+        } else if (zoom > 18) {
+            zoom = 18;
+        }
 
         if (!bbox) {
             bbox = getBBox(lat, lon, zoom, embed_width, embed_height);

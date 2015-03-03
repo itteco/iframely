@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -23,10 +23,11 @@ module.exports = {
 
     getLink: function(oembed) {
 
-        if (!oembed.provider_name == "Behance") 
+        if (oembed.provider_name !== "Behance") {
             return;
+        }
 
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         try {
             $container.html(oembed.html);
         } catch (ex) {}
@@ -35,7 +36,7 @@ module.exports = {
 
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1) {
+        if ($iframe.length === 1) {
 
             return {
                 href: $iframe.attr('src').replace("http://", "https://"),

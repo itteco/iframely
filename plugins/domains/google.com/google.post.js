@@ -41,7 +41,9 @@ module.exports = {
 
     getData: function (urlMatch, cheerio) { 
 
-        if (cheerio('a[href*="communities/"]').length) return; 
+        if (cheerio('a[href*="communities/"]').length) {
+            return;
+        }
         // G+ doesn't support community posts!
         // ex. https://plus.google.com/101947077689367869700/posts/2fdzVY9LoSw
 

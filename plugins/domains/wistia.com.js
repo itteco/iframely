@@ -14,7 +14,9 @@ module.exports = {
         var params = "";
         // Extract  ?start=123
         var start = url.match(/(?:start|time)=(\d+)/i);
-        if (start) params =  "?time=" + start[1];
+        if (start) {
+            params =  "?time=" + start[1];
+        }
 
         return [{
             href: "//fast.wistia.net/embed/iframe/" + urlMatch[2] + params,
