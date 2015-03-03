@@ -15,7 +15,7 @@ module.exports = {
         var end = false;
 
         var parser =  {
-            // Parse <script> tag text in <head>.
+            // Parse <script> tag text in <body>.
             ontext: function(text) {
                 if (end) {
                     return;
@@ -31,14 +31,6 @@ module.exports = {
                         type: CONFIG.T.flash,
                         'aspect-ratio': 480 / 390
                     });
-                }
-            },
-            onclosetag: function(name) {
-                if (end) {
-                    return;
-                }
-                if (name.toUpperCase() === 'HEAD') {
-                    end = true;
                 }
             },
             onerror: function(err) {
