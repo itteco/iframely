@@ -7,8 +7,7 @@ module.exports = {
         "oembed-thumbnail",
         "oembed-video-responsive",
         "video",
-        "favicon",
-        "keywords"
+        "favicon"
     ],
 
     tests: [{
