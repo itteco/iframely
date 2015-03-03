@@ -12,7 +12,7 @@ module.exports = {
     getMeta: function(oembed) {
 
         return {
-            canonical: "http://vimeo.com/" + oembed.video_id
+            canonical: "https://vimeo.com/" + oembed.video_id
         };
     },
 
