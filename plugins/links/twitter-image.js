@@ -7,8 +7,9 @@ module.exports = {
             isPhotoCard = twitter.card.indexOf("photo") > -1;
         }
 
-        if (!twitter.image && !isPhotoCard)
+        if (!twitter.image && !isPhotoCard) {
             return;
+        }
 
         var rel = [CONFIG.R.twitter];
         var links = [];
@@ -53,7 +54,7 @@ module.exports = {
         }
 
 
-        if (twitter.card === "gallery") {
+      if (twitter.card === "gallery") {
             var i; // JSLint :\\
 
             for (i=3; i>=0; i--) {

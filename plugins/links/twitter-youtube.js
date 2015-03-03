@@ -6,7 +6,9 @@ module.exports = {
     getData: function(twitter) {
         
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
-        if (!video_src) return;
+        if (!video_src) {
+            return;
+        }
 
         var urlMatch = video_src.match(/^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
                     || video_src.match(/^https?:\/\/www\.youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)

@@ -22,7 +22,9 @@ module.exports = {
 
     getLink: function(sm4) {
 
-        if (!(sm4.video && sm4.video.embed)) return;
+        if (!(sm4.video && sm4.video.embed)) {
+            return;
+        }
 
         var $container = jquery('<div>');
         

@@ -15,9 +15,13 @@ module.exports = {
 
     getLink: function(og, urlMatch) {
                                                             // No id in canonical means - 404
-        if (!og.type || !/video/i.test(og.type) || !og.url || og.url.indexOf(urlMatch[3]) == -1) return;
+        if (!og.type || !/video/i.test(og.type) || !og.url || og.url.indexOf(urlMatch[3]) === -1) {
+            return;
+        }
 
-        if (!urlMatch) return;
+        if (!urlMatch) {
+            return;
+        }
 
         return {
                 href: "http://api.video.mail.ru/videos/embed/" + og.url.match(/video\/([a-zA-Z0-9\.\-\/]+)/)[1],

@@ -10,7 +10,9 @@ module.exports = {
 
     getLink: function (og) {
 
-        if (!(og.video && og.video.secure_url)) return;
+        if (!(og.video && og.video.secure_url)) {
+            return;
+        }
 
 
         return {

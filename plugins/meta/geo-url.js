@@ -14,10 +14,11 @@ module.exports = {
 
             var ll = geo.split((/[,;]\s*/));
 
-            if (ll.length == 2)
-            return {
-                "latitude": ll[0],
-                "longitude": ll[1]
+            if (ll.length == 2) {
+                return {
+                    "latitude": ll[0],
+                    "longitude": ll[1]
+                };
             }
         }
     }

@@ -4,9 +4,11 @@ module.exports = {
 
         var canonical = meta.canonical && meta.canonical.href || meta.canonical;
 
-        if (!canonical || url == canonical || !url.match(/^https?:\/\/(m|mobile)\./i)) cb(null);
+        if (!canonical || url == canonical || !url.match(/^https?:\/\/(m|mobile)\./i)) {
+            cb(null);
+        }
         
-        cb ({
+        cb({
             redirect: canonical
         });
     }

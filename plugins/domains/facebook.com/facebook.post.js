@@ -38,7 +38,7 @@ module.exports = {
 
     getData: function(url, meta, cb) {
 
-        if (meta["html-title"] == "Facebook") {
+        if (meta["html-title"] === "Facebook") {
             // the content is not public
             cb({responseStatusCode: 403});
         }        
@@ -47,8 +47,9 @@ module.exports = {
 
         // Little hack for FB mobile URLs, as FB embeds don't recognize it's own mobile links.
         var redirect;
-        if (url.indexOf("m.facebook.com/story.php") > -1) 
+        if (url.indexOf("m.facebook.com/story.php") > -1) {
             redirect = url.replace("m.facebook.com/story.php", "www.facebook.com/permalink.php");
+        }
 
         cb(null, {
             facebook_post: {

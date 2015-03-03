@@ -89,8 +89,12 @@ module.exports = {
                 var m = start[1].match(/(\d+)m/);
                 var s = start[1].match(/(\d+)s/);
                 var time = 0;
-                if (m) time = 60 * m[1];
-                if (s) time += 1 * s[1];
+                if (m) {
+                    time = 60 * m[1];
+                }
+                if (s) {
+                    time += 1 * s[1];
+                }
                 
                 params = params + (params.indexOf ('?') > -1 ? "&": "?") + "start=" + (time ? time : start[1]);
             }

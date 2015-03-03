@@ -14,8 +14,9 @@ module.exports = {
 
     getLinks: function(meta, urlMatch) {
 
-
-        if (! ((meta.og && /video/i.test(meta.og.type)) || urlMatch[1] == 'e')) return;
+        if (! ((meta.og && /video/i.test(meta.og.type)) || urlMatch[1] == 'e')) {
+            return;
+        }
 
         var aspect = meta.og && meta.og.image && meta.og.image.height ? meta.og.image.width / meta.og.image.height : 4/3;
 

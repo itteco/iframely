@@ -11,7 +11,9 @@ module.exports = {
 
     getLink: function (oembed) {
 
-        if (!oembed.html) return;
+        if (!oembed.html) {
+            return;
+        }
 
         return [{
             html: oembed.html.replace (/style=\"[^\"]+\"/i, ""),

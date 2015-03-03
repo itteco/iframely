@@ -11,7 +11,7 @@ module.exports = {
         if (tumblr_post.type == "text") {
             return {
                 media: 'reader'
-            }
+            };
         }
     },
 
@@ -40,7 +40,9 @@ module.exports = {
         if (tumblr_post.type !== "text") {
 
             var caption = jquery('<div>').html(tumblr_post.caption).text();
-            if (!caption || caption.length < 160) return;
+            if (!caption || caption.length < 160) {
+                return;
+            }
         }
 
         return {

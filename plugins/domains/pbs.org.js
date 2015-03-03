@@ -16,7 +16,9 @@ module.exports = {
 
     getLink: function (urlMatch, meta) {
 
-        if (!meta.twitter || !meta.twitter.site === "@PBS") return;
+        if (!meta.twitter || !meta.twitter.site === "@PBS") {
+            return;
+        }
 
         // http://video.pbs.org/viralplayer/1863101157
         return {
@@ -24,7 +26,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 512/376
-        }
+        };
     },
 
     tests: [

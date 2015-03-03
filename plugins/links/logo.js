@@ -2,8 +2,9 @@ module.exports = {
 
     getLink: function(meta) {
 
-        if (!meta.logo)
+        if (!meta.logo) {
             return;
+        }
 
         return {
             href: meta.logo.href || meta.logo,

@@ -7,8 +7,9 @@ module.exports = {
             isPhotoCard = twitter.card.indexOf("photo") > -1;
         }
 
-        if (!twitter.image || !isPhotoCard)
+        if (!twitter.image || !isPhotoCard) {
             return;
+        }
 
         return {
             href: twitter.image.url || twitter.image.src || twitter.image,

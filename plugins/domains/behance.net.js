@@ -23,8 +23,9 @@ module.exports = {
 
     getLink: function(oembed) {
 
-        if (!oembed.provider_name == "Behance") 
+        if (oembed.provider_name !== "Behance") {
             return;
+        }
 
         var $container = jquery('<div>');
         try {
@@ -35,7 +36,7 @@ module.exports = {
 
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1) {
+        if ($iframe.length === 1) {
 
             return {
                 href: $iframe.attr('src').replace("http://", "https://"),
