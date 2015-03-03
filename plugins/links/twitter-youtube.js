@@ -19,11 +19,22 @@ module.exports = {
 
 
         if (urlMatch) {
-
             return {
                 __promoUri: "https://www.youtube.com/watch?v=" + urlMatch[1]
-            }
-        }
+            };
+        } 
+
+        urlMatch = video_src.match(/^https?:\/\/vimeo\.com\/(\d+)/i)
+                    || video_src.match(/^https?:\/\/player.vimeo\.com\/video\/(\d+)/i)
+                    || video_src.match(/https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i);
+
+
+        if (urlMatch) {
+            return {
+                __promoUri: "https://vimeo.com/" + urlMatch[1]
+            };
+        } 
+
     }
 
 };

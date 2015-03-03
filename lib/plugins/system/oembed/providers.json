@@ -240,13 +240,6 @@
         "endpoint": "http://www.mixcloud.com/oembed/"
     },
     {
-        "name": "Kickstarter",
-        "templates": [
-            "\\w+\\.kickstarter\\.com/projects/.*"
-        ],
-        "endpoint": "http://www.kickstarter.com/services/oembed"
-    },
-    {
         "name": "Coub",
         "templates": [
             "coub\\.com/view/.*",
@@ -371,5 +364,12 @@
             "vine.co/v/([a-zA-Z0-9-]+)"
         ],
         "endpoint": "https://vine.co/oembed/{1}.{format}"
-    }
+    },
+    {
+        "name": "Tumblr",
+        "templates": [
+            "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
+        ],
+        "endpoint": "https://www.tumblr.com/oembed/1.0"
+    }    
 ]
