@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -21,7 +21,7 @@ module.exports = {
             return;
         }
 
-        var $post = jquery('<div>').html(tumblr_post.body);
+        var $post = $('<div>').html(tumblr_post.body);
         var $images = $post.find('img');
 
         if ($images.length > 0) {
@@ -39,7 +39,7 @@ module.exports = {
 
         if (tumblr_post.type !== "text") {
 
-            var caption = jquery('<div>').html(tumblr_post.caption).text();
+            var caption = $('<div>').html(tumblr_post.caption).text();
             if (!caption || caption.length < 160) {
                 return;
             }

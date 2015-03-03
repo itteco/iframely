@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -26,7 +26,7 @@ module.exports = {
             return;
         }
 
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         
         try {
             $container.html(sm4.video.embed);

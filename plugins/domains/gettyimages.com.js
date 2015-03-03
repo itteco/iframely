@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -40,7 +40,7 @@ module.exports = {
     getLink: function(getty) {
 
 
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         try {
             $container.html(getty.embedTag);
         } catch (ex) {}

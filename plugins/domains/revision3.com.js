@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -15,7 +15,7 @@ module.exports = {
 
     getLink: function(oembed) {
 
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         try{
             $container.html(oembed.html5 || oembed.html);
         } catch(ex) {}
@@ -28,7 +28,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.width / oembed.height
-            }
+            };
         }
     },
 
