@@ -27,6 +27,6 @@ module.exports = {
     },
 
     tests: [
-        "http://about.me/KevinRose"
+        "http://about.me/zachperkins"
     ]
 };

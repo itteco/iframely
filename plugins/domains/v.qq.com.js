@@ -7,10 +7,13 @@ module.exports = {
     ],
 
     mixins: [
-        "html-title",
-
-        "favicon"
-    ],
+        "favicon",
+        "author",
+        "canonical",
+        "description",
+        "keywords",
+        "html-title"
+    ],    
 
     getLinks: function(urlMatch) {
         return [

@@ -42,7 +42,7 @@ module.exports = {
             return {
                 href: embedSrc,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.html5, CONFIG.R.reader],
+                rel: [CONFIG.R.html5, CONFIG.R.app],
                 "width": width,
                 "height": 300
             };

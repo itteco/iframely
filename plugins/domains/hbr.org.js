@@ -2,25 +2,24 @@ module.exports = {
 
     re: /^(https:\/\/hbr\.org\/video\/)(\d+\/)([\w-]+)$/i,
 
-    getMeta: function(urlMatch) {
-        var title = urlMatch[3].replace(/-/g, ' ');
-        title = title.substr(0, 1).toUpperCase() + title.substr(1);
-        return {
-            title: title
-        };
-    },
+    mixins: [
+        "og-video",
+        "twitter-player",
+        "og-image",
+        "favicon",
+        "og-description",
+        "og-video-duration",
+        "twitter-site",
+        "twitter-title"
+    ],    
 
-    getLinks: function(urlMatch) {
-        return [{
+    getLink: function(urlMatch) {
+        return {
             href: urlMatch[1] + 'embed/' + urlMatch[2] + urlMatch[3],
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             "aspect-ratio": 16/9
-        }, {
-            href: 'https://hbr.org/resources/images/favicon.ico',
-            type: CONFIG.T.icon,
-            rel: CONFIG.R.icon
-        }];
+        };
     },
 
     tests: [

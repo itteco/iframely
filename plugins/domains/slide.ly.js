@@ -23,15 +23,15 @@ module.exports = {
     getLink: function(urlMatch) {
         if (urlMatch[1] === 'gallery') {
             return {
-                href: 'http://slide.ly/gallery/embed/' + urlMatch[2] + '/audio/0',
+                href: '//slide.ly/gallery/embed/' + urlMatch[2] + '/audio/0',
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player
+                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5]
             };
         } else {
             return {
-                href: 'http://slide.ly/embed/' + urlMatch[1] + '/autoplay/0',
+                href: '//slide.ly/embed/' + urlMatch[1] + '/autoplay/0',
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 'aspect-ratio': 16/9
             };
         }

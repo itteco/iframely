@@ -27,13 +27,16 @@ module.exports = {
         }
 
         if (moment_type == "getpath:video_moment") {
-            return [{
+            return [
+            /* broken as [object Object] atm
+            {
                 href: meta.og.video.url,
                 type: meta.og.video.type,
                 rel: [CONFIG.R.player, CONFIG.R.og],
                 width: meta.og.video.width,
                 height: meta.og.video.height
-            }, {
+            },*/
+            {
                 href: meta.og.video.secure_url,
                 type: meta.og.video.type,
                 rel: [CONFIG.R.player, CONFIG.R.og],

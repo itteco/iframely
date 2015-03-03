@@ -179,7 +179,7 @@ module.exports = {
 
         // don't use QueryString.stringify here because OpenStreetMap can't
         // cope with "," encoded as "%2C"
-        var embed_url = "http://www.openstreetmap.org/export/embed.html?bbox="+
+        var embed_url = "//www.openstreetmap.org/export/embed.html?bbox="+
                          bbox.join(',')+'&layer='+layer;
 
         var thumb_query = {
