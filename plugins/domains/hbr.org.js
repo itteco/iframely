@@ -4,7 +4,6 @@ module.exports = {
 
     mixins: [
         "og-video",
-        "twitter-player",
         "og-image",
         "favicon",
         "og-description",
