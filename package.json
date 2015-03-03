@@ -19,7 +19,7 @@
     
     "dependencies": {
 
-        "jslint":       "0.9.0-pre004",
+        "jslint":       "0.8",
         "async":        "0.2.8",
         "underscore":   "1.4.4",
         "request":      "2.9",
