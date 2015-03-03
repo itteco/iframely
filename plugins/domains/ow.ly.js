@@ -5,7 +5,7 @@ module.exports = {
     ],    
 
     mixins: [
-        "og-title",
+        "html-title",
         "canonical",
         "keywords",
 
@@ -15,7 +15,7 @@ module.exports = {
 
     tests: [{
         page: "http://ow.ly/user/founderfuel?t=photo",
-        selector: "a.border"
+        selector: ".mediaItem a"
     },
         "http://ow.ly/i/1pREd",
         "http://ow.ly/i/1pjIO"
