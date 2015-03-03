@@ -29,6 +29,8 @@ module.exports = {
     tests: [{
         page: "http://v.qq.com/games/list/501_50101/0/1_0.html",
         selector: "a.mod_poster_160"
+    }, {
+        skipMixins: ['canonical', 'description', 'keywords']
     },
         "http://v.qq.com/boke/page/j/5/7/j0115mhkc57.html"
     ]
