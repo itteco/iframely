@@ -88,6 +88,7 @@ module.exports = {
             "oembed-author",
             "canonical",
             "oembed-video",
+            "og-image",
             "og-video",
             "twitter-stream",
             "twitter-image",
