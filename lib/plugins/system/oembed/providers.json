@@ -147,8 +147,8 @@
     {
         "name": "Instagr.am",
         "templates": [
-            "([\\w\\.]*instagram\\.com/p/([a-zA-Z0-9-]+))",
-            "(instagr\\.am/p/([a-zA-Z0-9-]+))"
+            "([\\w\\.]*instagram\\.com/p/([a-zA-Z0-9_-]+))",
+            "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
         "endpoint": "http://api.instagram.com/oembed?format={format}&url=http://{1}"
     },
