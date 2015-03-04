@@ -12,6 +12,7 @@ In response to `url` request, APIs returns you the embeds and meta for a request
 - [>> Same one, but as oEmbed](http://iframe.ly/ACcM3Y.oembed)
 
 Iframely can also be used as Node.js library. 
+Requires Node version 0.10.22 and up. 
 
 ## Get started:
 
