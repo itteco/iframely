@@ -146,10 +146,12 @@
         delete query.refresh;
 
         // Remove jsonp params.
+        // TODO: remove all except possible params.
         delete query._;
         delete query[req.app.get('jsonp callback name')];
         delete query.fingerprint;
         delete query.lang;
+        delete query.access_token;
 
         delete urlObj.search;
 
