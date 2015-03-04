@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /http:\/\/pastie\.org\/(\d+)/i,
+    re: /http:\/\/pastie\.org\/(?:pastes\/)?(\d+)/i,
 
     getMeta: function(urlMatch) {
         return {
