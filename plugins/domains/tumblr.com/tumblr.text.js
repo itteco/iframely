@@ -35,7 +35,7 @@ module.exports = {
         }
     },
 
-    getData: function (tumblr_post, readabilityEnabled) {
+    getData: function (tumblr_post, __readabilityEnabled) {
 
         if (tumblr_post.type !== "text") {
 

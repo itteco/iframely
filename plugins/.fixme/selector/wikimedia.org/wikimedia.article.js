@@ -5,13 +5,13 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function(cheerio, readabilityEnabled) {
+    getMeta: function(cheerio, __readabilityEnabled) {
         return  {
             title: cheerio("#firstHeading").text()
         }
     },
 
-    getLinks: function(cheerio, readabilityEnabled) {
+    getLinks: function(cheerio, __readabilityEnabled) {
 
         var links = [];
 

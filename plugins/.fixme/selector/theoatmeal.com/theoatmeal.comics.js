@@ -9,13 +9,13 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function(meta, readabilityEnabled) {
+    getMeta: function(meta, __readabilityEnabled) {
         return {
             title: meta["html-title"].replace(" - The Oatmeal", "")
         };
     },
 
-    getLink: function(cheerio, readabilityEnabled) {
+    getLink: function(cheerio, __readabilityEnabled) {
 
         var $comic = cheerio('#comic');
 

@@ -9,7 +9,7 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function(cheerio, readabilityEnabled) {
+    getLink: function(cheerio, __readabilityEnabled) {
 
         var $body = cheerio('.post_body');
         var text = $body.text();
