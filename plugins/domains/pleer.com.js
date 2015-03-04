@@ -17,7 +17,7 @@ module.exports = {
 
     getLink: function(urlMatch) {
         return {
-            href: "http://embed.pleer.com/track?id=" + urlMatch[1],
+            href: "http://embed.pleer.com/track?id=" + urlMatch[1] + '&for=iframely',
             type: CONFIG.T.flash,
             rel: CONFIG.R.player,
             height: 42

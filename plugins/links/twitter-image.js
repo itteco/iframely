@@ -2,14 +2,20 @@ module.exports = {
 
     getLinks: function(twitter, meta, whitelistRecord) {
 
-        if (!twitter.image && !twitter.card == "photo")
+        var isPhotoCard = twitter.card === "photo";
+        if (!isPhotoCard && twitter.card instanceof Array) {
+            isPhotoCard = twitter.card.indexOf("photo") > -1;
+        }
+
+        if (!twitter.image && !isPhotoCard) {
             return;
+        }
 
         var rel = [CONFIG.R.twitter];
         var links = [];
 
 
-        if (twitter.card == "photo" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
+        if (isPhotoCard && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.photo')) {
             rel.push(CONFIG.R.image);
 
             if (twitter.image && (twitter.image.url || twitter.image.src || (typeof twitter.image === 'string'))) {
@@ -48,7 +54,7 @@ module.exports = {
         }
 
 
-        if (twitter.card == "gallery") {
+      if (twitter.card === "gallery") {
             var i; // JSLint :\\
 
             for (i=3; i>=0; i--) {

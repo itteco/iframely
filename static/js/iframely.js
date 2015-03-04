@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.7.2
+     Version 0.8.0
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -82,7 +82,8 @@
             var parentStyle = $parent.attr('style');
             var iframeStyle = $iframe.attr('style');
 
-            if (parentStyle.match('position: relative;') &&
+            if (parentStyle && iframeStyle &&
+                parentStyle.match('position: relative;') &&
                 parentStyle.match('width: 100%;') &&
                 parentStyle.match('height: 0px;') &&
                 iframeStyle.match('height: 100%;') &&
@@ -141,7 +142,9 @@
 
         options = options || {};
 
+        $.support.cors = true;
         $.ajax({
+            crossDomain: true,
             url: $.iframely.defaults.endpoint,
             dataType: "json",
             data: {
@@ -214,7 +217,6 @@
             .css('position', 'absolute');
 
         var $container = $('<div>')
-            //.addClass("iframely-widget-container")
             .css('left', 0)
             .css('width', '100%')
             .css('height', 0)
@@ -268,7 +270,6 @@
             },
             generate: function(data) {
                 return $('<script>')
-                    //.addClass("iframely-widget iframely-script")
                     .attr('type', data.type)
                     .attr('src', data.href);
             }
@@ -280,7 +281,6 @@
             },
             generate: function(data) {
                 var $img = $('<img>')
-                    //.addClass("iframely-widget iframely-image")
                     .attr('src', data.href);
                 if (data.title) {
                     $img
@@ -346,7 +346,7 @@
                             var m = link.media;
                             if (aspect && m && m.width && m.height) {
                                 var imgAspect = m.width / m.height;
-                                return Math.abs(imgAspect - aspect) < 0.1;
+                                return Math.abs(imgAspect - aspect) < 0.15;
                             }
                             return true;
                         }
@@ -702,7 +702,7 @@
         }
 
         return [];
-    }
+    };
 
     function firstLink(links) {
 

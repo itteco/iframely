@@ -1,10 +1,10 @@
-# Iframely API for Responsive Embeds
+# Iframely API for Responsive Embeds and Unified Meta
 
-You send Iframely an URL via HTTP GET request. Iframely will return you semantics `meta` and embeds `links`, which both can be imagined as the `<head>` elements of the web page requested. 
+You send Iframely an URL via HTTP GET request. Iframely will return you semantics `meta` and embeds `links`, which both mimic the `<head>` elements of the web page requested. 
 
-Iframely will generate those elements from a variety of sources, including oEmbed, Twitter Cards and Open Graph. 
+Iframely will generate those elements from a variety of sources, including oEmbed, Twitter Cards, Open Graph, microformats and custom domain parsers. 
 
-Embed codes are given in `html` values for each link or, for the primary media option only, duplicated at the root level. 
+Embed codes are given in `html` values for each link or, for the primary media option only, duplicated at the root level. The embed codes will be wrapped into responsive divs whenever possible.
 
 ## API Request
 
@@ -13,6 +13,9 @@ Embed codes are given in `html` values for each link or, for the primary media o
  - `url` and `api_key` parameters are required. 
  - `url` needs to be URL-encoded.
  - `api_key` isn’t required if URL is from `iframe.ly/*` domain. 
+
+
+If you're making API calls via JavaScript, and your site uses SSL, change API address to `https://`. For server-server communications, HTTP is generally faster as it doesn't require additional handshakes.
 
 ## API Response
 
@@ -76,31 +79,14 @@ Embed codes are given in `html` values for each link or, for the primary media o
         },
 
 
-`rel` is the primary information about the use case of the embeds. 
-Might be Player, Thumbnail, App, Image, Reader, Survey, Summary, Icon and Logo. [See the detailed description of rels](https://iframely.com/docs/links). 
+ - `rel` is the primary information about the use case of the embeds. Primary rels are Player, Thumbnail, App, Image, Reader, Survey, Summary, Icon and Logo. [See the detailed description of rels](https://iframely.com/docs/links). 
 
-`meta` will contain list of semantic attributes in unified naming format. 
-See the list of [what Iframely might produce as meta](https://iframely.com/docs/meta).
+ - `meta` will contain list of semantic attributes in unified naming format. See what Iframely unifies as [meta semantics](https://iframely.com/docs/meta).
+
 
 Array values that only have one element will be wrapped as single object (i.e. without `[]`).
 
-**For open source users**: 
-*The API response format of [Iframely open-source](https://github.com/itteco/iframely) is a little different by default as it does not have the links array grouped by rel. This is for legacy reasons. To achieve exact same grouped response as in Cloud API, add `&group=true` to your request.*
 
-## Optional request parameters
+*For open source users:*
 
-Additional options can be requested as `get` parameters:
-
- - `iframe=true` or `iframe=1` - for the use with [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs)
- - `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
- - `ssl=true` or `1` - will return only embeds that can be used under HTTPs without active SSL mixed-content warnings (images and mp4 videos trigger only passive warnings and thus will be passed)
- - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed
- - `maxwidth=` in pixels will return only embeds that do not exceed the desired width
- - `origin=` - text value, representing your hashtag of the URL, if you later want to filter it in your desktop. E.g. chat room name, if you got a chat app
- - `callback` - JavaScript function, if you’d like response to be wrapped as JSONP.
-
-## Error handling
-
-Iframely will return HTTP error code if HTTP error occurred. It can be `404` for not found resource, `401` or `403` for webpages with authorization, `408` if the origin service takes too much time to respond and times-out, etc. 
-
-The body of the response will also contain error code and message.
+ - The API response format of [Iframely open-source](https://github.com/itteco/iframely) is a little different by default as it does not have the links array grouped by rel. This is for legacy reasons. To achieve exact same grouped response as in Cloud API, add `&group=true` to your request.

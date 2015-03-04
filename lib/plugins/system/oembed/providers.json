@@ -147,10 +147,10 @@
     {
         "name": "Instagr.am",
         "templates": [
-            "[\\w\\.]*instagram\\.com/p/([a-zA-Z0-9-]+)",
-            "instagr\\.am/p/([a-zA-Z0-9-]+)"
+            "([\\w\\.]*instagram\\.com/p/([a-zA-Z0-9_-]+))",
+            "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
-        "endpoint": "http://api.instagram.com/oembed"
+        "endpoint": "http://api.instagram.com/oembed?format={format}&url=http://{1}"
     },
     {
         "name": "DailyMotion",
@@ -240,13 +240,6 @@
         "endpoint": "http://www.mixcloud.com/oembed/"
     },
     {
-        "name": "Kickstarter",
-        "templates": [
-            "\\w+\\.kickstarter\\.com/projects/.*"
-        ],
-        "endpoint": "http://www.kickstarter.com/services/oembed"
-    },
-    {
         "name": "Coub",
         "templates": [
             "coub\\.com/view/.*",
@@ -315,17 +308,11 @@
         "endpoint": "http://api.meetup.com/oembed"
     },
     {
-        "name": "Haiku Deck",
-        "templates": [
-            "www\\.haikudeck\\.com/p/.*"
-        ],
-        "endpoint": "http://www.haikudeck.com/oembed"
-    },
-    {
         "name": "Behance",
         "templates": [
             "www\\.behance\\.net/gallery/.*",
-            "\\w+\\.\\w+\\.\\w+/gallery/[\\w-]+/\\d+"
+            "[^w]+\\.\\w+\\.\\w+/gallery/[\\w-]+/\\d+",
+            "[^w]+\\.\\w+\\.\\w+/gallery/\\d+/[\\w-]+"
         ],
         "endpoint": "http://www.behance.net/services/oembed"
     },
@@ -370,5 +357,12 @@
             "vine.co/v/([a-zA-Z0-9-]+)"
         ],
         "endpoint": "https://vine.co/oembed/{1}.{format}"
-    }
+    },
+    {
+        "name": "Tumblr",
+        "templates": [
+            "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
+        ],
+        "endpoint": "https://www.tumblr.com/oembed/1.0"
+    }    
 ]

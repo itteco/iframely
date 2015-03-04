@@ -120,12 +120,12 @@
 
         var whitelistRecord = whitelist.findRawWhitelistRecordFor(uri);
         if (whitelistRecord) {
-            result =+ new Date(whitelistRecord.date).getTime();
+            result += new Date(whitelistRecord.date).getTime();
         }
 
         var plugin = pluginLoader.findDomainPlugin(uri);
         if (plugin) {
-            result =+ plugin.getPluginLastModifiedDate().getTime();
+            result += plugin.getPluginLastModifiedDate().getTime();
         }
 
         if (result) {
@@ -144,6 +144,15 @@
         var query = urlObj.query;
 
         delete query.refresh;
+
+        // Remove jsonp params.
+        // TODO: remove all except possible params.
+        delete query._;
+        delete query[req.app.get('jsonp callback name')];
+        delete query.fingerprint;
+        delete query.lang;
+        delete query.access_token;
+
         delete urlObj.search;
 
         var newQuery = {};
@@ -217,22 +226,54 @@
 
                                 if (head) {
 
-                                    // TODO: use single universal log for API.
                                     log("Using cache for", req.url.replace(/\?.+/, ''), req.query.uri || req.query.url);
 
-                                    var etag = req.headers['if-none-match'];
+                                    var requestedEtag = req.headers['if-none-match'];
 
-                                    if (head.etag === etag) {
-                                        res.writeHead(304);
-                                        res.end();
-                                    } else {
-                                        this.charset = this.charset || 'utf-8';
-                                        if (head.etag) {
-                                            res.set('ETag', head.etag);
+                                    var jsonpCallback = req.query[req.app.get('jsonp callback name')];
+                                    if (jsonpCallback) {
+
+                                        // jsonp case.
+
+                                        var body = data.substring(index + 2);
+
+                                        body = body
+                                            .replace(/\u2028/g, '\\u2028')
+                                            .replace(/\u2029/g, '\\u2029');
+
+                                        jsonpCallback = jsonpCallback.replace(/[^\[\]\w$.]/g, '');
+                                        body = jsonpCallback + ' && ' + jsonpCallback + '(' + body + ');';
+
+                                        var realEtag = etag(body);
+
+                                        if (realEtag === requestedEtag) {
+                                            res.writeHead(304);
+                                            res.end();
+                                        } else {
+                                            this.charset = this.charset || 'utf-8';
+                                            res.set('ETag', realEtag);
+                                            res.set('Content-Type', 'text/javascript');
+                                            res.writeHead(head.statusCode || 200, head.headers);
+                                            res.end(body);
                                         }
-                                        res.writeHead(head.statusCode || 200, head.headers);
-                                        res.end(data.substring(index + 2));
+
+                                    } else {
+
+                                        // Common case.
+
+                                        if (head.etag === requestedEtag) {
+                                            res.writeHead(304);
+                                            res.end();
+                                        } else {
+                                            this.charset = this.charset || 'utf-8';
+                                            if (head.etag) {
+                                                res.set('ETag', head.etag);
+                                            }
+                                            res.writeHead(head.statusCode || 200, head.headers);
+                                            res.end(data.substring(index + 2));
+                                        }
                                     }
+
                                 } else {
                                     cb();
                                 }
@@ -269,38 +310,30 @@
             // Copy from source.
             res.jsonpCached = function(obj) {
 
-                // allow status / body
-                if (2 == arguments.length) {
-                    // res.json(body, status) backwards compat
-                    if ('number' == typeof arguments[1]) {
-                        this.statusCode = arguments[1];
-                    } else {
-                        this.statusCode = obj;
-                        obj = arguments[1];
-                    }
-                }
-
                 // settings
                 var app = this.app;
                 var replacer = app.get('json replacer');
                 var spaces = app.get('json spaces');
-                var body = JSON.stringify(obj, replacer, spaces)
-                    .replace(/\u2028/g, '\\u2028')
-                    .replace(/\u2029/g, '\\u2029');
-                var callback = this.req.query[app.get('jsonp callback name')];
+                var body = JSON.stringify(obj, replacer, spaces);
 
                 // content-type
                 this.charset = this.charset || 'utf-8';
                 this.set('Content-Type', 'application/json');
 
+                // Cache without jsonp callback.
+                setResponseToCache(200, 'application/json', req, res, body);
+
                 // jsonp
+                var callback = this.req.query[app.get('jsonp callback name')];
                 if (callback) {
+                    body = body
+                        .replace(/\u2028/g, '\\u2028')
+                        .replace(/\u2029/g, '\\u2029');
+
                     this.set('Content-Type', 'text/javascript');
                     var cb = callback.replace(/[^\[\]\w$.]/g, '');
                     body = cb + ' && ' + cb + '(' + body + ');';
                 }
-
-                setResponseToCache(200, this.get('Content-Type'), req, res, body);
 
                 this.send(body);
             };
@@ -338,11 +371,19 @@
                 var app = this.app;
                 var replacer = app.get('json replacer');
                 var spaces = app.get('json spaces');
-                setResponseToCache(200, 'application/json', req, res, JSON.stringify(obj, replacer, spaces));
 
+                var body = JSON.stringify(obj, replacer, spaces);
+
+                // content-type
                 this.charset = this.charset || 'utf-8';
-                this.send(obj);
+                this.set('Content-Type', 'application/json');
+
+                setResponseToCache(200, 'application/json', req, res, body);
+
+                this.send(body);
             };
+
+
             next();
         });
     };

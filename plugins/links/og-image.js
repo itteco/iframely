@@ -30,13 +30,5 @@ module.exports = {
 
             return getImageLinks(og.image);
         }
-    },
-
-    tests: [{
-        pageWithFeed: "http://digg.com/"
-    }, {
-        skipMethods: [
-            "getLinks"
-        ]
-    }]
+    }
 };

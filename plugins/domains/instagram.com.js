@@ -10,22 +10,16 @@ module.exports = {
         "oembed-title",
         "oembed-site",
         "oembed-author",
+        "oembed-thumbnail",
+        "oembed-rich",
 
         "favicon"
     ],
 
-    getLinks: function(urlMatch, meta) {
+    getLinks: function(urlMatch, meta, oembed) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
-        var embed = '//instagram.com/p/' + urlMatch[1] + '/embed/';
 
         var links = [
-            {
-                href: embed,
-                type: CONFIG.T.text_html,
-                rel: (meta.og && meta.og.video) ? [CONFIG.R.player, CONFIG.R.html5]: CONFIG.R.app,
-                width: 616,
-                height: 714
-            },
             // Images.
             {
                 href: src + 't',
@@ -52,17 +46,21 @@ module.exports = {
                 href: meta.og.video.url,
                 type: meta.og.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": meta.og.video.width / meta.og.video.height,
-                "max-width": meta.og.video.width,
-                "max-height": meta.og.video.height
+                "aspect-ratio": meta.og.video.width / meta.og.video.height
             });
             links.push({
                 href: meta.og.video.secure_url,
                 type: meta.og.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": meta.og.video.width / meta.og.video.height,
-                "max-width": meta.og.video.width,
-                "max-height": meta.og.video.height
+                "aspect-ratio": meta.og.video.width / meta.og.video.height
+            });
+        } else {
+            links.push({
+                href: oembed.thumbnail_url,
+                type: CONFIG.T.image_jpeg,
+                rel: CONFIG.R.image,
+                width: oembed.thumbnail_width,
+                height: oembed.thumbnail_height
             });
         }
 

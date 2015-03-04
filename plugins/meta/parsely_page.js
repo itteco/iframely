@@ -1,6 +1,6 @@
 module.exports = {
 
-    lowestPriority: true,
+    highestPriority: true,
 
     provides: 'self',
 
@@ -27,8 +27,9 @@ module.exports = {
             title: parsely_page.title,
             date: parsely_page.pub_date,
             author: parsely_page.author,
-            keywords: parsely_page.tags && typeof parsely_page.tags === "array" ? parsely_page.tags.join(', ') : null,
-            category: parsely_page.section
+            keywords: parsely_page.tags && parsely_page.tags instanceof Array ? parsely_page.tags.join(', ') : null,
+            category: parsely_page.section,
+            media: parsely_page.type == "post" ? 'reader': null
         };
     }
 };

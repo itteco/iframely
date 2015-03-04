@@ -19,7 +19,9 @@ module.exports = {
         // For embedded videos (youtube) - 
         // http://edge.liveleak.com/80281E/s/s/17/media17/2014/Jan/13/e477ff3a60ae_embed_thumbnail_... 
         // So we can tell that if og:image contains "embed" - then it's not a hosted video
-        if (!og.image || og.image.indexOf ("embed") > -1) return;
+        if (!og.image || og.image.indexOf ("embed") > -1) {
+            return;
+        }
 
         var image_str = og.image.split('/');
         var image_name = image_str[image_str.length-1];

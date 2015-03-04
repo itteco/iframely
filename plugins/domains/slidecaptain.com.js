@@ -31,7 +31,11 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        skipMixins: [
+            "og-image"
+        ]
+    },
         "http://www.slidecaptain.com/flows/51dbfee3896082260f0001f5/background-images-and-colors/embed",
         "http://www.slidecaptain.com/flows/51dbfee3896082260f0001f5/background-images-and-colors/"
     ]

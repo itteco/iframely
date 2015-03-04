@@ -24,7 +24,7 @@ module.exports = {
             // Especially for video files and presentations:
 
             // canonical: schemaFileObject.url
-        }
+        };
 
     },
 
@@ -103,7 +103,9 @@ module.exports = {
                 "og-image", "og-title", "og-description", "twitter-player-responsive"
             ],
             skipMethods: [
-                "getLink"
+                "getLink",
+                "getMeta",
+                "getData"
             ]
         }
 

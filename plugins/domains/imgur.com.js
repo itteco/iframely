@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -45,7 +45,7 @@ module.exports = {
 
 
         if (oembed.type == "rich") {
-            var $container = jquery('<div>');
+            var $container = $('<div>');
             try{
                 $container.html(oembed.html5 || oembed.html);
             } catch(ex) {}

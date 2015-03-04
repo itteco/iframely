@@ -22,34 +22,41 @@ module.exports = {
 
         var moment_type = meta.og.type;
 
-        if (!moment_type == "getpath:video_moment" && !moment_type == "getpath:photo_moment") return;
+        if (moment_type !== "getpath:video_moment" && moment_type !== "getpath:photo_moment") {
+            return;
+        }
 
-        if (moment_type == "getpath:video_moment") return [{
-            href: meta.og.video.url,
-            type: meta.og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.og],
-            width: meta.og.video.width,
-            height: meta.og.video.height
-        }, {
-            href: meta.og.video.secure_url,
-            type: meta.og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.og],
-            width: meta.og.video.width,
-            height: meta.og.video.height
-        }, {
-            href: meta.og.image.url,
-            type: CONFIG.T.image,
-            rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],
-            width: meta.og.image.width,
-            height: meta.og.image.height
-        }] 
-
-        else return {
-            href: meta.twitter.image.url,
-            type: CONFIG.T.image,
-            rel: [CONFIG.R.image, CONFIG.R.twitter],
-            width: meta.twitter.image.width,
-            height: meta.twitter.image.height
+        if (moment_type == "getpath:video_moment") {
+            return [
+            /* broken as [object Object] atm
+            {
+                href: meta.og.video.url,
+                type: meta.og.video.type,
+                rel: [CONFIG.R.player, CONFIG.R.og],
+                width: meta.og.video.width,
+                height: meta.og.video.height
+            },*/
+            {
+                href: meta.og.video.secure_url,
+                type: meta.og.video.type,
+                rel: [CONFIG.R.player, CONFIG.R.og],
+                width: meta.og.video.width,
+                height: meta.og.video.height
+            }, {
+                href: meta.og.image.url,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],
+                width: meta.og.image.width,
+                height: meta.og.image.height
+            }];
+        } else {
+            return {
+                href: meta.twitter.image.url,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.image, CONFIG.R.twitter],
+                width: meta.twitter.image.width,
+                height: meta.twitter.image.height
+            };
         }
     },
 

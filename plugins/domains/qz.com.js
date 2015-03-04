@@ -8,7 +8,7 @@ module.exports = {
         "oembed-thumbnail"
     ],
 
-    getLinks: function(oembed, readabilityEnabled) {
+    getLinks: function(oembed, __readabilityEnabled) {
 
         return [
 
@@ -32,7 +32,7 @@ module.exports = {
         }]
     },
 
-    getData: function(oembed, readabilityEnabled) {
+    getData: function(oembed, __readabilityEnabled) {
 
         var html = oembed.html;
 

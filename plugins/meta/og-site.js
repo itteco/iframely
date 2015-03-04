@@ -1,7 +1,5 @@
 module.exports = {
 
-    lowestPriority: true,
-
     getMeta: function(og) {
 
         return {

@@ -31,6 +31,8 @@ Please, create your local config file to adjust settings. This local config file
     cp config.local.js.SAMPLE config.local.js
     vi config.local.js
 
+If you support various environment configs and pass it as `NODE_ENV`, create config files that match your enviroments. For example, `config.develop.js`.
+
 Edit the sample config file as you need. You may also override any values from main config.js in your local config.
 
 At the very least, you need to properly configure:

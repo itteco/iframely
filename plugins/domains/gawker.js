@@ -25,7 +25,7 @@ module.exports = {
         "og-title"
     ],
 
-    getData: function(meta, cheerio, readabilityEnabled) {
+    getData: function(meta, cheerio, __readabilityEnabled) {
 
         var $html = cheerio('div.post-content');
 

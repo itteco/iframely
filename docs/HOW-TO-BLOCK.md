@@ -1,21 +1,12 @@
 # How to block Iframely API
 
-If you are a content publisher, and do not wish your embeds be available via Iframely open-source or Cloud API (as weird as it sounds), here’s some information for you. 
-
+If you are a content publisher, and do not wish your embeds be available via Iframely open-source or Cloud API (as unreasonable as it sounds), you can block us on your proxy. 
 
 Iframely APIs use the following user agent:
 
-	Iframely/0.6.4 (+http://iframely.com/;)
+	Iframely/0.7.3 (+http://iframely.com/;)
 
-where `0.6.4` is the version of the API, and can change. 
-
-You may opt to block this user agent completely or to allow it to certain sections of your site only. 
-
-Please, note, that users of Iframely’s open-source package may configure the user-agent to be anything else. 
-
-In this case, Iframely still will follow `robots.txt` file directive. As well as `noindex` value of `robots` attribute in page’s meta:
-
-	<meta name="robots" content="noindex">
+where `0.7.3` is the version of the API, and changes every month. Also, users of Iframely’s open-source package may configure the user-agent to be anything else. 
 
 
-To give specific directives to Iframely API in your robots config, use `iframely` as robot name. 
+Unfortunatelly, Iframely can not follow `robots` directives on your pages (`<meta name="robots" content="noindex, ...">`). We tried to test this approach one way or another only to discovered that tremendous number of rich media providers have it mis-configured on their pages. We therefore can not implement a predicatble logic that relies on these directives.

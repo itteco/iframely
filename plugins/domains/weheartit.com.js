@@ -19,7 +19,7 @@ module.exports = {
             selector: ".heart-button"
         },
         {
-            skipMixins: ["keywords"]
+            skipMixins: ["keywords", "og-title"]
         }
     ]
 };

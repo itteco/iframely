@@ -4,7 +4,6 @@ module.exports = {
 
     mixins: [
         "og-image",
-        "twitter-image",
         "favicon",
         "canonical",
         "twitter-description",
@@ -19,7 +18,7 @@ module.exports = {
 
             return {
                 href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + m[1] + '/player',
-                rel: [CONFIG.R.image, CONFIG.R.player],
+                rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": 4/3
             };

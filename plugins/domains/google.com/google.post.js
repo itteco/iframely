@@ -10,7 +10,7 @@ module.exports = {
     re: [
         /^https:\/\/plus\.google\.com\/(\d+)\/posts\/(\w+)/i,
         /^https:\/\/plus\.google\.com\/u\/0\/(\d+)\/posts\/(\w+)/i,
-        /^https:\/\/plus\.google\.com\/(\+\w+)\/posts\/(\w+)/i, // e.g. https://plus.google.com/+UmarHansa/posts/2m8yF7aFonn
+        /^https:\/\/plus\.google\.com\/(\+[a-zA-Z0-9%]+)\/posts\/(\w+)/i, // e.g. https://plus.google.com/+UmarHansa/posts/2m8yF7aFonn, plus international domains
         /^https:\/\/plus\.google\.com\/u\/0\/(\+\w+)\/posts\/(\w+)/i
     ],
 
@@ -40,6 +40,13 @@ module.exports = {
     },
 
     getData: function (urlMatch, cheerio) { 
+
+        if (cheerio('a[href*="communities/"]').length) {
+            return;
+        }
+        // G+ doesn't support community posts!
+        // ex. https://plus.google.com/101947077689367869700/posts/2fdzVY9LoSw
+
 
         if (urlMatch[1].indexOf ('+') == -1 ) {
 

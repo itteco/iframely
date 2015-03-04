@@ -68,7 +68,9 @@ module.exports = function(app) {
                     readability: getBooleanParam(req, 'readability'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
-                    promoUri: req.query.promoUri
+                    promoUri: req.query.promoUri,
+                    forcePromo: getBooleanParam(req, 'forcePromo'),
+                    forOembed: req.query['for'] === 'oembed'
                 }, cb);
             }
 
@@ -258,6 +260,10 @@ module.exports = function(app) {
                         getWhitelistRecord: whitelist.findWhitelistRecordFor
                     }, function(error, result) {
 
+                        if (error) {
+                            return cb(error);
+                        }
+
                         var render_link = result && _.find(result.links, function(link) {
                             return link.html
                                 && link.rel.indexOf(CONFIG.R.inline) === -1
@@ -367,7 +373,8 @@ module.exports = function(app) {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: getBooleanParam(req, 'ssl'),
                     filterNonHTML5: getBooleanParam(req, 'html5'),
-                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
+                    forOembed: req.query['for'] === 'oembed'
                 }, cb);
             }
 

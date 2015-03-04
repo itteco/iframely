@@ -16,7 +16,10 @@ module.exports = {
         var episode = og.url && og.url.match(/^https?:\/\/www\.stitcher\.com\/s\?eid=(\d+)/i);
         var station = og.image && (og.image.value || og.image).match(/_(\d+)\.jpg$/i);
 
-        if (!episode || !station) return; // so it falls back to generic parsers
+        if (!episode || !station) {
+            // so it falls back to generic parsers
+            return;
+        }
 
         return {
             href: "https://app.stitcher.com/splayer/f/" + station[1] + "/" + episode[1] + "?refId=iframely",

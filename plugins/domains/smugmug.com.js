@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -51,7 +51,7 @@ module.exports = {
         } else if (oembed.type === "rich") {
             // iframe'd gallery
 
-            var $container = jquery('<div>');
+            var $container = $('<div>');
 
             try {
                 $container.html(oembed.html);
@@ -88,6 +88,7 @@ module.exports = {
             "oembed-author",
             "canonical",
             "oembed-video",
+            "og-image",
             "og-video",
             "twitter-stream",
             "twitter-image",

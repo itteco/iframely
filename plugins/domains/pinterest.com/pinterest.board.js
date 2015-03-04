@@ -2,7 +2,7 @@ var DEFAULT_WIDTH = 600;
 
 module.exports = {
 
-    re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-z0-9]+)\/([\w\-]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%]+)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
 
     mixins: [
         "favicon",

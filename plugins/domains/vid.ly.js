@@ -24,6 +24,6 @@ module.exports = {
     },
 
     tests: [
-        "http://vid.ly/9a5q8t"
+        "http://vid.ly/3m6w0r"
     ]
 };

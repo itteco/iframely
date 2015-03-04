@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www|mixes)\.beatport\.com\/(track|mix)\/[a-zA-Z0-9\.\-]+\/(\d+)/i
+        /^https?:\/\/(?:www|mixes|pro)\.beatport\.com\/(track|mix)\/[a-zA-Z0-9\.\-]+\/(\d+)/i
     ],
 
     mixins: [
@@ -20,22 +20,28 @@ module.exports = {
             href: "http://embed.beatport.com/player/?id=" + urlMatch[2] + "&type=" + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
-            height: og.video.height,
-            'min-width': og.video.width
+            height: og.video && og.video.height || 162,
+            'min-width': og.video && og.video.width || 398
         }, {
-            href: og.video.secure_url.replace(/(auto)=1/i, '$1=0'),
-            type: og.video.type,
+            href: og.video && og.video.secure_url.replace(/(auto)=1/i, '$1=0'),
+            type: og.video && og.video.type || CONFIG.T.text_html,
             rel: CONFIG.R.player,
-            height: og.video.height,
-            'min-width': og.video.width
-        }]
+            height: og.video && og.video.height,
+            'min-width': og.video && og.video.width
+        }];
     },
 
     tests: [{
         page: "http://www.beatport.com/",
         selector: "a.itemRenderer-title"
     }, {
-        skipMixins: ["og-description"]
+        skipMixins: [
+            "author",
+            "canonical",
+            "copyright",
+            "og-site",
+            "og-description"
+        ]
     },
         "http://www.beatport.com/track/kiss-bitches-original-mix/5374571",
         "http://mixes.beatport.com/mix/happy-ch-electro-pop-vol-006/163618",

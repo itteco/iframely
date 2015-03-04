@@ -1,13 +1,13 @@
 module.exports = {
 
-    provides: '__enable_readability',
+    provides: '__is_general_article',
 
-    getData: function(meta, readabilityEnabled) {
+    getData: function(meta, __readabilityEnabled) {
 
         if (meta.og && (meta.og.type === "article" || meta.og.type === "blog")) {
 
             return {
-                __enable_readability: true
+                __is_general_article: true
             };
         }
     }

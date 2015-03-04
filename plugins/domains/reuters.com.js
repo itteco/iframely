@@ -17,9 +17,10 @@ module.exports = {
 
         return {
             href: "http://www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],            
-            rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
-            "aspect-ratio": 512/288
+            width: 512,
+            height: 288
         }
     },
 

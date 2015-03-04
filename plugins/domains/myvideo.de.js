@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.myvideo\.de\/watch\/([0-9]+)/i
+        /^https?:\/\/www\.myvideo\.de\/watch\/([0-9]+)/i,
+        /^https?:\/\/www\.myvideo\.de\/musik\/\w+\/[\w-]+-([0-9]+)/i
     ],
 
     mixins: [

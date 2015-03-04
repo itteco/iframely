@@ -9,7 +9,7 @@ module.exports = {
         "favicon"
     ],
 
-    getLink: function(oembed, readabilityEnabled) {
+    getLink: function(oembed, __readabilityEnabled) {
 
         return {
             html: oembed.html,

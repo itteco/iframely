@@ -1,4 +1,4 @@
-var jquery = require('jquery');
+var $ = require('cheerio');
 
 module.exports = {
 
@@ -21,7 +21,7 @@ module.exports = {
             height: 32
         }];
 
-        var $container = jquery('<div>');
+        var $container = $('<div>');
         try{
             $container.html(oembed.html);
         } catch(ex) {}

@@ -17,8 +17,8 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: "http://tv.zing.vn/embed/video/" + urlMatch[1],
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            href: "//tv.zing.vn/embed/video/" + urlMatch[1],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
             type: CONFIG.T.text_html,
             "aspect-ratio": 640 / 360
         }

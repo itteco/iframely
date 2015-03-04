@@ -11,7 +11,9 @@ module.exports = {
 
     getLink: function (oembed) {
 
-        if (!oembed.html) return;
+        if (!oembed.html) {
+            return;
+        }
 
         return [{
             html: oembed.html.replace (/style=\"[^\"]+\"/i, ""),
@@ -30,7 +32,6 @@ module.exports = {
     tests: [
         "http://issuu.com/redbulletin.com/docs/the_red_bulletin_stratos_special_us",
         "http://issuu.com/ukrainian_defense_review/docs/udr_02_2013_english",
-        "http://issuu.com/jurnal11/docs/atlas171_jurnalik.ru",
         "http://issuu.com/kathamagazine/docs/julyaug2014/c/s8fjq65"
     ]
 

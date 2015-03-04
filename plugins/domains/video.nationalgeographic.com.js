@@ -3,11 +3,11 @@ module.exports = {
     mixins: [
         "og-image",
         "favicon",
-        "twitter-author",
         "canonical",
         "twitter-description",
         "keywords",
-        "twitter-title"
+        "twitter-title",
+        "twitter-site"
     ],
 
     getLink: function(cheerio) {
