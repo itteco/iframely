@@ -217,7 +217,6 @@
             .css('position', 'absolute');
 
         var $container = $('<div>')
-            //.addClass("iframely-widget-container")
             .css('left', 0)
             .css('width', '100%')
             .css('height', 0)
@@ -271,7 +270,6 @@
             },
             generate: function(data) {
                 return $('<script>')
-                    //.addClass("iframely-widget iframely-script")
                     .attr('type', data.type)
                     .attr('src', data.href);
             }
@@ -283,7 +281,6 @@
             },
             generate: function(data) {
                 var $img = $('<img>')
-                    //.addClass("iframely-widget iframely-image")
                     .attr('src', data.href);
                 if (data.title) {
                     $img
