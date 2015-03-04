@@ -4,6 +4,23 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2015.03.04, Version 0.8.0
+
+*Heads up:* 
+
+Starting from this version, the minimal Node.js version required for Iframely is 0.10.22. We had to make a choice to either support latest Node.js or earlier version due to incompatible libraries dependenices. Please, run 'npm update' to update libraries. Unfortunatelly, update likely won't work if your Node is earlier than 0.10.22.
+
+
+- Instagram status JS embeds with rel `app`
+- Tumblr status JS embeds with rel `app` (beware: embeds don't work with SSL)
+- International domains for Pinterest
+- Google custom maps
+- YouTube playlists and timed embeds
+- Google+ posts for international usernames. Plus, properly exclude posts in groups
+- Medium stories will now have JS embeds too
+- Fix issues with caching of JSONP requests
+- Number of fixes in various other plugins
+
 
 ### 2014.12.30, Version 0.7.2
 
@@ -283,78 +300,6 @@ _Beware_: The interfaces of Iframely core lib have slightly changed and remain u
  * The processing wave for plugins is now strictly asynchronous and supports streaming pipes. A plugin is now called as soon as all the params it depends upon are available.
  * Post processing of the embed links and meta has been moved to system plugins as well, to make it asynchronous too. 
 
-
- 
-
-### 2014.01.28, Version 0.5.8
-
-Happy 2014! While we work on re-implementing of Iframely's core to make it even faster and more robust, here's the long overdue maintenance release. 
-
-New features:
-
- + Cluster mode. To run Iframely as cluster - `node cluster`. It is useful for 64bit hardware, and also as a way to manage server's uptime. 
- + Domains DB whitelist file can now be loaded via URL. Set `WHITELIST_URL` in your local config file to your custom access URL, and Iframely will keep loading central whitelist as our QA updates it. Local whitelist files still prevail over loading via URL.
-
-Domain maintenance: 
-
- + Added Brightcove parser _and_ all hosted players
- + Added PBS.org videos _and_ all hosted sites
- + Custom parser for Vevo (as replacement of the old .fixme one)
- + Support SmugMug galleries
- + Custom parser for Yahoo Screen
- + Custom parser for Imgur's static URLs (#31)
- * Properly fix Imgur's kitten bombs in oEmbed
- + Added Imgur's galleries
- + Parser for Globe And Mail videos
- + Parser for Pando Daily videos
- * Fix Google+ posts by removing unsupported URL schemes
- * Fix Metacafe for their new URL scheme
- * New URL scheme for CollegeHumor pictures
- * Allow YouTube own embeds URLs as input parameter 
- * Changed user-agent string so that all Yahoo sites don't redirect to their mobile versions (thus, blocking all whitelist records)
- * Restore responsiveness of Viddy, Trutv, Revision3
- * Fix for whitelisted Twitter Photo, when there is a fallback to OG image
- * Allow older GitHub gists (the ones without a title and different URL scheme)
- * Fix 9gag photos
- * Cover more URLs on CNN videos, Wistia, Kinja and ec.europa.eu
- * Some performance improvements
-
-
-### 2013.11.28, Version 0.5.7
-
-This maintenance update is focused on domain plugins. Please remember to update regularly as domains change their websites and we maintain Iframely plugins accordingly. 
-
- + Finally, a plugin for Vube.com (Alexa rank 69, and they had API issues before)
- + Added plugin for Codepen.io
- + Plugin for Dribbble
- + Screencast (including videos)
- + Tinypic
- + Pastebin
- + About.me
- + Plugins for Haiku Deck & Slid.es (courtesy @peacemoon)
- + Fixes for CNN videos
- + Fixes for BravoTV, Eventbrite, Angellist and Wikimedia
- + By popular demand: Customization of YouTube and Vimeo players. 
-
-To customize YouTube and Vimeo embeds, add your settings to the local config file (which is git-ignored when updating):
-
-        providerOptions: {
-          // ...
-
-            // List of query parameters to add to YouTube and Vimeo frames
-            // Start it with leading "?". Or omit altogether for default values
-            youtube: {
-                get_params: "?rel=0&showinfo=1"
-                // https://developers.google.com/youtube/player_parameters
-            },
-            vimeo: {
-                get_params: "?byline=0&badge=0"
-                // http://developer.vimeo.com/player/embedding
-            }
-        }
-
-
-Also, [Iframely Domains DB](http://iframely.com/qa) has recently reached 1500 entries.
 
 
 
