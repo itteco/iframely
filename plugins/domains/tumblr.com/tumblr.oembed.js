@@ -26,5 +26,9 @@ module.exports = {
             rel: rel,
             "max-width": oembed.width
         };
-    }
+    },
+
+    tests: [
+        "http://fewthistle.tumblr.com/post/58045916432"
+    ]
 };
