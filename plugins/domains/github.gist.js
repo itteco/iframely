@@ -70,7 +70,7 @@ module.exports = {
 
                 return cb(null, {
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.reader, CONFIG.R.ssl],
+                    rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.html5],
                     html: '<script type="text/javascript" src="' + scriptUrl + '"></script>'
                 });
             });
