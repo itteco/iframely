@@ -11,7 +11,6 @@ module.exports = {
         "oembed-site",
         "oembed-author",
         "oembed-thumbnail",
-        "oembed-rich",
 
         "favicon"
     ],
@@ -61,6 +60,14 @@ module.exports = {
                 rel: CONFIG.R.image,
                 width: oembed.thumbnail_width,
                 height: oembed.thumbnail_height
+            });
+        }
+
+        if (oembed.type === 'rich') {
+            links.push({
+                html: oembed.html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline]
             });
         }
 
