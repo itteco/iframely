@@ -247,7 +247,7 @@ function showEmbeds($embeds, data, filterByRel) {
             if (key == "_sources") {
                 return;
             }
-            var pluginId = data.meta._sources[key];
+            var pluginId = data.meta._sources && data.meta._sources[key] || '';
             usedPlugins[pluginId] = true;
 
             $meta.append('<tr>' + (DEBUG ? ('<td>' + pluginId + '</td><td></td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
