@@ -18,7 +18,7 @@ module.exports = {
                     iframeResizerScript: CONFIG.providerOptions.bloomberg.iframeResizerScript
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.inline]
+                rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl]
             }, {
                 href: meta['iframely thumbnail'].href,
                 type: meta['iframely thumbnail'].type,
