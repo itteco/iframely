@@ -13,15 +13,21 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(urlMatch) {
+    getLink: function(urlMatch, options) {
+
+        var width = options.maxWidth || 480;
+
+        if (width < 400) {
+            width = 400;
+        }
 
         return {
-            href: "http://www.imdb.com/video/imdb/vi" + urlMatch[1] + "/imdb/embed?autoplay=false&width=480",
+            href: "http://www.imdb.com/video/imdb/vi" + urlMatch[1] + "/imdb/embed?autoplay=false&width=" + width,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            width: 480,
-            height: 270
-        }
+            width: width,
+            height: width / (16/9) + 40 // 40px body margin
+        };
     },
 
     tests: [
