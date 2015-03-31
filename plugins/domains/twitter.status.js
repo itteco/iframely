@@ -70,11 +70,13 @@ module.exports = {
         };
     },
 
-    getLink: function(twitter_oembed) {
+    getLink: function(twitter_oembed, options) {
+
+        var width = options.maxWidth && (' width="' + options.maxWidth + '"') || '';
 
         return {
+            html: twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center"' + width + '>'),
             type: CONFIG.T.text_html,
-            html: twitter_oembed.html,
             rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             "min-width": c["min-width"],
             "max-width": c["max-width"]
