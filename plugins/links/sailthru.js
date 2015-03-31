@@ -19,6 +19,7 @@ module.exports = {
             utils.getImageLink('sailthru.image.full', meta) || [],
             utils.getImageLink('sailthru.image.thumb', meta) || [],
             utils.getImageLink('sailthru.playimage', meta) || [],
+            utils.getImageLink('sailthru.author-avatar', meta) || [],
             utils.getImageLink('sailthru.brandthumbimage', meta) || []
         );
     }
