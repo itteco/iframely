@@ -135,9 +135,10 @@ module.exports = {
             links.push({
                 href: youtube_video_gdata.thumbnailBase + 'maxresdefault.jpg',
                 rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image_jpeg,
-                width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
-                height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
+                type: CONFIG.T.image_jpeg
+                // remove width so that image is checked for 404 as well
+                // width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
+                // height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
             });
         }
 
