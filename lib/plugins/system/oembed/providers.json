@@ -379,6 +379,13 @@
             ".*\\.deviantart\\.com/art/.*"
         ],
         "endpoint": "http://backend.deviantart.com/oembed"
-    }    
+    },
+    {
+        "name": "roomshare.jp",
+        "templates": [
+            "roomshare\\.jp/post/\\d+"
+        ],
+        "endpoint": "http://roomshare.jp/oembed.xml?url=http://{0}"
+    }
 
 ]
