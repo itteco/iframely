@@ -30,6 +30,7 @@ module.exports = {
             template_context: {
                 title: facebook_post.title,
                 url: facebook_post.url,
+                type: 'fb-post',
                 width: options.maxWidth || DEFAULT_WIDTH
             },
             width: options.maxWidth || DEFAULT_WIDTH
