@@ -372,5 +372,13 @@
             "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
+    },
+    {
+        "name": "DeviantArt",
+        "templates": [
+            ".*\\.deviantart\\.com/art/.*"
+        ],
+        "endpoint": "http://backend.deviantart.com/oembed"
     }    
+
 ]
