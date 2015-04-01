@@ -13,7 +13,7 @@ module.exports = {
         "oembed-video-responsive"
     ],
 
-    getLink: function (url, cb) { 
+    getLink: function (url, oembed, cb) {
 
         if (url.match(/^https?:\/\/www\.dailymotion\.com\/swf\/video\//i)) {
             cb ({
