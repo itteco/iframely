@@ -1,5 +1,7 @@
 module.exports = {
 
+    provides: 'getpath',
+
     re: [
         /^https?:\/\/path\.com\/p\/(\w+)/i,
         /^https?:\/\/path\.com\/moment\/(\w+)/i
@@ -7,26 +9,14 @@ module.exports = {
 
     mixins: [
         "canonical",
+        "og-title",
+        "twitter-image",
         "favicon"
     ],
 
-    getMeta: function(meta) {
+    getLink: function(getpath, meta) {
 
-        return {
-            title: meta.getpath.caption || meta.getpath.thought || meta.og.description || meta.twitter.title + ' ' + meta.twitter.description,
-            author: meta.twitter.title
-        }
-    },
-
-    getLink: function(meta) {
-
-        var moment_type = meta.og.type;
-
-        if (moment_type !== "getpath:video_moment" && moment_type !== "getpath:photo_moment") {
-            return;
-        }
-
-        if (moment_type == "getpath:video_moment") {
+        if (getpath === "video") {
             return [
             /* broken as [object Object] atm
             {
@@ -49,14 +39,15 @@ module.exports = {
                 width: meta.og.image.width,
                 height: meta.og.image.height
             }];
-        } else {
+        } // otherwise falls back to default parser for twitter-image
+    },
+
+    getData: function (meta) {
+
+        if (meta.og.type === "getpath:video_moment") {
             return {
-                href: meta.twitter.image.url,
-                type: CONFIG.T.image,
-                rel: [CONFIG.R.image, CONFIG.R.twitter],
-                width: meta.twitter.image.width,
-                height: meta.twitter.image.height
-            };
+                getpath: "video"
+            }
         }
     },
 
