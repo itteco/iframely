@@ -4,6 +4,16 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+
+### 2015.04.02, Version 0.8.2
+
+- Fixes for some domain plugins like path.com, visual.ly, prezi, deviantart, storify, roomshare.jp
+- Twitter statuses can now have variable width (through `&maxwidth` param) and are aligned to center
+- New Facebook Video embeds. Yay!
+- New plugins for CartoDB, wasu.cn, ku6.com, datpiff.com, tudou.com, deezer
+
+
+
 ### 2015.03.04, Version 0.8.0
 
 *Heads up:* 

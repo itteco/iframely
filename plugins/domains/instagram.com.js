@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/[\w\.]*instagram\.com\/p\/([a-zA-Z0-9_-]+)/i,
-        /^https?:\/\/instagr\.am\/p\/([a-zA-Z0-9_-]+)/i,
-        /^https?:\/\/instagram\.com\/p\/([a-zA-Z0-9_-]+)$/i
+        /^https?:\/\/[\w\.]*instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)$/i
     ],
 
     mixins: [
@@ -11,7 +11,6 @@ module.exports = {
         "oembed-site",
         "oembed-author",
         "oembed-thumbnail",
-        "oembed-rich",
 
         "favicon"
     ],
@@ -61,6 +60,14 @@ module.exports = {
                 rel: CONFIG.R.image,
                 width: oembed.thumbnail_width,
                 height: oembed.thumbnail_height
+            });
+        }
+
+        if (oembed.type === 'rich') {
+            links.push({
+                html: oembed.html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline]
             });
         }
 

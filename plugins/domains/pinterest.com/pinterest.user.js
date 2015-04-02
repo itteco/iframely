@@ -21,7 +21,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
+            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             template: "pinterest.widget",
             template_context: {
                 url: url,

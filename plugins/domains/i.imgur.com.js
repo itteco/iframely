@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /https?:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png|gifv)$/i,
+    re: /https?:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png|gifv)(\?.*)?$/i,
 
     getLink: function(urlMatch, cb) {
 

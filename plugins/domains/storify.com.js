@@ -18,17 +18,15 @@ module.exports = {
         };
     },
 
-    // TODO: add max-width.
-    // TODO: add iframe event to parent: update size.
-
     getLink: function(meta) {
 
-        var src = meta.canonical.replace('http:', '') + '.js';
+        var url = meta.canonical.replace('http:', '');
+        var title = (meta.og.title || meta["html-title"]).split(" · ")[0];
 
         return {
+            html: '<div class="storify"><iframe src="' + url + '/embed" width="100%" height="750" frameborder="no" allowtransparency="true"></iframe><script src="' + url + '.js"></script><noscript>[<a href="' + url + '" target="_blank">' + title + '</a>]</noscript></div>',
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.ssl],
-            html: '<script type="text/javascript" src="' + src + '"></script>',
+            rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.inline],
             "orientation": 'portrait',
             "min-width": 320,
             "max-width": 900

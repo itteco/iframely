@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/prezi\.com\/(?!embed)(?!bin)([a-z0-9_-]+)\/[a-z0-9_-]+/i,
+        /^https?:\/\/prezi\.com\/(?!embed)(?!bin)(?!press)([a-z0-9_-]+)\/[a-z0-9_-]+/i,
         /^https?:\/\/prezi\.com\/embed\/([a-z0-9_-]+)\//i,
         /^https?:\/\/prezi\.com\/bin\/preziloader\.swf\?prezi_id=([a-z0-9_-]+)/i
     ],

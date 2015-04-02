@@ -153,6 +153,14 @@
         "endpoint": "http://api.instagram.com/oembed?format={format}&url=http://{1}"
     },
     {
+        "name": "Instagr.am user page",
+        "templates": [
+            "([\\w\\.]*instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
+            "(instagr\\.am/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)"
+        ],
+        "endpoint": "http://api.instagram.com/oembed?format={format}&url=http://{1}{2}"
+    },
+    {
         "name": "DailyMotion",
         "templates": [
             "www\\.dailymotion\\.com/video/.+",
@@ -364,5 +372,20 @@
             "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
-    }    
+    },
+    {
+        "name": "DeviantArt",
+        "templates": [
+            ".*\\.deviantart\\.com/art/.*"
+        ],
+        "endpoint": "http://backend.deviantart.com/oembed"
+    },
+    {
+        "name": "roomshare.jp",
+        "templates": [
+            "roomshare\\.jp/post/\\d+"
+        ],
+        "endpoint": "http://roomshare.jp/oembed.xml?url=http://{0}"
+    }
+
 ]
