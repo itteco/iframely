@@ -14,19 +14,11 @@ module.exports = {
     ],
 
     getLink: function (url, oembed, cb) {
-
-        if (url.match(/^https?:\/\/www\.dailymotion\.com\/swf\/video\//i)) {
-            cb ({
-                redirect: url.replace(/\/swf/, '')
-            })
-            
-        } else {
-            cb(null, {
-                href: "http://static1.dmcdn.net/images/apple-touch-icon.png.vcbf86c6fe83fbbe11",
-                type: CONFIG.T.image_icon,
-                rel: CONFIG.R.icon
-            });
-        }
+        cb(null, {
+            href: "http://static1.dmcdn.net/images/apple-touch-icon.png.vcbf86c6fe83fbbe11",
+            type: CONFIG.T.image_icon,
+            rel: CONFIG.R.icon
+        });
     },
 
     tests: [ 
