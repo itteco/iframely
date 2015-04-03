@@ -4,7 +4,7 @@ module.exports = {
 
         if (twitter.player && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.player')) {
 
-            var type = whitelistRecord.isAllowed('twitter.player', 'html5') ? CONFIG.T.maybe_text_html : CONFIG.T.text_html;
+            var type = whitelistRecord.isAllowed('twitter.player', 'html5') ? CONFIG.T.text_html : CONFIG.T.maybe_text_html;
 
             return {
                 href: twitter.player.value || twitter.player,
