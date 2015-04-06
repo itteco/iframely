@@ -1,5 +1,9 @@
 module.exports = {
 
+    /*
+    * Disabled. Error: Refused to display 'https://api.medium.com/embed?type=story&path=%2Fbetter-humans%2Fhealthy-people-are-boring-5a0a8e7afc1a&id=0&collapsed=null' in a frame because it set 'X-Frame-Options' to 'sameorigin'
+    * */
+
     re: /^https:\/\/medium\.com\/@?[\w-]+/i,
 
     mixins: [
