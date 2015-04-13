@@ -19,7 +19,8 @@ module.exports = {
             template_context: {
                 title: facebook_post.title,
                 url: facebook_post.url,
-                type: 'fb-video'
+                type: 'fb-video',
+                width: null
             },
             "aspect-ratio": 16/9
         }
