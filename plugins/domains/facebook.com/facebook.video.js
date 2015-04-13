@@ -9,7 +9,7 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i
     ],
 
-    getLink: function(facebook_post, options) {
+    getLink: function(facebook_post) {
 
         return {
 
@@ -19,10 +19,9 @@ module.exports = {
             template_context: {
                 title: facebook_post.title,
                 url: facebook_post.url,
-                type: 'fb-video',
-                width: options.maxWidth || DEFAULT_WIDTH
+                type: 'fb-video'
             },
-            width: options.maxWidth || DEFAULT_WIDTH
+            "aspect-ratio": 16/9
         }
     },
 
