@@ -341,7 +341,7 @@
     {
         "name": "Spotify",
         "templates": [
-            "open\\.spotify\\.com/.*"
+            "(open|embed|play)\\.spotify\\.com/.*"
         ],
         "endpoint": "https://embed.spotify.com/oembed/"
     },
