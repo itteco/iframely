@@ -7,7 +7,7 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/www\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
         /^https?:\/\/www\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/www\.facebook\.com\/[a-z0-9.]+\/videos\/.+/
+        /^https?:\/\/www\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
     ],
 
     getLink: function(facebook_post) {
