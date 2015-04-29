@@ -99,6 +99,11 @@
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
             },
+            google: {
+                // https://developers.google.com/maps/documentation/embed/guide#api_key
+                // yes, there is already "apiKey" option above, but I am not sure if old keys are the same as the news ones.
+                maps_key: "INSERT YOUR VALUE"
+            },
 
             // List of query parameters to add to YouTube and Vimeo frames
             // Start it with leading "?". Or omit alltogether for default values
