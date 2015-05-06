@@ -2,6 +2,8 @@ var cheerio = require('cheerio');
 
 module.exports = {
 
+    notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.api_key),
+
     re: [
         /^https?:\/\/www\.youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)$/i,
         /^https?:\/\/(?:www\.)?youtube\.com\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
