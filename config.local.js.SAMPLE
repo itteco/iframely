@@ -115,7 +115,9 @@
 
             // List of query parameters to add to YouTube and Vimeo frames
             // Start it with leading "?". Or omit alltogether for default values
+            // API key is optional, youtube will work without it too.
             youtube: {
+                api_key: "INSERT YOUR VALUE",
                 get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters
             },
             vimeo: {

@@ -1,3 +1,5 @@
+var cheerio = require('cheerio');
+
 module.exports = {
 
     re: [
@@ -16,14 +18,10 @@ module.exports = {
 
     getData: function(urlMatch, request, cb) {
 
-        var statsUri = "https://gdata.youtube.com/feeds/api/videos/" + urlMatch[1];
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + CONFIG.providerOptions.youtube.api_key + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
-            qs: {
-                v: 2,
-                alt: "json" // Unfortunatelly, even though `jsonc` is much simpler, it doesn't output `hd` attribute
-            },
             json: true
         }, function(error, b, data) {
 
@@ -31,27 +29,46 @@ module.exports = {
                 return cb(error);
             }
 
-            if (data.entry) {
+            
+
+            if (data.items && data.items.length > 0) {
+
+                var entry = data.items[0];
+
+                var gdata = {
+
+                    id: urlMatch[1],
+                    title: entry.snippet && entry.snippet.title,
+                    uploaded: entry.snippet && entry.snippet.publishedAt,
+                    uploader: entry.snippet && entry.snippet.channelTitle,                        
+                    description: entry.snippet && entry.snippet.description,
+                    duration: entry.contentDetails && entry.contentDetails.duration,
+                    likeCount: entry.statisitcs && entry.statistics.likeCount,
+                    dislikeCount: entry.statisitcs && entry.statistics.dislikeCount,
+                    viewCount: entry.statisitcs && entry.statistics.viewCount,
+
+                    hd: entry.contentDetails && entry.contentDetails.definition == "hd",
+                    thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, '')
+                }
+
+
+                // unfortunatelly, other way of getting aspect ratio requires enhanced API privilleges  
+                if (entry.player && entry.player.embedHtml) {
+                    var $container = cheerio('<div>');
+                    try {
+                        $container.html(entry.player.embedHtml);
+                    } catch (ex) {}
+
+                    var $iframe = $container.find('iframe');
+
+                    // if embed code contains <iframe>, return src
+                    if ($iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height')) {
+                        gdata.aspectRatio =  $iframe.attr('width') / $iframe.attr('height');
+                    }
+                }
 
                 cb(null, {
-                    youtube_video_gdata: {
-
-                        id: data.entry['media$group']['yt$videoid']['$t'],
-                        title: data.entry.title['$t'],
-                        uploaded: data.entry.published['$t'],
-                        uploader: data.entry.author[0].name['$t'],
-                        category: data.entry['media$group']['media$category'] ? data.entry['media$group']['media$category'][0].label : "",
-                        description: data.entry['media$group']['media$description']['$t'],
-                        duration: data.entry['media$group']['yt$duration'].seconds,
-                        likeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numLikes : 0,
-                        dislikeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numDislikes : 0,
-                        viewCount: data.entry['yt$statistics'] ? data.entry['yt$statistics'].viewCount : 0,
-
-                        hd: data.entry['yt$hd'] != null,
-                        widescreen: data.entry['media$group']['yt$aspectRatio'] && data.entry['media$group']['yt$aspectRatio']['$t'] == "widescreen",
-
-                        thumbnailBase: data.entry['media$group']['media$thumbnail'][0].url.replace(/[a-zA-Z0-9\.]+$/, '')
-                    }
+                    youtube_video_gdata: gdata
                 });
             } else {
                 cb({responseStatusCode: 404});
@@ -117,12 +134,12 @@ module.exports = {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.widescreen ? 16/9 : 4/3
+            "aspect-ratio": youtube_video_gdata.aspectRatio // or default if null
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.widescreen ? 16/9 : 4/3
+            "aspect-ratio": youtube_video_gdata.aspectRatio
         }, {
             href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
             rel: CONFIG.R.thumbnail,
@@ -142,7 +159,7 @@ module.exports = {
             });
         }
 
-        if (!youtube_video_gdata.widescreen) {
+        if (youtube_video_gdata.aspectRatio && youtube_video_gdata.aspectRatio < 1.35) { // not widescreen
             links.push({
                 href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
                 rel: CONFIG.R.thumbnail,

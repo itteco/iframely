@@ -4,48 +4,14 @@ module.exports = {
         /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)$/i
     ],
 
-    provides: 'youtube_playlist_gdata',
+    mixins: [
+        "oembed-thumbnail",
+        "oembed-author",
+        "oembed-site",
+        "oembed-title"
+    ],    
 
-    getData: function(urlMatch, request, cb) {
-
-        var statsUri = "https://gdata.youtube.com/feeds/api/playlists/" + urlMatch[1];
-
-        request({
-            uri: statsUri,
-            qs: {
-                v: 2,
-                alt: "json"
-            },
-            json: true
-        }, function(error, b, data) {
-
-            if (error) {
-                return cb(error);
-            }
-
-            cb(null, {
-                youtube_playlist_gdata: {
-                    id: data.feed['yt$playlistId']['$t'],
-                    updated: data.feed.updated['$t'],
-                    title: data.feed.title['$t'],
-                    uploader: data.feed.author[0].name['$t'],
-                    thumbnailBase: data.feed['media$group']['media$thumbnail'][0].url.replace(/[a-zA-Z0-9\.]+$/, '')
-
-                }
-            });
-        });
-    },
-
-    getMeta: function(youtube_playlist_gdata) {
-        return {
-            title: youtube_playlist_gdata.title,
-            date: youtube_playlist_gdata.updated,
-            author: youtube_playlist_gdata.uploader,
-            site: "YouTube"
-        };
-    },
-
-    getLinks: function(url, youtube_playlist_gdata) {
+    getLinks: function(urlMatch) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
 
@@ -60,27 +26,15 @@ module.exports = {
             width: 32,
             height: 32
         }, {
-            href: 'https://www.youtube.com/embed/videoseries?list=' + youtube_playlist_gdata.id + params,
+            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": 560/315
         }, {
-            href: 'https://www.youtube.com/embed/videoseries?list=' + youtube_playlist_gdata.id + autoplay,
+            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
             "aspect-ratio": 560/315
-        }, {
-            href: youtube_playlist_gdata.thumbnailBase + 'mqdefault.jpg',
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image_jpeg,
-            width: 320,
-            height: 180
-        }, {
-            href: youtube_playlist_gdata.thumbnailBase + 'hqdefault.jpg',
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image_jpeg,
-            width: 480,
-            height: 360
         }];
 
         return links;

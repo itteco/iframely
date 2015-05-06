@@ -45,7 +45,8 @@
         "name": "YouTube",
         "templates": [
             "(www\\.)?youtube\\.com/watch.*",
-            "youtu\\.be/*"
+            "youtu\\.be/*",
+            "(www\\.)?youtube\\.com/playlist.*"
         ],
         "endpoint": "http://www.youtube.com/oembed"
     },
