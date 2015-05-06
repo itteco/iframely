@@ -1,0 +1,7 @@
+{
+  "apps" : [{
+    "name"        : "iframely-app",
+    "script"      : "server.js",
+    "watch"       : ["modules", "lib", "plugins", "config", "server.js"]
+  }]
+}
