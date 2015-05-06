@@ -3,21 +3,11 @@ module.exports = {
     re: /^https?:(\/\/\w+\.cartodb\.com\/(?:u\/\w+\/)?viz\/[a-z0-9-]+)/i,
 
     mixins: [
-        "og-image",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "twitter-site",
-        "twitter-title"
+        "oembed-title",
+        "oembed-author",
+        "oembed-site",
+        "oembed-rich"
     ],
-
-    getLink: function(urlMatch) {
-        return {
-            href: urlMatch[1] + '/embed_map',
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5]
-        };
-    },
 
     tests: [
         "http://team.cartodb.com/u/andrew/viz/9ee7f88c-b530-11e4-8a2b-0e018d66dc29/public_map",
