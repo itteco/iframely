@@ -18,7 +18,7 @@ module.exports = {
         return {
             href: "//www.keek.com/embed/" + urlMatch[1],
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             "aspect-ratio": 480 / 390
         };
     },

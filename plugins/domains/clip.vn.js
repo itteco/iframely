@@ -4,7 +4,6 @@ module.exports = {
 
     mixins: [
         "og-image",
-        "favicon",
         "canonical",
         "copyright",
         "og-description",
@@ -14,12 +13,16 @@ module.exports = {
     ],
 
     getLink: function(urlMatch) {
-        return {
+        return [{
+            href: 'http://clip.vn/favicon.ico',
+            type: CONFIG.T.image_icon,
+            rel: CONFIG.R.icon
+        }, {
             href: 'http://clip.vn/embed/' + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             'aspect-ratio': 640/389
-        };
+        }];
     },
 
     tests: [{
