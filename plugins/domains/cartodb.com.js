@@ -5,9 +5,16 @@ module.exports = {
     mixins: [
         "oembed-title",
         "oembed-author",
-        "oembed-site",
-        "oembed-rich"
+        "oembed-site"
     ],
+
+    getLink: function(urlMatch) {
+        return {
+            href: urlMatch[1] + '/embed_map',
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5]
+        };
+    },
 
     tests: [
         "http://team.cartodb.com/u/andrew/viz/9ee7f88c-b530-11e4-8a2b-0e018d66dc29/public_map",
