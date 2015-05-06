@@ -105,6 +105,14 @@
                 maps_key: "INSERT YOUR VALUE"
             },
 
+            /*
+            // Optional Camo Proxy to wrap all images: https://github.com/atmos/camo
+            camoProxy: {
+                camo_proxy_key: "INSERT YOUR VALUE",
+                camo_proxy_host: "INSERT YOUR VALUE"
+            },
+            */
+
             // List of query parameters to add to YouTube and Vimeo frames
             // Start it with leading "?". Or omit alltogether for default values
             youtube: {
