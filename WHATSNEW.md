@@ -5,9 +5,19 @@ This is the history of the Iframely changes. Updates that are older than one yea
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+### 2015.05.07, Version 0.8.5
+
+- Urgent fix for YouTube as they retired v2 API. 
+- Set `config.providerOptions.youtube.api_key` with your Google API key to restore all previous features. See sample local config.
+- API key is optional: if not given the parsers will fallback to oEmbed data. 
+- It may be the same key you have for new Google Maps, yet copy it in other option.
+
+
 ### 2015.05.06, Version 0.8.3
 
+
 - New Google Maps plugin to support current URL scheme (Google finally stopped re-directing our user-agent to their classic URLs)
+- Google Maps require API key: get it [here](https://developers.google.com/maps/documentation/embed/guide#api_key) and configure as `providerOptions.google.maps_key` - see sample local config
 - Support of [Camo Proxy](https://github.com/atmos/camo) for all images (thanks guys from Redbooth). See sample config to activate
 - Fixes for Spotify and minor fixes for other domains
 - Restored domain plugin for The Guardian

@@ -1,29 +1,25 @@
 module.exports = {
 
+    notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.api_key),
+
     re: [
-        /^https?:\/\/www\.youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)$/i,
-        /^https?:\/\/(?:www\.)?youtube\.com\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/youtu.be\/([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/(?:www\.)?youtube\.com\/tv#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/www\.youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i,
-        /^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9]+\?v=([\-_a-zA-Z0-9]+)$/i,
-        /^https?:\/\/www\.youtube\-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i
+        /^https?:\/\/(?:www\.)?youtube\.com\/(?:tv#\/)?watch\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/youtu.be\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/m\.youtube\.com\/#\/watch\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/www\.youtube\.com\/embed\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/www\.youtube\.com\/v\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9_-]+\?v=([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/www\.youtube-nocookie\.com\/v\/([a-zA-Z0-9_-]+)/i
     ],
 
     provides: 'youtube_video_gdata',
 
     getData: function(urlMatch, request, cb) {
 
-        var statsUri = "https://gdata.youtube.com/feeds/api/videos/" + urlMatch[1];
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + CONFIG.providerOptions.youtube.api_key + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
-            qs: {
-                v: 2,
-                alt: "json" // Unfortunatelly, even though `jsonc` is much simpler, it doesn't output `hd` attribute
-            },
             json: true
         }, function(error, b, data) {
 
@@ -31,27 +27,49 @@ module.exports = {
                 return cb(error);
             }
 
-            if (data.entry) {
+            
+
+            if (data.items && data.items.length > 0) {
+
+                var entry = data.items[0];
+
+                var duration = 0;
+                var durationStr = entry.contentDetails && entry.contentDetails.duration;
+                if (durationStr) {
+                    var m = durationStr.match(/(\d+)S/);
+                    if (m) {
+                        duration += parseInt(m[1]);
+                    }
+                    m = durationStr.match(/(\d+)M/);
+                    if (m) {
+                        duration += parseInt(m[1]) * 60;
+                    }
+                    m = durationStr.match(/(\d+)H/);
+                    if (m) {
+                        duration += parseInt(m[1]) * 60 * 60;
+                    }
+                }
+
+                var gdata = {
+                    id: urlMatch[1],
+                    title: entry.snippet && entry.snippet.title,
+                    uploaded: entry.snippet && entry.snippet.publishedAt,
+                    uploader: entry.snippet && entry.snippet.channelTitle,                        
+                    description: entry.snippet && entry.snippet.description,
+                    likeCount: entry.statisitcs && entry.statistics.likeCount,
+                    dislikeCount: entry.statisitcs && entry.statistics.dislikeCount,
+                    viewCount: entry.statisitcs && entry.statistics.viewCount,
+
+                    hd: entry.contentDetails && entry.contentDetails.definition == "hd",
+                    thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, '')
+                };
+
+                if (duration) {
+                    gdata.duration = duration;
+                }
 
                 cb(null, {
-                    youtube_video_gdata: {
-
-                        id: data.entry['media$group']['yt$videoid']['$t'],
-                        title: data.entry.title['$t'],
-                        uploaded: data.entry.published['$t'],
-                        uploader: data.entry.author[0].name['$t'],
-                        category: data.entry['media$group']['media$category'] ? data.entry['media$group']['media$category'][0].label : "",
-                        description: data.entry['media$group']['media$description']['$t'],
-                        duration: data.entry['media$group']['yt$duration'].seconds,
-                        likeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numLikes : 0,
-                        dislikeCount: data.entry['yt$rating'] ? data.entry['yt$rating'].numDislikes : 0,
-                        viewCount: data.entry['yt$statistics'] ? data.entry['yt$statistics'].viewCount : 0,
-
-                        hd: data.entry['yt$hd'] != null,
-                        widescreen: data.entry['media$group']['yt$aspectRatio'] && data.entry['media$group']['yt$aspectRatio']['$t'] == "widescreen",
-
-                        thumbnailBase: data.entry['media$group']['media$thumbnail'][0].url.replace(/[a-zA-Z0-9\.]+$/, '')
-                    }
+                    youtube_video_gdata: gdata
                 });
             } else {
                 cb({responseStatusCode: 404});
@@ -74,7 +92,7 @@ module.exports = {
         };
     },
 
-    getLinks: function(url, youtube_video_gdata) {
+    getLinks: function(url, youtube_video_gdata, oembed) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
 
@@ -106,6 +124,7 @@ module.exports = {
         // End of time extractions
 
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
+        var widescreen = oembed.width && oembed.height && oembed.height != 0 && (oembed.width / oembed.height > 1.35);        
 
         var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
@@ -117,12 +136,12 @@ module.exports = {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.widescreen ? 16/9 : 4/3
+            "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.widescreen ? 16/9 : 4/3
+            "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
         }, {
             href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
             rel: CONFIG.R.thumbnail,
@@ -140,9 +159,9 @@ module.exports = {
                 // width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
                 // height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
             });
-        }
+        } 
 
-        if (!youtube_video_gdata.widescreen) {
+        if (!widescreen) {
             links.push({
                 href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
                 rel: CONFIG.R.thumbnail,
@@ -156,7 +175,7 @@ module.exports = {
     },
 
     tests: [{
-        feed: "http://gdata.youtube.com/feeds/api/videos"
+        noFeeds: true
     },
         "http://www.youtube.com/watch?v=etDRmrB9Css",
         "http://www.youtube.com/embed/Q_uaI28LGJk"

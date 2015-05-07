@@ -44,10 +44,15 @@
     {
         "name": "YouTube",
         "templates": [
-            "(www\\.)?youtube\\.com/watch.*",
-            "youtu\\.be/*"
+            "(?:www\\.)?youtube\\.com/(?:tv#/)?watch\\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)",
+            "youtu\\.be/([a-zA-Z0-9_-]+)",
+            "m\\.youtube\\.com/#/watch\\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)",
+            "www\\.youtube\\.com/embed/([a-zA-Z0-9_-]+)",
+            "www\\.youtube\\.com/v/([a-zA-Z0-9_-]+)",
+            "www\\.youtube\\.com/user/[a-zA-Z0-9_-]+\\?v=([a-zA-Z0-9_-]+)",
+            "www\\.youtube-nocookie\\.com/v/([a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "http://www.youtube.com/oembed"
+        "endpoint": "http://www.youtube.com/oembed?format={format}&url=https://www.youtube.com/watch?v={1}"
     },
     {
         "name": "Qik",
@@ -394,5 +399,4 @@
         ],
         "endpoint": "http://services.cartodb.com/oembed"
     }
-
 ]
