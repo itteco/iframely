@@ -52,7 +52,7 @@
             "www\\.youtube\\.com/user/[a-zA-Z0-9_-]+\\?v=([a-zA-Z0-9_-]+)",
             "www\\.youtube-nocookie\\.com/v/([a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "http://www.youtube.com/oembed?format={format}&url=http://www.youtube.com/watch?v={1}"
+        "endpoint": "http://www.youtube.com/oembed?format={format}&url=https://www.youtube.com/watch?v={1}"
     },
     {
         "name": "Qik",
