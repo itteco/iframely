@@ -1,5 +1,3 @@
-var cheerio = require('cheerio');
-
 module.exports = {
 
     notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.api_key),
@@ -51,22 +49,6 @@ module.exports = {
 
                     hd: entry.contentDetails && entry.contentDetails.definition == "hd",
                     thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, '')
-                }
-
-
-                // unfortunatelly, other way of getting aspect ratio requires enhanced API privilleges  
-                if (entry.player && entry.player.embedHtml) {
-                    var $container = cheerio('<div>');
-                    try {
-                        $container.html(entry.player.embedHtml);
-                    } catch (ex) {}
-
-                    var $iframe = $container.find('iframe');
-
-                    // if embed code contains <iframe>, return src
-                    if ($iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height')) {
-                        gdata.aspectRatio =  $iframe.attr('width') / $iframe.attr('height');
-                    }
                 }
 
                 cb(null, {
@@ -136,12 +118,12 @@ module.exports = {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.aspectRatio // or default if null
+            "aspect-ratio": youtube_video_gdata.hd ? 16 / 9 : 4 / 3
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.aspectRatio
+            "aspect-ratio": youtube_video_gdata.hd ? 16 / 9 : 4 / 3
         }, {
             href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
             rel: CONFIG.R.thumbnail,
@@ -159,9 +141,7 @@ module.exports = {
                 // width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
                 // height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
             });
-        }
-
-        if (youtube_video_gdata.aspectRatio && youtube_video_gdata.aspectRatio < 1.35) { // not widescreen
+        } else { // not widescreen        
             links.push({
                 href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
                 rel: CONFIG.R.thumbnail,
