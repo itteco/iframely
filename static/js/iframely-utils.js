@@ -89,7 +89,7 @@
             height = null;
             preventOverloadCount = 0;
 
-            resize(true);
+            resize();
         }
     });
 
