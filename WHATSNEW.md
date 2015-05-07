@@ -5,7 +5,13 @@ This is the history of the Iframely changes. Updates that are older than one yea
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
 
+### 2015.05.06, Version 0.8.5
+
+- Urgent fix for YouTube as they retired v2 API. 
+
+
 ### 2015.05.06, Version 0.8.3
+
 
 - New Google Maps plugin to support current URL scheme (Google finally stopped re-directing our user-agent to their classic URLs)
 - Support of [Camo Proxy](https://github.com/atmos/camo) for all images (thanks guys from Redbooth). See sample config to activate
