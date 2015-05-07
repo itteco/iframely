@@ -119,7 +119,7 @@ module.exports = {
         // End of time extractions
 
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
-        var aspectRatio = (oembed.width && oembed.height && oembed.height != 0) ? oembed.width / oembed.height : (youtube_video_gdata.hd ? 16 / 9 : 4 / 3);
+        var widescreen = oembed.width && oembed.height && oembed.height != 0 && (oembed.width / oembed.height > 1.35);        
 
         var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
@@ -131,12 +131,12 @@ module.exports = {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": aspectRatio
+            "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
-            "aspect-ratio": aspectRatio
+            "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
         }, {
             href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
             rel: CONFIG.R.thumbnail,
@@ -156,7 +156,7 @@ module.exports = {
             });
         } 
 
-        if (aspectRatio < 1.35) { // not widescreen        
+        if (!widescreen) {
             links.push({
                 href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
                 rel: CONFIG.R.thumbnail,
