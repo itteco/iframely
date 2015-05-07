@@ -75,7 +75,7 @@ module.exports = {
         };
     },
 
-    getLinks: function(url, youtube_video_gdata) {
+    getLinks: function(url, youtube_video_gdata, oembed) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
 
@@ -107,6 +107,7 @@ module.exports = {
         // End of time extractions
 
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
+        var aspectRatio = (oembed.width && oembed.height && oembed.height != 0) ? oembed.width / oembed.height : (youtube_video_gdata.hd ? 16 / 9 : 4 / 3);
 
         var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
@@ -118,12 +119,12 @@ module.exports = {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.hd ? 16 / 9 : 4 / 3
+            "aspect-ratio": aspectRatio
         }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
-            "aspect-ratio": youtube_video_gdata.hd ? 16 / 9 : 4 / 3
+            "aspect-ratio": aspectRatio
         }, {
             href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
             rel: CONFIG.R.thumbnail,
@@ -141,7 +142,9 @@ module.exports = {
                 // width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
                 // height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
             });
-        } else { // not widescreen        
+        } 
+
+        if (aspectRatio < 1.35) { // not widescreen        
             links.push({
                 href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
                 rel: CONFIG.R.thumbnail,
