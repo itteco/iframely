@@ -34,33 +34,38 @@ module.exports = {
                 var entry = data.items[0];
 
                 var duration = 0;
-                var m = entry.contentDetails.duration.match(/(\d+)S/);
-                if (m) {
-                    duration += parseInt(m[1]);
-                }
-                m = entry.contentDetails.duration.match(/(\d+)M/);
-                if (m) {
-                    duration += parseInt(m[1]) * 60;
-                }
-                m = entry.contentDetails.duration.match(/(\d+)H/);
-                if (m) {
-                    duration += parseInt(m[1]) * 60 * 60;
+                var durationStr = entry.contentDetails && entry.contentDetails.duration;
+                if (durationStr) {
+                    var m = durationStr.match(/(\d+)S/);
+                    if (m) {
+                        duration += parseInt(m[1]);
+                    }
+                    m = durationStr.match(/(\d+)M/);
+                    if (m) {
+                        duration += parseInt(m[1]) * 60;
+                    }
+                    m = durationStr.match(/(\d+)H/);
+                    if (m) {
+                        duration += parseInt(m[1]) * 60 * 60;
+                    }
                 }
 
                 var gdata = {
-
                     id: urlMatch[1],
                     title: entry.snippet && entry.snippet.title,
                     uploaded: entry.snippet && entry.snippet.publishedAt,
                     uploader: entry.snippet && entry.snippet.channelTitle,                        
                     description: entry.snippet && entry.snippet.description,
-                    duration: duration,
                     likeCount: entry.statisitcs && entry.statistics.likeCount,
                     dislikeCount: entry.statisitcs && entry.statistics.dislikeCount,
                     viewCount: entry.statisitcs && entry.statistics.viewCount,
 
                     hd: entry.contentDetails && entry.contentDetails.definition == "hd",
                     thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, '')
+                };
+
+                if (duration) {
+                    gdata.duration = duration;
                 }
 
                 cb(null, {
