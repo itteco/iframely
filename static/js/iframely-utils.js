@@ -85,7 +85,11 @@
 
             windowId = message.windowId;
 
-            resize();
+            // Reset height to force send size.
+            height = null;
+            preventOverloadCount = 0;
+
+            resize(true);
         }
     });
 
