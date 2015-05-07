@@ -21,7 +21,8 @@ module.exports = {
         "http://animoto.com/play/k01h0yvqf59whdd80nla1q",
         {
             skipMixins: [
-                "oembed-thumbnail"
+                "oembed-thumbnail",
+                "oembed-author"
             ]
         }
     ]

@@ -341,7 +341,7 @@
     {
         "name": "Spotify",
         "templates": [
-            "open\\.spotify\\.com/.*"
+            "(open|embed|play)\\.spotify\\.com/.*"
         ],
         "endpoint": "https://embed.spotify.com/oembed/"
     },
@@ -386,6 +386,13 @@
             "roomshare\\.jp/post/\\d+"
         ],
         "endpoint": "http://roomshare.jp/oembed.xml?url=http://{0}"
+    },
+    {
+        "name": "cartodb.com",
+        "templates": [
+            "\\w+.cartodb.com/(u\\w+/)?viz/[a-z0-9-]+"
+        ],
+        "endpoint": "http://services.cartodb.com/oembed"
     }
 
 ]

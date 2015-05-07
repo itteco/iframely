@@ -1,5 +1,7 @@
 module.exports = {
 
+    // Oembed rich broken.
+
     re: /https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
 
     mixins: [

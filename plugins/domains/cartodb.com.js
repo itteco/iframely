@@ -3,12 +3,9 @@ module.exports = {
     re: /^https?:(\/\/\w+\.cartodb\.com\/(?:u\/\w+\/)?viz\/[a-z0-9-]+)/i,
 
     mixins: [
-        "og-image",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "twitter-site",
-        "twitter-title"
+        "oembed-title",
+        "oembed-author",
+        "oembed-site"
     ],
 
     getLink: function(urlMatch) {

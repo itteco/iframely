@@ -9,7 +9,6 @@ module.exports = {
 
             for (i=3; i>=0; i--) {
                 if (twitter['image'+i]) {
-                    console.log(twitter['image'+i].src || twitter['image'+i])
                     links.push({
                         href: twitter['image'+i].src || twitter['image'+i],
                         type: CONFIG.T.image,

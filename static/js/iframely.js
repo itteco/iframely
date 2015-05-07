@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.8.0
+     Version 0.8.3
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -84,7 +84,6 @@
 
             if (parentStyle && iframeStyle &&
                 parentStyle.match('position: relative;') &&
-                parentStyle.match('width: 100%;') &&
                 parentStyle.match('height: 0px;') &&
                 iframeStyle.match('height: 100%;') &&
                 iframeStyle.match('width: 100%;')) {

@@ -8,7 +8,8 @@ module.exports = {
         "canonical",
         "og-description",
         "og-site",
-        "og-title"
+        "og-title",
+        "media-detector"
     ],
 
     getLinks: function(og, url) {
@@ -51,6 +52,10 @@ module.exports = {
     }, {
         page: 'https://medium.com/top-100',
         selector: '.block-title a'
+    }, {
+        skipMixins: [
+            "media-detector" // as plugin covers not only articles
+        ]
     },
         "https://medium.com/@startswithabang",
         "https://medium.com/better-humans"
