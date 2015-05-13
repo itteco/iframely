@@ -15,13 +15,13 @@ module.exports = {
     getLink: function(og) {
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.inline],
+            rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl],
             template_context: {
                 title: og.title,
                 description: og.description,
                 url: og.url
             },
-            "aspect-ratio": 500/375
+            "aspect-ratio": 16/9
         }
     },
 
