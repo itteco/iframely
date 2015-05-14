@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /https:\/\/theta360\.com\/\w+(?:\/\w+)?\/[\w-]+/,
+    re: /https:\/\/theta360\.com\/(?:spheres|s)(?:\/\w+)?\/[\w-]+/i,
 
     mixins: [
         "og-image",
