@@ -250,7 +250,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                 plugin: pluginTest._id,
                 urls: urls
             });
-            testUrlsSet.errors = errors.length ? errors : undefined;
+            testUrlsSet.errors_list = errors.length ? errors : undefined;
             testUrlsSet.save(cb);
         },
 
@@ -294,9 +294,9 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         if (typeof(error) === "string" && error.indexOf("timeout") > -1) {
                             logEntry.warnings = [error];
                         } else if (error.stack) {
-                            logEntry.errors = [error.stack];
+                            logEntry.errors_list = [error.stack];
                         } else {
-                            logEntry.errors = [JSON.stringify(error)];
+                            logEntry.errors_list = [JSON.stringify(error)];
                         }
                     }
 
@@ -316,10 +316,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         // Method errors.
                         var errors = utils.getErrors(data);
                         if (errors) {
-                            logEntry.errors = logEntry.errors || [];
+                            logEntry.errors_list = logEntry.errors || [];
                             errors.forEach(function(m) {
                                 log("       " + m);
-                                logEntry.errors.push(m);
+                                logEntry.errors_list.push(m);
                             });
                         }
 
@@ -328,14 +328,14 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         // Error on mandatory methods.
                         if (unusedMethods.mandatory.length > 0) {
-                            logEntry.errors = logEntry.errors || [];
+                            logEntry.errors_list = logEntry.errors || [];
                             unusedMethods.mandatory.forEach(function(m) {
                                 if (errors && errors.indexOf(m) > -1) {
                                     // Skip no data if error.
                                     return;
                                 }
                                 log("       " + m + ": no data");
-                                logEntry.errors.push(m + ": no data");
+                                logEntry.errors_list.push(m + ": no data");
                             });
                         }
                         // Warning on non-mandatory methods.
