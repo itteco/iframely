@@ -29,6 +29,8 @@
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
         VERSION: version,
 
+        SKIP_IFRAMELY_RENDERS: false,
+
         T: {
             text_html: "text/html",
             maybe_text_html: "maybe_text_html",
