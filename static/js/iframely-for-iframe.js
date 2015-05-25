@@ -80,26 +80,30 @@
 
     $.iframely.registerIframesIn = function($parent) {
 
-        $parent.find('iframe.iframely-iframe').each(function() {
-
+        $parent.find('iframe').each(function() {
             var $iframe = $(this);
+            $.iframely.registerIframe($iframe);
+        });
 
-            if ($iframe.attr('iframely-registered')) {
-                return;
-            }
+    };
 
-            $iframe.attr('iframely-registered', true);
+    $.iframely.registerIframe = function($iframe, id) {
+        if (!$iframe || $iframe.attr('iframely-registered')) {
+            return;
+        }
 
-            $iframe.load(function() {
+        $iframe.attr('iframely-registered', true);
 
-                var iframesCounter = $.iframely.iframesCounter = ($.iframely.iframesCounter || 0) + 1;
+        $iframe.load(function() {
 
-                $.iframely.iframes[iframesCounter] = $iframe;
-                windowMessaging.postMessage({
-                    method: "register",
-                    windowId: iframesCounter
-                }, '*', this.contentWindow);
-            });
+            var iframesCounter = $.iframely.iframesCounter = ($.iframely.iframesCounter || 0) + 1,
+                windowId = id || iframesCounter;
+
+            $.iframely.iframes[windowId] = $iframe;
+            windowMessaging.postMessage({
+                method: "register",
+                windowId: windowId
+            }, '*', this.contentWindow);
         });
     };
 
