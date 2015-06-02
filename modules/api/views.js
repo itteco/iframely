@@ -183,7 +183,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
             return next(new Error("local domains not supported"));
         }
 
@@ -246,7 +246,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
             return next(new Error("local domains not supported"));
         }
 
@@ -361,7 +361,7 @@ module.exports = function(app) {
             return next(new Error("'url' get param expected"));
         }
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
             return next(new Error("local domains not supported"));
         }
 
