@@ -1,8 +1,8 @@
+var re = /^https?:\/\/www\.vier\.be\/\w+\/videos\/[a-zA-Z0-9\-]+\/(\d+)/i;
+
 module.exports = {
 
-    re: [
-        /^https?:\/\/www\.vier\.be\/\w+\/videos\/[a-zA-Z0-9\-]+\/(\d+)/i
-    ],
+    re: re,
 
     mixins: [
         "favicon",
@@ -25,7 +25,13 @@ module.exports = {
         };
     },
 
-    tests: [
-        "http://www.vier.be/kroost/videos/ik-word-60000-jaar/815134"
+    tests: [{
+        page: "http://www.vier.be/video-overzicht",
+        selector: ".field-type-image a",
+        getUrl: function(url) {
+            if (url.match(re)) return url;
+        }
+    },
+        "http://www.vier.be/vermist/videos/een-piepjonge-joy-anna-vermist/914437"
     ]
 };

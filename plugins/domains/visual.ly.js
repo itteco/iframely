@@ -20,8 +20,11 @@ module.exports = {
     },
 
     tests: [{
-        noFeeds: true
-    },
+            noFeeds: true,
+            skipMixins: [
+                "keywords"
+            ]
+        },
         "http://visual.ly/100k-3d-models-uploaded-sketchfab"
     ]
 };
