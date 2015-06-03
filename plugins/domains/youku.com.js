@@ -6,11 +6,7 @@ module.exports = {
         /^https?:\/\/news\.youku\.com\/(\w{3,})/i
     ],
 
-    mixins: [
-        "html-title",
-        "description",
-        "keywords"
-    ],
+    mixins: ["*"],
 
     getLink: function (urlMatch) {
 

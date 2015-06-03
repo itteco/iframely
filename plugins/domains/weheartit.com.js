@@ -1,15 +1,8 @@
 module.exports = {
 
     mixins: [
-        "og-title",
-        "og-description",
-        "keywords",
-        "og-site",
-        "canonical",
-        "author",
-
-        "og-image-rel-image",
-        "favicon"
+        "*",
+        "og-image-rel-image"
     ],
 
     tests: [

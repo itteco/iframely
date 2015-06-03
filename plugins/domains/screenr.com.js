@@ -8,7 +8,7 @@ module.exports = {
         "oembed-video-responsive-nonhtml5"
     ],
 
-    getLinks: function() {
+    getLinks: function(oembed) {
         return {
             href: "http://www.screenr.com/public/images/apple-touch-icon.png",
             rel: CONFIG.R.icon,

@@ -6,14 +6,7 @@ module.exports = {
         /^https?:\/\/prezi\.com\/bin\/preziloader\.swf\?prezi_id=([a-z0-9_-]+)/i
     ],
 
-    mixins: [
-        "canonical",
-        "og-title",
-        "og-description",
-        "og-site",
-        "og-image",
-        "favicon"
-    ],    
+    mixins: ["*"],
 
     getMeta: function(meta) {
         return {

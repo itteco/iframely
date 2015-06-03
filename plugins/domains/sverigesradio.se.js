@@ -1,14 +1,6 @@
 module.exports = {
 
-    mixins: [
-        "image_src",
-        "favicon",
-        "twitter-author",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "twitter-title"
-    ],
+    mixins: ["*"],
 
     // The problem is some urls not embedable. Don't know how to detect that.
 
@@ -23,6 +15,7 @@ module.exports = {
     },
 
     tests: [
-        "http://sverigesradio.se/sida/artikel.aspx?programid=406&artikel=5848335"
+        "http://sverigesradio.se/sida/artikel.aspx?programid=406&artikel=5848335",
+        "http://sverigesradio.se/sida/avsnitt/554369?programid=412"
     ]
 };

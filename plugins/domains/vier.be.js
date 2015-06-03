@@ -4,14 +4,7 @@ module.exports = {
 
     re: re,
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-image",
-        "twitter-site",
-        "og-title"    
-    ],
+    mixins: ["*"],
 
     getLinks: function(urlMatch) {
 

@@ -398,5 +398,11 @@
             "\\w+.cartodb.com/(?:u\/\\w+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
+    }, {
+        "name": "Giphy",
+        "templates": [
+            "giphy.com/gifs/.+"
+        ],
+        "endpoint": "http://giphy.com/services/oembed/"
     }
 ]

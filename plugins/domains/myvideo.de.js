@@ -5,14 +5,7 @@ module.exports = {
         /^https?:\/\/www\.myvideo\.de\/musik\/\w+\/[\w-]+-([0-9]+)/i
     ],
 
-    mixins: [
-        "canonical",
-        "og-title",
-        "og-site",
-
-        "og-image",
-        "favicon"
-    ],
+    mixins: ["*"],
 
     getLink: function (urlMatch) {
 
