@@ -25,12 +25,13 @@ module.exports = {
         {
             // Flickr sets feed.
             page: "http://www.flickr.com/photos/jup3nep/sets/",
-            selector: ".Seta"
+            selector: "a.photo-list-album"
         },
         "http://www.flickr.com/photos/jup3nep/sets/72157603856136177/",
         {
             skipMixins: [
-                "twitter-author"
+                "twitter-author",
+                "twitter-description"
             ]
         }
     ]
