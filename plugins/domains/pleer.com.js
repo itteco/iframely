@@ -8,8 +8,6 @@ module.exports = {
     // no mixins or parsing of the page - it will time-out in most cases
     // besides, meta doesn't contain much anyway.
 
-    mixins: false,
-
     getMeta: function (urlMatch) {
         return {
             title: "ProstoPleer track " + urlMatch[1]

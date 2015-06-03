@@ -5,8 +5,6 @@ module.exports = {
         /^https?:\/\/(?:\w+\.cdn\.)?vid\.ly\/([a-z0-9\-]+)\/?.*/i
     ],
 
-    mixins: false,
-
     getLink: function(urlMatch) {
 
         return [{

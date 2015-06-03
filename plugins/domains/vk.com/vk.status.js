@@ -7,8 +7,6 @@ module.exports = {
         /^https?:\/\/(?:m\.)?vk\.com\/wall([0-9-]+)_(\d+)/i
     ],
 
-    mixins: false,
-
     getMeta: function (vk_status) {
 
         return {

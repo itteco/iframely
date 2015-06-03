@@ -2,8 +2,6 @@ module.exports = {
 
     provides: 'test_data1',
 
-    mixins: false,
-
     getData: function(cb) {
         setTimeout(function() {
             cb(null, {

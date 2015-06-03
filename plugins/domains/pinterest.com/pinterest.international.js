@@ -6,8 +6,6 @@ module.exports = {
 
     //for example, https://fr.pinterest.com/pin/347973508683865484/
 
-	mixins: false,
-
     getLink: function(url, og, cb) {
 
     	if (og.url && url != og.url) {

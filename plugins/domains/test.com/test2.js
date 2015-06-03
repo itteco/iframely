@@ -2,8 +2,6 @@ module.exports = {
 
     provides: ['test_data2', 'test_plugin'],
 
-    mixins: false,
-
     getData: function(test_data1) {
         return {
             test_data2: true,
