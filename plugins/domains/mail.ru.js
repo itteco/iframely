@@ -32,7 +32,6 @@ module.exports = {
     },
 
     tests: [
-        "http://my.mail.ru/inbox/oleg.kondakov/video/3/1128.html",
         "http://my.mail.ru/mail/ee.vlz/video/22396/44907.html",
         "http://my.mail.ru/inbox/oleg.kondakov/video/3/1491.html"
     ]
