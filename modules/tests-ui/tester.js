@@ -291,7 +291,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
-                        if (typeof(error) === "string" && error.indexOf("timeout") > -1) {
+                        if (error.indexOf && error.indexOf("timeout") > -1 || (error == 404)) {
                             logEntry.warnings = [error];
                         } else if (error.stack) {
                             logEntry.errors_list = [error.stack];
