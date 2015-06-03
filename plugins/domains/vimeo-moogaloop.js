@@ -7,6 +7,8 @@ module.exports = {
     // direct link to old swf, for example, 
     // http://vimeo.com/moogaloop.swf?clip_id=8527987&server=vimeo.com&show_title=1&show_byline=1&show_portrait=0&color=00ADEF&fullscreen=1
 
+    mixins: false,
+
     getLink: function(urlMatch, cb) {
 
         cb ({

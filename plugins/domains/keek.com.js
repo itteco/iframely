@@ -4,6 +4,8 @@ module.exports = {
         /https?:\/\/(?:www\.)?keek\.com\/(?:[a-zA-Z0-9]+\/)?keek\/([a-zA-Z0-9]+)/i
     ],
 
+    mixins: false,
+
     getMeta: function(urlMatch) {
 
         return {

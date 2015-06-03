@@ -6,6 +6,8 @@ module.exports = {
 
     //for example, www.metacafe.com/watch/yt-4N3N1MlvVc4/mad_world_gary_jules/
 
+    mixins: false,
+
     getLink: function(urlMatch, cb) {
 
         cb ({

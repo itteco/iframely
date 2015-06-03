@@ -7,6 +7,8 @@ module.exports = {
 
     notPlugin: CONFIG.BLACKLIST_DOMAINS_RE === null,
 
+    mixins: false,
+
     getData: function(urlMatch, cb) {
 
         return cb({

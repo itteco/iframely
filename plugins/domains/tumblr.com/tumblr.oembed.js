@@ -5,6 +5,8 @@ module.exports = {
         /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,13})(?:\/[a-z0-9-]+)?/i
     ],
 
+    mixins: false,
+
     getLink: function(tumblr_post, oembed) {
 
         if (!oembed.html) {

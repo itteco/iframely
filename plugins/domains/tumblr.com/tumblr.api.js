@@ -10,6 +10,8 @@ module.exports = {
 
     provides: 'tumblr_post',
 
+    mixins: false,
+
     getMeta: function(tumblr_post) {
 
         var caption = tumblr_post.caption ? $('<div>').html(tumblr_post.caption).text() : "";

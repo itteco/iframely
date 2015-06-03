@@ -14,6 +14,8 @@ module.exports = {
 
     provides: 'youtube_video_gdata',
 
+    mixins: false,
+
     getData: function(urlMatch, request, cb) {
 
         var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + CONFIG.providerOptions.youtube.api_key + "&id=" + urlMatch[1];

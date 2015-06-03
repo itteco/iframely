@@ -7,6 +7,8 @@ module.exports = {
         /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,13})(?:\/[a-z0-9-]+)?/i
     ],
 
+    mixins: false,
+
     getMeta: function (tumblr_post) {
         if (tumblr_post.type == "text") {
             return {

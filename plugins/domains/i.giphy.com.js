@@ -5,6 +5,8 @@ module.exports = {
     	/https?:\/\/media\.giphy\.com\/media\/(\w+)\/giphy\.gif$/i
     ],
 
+    mixins: false,
+
     getLink: function(urlMatch, cb) {
 
         cb ({

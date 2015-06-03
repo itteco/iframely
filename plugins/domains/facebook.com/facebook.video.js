@@ -10,6 +10,8 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
     ],
 
+    mixins: false,
+
     getLink: function(facebook_post) {
 
         return {
