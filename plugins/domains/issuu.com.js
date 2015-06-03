@@ -1,14 +1,13 @@
 module.exports = {
 
-    // Oembed rich broken.
-
     re: /https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
 
     mixins: [
         "oembed-thumbnail",
         "oembed-author",
         "oembed-title",
-        "oembed-site"
+        "oembed-site",
+        "og-video"
     ],
 
     getLink: function (oembed) {
@@ -17,10 +16,18 @@ module.exports = {
             return;
         }
 
+        // let's make it responsive
+        var html = oembed.html.replace (/style=\"[^\"]+\"/i, 'style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;"'); 
+        var aspect = 4/3;
+        html = '<div style="left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: ' +
+            Math.round(1000 * 100 / aspect) / 1000
+            + '%;">' + html + '</div>';
+        
         return [{
-            html: oembed.html.replace (/style=\"[^\"]+\"/i, ""),
+            html: html,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl]
+            rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
+            "aspect-ratio": aspect
         }, {
             href: "http://issuu.com/apple-touch-icon-76x76@2x.png",
             rel: [CONFIG.R.icon],
