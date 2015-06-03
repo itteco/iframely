@@ -10,8 +10,11 @@ module.exports = {
         "favicon"
     ],
 
-    tests: [
-        "http://socialcam.com/v/9gBTI4QZ?twitter=true"
+    tests: [{
+        page: 'https://socialcam.com/u/1BQFQePr',
+        selector: 'h2 a'
+    },
+        "https://socialcam.com/v/VI0LjEAS"
     ]
 
 };

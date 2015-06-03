@@ -21,7 +21,10 @@ module.exports = {
 
     tests: [{
         page: 'http://www.ku6.com/',
-        selector: '.l_vlist .ckl_a'
+        selector: '.l_vlist .ckl_a',
+        skipMixins: [
+            "favicon"
+        ]
     },
         "http://v.ku6.com/show/igXYIuwqHCPANcvrwFd63A...html?hpsrc=1_28_1_1_0",
         "http://v.ku6.com/show/E70nubAr4nj5oh7fQK_vMQ...html?hpsrc=1_28_1_2_0"
