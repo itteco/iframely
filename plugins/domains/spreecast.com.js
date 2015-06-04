@@ -5,10 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "og-title",
-        "og-image",
-        "og-description",
-        "favicon"
+        "*"
     ],
 
     getLink: function(urlMatch, meta) {
@@ -25,10 +22,6 @@ module.exports = {
             rel: CONFIG.R.player,
             width: 500,
             height: 470
-        }, {
-            href: "https://d35ncmvcdy3liz.cloudfront.net/production/201305171505_88dc0c8/images/favicon.ico",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon
         }];
     },
 

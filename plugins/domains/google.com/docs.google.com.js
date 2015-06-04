@@ -11,10 +11,7 @@ module.exports = {
         "og-title",
         "og-image",
         "og-description",
-        "twitter-player-responsive", // fallback mixin
-
-        // Skip some urls with robots noindex.
-        "noindex-meta"        
+        "twitter-player-responsive" // fallback mixin
     ],
 
     getMeta: function (schemaFileObject) {

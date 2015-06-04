@@ -24,7 +24,5 @@ module.exports = {
         getUrl: function(url) {
             if (url.match(re)) return url;
         }
-    },
-        "http://www.vier.be/vermist/videos/een-piepjonge-joy-anna-vermist/914437"
-    ]
+    }]
 };
