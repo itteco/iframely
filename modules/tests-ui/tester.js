@@ -371,11 +371,13 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     callback('timeout');
                 }, CONFIG.tests.single_test_timeout);
 
-                iframely(url, {
-                    debug: true,
-                    readability: true,
-                    getWhitelistRecord: whitelist.findWhitelistRecordFor
-                }, callback);
+                setTimeout(function() {
+                    iframely(url, {
+                        debug: true,
+                        readability: true,
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, callback);
+                }, CONFIG.tests.pause_between_tests || 0);
 
             }, cb);
         },
