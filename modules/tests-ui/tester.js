@@ -6,7 +6,7 @@ if (!CONFIG.tests) {
     return;
 }
 
-process.title = "iframely";
+process.title = "iframely-tests";
 
 var async = require('async');
 var _ = require('underscore');
