@@ -3,15 +3,7 @@ module.exports = {
     re: /https?:\/\/www\.theguardian\.com\/[\w-]+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
 
     mixins: [
-        "canonical",
-        "site",
-        "og-title",
-        "og-description",
-        "video",
-        "shortlink",
-
-        "favicon",
-        "og-image"
+        "*"
     ],
 
     getLink: function(og) {
