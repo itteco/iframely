@@ -18,6 +18,7 @@ exports.getPluginUnusedMethods = function(pluginId, debugData) {
     var pluginMethods = findAllPluginMethods(pluginId, plugins);
 
     return {
+        allMandatoryMethods: pluginMethods.mandatory,
         mandatory: _.difference(pluginMethods.mandatory, usedMethods),
         skipped: _.difference(pluginMethods.skipped, usedMethods)
     };
