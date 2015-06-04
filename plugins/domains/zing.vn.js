@@ -5,13 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "keywords",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
     getLink: function(urlMatch) {
@@ -24,7 +18,10 @@ module.exports = {
         }
     },
 
-    tests: [ 
+    tests: [{
+        page: 'http://tv.zing.vn/',
+        selector: '.item>a'
+    },
         "http://tv.zing.vn/video/Tran-Thanh-Di-Cho-Tot-Tap-3-Tran-Thanh-Mua-Xe/IWZ9DCAU.html"
     ]
 };
