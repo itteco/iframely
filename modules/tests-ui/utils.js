@@ -293,7 +293,7 @@ function findUsedMethods(options, debugData, result) {
                 }
             }
 
-            if (options.findSkippedDuplicates && l.error && l.error.indexOf('duplication') > -1) {
+            if (options.findSkippedDuplicates && l.error && l.error.indexOf && l.error.indexOf('duplication') > -1) {
                 good = true
             }
 
