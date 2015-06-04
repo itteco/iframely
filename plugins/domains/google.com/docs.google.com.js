@@ -3,7 +3,7 @@ module.exports = {
     provides: "schemaFileObject",
 
     re: [
-        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|file)\/d\//i
+        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|spreadsheets|file)\/d\//i
     ],
 
     mixins: [
@@ -98,6 +98,7 @@ module.exports = {
         "https://docs.google.com/forms/d/1mJcBz16JAfxomVXIohDJv8w-AJw8t-jhAd1HgIwTlF8/viewform?c=0&w=1",
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
         "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
+        "https://docs.google.com/spreadsheets/d/10JLM1UniyGNuLaYTfs2fnki-U1iYFsQl4XNHPZTYunw/edit?pli=1#gid=0",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description", "twitter-player-responsive"
