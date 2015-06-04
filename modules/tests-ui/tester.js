@@ -330,7 +330,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         if (unusedMethods.mandatory.length > 0) {
                             logEntry.errors_list = logEntry.errors || [];
                             unusedMethods.mandatory.forEach(function(m) {
-                                if (errors && errors.indexOf(m) > -1) {
+                                var inError = _.find(errors, function(error) {
+                                    return error.indexOf(m) > -1;
+                                });
+                                if (inError) {
                                     // Skip no data if error.
                                     return;
                                 }
@@ -342,7 +345,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         if (unusedMethods.skipped.length > 0) {
                             logEntry.warnings = logEntry.warnings || [];
                             unusedMethods.skipped.forEach(function(m) {
-                                if (errors && errors.indexOf(m) > -1) {
+                                var inError = _.find(errors, function(error) {
+                                    return error.indexOf(m) > -1;
+                                });
+                                if (inError) {
                                     // Skip no data if error.
                                     return;
                                 }

@@ -200,6 +200,9 @@ function getAllUsedMethods(debugData) {
         findUsedMethods({link: link}, debugData, result);
     });
 
+    // Collect duplicate links.
+    findUsedMethods({findSkippedDuplicates: true}, debugData, result);
+
     return result;
 }
 
@@ -287,6 +290,10 @@ function findUsedMethods(options, debugData, result) {
                 } catch(ex) {
                     good = false;
                 }
+            }
+
+            if (options.findSkippedDuplicates && l.error && l.error.indexOf('duplication') > -1) {
+                good = true
             }
 
             if (good) {
