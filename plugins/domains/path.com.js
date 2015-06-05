@@ -1,57 +1,42 @@
 module.exports = {
 
-    provides: 'getpath',
-
     re: [
         /^https?:\/\/path\.com\/p\/(\w+)/i,
         /^https?:\/\/path\.com\/moment\/(\w+)/i
     ],
 
+    // TODO: better to have 'excludeMixins: ["og-video"]
+
     mixins: [
+        "og-image",
+        "favicon",
         "canonical",
-        "og-title",
-        "twitter-image",
-        "favicon"
+        "media-detector",
+        "twitter-site",
+        "og-title"
     ],
 
-    getLink: function(getpath, meta) {
+    getLink: function(og) {
 
-        if (getpath === "video") {
-            return [
-            /* broken as [object Object] atm
-            {
-                href: meta.og.video.url,
-                type: meta.og.video.type,
-                rel: [CONFIG.R.player, CONFIG.R.og],
-                width: meta.og.video.width,
-                height: meta.og.video.height
-            },*/
-            {
-                href: meta.og.video.secure_url,
-                type: meta.og.video.type,
-                rel: [CONFIG.R.player, CONFIG.R.og],
-                width: meta.og.video.width,
-                height: meta.og.video.height
-            }, {
-                href: meta.og.image.url,
-                type: CONFIG.T.image,
-                rel: [CONFIG.R.thumbnail, CONFIG.R.twitter],
-                width: meta.og.image.width,
-                height: meta.og.image.height
-            }];
-        } // otherwise falls back to default parser for twitter-image
-    },
+        if (og.video.secure_url) {
 
-    getData: function (meta) {
+            // og.video broken as [object Object]
 
-        if (meta.og.type === "getpath:video_moment") {
             return {
-                getpath: "video"
-            }
+                href: og.video.secure_url,
+                type: og.video.type,
+                rel: [CONFIG.R.player, CONFIG.R.og],
+                width: og.video.width,
+                height: og.video.height
+            };
         }
     },
 
-    tests: [ 
+    tests: [{
+        noFeeds: true,
+        skipMethods: ["getLink"],
+        skipMixins: ["media-detector"]
+    },
         "https://path.com/p/42Sun1",
         "https://path.com/p/2Citrk",
         "https://path.com/p/2XzZcC",

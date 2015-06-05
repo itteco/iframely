@@ -8,7 +8,7 @@ module.exports = {
     ],
 
     // keep dependency on oEmbed only. Otherwise, there's redirect to relative path and no embeds as a result
-    getLink: function() {
+    getLink: function(oembed) {
 
         return {
             href: "http://d2c87l0yth4zbw.cloudfront.net/i/_global/favicon.png",

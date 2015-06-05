@@ -65,8 +65,7 @@ module.exports = {
         skipMixins: [
             "twitter-image",
             "oembed-author"         // Available for Galleries only
-        ],
-        skipMethods: ["getLink"]
+        ]
     },    
         "http://imgur.com/Ks3qs",
         "http://imgur.com/gallery/IiDwq",

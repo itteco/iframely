@@ -5,12 +5,8 @@ module.exports = {
     ],    
 
     mixins: [
-        "html-title",
-        "canonical",
-        "keywords",
-
         "og-image-rel-image",
-        "favicon"
+        "*"
     ],
 
     tests: [{

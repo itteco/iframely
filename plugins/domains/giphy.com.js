@@ -5,27 +5,24 @@ module.exports = {
     ],
 
     mixins: [
-        "canonical",
+        "oembed-canonical",
         "author",
-        "og-site",
-        "og-title",
+        "oembed-site",
+        "oembed-title",
         "keywords",
         "twitter-image",
-        "twitter-player-responsive",
+        "twitter-player",
         "favicon"
     ],
 
-    getLinks: function(urlMatch) {
-
-        var id = urlMatch[1].split('-').slice(-1)[0];
-
-        // http://media.giphy.com/media/YJ88JyDL61jeo/original.gif
-        var original = "http://media.giphy.com/media/" + id  + "/giphy.gif";
+    getLinks: function(oembed) {
 
         return {
-            href: original,
+            href: oembed.image,
             type: CONFIG.T.image_gif,
-            rel: CONFIG.R.image
+            rel: CONFIG.R.image,
+            width: oembed.width,
+            height: oembed.height
         };
     },
 

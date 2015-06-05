@@ -21,7 +21,7 @@ module.exports = {
         ];
 
         return bits.map(function(bit) {
-            var rel = [CONFIG.R.app];
+            var rel = [CONFIG.R.survey];
             if (bit === 'speller') {
                 rel.push(CONFIG.R.autoplay);
             }

@@ -4,14 +4,7 @@ module.exports = {
 
     re: re,
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-image",
-        "twitter-site",
-        "og-title"    
-    ],
+    mixins: ["*"],
 
     getLinks: function(urlMatch) {
 
@@ -31,7 +24,5 @@ module.exports = {
         getUrl: function(url) {
             if (url.match(re)) return url;
         }
-    },
-        "http://www.vier.be/vermist/videos/een-piepjonge-joy-anna-vermist/914437"
-    ]
+    }]
 };

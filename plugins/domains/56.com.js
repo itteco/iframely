@@ -5,13 +5,7 @@ module.exports = {
         /^https?:\/\/www\.56\.com\/\w{3}\/play_[a-zA-Z0-9\-]+_vid\-([a-zA-Z0-9]+).html/i
     ],
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "description",
-        "keywords",
-        "html-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(urlMatch) {
 

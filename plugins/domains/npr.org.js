@@ -4,10 +4,7 @@ module.exports = {
         /^https?:\/\/www\.npr\.org\/player\/v2\/mediaPlayer\.html\?(?:[^&]+&)*id=(\d+)&m=(\d+)/i
     ],
 
-    mixins: [
-        "favicon",
-        "html-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(urlMatch) {
 

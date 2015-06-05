@@ -3,7 +3,7 @@ module.exports = {
     provides: "schemaFileObject",
 
     re: [
-        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|file)\/d\//i
+        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|spreadsheets|file)\/d\//i
     ],
 
     mixins: [
@@ -11,7 +11,7 @@ module.exports = {
         "og-title",
         "og-image",
         "og-description",
-        "twitter-player-responsive"
+        "twitter-player-responsive" // fallback mixin
     ],
 
     getMeta: function (schemaFileObject) {
@@ -20,7 +20,7 @@ module.exports = {
             title: schemaFileObject.name,
             site: "Google Docs"
 
-            // Silence canonical to bypass the validation and allow player.href=canonical
+            // Mute canonical to bypass the validation and allow player.href=canonical
             // Especially for video files and presentations:
 
             // canonical: schemaFileObject.url
@@ -33,9 +33,9 @@ module.exports = {
         if (schemaFileObject.embedURL || schemaFileObject.embedUrl) {
 
             var file = {
-                rel: [CONFIG.R.file],
+                rel: [CONFIG.R.file, CONFIG.R.html5],
                 href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
-                type: CONFIG.T.maybe_text_html // let post-processing detect MIME type
+                type: CONFIG.T.text_html 
             };            
 
             if (schemaFileObject.playerType) {
@@ -44,9 +44,13 @@ module.exports = {
                 return;
             } 
 
-            if (urlMatch[1] === "forms" || urlMatch[1] === "document" ) {
-                // As in PDF documents processed through Google Docs viewer
-                file["aspect-ratio"] = 1 / Math.sqrt(2);
+            if (urlMatch[1] === "forms" || urlMatch[1] === "document") {                
+                file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
+                // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
+                file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader); 
+
+            } else if (urlMatch[1] === "spreadsheets" ) {
+                file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
                 file.rel.push (CONFIG.R.reader);
 
             } else {
@@ -98,6 +102,7 @@ module.exports = {
         "https://docs.google.com/forms/d/1mJcBz16JAfxomVXIohDJv8w-AJw8t-jhAd1HgIwTlF8/viewform?c=0&w=1",
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
         "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
+        "https://docs.google.com/spreadsheets/d/10JLM1UniyGNuLaYTfs2fnki-U1iYFsQl4XNHPZTYunw/edit?pli=1#gid=0",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description", "twitter-player-responsive"

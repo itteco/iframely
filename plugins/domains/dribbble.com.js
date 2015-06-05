@@ -4,14 +4,7 @@ module.exports = {
         /^https?:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i
     ],
 
-    mixins: [
-        "favicon",
-        "twitter-author",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(meta, urlMatch, cb) {
 

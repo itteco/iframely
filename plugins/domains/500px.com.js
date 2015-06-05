@@ -3,14 +3,8 @@ module.exports = {
     re: /^https:\/\/500px\.com\/photo.+/,
 
     mixins: [
-        "twitter-title",
-        "oembed-author",
-        "oembed-thumbnail",
-        "oembed-site",
-        "og-image-rel-image",
-        "og-description",
-        "canonical",
-        "keywords"
+        "*",
+        "og-image-rel-image"
     ],
 
     getMeta: function(meta) {
