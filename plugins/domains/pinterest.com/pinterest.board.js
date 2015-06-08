@@ -5,16 +5,12 @@ module.exports = {
     re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%]+)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
 
     mixins: [
-        "favicon",
-        "canonical",
-        "description",
-        "og-site",
-        "html-title"
+        "*"
     ],
 
-    getLink: function(url, twitter, options) {
+    getLink: function(url, og, options) {
 
-        if (twitter.app && twitter.app.iphone && twitter.app.iphone.indexOf('board/') == -1) {
+        if (!og.type || og.type.indexOf('pinboard') == -1) {
             return;
         }
 
