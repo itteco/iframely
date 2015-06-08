@@ -9,13 +9,17 @@ module.exports = {
         // no thumbnail in oembed too
         "twitter-title",
         "twitter-image",
-        "canonical",
         "oembed-author",
         "oembed-site"
     ],
 
-    getLink: function(oembed) {
+    getMeta: function(url) {
+        return {
+            canonical: url.replace(/\/embed_map/, '/public_map')
+        };
+    },
 
+    getLink: function(oembed) {
 
         var $container = cheerio('<div>');
         try {
