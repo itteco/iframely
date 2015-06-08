@@ -1,19 +1,39 @@
+var cheerio = require('cheerio');
+
 module.exports = {
 
     re: /^https?:(\/\/\w+\.cartodb\.com\/(?:u\/\w+\/)?viz\/[a-z0-9-]+)/i,
 
     mixins: [
-        "oembed-title",
+        // "oembed-title", oembed title is null :\\
+        // no thumbnail in oembed too
+        "twitter-title",
+        "twitter-image",
+        "canonical",
         "oembed-author",
         "oembed-site"
     ],
 
-    getLink: function(urlMatch) {
-        return {
-            href: urlMatch[1] + '/embed_map',
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5]
-        };
+    getLink: function(oembed) {
+
+
+        var $container = cheerio('<div>');
+        try {
+            $container.html(oembed.html5 || oembed.html);
+        } catch (ex) {}
+
+        var $iframe = $container.find('iframe');
+
+        if ($iframe.length == 1) {
+
+            return {
+                href: $iframe.attr('src'),
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5]
+                // aspect 4:3 is better than height=520px and width=100%
+            };
+        }
+
     },
 
     tests: [
