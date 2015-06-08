@@ -97,6 +97,7 @@ vows.describe('Tests')
             'has correct size and type': function(error, data) {
                 assert.equal(data.width, 400);
                 assert.equal(data.height, 211);
+                assert.equal(data.content_length, 33572);
                 assert.equal(data.format, "jpeg");
             }
         }
