@@ -63,11 +63,6 @@ module.exports = {
         page: "http://www.slideshare.net/popular/today",
         selector: "a.iso_slideshow_link"
     },
-        "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext",
-        {
-            skipMethods: [
-                "getMeta"
-            ]
-        }
+        "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext"
     ]
 };

@@ -2,10 +2,7 @@ module.exports = {
 
     re: /^https?:\/\/xkcd\.com\/\d+/i,
 
-    mixins: [
-        "favicon",
-        "html-title"
-    ],
+    mixins: ["*"],
 
     provides: 'xkcd_data',
 

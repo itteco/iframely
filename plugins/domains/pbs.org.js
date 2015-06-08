@@ -5,14 +5,7 @@ module.exports = {
         /^https?:\/\/video\.(pbs|[a-zA-Z]+)\.org\/video\/(\d+)\//i // + Powered by PBS
     ],
 
-    mixins: [
-        "twitter-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title"
-    ],
+    mixins: ["*"],
 
     getLink: function (urlMatch, meta) {
 

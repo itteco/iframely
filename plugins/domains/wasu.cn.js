@@ -1,6 +1,8 @@
+var re = /^http:\/\/www\.wasu\.cn\/Play\/\w+\/id\/(\d+)/i;
+
 module.exports = {
 
-    re: /^http:\/\/www\.wasu\.cn\/Play\/\w+\/id\/(\d+)/i,
+    re: re,
 
     mixins: [
         "favicon",
@@ -21,7 +23,10 @@ module.exports = {
 
     tests: [{
         page: 'http://www.wasu.cn/',
-        selector: '.block a'
+        selector: '.block a',
+        getUrl: function(url) {
+            if (url.match(re)) return url;
+        }
     },
         'http://www.wasu.cn/Play/show/id/5039416'
     ]

@@ -96,29 +96,31 @@ module.exports = function(app) {
                 delete result.safe_html;
             }
 
-            var render_link = _.find(result.links, function(link) {
-                return link.html
-                    && !link.href
-                    && link.rel.indexOf(CONFIG.R.inline) === -1
-                    && link.type === CONFIG.T.text_html;
-            });
-            if (render_link) {
-                cache.set('render_link:' + version + ':' + uri, _.extend({
-                    title: result.meta.title
-                }, render_link)); // Copy to keep removed fields.
-                render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
-                delete render_link.html;
-            } else {
-                // Cache non inline link to later render for older consumers.
-                render_link = _.find(result.links, function(link) {
+            if (!CONFIG.SKIP_IFRAMELY_RENDERS) {
+                var render_link = _.find(result.links, function(link) {
                     return link.html
-                        && link.rel.indexOf(CONFIG.R.inline) > -1
+                        && !link.href
+                        && link.rel.indexOf(CONFIG.R.inline) === -1
                         && link.type === CONFIG.T.text_html;
                 });
                 if (render_link) {
                     cache.set('render_link:' + version + ':' + uri, _.extend({
                         title: result.meta.title
                     }, render_link)); // Copy to keep removed fields.
+                    render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
+                    delete render_link.html;
+                } else {
+                    // Cache non inline link to later render for older consumers.
+                    render_link = _.find(result.links, function(link) {
+                        return link.html
+                            && link.rel.indexOf(CONFIG.R.inline) > -1
+                            && link.type === CONFIG.T.text_html;
+                    });
+                    if (render_link) {
+                        cache.set('render_link:' + version + ':' + uri, _.extend({
+                            title: result.meta.title
+                        }, render_link)); // Copy to keep removed fields.
+                    }
                 }
             }
 
@@ -181,7 +183,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
             return next(new Error("local domains not supported"));
         }
 
@@ -244,7 +246,7 @@ module.exports = function(app) {
             return next(new Error("'uri' get param expected"));
         }
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
             return next(new Error("local domains not supported"));
         }
 
@@ -359,7 +361,7 @@ module.exports = function(app) {
             return next(new Error("'url' get param expected"));
         }
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
             return next(new Error("local domains not supported"));
         }
 

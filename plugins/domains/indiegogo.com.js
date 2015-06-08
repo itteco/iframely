@@ -6,13 +6,7 @@ module.exports = {
     ],
 
     mixins: [
-        "og-site",
-        "og-image",
-        "canonical",
-        "favicon",
-        "twitter-description",
-        "keywords",
-        "twitter-title"
+        "*"
     ],
 
     getLink: function(urlMatch) {

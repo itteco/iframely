@@ -9,7 +9,10 @@ module.exports = {
         "oembed-video-responsive"
     ],
 
-    getLink: function() {
+    getLink: function(oembed) {
+
+        // require oembed so that plugin falls back to generic when required
+        
         return {
             href: '//d1v3v5jtx1iozq.cloudfront.net/images/icons/touchicon-144-a95f2d0d.png',
             type: CONFIG.T.image,

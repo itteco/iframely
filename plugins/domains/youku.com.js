@@ -2,15 +2,11 @@ module.exports = {
 
     //http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842    
     re: [
-        /^https?:\/\/v\.youku\.com\/v_show\/id_(\w{3,})\.html/i,
+        /^https?:\/\/v\.youku\.com\/v_show\/id_([a-z0-9=_]{3,})\.html/i,
         /^https?:\/\/news\.youku\.com\/(\w{3,})/i
     ],
 
-    mixins: [
-        "html-title",
-        "description",
-        "keywords"
-    ],
+    mixins: ["*"],
 
     getLink: function (urlMatch) {
 
@@ -26,7 +22,10 @@ module.exports = {
         }]
     },
 
-    tests: [
+    tests: [{
+        page: "http://www.youku.com/",
+        selector: ".v-meta-entry a.btn-small"
+    },
         "http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842"
     ]
 };

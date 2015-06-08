@@ -3,15 +3,7 @@ module.exports = {
     re: /https?:\/\/www\.theguardian\.com\/[\w-]+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
 
     mixins: [
-        "canonical",
-        "site",
-        "og-title",
-        "og-description",
-        "video",
-        "shortlink",
-
-        "favicon",
-        "og-image"
+        "*"
     ],
 
     getLink: function(og) {
@@ -29,7 +21,7 @@ module.exports = {
     },
 
     tests: [
-        "http://www.guardian.co.uk/world/video/2013/jun/26/julia-gillard-ousted-prime-minister-video",
+        "http://www.theguardian.com/world/video/2013/jun/26/julia-gillard-ousted-prime-minister-video",
         "http://www.theguardian.com/tv-and-radio/video/2014/may/14/russian-mp-sings-protest-austria-conchita-wurst-eurovision-video"
     ]
 };

@@ -3,14 +3,8 @@ module.exports = {
     re: /^https:\/\/500px\.com\/photo.+/,
 
     mixins: [
-        "og-title",
-        "oembed-author",
-        "oembed-site",
-        "description",
-        "oembed-thumbnail",
-        "canonical",
-        "og-image-rel-image",
-        "favicon"
+        "*",
+        "og-image-rel-image"
     ],
 
     getMeta: function(meta) {
@@ -27,6 +21,16 @@ module.exports = {
             date: meta.five_hundred_pixels.uploaded,
             keywords: keywords
         };
+    },
+
+    getLinks: function(meta) {
+        return {
+            href: meta["shortcut icon"].href,
+            type: CONFIG.T.image_icon,
+            rel: CONFIG.R.icon,
+            width: 32,
+            height: 32
+        }
     },
 
     tests: [{

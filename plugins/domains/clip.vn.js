@@ -2,15 +2,7 @@ module.exports = {
 
     re: /^http:\/\/clip\.vn\/watch\/(?:[\w-]+,)?([\w-]+)\/?/i,
 
-    mixins: [
-        "og-image",
-        "canonical",
-        "copyright",
-        "og-description",
-        "keywords",
-        "og-site",
-        "og-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(urlMatch) {
         return [{

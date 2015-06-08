@@ -94,7 +94,7 @@
                         <% if (pluginTest.last_urls_set.hasError()) { %>
                             <p><strong>Plugin test feed error:</strong></p>
                             <ul>
-                                <% pluginTest.last_urls_set.errors.forEach(function(error) { %>
+                                <% pluginTest.last_urls_set.errors_list.forEach(function(error) { %>
                                     <li><pre><%= JSON.stringify(error, null, 4) %></pre></li>
                                 <% }); %>
                             </ul>
@@ -139,7 +139,7 @@
 
                                         <% if (log && log.hasError()) { %>
                                             <ul>
-                                                <% log.errors.forEach(function(e) { %>
+                                                <% log.errors_list.forEach(function(e) { %>
                                                     <li><%= e %></li>
                                                 <% }); %>
                                             </ul>

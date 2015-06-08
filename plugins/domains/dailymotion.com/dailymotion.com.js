@@ -23,7 +23,6 @@ module.exports = {
 
     tests: [ 
         "http://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
-        "http://www.dailymotion.com/video/xryxxi_best-maid-ever_redband", // age-restricted
         "http://www.dailymotion.com/swf/video/xcv6dv_pixels-by-patrick-jean_creation",
         "http://www.dailymotion.com/embed/video/xcv6dv_pixels-by-patrick-jean_creation"
     ]

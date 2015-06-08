@@ -11,11 +11,9 @@ module.exports = {
         "og-title"
     ],
 
-    getLink: function(urlMatch, twitter) {
-
-        if (twitter['image0']) {
-            var m = twitter['image0'].match(/\/(\d+)_\w+_z\.jpg$/i);
-
+    getLink: function(urlMatch, og) {
+        if (og.image) {
+            var m = og.image.url.match(/\/(\d+)_\w+_\w\.jpg$/i);
             return {
                 href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + m[1] + '/player',
                 rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],

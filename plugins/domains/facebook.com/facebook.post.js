@@ -42,7 +42,7 @@ module.exports = {
 
         if (meta["html-title"] === "Facebook") {
             // the content is not public
-            cb({responseStatusCode: 403});
+            return cb({responseStatusCode: 403});
         }        
 
         var title = meta["description"] ? meta["description"]: meta["html-title"].replace(/ \| Facebook$/, "");

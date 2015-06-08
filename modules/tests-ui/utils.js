@@ -18,6 +18,7 @@ exports.getPluginUnusedMethods = function(pluginId, debugData) {
     var pluginMethods = findAllPluginMethods(pluginId, plugins);
 
     return {
+        allMandatoryMethods: pluginMethods.mandatory,
         mandatory: _.difference(pluginMethods.mandatory, usedMethods),
         skipped: _.difference(pluginMethods.skipped, usedMethods)
     };
@@ -200,6 +201,9 @@ function getAllUsedMethods(debugData) {
         findUsedMethods({link: link}, debugData, result);
     });
 
+    // Collect duplicate links.
+    findUsedMethods({findSkippedDuplicates: true}, debugData, result);
+
     return result;
 }
 
@@ -287,6 +291,10 @@ function findUsedMethods(options, debugData, result) {
                 } catch(ex) {
                     good = false;
                 }
+            }
+
+            if (options.findSkippedDuplicates && l.error && l.error.indexOf && l.error.indexOf('duplication') > -1) {
+                good = true
             }
 
             if (good) {

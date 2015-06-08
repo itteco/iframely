@@ -2,14 +2,7 @@ module.exports = {
 
     re: /^https?:\/\/channel9\.msdn\.com\/Events\/([\w-]+\/\d+\/[\w-]+)/i,
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title",
-        "og-image"
-    ],
+    mixins: ["*"],
 
     getLink: function(urlMatch) {
         return {
