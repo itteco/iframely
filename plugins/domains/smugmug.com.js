@@ -1,27 +1,12 @@
 var $ = require('cheerio');
 
+// TODO: support gallery: http://hyderphoto.smugmug.com/Daily-Photos/Daily-Photos/27429648_7XP8jg#!i=4106742422&k=zsmTVn9
+
 module.exports = {
 
     mixins: [
-        "canonical",
-        "favicon",
-        "oembed-site",
-        "oembed-author",
-        "oembed-video",
-        "oembed-duration",
-        "og-image", // fallback for the thumbnails
-        "og-video",
-        "twitter-description",
-        "twitter-stream",
-        "twitter-image",
-        "twitter-stream"
+        "*"
     ],
-
-    getMeta: function(oembed, twitter) {
-        return {
-            title: oembed.title || oembed.gallery_title || twitter.title
-        };
-    },
 
     getLink: function (oembed) {
 
@@ -76,25 +61,10 @@ module.exports = {
         pageWithFeed: "http://www.smugmug.com/popular/today",
         getUrl: function(url) {
             return url.indexOf('smugmug.com/') > -1 ? url : null;
-        }
+        },
+        skipMethods: ["getLink"]
     },
         "http://www.smugmug.com/popular/all#!i=789708429&k=sPdffjw",
-        "http://cedricwalter.smugmug.com/Computers/Joomla/i-726WRdK/A",
-    {
-        skipMethods: ['getLink'],
-        skipMixins: [
-            "og-title",
-            "oembed-title",
-            "oembed-author",
-            "canonical",
-            "oembed-video",
-            "og-image",
-            "og-video",
-            "twitter-stream",
-            "twitter-image",
-            "twitter-description",
-            "twitter-stream",
-            "oembed-duration"
-        ]
-    }]
+        "http://cedricwalter.smugmug.com/Computers/Joomla/i-726WRdK/A"
+    ]
 };

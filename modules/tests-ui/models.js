@@ -97,11 +97,11 @@
 
         urls: [String],
 
-        errors: []
+        errors_list: []
     });
 
     TestUrlsSetSchema.methods.hasError = function() {
-        return this.errors && this.errors.length > 0;
+        return this.errors_list && this.errors_list.length > 0;
     };
 
     var PageTestLogSchema = new Schema({
@@ -137,12 +137,12 @@
 
         rel: [String],
 
-        errors: [String],
+        errors_list: [String],
         warnings: [String]
     });
 
     PageTestLogSchema.methods.hasError = function() {
-        return this.errors && this.errors.length > 0;
+        return this.errors_list && this.errors_list.length > 0;
     };
 
     PageTestLogSchema.methods.hasTimeout = function() {

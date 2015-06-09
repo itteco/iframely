@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/quizlet\.com\/(\d+)\/[\w-]+\//i,
+    re: /^https?:\/\/quizlet\.com\/(\d+)\/[\w-]+\//i,
 
     mixins: [
         "og-image",
@@ -21,7 +21,7 @@ module.exports = {
         ];
 
         return bits.map(function(bit) {
-            var rel = [CONFIG.R.app];
+            var rel = [CONFIG.R.survey];
             if (bit === 'speller') {
                 rel.push(CONFIG.R.autoplay);
             }
@@ -37,7 +37,7 @@ module.exports = {
 
     tests: [{
         page: 'http://quizlet.com/subject/math/?sortBy=mostRecent',
-        selector: '.set-link'
+        selector: '.SearchResult-link'
     },
         "http://quizlet.com/43729824/conceptual-physics-final-review-part-1-flash-cards/"
     ]

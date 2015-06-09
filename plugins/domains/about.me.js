@@ -2,18 +2,7 @@ module.exports = {
 
     re: /https?:\/\/about\.me\/([a-zA-Z0-9\-]+)/i,
 
-    mixins: [
-        "twitter-image",
-        "thumbnail",
-        "og-image",
-        "favicon",
-        "author",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "og-site",
-        "twitter-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(urlMatch) {
 

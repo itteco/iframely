@@ -4,13 +4,7 @@ module.exports = {
         /^https?:\/\/www\.ebaumsworld\.com\/video\/watch\/(\d+)/i
     ],
 
-    mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "twitter-description",
-        "twitter-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(urlMatch) {
 

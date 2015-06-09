@@ -55,6 +55,13 @@
         "endpoint": "http://www.youtube.com/oembed?format={format}&url=https://www.youtube.com/watch?v={1}"
     },
     {
+        "name": "YouTube Playlist",
+        "templates": [
+            "www\\.youtube\\.com/playlist\\?list=([a-zA-Z0-9_-]+)"
+        ],
+        "endpoint": "http://www.youtube.com/oembed"
+    },    
+    {
         "name": "Qik",
         "templates": [
             "qik\\.com/video/.*",
@@ -395,8 +402,14 @@
     {
         "name": "cartodb.com",
         "templates": [
-            "\\w+.cartodb.com/(u\\w+/)?viz/[a-z0-9-]+"
+            "\\w+.cartodb.com/(?:u\/\\w+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
+    }, {
+        "name": "Giphy",
+        "templates": [
+            "giphy.com/gifs/.+"
+        ],
+        "endpoint": "http://giphy.com/services/oembed/"
     }
 ]

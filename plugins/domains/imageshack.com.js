@@ -3,12 +3,7 @@ module.exports = {
 
     mixins: [
         "og-image-rel-image",
-        "favicon",
-        "canonical",
-        "copyright",
-        "keywords",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
     tests: [{

@@ -6,7 +6,7 @@ if (!CONFIG.tests) {
     return;
 }
 
-process.title = "iframely";
+process.title = "iframely-tests";
 
 var async = require('async');
 var _ = require('underscore');
@@ -250,7 +250,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                 plugin: pluginTest._id,
                 urls: urls
             });
-            testUrlsSet.errors = errors.length ? errors : undefined;
+            testUrlsSet.errors_list = errors.length ? errors : undefined;
             testUrlsSet.save(cb);
         },
 
@@ -291,12 +291,12 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
-                        if (typeof(error) === "string" && error.indexOf("timeout") > -1) {
+                        if (error.indexOf && error.indexOf("timeout") > -1 || (error == 404)) {
                             logEntry.warnings = [error];
                         } else if (error.stack) {
-                            logEntry.errors = [error.stack];
+                            logEntry.errors_list = [error.stack];
                         } else {
-                            logEntry.errors = [JSON.stringify(error)];
+                            logEntry.errors_list = [JSON.stringify(error)];
                         }
                     }
 
@@ -313,36 +313,49 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         logEntry.rel = rels;
 
+                        // Search unused methods.
+                        var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
+                        var allMandatoryMethods = unusedMethods.allMandatoryMethods;
+
                         // Method errors.
                         var errors = utils.getErrors(data);
                         if (errors) {
-                            logEntry.errors = logEntry.errors || [];
+                            logEntry.errors_list = logEntry.errors || [];
                             errors.forEach(function(m) {
-                                log("       " + m);
-                                logEntry.errors.push(m);
+                                var inMandatory = _.find(allMandatoryMethods, function(mandatoryMethod) {
+                                    return m.indexOf(mandatoryMethod) > -1;
+                                });
+
+                                if (inMandatory) {
+                                    log("       " + m);
+                                    logEntry.errors_list.push(m);
+                                }
                             });
                         }
 
-                        // Search unused methods.
-                        var unusedMethods = utils.getPluginUnusedMethods(plugin.id, data);
-
-                        // Error on mandatory methods.
+                        // Error on unused mandatory methods.
                         if (unusedMethods.mandatory.length > 0) {
-                            logEntry.errors = logEntry.errors || [];
+                            logEntry.errors_list = logEntry.errors || [];
                             unusedMethods.mandatory.forEach(function(m) {
-                                if (errors && errors.indexOf(m) > -1) {
+                                var inError = _.find(errors, function(error) {
+                                    return error.indexOf(m) > -1;
+                                });
+                                if (inError) {
                                     // Skip no data if error.
                                     return;
                                 }
                                 log("       " + m + ": no data");
-                                logEntry.errors.push(m + ": no data");
+                                logEntry.errors_list.push(m + ": no data");
                             });
                         }
-                        // Warning on non-mandatory methods.
+                        // Warning on unused non-mandatory methods.
                         if (unusedMethods.skipped.length > 0) {
                             logEntry.warnings = logEntry.warnings || [];
                             unusedMethods.skipped.forEach(function(m) {
-                                if (errors && errors.indexOf(m) > -1) {
+                                var inError = _.find(errors, function(error) {
+                                    return error.indexOf(m) > -1;
+                                });
+                                if (inError) {
                                     // Skip no data if error.
                                     return;
                                 }
@@ -358,11 +371,13 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     callback('timeout');
                 }, CONFIG.tests.single_test_timeout);
 
-                iframely(url, {
-                    debug: true,
-                    readability: true,
-                    getWhitelistRecord: whitelist.findWhitelistRecordFor
-                }, callback);
+                setTimeout(function() {
+                    iframely(url, {
+                        debug: true,
+                        readability: true,
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                    }, callback);
+                }, CONFIG.tests.pause_between_tests || 0);
 
             }, cb);
         },
