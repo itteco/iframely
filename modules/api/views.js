@@ -8,6 +8,7 @@ var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var jsonxml = require('jsontoxml');
+var display = require('../../lib/display');
 
 function prepareUri(uri) {
 
@@ -239,92 +240,18 @@ module.exports = function(app) {
     });
 
     app.get('/display', function(req, res, next) {
+      var handler = _.last(_.findWhere(app.routes.get, {path: '/iframely'}).callbacks)
+        , interceptRes;
 
-        var uri = prepareUri(req.query.uri);
-
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
+      interceptRes = {
+        sendJsonCached: function (response) {
+          res.locals.links = response;
+          next();
         }
+      };
 
-        if (uri.split('/')[2].indexOf('.') === -1) {
-            return next(new Error("local domains not supported"));
-        }
-
-        log('Loading /display for', uri);
-
-        async.waterfall([
-
-            function(cb) {
-
-                cache.withCache('render_link:' + version + ':' + uri, function(cb) {
-
-                    iframelyCore.run(uri, {
-                        getWhitelistRecord: whitelist.findWhitelistRecordFor
-                      , maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
-                    }, function(error, result) {
-
-                        if (error) {
-                            return cb(error);
-                        }
-
-                        iframelyUtils.filterLinks(result, {
-                            filterNonSSL: getBooleanParam(req, 'ssl'),
-                            filterNonHTML5: getBooleanParam(req, 'html5'),
-                            maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
-                        });
-
-                        iframelyUtils.generateLinksHtml(result, {
-                            autoplayMode: getBooleanParam(req, 'autoplay')
-                        });
-
-                        var render_link = result && _.find(result.links, function(link) {
-                            return link.html
-                                && link.rel.indexOf(CONFIG.R.inline) === -1
-                                && link.type === CONFIG.T.text_html;
-                        });
-
-                        if (!render_link) {
-                            // Cache non inline link to later render for older consumers.
-                            render_link = _.find(result.links, function(link) {
-                                return link.html
-                                    && link.rel.indexOf(CONFIG.R.inline) > -1
-                                    && link.type === CONFIG.T.text_html;
-                            });
-                        }
-
-                        if (render_link) {
-                            render_link.title = result.meta.title;
-                        }
-
-                        cb(error, render_link);
-                    });
-
-                }, cb);
-            }
-
-        ], function(error, link) {
-
-            if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error(error));
-            }
-
-            if (!link) {
-                return next(new utils.NotFound());
-            }
-
-            res.renderCached('embed-html.ejs', {
-                title: link.title,
-                html: link.html
-            });
-        });
-
-    });
+      handler.call(this, req, interceptRes, next);
+    }, display);
 
     app.get('/render', function(req, res, next) {
 
