@@ -7,7 +7,10 @@ module.exports = {
 
     getLink: function(tumblr_post, oembed) {
 
-        if (!oembed.html) {
+        // Tumblr started wrapping oEmbed body into response: "{}" - and as string!
+        var tembed = oembed.response ? JSON.parse(oembed.response) : oembed;
+
+        if (!tembed.html) {
             return;
         }
 
@@ -22,9 +25,9 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            html: oembed.html,
+            html: tembed.html,
             rel: rel,
-            "max-width": oembed.width
+            "max-width": tembed.width
         };
     },
 
