@@ -12,9 +12,8 @@ var url = require("url");
 module.exports = {
 
     re: [
-        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
-        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)\/video\/1/i,
-        /https?:\/\/pic.twitter\.com\//i
+        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)(?:\/(video)\/1)?/i,
+        /^https?:\/\/pic.twitter\.com\//i
         ],
 
     mixins: [
@@ -71,14 +70,30 @@ module.exports = {
         };
     },
 
-    getLink: function(twitter_oembed) {
-        return {
-            html: twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center">'),
+    getLink: function(urlMatch, twitter_oembed) {
+
+        var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center">');
+
+        var links = [{
+            html: html,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             "min-width": c["min-width"],
             "max-width": c["max-width"]
-        };
+        }];
+
+        if (urlMatch[1] === 'video') {
+            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
+            links.push({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.oembed, CONFIG.R.video, CONFIG.R.inline, CONFIG.R.ssl],
+                "min-width": c["min-width"],
+                "max-width": c["max-width"]
+            });
+        }
+console.log(links);
+        return links;
     },
 
     tests: [
