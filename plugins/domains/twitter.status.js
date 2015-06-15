@@ -13,6 +13,7 @@ module.exports = {
 
     re: [
         /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
+        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)\/video\/1/i,
         /https?:\/\/pic.twitter\.com\//i
         ],
 
@@ -81,6 +82,9 @@ module.exports = {
     },
 
     tests: [
-        "https://twitter.com/TSwiftOnTour/status/343846711346737153"
+        "https://twitter.com/TSwiftOnTour/status/343846711346737153",
+
+        "https://twitter.com/Tackk/status/610432299486814208/video/1",
+        "https://twitter.com/BarstoolSam/status/602688682739507200/video/1"
     ]
 };
