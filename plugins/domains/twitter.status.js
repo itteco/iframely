@@ -82,6 +82,7 @@ module.exports = {
             "max-width": c["max-width"]
         }];
 
+        /*
         if (urlMatch[1] === 'video') {
             html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
             links.push({
@@ -92,7 +93,8 @@ module.exports = {
                 "max-width": c["max-width"]
             });
         }
-console.log(links);
+        */
+
         return links;
     },
 
