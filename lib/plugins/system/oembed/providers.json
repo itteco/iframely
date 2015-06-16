@@ -411,5 +411,11 @@
             "giphy.com/gifs/.+"
         ],
         "endpoint": "http://giphy.com/services/oembed/"
+    }, {
+        "name": "Widgetic",
+        "templates": [
+            "widgetic.com/widgets/.*"
+        ],
+        "endpoint": "https://widgetic.com/services/oembed/"
     }
 ]
