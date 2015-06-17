@@ -11,7 +11,7 @@ module.exports = {
             return;
         }
 
-        var rel = [CONFIG.R.oembed, CONFIG.R.inline, CONFIG.R.html5, CONFIG.R.ssl];
+        var rel = [CONFIG.R.oembed, CONFIG.R.inline, CONFIG.R.html5];
 
         if (tumblr_post.type !== "text") {
             rel.push (CONFIG.R.app);
