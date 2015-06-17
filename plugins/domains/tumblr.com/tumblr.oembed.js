@@ -7,15 +7,11 @@ module.exports = {
 
     getLink: function(tumblr_post, oembed) {
 
-        // Tumblr started wrapping oEmbed body into response: "{}" - and as string!
-        var tembed = oembed.response ? JSON.parse(oembed.response) : oembed;
-
-        if (!tembed.html) {
+        if (!oembed.html) {
             return;
         }
 
-        // Tumblr oembeds are not SSL yet // March 2, 2015
-        var rel = [CONFIG.R.oembed, CONFIG.R.inline];
+        var rel = [CONFIG.R.oembed, CONFIG.R.inline, CONFIG.R.html5, CONFIG.R.ssl];
 
         if (tumblr_post.type !== "text") {
             rel.push (CONFIG.R.app);
@@ -25,9 +21,9 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            html: tembed.html,
+            html: oembed.html,
             rel: rel,
-            "max-width": tembed.width
+            "max-width": oembed.width
         };
     },
 
