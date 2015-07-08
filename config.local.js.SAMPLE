@@ -139,6 +139,11 @@
             },
             vimeo: {
                 get_params: "?byline=0&badge=0"     // http://developer.vimeo.com/player/embedding
+            },
+
+            facebook: {
+                //https://www.facebook.com/translations/FacebookLocales.xml
+                language_code: 'en_US'
             }
         },
 

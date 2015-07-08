@@ -21,6 +21,7 @@ module.exports = {
                 title: facebook_post.title,
                 url: facebook_post.url,
                 type: 'fb-video',
+                language_code: CONFIG.providerOptions && CONFIG.providerOptions.facebook && CONFIG.providerOptions.facebook.language_code || 'en_US',
                 width: null
             },
             "aspect-ratio": 16/9
