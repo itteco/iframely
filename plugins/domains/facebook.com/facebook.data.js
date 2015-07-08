@@ -1,5 +1,3 @@
-var DEFAULT_WIDTH = 466;
-
 module.exports = {
 
     provides: 'facebook_post',

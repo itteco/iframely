@@ -10,17 +10,6 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
     ],
 
-    mixins: [
-        "favicon"
-    ],    
-
-    getMeta: function(facebook_post) {
-        return {
-            title: facebook_post.title,
-            site: "Facebook"
-        };
-    },
-
     getLink: function(facebook_post, options) {
         return {
             type: CONFIG.T.text_html,
