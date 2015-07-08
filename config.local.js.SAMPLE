@@ -76,6 +76,15 @@
         // If there's no response from remote server, the timeout will occur after
         RESPONSE_TIMEOUT: 5 * 1000, //ms
 
+        // Customize API calls to oembed endpoints.
+        ADD_OEMBED_PARAMS: [{
+            // Endpoint url regexp array.
+            re: [/^http:\/\/api\.instagram\.com\/oembed/],
+            // Custom get params object.
+            params: {
+                hidecaption: true
+            }
+        }],
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
