@@ -136,7 +136,7 @@ module.exports = function(app) {
                 autoplayMode: getBooleanParam(req, 'autoplay')
             });
 
-            if (req.query.group) {
+            if (req.query.group || CONFIG.GROUP_LINKS) {
                 var links = result.links;
                 var groups = {};
                 CONFIG.REL_GROUPS.forEach(function(rel) {

@@ -8,6 +8,13 @@
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",
 
+        // For legacy reasons the response format of Iframely open-source is
+        // different by default as it does not group the links array by rel.
+        // In order to get the same grouped ressonse as in Cloud API,
+        // add `&group=true` to your request to change response per request
+        // or set `groupLinks` in your config to `true` for a global change.
+        GROUP_LINKS: false,
+
         SKIP_OEMBED_RE_LIST: [
             // /^https?:\/\/yourdomain\.com\//,
         ],
