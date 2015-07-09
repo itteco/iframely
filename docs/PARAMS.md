@@ -15,6 +15,8 @@ All these parameters are completely optional. If not given, you will still recei
 
  - `html5=true` or `1`- will return only embeds that can be viewed on mobile devices or desktops without Flash plugin installed.
 
+ - `media=true` or `1`- "prefer media-only". For some publishers, Iframely knows status-like `app` embeds AND simple media, such as photos or video. This option will make Iframely return actual media in the `html` field instead of branded embeds.  It affects, for example, Instagram, Tumblr, Imgur, Pinterest (for videos), etc.
+
  - `maxwidth=` in pixels will return only embeds that do not exceed this width. It affects the rare cases of fixed-width embeds as in most cases Iframely gives the responsive embed codes. However, this parameter is important for Facebook posts and Pinterest, as it is passed into embed code of those providers to adjust its width.
 
  - `origin=` - optional tag text value that will help you later search links in your dashboard. It represents the hashtag  E.g. project or chat room name, category, app, if you got several, etc.
