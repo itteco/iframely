@@ -1,10 +1,10 @@
 # Optional API parameters
 
 
-You may configure API to filter out rich media in [your API settings](https://iframely.com/settings). Or send the same filters in your query-string for each API call individually. If not given with an API call, your defaults will be used. If you haven't set up your preferences, the system-wide settings will be used.
+You may configure API in [your API settings](https://iframely.com/settings). Plus send filters in your query-string for each API call individually. If not given with an API call, your defaults will be used. If you haven't set up your preferences, the cloud-wide settings will be used.
 
 
-All these parameters are completely optional. If not given, you will still receive all relevant information in `rel` attributes of [Iframely API](https://iframely.com/docs/iframely-api) (not in [oEmbed](https://iframely.com/docs/oembed-api) though).
+All these parameters are optional. If not given, you will still receive all relevant information in `rel` attributes of [Iframely API](https://iframely.com/docs/iframely-api) (not in [oEmbed](https://iframely.com/docs/oembed-api) though).
 
 
  - `iframe=true` or `iframe=1` - activates [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs).
@@ -28,7 +28,7 @@ Also, for [oEmbed API](https://iframely.com/docs/oembed-api) only:
 
  - there's `format=xml` parameter - if you'd like to get your oEmbed as XML.
 
- - But no `autoplay` parameter. oEmbed never returns the media that autoplays. However, If you're wrapping embed codes with [short URL](https://iframely.com/docs/url-shortener) iFrames using API with `iframe=true`, the autoplay media will be returned with a fallback to [summary card](https://iframely.com/docs/widgets).
+ - But no `autoplay` parameter. oEmbed never returns the media that autoplays. However, If you're wrapping embed codes with [smart iFrames](https://iframely.com/docs/iFrames) using API with `iframe=true`, the autoplay media will be returned with a [special card](https://iframely.com/docs/widgets).
 
 
 
