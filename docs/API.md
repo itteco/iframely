@@ -26,7 +26,7 @@ If you're making API calls via JavaScript, and your site uses SSL, change API ad
         "url": "http://coub.com/view/2pc24rpb",
 
 		// rel use cases and html code for primary variant of embed,
-		"rel": ["player", "ssl"], // check it for `autoplay` if you request it
+		"rel": ["player", "ssl"], // check for `autoplay` if you request it
 		"html": "<div ... </div>"
 
         // meta object with attribution semantics
@@ -46,11 +46,15 @@ If you're making API calls via JavaScript, and your site uses SSL, change API ad
                 "media": {      // Media query, e.g. aspects
                     "aspect-ratio": 1.777778
                 },
-                                // SRC of embed.
+                
+                // SRC of embed.
                 "href": "//coub.com/embed/2pc24rpb",
+
+                // functional and technical use cases.
                 "rel": ["player", "ssl", "html5"],
-                "type": "text/html", 
+
                 // link’s MIME type, says "embed as iFrame".
+                "type": "text/html", 
 
                 // plus generated HTML code for simplicity of use:
                 "html": "<div ... </div>"

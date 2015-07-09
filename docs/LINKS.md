@@ -7,16 +7,24 @@ Links are used as the raw data which you can use to select a widget. `html` fiel
 Example of a link object:
 
 	{
-		"href": "//coub.com/embed/2pc24rpb",	-- SRC of embed. The main attribute
+		// SRC of embed. The main attribute
+		"href": "//coub.com/embed/2pc24rpb",
+
+		// functional and technical use cases.
 		"rel": ["player", "autoplay", "html5"],
-		"type": "text/html",					-- MIME type. Tells: "embed as iFrame"
-		"media": {								-- Media query. Mostly responsive
+
+		// MIME type. Tells: "embed as iFrame"
+		"type": "text/html",
+
+		"media": {	// Media query. Mostly responsive
 			"aspect-ratio": 1.777778
 		},
-		"html": "<div style=\"left: 0px; width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"//coub.com/embed/2pc24rpb\"  style=\"top: 0px; left: 0px; width: 100%; height: 100%; position: absolute;\"></iframe></div>"
+
+		// plus generated or native HTML code:
+		"html": "<div ..></div>"
 	 } 
 
-At times, Iframely will return `html` attribute without `href`. For example, for Twitter and Facebook Statuses, or elsewhere with very specific  embed codes.
+At times, Iframely will return `html` attribute without `href`. For example, for Twitter and Facebook Statuses, or elsewhere with very specific embed codes.
 
 Also, Iframely does not generate `html` field for `image/*` MIME types.
 
