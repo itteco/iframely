@@ -400,7 +400,9 @@ module.exports = function(app) {
                 maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
-            var oembed = oembedUtils.getOembed(uri, result);
+            var oembed = oembedUtils.getOembed(uri, result, {
+                mediaPriority: getBooleanParam(req, 'media')
+            });
 
             if (req.query.format === "xml") {
 

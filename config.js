@@ -160,6 +160,8 @@
         ],
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
+        OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
+
         providerOptions: {
             "readability": {},
             "twitter.status": {}
