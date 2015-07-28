@@ -46,7 +46,9 @@ module.exports = {
 
             var href = $iframe.attr('src');
 
-            if ((meta.twitter && meta.twitter.card == 'player') || (meta.og && meta.og.type == 'video') || meta.video_src ) {
+            if ((meta.twitter && meta.twitter.card == 'player') || (meta.og && meta.og.type == 'video') || meta.video_src || (href && /video\.html$/.test(href))) {
+
+                console.log("was here");
 
                 links.push ({
                     href: href,
