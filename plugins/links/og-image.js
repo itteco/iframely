@@ -3,26 +3,33 @@ var _ = require("underscore");
 var rel = [CONFIG.R.thumbnail, CONFIG.R.og];
 
 function getImageLinks(image) {
-    return [{
+
+    var images = [{
         href: image.url || image,
         type: image.type || CONFIG.T.image,
         rel: rel,
         width: image.width,
         height: image.height
-    }, {
-        href: image.secure_url,
-        type: image.type || CONFIG.T.image,
-        rel: rel,
-        width: image.width,
-        height: image.height
     }];
+
+    if (image.secure_url) {
+        images.push({
+            href: image.secure_url,
+            type: image.type || CONFIG.T.image,
+            rel: rel,
+            width: image.width,
+            height: image.height
+        });
+    }
+
+    return images;
 }
 
 module.exports = {
 
     getLinks: function(og) {
 
-        if (og.image instanceof Array) {
+        if (og.image && og.image instanceof Array) {
 
             return _.flatten(og.image.map(getImageLinks));
 
