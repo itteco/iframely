@@ -1,8 +1,8 @@
 module.exports = {
 
-    getLink: function(url, nonHtmlContentType) {
+    getLink: function(url, nonHtmlContentData) {
 
-        if (nonHtmlContentType.match(/application\/pdf/)) {
+        if (/application\/pdf|powerpoint/.test(nonHtmlContentData.type)) {
             return {
                 href: "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url),
                 type: CONFIG.T.text_html,
