@@ -1,12 +1,17 @@
 module.exports = {
 
-    re: /https?:\/\/i\.imgur\.com\/(\w+)\.(jpg|gif|png|gifv)(\?.*)?$/i,
+    re: /https?:\/\/i\.(\w+)?\.?imgur\.com\/(\w+)\.(jpg|gif|png|gifv)(\?.*)?$/i,
 
-    getLink: function(urlMatch, cb) {
+    mixins: [
+        "canonical",
+    ],
 
-        cb ({
-            redirect: "http://imgur.com/" + urlMatch[1]
-        });
+    getLink: function(urlMatch) {
+        return {
+            href: urlMatch[0],
+            type: CONFIG.T.image,
+            rel: [CONFIG.R.image],
+        };
     },
 
     tests: [{
