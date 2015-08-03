@@ -14,19 +14,15 @@ module.exports = {
     ],
 
     getLink: function(og, urlMatch) {
-                                                            // No id in canonical means - 404
-        if (!og.type || !/video/i.test(og.type) || !og.url || og.url.indexOf(urlMatch[3]) === -1) {
-            return;
-        }
 
-        if (!urlMatch) {
+        if (!og.video || !og.video.url) {
             return;
         }
 
         return {
-                href: "//videoapi.my.mail.ru/videos/embed/" + og.url.match(/video\/([a-zA-Z0-9\.\-\/]+)/)[1],
+                href: og.video.url.replace(/http:\/\//, '//'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
             };
     },
