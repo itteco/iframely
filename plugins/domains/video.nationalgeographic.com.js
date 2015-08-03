@@ -13,15 +13,16 @@ module.exports = {
     getLink: function(cheerio) {
         var $player = cheerio('#player-container');
         if ($player.length) {
-            var guid = $player.attr('data-video-guid');
-            var feed = $player.attr('data-feed-url');
+            var guid = $player.attr('data-guid');
 
-            return {
-                href: 'http://player.d.nationalgeographic.com/players/ngsvideo/share/?feed=' + feed + '&guid=' + guid + '&link=http://video.nationalgeographic.com/video/',
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                'aspect-ratio': 863/495
-            };
+            if (guid) {
+                return {
+                    href: '//assets.nationalgeographic.com/modules-video/assets/ngsEmbeddedVideo.html?guid=' + guid,                
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    'aspect-ratio': 640/365
+                };
+            }
         }
     },
 
