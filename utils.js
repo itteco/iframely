@@ -349,7 +349,7 @@
                         value = 'Requested page error: ' + error;
                     }
 
-                    setResponseToCache(error, 'text/html', req, res, value);
+                    setResponseToCache(error, 'text/html', req, res, value, CONFIG.CACHE_TTL_PAGE_404);
 
                 } else if (typeof error === "string" && error.match(/^timeout/)) {
 
