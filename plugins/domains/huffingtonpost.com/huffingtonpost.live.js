@@ -19,12 +19,12 @@ module.exports = {
             rel: CONFIG.R.icon,
             type: CONFIG.T.icon
         }, {
-            href: 'http://embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1],
+            href: 'http://embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1] + '&autoPlay=false&showPlaylist=true&sid=577',
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": 480/270
         }, {
-            href: 'https://s.embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1],
+            href: 'https://s.embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1] + '&autoPlay=false&showPlaylist=true&sid=577',
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": 480/270
