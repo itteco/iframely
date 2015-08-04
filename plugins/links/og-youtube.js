@@ -2,10 +2,10 @@ module.exports = {
 
     provides: '__promoUri',
 
-    getData: function(og) {
+    getData: function(url, og) {
         
         var video_src = (og.video && og.video.url) || og.video;
-        if (!video_src) {
+        if (!video_src || /youtube\.com|vimeo\.com/.test(url)) {
             return;
         }
 

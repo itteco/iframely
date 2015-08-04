@@ -136,7 +136,7 @@ module.exports = function(app) {
                 autoplayMode: getBooleanParam(req, 'autoplay')
             });
 
-            if (req.query.group) {
+            if (req.query.group || CONFIG.GROUP_LINKS) {
                 var links = result.links;
                 var groups = {};
                 CONFIG.REL_GROUPS.forEach(function(rel) {
@@ -400,7 +400,9 @@ module.exports = function(app) {
                 maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
-            var oembed = oembedUtils.getOembed(uri, result);
+            var oembed = oembedUtils.getOembed(uri, result, {
+                mediaPriority: getBooleanParam(req, 'media')
+            });
 
             if (req.query.format === "xml") {
 

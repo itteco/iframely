@@ -4,13 +4,13 @@ module.exports = {
 
         var article = (meta.og && meta.og.article) || meta.article;
 
-        var k = article.tag;
+        var k = article ? article.tag : null;
 
-        if (k instanceof Array) {
+        if (k && k instanceof Array) {
             k = k.join(', ');
         }
 
-        if (typeof k !== "string") {
+        if (k && typeof k !== "string") {
             k = null;
         }
 

@@ -4,6 +4,18 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+
+### 2015.07.03, Version 0.8.7
+
+- Cleanup and maintenance of domain plugins
+- New domains: Datawrapper, Widgetic
+- Option to send params for individual oEmbed providers (`ADD_OEMBED_PARAMS` in sample config)
+- General config option to group Iframely JSON's links by rel by default (`GROUP_LINKS`)
+- `media=1` optional query string API param that will make Iframely try to return actual media. Ex: Instagram MP4 video instead of status embed
+- Direct URLs to office docs are now proxied by Google Docs Viewer
+
+
+
 ### 2015.06.08, Version 0.8.6
 
 Changes to existing publishers:

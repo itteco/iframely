@@ -11,8 +11,7 @@ module.exports = {
             return;
         }
 
-        // Tumblr oembeds are not SSL yet // March 2, 2015
-        var rel = [CONFIG.R.oembed, CONFIG.R.inline];
+        var rel = [CONFIG.R.oembed, CONFIG.R.inline, CONFIG.R.html5];
 
         if (tumblr_post.type !== "text") {
             rel.push (CONFIG.R.app);

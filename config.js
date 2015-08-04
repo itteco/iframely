@@ -16,6 +16,7 @@
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
+        IMAGE_META_CACHE_TTL: 7 *24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
         CACHE_TTL_PAGE_404: 10 * 60,
@@ -159,6 +160,8 @@
         ],
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
+        OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
+
         providerOptions: {
             "readability": {},
             "twitter.status": {}

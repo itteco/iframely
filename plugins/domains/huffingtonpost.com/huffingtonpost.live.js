@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/live\.huffingtonpost\.com\/r\/archive\/segment\/[\w-]+\/(\w+)/i,
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/highlight\/(?:[\w-]+\/)?(\w+)/i,
+        /^https?:\/\/live\.huffingtonpost\.com\/r\/archive\/segment\/(?:[\w-]+\/)?(\w+)/i,
         /^https?:\/\/live\.huffingtonpost\.com\/r\/segment\/[\w-]+\/(\w+)/i,
         /^https?:\/\/live\.huffingtonpost\.com\/r\/segment\/(\w+)/i
     ],

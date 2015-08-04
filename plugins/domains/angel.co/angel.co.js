@@ -14,10 +14,14 @@ module.exports = {
     getLink: function(urlMatch, twitter) {
 
         if (twitter.image) {
+
+            var image = twitter.image.src || twitter.image;
+            
             return {
                 template_context: {
                     title: twitter.title,
-                    id: twitter.image.match(/\/\w+\/(\d+)-/)[1],
+                    id: image.match(/\/\w+\/(\d+)-/)[1],
+                    type: image.match(/user/) || 'startup',
                     slug: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,

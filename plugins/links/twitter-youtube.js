@@ -3,10 +3,10 @@ module.exports = {
     provides: '__promoUri',    
 
     // e.g. http://www.kinitv.com/video/3495O8
-    getData: function(twitter) {
+    getData: function(url, twitter) {
         
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
-        if (!video_src) {
+        if (!video_src || /youtube\.com|vimeo\.com/.test(url)) {
             return;
         }
 

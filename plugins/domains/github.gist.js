@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/gist\.github\.com\/(\w+\/)(\w+)(#([\w\.\-]+))?/i,
+    re: /^https?:\/\/gist\.github\.com\/([\w\.\-]+\/)(\w+)(#([\w\.\-]+))?/i,
 
     mixins: [
         "og-site",

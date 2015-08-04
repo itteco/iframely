@@ -12,8 +12,8 @@ var url = require("url");
 module.exports = {
 
     re: [
-        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
-        /https?:\/\/pic.twitter\.com\//i
+        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)(?:\/(video)\/1)?/i,
+        /^https?:\/\/pic.twitter\.com\//i
         ],
 
     mixins: [
@@ -70,17 +70,38 @@ module.exports = {
         };
     },
 
-    getLink: function(twitter_oembed) {
-        return {
-            html: twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center">'),
+    getLink: function(urlMatch, twitter_oembed) {
+
+        var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center">');
+
+        var links = [{
+            html: html,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             "min-width": c["min-width"],
             "max-width": c["max-width"]
-        };
+        }];
+
+        /*
+        if (urlMatch[1] === 'video') {
+            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
+            links.push({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.oembed, CONFIG.R.video, CONFIG.R.inline, CONFIG.R.ssl],
+                "min-width": c["min-width"],
+                "max-width": c["max-width"]
+            });
+        }
+        */
+
+        return links;
     },
 
     tests: [
-        "https://twitter.com/TSwiftOnTour/status/343846711346737153"
+        "https://twitter.com/TSwiftOnTour/status/343846711346737153",
+
+        "https://twitter.com/Tackk/status/610432299486814208/video/1",
+        "https://twitter.com/BarstoolSam/status/602688682739507200/video/1"
     ]
 };
