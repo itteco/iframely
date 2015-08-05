@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(url, nonHtmlContentData) {
 
-        if (/application\/pdf|application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel/.test(nonHtmlContentData.type)) {
+        if (/application\/pdf|application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(nonHtmlContentData.type)) {
             return {
                 href: "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url),
                 type: CONFIG.T.text_html,
