@@ -402,7 +402,7 @@
     {
         "name": "cartodb.com",
         "templates": [
-            "\\w+.cartodb.com/(?:u\/\\w+/)?viz/[a-z0-9-]+"
+            "\\w+.cartodb.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
     }, {
