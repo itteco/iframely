@@ -15,8 +15,7 @@ module.exports = {
         if (!video_src && meta.og) {
 
             var ogv = meta.og.video instanceof Array ? meta.og.video[0] : meta.og.video;
-            video_src = ogv && (ogv.url || ogv.secure_url); 
-            console.log("vid src=" + video_src);
+            video_src = ogv && (ogv.url || ogv.secure_url);          
         }
 
         if (!video_src || !/\.brightcove\.com\/services\//i.test(video_src)) {
