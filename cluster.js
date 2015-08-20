@@ -65,4 +65,14 @@ if (cluster.isMaster) {
 
         }, 1000);
     }
+
+    if (CONFIG.CLUSTER_WORKER_RESTART_ON_PERIOD) {
+
+        setInterval(function() {
+
+            sysUtils.log('Cluster: worker ' + process.pid + ' restarting by timer...');
+            process.exit(1);
+
+        }, CONFIG.CLUSTER_WORKER_RESTART_ON_PERIOD);
+    }
 }
