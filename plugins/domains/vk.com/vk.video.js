@@ -28,7 +28,7 @@ module.exports = {
         var hash = video_url.match(/embed\_hash=([\-_a-zA-Z0-9]+)/) || video_url.match(/hash=([\-_a-zA-Z0-9]+)/);
 
         if (!oid || !vid || !hash) {
-            return cb({responseStatusCode: 403});
+            return cb({responseStatusCode: 417});
         }
 
         var aspect = (meta.og && meta.og.video && meta.og.video.height) ? meta.og.video.width / meta.og.video.height : 4/3;
