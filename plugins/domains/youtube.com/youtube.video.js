@@ -1,3 +1,5 @@
+var cheerio = require('cheerio');
+
 module.exports = {
 
     notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.api_key),
@@ -26,8 +28,6 @@ module.exports = {
             if (error) {
                 return cb(error);
             }
-
-            
 
             if (data.items && data.items.length > 0) {
 
@@ -61,7 +61,8 @@ module.exports = {
                     viewCount: entry.statisitcs && entry.statistics.viewCount,
 
                     hd: entry.contentDetails && entry.contentDetails.definition == "hd",
-                    thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, '')
+                    thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, ''),
+                    playerHtml: entry.player && entry.player.embedHtml
                 };
 
                 if (duration) {
@@ -71,7 +72,13 @@ module.exports = {
                 cb(null, {
                     youtube_video_gdata: gdata
                 });
+
+            } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
+
+                cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
+
             } else {
+
                 cb({responseStatusCode: 404});
             }
         });
@@ -92,7 +99,7 @@ module.exports = {
         };
     },
 
-    getLinks: function(url, youtube_video_gdata, oembed) {
+    getLinks: function(url, youtube_video_gdata) {
 
         var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
 
@@ -124,7 +131,25 @@ module.exports = {
         // End of time extractions
 
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
-        var widescreen = oembed.width && oembed.height && oembed.height != 0 && (oembed.width / oembed.height > 1.35);        
+
+        // Detect widescreen videos. YouTube API used to have issues with aspect-ratio.
+        // So if this ever stops working - move to oEmbed width/height, it returns the correct values.
+        var widescreen =  false; // was: oembed.width && oembed.height && oembed.height != 0 && (oembed.width / oembed.height > 1.35);
+
+        if (youtube_video_gdata.playerHtml) {
+            var $container = cheerio('<div>');
+            try {
+                $container.html(youtube_video_gdata.playerHtml);
+            } catch (ex) {}
+
+            var $iframe = $container.find('iframe');
+
+            if ($iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
+                widescreen =  $iframe.attr('width') /  $iframe.attr('height') > 1.35;
+            }
+        }
+        // End of widescreen check
+        
 
         var links = [{
             href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
