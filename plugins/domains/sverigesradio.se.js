@@ -1,10 +1,22 @@
 module.exports = {
 
-    mixins: ["*"],
+    mixins: [
+        "image_src",
+        "favicon",
+        "author",
+        "canonical",
+        "twitter-description",
+        "keywords",
+        "twitter-site",
+        "twitter-title"
+    ],
 
     // The problem is some urls not embedable. Don't know how to detect that.
 
-    getLink: function(url) {
+    getLink: function(url, twitter) {
+
+        if (!twitter.player) {return;}
+
         return {
             href: '//sverigesradio.se/embed?url=' + encodeURIComponent(url),
             type: CONFIG.T.text_html,
