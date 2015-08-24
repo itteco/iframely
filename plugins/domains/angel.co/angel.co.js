@@ -13,9 +13,9 @@ module.exports = {
 
     getLink: function(urlMatch, twitter) {
 
-        if (twitter.image) {
+        var image = twitter.image.src || twitter.image;
 
-            var image = twitter.image.src || twitter.image;
+        if (image && /\/(users|startups)\//.test(image)) {
             
             return {
                 template_context: {
