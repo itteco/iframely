@@ -1,14 +1,7 @@
 module.exports = {
 
     mixins: [
-        "image_src",
-        "favicon",
-        "author",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "twitter-site",
-        "twitter-title"
+        "*"
     ],
 
     // The problem is some urls not embedable. Don't know how to detect that.
