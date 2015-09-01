@@ -70,7 +70,7 @@ module.exports = {
         };
     },
 
-    getLink: function(urlMatch, twitter_oembed) {
+    getLink: function(urlMatch, og, twitter_oembed) {
 
         var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center">');
 
@@ -81,6 +81,14 @@ module.exports = {
             "min-width": c["min-width"],
             "max-width": c["max-width"]
         }];
+
+        if (og.image && og.image.user_generated) {
+            links.push({
+                href: og.image.url,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.image]
+            });
+        }
 
         /*
         if (urlMatch[1] === 'video') {
@@ -102,6 +110,7 @@ module.exports = {
         "https://twitter.com/TSwiftOnTour/status/343846711346737153",
 
         "https://twitter.com/Tackk/status/610432299486814208/video/1",
-        "https://twitter.com/BarstoolSam/status/602688682739507200/video/1"
+        "https://twitter.com/BarstoolSam/status/602688682739507200/video/1",
+        "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"  // og-image
     ]
 };
