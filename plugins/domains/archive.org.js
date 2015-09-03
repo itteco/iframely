@@ -29,7 +29,7 @@ module.exports = {
             }
 
             if (/playlist/i.test(player.href)) {
-                player.height = 400;
+                player.height = 250;
                 player["max-width"] = 776;
             }
 
