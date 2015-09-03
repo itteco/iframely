@@ -14,9 +14,10 @@ module.exports = {
         // require oembed so that plugin falls back to generic when required
         
         return {
-            href: '//d1v3v5jtx1iozq.cloudfront.net/images/icons/touchicon-144-a95f2d0d.png',
+            href: 'https://d2yc83ilop69kq.cloudfront.net/images/icons/touchicon-72-d0854f51a6.png',
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
+            // no sizes so that Iframely checks that icon still exists
         }
     },
 
