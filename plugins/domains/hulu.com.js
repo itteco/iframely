@@ -41,6 +41,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.hulu.com/watch/494551"
+        "http://www.hulu.com/watch/1271"
     ]    
 };
