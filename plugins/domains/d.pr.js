@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/d\.pr\/i\/([a-z0-9]+)/i
+        /^https?:\/\/(\w+\.)?d\.pr\/i\/([a-zA-Z0-9]+)/i
     ],
 
     mixins: [
@@ -11,17 +11,20 @@ module.exports = {
 
     ],
 
-    getLinks: function(oembed) {
-        return {
-            href: oembed.url,
-            type: CONFIG.T.image,
-            rel: CONFIG.R.image,
-            width: oembed.width,
-            height: oembed.height
-        };
+    getLink: function(oembed) {
+
+        if (oembed.type == "image" || oembed.type == "photo") {
+            return {
+                href: oembed.url,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.image,
+                width: oembed.width,
+                height: oembed.height
+            };
+        }
     },
 
     tests: [
-        "http://d.pr/i/1hR0D"
+        "http://d.pr/i/1eTFK"
     ]
 };
