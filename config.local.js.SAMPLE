@@ -15,6 +15,10 @@
         // or set `groupLinks` in your config to `true` for a global change.
         GROUP_LINKS: false,
 
+        // Number of maximum redirects to follow before aborting the page
+        // request with `redirect loop` error.
+        MAX_REDIRECTS: 4,
+
         SKIP_OEMBED_RE_LIST: [
             // /^https?:\/\/yourdomain\.com\//,
         ],
