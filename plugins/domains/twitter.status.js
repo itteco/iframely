@@ -51,7 +51,7 @@ module.exports = {
 
                 var oembed = JSON.parse(data);
 
-                oembed.title = meta['html-title'].replace(/Twitter\s*\/?\s*/, " ");
+                // oembed.title = meta['html-title'].replace(/Twitter\s*\/?\s*/, " ");
 
                 cb(null, {
                     title: oembed.title,
@@ -72,7 +72,7 @@ module.exports = {
 
     getLink: function(urlMatch, og, twitter_oembed) {
 
-        var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet">', '<blockquote class="twitter-tweet" align="center">');
+        var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
 
         var links = [{
             html: html,
