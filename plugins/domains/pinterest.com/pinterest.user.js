@@ -38,7 +38,8 @@ module.exports = {
 
     tests: [{
         // No Test Feed here not to violate "scrapping" restrictions of Pinterest
-        noFeeds: true
+        noFeeds: true,
+        skipMixins: ["og-title", "og-description"]
     },
         "http://pinterest.com/bcij/",
         "http://pinterest.com/franktofineart/"

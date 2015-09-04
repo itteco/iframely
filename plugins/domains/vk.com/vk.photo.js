@@ -63,7 +63,9 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{
+        skipMethods: ["getMeta"]
+    },
         "https://vk.com/photo-27744747_376634226"
     ]
 
