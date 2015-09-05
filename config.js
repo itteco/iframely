@@ -93,6 +93,7 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
+            sm4: "sm4",
 
             icon: "icon",
             logo: "logo",
@@ -126,6 +127,9 @@
             "og": [
                 "video"
             ],
+            "sm4": [
+                "video"
+            ],
             "oembed": [
                 "link",
                 "rich",
@@ -157,7 +161,8 @@
             "oembed",
             "og",
             "twitter",
-            "iframely"
+            "iframely",
+            "sm4"
         ],
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],

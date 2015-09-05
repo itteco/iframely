@@ -12,7 +12,7 @@ module.exports = {
 
         var player = {
             type: CONFIG.T.text_html,
-            rel:[CONFIG.R.player]
+            rel:[CONFIG.R.player, CONFIG.R.sm4]
         };        
 
         var $container = $('<div>');
