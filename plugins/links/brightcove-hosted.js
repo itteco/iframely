@@ -2,7 +2,9 @@ module.exports = {
 
     provides: '__promoUri',    
 
-    getData: function(url, meta) {
+    getData: function(url, meta, whitelistRecord) {
+
+        if (!whitelistRecord.isDefault) {return;}
 
         if (url.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i)) {return;}
         // do not process links to itself, otherwise -> infinite recursion
