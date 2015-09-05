@@ -56,9 +56,9 @@ module.exports = {
                     uploaded: entry.snippet && entry.snippet.publishedAt,
                     uploader: entry.snippet && entry.snippet.channelTitle,                        
                     description: entry.snippet && entry.snippet.description,
-                    likeCount: entry.statisitcs && entry.statistics.likeCount,
-                    dislikeCount: entry.statisitcs && entry.statistics.dislikeCount,
-                    viewCount: entry.statisitcs && entry.statistics.viewCount,
+                    likeCount: entry.statistics && entry.statistics.likeCount,
+                    dislikeCount: entry.statistics && entry.statistics.dislikeCount,
+                    viewCount: entry.statistics && entry.statistics.viewCount,
 
                     hd: entry.contentDetails && entry.contentDetails.definition == "hd",
                     thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, ''),
@@ -132,11 +132,10 @@ module.exports = {
 
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
-        // Detect widescreen videos. YouTube API used to have issues with aspect-ratio.
-        // So if this ever stops working - move to oEmbed width/height, it returns the correct values.
-        var widescreen =  false; // was: oembed.width && oembed.height && oembed.height != 0 && (oembed.width / oembed.height > 1.35);
+        // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
+        var widescreen = youtube_video_gdata.hd; 
 
-        if (youtube_video_gdata.playerHtml) {
+        if (!widescreen && youtube_video_gdata.playerHtml) { // maybe still widescreen
             var $container = cheerio('<div>');
             try {
                 $container.html(youtube_video_gdata.playerHtml);
@@ -180,7 +179,8 @@ module.exports = {
                 href: youtube_video_gdata.thumbnailBase + 'maxresdefault.jpg',
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg
-                // remove width so that image is checked for 404 as well
+                // remove width so that image is checked for 404 as well 
+                // - there is no other way to make sure image is accurate AND exists.
                 // width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
                 // height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
             });
