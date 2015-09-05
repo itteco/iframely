@@ -15,12 +15,12 @@ module.exports = {
 
     getLink: function(og, urlMatch) {
 
-        if (!og.video || !og.video.url) {
+        if (!og.video) {
             return;
         }
 
         return {
-                href: og.video.url.replace(/http:\/\//, '//'),
+                href: (og.video.url || og.video).replace(/http:\/\//, '//'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
