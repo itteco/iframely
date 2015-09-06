@@ -51,7 +51,7 @@ module.exports = {
 
                 var oembed = JSON.parse(data);
 
-                // oembed.title = meta['html-title'].replace(/Twitter\s*\/?\s*/, " ");
+                oembed.title = meta['html-title']; //.replace(/Twitter\s*\/?\s*/, " ");
 
                 cb(null, {
                     title: oembed.title,
