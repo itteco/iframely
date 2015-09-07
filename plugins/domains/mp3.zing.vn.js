@@ -18,6 +18,9 @@ module.exports = {
         } else if (og.type === 'music.song') {
             aspect = 600/168;
             type = 'song';
+        } else {
+            // Not player.
+            return;
         }
 
         return [{
@@ -35,13 +38,13 @@ module.exports = {
 
     tests: [{   // Tracks.
         page: 'http://mp3.zing.vn/',
-        selector: '._trackLink'
+        selector: '.list-item-width'
     },{         // Albums.
         page: 'http://mp3.zing.vn/',
         selector: '.des-inside ._trackLink'
     }, {        // Videos.
         page: 'http://mp3.zing.vn/',
-        selector: ':nth-child(5) ._trackLink'
+        selector: '.album-item:not(.des-inside) ._trackLink'
     },
         "http://mp3.zing.vn/album/What-Is-Love-Single-Ho-Ngoc-Ha/ZWZC0CWW.html",
         "http://mp3.zing.vn/video-clip/Co-Don-Tu-Luc-Ay-Tim/ZW7W98FD.html",
