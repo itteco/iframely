@@ -28,6 +28,10 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
         player.rel.push(CONFIG.R.autoplay);
     }
 
+    if (whitelistRecord.isAllowed('twitter.stream', 'gifv')) {
+        player.rel.push(CONFIG.R.gifv);
+    }
+
     return player;
 }
 
