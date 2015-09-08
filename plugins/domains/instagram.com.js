@@ -67,7 +67,7 @@ module.exports = {
             links.push({
                 html: oembed.html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5]
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline]
             });
         }
 
