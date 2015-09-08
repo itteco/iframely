@@ -15,6 +15,8 @@ function prepareUri(uri) {
         return uri;
     }
 
+    uri = uri.replace(/[\u200B-\u200D\uFEFF]/g, '');
+
     if (uri.match(/^\/\//i)) {
         return "http:" + uri;
     }

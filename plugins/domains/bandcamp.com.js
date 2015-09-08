@@ -36,19 +36,19 @@ module.exports = {
             return [{
                 href: meta.og.video.url || meta.og.video,
                 type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og],
-                width: meta.og.video.width,
+                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
+                "max-width": meta.og.video.width * 2,
                 height: meta.og.video.height
             }, {
                 href: meta.og.video.secure_url,
                 type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og],
-                width: meta.og.video.width,
+                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
+                "max-width": meta.og.video.width * 2,
                 height: meta.og.video.height
             }, {
                 href: meta.twitter.player.value,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.twitter],
+                rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5],
                 "aspect-ratio": meta.twitter.player.width / meta.twitter.player.height,
                 "max-width": 700
             }]

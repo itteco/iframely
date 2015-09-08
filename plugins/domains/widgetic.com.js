@@ -18,8 +18,7 @@ module.exports = {
         });
     },    
 
-    tests: [ 
-        "https://widgetic.com/widgets/photo/before-after-gallery/composition/53513cf709c7e2cc778b4567/",
+    tests: [         
         "https://widgetic.com/widgets/util/news-ticker/composition/5572e42d09c7e2227b8b456b/",
         {
             skipMixins: [

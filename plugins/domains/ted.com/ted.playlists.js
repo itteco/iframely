@@ -18,7 +18,7 @@ module.exports = {
         if (og.type === "video.other" && og.url) {
 
             return {
-                href: og.url.replace(/^https?:\/\/(www\.)?/i, "https://embed-ssl.").replace(/\?[^\/]+$/, '') + ".html",
+                href: og.url.replace(/^https?:\/\/(www\.)?/i, "https://embed-ssl.").replace(/\?[^\/]+$/, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 4/3

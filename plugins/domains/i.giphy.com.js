@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
     	/https?:\/\/i\.giphy\.com\/(\w+)\.gif(\?.*)?$/i,
-    	/https?:\/\/media\.giphy\.com\/media\/(\w+)\/giphy\.gif$/i
+    	/https?:\/\/media\d?\.giphy\.com\/media\/(\w+)\/giphy\.gif$/i        
     ],
 
     getLink: function(urlMatch, cb) {

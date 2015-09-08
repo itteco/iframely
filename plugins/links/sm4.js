@@ -12,7 +12,7 @@ module.exports = {
 
         var player = {
             type: CONFIG.T.text_html,
-            rel:[CONFIG.R.player]
+            rel:[CONFIG.R.player, CONFIG.R.sm4]
         };        
 
         var $container = $('<div>');
@@ -64,7 +64,9 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        skipMethods: ["getMeta"]
+    },
         "http://thedailyshow.cc.com/guests/neil-degrasse-tyson/2abri1/neil-degrasse-tyson",
         "http://tosh.cc.com/video-clips/gs28zs/kid-delivery",
         "http://www.cc.com/video-clips/vyienh/comedy-central-presents-insane-clown-posse",

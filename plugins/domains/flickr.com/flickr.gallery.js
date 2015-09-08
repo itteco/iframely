@@ -3,14 +3,7 @@ module.exports = {
     re: /^https?:\/\/www\.flickr\.com(\/photos\/[@a-zA-Z0-9_\.]+\/sets\/(\d+))/i,
 
     mixins: [
-        "og-title",
-        "canonical",
-        "og-site",
-        "twitter-description",
-        "twitter-author",
-
-        "favicon",
-        "og-image"
+        "*"
     ],
 
     getLink: function(urlMatch) {

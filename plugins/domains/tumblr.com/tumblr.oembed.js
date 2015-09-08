@@ -13,6 +13,10 @@ module.exports = {
 
         var rel = [CONFIG.R.oembed, CONFIG.R.inline, CONFIG.R.html5];
 
+        if (!/http:\/\/embed\.tumblr\.com\/embed\//i.test(oembed.html)) { rel.push(CONFIG.R.ssl); }
+        // We could also try to replace http:// with https://, 
+        // but it appears Tumblr knows better when their embeds are not SSL-friendly and returns only http:// when required.
+
         if (tumblr_post.type !== "text") {
             rel.push (CONFIG.R.app);
         } else {
