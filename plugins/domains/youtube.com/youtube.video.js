@@ -61,9 +61,12 @@ module.exports = {
                     viewCount: entry.statistics && entry.statistics.viewCount,
 
                     hd: entry.contentDetails && entry.contentDetails.definition == "hd",
-                    thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, ''),
                     playerHtml: entry.player && entry.player.embedHtml
                 };
+
+                if (entry.snippet && entry.snippet.thumbnails ) {
+                    gdata.thumbnails =  {mq: entry.snippet.thumbnails.medium, hq: entry.snippet.thumbnails.high, maxres: entry.snippet.thumbnails.maxres};
+                }
 
                 if (duration) {
                     gdata.duration = duration;
@@ -167,16 +170,16 @@ module.exports = {
             type: CONFIG.T.text_html,
             "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
         }, {
-            href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
+            href: youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: 320,
             height: 180
         }];
 
-        if (youtube_video_gdata.hd) {
+        if (youtube_video_gdata.thumbnails.maxres) {
             links.push({
-                href: youtube_video_gdata.thumbnailBase + 'maxresdefault.jpg',
+                href: youtube_video_gdata.thumbnails.maxres.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg
                 // remove width so that image is checked for 404 as well 
@@ -188,7 +191,7 @@ module.exports = {
 
         if (!widescreen) {
             links.push({
-                href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
+                href: youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 480,
