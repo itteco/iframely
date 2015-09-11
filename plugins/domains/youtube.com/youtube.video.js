@@ -22,7 +22,7 @@ module.exports = {
             return cb (new Error ("No youtube.api_key configured"));
         }
 
-        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + options.getProviderOptions('youtube.api_key') + "&id=" + urlMatch[1];
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + api_key + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
@@ -103,7 +103,7 @@ module.exports = {
         };
     },
 
-    getLinks: function(url, youtube_video_gdata) {
+    getLinks: function(url, youtube_video_gdata, options) {
 
         var params = options.getProviderOptions('youtube.get_params', '');
 
