@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.c-span\.org\/video\/\?([\d-]+)(\/[\w-]+)/i,
+    re: /^http:\/\/www\.c-span\.org\/video\/\?(c?[\d-]+)(\/[\w-]+)/i,
 
     mixins: [
         "og-image",
@@ -25,7 +25,8 @@ module.exports = {
         page: 'http://www.c-span.org/search/',
         selector: '.onevid a.thumb'
     },
-        "http://www.c-span.org/video/?306629-5/law-sea-treaty"
+        "http://www.c-span.org/video/?306629-5/law-sea-treaty",
+        "http://www.c-span.org/video/?c4542435/house-floor-may-11-1995-rep-cunningham-homos-military-sensanders-insulted-thousands-men-women-put"
     ]
 
 };
