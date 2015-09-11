@@ -106,7 +106,7 @@ module.exports = {
             });
         }
         */
-console.log(links);
+
         return links;
     },
 
