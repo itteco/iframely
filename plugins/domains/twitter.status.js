@@ -1,13 +1,6 @@
-var c = CONFIG.providerOptions["twitter.status"];
-
-var OAuth= require('oauth').OAuth,
-    oa = new OAuth("https://twitter.com/oauth/request_token",
-        "https://twitter.com/oauth/access_token",
-        c.consumer_key,
-        c.consumer_secret,
-        "1.0A", CONFIG.baseAppUrl + "/oauth/callback", "HMAC-SHA1");
-
 var url = require("url");
+
+var OAuth= require('oauth').OAuth;
 
 module.exports = {
 
@@ -23,12 +16,14 @@ module.exports = {
 
     provides: 'twitter_oembed',
 
-    getData: function(meta, cb) {
+    getData: function(meta, options, cb) {
         var m = meta.canonical.split(/(\d+)$/);
         if (!m) {
             return cb();
         }
         var id = m[1];
+
+        var c = options.getProviderOptions("twitter.status");
 
         var uri = url.parse("https://api.twitter.com/1.1/statuses/oembed.json");
         uri.query = {
@@ -37,6 +32,12 @@ module.exports = {
             hide_thread: c.hide_thread,
             omit_script: c.omit_script
         };
+
+        var oa = new OAuth("https://twitter.com/oauth/request_token",
+            "https://twitter.com/oauth/access_token",
+            c.consumer_key,
+            c.consumer_secret,
+            "1.0A", CONFIG.baseAppUrl + "/oauth/callback", "HMAC-SHA1");
 
         // TODO: cache!
         oa.get(
@@ -52,6 +53,9 @@ module.exports = {
                 var oembed = JSON.parse(data);
 
                 oembed.title = meta['html-title']; //.replace(/Twitter\s*\/?\s*/, " ");
+
+                oembed["min-width"] = c["min-width"];
+                oembed["max-width"] = c["max-width"];
 
                 cb(null, {
                     title: oembed.title,
@@ -78,8 +82,8 @@ module.exports = {
             html: html,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
-            "min-width": c["min-width"],
-            "max-width": c["max-width"]
+            "min-width": twitter_oembed["min-width"],
+            "max-width": twitter_oembed["max-width"]
         }];
 
         if (og.image && og.image.user_generated) {
@@ -102,7 +106,7 @@ module.exports = {
             });
         }
         */
-
+console.log(links);
         return links;
     },
 

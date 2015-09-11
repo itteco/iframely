@@ -2,8 +2,6 @@ var cheerio = require('cheerio');
 
 module.exports = {
 
-    notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.api_key),
-
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(?:tv#\/)?watch\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/youtu.be\/([a-zA-Z0-9_-]+)/i,
@@ -16,9 +14,15 @@ module.exports = {
 
     provides: 'youtube_video_gdata',
 
-    getData: function(urlMatch, request, cb) {
+    getData: function(urlMatch, request, options, cb) {
 
-        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + CONFIG.providerOptions.youtube.api_key + "&id=" + urlMatch[1];
+        var api_key = options.getProviderOptions('youtube.api_key');
+
+        if (!api_key) {
+            return cb (new Error ("No youtube.api_key configured"));
+        }
+
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + options.getProviderOptions('youtube.api_key') + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
@@ -101,7 +105,7 @@ module.exports = {
 
     getLinks: function(url, youtube_video_gdata) {
 
-        var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+        var params = options.getProviderOptions('youtube.get_params', '');
 
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */

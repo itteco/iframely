@@ -11,9 +11,9 @@ module.exports = {
         "oembed-title"
     ],    
 
-    getLinks: function(urlMatch) {
+    getLinks: function(urlMatch, options) {
 
-        var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+        var params = options.getProviderOptions('youtube.get_params', '');
 
         params = params.replace(/^\?/, '&');
 

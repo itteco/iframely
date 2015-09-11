@@ -11,9 +11,8 @@ module.exports = {
         "oembed-site"
     ],
 
-    getLink: function(urlMatch, request, cb) {
-
-        gUtils.getPhotoSizes(urlMatch[2], request, function(error, sizes) {
+    getLink: function(urlMatch, request, options, cb) {
+        gUtils.getPhotoSizes(urlMatch[2], request, options.getProviderOptions('flickr.apiKey'), function(error, sizes) {
 
             if (error) {
                 return cb(error);
