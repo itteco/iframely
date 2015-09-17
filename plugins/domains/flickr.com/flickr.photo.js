@@ -43,12 +43,16 @@ module.exports = {
 
             var last = sizes[sizes.length - 1];
 
-            result.splice(0, 0, {
-                href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
-                rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html,
-                "aspect-ratio": last.width / last.height
-            });
+            var media_only = options.getProviderOptions('flickr.media_only', false);
+
+            if (!media_only) {
+                result.splice(0, 0, {
+                    href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
+                    rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
+                    type: CONFIG.T.text_html,
+                    "aspect-ratio": last.width / last.height
+                });
+            }
 
             result.push({
                 href: "http://l.yimg.com/g/favicon.ico",
