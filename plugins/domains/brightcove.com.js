@@ -19,7 +19,7 @@ module.exports = {
             return {
                 href: player,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.autoplay],
+                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.autoplay],
                 'aspect-ratio': twitter.player.width / twitter.player.height
             };
         }
