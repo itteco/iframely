@@ -11,19 +11,34 @@ module.exports = {
         "oembed-title",
         "keywords",
         "twitter-image",
-        "twitter-player",
         "favicon"
     ],
 
-    getLinks: function(oembed) {
+    getLinks: function(oembed, twitter, options) {
 
-        return {
+        var media_only = options.getProviderOptions('giphy.com.media_only', false) && oembed.image;
+
+        var links = [];
+
+        if (!media_only) {
+            links.push({
+                href: twitter.player.value || twitter.player,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.twitter],
+                width: twitter.player.width,
+                height: twitter.player.height
+            });
+        }
+
+        links.push({
             href: oembed.image,
             type: CONFIG.T.image_gif,
             rel: CONFIG.R.image,
             width: oembed.width,
             height: oembed.height
-        };
+        });
+
+        return links;
     },
 
     tests: [{
