@@ -9,7 +9,7 @@ module.exports = {
         "oembed-description"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, options) {
 
         var $container = $('<div>');
         try {
@@ -20,19 +20,27 @@ module.exports = {
         var player, thumbnail, autoplay;
 
         if ($iframe.length == 1) {
+
+            var old_player = options.getProviderOptions('soundcloud.com.old_player', false);
+
+            var href = $iframe.attr('src');
+            if (old_player) {
+                href = href.replace('visual=true', 'visual=false');
+            }
+
             player = {
-                href: $iframe.attr('src'),
+                href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                height: oembed.height,
+                height: old_player ? 114 : oembed.height,
                 "min-width": oembed.width
             };
 
             autoplay = {
-                href: $iframe.attr('src') + '&auto_play=true',
+                href: href + '&auto_play=true',
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-                height: oembed.height,
+                height: old_player ? 114 : oembed.height,
                 "min-width": oembed.width
             };            
         }
