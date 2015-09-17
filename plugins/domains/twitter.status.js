@@ -74,9 +74,13 @@ module.exports = {
         };
     },
 
-    getLink: function(urlMatch, og, twitter_oembed) {
+    getLink: function(urlMatch, og, twitter_oembed, options) {
 
-        var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
+        var html = twitter_oembed.html;
+
+        if (options.getProviderOptions('twitter.status.center', true)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
+        }
 
         var links = [{
             html: html,
