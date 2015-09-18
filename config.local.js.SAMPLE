@@ -92,7 +92,7 @@
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
-            "twitter.status": {
+            "twitter": {
                 "max-width": 550,
                 "min-width": 250,
                 consumer_key: 'INSERT YOUR VALUE',
@@ -105,6 +105,7 @@
             },
             flickr: {
                 apiKey: 'INSERT YOUR VALUE'
+                // media_only: true     // disables slideshow and gives plain image
             },
             "google.maps": {
             //  apiKey: 'INSERT YOUR VALUE' // not required, but recommended
@@ -118,6 +119,7 @@
             },
             tumblr: {
                 consumer_key: "INSERT YOUR VALUE"
+                // media_only: true     // disables status embeds for images and videos - will return plain media
             },
             google: {
                 // https://developers.google.com/maps/documentation/embed/guide#api_key
@@ -148,7 +150,17 @@
             facebook: {
                 //https://www.facebook.com/translations/FacebookLocales.xml
                 language_code: 'en_US'
+                // media_only: false    // enables entire statuses for FB videos
             }
+
+            /*
+            soundcloud: {
+                old_player: true // enables classic player
+            },
+            giphy: {
+                media_only: true // disables branded player for gifs and returns just the image
+            }
+            */
         },
 
         // WHITELIST_WILDCARD, if present, will be added to whitelist as record for top level domain: "*"
