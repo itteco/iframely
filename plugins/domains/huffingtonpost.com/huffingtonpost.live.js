@@ -15,7 +15,7 @@ module.exports = {
 
     getLinks: function(urlMatch, options) {
 
-        var sid = options.getProviderOptions('huffingtonpost.live.sid');
+        var sid = options.getProviderOptions('huffingtonpost.sid');
 
         if (sid) {
             sid = '&sid=' + sid;

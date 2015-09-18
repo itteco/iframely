@@ -21,7 +21,7 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions('soundcloud.com.old_player', false);
+            var old_player = options.getProviderOptions('soundcloud.old_player', false);
 
             var href = $iframe.attr('src');
             if (old_player) {

@@ -63,7 +63,7 @@ module.exports = {
             });
         }
 
-        var media_only = options.getProviderOptions('instagram.com.media_only', false);
+        var media_only = options.getProviderOptions('instagram.media_only', false);
 
         if (oembed.type === 'rich' && !media_only) {
             links.push({
