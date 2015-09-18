@@ -10,10 +10,9 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
     ],
 
-    getLink: function(facebook_post) {
+    getLink: function(facebook_post, options) {
 
         return {
-
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
             template: "facebook.post",
