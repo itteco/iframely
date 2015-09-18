@@ -6,14 +6,24 @@ module.exports = {
         "favicon",
         "canonical",
         "oembed-author",
-        "twitter-image", // both as fall back, and as thumbnails for galleries
         "twitter-title",
         "oembed-site"
     ],
 
-    getLink: function(oembed, og) {
+    // TODO: no oembed for galleries, see: http://imgur.com/gallery/aZrKE
+    getLink: function(oembed, og, twitter, options) {
 
         var links = [];
+
+        if (twitter.image && twitter.image.url) {
+            links.push({
+                href: twitter.image.url,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.twitter, CONFIG.R.image],
+                width: twitter.image.width,
+                height: twitter.image.height
+            });
+        }
 
         // gifv
         if (og.type === 'video.other' && og.video && og.video.length > 1 && og.video[1].type === 'video/mp4') {
@@ -27,21 +37,12 @@ module.exports = {
             });
         }
 
-        // oembed photo isn't used as of May 18, 2015
-
-        if (oembed.type == "rich") {
-            links.push({
-                html: oembed.html,
-                width: 542,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
-            });
-        }
-
         // photo galleries
 
         if (og.image && og.image instanceof Array) {
             var gifs = og.image.filter(function(link) {
+                // TODO: can be another image type, see: http://imgur.com/gallery/aZrKE
+                // TODO: can be just url w/o width and height.
                 return link.url && link.url.match(/\.gif$/i);
             });
 
@@ -52,6 +53,20 @@ module.exports = {
                     rel: [CONFIG.R.og, CONFIG.R.image],
                     width: gifs[0].width,
                     height: gifs[0].height
+                });
+            }
+        }
+
+        if (oembed.type == "rich") {
+
+            var media_only = options.getProviderOptions('imgur.media_only', false);
+            if (!media_only || links.length === 0) {
+                // oembed photo isn't used as of May 18, 2015
+                links.push({
+                    html: oembed.html,
+                    width: 542,
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
                 });
             }
         }
