@@ -47,7 +47,7 @@ Examples of what people often request:
  - Different player UI for YouTube and Vimeo
  - "Classic" player for SoundCloud
  - Twitter: center or not, include media or not, show parent message, etc.
- - Facebook: for videos, show entire status rather then just a video
+ - Facebook: for videos, show entire status rather than just a video
  - Show user message for Instagram embeds
  - Giphy: disable branded GIF player and use Iframely's [friendly GIFs](/docs/gifs) instead
  - Turn on support of Twitter videos (experimental)
