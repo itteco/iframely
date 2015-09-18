@@ -306,6 +306,7 @@ function processUrl() {
     var $response = $('.s-json');
     var $embeds = $('.s-embeds');
     var $status = $('#status').hide();
+    var $errors = $('#errors').hide().html('');
     var $apiUri = $('#api-uri');
 
     // 0) Setup.
@@ -342,6 +343,14 @@ function processUrl() {
 
         // Response status.
         $status.attr('class', 'alert alert-success').show().text(jqXHR.status + ' ' + jqXHR.statusText + ' - ' + data.time.total + 'ms');
+
+        // Errors.
+        data.allData.forEach(function(result) {
+            if (result.error) {
+                $errors.append('<li><strong>' + result.method.pluginId + '-' + result.method.name + ':</strong> ' + result.error + '</li>').show();
+            }
+        });
+        //
 
         // Render all debug data.
         $result.renderObject(data);
