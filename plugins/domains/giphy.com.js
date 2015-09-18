@@ -24,9 +24,8 @@ module.exports = {
             links.push({
                 href: twitter.player.value || twitter.player,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.twitter],
-                width: twitter.player.width,
-                height: twitter.player.height
+                rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
+                "aspect-ratio": twitter.player.width / twitter.player.height
             });
         }
 
