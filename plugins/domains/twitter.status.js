@@ -82,13 +82,31 @@ module.exports = {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
         }
 
-        var links = [{
-            html: html,
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
-            "min-width": twitter_oembed["min-width"],
-            "max-width": twitter_oembed["max-width"]
-        }];
+        var show_video = urlMatch[1] === 'video' && options.getProviderOptions('twitter.media_only');
+
+        var links = [];
+
+        if (show_video) {
+
+            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
+            links.push({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl],
+                "min-width": twitter_oembed["min-width"],
+                "max-width": twitter_oembed["max-width"]
+            });
+
+        } else {
+
+            links.push({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
+                "min-width": twitter_oembed["min-width"],
+                "max-width": twitter_oembed["max-width"]
+            });
+        }
 
         if (og.image && og.image.user_generated) {
             links.push({
@@ -97,19 +115,6 @@ module.exports = {
                 rel: [CONFIG.R.image]
             });
         }
-
-        /*
-        if (urlMatch[1] === 'video') {
-            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
-            links.push({
-                html: html,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.oembed, CONFIG.R.video, CONFIG.R.inline, CONFIG.R.ssl],
-                "min-width": c["min-width"],
-                "max-width": c["max-width"]
-            });
-        }
-        */
 
         return links;
     },
