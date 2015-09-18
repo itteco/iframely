@@ -39,7 +39,12 @@ module.exports = {
 
         // photo galleries
 
+        var isGallery = false;
+
         if (og.image && og.image instanceof Array) {
+
+            isGallery = true;
+
             var gifs = og.image.filter(function(link) {
                 // TODO: can be another image type, see: http://imgur.com/gallery/aZrKE
                 // TODO: can be just url w/o width and height.
@@ -60,7 +65,8 @@ module.exports = {
         if (oembed.type == "rich") {
 
             var media_only = options.getProviderOptions('imgur.media_only', false);
-            if (!media_only || links.length === 0) {
+
+            if (!media_only || links.length === 0 || isGallery) {
                 // oembed photo isn't used as of May 18, 2015
                 links.push({
                     html: oembed.html,
