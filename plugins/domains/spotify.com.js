@@ -3,13 +3,13 @@ var cheerio = require('cheerio');
 module.exports = {
 
     mixins: [
-        "twitter-title",
-        "twitter-image",
-        "canonical",
-        "favicon",
+        "oembed-title",
         "oembed-thumbnail",
         "oembed-site"
     ],
+
+    // keep dependency on oEmbed only. Otherwise, there's redirect to relative path for "play.*" and no embeds as a result
+    // -- plugin redirect (by "htmlparser") /error/browser-not-supported.php
 
     getLink: function(oembed) {
 
@@ -25,17 +25,22 @@ module.exports = {
         // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
 
-            return {
+            return [{
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                  "aspect-ratio":  100 / 115 // hardcode here as otherwise there's blank space beneath the player
-            }
+            }, {
+                href: "http://d2c87l0yth4zbw.cloudfront.net/i/_global/favicon.png",
+                type: CONFIG.T.image,
+                rel: CONFIG.R.icon
+            }]
         }
 
     },
 
     tests: [
+        "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
         "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi"
