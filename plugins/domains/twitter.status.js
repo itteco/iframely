@@ -1,12 +1,10 @@
-var url = require("url");
-
-var OAuth= require('oauth').OAuth;
+var request = require('request');
 
 module.exports = {
 
     re: [
-        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)(?:\/(video)\/1)?/i,
-        /^https?:\/\/pic.twitter\.com\//i
+        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
+        /https?:\/\/pic.twitter\.com\//i
         ],
 
     mixins: [
@@ -24,44 +22,42 @@ module.exports = {
         var id = m[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
-
-        var uri = url.parse("https://api.twitter.com/1.1/statuses/oembed.json");
-        uri.query = {
+        var url = "https://api.twitter.com/1.1/statuses/oembed.json";
+        var qs = {
             id: id,
             hide_media: c.hide_media,
             hide_thread: c.hide_thread,
             omit_script: c.omit_script
         };
 
-        var oa = new OAuth("https://twitter.com/oauth/request_token",
-            "https://twitter.com/oauth/access_token",
-            c.consumer_key,
-            c.consumer_secret,
-            "1.0A", CONFIG.baseAppUrl + "/oauth/callback", "HMAC-SHA1");
+        var oauth = {
+            consumer_key: c.consumer_key,
+            consumer_secret: c.consumer_secret,
+            token: c.access_token,
+            token_secret: c.access_token_secret
+        };
 
         // TODO: cache!
-        oa.get(
-            url.format(uri),
-            c.access_token,
-            c.access_token_secret,
-            function(error, data) {
+        request({url: url, qs: qs, oauth: oauth}, function(error, response, data) {
+            if (error) {
+                return cb(error);
+            }
 
-                if (error) {
-                    return cb(error);
-                }
+            if (response.statusCode !== 200) {
+                return cb('Non-200 response from Twitter API');
+            }
 
-                var oembed = JSON.parse(data);
+            var oembed = JSON.parse(data);
 
-                oembed.title = meta['html-title']; //.replace(/Twitter\s*\/?\s*/, " ");
+            oembed.title = meta['html-title'].replace(/on Twitter:.*?$/, "on Twitter");
 
-                oembed["min-width"] = c["min-width"];
-                oembed["max-width"] = c["max-width"];
+            oembed["min-width"] = c["min-width"];
+            oembed["max-width"] = c["max-width"];
 
-                cb(null, {
-                    title: oembed.title,
-                    twitter_oembed: oembed
-                });
+            cb(null, {
+                twitter_oembed: oembed
             });
+        });
     },
 
     getMeta: function(twitter_oembed) {

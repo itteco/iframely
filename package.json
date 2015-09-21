@@ -22,7 +22,7 @@
         "jslint":       "0.8",
         "async":        "0.2.8",
         "underscore":   "1.4.4",
-        "request":      "2.9",
+        "request":      "2.57.x",
         "express":      "3.2.4",
         "send":         "0.1.0",
         "connect":      "2.7.9",
@@ -40,7 +40,6 @@
         "imagesize":    "1.0.0",
         "iconv-lite":   "0.4.5",
         "mimelib":      "0.2",
-        "oauth":        "0.9",
 
         "redis":        "0.8.3",
         "memcached":    "0.2.3",
