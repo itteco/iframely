@@ -106,7 +106,7 @@ module.exports = {
         }];
     },
 
-    getData: function(url, urlMatch) {
+    getData: function(url, urlMatch, options) {
 
         if (!options.getProviderOptions('google.maps_key')) {
             return cb (new Error ("No google.maps_key configured"));

@@ -26,7 +26,7 @@ module.exports = {
         'favicon'
     ],
 
-    getLink: function(url) {
+    getLink: function(url, options) {
         url = URL.parse(url,true);
 
         var query = url.query;
