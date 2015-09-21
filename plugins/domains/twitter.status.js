@@ -1,5 +1,3 @@
-var request = require('request');
-
 module.exports = {
 
     re: [
@@ -14,7 +12,7 @@ module.exports = {
 
     provides: 'twitter_oembed',
 
-    getData: function(meta, options, cb) {
+    getData: function(meta, request, options, cb) {
         var m = meta.canonical.split(/(\d+)$/);
         if (!m) {
             return cb();
