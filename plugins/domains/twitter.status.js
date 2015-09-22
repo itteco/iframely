@@ -112,7 +112,7 @@ module.exports = {
             var post_data = data.post;
             if (post_data) {
                 oembed.is_video = !!_.find(post_data.data && post_data.data.extended_entities && post_data.data.extended_entities.media, function(m) {
-                    return m.video_info;
+                    return m.video_info && m.type === "video";
                 });
             }
 
