@@ -4,7 +4,7 @@ var _ = require('underscore');
 module.exports = {
 
     re: [
-        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)(?:\/(video)\/1)?/i,
+        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)/i,
         /^https?:\/\/pic.twitter\.com\//i
         ],
 
@@ -15,7 +15,7 @@ module.exports = {
 
     provides: 'twitter_oembed',
 
-    getData: function(urlMatch, meta, request, options, cb) {
+    getData: function(meta, request, options, cb) {
         var m = meta.canonical.split(/(\d+)$/);
         if (!m) {
             return cb();
@@ -59,7 +59,7 @@ module.exports = {
 
             post: function(cb) {
 
-                var show_video = urlMatch[1] === 'video' && c.media_only;
+                var show_video = c.media_only;
 
                 if (show_video) {
 
