@@ -1,8 +1,11 @@
+var async = require('async');
+var _ = require('underscore');
+
 module.exports = {
 
     re: [
-        /https?:\/\/twitter\.com\/(\w+)\/status(?:es)?\/(\w+)/i,
-        /https?:\/\/pic.twitter\.com\//i
+        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)(?:\/(video)\/1)?/i,
+        /^https?:\/\/pic.twitter\.com\//i
         ],
 
     mixins: [
@@ -12,7 +15,7 @@ module.exports = {
 
     provides: 'twitter_oembed',
 
-    getData: function(meta, request, options, cb) {
+    getData: function(urlMatch, meta, request, options, cb) {
         var m = meta.canonical.split(/(\d+)$/);
         if (!m) {
             return cb();
@@ -20,13 +23,6 @@ module.exports = {
         var id = m[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
-        var url = "https://api.twitter.com/1.1/statuses/oembed.json";
-        var qs = {
-            id: id,
-            hide_media: c.hide_media,
-            hide_thread: c.hide_thread,
-            omit_script: c.omit_script
-        };
 
         var oauth = {
             consumer_key: c.consumer_key,
@@ -35,21 +31,90 @@ module.exports = {
             token_secret: c.access_token_secret
         };
 
-        request({url: url, qs: qs, oauth: oauth}, function(error, response, data) {
+        async.parallel({
+
+            oembed: function(cb) {
+
+                var url = "https://api.twitter.com/1.1/statuses/oembed.json";
+
+                var qs = {
+                    id: id,
+                    hide_media: c.hide_media,
+                    hide_thread: c.hide_thread,
+                    omit_script: c.omit_script
+                };
+
+                request({
+                    url: url,
+                    qs: qs,
+                    oauth: oauth,
+                    json: true
+                }, function(error, response, data) {
+                    cb(error, {
+                        response: response,
+                        data: data
+                    });
+                });
+            },
+
+            post: function(cb) {
+
+                var show_video = urlMatch[1] === 'video' && c.media_only;
+
+                if (show_video) {
+
+                    var url = "https://api.twitter.com/1.1/statuses/show.json";
+
+                    var qs = {
+                        id: id
+                    };
+
+                    request({
+                        url: url,
+                        qs: qs,
+                        oauth: oauth,
+                        json: true
+                    }, function(error, response, data) {
+                        cb(error, {
+                            response: response,
+                            data: data
+                        });
+                    });
+
+                } else {
+                    cb(null, null);
+                }
+            }
+
+        }, function(error, data) {
+
             if (error) {
                 return cb(error);
             }
 
-            if (response.statusCode !== 200) {
-                return cb('Non-200 response from Twitter API: ' + response.statusCode);
+            // Oembed.
+
+            var oembed_data = data.oembed;
+
+            if (oembed_data.response.statusCode !== 200) {
+                return cb('Non-200 response from Twitter API: ' + oembed_data.response.statusCode);
             }
 
-            var oembed = JSON.parse(data);
+            var oembed = oembed_data.data;
 
             oembed.title = meta['html-title'].replace(/on Twitter:.*?$/, "on Twitter");
 
             oembed["min-width"] = c["min-width"];
             oembed["max-width"] = c["max-width"];
+
+            // Post data.
+
+            var post_data = data.post;
+            if (post_data) {
+                oembed.is_video = !!_.find(post_data.data && post_data.data.extended_entities && post_data.data.extended_entities.media, function(m) {
+                    return m.video_info;
+                });
+            }
 
             cb(null, {
                 twitter_oembed: oembed
@@ -67,7 +132,7 @@ module.exports = {
         };
     },
 
-    getLink: function(urlMatch, og, twitter_oembed, options) {
+    getLink: function(og, twitter_oembed, options) {
 
         var html = twitter_oembed.html;
 
@@ -75,11 +140,9 @@ module.exports = {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
         }
 
-        var show_video = urlMatch[1] === 'video' && options.getProviderOptions('twitter.media_only');
-
         var links = [];
 
-        if (show_video) {
+        if (twitter_oembed.is_video) {
 
             html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
             links.push({
