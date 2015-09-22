@@ -23,6 +23,10 @@ Node.js version 0.10.22 and higher is required (was tested up to 0.12). Install 
 
 It will also install all the package dependencies.
 
+If you see error `../lib/kerberos.h:5:27: fatal error: gssapi/gssapi.h: No such file or directory` during `npm install` then try install `libkrb5-dev`:
+
+    sudo apt-get install libkrb5-dev
+
 
 ## Configure Iframely
 
