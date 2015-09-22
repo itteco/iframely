@@ -35,14 +35,13 @@ module.exports = {
             token_secret: c.access_token_secret
         };
 
-        // TODO: cache!
         request({url: url, qs: qs, oauth: oauth}, function(error, response, data) {
             if (error) {
                 return cb(error);
             }
 
             if (response.statusCode !== 200) {
-                return cb('Non-200 response from Twitter API');
+                return cb('Non-200 response from Twitter API: ' + response.statusCode);
             }
 
             var oembed = JSON.parse(data);
