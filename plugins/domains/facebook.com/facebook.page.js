@@ -1,4 +1,4 @@
-var DEFAULT_WIDTH = 466;
+var DEFAULT_WIDTH = 750;
 
 module.exports = {
     re: [
