@@ -1,18 +1,10 @@
-var c = CONFIG.providerOptions["twitter.status"];
-
-var OAuth= require('oauth').OAuth,
-    oa = new OAuth("https://twitter.com/oauth/request_token",
-        "https://twitter.com/oauth/access_token",
-        c.consumer_key,
-        c.consumer_secret,
-        "1.0A", CONFIG.baseAppUrl + "/oauth/callback", "HMAC-SHA1");
-
-var url = require("url");
+var async = require('async');
+var _ = require('underscore');
 
 module.exports = {
 
     re: [
-        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)(?:\/(video)\/1)?/i,
+        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)/i,
         /^https?:\/\/pic.twitter\.com\//i
         ],
 
@@ -23,41 +15,111 @@ module.exports = {
 
     provides: 'twitter_oembed',
 
-    getData: function(meta, cb) {
+    getData: function(meta, request, options, cb) {
         var m = meta.canonical.split(/(\d+)$/);
         if (!m) {
             return cb();
         }
         var id = m[1];
 
-        var uri = url.parse("https://api.twitter.com/1.1/statuses/oembed.json");
-        uri.query = {
-            id: id,
-            hide_media: c.hide_media,
-            hide_thread: c.hide_thread,
-            omit_script: c.omit_script
+        var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
+
+        var oauth = {
+            consumer_key: c.consumer_key,
+            consumer_secret: c.consumer_secret,
+            token: c.access_token,
+            token_secret: c.access_token_secret
         };
 
-        // TODO: cache!
-        oa.get(
-            url.format(uri),
-            c.access_token,
-            c.access_token_secret,
-            function(error, data) {
+        async.parallel({
 
-                if (error) {
-                    return cb(error);
-                }
+            oembed: function(cb) {
 
-                var oembed = JSON.parse(data);
+                var url = "https://api.twitter.com/1.1/statuses/oembed.json";
 
-                oembed.title = meta['html-title']; //.replace(/Twitter\s*\/?\s*/, " ");
+                var qs = {
+                    id: id,
+                    hide_media: c.hide_media,
+                    hide_thread: c.hide_thread,
+                    omit_script: c.omit_script
+                };
 
-                cb(null, {
-                    title: oembed.title,
-                    twitter_oembed: oembed
+                request({
+                    url: url,
+                    qs: qs,
+                    oauth: oauth,
+                    json: true
+                }, function(error, response, data) {
+                    cb(error, {
+                        response: response,
+                        data: data
+                    });
                 });
+            },
+
+            post: function(cb) {
+
+                var show_video = c.media_only;
+
+                if (show_video) {
+
+                    var url = "https://api.twitter.com/1.1/statuses/show.json";
+
+                    var qs = {
+                        id: id
+                    };
+
+                    request({
+                        url: url,
+                        qs: qs,
+                        oauth: oauth,
+                        json: true
+                    }, function(error, response, data) {
+                        cb(error, {
+                            response: response,
+                            data: data
+                        });
+                    });
+
+                } else {
+                    cb(null, null);
+                }
+            }
+
+        }, function(error, data) {
+
+            if (error) {
+                return cb(error);
+            }
+
+            // Oembed.
+
+            var oembed_data = data.oembed;
+
+            if (oembed_data.response.statusCode !== 200) {
+                return cb('Non-200 response from Twitter API: ' + oembed_data.response.statusCode);
+            }
+
+            var oembed = oembed_data.data;
+
+            oembed.title = meta['html-title'].replace(/on Twitter:.*?$/, "on Twitter");
+
+            oembed["min-width"] = c["min-width"];
+            oembed["max-width"] = c["max-width"];
+
+            // Post data.
+
+            var post_data = data.post;
+            if (post_data) {
+                oembed.is_video = !!_.find(post_data.data && post_data.data.extended_entities && post_data.data.extended_entities.media, function(m) {
+                    return m.video_info && m.type === "video";
+                });
+            }
+
+            cb(null, {
+                twitter_oembed: oembed
             });
+        });
     },
 
     getMeta: function(twitter_oembed) {
@@ -70,17 +132,37 @@ module.exports = {
         };
     },
 
-    getLink: function(urlMatch, og, twitter_oembed) {
+    getLink: function(og, twitter_oembed, options) {
 
-        var html = twitter_oembed.html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
+        var html = twitter_oembed.html;
 
-        var links = [{
-            html: html,
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
-            "min-width": c["min-width"],
-            "max-width": c["max-width"]
-        }];
+        if (options.getProviderOptions('twitter.center', true)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
+        }
+
+        var links = [];
+
+        if (twitter_oembed.is_video) {
+
+            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
+            links.push({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl],
+                "min-width": twitter_oembed["min-width"],
+                "max-width": twitter_oembed["max-width"]
+            });
+
+        } else {
+
+            links.push({
+                html: html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
+                "min-width": twitter_oembed["min-width"],
+                "max-width": twitter_oembed["max-width"]
+            });
+        }
 
         if (og.image && og.image.user_generated) {
             links.push({
@@ -89,19 +171,6 @@ module.exports = {
                 rel: [CONFIG.R.image]
             });
         }
-
-        /*
-        if (urlMatch[1] === 'video') {
-            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
-            links.push({
-                html: html,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.oembed, CONFIG.R.video, CONFIG.R.inline, CONFIG.R.ssl],
-                "min-width": c["min-width"],
-                "max-width": c["max-width"]
-            });
-        }
-        */
 
         return links;
     },

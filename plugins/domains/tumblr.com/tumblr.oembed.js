@@ -5,9 +5,14 @@ module.exports = {
         /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,13})(?:\/[a-z0-9-]+)?/i
     ],
 
-    getLink: function(tumblr_post, oembed) {
+    getLink: function(tumblr_post, oembed, options) {
 
         if (!oembed.html) {
+            return;
+        }
+
+        var media_only = options.getProviderOptions('tumblr.media_only', false);
+        if ((tumblr_post.type === "photo" || tumblr_post.type === "video") && media_only) {
             return;
         }
 

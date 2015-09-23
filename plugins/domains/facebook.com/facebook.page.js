@@ -14,7 +14,7 @@ module.exports = {
                 title: facebook_post.title,
                 url: facebook_post.url,
                 type: 'fb-page',
-                language_code: CONFIG.providerOptions && CONFIG.providerOptions.facebook && CONFIG.providerOptions.facebook.language_code || 'en_US',
+                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
                 width: options.maxWidth || DEFAULT_WIDTH
             },
             width: options.maxWidth || DEFAULT_WIDTH

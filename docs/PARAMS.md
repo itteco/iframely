@@ -3,8 +3,12 @@
 
 You may configure API in [your API settings](https://iframely.com/settings). Plus send filters in your query-string for each API call individually. If not given with an API call, your defaults will be used. If you haven't set up your preferences, the cloud-wide settings will be used.
 
+For paid accounts, we can also customize what embeds you get for most individual publishers. See examples at the bottom.
 
-All these parameters are optional. If not given, you will still receive all relevant information in `rel` attributes of [Iframely API](https://iframely.com/docs/iframely-api) (not in [oEmbed](https://iframely.com/docs/oembed-api) though).
+## For individual API calls
+
+
+All below parameters are optional. If not given, you will still receive all relevant information in `rel` attributes of [Iframely API](https://iframely.com/docs/iframely-api) (not in [oEmbed](https://iframely.com/docs/oembed-api) though).
 
 
  - `iframe=true` or `iframe=1` - activates [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs).
@@ -31,4 +35,20 @@ Also, for [oEmbed API](https://iframely.com/docs/oembed-api) only:
  - But no `autoplay` parameter. oEmbed never returns the media that autoplays. However, If you're wrapping embed codes with [smart iFrames](https://iframely.com/docs/iFrames) using API with `iframe=true`, the autoplay media will be returned with a [special card](https://iframely.com/docs/widgets).
 
 
+## For individual embeds publishers
+
+By default, Iframely provides what we believe is the best embeds for any individual publisher. But tastes do differ.
+
+Iframely team can configure what embeds you get for most publishers with multiple options. [Send us an email](mailto:support@iframely.com) and we'll start from there. Most adjustments take less than 30 mins to turn around. Since it's a manual process, however, we only offer this option for paid accounts.
+
+Examples of what people often request: 
+
+ - Basic image or video instead of branded embeds for Flickr or Imgur, or Instagram, or Tumblr
+ - Different player UI for YouTube and Vimeo
+ - "Classic" player for SoundCloud
+ - Twitter: center or not, include media or not, show parent message, etc.
+ - Facebook: for videos, show entire status rather than just a video
+ - Show user message for Instagram embeds
+ - Giphy: disable branded GIF player and use Iframely's [friendly GIFs](/docs/gifs) instead
+ - Turn on support of Twitter videos (experimental)
 

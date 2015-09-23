@@ -51,9 +51,11 @@ module.exports = {
         }];
     },
 
-    getData: function(urlMatch, request, cb) {
+    getData: function(urlMatch, request, options, cb) {
 
-        if (!CONFIG.providerOptions.tumblr || !CONFIG.providerOptions.tumblr.consumer_key) {
+        var consumer_key = options.getProviderOptions('tumblr.consumer_key');
+
+        if (!consumer_key) {
             cb (new Error ("No tumblr.consumer_key configured"));
             return;
         }
@@ -61,7 +63,7 @@ module.exports = {
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
-                api_key: CONFIG.providerOptions.tumblr.consumer_key,
+                api_key: consumer_key,
                 id: urlMatch[3]
             },
             json: true,

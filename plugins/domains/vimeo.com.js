@@ -17,9 +17,9 @@ module.exports = {
     },
 
 
-    getLink: function(oembed) {
+    getLink: function(oembed, options) {
 
-        var params = (CONFIG.providerOptions.vimeo && CONFIG.providerOptions.vimeo.get_params) ? CONFIG.providerOptions.vimeo.get_params : "";
+        var params = options.getProviderOptions('vimeo.get_params', '');
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
         return [{

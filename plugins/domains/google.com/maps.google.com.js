@@ -26,7 +26,7 @@ module.exports = {
         'favicon'
     ],
 
-    getLink: function(url) {
+    getLink: function(url, options) {
         url = URL.parse(url,true);
 
         var query = url.query;
@@ -118,9 +118,9 @@ module.exports = {
                     thumb_query.zoom = Math.max(zoom-1,0);
                 }
             }
-            var config = CONFIG.providerOptions["google.maps"];
-            if (config && config.apiKey) {
-                thumb_query.apiKey = config.apiKey;
+            var apiKey = options.getProviderOptions('google.maps.apiKey');
+            if (apiKey) {
+                thumb_query.apiKey = apiKey;
             }
             if (query.hl) {
                 thumb_query.language = query.hl;

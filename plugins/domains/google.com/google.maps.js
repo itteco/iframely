@@ -3,8 +3,6 @@
 
 module.exports = {
 
-    notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.google && CONFIG.providerOptions.google.maps_key),
-
     re: [
         // place 
         // https://www.google.com/maps/place/450+Serra+Mall,+Stanford+University,+Main+Quad,+Stanford,+CA+94305/@37.4278015,-122.1700577,17z/data=!3m1!4b1!4m2!3m1!1s0x808fbb2a0a120909:0xbdb15092feb97c41
@@ -44,17 +42,22 @@ module.exports = {
         }
     },
 
-    getLinks: function(gmap) {
+    getLinks: function(gmap, options) {
 
         if (!gmap.mode) {
-            return
-        };
+            return;
+        }
+
+        var api_key = options.getProviderOptions('google.maps_key');
+        if (!api_key) {
+            return;
+        }
 
         if (gmap.mode == "directions" && !gmap.zoom ) {
             gmap.zoom = 12; // as a fallback only, to make sure directions never return an error
         }
 
-        var map = "https://www.google.com/maps/embed/v1/" + gmap.mode + "?key=" + CONFIG.providerOptions.google.maps_key;
+        var map = "https://www.google.com/maps/embed/v1/" + gmap.mode + "?key=" + api_key;
 
         if (gmap.q && gmap.mode != 'streetview') {
             map = map + (gmap.mode == "directions" ? "&destination=" : "&q=") + gmap.q;
@@ -89,7 +92,6 @@ module.exports = {
             map = map + "&location=" + gmap.location + "&heading=" + gmap.heading;
         }
 
-
         return [{
             href: map,
             type: CONFIG.T.text_html,
@@ -104,7 +106,11 @@ module.exports = {
         }];
     },
 
-    getData: function(url, urlMatch) {
+    getData: function(url, urlMatch, options) {
+
+        if (!options.getProviderOptions('google.maps_key')) {
+            return cb (new Error ("No google.maps_key configured"));
+        }
 
         var gmap = {};
 

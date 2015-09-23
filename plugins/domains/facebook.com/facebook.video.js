@@ -10,10 +10,9 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
     ],
 
-    getLink: function(facebook_post) {
+    getLink: function(facebook_post, options) {
 
         return {
-
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
             template: "facebook.post",
@@ -21,7 +20,7 @@ module.exports = {
                 title: facebook_post.title,
                 url: facebook_post.url,
                 type: 'fb-video',
-                language_code: CONFIG.providerOptions && CONFIG.providerOptions.facebook && CONFIG.providerOptions.facebook.language_code || 'en_US',
+                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
                 width: null
             },
             "aspect-ratio": 16/9

@@ -4,6 +4,27 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### In the making, Version 0.9.0
+
+
+
+Better customize individual plugins, for example: 
+
+ - Basic image or video instead of branded embeds for Flickr or Imgur, or Instagram, or Tumblr
+ - Different player UI for YouTube and Vimeo
+ - "Classic" player for SoundCloud
+ - Twitter: center or not, include media or not, show parent message, etc.
+ - Facebook: for videos, show entire status rather then just a video
+ - Show user message for Instagram embeds
+ - Giphy: disable branded GIF player and use plain GIF instead
+ - Turn on support of Twitter videos (experimental)
+
+See sample config file for ways to customize. *Heads up:* `twitter.status` in config was renamed to just `twitter`. 
+
+
+### 2015.09.08, Version 0.8.10
+
+ - Domains maintenance
 
 ### 2015.07.03, Version 0.8.7
 
