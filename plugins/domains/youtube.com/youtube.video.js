@@ -26,69 +26,70 @@ module.exports = {
 
         request({
             uri: statsUri,
-            json: true
-        }, function(error, b, data) {
+            json: true,
+            prepareResult: function(error, b, data, cb) {
 
-            if (error) {
-                return cb(error);
+                if (error) {
+                    return cb(error);
+                }
+
+                if (data.items && data.items.length > 0) {
+
+                    var entry = data.items[0];
+
+                    var duration = 0;
+                    var durationStr = entry.contentDetails && entry.contentDetails.duration;
+                    if (durationStr) {
+                        var m = durationStr.match(/(\d+)S/);
+                        if (m) {
+                            duration += parseInt(m[1]);
+                        }
+                        m = durationStr.match(/(\d+)M/);
+                        if (m) {
+                            duration += parseInt(m[1]) * 60;
+                        }
+                        m = durationStr.match(/(\d+)H/);
+                        if (m) {
+                            duration += parseInt(m[1]) * 60 * 60;
+                        }
+                    }
+
+                    var gdata = {
+                        id: urlMatch[1],
+                        title: entry.snippet && entry.snippet.title,
+                        uploaded: entry.snippet && entry.snippet.publishedAt,
+                        uploader: entry.snippet && entry.snippet.channelTitle,
+                        description: entry.snippet && entry.snippet.description,
+                        likeCount: entry.statistics && entry.statistics.likeCount,
+                        dislikeCount: entry.statistics && entry.statistics.dislikeCount,
+                        viewCount: entry.statistics && entry.statistics.viewCount,
+
+                        hd: entry.contentDetails && entry.contentDetails.definition == "hd",
+                        playerHtml: entry.player && entry.player.embedHtml
+                    };
+
+                    if (entry.snippet && entry.snippet.thumbnails ) {
+                        gdata.thumbnails =  {mq: entry.snippet.thumbnails.medium, hq: entry.snippet.thumbnails.high, maxres: entry.snippet.thumbnails.maxres};
+                    }
+
+                    if (duration) {
+                        gdata.duration = duration;
+                    }
+
+                    cb(null, {
+                        youtube_video_gdata: gdata
+                    });
+
+                } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
+
+                    cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
+
+                } else {
+
+                    cb({responseStatusCode: 404});
+                }
             }
-
-            if (data.items && data.items.length > 0) {
-
-                var entry = data.items[0];
-
-                var duration = 0;
-                var durationStr = entry.contentDetails && entry.contentDetails.duration;
-                if (durationStr) {
-                    var m = durationStr.match(/(\d+)S/);
-                    if (m) {
-                        duration += parseInt(m[1]);
-                    }
-                    m = durationStr.match(/(\d+)M/);
-                    if (m) {
-                        duration += parseInt(m[1]) * 60;
-                    }
-                    m = durationStr.match(/(\d+)H/);
-                    if (m) {
-                        duration += parseInt(m[1]) * 60 * 60;
-                    }
-                }
-
-                var gdata = {
-                    id: urlMatch[1],
-                    title: entry.snippet && entry.snippet.title,
-                    uploaded: entry.snippet && entry.snippet.publishedAt,
-                    uploader: entry.snippet && entry.snippet.channelTitle,                        
-                    description: entry.snippet && entry.snippet.description,
-                    likeCount: entry.statistics && entry.statistics.likeCount,
-                    dislikeCount: entry.statistics && entry.statistics.dislikeCount,
-                    viewCount: entry.statistics && entry.statistics.viewCount,
-
-                    hd: entry.contentDetails && entry.contentDetails.definition == "hd",
-                    playerHtml: entry.player && entry.player.embedHtml
-                };
-
-                if (entry.snippet && entry.snippet.thumbnails ) {
-                    gdata.thumbnails =  {mq: entry.snippet.thumbnails.medium, hq: entry.snippet.thumbnails.high, maxres: entry.snippet.thumbnails.maxres};
-                }
-
-                if (duration) {
-                    gdata.duration = duration;
-                }
-
-                cb(null, {
-                    youtube_video_gdata: gdata
-                });
-
-            } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
-
-                cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
-
-            } else {
-
-                cb({responseStatusCode: 404});
-            }
-        });
+        }, cb);
     },
 
     getMeta: function(youtube_video_gdata) {

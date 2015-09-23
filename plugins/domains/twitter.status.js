@@ -48,13 +48,20 @@ module.exports = {
                     url: url,
                     qs: qs,
                     oauth: oauth,
-                    json: true
-                }, function(error, response, data) {
-                    cb(error, {
-                        response: response,
-                        data: data
-                    });
-                });
+                    json: true,
+                    prepareResult: function(error, response, data, cb) {
+
+                        if (response.statusCode !== 200) {
+                            return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
+                        }
+
+                        if (typeof data !== 'object') {
+                            return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
+                        }
+
+                        cb(error, data);
+                    }
+                }, cb);
             },
 
             post: function(cb) {
@@ -73,13 +80,26 @@ module.exports = {
                         url: url,
                         qs: qs,
                         oauth: oauth,
-                        json: true
-                    }, function(error, response, data) {
-                        cb(error, {
-                            response: response,
-                            data: data
-                        });
-                    });
+                        json: true,
+                        prepareResult: function(error, response, data, cb) {
+
+                            if (response.statusCode !== 200) {
+                                return cb('Non-200 response from Twitter API (statuses/show.json): ' + response.statusCode);
+                            }
+
+                            if (typeof data !== 'object') {
+                                return cb('Object expected in Twitter API (statuses/show.json), got: ' + data);
+                            }
+
+                            var is_video = !!_.find(data.extended_entities && data.extended_entities.media, function(m) {
+                                return m.video_info;
+                            });
+
+                            cb(error, {
+                                is_video: is_video
+                            });
+                        }
+                    }, cb);
 
                 } else {
                     cb(null, null);
@@ -94,13 +114,7 @@ module.exports = {
 
             // Oembed.
 
-            var oembed_data = data.oembed;
-
-            if (oembed_data.response.statusCode !== 200) {
-                return cb('Non-200 response from Twitter API: ' + oembed_data.response.statusCode);
-            }
-
-            var oembed = oembed_data.data;
+            var oembed = data.oembed;
 
             oembed.title = meta['html-title'].replace(/on Twitter:.*?$/, "on Twitter");
 
@@ -109,12 +123,7 @@ module.exports = {
 
             // Post data.
 
-            var post_data = data.post;
-            if (post_data) {
-                oembed.is_video = !!_.find(post_data.data && post_data.data.extended_entities && post_data.data.extended_entities.media, function(m) {
-                    return m.video_info;
-                });
-            }
+            oembed.is_video = data.post.is_video;
 
             cb(null, {
                 twitter_oembed: oembed

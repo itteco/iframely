@@ -68,25 +68,26 @@ module.exports = {
             },
             json: true,
             limit: 1, 
-            timeout: 1000
-        }, function (error, response, body) {
+            timeout: 1000,
+            prepareResult: function (error, response, body, cb) {
 
-            if (error) {
-                return cb(error);
-            }
+                if (error) {
+                    return cb(error);
+                }
 
-            if (body.meta.status != 200) {
-                return cb(body.meta.msg);
-            }
+                if (body.meta.status != 200) {
+                    return cb(body.meta.msg);
+                }
 
-            var posts = body.response.posts;
-            if (posts.length > 0) {
-                cb(null, {
-                    tumblr_post: posts[0]
-                });
-            } else {
-                cb(null);
+                var posts = body.response.posts;
+                if (posts.length > 0) {
+                    cb(null, {
+                        tumblr_post: posts[0]
+                    });
+                } else {
+                    cb(null);
+                }
             }
-        });
+        }, cb);
     }
 };

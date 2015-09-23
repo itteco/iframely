@@ -22,19 +22,22 @@ module.exports = {
             uri: "http://embed.gettyimages.com/preview/" + urlMatch[3],
             json: true,
             limit: 1, 
-            timeout: 1000
-        }, function(error, response, body) {
+            timeout: 1000,
+            prepareResult: function(error, response, body, cb) {
 
-            if (error) {
-                return cb(error);
+                if (error) {
+                    return cb(error);
+                }
+
+                if (body.message) {
+                    return cb(body.message);
+                }
+
+                cb(null, {
+                    getty: body
+                });
             }
-            if (body.message) {
-                return cb(body.message);
-            }
-            cb(null, {
-                getty: body
-            });
-        });
+        }, cb);
     },
 
     getLink: function(getty) {

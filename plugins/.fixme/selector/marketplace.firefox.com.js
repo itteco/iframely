@@ -15,23 +15,24 @@ module.exports = {
             qs: {
                 format: 'JSON'
             },
-            json: true
-        }, function(error, b, data) {
+            json: true,
+            prepareResult: function(error, b, data, cb) {
 
-            if (error) {
-                return cb(error);
-            }
+                if (error) {
+                    return cb(error);
+                }
 
-            if (data.app_type) {
+                if (data.app_type) {
 
-                cb(null, {
-                    firefox_marketplace_data: data
-                });
+                    cb(null, {
+                        firefox_marketplace_data: data
+                    });
+                }
+                else {
+                    cb(infoUri + (data.reason ? " says "+data.reason : " returned no data"));
+                }
             }
-            else {
-                cb(infoUri + (data.reason ? " says "+data.reason : " returned no data"));
-            }
-        });
+        }, cb);
     },
 
     getMeta: function (firefox_marketplace_data) {
