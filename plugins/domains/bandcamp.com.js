@@ -1,12 +1,14 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/([a-z0-9-]+\.bandcamp\.com)\/(album|track)\/(\w+)/i,
+        /^https?:\/\/[a-z0-9-]+\.bandcamp\.com\/(album|track)\/(\w+)/i,
+        /^https?:\/\/[a-z0-9-]+\.bandcamp\.com/i,
         /^https?:\/\/([a-z-\.]+)\/(album|track)\/([a-z-]+)/
     ],
 
     mixins: [
         "og-image",
+        "twitter-image",
         "favicon",
         "canonical",
         "og-description",
@@ -34,23 +36,17 @@ module.exports = {
         if (meta.og && meta.og.video && meta.twitter.site == "bandcamp") {
 
             return [{
-                href: meta.og.video.url || meta.og.video,
-                type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
-                "max-width": meta.og.video.width * 2,
-                height: meta.og.video.height
-            }, {
-                href: meta.og.video.secure_url,
-                type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
-                "max-width": meta.og.video.width * 2,
-                height: meta.og.video.height
-            }, {
                 href: meta.twitter.player.value,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5],
-                "aspect-ratio": meta.twitter.player.width / meta.twitter.player.height,
+                "aspect-ratio": 1, // it will just overlay the player nicely
                 "max-width": 700
+            }, {
+                href: meta.og.video.secure_url || meta.og.video.url,
+                type: meta.og.video.type || CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
+                "max-width": 700,
+                height: meta.og.video.height
             }]
         }        
 
@@ -67,6 +63,7 @@ module.exports = {
         "http://radiojuicy.com/album/rio",
         "http://hannibalkingmusic.com/album/flowers-for-pamela",
         "http://music.freddiejoachim.com/album/patiently",
+        "https://decembersongs.bandcamp.com/",
         {
             skipMixins: [
                 "og-description"
