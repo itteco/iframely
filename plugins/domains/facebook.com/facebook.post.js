@@ -1,4 +1,4 @@
-var DEFAULT_WIDTH = 466;
+var DEFAULT_WIDTH = 500;
 
 module.exports = {
 
@@ -20,6 +20,8 @@ module.exports = {
             }
         }
 
+        var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
+
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
@@ -28,9 +30,9 @@ module.exports = {
                 url: facebook_post.url,
                 type: 'fb-post',
                 language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
-                width: options.maxWidth || DEFAULT_WIDTH
+                width: width
             },
-            width: options.maxWidth || DEFAULT_WIDTH
+            width: width
         };
     },
 
