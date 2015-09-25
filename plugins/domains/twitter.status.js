@@ -69,16 +69,20 @@ module.exports = {
                             json: true,
                             prepareResult: function(error, response, data, cb) {
 
-                                var limit = parseInt(response.headers['x-rate-limit-limit']);
-                                var remaining = parseInt(response.headers['x-rate-limit-remaining']);
+                                // Do not block api if data from cache.
+                                if (!response.fromRequestCache) {
 
-                                if (response.statusCode === 429 || remaining <= 5) {
-                                    var now = new Date().getTime() / 1000;
-                                    var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
-                                    var ttl = limitResetAt - now;
+                                    var remaining = parseInt(response.headers['x-rate-limit-remaining']);
 
-                                    cache.set(block_key, 1, {ttl: ttl});
+                                    if (response.statusCode === 429 || remaining <= 5) {
+                                        var now = new Date().getTime() / 1000;
+                                        var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
+                                        var ttl = limitResetAt - now;
+
+                                        cache.set(block_key, 1, {ttl: ttl});
+                                    }
                                 }
+
 
                                 if (response.statusCode !== 200) {
                                     return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
