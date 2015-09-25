@@ -1,4 +1,5 @@
 var async = require('async');
+var cache = require('../../lib/cache');
 var _ = require('underscore');
 
 module.exports = {
@@ -24,6 +25,10 @@ module.exports = {
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
 
+        if (c.disabled) {
+            return cb('Disabled');
+        }
+
         var oauth = {
             consumer_key: c.consumer_key,
             consumer_secret: c.consumer_secret,
@@ -35,33 +40,60 @@ module.exports = {
 
             oembed: function(cb) {
 
-                var url = "https://api.twitter.com/1.1/statuses/oembed.json";
+                var block_key = 'twbl:' + c.consumer_key;
 
-                var qs = {
-                    id: id,
-                    hide_media: c.hide_media,
-                    hide_thread: c.hide_thread,
-                    omit_script: c.omit_script
-                };
+                async.waterfall([
 
-                request({
-                    url: url,
-                    qs: qs,
-                    oauth: oauth,
-                    json: true,
-                    prepareResult: function(error, response, data, cb) {
+                    function(cb) {
+                        cache.get(block_key, cb)
+                    },
 
-                        if (response.statusCode !== 200) {
-                            return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
+                    function(data, cb) {
+                        if (data) {
+                            return cb('Twitter API limit reached, wait 15 mins or less.');
                         }
 
-                        if (typeof data !== 'object') {
-                            return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
-                        }
+                        var url = "https://api.twitter.com/1.1/statuses/oembed.json";
 
-                        cb(error, data);
+                        var qs = {
+                            id: id,
+                            hide_media: c.hide_media,
+                            hide_thread: c.hide_thread,
+                            omit_script: c.omit_script
+                        };
+
+                        request({
+                            url: url,
+                            qs: qs,
+                            oauth: oauth,
+                            json: true,
+                            prepareResult: function(error, response, data, cb) {
+
+                                var limit = parseInt(response.headers['x-rate-limit-limit']);
+                                var remaining = parseInt(response.headers['x-rate-limit-remaining']);
+
+                                if (response.statusCode === 429 || remaining <= 5) {
+                                    var now = new Date().getTime() / 1000;
+                                    var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
+                                    var ttl = limitResetAt - now;
+
+                                    cache.set(block_key, 1, {ttl: ttl});
+                                }
+
+                                if (response.statusCode !== 200) {
+                                    return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
+                                }
+
+                                if (typeof data !== 'object') {
+                                    return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
+                                }
+
+                                cb(error, data);
+                            }
+                        }, cb);
                     }
-                }, cb);
+
+                ], cb);
             },
 
             post: function(cb) {
