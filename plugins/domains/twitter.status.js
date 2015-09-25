@@ -36,22 +36,23 @@ module.exports = {
             token_secret: c.access_token_secret
         };
 
-        async.parallel({
+        var block_key = 'twbl:' + c.consumer_key;
 
-            oembed: function(cb) {
+        async.waterfall([
 
-                var block_key = 'twbl:' + c.consumer_key;
+            function(cb) {
+                cache.get(block_key, cb)
+            },
 
-                async.waterfall([
+            function(data, cb) {
 
-                    function(cb) {
-                        cache.get(block_key, cb)
-                    },
+                if (data) {
+                    return cb('Twitter API limit reached, wait 15 mins or less.');
+                }
 
-                    function(data, cb) {
-                        if (data) {
-                            return cb('Twitter API limit reached, wait 15 mins or less.');
-                        }
+                async.parallel({
+
+                    oembed: function(cb) {
 
                         var url = "https://api.twitter.com/1.1/statuses/oembed.json";
 
@@ -95,54 +96,53 @@ module.exports = {
                                 cb(error, data);
                             }
                         }, cb);
-                    }
+                    },
 
-                ], cb);
-            },
+                    post: function(cb) {
 
-            post: function(cb) {
+                        var show_video = c.media_only;
 
-                var show_video = c.media_only;
+                        if (show_video) {
 
-                if (show_video) {
+                            var url = "https://api.twitter.com/1.1/statuses/show.json";
 
-                    var url = "https://api.twitter.com/1.1/statuses/show.json";
+                            var qs = {
+                                id: id
+                            };
 
-                    var qs = {
-                        id: id
-                    };
+                            request({
+                                url: url,
+                                qs: qs,
+                                oauth: oauth,
+                                json: true,
+                                prepareResult: function(error, response, data, cb) {
 
-                    request({
-                        url: url,
-                        qs: qs,
-                        oauth: oauth,
-                        json: true,
-                        prepareResult: function(error, response, data, cb) {
+                                    if (response.statusCode !== 200) {
+                                        return cb('Non-200 response from Twitter API (statuses/show.json): ' + response.statusCode);
+                                    }
 
-                            if (response.statusCode !== 200) {
-                                return cb('Non-200 response from Twitter API (statuses/show.json): ' + response.statusCode);
-                            }
+                                    if (typeof data !== 'object') {
+                                        return cb('Object expected in Twitter API (statuses/show.json), got: ' + data);
+                                    }
 
-                            if (typeof data !== 'object') {
-                                return cb('Object expected in Twitter API (statuses/show.json), got: ' + data);
-                            }
+                                    var is_video = !!_.find(data.extended_entities && data.extended_entities.media, function(m) {
+                                        return m.video_info && m.type === "video";
+                                    });
 
-                            var is_video = !!_.find(data.extended_entities && data.extended_entities.media, function(m) {
-                                return m.video_info && m.type === "video";
-                            });
+                                    cb(error, {
+                                        is_video: is_video
+                                    });
+                                }
+                            }, cb);
 
-                            cb(error, {
-                                is_video: is_video
-                            });
+                        } else {
+                            cb(null, null);
                         }
-                    }, cb);
-
-                } else {
-                    cb(null, null);
-                }
+                    }
+                }, cb);
             }
 
-        }, function(error, data) {
+        ], function(error, data) {
 
             if (error) {
                 return cb(error);
