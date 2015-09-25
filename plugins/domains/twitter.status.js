@@ -5,28 +5,18 @@ var _ = require('underscore');
 module.exports = {
 
     re: [
-        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(?:\w+)/i,
-        /^https?:\/\/pic.twitter\.com\//i
-        ],
-
-    mixins: [
-        "canonical",
-        "favicon"
+        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
     ],
 
     provides: 'twitter_oembed',
 
-    getData: function(meta, request, options, cb) {
-        var m = meta.canonical.split(/(\d+)$/);
-        if (!m) {
-            return cb();
-        }
-        var id = m[1];
+    getData: function(urlMatch, request, options, cb) {
+        var id = urlMatch[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
 
         if (c.disabled) {
-            return cb('Disabled');
+            return cb('Twitter API Disabled');
         }
 
         var oauth = {
@@ -173,11 +163,12 @@ module.exports = {
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
             site: twitter_oembed.site_name || twitter_oembed.provider_name,
-            description: twitter_oembed.html.replace(/<(.*?)>/g, '')
+            description: twitter_oembed.html.replace(/<(.*?)>/g, ''),
+            canonical: twitter_oembed.url
         };
     },
 
-    getLink: function(og, twitter_oembed, options) {
+    getLink: function(twitter_oembed, options) {
 
         var html = twitter_oembed.html;
 
@@ -209,6 +200,14 @@ module.exports = {
             });
         }
 
+        links.push({
+            href: "https://abs.twimg.com/favicons/favicon.ico",
+            type: CONFIG.T.image_icon,
+            rel: CONFIG.R.icon
+        })
+
+        /*
+        // forget about image for now - it takes 500 ms to verify its size
         if (og.image && og.image.user_generated) {
             links.push({
                 href: og.image.url,
@@ -216,6 +215,7 @@ module.exports = {
                 rel: [CONFIG.R.image]
             });
         }
+        */
 
         return links;
     },
