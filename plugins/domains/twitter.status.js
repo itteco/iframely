@@ -123,7 +123,7 @@ module.exports = {
 
             // Post data.
 
-            oembed.is_video = data.post.is_video;
+            oembed.is_video = data.post && data.post.is_video;
 
             cb(null, {
                 twitter_oembed: oembed
