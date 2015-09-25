@@ -152,7 +152,7 @@ module.exports = {
 
             var oembed = data.oembed;
 
-            oembed.title = meta['html-title'].replace(/on Twitter:.*?$/, "on Twitter");
+            oembed.title = oembed.author_name + ' on Twitter';
 
             oembed["min-width"] = c["min-width"];
             oembed["max-width"] = c["max-width"];
