@@ -2,10 +2,15 @@ var DEFAULT_WIDTH = 550;
 
 module.exports = {
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)(?:\?fref=\w+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?fref=\w+)?$/i
     ],
 
-    getLink: function(facebook_post, options) {
+    getLink: function(meta, facebook_post, options) {
+
+        // skip user profiles - they can not be embedded
+        if (meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url)) {
+            return;
+        }
 
         var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
 
