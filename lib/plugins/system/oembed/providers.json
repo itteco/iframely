@@ -314,20 +314,6 @@
         "endpoint": "http://polldaddy.com/oembed/"
     },
     {
-        "name": "Imgur Gallery",
-        "templates": [
-            "imgur\\.com/gallery/(\\w+).*"
-        ],
-        "endpoint": "http://api.imgur.com/oembed.{format}?url=http://imgur.com/a/{1}"
-    },
-    {
-        "name": "Imgur",
-        "templates": [
-            "imgur\\.com/.*"
-        ],
-        "endpoint": "http://api.imgur.com/oembed.{format}"
-    },
-    {
         "name": "Meetup",
         "templates": [
             "www\\.meetup\\.com/.*"
