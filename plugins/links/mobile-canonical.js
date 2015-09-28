@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(url, meta, options, cb) {
 
-        var canonical = meta.canonical && meta.canonical.href || meta.canonical;
+        var canonical = (meta.canonical && meta.canonical.href) || meta.canonical || (meta.og && meta.og.url);
 
         // Redirect to canonical from mobile url.
         if (canonical && url !== canonical && url.match(/^https?:\/\/(m|mobile)\./i)) {
