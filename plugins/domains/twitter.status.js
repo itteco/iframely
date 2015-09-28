@@ -1,5 +1,6 @@
 var async = require('async');
 var cache = require('../../lib/cache');
+var sysUtils = require('../../utils');
 var _ = require('underscore');
 
 module.exports = {
@@ -37,6 +38,7 @@ module.exports = {
             function(data, cb) {
 
                 if (data) {
+                    sysUtils.log('   -- Twitter API limit reached, plugin temporary disabled.');
                     return cb('Twitter API limit reached, wait 15 mins or less.');
                 }
 
@@ -68,7 +70,13 @@ module.exports = {
                                     if (response.statusCode === 429 || remaining <= 5) {
                                         var now = new Date().getTime() / 1000;
                                         var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
-                                        var ttl = limitResetAt - now;
+                                        var ttl = Math.round(limitResetAt - now);
+
+                                        if (response.statusCode === 429) {
+                                            sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
+                                        } else {
+                                            sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
+                                        }
 
                                         cache.set(block_key, 1, {ttl: ttl});
                                     }
