@@ -1,6 +1,6 @@
 var async = require('async');
 var cache = require('../../lib/cache');
-var sysUtils = require('../../utils');
+var sysUtils = require('../../logging');
 var _ = require('underscore');
 
 module.exports = {
