@@ -75,8 +75,15 @@ module.exports = {
                                         var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
                                         var ttl = limitResetAt - now;
 
-                                        if (ttl <= 0) {
-                                            ttl = 1;
+                                        // Do not allow ttl 0.
+                                        // 5 seconds - to cover possible time difference with twitter.
+                                        if (ttl < 5) {
+                                            ttl = 5;
+                                        }
+
+                                        // Block maximum for 15 minutes.
+                                        if (ttl > 15*60) {
+                                            ttl = 15*60
                                         }
 
                                         var expireIn = now + ttl;
