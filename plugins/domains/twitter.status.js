@@ -32,14 +32,17 @@ module.exports = {
         async.waterfall([
 
             function(cb) {
-                cache.get(block_key, cb)
+                cache.get(block_key, cb);
             },
 
-            function(data, cb) {
+            function(expireIn, cb) {
 
-                if (data) {
-                    sysUtils.log('   -- Twitter API limit reached, plugin temporary disabled.');
-                    return cb('Twitter API limit reached, wait 15 mins or less.');
+                if (expireIn) {
+                    var now = Math.round(new Date().getTime() / 1000);
+                    if (expireIn > now) {
+                        sysUtils.log('   -- Twitter API limit reached, plugin temporary disabled for ' + (expireIn - now) + ' seconds.');
+                        return cb('Twitter API limit reached, wait ' + (expireIn - now) + ' seconds.');
+                    }
                 }
 
                 async.parallel({
@@ -67,10 +70,16 @@ module.exports = {
 
                                     var remaining = parseInt(response.headers['x-rate-limit-remaining']);
 
-                                    if (response.statusCode === 429 || remaining <= 5) {
-                                        var now = new Date().getTime() / 1000;
+                                    if (response.statusCode === 429 || remaining <= 6) {
+                                        var now = Math.round(new Date().getTime() / 1000);
                                         var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
-                                        var ttl = Math.round(limitResetAt - now);
+                                        var ttl = limitResetAt - now;
+
+                                        if (ttl <= 0) {
+                                            ttl = 1;
+                                        }
+
+                                        var expireIn = now + ttl;
 
                                         if (response.statusCode === 429) {
                                             sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
@@ -78,10 +87,9 @@ module.exports = {
                                             sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
                                         }
 
-                                        cache.set(block_key, 1, {ttl: ttl});
+                                        cache.set(block_key, expireIn, {ttl: ttl});
                                     }
                                 }
-
 
                                 if (response.statusCode !== 200) {
                                     return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
