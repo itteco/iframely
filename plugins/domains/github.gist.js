@@ -39,41 +39,42 @@ module.exports = {
                 headers: {
                     'User-Agent': 'iframely/gist'
                 },
-                jar: false
-            },
-            function (error, response, body) {
-                var fileName, scriptUrl, i, fileNames;
+                jar: false,
+                prepareResult: function (error, response, body, cb) {
 
-                if (error) { return cb(error); }
-                if (response.statusCode !== 200) { return cb(body.message || "HTTP " + response.statusCode); }
+                    var fileName, scriptUrl, i, fileNames;
 
-                fileNames = body.files && Object.keys(body.files) || [];
+                    if (error) { return cb(error); }
+                    if (response.statusCode !== 200) { return cb(body.message || "HTTP " + response.statusCode); }
 
-                // Find a file with a matching hash...
-                for(i = 0; i < fileNames.length; i++) {
-                    // File permalinks use #file-readme-txt style format
+                    fileNames = body.files && Object.keys(body.files) || [];
 
-                    var p = 'file-' + fileNames[i].toLowerCase();
-                    p = p.replace(/\./g, '-').replace(/[^\w\-]+/g,'');
+                    // Find a file with a matching hash...
+                    for(i = 0; i < fileNames.length; i++) {
+                        // File permalinks use #file-readme-txt style format
 
-                    if (p === filePermalink) {
-                        fileName = fileNames[i];
-                        break;
+                        var p = 'file-' + fileNames[i].toLowerCase();
+                        p = p.replace(/\./g, '-').replace(/[^\w\-]+/g,'');
+
+                        if (p === filePermalink) {
+                            fileName = fileNames[i];
+                            break;
+                        }
                     }
-                }
 
-                if (fileName) {
-                    scriptUrl = 'https://gist.github.com/' + gistId +'.js?file=' + encodeURIComponent(fileName);
-                } else {
-                    scriptUrl = 'https://gist.github.com/' + gistId +'.js';
-                }
+                    if (fileName) {
+                        scriptUrl = 'https://gist.github.com/' + gistId +'.js?file=' + encodeURIComponent(fileName);
+                    } else {
+                        scriptUrl = 'https://gist.github.com/' + gistId +'.js';
+                    }
 
-                return cb(null, {
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.html5],
-                    html: '<script type="text/javascript" src="' + scriptUrl + '"></script>'
-                });
-            });
+                    return cb(null, {
+                        type: CONFIG.T.text_html,
+                        rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.html5],
+                        html: '<script type="text/javascript" src="' + scriptUrl + '"></script>'
+                    });
+                }
+            }, cb);
 
     },
 

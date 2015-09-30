@@ -36,29 +36,30 @@ module.exports = {
             qs: {
                 photos: urlMatch[1] + '_' + urlMatch[2]
             },
-            json: true
-        }, function(error, b, data) {
+            json: true,
+            prepareResult: function(error, b, data, cb) {
 
-            if (error) {
-                return cb(error);
+                if (error) {
+                    return cb(error);
+                }
+
+                if (data.response && data.response.length > 0) {
+
+                    var status = data.response[0];
+
+                    cb(null, {
+                        vk_photo: {
+                            date: status.date,
+                            text: status.text,
+                            image: status.src_xbig || status.src_big,
+                            thumbnail: status.src_big || status.src_small
+                        }
+                    });
+                } else {
+                    cb({responseStatusCode: 404});
+                }
             }
-
-            if (data.response && data.response.length > 0) {
-
-                var status = data.response[0];
-
-                cb(null, {
-                    vk_photo: {
-                        date: status.date,
-                        text: status.text,
-                        image: status.src_xbig || status.src_big,
-                        thumbnail: status.src_big || status.src_small
-                    }
-                });
-            } else {
-                cb({responseStatusCode: 404});
-            }
-        });
+        }, cb);
 
 
     },

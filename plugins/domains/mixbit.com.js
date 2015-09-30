@@ -21,19 +21,20 @@ module.exports = {
     getData: function(urlMatch, request, cb) {
         request({
             uri: "https://a.mixbit.com/v2/videos/" + urlMatch[1],
-            json: true
-        }, function(error, response, body) {
+            json: true,
+            prepareResult: function(error, response, body, cb) {
 
-            if (error) {
-                return cb(error);
+                if (error) {
+                    return cb(error);
+                }
+                if (body.status != "success") {
+                    return cb(body.status);
+                }
+                cb(null, {
+                    mixbit: body.pkg
+                });
             }
-            if (body.status != "success") {
-                return cb(body.status);
-            }
-            cb(null, {
-                mixbit: body.pkg
-            });
-        });
+        }, cb);
     },
 
     getLink: function(mixbit) {

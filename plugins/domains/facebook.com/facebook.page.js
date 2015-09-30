@@ -1,8 +1,8 @@
-var DEFAULT_WIDTH = 500;
+var DEFAULT_WIDTH = 550;
 
 module.exports = {
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?fref=\w+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
     ],
 
     getLink: function(meta, facebook_post, options) {

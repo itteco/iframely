@@ -6,7 +6,7 @@
 
     exports.notPlugin = true;
 
-    exports.getPhotoSizes = function(photo_id, request, api_key, callback) {
+    exports.getPhotoSizes = function(photo_id, request, api_key, cb) {
         request({
                 uri: API_URI,
                 qs: {
@@ -17,11 +17,11 @@
                     nojsoncallback: 1
                 },
                 json: true,
-                jar: false
-            },
-            function (error, response, body) {
-                callback(error || (body && body.message), body && body.sizes && body.sizes.size);
-            });
+                jar: false,
+                prepareResult: function (error, response, body, cb) {
+                    cb(error || (body && body.message), body && body.sizes && body.sizes.size);
+                }
+            }, cb);
     };
 
 })();
