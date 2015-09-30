@@ -26,7 +26,7 @@ module.exports = {
             token: c.access_token,
             token_secret: c.access_token_secret
         };
-
+        var blockExpireIn = 0;
         var block_key = 'twbl:' + c.consumer_key;
 
         async.waterfall([
@@ -40,8 +40,7 @@ module.exports = {
                 if (expireIn) {
                     var now = Math.round(new Date().getTime() / 1000);
                     if (expireIn > now) {
-                        sysUtils.log('   -- Twitter API limit reached, plugin temporary disabled for ' + (expireIn - now) + ' seconds.');
-                        return cb('Twitter API limit reached, wait ' + (expireIn - now) + ' seconds.');
+                        blockExpireIn = expireIn - now;
                     }
                 }
 
@@ -63,14 +62,23 @@ module.exports = {
                             qs: qs,
                             oauth: oauth,
                             json: true,
+                            useCacheOnly: blockExpireIn > 0,
                             prepareResult: function(error, response, data, cb) {
+
+                                if (response.fromRequestCache) {
+                                    if (blockExpireIn > 0) {
+                                        sysUtils.log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
+                                    } else {
+                                        sysUtils.log('   -- Twitter API cache used.');
+                                    }
+                                }
 
                                 // Do not block api if data from cache.
                                 if (!response.fromRequestCache) {
 
                                     var remaining = parseInt(response.headers['x-rate-limit-remaining']);
 
-                                    if (response.statusCode === 429 || remaining <= 6) {
+                                    if (response.statusCode === 429 || remaining <= 7) {
                                         var now = Math.round(new Date().getTime() / 1000);
                                         var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
                                         var ttl = limitResetAt - now;
@@ -86,13 +94,14 @@ module.exports = {
                                             ttl = 15*60
                                         }
 
-                                        var expireIn = now + ttl;
-
                                         if (response.statusCode === 429) {
                                             sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
                                         } else {
                                             sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
                                         }
+
+                                        // Store expire date as value to be sure it past.
+                                        var expireIn = now + ttl;
 
                                         cache.set(block_key, expireIn, {ttl: ttl});
                                     }
@@ -128,6 +137,7 @@ module.exports = {
                                 qs: qs,
                                 oauth: oauth,
                                 json: true,
+                                useCacheOnly: blockExpireIn > 0,
                                 prepareResult: function(error, response, data, cb) {
 
                                     if (response.statusCode !== 200) {
@@ -156,6 +166,11 @@ module.exports = {
             }
 
         ], function(error, data) {
+
+            if (error === 'no-cache') {
+                sysUtils.log('   -- Twitter API limit reached, plugin temporary disabled for ' + blockExpireIn + ' seconds.');
+                return cb('Twitter API limit reached, wait ' + blockExpireIn + ' seconds.');
+            }
 
             if (error) {
                 return cb(error);
@@ -227,7 +242,7 @@ module.exports = {
             href: "https://abs.twimg.com/favicons/favicon.ico",
             type: CONFIG.T.image_icon,
             rel: CONFIG.R.icon
-        })
+        });
 
         /*
         // forget about image for now - it takes 500 ms to verify its size
