@@ -84,8 +84,10 @@ module.exports = {
 
         }
 
+        var zoom = Math.floor(gmap.zoom);
+
         if (gmap.zoom) {
-            map = map + "&zoom=" + gmap.zoom;
+            map = map + "&zoom=" + zoom;
         }
 
         if (gmap.mode ===  "streetview" && gmap.location && gmap.heading ) { 
@@ -98,7 +100,7 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             "aspect-ratio": 600 / 450
         }, {
-            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (gmap.zoom || 12) + '&size=400x400',
+            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=400x400',
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail,
             width: 400,

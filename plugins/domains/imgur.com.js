@@ -2,82 +2,50 @@ module.exports = {
 
     re: /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
 
+    provides: ["oembedLinks"],
+
     mixins: [
         "favicon",
         "canonical",
         "oembed-author",
         "twitter-title",
+        "twitter-image",  // image for images, thumbnails for gallery
+        "twitter-stream", // only for gifv
         "oembed-site"
     ],
-
-    // TODO: no oembed for galleries, see: http://imgur.com/gallery/aZrKE
-    getLink: function(oembed, og, twitter, options) {
-
-        var links = [];
-
-        if (twitter.image && twitter.image.url) {
-            links.push({
-                href: twitter.image.url,
-                type: CONFIG.T.image,
-                rel: [CONFIG.R.twitter, CONFIG.R.image],
-                width: twitter.image.width,
-                height: twitter.image.height
-            });
-        }
-
-        // gifv
-        if (og.type === 'video.other' && og.video && og.video.length > 1 && og.video[1].type === 'video/mp4') {
-            var v = og.video[1];
-            links.push({
-                href: v.url.replace("http://", "//"),
-                type: v.type,
-                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.gifv],
-                width: v.width,
-                height: v.height
-            });
-        }
-
-        // photo galleries
-
-        var isGallery = false;
-
-        if (og.image && og.image instanceof Array) {
-
-            isGallery = true;
-
-            var gifs = og.image.filter(function(link) {
-                // TODO: can be another image type, see: http://imgur.com/gallery/aZrKE
-                // TODO: can be just url w/o width and height.
-                return link.url && link.url.match(/\.gif$/i);
-            });
-
-            if (gifs.length) {
-                links.push({
-                    href: gifs[0].url,
-                    type: CONFIG.T.image,
-                    rel: [CONFIG.R.og, CONFIG.R.image],
-                    width: gifs[0].width,
-                    height: gifs[0].height
-                });
-            }
-        }
+    
+    getLink: function(oembed, twitter, options) {
 
         if (oembed.type == "rich") {
+            // oembed photo isn't used as of May 18, 2015
 
             var media_only = options.getProviderOptions('imgur.media_only', false);
+            var isGallery = twitter.card == "gallery";
 
-            if (!media_only || links.length === 0 || isGallery) {
-                // oembed photo isn't used as of May 18, 2015
-                links.push({
+            if (!media_only || isGallery) {                
+                return {
                     html: oembed.html,
-                    width: 542,
+                    width: oembed.width,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
-                });
+                };
             }
         }
+    },
 
-        return links;
+    getData: function (meta, urlMatch, cb) {
+
+         var links =  ['json', 'xml'].map(function(format) {
+                return {
+                    href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + (meta.twitter && meta.twitter.card == 'gallery' ? 'a/' : '') + urlMatch[1] ,
+                    rel: 'alternate',
+                    type: 'application/' + format + '+oembed'
+                }
+            });        
+
+        cb(null, {
+            oembedLinks: links
+        });            
     },
 
     tests: [{
@@ -85,6 +53,7 @@ module.exports = {
     }, {
         skipMixins: [
             "twitter-image",
+            "twitter-stream",       // works for GIFvs only
             "oembed-author"         // Available for Galleries only
         ]
     },    
@@ -94,6 +63,7 @@ module.exports = {
         "https://imgur.com/gallery/B3X48s9",
         "http://imgur.com/r/aww/tFKv2zQ",    // kitten bomb before, doesn't seem to show up any longer
         "http://imgur.com/gallery/bSE9nTM",
-        "http://imgur.com/gallery/EqmEsJj"
+        "http://imgur.com/gallery/EqmEsJj",
+        "https://imgur.com/gallery/kkEzJsa"
     ]
 };
