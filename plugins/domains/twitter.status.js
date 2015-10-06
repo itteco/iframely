@@ -50,7 +50,7 @@ module.exports = {
 
             var oembed = JSON.parse(data);
 
-            oembed.title = meta['html-title'].replace(/on Twitter:.*?$/, "on Twitter");
+            oembed.title = meta['html-title'].replace(/on Twitter:(?:.|\s)+/m, "on Twitter");
 
             cb(null, {
                 title: oembed.title,
