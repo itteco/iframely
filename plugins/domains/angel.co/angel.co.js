@@ -16,11 +16,14 @@ module.exports = {
         var image = twitter.image.src || twitter.image;
 
         if (image && /\/(users|startups)\//.test(image)) {
+
+            var id = image.match(/\/\w+\/(\d+)-/)[1];
+            if (id === '6702' && urlMatch[1] !== 'angellist') {return;}
             
             return {
                 template_context: {
                     title: twitter.title,
-                    id: image.match(/\/\w+\/(\d+)-/)[1],
+                    id: id,
                     type: image.match(/user/) || 'startup',
                     slug: urlMatch[1]
                 },
