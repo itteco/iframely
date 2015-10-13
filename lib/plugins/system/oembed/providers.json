@@ -402,9 +402,9 @@
     }, {
         "name": "Giphy",
         "templates": [
-            "giphy.com/gifs/.+"
+            "(giphy\\.com/gifs/[a-zA-Z0-9-]+).+"
         ],
-        "endpoint": "http://giphy.com/services/oembed/"
+        "endpoint": "http://giphy.com/services/oembed/?url=http://{1}"
     }, {
         "name": "Widgetic",
         "templates": [

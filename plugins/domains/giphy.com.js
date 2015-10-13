@@ -20,7 +20,7 @@ module.exports = {
 
         var links = [];
 
-        if (!media_only) {
+        if (!media_only && twitter.player) {
             links.push({
                 href: twitter.player.value || twitter.player,
                 type: CONFIG.T.text_html,
