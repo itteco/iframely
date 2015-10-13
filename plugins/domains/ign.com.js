@@ -4,7 +4,7 @@ module.exports = {
 
     re: [
         /^http:\/\/\w+\.ign\.com\/\w+\/videos\/\d+\/\w+\/[a-z0-9-]+/i,
-        /^http:\/\/www\.ign\.com\/videos\/\d+\/\d+\/\d+\/[a-z0-9-]+/i
+        /^http:\/\/\w+\.ign\.com\/videos\/\d+\/\d+\/\d+\/[a-z0-9-]+/i
     ],
 
 
