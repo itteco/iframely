@@ -8,17 +8,7 @@ module.exports = {
     ],
 
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "date",
-        "og-image",
-        "og-article",
-        "og-description",
-        "og-site",
-        "og-title",
-        "media-detector"
-    ],
+    mixins: ["*"],
 
     getLink: function(meta) {
 
