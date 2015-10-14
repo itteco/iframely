@@ -5,7 +5,7 @@ var encodeText = utils.encodeText;
 
 module.exports = {
 
-    getMeta: function(cheerio, meta) {
+    getMeta: function(cheerio, meta, __allowPTagDescription) {
         // Get the text from the first <p> tag that's not in a header
         var description;
         cheerio("body p").each(function() {
@@ -24,5 +24,16 @@ module.exports = {
         }
     },
 
-    lowestPriority: true
+    getData: function(meta) {
+        if (!meta.description && !(meta.twitter && meta.twitter.description) && !(meta.og && meta.og.description)) {
+            return {
+                __allowPTagDescription: true
+            }            
+        }
+
+    },
+
+    lowestPriority: true,
+    provides: '__allowPTagDescription',
+    notPlugin: !(CONFIG.providerOptions.readability && CONFIG.providerOptions.readability.allowPTagDescription === true)
 };

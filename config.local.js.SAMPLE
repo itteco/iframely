@@ -111,6 +111,7 @@
             },
             readability: {
                 enabled: false
+                // allowPTagDescription: true  // to enable description fallback to first paragraph
             },
             images: {
                 loadSize: false, // if true, will try an load first bytes of all images to get/confirm the sizes
