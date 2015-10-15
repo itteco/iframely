@@ -13,14 +13,14 @@ module.exports = {
         };
     },
 
-    getData: function(cheerio) {
+    getData: function(cheerio, decode) {
 
         var result = {};
 
         var $head = cheerio('#firstHeading');
 
         if ($head.length) {
-            result.title = $head.text();
+            result.title = decode($head.text());
         }
 
         var $img = cheerio('.image img');
@@ -32,7 +32,7 @@ module.exports = {
 
         var $p = cheerio('#mw-content-text p');
         if ($p.length) {
-            result.description = cheerio($p[0]).text();
+            result.description = decode(cheerio($p[0]).text());
         }
 
         return {
