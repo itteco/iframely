@@ -2,15 +2,7 @@ module.exports = {
 
     re: /^http:\/\/www\.cbsnews\.com\/videos\/[a-z0-9-]+\//i,
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "keywords",
-        "media-detector",
-        "twitter-image",
-        "twitter-description",
-        "twitter-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(cheerio) {
 

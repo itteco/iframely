@@ -110,7 +110,7 @@ module.exports = {
         }];
     },
 
-    getData: function(url, urlMatch, options) {
+    getData: function(url, urlMatch, options, cb) {
 
         if (!options.getProviderOptions('google.maps_key')) {
             return cb (new Error ("No google.maps_key configured"));
@@ -175,9 +175,9 @@ module.exports = {
         }
 
 
-        return {
+        cb(null, {
             gmap : gmap
-        };
+        });
 
     },
 

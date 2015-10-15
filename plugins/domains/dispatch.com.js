@@ -2,17 +2,7 @@ module.exports = {
 
     re: /^http:\/\/www\.dispatch\.com\/content\/pages\/video\.html\?video=\/videos\/\d+\/\d+\/\d+\/.+/i,
 
-    mixins: [
-        "favicon",
-        "canonical",
-        "date",
-        "keywords",
-        "media-detector",
-        "og-image",
-        "og-description",
-        "og-site",
-        "og-title"
-    ],
+    mixins: ["*"],
 
     getLink: function(og) {
         return {

@@ -399,13 +399,8 @@
             "\\w+.cartodb.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
-    }, {
-        "name": "Giphy",
-        "templates": [
-            "(giphy\\.com/gifs/[a-zA-Z0-9-]+).+"
-        ],
-        "endpoint": "http://giphy.com/services/oembed/?url=http://{1}"
-    }, {
+    },
+    {
         "name": "Widgetic",
         "templates": [
             "widgetic.com/widgets/.*"
