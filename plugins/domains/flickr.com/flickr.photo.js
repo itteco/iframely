@@ -8,7 +8,8 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-license",
-        "oembed-site"
+        "oembed-site",
+        "domain-icon"
     ],
 
     getLink: function(urlMatch, request, options, cb) {
@@ -53,12 +54,6 @@ module.exports = {
                     "aspect-ratio": last.width / last.height
                 });
             }
-
-            result.push({
-                href: "http://l.yimg.com/g/favicon.ico",
-                rel: CONFIG.R.icon,
-                type: CONFIG.T.image_icon
-            });
 
             cb(null, result);
         });

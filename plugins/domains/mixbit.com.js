@@ -5,6 +5,8 @@ module.exports = {
         /^https?:\/\/mixbit\.com\/s\/(\_\w+)(?:\/.+)?/i
     ],
 
+    mixins: ['domain-icon'],
+
     getMeta: function(mixbit) {
         return {
             title: mixbit.title,
@@ -39,10 +41,6 @@ module.exports = {
 
     getLink: function(mixbit) {
         return [{
-            href: "https://mixbit.com/favicon.ico",
-            type: CONFIG.T.image_icon,
-            rel: CONFIG.R.icon
-        }, {
             href: mixbit.thumbnail_url,
             type: CONFIG.T.image_jpeg,
             rel: CONFIG.R.thumbnail,

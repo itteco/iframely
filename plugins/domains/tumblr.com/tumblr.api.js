@@ -10,6 +10,8 @@ module.exports = {
 
     provides: 'tumblr_post',
 
+    mixins: ['domain-icon'],
+
     getMeta: function(tumblr_post) {
 
         var caption = tumblr_post.caption ? $('<div>').html(tumblr_post.caption).text() : "";
@@ -32,23 +34,16 @@ module.exports = {
 
     getLink: function(tumblr_post) {
 
-        var icon = {
-            href: "//secure.assets.tumblr.com/images/favicons/favicon.ico",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon
-        };
+        if (tumblr_post.thumbnail_url) {
 
-        if (!tumblr_post.thumbnail_url) {
-            return icon;
+            return {
+                href: tumblr_post.thumbnail_url,
+                rel: CONFIG.R.thumbnail,
+                type: CONFIG.T.image,
+                width: tumblr_post.thumbnail_width,
+                height: tumblr_post.thumbnail_height
+            };
         }
-
-        return [icon, {
-            href: tumblr_post.thumbnail_url,
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image,
-            width: tumblr_post.thumbnail_width,
-            height: tumblr_post.thumbnail_height
-        }];
     },
 
     getData: function(urlMatch, request, options, cb) {

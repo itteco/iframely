@@ -10,7 +10,8 @@ module.exports = {
         "oembed-author",
         "oembed-duration",
         "oembed-thumbnail",
-        "oembed-site"
+        "oembed-site",
+        "domain-icon"
     ],
 
     getMeta: function(oembed) {
@@ -33,10 +34,6 @@ module.exports = {
             rel: CONFIG.R.thumbnail,
             width: oembed.large_thumbnail_width,
             height: oembed.large_thumbnail_height
-        }, {
-            href: "http://www.hulu.com/fat-favicon.ico",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon,
         }];
     },
 

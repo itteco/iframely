@@ -9,17 +9,9 @@ module.exports = {
         "oembed-author",
         "oembed-site",
         "oembed-thumbnail",
-        "oembed-video-responsive"
+        "oembed-video-responsive",
+        "domain-icon"
     ],
-
-    getLink: function () {
-
-        return {
-            href: "http://www.viddler.com/favicon.ico?v=245",
-            rel: CONFIG.R.icon,
-            type: CONFIG.T.image
-        }
-    },
 
     tests: [
         "http://www.viddler.com/v/3027cd1f"

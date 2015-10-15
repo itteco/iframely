@@ -11,6 +11,8 @@ module.exports = {
 
     provides: 'twitter_oembed',
 
+    mixins: ['domain-icon'],
+
     getData: function(urlMatch, request, options, cb) {
         var id = urlMatch[1];
 
@@ -238,11 +240,6 @@ module.exports = {
             });
         }
 
-        links.push({
-            href: "https://abs.twimg.com/favicons/favicon.ico",
-            type: CONFIG.T.image_icon,
-            rel: CONFIG.R.icon
-        });
 
         /*
         // forget about image for now - it takes 500 ms to verify its size

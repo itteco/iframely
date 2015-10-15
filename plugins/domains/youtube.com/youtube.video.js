@@ -12,6 +12,8 @@ module.exports = {
         /^https?:\/\/www\.youtube-nocookie\.com\/v\/([a-zA-Z0-9_-]+)/i
     ],
 
+    mixins: ["domain-icon"],
+
     provides: 'youtube_video_gdata',
 
     getData: function(urlMatch, request, options, cb) {
@@ -159,12 +161,6 @@ module.exports = {
         
 
         var links = [{
-            href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
-            type: CONFIG.T.image_png,
-            rel: CONFIG.R.icon,
-            width: 32,
-            height: 32
-        }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,

@@ -10,7 +10,8 @@ module.exports = {
     mixins: [
         "keywords",
         "twitter-title",
-        "twitter-image"
+        "twitter-image",
+        "domain-icon"
     ],
 
     getLinks: function(urlMatch, options) {
@@ -24,10 +25,6 @@ module.exports = {
         }
 
         return [{
-            href: 'http://live.huffingtonpost.com/images/hufflive_favicon.ico',
-            rel: CONFIG.R.icon,
-            type: CONFIG.T.icon
-        }, {
             href: 'http://embed.live.huffingtonpost.com/HPLEmbedPlayer/?segmentId=' + urlMatch[1] + '&autoPlay=false&showPlaylist=true' + sid,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
@@ -40,10 +37,7 @@ module.exports = {
         }];
     },
 
-    tests: [{
-        page: "http://www.huffingtonpost.com/",
-        selector: '.tn-hp-live a'
-    },
+    tests: [
         "http://live.huffingtonpost.com/r/archive/segment/some-straight-men-are-attracted-to-men/51fa762478c90a12d0000469"
     ]
 

@@ -12,7 +12,8 @@ module.exports = {
         "og-description",
         "og-video-duration",
         "og-site",
-        "og-title"
+        "og-title", 
+        "domain-icon"
     ],
 
     getLink: function(url, meta, cb) {

@@ -5,6 +5,8 @@ module.exports = {
         /^https?:\/\/(?:\w+\.cdn\.)?vid\.ly\/([a-z0-9\-]+)\/?.*/i
     ],
 
+    mixins: ['domain-icon'],
+
     getLink: function(urlMatch) {
 
         return [{
@@ -16,10 +18,6 @@ module.exports = {
             href: "//vid.ly/" + urlMatch[1] + "/poster",
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail
-        }, {
-            href: "//vid.ly/favicon.ico",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon
         }];
     },
 

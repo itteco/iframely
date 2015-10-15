@@ -1,5 +1,9 @@
 module.exports = {
 
+    re:[
+        /^https?:\/\/vine\.co\/v\//i
+    ],
+
     mixins: [
         "twitter-player",
         "twitter-stream",
