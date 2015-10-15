@@ -61,7 +61,7 @@ module.exports = {
         "http://imgur.com/gallery/IiDwq",
         "http://imgur.com/a/yMoaT",
         "https://imgur.com/gallery/B3X48s9",
-        "http://imgur.com/r/aww/tFKv2zQ",    // kitten bomb before, doesn't seem to show up any longer
+        // "http://imgur.com/r/aww/tFKv2zQ",    // kitten bomb before, doesn't seem to show up any longer
         "http://imgur.com/gallery/bSE9nTM",
         "http://imgur.com/gallery/EqmEsJj",
         "https://imgur.com/gallery/kkEzJsa"
