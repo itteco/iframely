@@ -35,6 +35,7 @@ module.exports = {
             protocol = m[1];
         } else {
             // also prevent self recursion for root domains like http://domain.com.
+            // TODO: get domain icon from current url meta.
             return cb();
         }
 
@@ -63,11 +64,13 @@ module.exports = {
                         fetchParam: 'meta'
                     }, function(error, meta) {
 
+                        if (!error) {
+                            cache.set(key, meta);
+                        }
+
                         cb(error, {
                             domain_meta: meta
                         });
-
-                        cache.set(key, meta);
                     });
                 }
             }
