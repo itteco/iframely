@@ -5,37 +5,23 @@ var cache = require('../../lib/cache');
 var _ = require('underscore');
 var async = require('async');
 
+var favicon = require('../links/favicon');
+var logo = require('../links/logo');
+
 module.exports = {
 
     provides: 'domain_data',
 
-    getLinks: function(url, domain_data) {
+    getLinks: function(domain_meta) {
 
-        var links = domain_data.links.filter(function(link) {
-            var match = _.intersection(link.rel, [CONFIG.R.icon, CONFIG.R.logo]);
-            return match.length;
-        });
+        var links = favicon.getLink(domain_meta);
+        var logoLink = logo.getLink(domain_meta);
 
-        if (!links.length > 0) {
-            // Do not return links if have no icons or logo.
-            return;
+        if (logoLink) {
+            links.push(logoLink);
         }
 
-        return links.map(function(link) {
-
-            var m = {};
-            CONFIG.MEDIA_ATTRS.forEach(function(attr) {
-                if (attr in link) {
-                    m[attr] = link[attr];
-                    delete link[attr];
-                }
-            });
-            if (!_.isEmpty(m)) {
-                link.media = m;
-            }
-            // link.rel.push('promo');
-            return link;
-        });
+        return links;
     },
 
     getData: function(url, cb) {
@@ -52,12 +38,15 @@ module.exports = {
             return cb();
         }
 
-        var domain_key = 'domain:' + domain;
+        var domainUri = protocol + domain;
+
+        // Same key as in cachedMeta.js
+        var key = 'meta:' + domainUri;
 
         async.waterfall([
 
             function(cb) {
-                cache.get(domain_key, cb);
+                cache.get(key, cb);
             },
 
             function(data, cb) {
@@ -65,17 +54,20 @@ module.exports = {
                 if (data) {
 
                     cb(null, {
-                        domain_data: data
+                        domain_meta: data
                     });
 
                 } else {
 
-                    core.run(protocol + domain, function(error, data) {
+                    core.run(domainUri, {
+                        fetchParam: 'meta'
+                    }, function(error, meta) {
+
                         cb(error, {
-                            domain_data: data
+                            domain_meta: meta
                         });
 
-                        cache.set(domain_key, data);
+                        cache.set(key, meta);
                     });
                 }
             }
@@ -83,7 +75,6 @@ module.exports = {
         ], function(error, data) {
             return cb(null, data);
         });
-
     }
 
 };
