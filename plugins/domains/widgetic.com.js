@@ -4,7 +4,7 @@ module.exports = {
 
 	// Use only mixins that depend on oembed, as otherwise htmlparser will 403
     mixins: [
-    	"oembed-video-responsive",
+    	"oembed-rich",
     	"oembed-title",
     	"oembed-site",
     	"oembed-thumbnail"
