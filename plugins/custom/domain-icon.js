@@ -10,7 +10,7 @@ var logo = require('../links/logo');
 
 module.exports = {
 
-    provides: 'domain_data',
+    provides: 'domain_meta',
 
     getLinks: function(domain_meta) {
 
