@@ -10,8 +10,6 @@ module.exports = {
 
     provides: 'tumblr_post',
 
-    mixins: ['domain-icon'],
-
     getMeta: function(tumblr_post) {
 
         var caption = tumblr_post.caption ? $('<div>').html(tumblr_post.caption).text() : "";
@@ -34,16 +32,23 @@ module.exports = {
 
     getLink: function(tumblr_post) {
 
-        if (tumblr_post.thumbnail_url) {
+        var icon = {
+            href: "https://secure.assets.tumblr.com/images/apple-touch-icon-60x-60.png",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
+        };
 
-            return {
-                href: tumblr_post.thumbnail_url,
-                rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image,
-                width: tumblr_post.thumbnail_width,
-                height: tumblr_post.thumbnail_height
-            };
+        if (!tumblr_post.thumbnail_url) {
+            return icon;
         }
+
+        return [icon, {
+            href: tumblr_post.thumbnail_url,
+            rel: CONFIG.R.thumbnail,
+            type: CONFIG.T.image,
+            width: tumblr_post.thumbnail_width,
+            height: tumblr_post.thumbnail_height
+        }];
     },
 
     getData: function(urlMatch, request, options, cb) {
