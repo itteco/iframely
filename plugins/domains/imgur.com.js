@@ -27,7 +27,7 @@ module.exports = {
                     html: oembed.html,
                     width: oembed.width,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
+                    rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl]
                 };
             }
         }
