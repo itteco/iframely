@@ -3,21 +3,17 @@ module.exports = {
     re: /^http:\/\/www\.c-span\.org\/video\/\?(c?[\d-]+)(\/[\w-]+)/i,
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
     getLink: function(urlMatch, cheerio) {
 
         return {
             href: "http://www.c-span.org/video/standalone/?" + urlMatch[1] + urlMatch[2],
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            'aspect-ratio': 1024/616
+            'aspect-ratio': 1024/616,
+            'max-width': 1024
         };
     },
 
