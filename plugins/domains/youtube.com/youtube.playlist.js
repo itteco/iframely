@@ -8,7 +8,8 @@ module.exports = {
         "oembed-thumbnail",
         "oembed-author",
         "oembed-site",
-        "oembed-title"
+        "oembed-title",
+        "domain-icon"
     ],    
 
     getLinks: function(urlMatch, options) {
@@ -20,12 +21,6 @@ module.exports = {
         var autoplay = params + "&autoplay=1";
 
         var links = [{
-            href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
-            type: CONFIG.T.image_png,
-            rel: CONFIG.R.icon,
-            width: 32,
-            height: 32
-        }, {
             href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,

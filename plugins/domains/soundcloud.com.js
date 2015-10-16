@@ -6,7 +6,8 @@ module.exports = {
         "oembed-title",
         "oembed-site",
         "oembed-author",
-        "oembed-description"
+        "oembed-description",
+        "domain-icon"
     ],
 
     getLink: function(oembed, options) {
@@ -56,17 +57,11 @@ module.exports = {
         }
 
         return [
-            player, thumbnail, autoplay, 
-            {
-                href: '//a1.sndcdn.com/images/soundcloud_app.png?9d68d37',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.icon
-            }
+            player, thumbnail, autoplay
         ];
     },
 
     tests: [
-        "https://soundcloud.com/louislaroche/kate-bush-running-up-that-hill-llr-remix-full",
         "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         {
             skipMixins: [

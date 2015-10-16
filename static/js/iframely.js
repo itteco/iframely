@@ -279,7 +279,7 @@
         },
         "image": {
             test: function(data) {
-                return /^image(\/[\w-]+)?$/i.test(data.type)
+                return /^image(\/[\w\.-]+)?$/i.test(data.type)
                     && data.href;
             },
             generate: function(data) {

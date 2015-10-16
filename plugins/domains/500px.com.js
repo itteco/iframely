@@ -15,8 +15,8 @@ module.exports = {
         }
 
         return {
-            latitude: meta.five_hundred_pixels.location.latitude,
-            longitude: meta.five_hundred_pixels.location.longitude,
+            latitude: meta.five_hundred_pixels.location && meta.five_hundred_pixels.location.latitude,
+            longitude: meta.five_hundred_pixels.location && meta.five_hundred_pixels.location.longitude,
             category: meta.five_hundred_pixels.category,
             date: meta.five_hundred_pixels.uploaded,
             keywords: keywords

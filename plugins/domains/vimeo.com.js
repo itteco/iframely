@@ -6,7 +6,8 @@ module.exports = {
         "oembed-author",
         "oembed-duration",
         "oembed-site",
-        "oembed-description"
+        "oembed-description",
+        "domain-icon"
     ],
 
     getMeta: function(oembed) {
@@ -32,12 +33,6 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             "aspect-ratio": oembed.width / oembed.height
-        }, {
-            href: "http://a.vimeocdn.com/images_v6/apple-touch-icon-72.png",
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon,
-            width: 72,
-            height: 72   
         }];
     },
 

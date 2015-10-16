@@ -7,6 +7,8 @@ module.exports = {
         /^https?:\/\/(?:m\.)?vk\.com\/wall([0-9-]+)_(\d+)/i
     ],
 
+    mixins: ["domain-icon"],
+
     getMeta: function (vk_status) {
 
         return {

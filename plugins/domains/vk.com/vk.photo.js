@@ -6,6 +6,8 @@ module.exports = {
         /^https?:\/\/(?:m\.)?vk\.com\/photo([0-9-]+)_(\d+)/i
     ],
 
+    mixins: ["domain-icon"],
+
     getMeta: function (vk_photo) {
 
         return {
