@@ -205,13 +205,18 @@ module.exports = {
             rel:  CONFIG.R.app,
             type: CONFIG.T.text_html,
             "aspect-ratio": embed_width / embed_height
-        }, {
+        }
+        // Unfortunatelly, the do not provide StaticMaps any longer. Maybe one day. 
+        // https://help.openstreetmap.org/questions/26293/error-on-image-stream-using-ojwdevopenstreetmaporg
+        /*
+        , {
             href: "http://ojw.dev.openstreetmap.org/StaticMap/?"+QueryString.stringify(thumb_query),
             rel:  CONFIG.R.thumbnail,
             type: CONFIG.T.image_png,
             width:  thumb_width,
             height: thumb_height
-        }];
+        }*/
+        ];
     },
 
     tests: [
