@@ -5,8 +5,10 @@ module.exports = {
         /^https?:\/\/embed\.(?:pleer|prostopleer)\.com\/track\?id=([a-zA-Z0-9]+)/i
     ],
 
-    // no mixins or parsing of the page - it will time-out in most cases
+    // no mixins with parsing of the page - it will time-out in most cases
     // besides, meta doesn't contain much anyway.
+
+    mixins: ['domain-icon'],
 
     getMeta: function (urlMatch) {
         return {

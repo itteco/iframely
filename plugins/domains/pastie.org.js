@@ -2,6 +2,8 @@ module.exports = {
 
     re: /http:\/\/pastie\.org\/(?:pastes\/)?(\d+)/i,
 
+    mixins: ['domain-icon'],
+
     getMeta: function(urlMatch) {
         return {
             title: '#' + urlMatch[1] + ' - Pastie'

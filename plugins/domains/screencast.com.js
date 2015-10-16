@@ -5,9 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "og-image",
-        "description",
-        "html-title"
+        "*"
     ],
 
     getLink: function(cheerio) {
