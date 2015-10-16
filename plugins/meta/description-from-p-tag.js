@@ -1,18 +1,15 @@
 var decodeHTML5 = require('entities').decodeHTML5;
-var utils = require('../../lib/utils');
-var getCharset = utils.getCharset;
-var encodeText = utils.encodeText;
 
 module.exports = {
 
-    getMeta: function(cheerio, meta, __allowPTagDescription) {
+    getMeta: function(cheerio, decode, __allowPTagDescription) {
         // Get the text from the first <p> tag that's not in a header
         var description;
         cheerio("body p").each(function() {
             var $p = cheerio(this);
 
             if (!$p.parents("noscript, header,#header,[role='banner']").length) {
-                description = decodeHTML5(encodeText(meta.charset, cheerio(this).text()));
+                description = decodeHTML5(decode($p.text()));
                 return false;
             }
         });
