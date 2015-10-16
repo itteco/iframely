@@ -4,11 +4,11 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
-### In the making, Version 0.9.0
+### 2015.10.19, Version 0.9.0
 
+This version brings signficant changes and improvements.
 
-
-Better customize individual plugins, for example: 
+1. Better way to customize individual plugins, for example: 
 
  - Basic image or video instead of branded embeds for Flickr or Imgur, or Instagram, or Tumblr
  - Different player UI for YouTube and Vimeo
@@ -20,6 +20,22 @@ Better customize individual plugins, for example:
  - Turn on support of Twitter videos (experimental)
 
 See sample config file for ways to customize. *Heads up:* `twitter.status` in config was renamed to just `twitter`. 
+
+
+2. Caching improvements
+
+ - We return the cache of source data such as meta and oEmbed or API calls. This way during the updates or whitelist changes Iframely won't create a tsunami of outbound traffic if there is a fresh copy of source in its cache. 
+ - Twitter plugin has been completely re-written to properly address API calls caching and also nicely handle of errors 417 (i.e. Twitter's rate-limit reached)
+
+3. Domains 
+
+ - Number of improvements in existing domain plugins. Twitter Videos, better Imgur galleries, etc.
+ - New domains: Wikipedia (proper thumbnail and meta), IGN, Dispatch, CBS News, Google Calendars.
+
+4. Update dependencies. 
+
+ - Please run `npm update` as package dependencies have changed. 
+ - If you run into `../lib/kerberos.h:5:27: fatal error: gssapi/gssapi.h: No such file or directory`  - see [this comment](https://github.com/itteco/iframely/commit/991406b37da76f0a27501611702cb7a414136a6b)
 
 
 ### 2015.09.08, Version 0.8.10
