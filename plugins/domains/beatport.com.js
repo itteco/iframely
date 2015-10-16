@@ -21,6 +21,10 @@ module.exports = {
             rel: CONFIG.R.player,
             height: og.video && og.video.height,
             'min-width': og.video && og.video.width
+        }, {
+            href: "https://www.beatport.com/favicon.ico",
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
         }];
     },
 
