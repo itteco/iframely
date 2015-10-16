@@ -25,6 +25,8 @@ All below parameters are optional. If not given, you will still receive all rele
 
  - `origin=` - optional tag text value that will help you later search links in your dashboard. It represents the hashtag  E.g. project or chat room name, category, app, if you got several, etc.
 
+ - `align=left` - for cloud version, will skip default center aligning of Twitter, Facebook, Instagram and other app embeds. 
+
  - `callback` - name of a JavaScript function, if you’d like response to be wrapped as JSONP.
 
 
