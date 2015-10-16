@@ -3,14 +3,7 @@ module.exports = {
     re: /^https?:\/\/www\.vgtv\.no\/#!\/video\/(\d+)\//i,
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "keywords",
-        "media-detector",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
     getLink: function(urlMatch) {
