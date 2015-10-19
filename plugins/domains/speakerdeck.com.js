@@ -5,7 +5,8 @@ module.exports = {
     mixins: [
         "oembed-title",
         "oembed-site",
-        "oembed-author"
+        "oembed-author",
+        "domain-icon"        
     ],
 
     getLink: function (oembed) {
@@ -40,11 +41,7 @@ module.exports = {
             }
         }
 
-        return [doc, thumbnail, {
-                href: 'https://speakerdeck.com/favicon.ico',
-                type: CONFIG.T.image,
-                rel: [CONFIG.R.icon]
-        }];
+        return [doc, thumbnail];
     },
 
 

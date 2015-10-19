@@ -6,7 +6,8 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-site",
-        "canonical"
+        "canonical",
+        "domain-icon"
     ],
 
     getMeta: function(meta) {
@@ -43,13 +44,7 @@ module.exports = {
         }
 
         return [
-            doc,
-            {
-                href: '//public.slidesharecdn.com/images/favicon.ico',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.icon
-
-            }, {
+            doc, {
                 href: oembed.thumbnail,
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],

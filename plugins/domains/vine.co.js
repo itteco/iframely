@@ -1,25 +1,23 @@
 module.exports = {
 
-    mixins: [
-        "oembed-author",
-        "oembed-video-responsive",
-        "oembed-site",
-        "oembed-title",
-        "oembed-thumbnail"
+    re:[
+        /^https?:\/\/vine\.co\/v\//i
     ],
 
-    getLink: function(twitter) {
-        return {
-            href: twitter.player.stream.value,
-            type: CONFIG.T.video_mp4,
-            rel: CONFIG.R.player,
-            "aspect-ratio": twitter.player.width / twitter.player.height,
-            "max-width": twitter.player.width,
-            "max-height": twitter.player.height
+    mixins: [
+        "twitter-player",
+        "twitter-stream",
+        "oembed-video",
+        "oembed-thumbnail",
+        "favicon",
+        "oembed-author",
+        "canonical",
+        "twitter-description",
+        "oembed-site",
+        "oembed-title"
+    ],
 
-        }
-    },
-
+    // plugin is left for tests and speed mostly, as it is well covered by generic plugins
     tests: [
         "https://vine.co/v/bjHh0zHdgZT",
         "https://vine.co/v/blrJgOKXg19",

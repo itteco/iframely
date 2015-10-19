@@ -1,11 +1,19 @@
-var DEFAULT_WIDTH = 466;
+var DEFAULT_WIDTH = 550;
 
 module.exports = {
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)(?:\?fref=\w+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
     ],
 
-    getLink: function(facebook_post, options) {
+    getLink: function(meta, facebook_post, options) {
+
+        // skip user profiles - they can not be embedded
+        if (meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url)) {
+            return;
+        }
+
+        var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
+
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
@@ -14,10 +22,10 @@ module.exports = {
                 title: facebook_post.title,
                 url: facebook_post.url,
                 type: 'fb-page',
-                language_code: CONFIG.providerOptions && CONFIG.providerOptions.facebook && CONFIG.providerOptions.facebook.language_code || 'en_US',
-                width: options.maxWidth || DEFAULT_WIDTH
+                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
+                width: width
             },
-            width: options.maxWidth || DEFAULT_WIDTH
+            width: width
         };
     },
 

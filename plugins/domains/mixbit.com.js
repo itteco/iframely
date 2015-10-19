@@ -5,6 +5,8 @@ module.exports = {
         /^https?:\/\/mixbit\.com\/s\/(\_\w+)(?:\/.+)?/i
     ],
 
+    mixins: ['domain-icon'],
+
     getMeta: function(mixbit) {
         return {
             title: mixbit.title,
@@ -21,27 +23,24 @@ module.exports = {
     getData: function(urlMatch, request, cb) {
         request({
             uri: "https://a.mixbit.com/v2/videos/" + urlMatch[1],
-            json: true
-        }, function(error, response, body) {
+            json: true,
+            prepareResult: function(error, response, body, cb) {
 
-            if (error) {
-                return cb(error);
+                if (error) {
+                    return cb(error);
+                }
+                if (body.status != "success") {
+                    return cb(body.status);
+                }
+                cb(null, {
+                    mixbit: body.pkg
+                });
             }
-            if (body.status != "success") {
-                return cb(body.status);
-            }
-            cb(null, {
-                mixbit: body.pkg
-            });
-        });
+        }, cb);
     },
 
     getLink: function(mixbit) {
         return [{
-            href: "https://mixbit.com/favicon.ico",
-            type: CONFIG.T.image_icon,
-            rel: CONFIG.R.icon
-        }, {
             href: mixbit.thumbnail_url,
             type: CONFIG.T.image_jpeg,
             rel: CONFIG.R.thumbnail,

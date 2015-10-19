@@ -15,7 +15,7 @@ module.exports = {
         "favicon"
     ],
 
-    getLinks: function(urlMatch, meta, oembed) {
+    getLinks: function(urlMatch, meta, oembed, options) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
 
         var links = [
@@ -63,7 +63,9 @@ module.exports = {
             });
         }
 
-        if (oembed.type === 'rich') {
+        var media_only = options.getProviderOptions('instagram.media_only', false);
+
+        if (oembed.type === 'rich' && !media_only) {
             links.push({
                 html: oembed.html,
                 type: CONFIG.T.text_html,

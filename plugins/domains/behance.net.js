@@ -21,9 +21,11 @@ module.exports = {
         "oembed-title"
     ],    
 
-    getLink: function(oembed) {
+    getLink: function(oembed, meta) {
 
-        if (oembed.provider_name !== "Behance") {
+        var site = (meta.og && meta.og.site_name) || (meta.twitter && meta.twitter.site) || oembed.provider_name;
+
+        if (!site || !/behance/i.test(site)) {
             return;
         }
 
@@ -58,7 +60,10 @@ module.exports = {
         "http://portfolios.scad.edu/gallery/Privy-Boards-Graphic-Shirts/11126843",
         "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295",
         "http://ndagallery.cooperhewitt.org/gallery/12332063/Barclays-Center"
-        // possible false positive: http://www.engadget.com/gallery/a-tour-of-qualcomms-connected-home-of-the-future/3251997/
+        // possible false positives: 
+        // http://www.engadget.com/gallery/a-tour-of-qualcomms-connected-home-of-the-future/3251997/
+        // http://absurdynka.deviantart.com/gallery/3866789/calligraphy
+
     ]
 
 };

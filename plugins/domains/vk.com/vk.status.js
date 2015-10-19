@@ -7,6 +7,8 @@ module.exports = {
         /^https?:\/\/(?:m\.)?vk\.com\/wall([0-9-]+)_(\d+)/i
     ],
 
+    mixins: ["domain-icon"],
+
     getMeta: function (vk_status) {
 
         return {
@@ -54,33 +56,34 @@ module.exports = {
             qs: {
                 posts: urlMatch[1] + '_' +urlMatch[2]
             },
-            json: true
-        }, function(error, b, data) {
+            json: true,
+            prepareResult: function(error, b, data, cb) {
 
-            if (error) {
-                return cb(error);
+                if (error) {
+                    return cb(error);
+                }
+
+                if (data.response && data.response.length > 0) {
+
+                    var status = data.response[0];
+                    var m = url.match(/hash=([\w-]+)/i);
+
+
+                    cb(null, {
+                        vk_status: {
+                            date: status.date,
+                            text: status.text,
+                            image: status.attachment && ((status.attachment.photo && status.attachment.photo.src) || status.attachment.video && status.attachment.video.image),
+                            embed_hash: status.embed_hash || (m && m[1]),
+                            element_id: urlMatch[2],
+                            owner_id: urlMatch[1]
+                        }
+                    });
+                } else {
+                    cb({responseStatusCode: 404});
+                }
             }
-
-            if (data.response && data.response.length > 0) {
-
-                var status = data.response[0];
-                var m = url.match(/hash=([\w-]+)/i);
-
-
-                cb(null, {
-                    vk_status: {
-                        date: status.date,
-                        text: status.text,
-                        image: status.attachment && ((status.attachment.photo && status.attachment.photo.src) || status.attachment.video && status.attachment.video.image),
-                        embed_hash: status.embed_hash || (m && m[1]),
-                        element_id: urlMatch[2],
-                        owner_id: urlMatch[1]
-                    }
-                });
-            } else {
-                cb({responseStatusCode: 404});
-            }
-        });
+        }, cb);
 
 
     },

@@ -1,19 +1,16 @@
-var DEFAULT_WIDTH = 466;    
-
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/www\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/www\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
-        /^https?:\/\/www\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/www\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
     ],
 
-    getLink: function(facebook_post) {
+    getLink: function(facebook_post, options) {
 
         return {
-
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
             template: "facebook.post",
@@ -21,7 +18,7 @@ module.exports = {
                 title: facebook_post.title,
                 url: facebook_post.url,
                 type: 'fb-video',
-                language_code: CONFIG.providerOptions && CONFIG.providerOptions.facebook && CONFIG.providerOptions.facebook.language_code || 'en_US',
+                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
                 width: null
             },
             "aspect-ratio": 16/9
@@ -34,6 +31,7 @@ module.exports = {
         "https://www.facebook.com/video.php?v=10152309398358392&fref=nf",
         "https://www.facebook.com/video.php?v=4392385966850",
         "https://www.facebook.com/joe.yu.94/videos/10206321173378788/",
+        "https://business.facebook.com/KMPHFOX26/videos/10154356403004012/",
         {
             noFeeds: true
         }

@@ -6,10 +6,11 @@ module.exports = {
         "oembed-title",
         "oembed-site",
         "oembed-author",
-        "oembed-description"
+        "oembed-description",
+        "domain-icon"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, options) {
 
         var $container = $('<div>');
         try {
@@ -20,19 +21,27 @@ module.exports = {
         var player, thumbnail, autoplay;
 
         if ($iframe.length == 1) {
+
+            var old_player = options.getProviderOptions('soundcloud.old_player', false);
+
+            var href = $iframe.attr('src');
+            if (old_player) {
+                href = href.replace('visual=true', 'visual=false');
+            }
+
             player = {
-                href: $iframe.attr('src'),
+                href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                height: oembed.height,
+                height: old_player ? 114 : oembed.height,
                 "min-width": oembed.width
             };
 
             autoplay = {
-                href: $iframe.attr('src') + '&auto_play=true',
+                href: href + '&auto_play=true',
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-                height: oembed.height,
+                height: old_player ? 114 : oembed.height,
                 "min-width": oembed.width
             };            
         }
@@ -48,17 +57,11 @@ module.exports = {
         }
 
         return [
-            player, thumbnail, autoplay, 
-            {
-                href: '//a1.sndcdn.com/images/soundcloud_app.png?9d68d37',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.icon
-            }
+            player, thumbnail, autoplay
         ];
     },
 
     tests: [
-        "https://soundcloud.com/louislaroche/kate-bush-running-up-that-hill-llr-remix-full",
         "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         {
             skipMixins: [

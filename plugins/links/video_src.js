@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function (meta, whitelistRecord) {
 
-        if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video')) {
+        if (meta.video_src && whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.video')) {
         
             var player = {
                 href: meta.video_src.href || meta.video_src,

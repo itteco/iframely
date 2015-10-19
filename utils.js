@@ -11,6 +11,8 @@
     var _ = require('underscore');
     var urlLib = require('url');
 
+    var log = exports.log = require('./logging').log;
+
     var whitelist = require('./lib/whitelist');
     var pluginLoader = require('./lib/loader/pluginLoader');
 
@@ -82,12 +84,6 @@
     };
 
     var version = require('./package.json').version;
-
-    function log() {
-        var args = _.compact(Array.prototype.slice.apply(arguments));
-        args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
-        console.log.apply(console, args);
-    }
 
     var etag = function(value) {
         return '"' + crypto.createHash('md5').update(value).digest("hex") + '"';
@@ -387,11 +383,5 @@
             next();
         });
     };
-
-    exports.log = function() {
-        var args = Array.prototype.slice.apply(arguments);
-        args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
-        console.log.apply(console, args);
-    }
 
 })();

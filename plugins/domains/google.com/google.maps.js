@@ -3,12 +3,10 @@
 
 module.exports = {
 
-    notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.google && CONFIG.providerOptions.google.maps_key),
-
     re: [
         // place 
         // https://www.google.com/maps/place/450+Serra+Mall,+Stanford+University,+Main+Quad,+Stanford,+CA+94305/@37.4278015,-122.1700577,17z/data=!3m1!4b1!4m2!3m1!1s0x808fbb2a0a120909:0xbdb15092feb97c41
-        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/(place)(?:\/preview)?\/([^\/\?]+)\/?(@[^\/]+)?/i,
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/(place)(?:\/preview)?\/([^\/\?@]+)\/?(@[^\/]+)?/i,
 
         // directions
         // https://www.google.com/maps/dir/41.1744197,-73.0089647/Church+of+Christ,+2+Drew+Circle,+Trumbull,+CT+06611/@41.171124,-73.145653,12z/data=!3m1!4b1!4m9!4m8!1m0!1m5!1m1!1s0x89e80968e8b48d6f:0xf267c1e26968b542!2m2!1d-73.194478!2d41.251582!3e1?hl=en-US
@@ -22,6 +20,7 @@ module.exports = {
         // https://www.google.com.br/maps/@-23.5812118,-46.6308331,13z?hl=pt-BR
         // https://www.google.com.br/maps/@-23.5812118,-46.6308331,7627m/data=!3m1!1e3?hl=pt-BR
         /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/(maps)\/()(@[^\/\?]+)/i, // empty search string as urlMatch[2]
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/(maps)\/place\/()(@[^\/\?]+)/i, // empty search string as urlMatch[2]        
 
         // street view
         // https://www.google.ca/maps/place/1+Wellington+St,+Ottawa,+ON+K1A+0A6/@45.425013,-75.695273,3a,75y,221.72h,76.43t/data=!3m5!1e1!3m3!1s5EpfU65PIZKcX26GbqBpVA!2e0!3e5!4m2!3m1!1s0x4cce04ff23c99f1d:0x4275051b90152635!6m1!1e1?hl=en
@@ -40,21 +39,27 @@ module.exports = {
 
     getMeta: function(gmap) {
         return {
-            title: (gmap.q && decodeURIComponent(gmap.q).replace ('+', ' ').replace ('%20', ' ')) || gmap.center || "Google Maps"
+            title: (gmap.q && decodeURIComponent(gmap.q).replace ('+', ' ').replace ('%20', ' ')) || gmap.center || "Google Maps",
+            site: "Google Maps"
         }
     },
 
-    getLinks: function(gmap) {
+    getLinks: function(gmap, options) {
 
         if (!gmap.mode) {
-            return
-        };
+            return;
+        }
+
+        var api_key = options.getProviderOptions('google.maps_key');
+        if (!api_key) {
+            return;
+        }
 
         if (gmap.mode == "directions" && !gmap.zoom ) {
             gmap.zoom = 12; // as a fallback only, to make sure directions never return an error
         }
 
-        var map = "https://www.google.com/maps/embed/v1/" + gmap.mode + "?key=" + CONFIG.providerOptions.google.maps_key;
+        var map = "https://www.google.com/maps/embed/v1/" + gmap.mode + "?key=" + api_key;
 
         if (gmap.q && gmap.mode != 'streetview') {
             map = map + (gmap.mode == "directions" ? "&destination=" : "&q=") + gmap.q;
@@ -81,14 +86,15 @@ module.exports = {
 
         }
 
+        var zoom = Math.floor(gmap.zoom);
+
         if (gmap.zoom) {
-            map = map + "&zoom=" + gmap.zoom;
+            map = map + "&zoom=" + zoom;
         }
 
         if (gmap.mode ===  "streetview" && gmap.location && gmap.heading ) { 
             map = map + "&location=" + gmap.location + "&heading=" + gmap.heading;
         }
-
 
         return [{
             href: map,
@@ -96,7 +102,7 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             "aspect-ratio": 600 / 450
         }, {
-            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (gmap.zoom || 12) + '&size=400x400',
+            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=400x400',
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail,
             width: 400,
@@ -104,7 +110,11 @@ module.exports = {
         }];
     },
 
-    getData: function(url, urlMatch) {
+    getData: function(url, urlMatch, options, cb) {
+
+        if (!options.getProviderOptions('google.maps_key')) {
+            return cb (new Error ("No google.maps_key configured"));
+        }
 
         var gmap = {};
 
@@ -165,9 +175,9 @@ module.exports = {
         }
 
 
-        return {
+        cb(null, {
             gmap : gmap
-        };
+        });
 
     },
 

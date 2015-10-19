@@ -63,7 +63,7 @@ module.exports = {
 
     },
 
-    getData: function(cheerio) {
+    getData: function(cheerio, decode) {
 
         var $scope = cheerio('[itemscope]');
 
@@ -83,7 +83,7 @@ module.exports = {
 
                 var key = $el.attr('itemprop');
                 if (key) {
-                    var value = $el.attr('content') || $el.attr('href');
+                    var value = decode($el.attr('content') || $el.attr('href'));
                     result[key] = value;
                 }
             });

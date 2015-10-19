@@ -314,13 +314,6 @@
         "endpoint": "http://polldaddy.com/oembed/"
     },
     {
-        "name": "Imgur",
-        "templates": [
-            "imgur\\.com/.*"
-        ],
-        "endpoint": "http://api.imgur.com/oembed.{format}"
-    },
-    {
         "name": "Meetup",
         "templates": [
             "www\\.meetup\\.com/.*"
@@ -406,13 +399,8 @@
             "\\w+.cartodb.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
-    }, {
-        "name": "Giphy",
-        "templates": [
-            "giphy.com/gifs/.+"
-        ],
-        "endpoint": "http://giphy.com/services/oembed/"
-    }, {
+    },
+    {
         "name": "Widgetic",
         "templates": [
             "widgetic.com/widgets/.*"

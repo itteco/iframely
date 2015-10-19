@@ -8,18 +8,11 @@ module.exports = {
         "oembed-thumbnail",
         "oembed-author",
         "oembed-site",
-        "oembed-title"
+        "oembed-title",
+        "domain-icon"
     ],
 
     getLink: function(oembed) {
-
-        var links = [{
-            href: "http://codepen.io/favicon.ico",
-            type: CONFIG.T.image_icon,
-            rel: CONFIG.R.icon,
-            width: 32,
-            height: 32
-        }];
 
         var $container = $('<div>');
         try{
@@ -29,15 +22,13 @@ module.exports = {
         var $iframe = $container.find('iframe');
 
         if ($iframe.length == 1) {
-            links.push({
+            return {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.oembed],
+                rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
                 height: oembed.height
-            });
+            };
         }
-
-        return links;
     },
 
     tests: [ {

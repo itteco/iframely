@@ -8,12 +8,12 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-license",
-        "oembed-site"
+        "oembed-site",
+        "domain-icon"
     ],
 
-    getLink: function(urlMatch, request, cb) {
-
-        gUtils.getPhotoSizes(urlMatch[2], request, function(error, sizes) {
+    getLink: function(urlMatch, request, options, cb) {
+        gUtils.getPhotoSizes(urlMatch[2], request, options.getProviderOptions('flickr.apiKey'), function(error, sizes) {
 
             if (error) {
                 return cb(error);
@@ -44,18 +44,16 @@ module.exports = {
 
             var last = sizes[sizes.length - 1];
 
-            result.splice(0, 0, {
-                href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
-                rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html,
-                "aspect-ratio": last.width / last.height
-            });
+            var media_only = options.getProviderOptions('flickr.media_only', false);
 
-            result.push({
-                href: "http://l.yimg.com/g/favicon.ico",
-                rel: CONFIG.R.icon,
-                type: CONFIG.T.image_icon
-            });
+            if (!media_only) {
+                result.splice(0, 0, {
+                    href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
+                    rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
+                    type: CONFIG.T.text_html,
+                    "aspect-ratio": last.width / last.height
+                });
+            }
 
             cb(null, result);
         });

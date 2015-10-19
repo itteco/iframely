@@ -33,7 +33,7 @@ module.exports = {
     getLink: function(tumblr_post) {
 
         var icon = {
-            href: "//secure.assets.tumblr.com/images/favicons/favicon.ico",
+            href: "https://secure.assets.tumblr.com/images/apple-touch-icon-60x-60.png",
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
         };
@@ -51,9 +51,11 @@ module.exports = {
         }];
     },
 
-    getData: function(urlMatch, request, cb) {
+    getData: function(urlMatch, request, options, cb) {
 
-        if (!CONFIG.providerOptions.tumblr || !CONFIG.providerOptions.tumblr.consumer_key) {
+        var consumer_key = options.getProviderOptions('tumblr.consumer_key');
+
+        if (!consumer_key) {
             cb (new Error ("No tumblr.consumer_key configured"));
             return;
         }
@@ -61,30 +63,31 @@ module.exports = {
         request({
             uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
-                api_key: CONFIG.providerOptions.tumblr.consumer_key,
+                api_key: consumer_key,
                 id: urlMatch[3]
             },
             json: true,
             limit: 1, 
-            timeout: 1000
-        }, function (error, response, body) {
+            timeout: 1000,
+            prepareResult: function (error, response, body, cb) {
 
-            if (error) {
-                return cb(error);
-            }
+                if (error) {
+                    return cb(error);
+                }
 
-            if (body.meta.status != 200) {
-                return cb(body.meta.msg);
-            }
+                if (body.meta.status != 200) {
+                    return cb(body.meta.msg);
+                }
 
-            var posts = body.response.posts;
-            if (posts.length > 0) {
-                cb(null, {
-                    tumblr_post: posts[0]
-                });
-            } else {
-                cb(null);
+                var posts = body.response.posts;
+                if (posts.length > 0) {
+                    cb(null, {
+                        tumblr_post: posts[0]
+                    });
+                } else {
+                    cb(null);
+                }
             }
-        });
+        }, cb);
     }
 };

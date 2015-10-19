@@ -6,7 +6,8 @@ module.exports = {
         "oembed-title",
         "oembed-thumbnail",
         "oembed-site",
-        "oembed-author"
+        "oembed-author",
+        'domain-icon'
     ],
 
     getLink: function(oembed) {
@@ -28,11 +29,7 @@ module.exports = {
             }
         }
 
-        return [doc, {
-                href: '//www.scribd.com/favicon.ico',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.icon
-        }];
+        return doc;
     },
 
     tests: [{

@@ -2,8 +2,6 @@ var cheerio = require('cheerio');
 
 module.exports = {
 
-    notPlugin: !(CONFIG.providerOptions && CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.api_key),
-
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(?:tv#\/)?watch\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/youtu.be\/([a-zA-Z0-9_-]+)/i,
@@ -14,74 +12,86 @@ module.exports = {
         /^https?:\/\/www\.youtube-nocookie\.com\/v\/([a-zA-Z0-9_-]+)/i
     ],
 
+    mixins: ["domain-icon"],
+
     provides: 'youtube_video_gdata',
 
-    getData: function(urlMatch, request, cb) {
+    getData: function(urlMatch, request, options, cb) {
 
-        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + CONFIG.providerOptions.youtube.api_key + "&id=" + urlMatch[1];
+        var api_key = options.getProviderOptions('youtube.api_key');
+
+        if (!api_key) {
+            return cb (new Error ("No youtube.api_key configured"));
+        }
+
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + api_key + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
-            json: true
-        }, function(error, b, data) {
+            json: true,
+            prepareResult: function(error, b, data, cb) {
 
-            if (error) {
-                return cb(error);
-            }
-
-            if (data.items && data.items.length > 0) {
-
-                var entry = data.items[0];
-
-                var duration = 0;
-                var durationStr = entry.contentDetails && entry.contentDetails.duration;
-                if (durationStr) {
-                    var m = durationStr.match(/(\d+)S/);
-                    if (m) {
-                        duration += parseInt(m[1]);
-                    }
-                    m = durationStr.match(/(\d+)M/);
-                    if (m) {
-                        duration += parseInt(m[1]) * 60;
-                    }
-                    m = durationStr.match(/(\d+)H/);
-                    if (m) {
-                        duration += parseInt(m[1]) * 60 * 60;
-                    }
+                if (error) {
+                    return cb(error);
                 }
 
-                var gdata = {
-                    id: urlMatch[1],
-                    title: entry.snippet && entry.snippet.title,
-                    uploaded: entry.snippet && entry.snippet.publishedAt,
-                    uploader: entry.snippet && entry.snippet.channelTitle,                        
-                    description: entry.snippet && entry.snippet.description,
-                    likeCount: entry.statistics && entry.statistics.likeCount,
-                    dislikeCount: entry.statistics && entry.statistics.dislikeCount,
-                    viewCount: entry.statistics && entry.statistics.viewCount,
+                if (data.items && data.items.length > 0) {
 
-                    hd: entry.contentDetails && entry.contentDetails.definition == "hd",
-                    thumbnailBase: entry.snippet && entry.snippet.thumbnails && entry.snippet.thumbnails.default && entry.snippet.thumbnails.default.url && entry.snippet.thumbnails.default.url.replace(/[a-zA-Z0-9\.]+$/, ''),
-                    playerHtml: entry.player && entry.player.embedHtml
-                };
+                    var entry = data.items[0];
 
-                if (duration) {
-                    gdata.duration = duration;
+                    var duration = 0;
+                    var durationStr = entry.contentDetails && entry.contentDetails.duration;
+                    if (durationStr) {
+                        var m = durationStr.match(/(\d+)S/);
+                        if (m) {
+                            duration += parseInt(m[1]);
+                        }
+                        m = durationStr.match(/(\d+)M/);
+                        if (m) {
+                            duration += parseInt(m[1]) * 60;
+                        }
+                        m = durationStr.match(/(\d+)H/);
+                        if (m) {
+                            duration += parseInt(m[1]) * 60 * 60;
+                        }
+                    }
+
+                    var gdata = {
+                        id: urlMatch[1],
+                        title: entry.snippet && entry.snippet.title,
+                        uploaded: entry.snippet && entry.snippet.publishedAt,
+                        uploader: entry.snippet && entry.snippet.channelTitle,
+                        description: entry.snippet && entry.snippet.description,
+                        likeCount: entry.statistics && entry.statistics.likeCount,
+                        dislikeCount: entry.statistics && entry.statistics.dislikeCount,
+                        viewCount: entry.statistics && entry.statistics.viewCount,
+
+                        hd: entry.contentDetails && entry.contentDetails.definition == "hd",
+                        playerHtml: entry.player && entry.player.embedHtml
+                    };
+
+                    if (entry.snippet && entry.snippet.thumbnails ) {
+                        gdata.thumbnails =  {mq: entry.snippet.thumbnails.medium, hq: entry.snippet.thumbnails.high, maxres: entry.snippet.thumbnails.maxres};
+                    }
+
+                    if (duration) {
+                        gdata.duration = duration;
+                    }
+
+                    cb(null, {
+                        youtube_video_gdata: gdata
+                    });
+
+                } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
+
+                    cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
+
+                } else {
+
+                    cb({responseStatusCode: 404});
                 }
-
-                cb(null, {
-                    youtube_video_gdata: gdata
-                });
-
-            } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
-
-                cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
-
-            } else {
-
-                cb({responseStatusCode: 404});
             }
-        });
+        }, cb);
     },
 
     getMeta: function(youtube_video_gdata) {
@@ -99,9 +109,9 @@ module.exports = {
         };
     },
 
-    getLinks: function(url, youtube_video_gdata) {
+    getLinks: function(url, youtube_video_gdata, options) {
 
-        var params = (CONFIG.providerOptions.youtube && CONFIG.providerOptions.youtube.get_params) ? CONFIG.providerOptions.youtube.get_params : "";
+        var params = options.getProviderOptions('youtube.get_params', '');
 
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
@@ -151,12 +161,6 @@ module.exports = {
         
 
         var links = [{
-            href: "https://s.ytimg.com/yts/img/favicon_32-vflWoMFGx.png",
-            type: CONFIG.T.image_png,
-            rel: CONFIG.R.icon,
-            width: 32,
-            height: 32
-        }, {
             href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
@@ -167,16 +171,16 @@ module.exports = {
             type: CONFIG.T.text_html,
             "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
         }, {
-            href: youtube_video_gdata.thumbnailBase + 'mqdefault.jpg',
+            href: youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: 320,
             height: 180
         }];
 
-        if (youtube_video_gdata.hd) {
+        if (youtube_video_gdata.thumbnails.maxres) {
             links.push({
-                href: youtube_video_gdata.thumbnailBase + 'maxresdefault.jpg',
+                href: youtube_video_gdata.thumbnails.maxres.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg
                 // remove width so that image is checked for 404 as well 
@@ -188,7 +192,7 @@ module.exports = {
 
         if (!widescreen) {
             links.push({
-                href: youtube_video_gdata.thumbnailBase + 'hqdefault.jpg',
+                href: youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 480,

@@ -22,6 +22,10 @@ module.exports = {
             rel: CONFIG.R.player,
             width: 500,
             height: 470
+        }, {
+            href: 'http://www.spreecast.com/favicon.ico',
+            type: CONFIG.T.image,
+            rel: CONFIG.R.icon
         }];
     },
 

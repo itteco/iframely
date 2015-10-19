@@ -7,7 +7,8 @@ module.exports = {
         "oembed-author",
         "oembed-title",
         "oembed-site",
-        "og-video"
+        // "og-video",
+        'domain-icon'
     ],
 
     getLink: function (oembed) {
@@ -23,18 +24,12 @@ module.exports = {
             Math.round(1000 * 100 / aspect) / 1000
             + '%;">' + html + '</div>';
         
-        return [{
+        return {
             html: html,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
             "aspect-ratio": aspect
-        }, {
-            href: "http://issuu.com/apple-touch-icon-76x76@2x.png",
-            rel: [CONFIG.R.icon],
-            type: CONFIG.T.image_png,
-            width: 152,
-            height: 152
-        }];
+        };
 
     },
 

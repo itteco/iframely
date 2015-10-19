@@ -10,7 +10,8 @@ module.exports = {
         "twitter-title",
         "twitter-image",
         "oembed-author",
-        "oembed-site"
+        "oembed-site",
+        "favicon"
     ],
 
     getMeta: function(url) {
