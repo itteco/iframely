@@ -6,7 +6,7 @@ Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/if
 
 ### 2015.10.19, Version 0.9.0
 
-This version brings signficant changes and improvements.
+This version brings significant changes and improvements.
 
 1. Better way to customize individual plugins, for example: 
 
