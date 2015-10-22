@@ -4,7 +4,8 @@ module.exports = {
 
     re: [
     	/^https?:\/\/tube\.geogebra\.org\/material\/\w+\/id\/(\d+)/i,
-    	/^https?:\/\/tube\.geogebra\.org\/m\/(\d+)/i
+    	/^https?:\/\/tube\.geogebra\.org\/m\/(\d+)/i,
+    	/^https?:\/\/tube\.geogebra\.org\/student\/m(\d+)/i
     ],
 
     mixins: [
@@ -31,8 +32,6 @@ module.exports = {
 
 		        utils.getImageMetadata(og.image, options, function(error, data) {
 
-		        	console.log(data);
-
 		            if (error || data.error) {
 		                cb('Image not available');
 		            } else {
@@ -58,6 +57,6 @@ module.exports = {
     tests: [
         "http://tube.geogebra.org/material/simple/id/106299",
         "http://tube.geogebra.org/m/60391",
-        "http://tube.geogebra.org/material/simple/id/3589"
+        "https://tube.geogebra.org/student/m29659"
     ]
 };
