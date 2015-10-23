@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /https:\/\/\w+\.wikipedia\.org\/wiki\/.+/i,
-        /https:\/\/\w+\.wikimedia\.org\/wiki\/.+/i
+        /https:\/\/\w+\.(m\.)?wikipedia\.org\/wiki\/.+/i,
+        /https:\/\/\w+\.(m\.)?wikimedia\.org\/wiki\/.+/i
     ],
 
     provides: 'wikiData',
