@@ -27,7 +27,7 @@ module.exports = {
         }
 
         // Select image of file, or image of article.
-        var $img = cheerio('#file img,.vcard .image img,.thumbimage');
+        var $img = cheerio('#file img,.infobox .image img,.thumbimage');
         if ($img.length) {
             $img = cheerio($img[0]);
             result.thumb = $img.attr('src');
