@@ -143,6 +143,13 @@
         "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}?id={1}"
     },
     {
+        "name": "Twitter Moments",
+        "templates": [
+            "twitter\\.com/i/moments/(\\d+)"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed.json"
+    },    
+    {
         "name": "Gist",
         "templates": [
             "gist\\.github\\.com/(.+)"
