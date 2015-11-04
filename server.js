@@ -109,7 +109,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 app.listen(CONFIG.port);
 
 if (CONFIG.ssl) {
-    var options = { key: CONFIG.ssl.key, cert: CONFIG.ssl.cert };
+    var options = { key: CONFIG.ssl.key, cert: CONFIG.ssl.cert,ca:[CONFIG.ssl.ca]};
     require('https').createServer(options, app).listen(CONFIG.ssl.port);
 }
 
