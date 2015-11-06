@@ -11,7 +11,7 @@ function getVideoLinks(video, whitelistRecord) {
         height: video.height
     }];
 
-    if (whitelistRecord.isAllowed('og.video', 'ssl')) {
+    if (whitelistRecord.isAllowed('og.video', 'ssl') && video.secure_url) {
         players.push({
             href: video.secure_url,
             type: CONFIG.T.maybe_text_html,
@@ -20,6 +20,16 @@ function getVideoLinks(video, whitelistRecord) {
             height: video.height
         });
     }
+
+    if (whitelistRecord.isAllowed('og.video', 'iframe') && video.iframe) {
+        players.push({
+            href: video.iframe,
+            type: CONFIG.T.maybe_text_html,
+            rel: [CONFIG.R.player, CONFIG.R.og],
+            width: video.width,
+            height: video.height
+        });
+    }    
 
     return players;
 }
