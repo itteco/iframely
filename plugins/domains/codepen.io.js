@@ -12,7 +12,16 @@ module.exports = {
         "domain-icon"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, urlMatch) {
+
+        if (urlMatch[1] === 'anon') {
+            return { // Anonymous Pens can't be embedded
+                    // return icon to avoid fallback to generic (whitelisted) parser
+                href: 'http://codepen.io/logo-pin.svg',
+                type: CONFIG.T.icon, 
+                rel: CONFIG.R.icon
+            }
+        }
 
         var $container = $('<div>');
         try{
