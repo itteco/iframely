@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/mp3\.zing\.vn\/([a-zA-Z-]+)\/[a-zA-Z-]+\/(\w+)\.html/i,
+    re: /^https?:\/\/mp3\.zing\.vn\/([a-zA-Z-]+)\/[0-9a-zA-Z-]+\/(\w+)\.html/i,
 
     mixins: ['*'],
 
@@ -10,7 +10,7 @@ module.exports = {
         var type;
 
         if (urlMatch[1] === 'album') {
-            aspect = 300/84;
+            aspect = 860/240;
             type = 'album';
         } else if (urlMatch[1] === 'video-clip') {
             aspect = 1280/720;
