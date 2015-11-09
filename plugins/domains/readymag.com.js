@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/readymag\.com\/\w+\/(\d+)/i,        
+        /^https?:\/\/readymag\.com\/\w+\/(\d+)/i
     ],
 
     mixins: [

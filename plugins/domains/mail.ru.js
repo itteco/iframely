@@ -5,22 +5,17 @@ module.exports = {
     ],
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "keywords",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
-    getLink: function(og, urlMatch) {
+    getLink: function(og, url) {
 
-        if (!og.video) {
+        if (og.type !== 'video.other') {
             return;
         }
 
         return {
-                href: (og.video.url || og.video).replace(/http:\/\//, '//'),
+                href: 'http://videoapi.my.mail.ru/videos/embed/mail/' + url.replace(/^https?:\/\/my\.mail\.ru\/(inbox|mail)\//, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
