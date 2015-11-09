@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.cnn\.com\/videos\//i
+        /^https?:\/\/(www|edition)\.cnn\.com\/videos\//i,        
     ],
 
     mixins: [
@@ -25,6 +25,7 @@ module.exports = {
     },
 
     tests: [
-        "http://www.cnn.com/videos/world/2015/06/05/orig-200-pound-ripped-kangaroo-crushes-metal-video.cnn"
+        "http://www.cnn.com/videos/world/2015/06/05/orig-200-pound-ripped-kangaroo-crushes-metal-video.cnn",
+        "http://edition.cnn.com/videos/tv/2015/10/30/spc-the-circuit-felipe-massa-versus-felipe-nasr.cnn"
     ]
 };
