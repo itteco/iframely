@@ -3,12 +3,8 @@ module.exports = {
     re: /^https?:\/\/(?:[\w\-]+\.)?genius\.com\/(?!jobs)([a-zA-Z\-]+)/i,
 
     mixins: [ 
-        "favicon",
-        "og-image",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title"
+        "domain-icon",
+        "*"
     ],
 
     getLinks: function(urlMatch, twitter) {
