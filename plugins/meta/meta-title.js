@@ -10,6 +10,5 @@ module.exports = {
         }
     },
 
-    highestPriority: true
-    // Example - http://www.wired.com/business/2013/10/slow-nextdoor-raises-fast-money/
+    lowestPriority: true    
 };
