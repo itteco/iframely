@@ -8,7 +8,7 @@ module.exports = {
         if (!whitelistRecord.isDefault && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {return;}
         
         var video_src = (og.video && og.video.url) || og.video;
-        if (!video_src || /youtube\.com|vimeo\.com|dailymotion\.com/.test(url)) {
+        if (!video_src || /youtube\.com|vimeo\.com|dailymotion\.com/.test(url) || video_src instanceof Array) {
             return;
         }
 
