@@ -13,6 +13,10 @@ All below parameters are optional. If not given, you will still receive all rele
 
  - `iframe=true` or `iframe=1` - activates [URL shortener](https://iframely.com/docs/url-shortener) and will return the hosted iframes or [summary cards](https://iframely.com/docs).
 
+ - `lazy=1` will activate [lazy-loading](https://iframely.com/docs/lazy-load) when Iframely returns a [smart iFrame](https://iframely.com/docs/iframes).
+
+ - `omit_script=1` will [exclude embed.js](docs/lazy-load#omit-script) from HTML code, if you [load it](https://iframely.com/docs/embedjs#load) yourself.
+
  - `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
 
  - `ssl=true` or `1` - will return only embeds that can be used under HTTPs without active SSL mixed-content warnings (images and mp4 videos trigger only passive warnings and thus will pass this check).
