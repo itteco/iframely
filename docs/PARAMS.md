@@ -15,7 +15,7 @@ All below parameters are optional. If not given, you will still receive all rele
 
  - `lazy=1` will activate [lazy-loading](https://iframely.com/docs/lazy-load) when Iframely returns a [smart iFrame](https://iframely.com/docs/iframes).
 
- - `omit_script=1` will [exclude embed.js](docs/lazy-load#omit-script) from HTML code, if you [load it](https://iframely.com/docs/embedjs#load) yourself.
+ - `omit_script=1` will [exclude embed.js](https://iframely.com/docs/lazy-load#omit-script) from HTML code, if you load it yourself.
 
  - `autoplay=true` or `1` - will give preference to `autoplay` media and will try to return it as primary `html`. Check for `autoplay` in primary `rel` to verify.
 
