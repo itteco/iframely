@@ -33,6 +33,7 @@
         VERSION: version,
 
         SKIP_IFRAMELY_RENDERS: false,
+        DEFAULT_ASPECT_RATIO: 4 / 3,
 
         T: {
             text_html: "text/html",
