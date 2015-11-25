@@ -1,6 +1,6 @@
 module.exports = {
 
-    // hulu.tv shortener is address through the re-directs handling
+    // hulu.tv shortener is addressed through the re-directs handling
     re: [
         /^https?:\/\/www\.hulu\.com\/watch\/([a-z0-9\-]+)/i
     ],    
@@ -11,7 +11,8 @@ module.exports = {
         "oembed-duration",
         "oembed-thumbnail",
         "oembed-site",
-        "domain-icon"
+        "domain-icon",
+        "twitter-player"
     ],
 
     getMeta: function(oembed) {
