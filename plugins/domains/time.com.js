@@ -14,7 +14,7 @@ module.exports = {
     getLink: function(twitter) {
         return {
             href: twitter.player.value.replace(/^https:/, 'http:'),
-            rel: [CONFIG.R.player, CONFIG.R.twitter],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.twitter],
             type: CONFIG.T.text_html,
             'aspect-ratio': twitter.player.width / twitter.player.height
         };
