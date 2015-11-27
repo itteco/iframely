@@ -71,8 +71,7 @@ module.exports = function(app) {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
-                    forcePromo: getBooleanParam(req, 'forcePromo'),
-                    forOembed: req.query['for'] === 'oembed'
+                    forcePromo: getBooleanParam(req, 'forcePromo')
                 }, cb);
             }
 
@@ -377,8 +376,7 @@ module.exports = function(app) {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: getBooleanParam(req, 'ssl'),
                     filterNonHTML5: getBooleanParam(req, 'html5'),
-                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
-                    forOembed: req.query['for'] === 'oembed'
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
                 }, cb);
             }
 
