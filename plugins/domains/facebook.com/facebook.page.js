@@ -7,8 +7,6 @@ module.exports = {
 
     getLink: function(meta, oembed, options) {
 
-        console.log('i was here');
-
         // skip user profiles - they can not be embedded
         if (meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url)) {
            return;
