@@ -6,7 +6,7 @@ module.exports = {
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
+        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/.+/i
     ],
 
     getLink: function(oembed, options) {
