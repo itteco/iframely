@@ -20,7 +20,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             html: html, 
             width: width
         };
