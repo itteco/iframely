@@ -5,23 +5,17 @@ module.exports = {
         /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/[a-z0-9.]+\/videos\/.+/i
     ],
 
-    getLink: function(facebook_post, options) {
+    getLink: function(oembed, options) {
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-            template: "facebook.post",
-            template_context: {
-                title: facebook_post.title,
-                url: facebook_post.url,
-                type: 'fb-video',
-                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
-                width: null
-            },
-            "aspect-ratio": 16/9
+            rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
+            html: oembed.html,
+            "aspect-ratio": oembed.height ? oembed.width / oembed.height : 16/9
         }
     },
 

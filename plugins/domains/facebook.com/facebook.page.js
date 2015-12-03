@@ -5,27 +5,20 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
     ],
 
-    getLink: function(meta, facebook_post, options) {
+    getLink: function(meta, oembed, options) {
+
+        console.log('i was here');
 
         // skip user profiles - they can not be embedded
         if (meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url)) {
-            return;
+           return;
         }
-
-        var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
-            template: "facebook.post",
-            template_context: {
-                title: facebook_post.title,
-                url: facebook_post.url,
-                type: 'fb-page',
-                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
-                width: width
-            },
-            width: width
+            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
+            html: oembed.html,                
+            width: oembed.width
         };
     },
 

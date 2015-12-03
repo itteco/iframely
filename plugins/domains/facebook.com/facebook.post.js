@@ -3,35 +3,21 @@ var DEFAULT_WIDTH = 550;
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/(photo|permalink|story|video)\.php\?[^\/]+(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/(photo|permalink|story)\.php\?[^\/]+(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[a-zA-Z0-9\.\-]+\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/([a-zA-Z0-9\.\-]+)\/[^\/]+\/(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[a-z0-9.]+\/(video)s\/.+/i
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
     ],
 
-    getLink: function(facebook_post, urlMatch, options) {
-
-        if (urlMatch[1] === 'video') {
-            var media_only = options.getProviderOptions('facebook.media_only', true);
-            if (media_only) {
-                return;
-            }
-        }
+    getLink: function(oembed, options) {
 
         var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
 
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
-            template_context: {
-                title: facebook_post.title,
-                url: facebook_post.url,
-                type: 'fb-post',
-                language_code: options.getProviderOptions('facebook.language_code', 'en_US'),
-                width: width
-            },
+            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
+            html: oembed.html.replace(/data-width=\"\d+\"/, 'data-width="' + width + '"'),                
             width: width
         };
     },

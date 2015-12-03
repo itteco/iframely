@@ -13,7 +13,7 @@
         // In order to get the same grouped ressonse as in Cloud API,
         // add `&group=true` to your request to change response per request
         // or set `groupLinks` in your config to `true` for a global change.
-        GROUP_LINKS: false,
+        GROUP_LINKS: true,
 
         // Number of maximum redirects to follow before aborting the page
         // request with `redirect loop` error.
@@ -88,6 +88,13 @@
             params: {
                 hidecaption: true
             }
+        }, {
+            re: [/^https:\/\/www\.facebook\.com\/plugins\/page\/oembed\.json/i],
+            params: {
+                show_posts: 0,
+                show_facepile: 0,
+                "maxwidth": 600
+            }
         }],
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
@@ -147,12 +154,6 @@
             vimeo: {
                 get_params: "?byline=0&badge=0"     // http://developer.vimeo.com/player/embedding
             },
-
-            facebook: {
-                //https://www.facebook.com/translations/FacebookLocales.xml
-                language_code: 'en_US'
-                // media_only: false    // enables entire statuses for FB videos
-            }
 
             /*
             soundcloud: {
