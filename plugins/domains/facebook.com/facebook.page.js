@@ -16,7 +16,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             html: oembed.html,                
-            width: oembed.width
+            "max-width": oembed.width
         };
     },
 
