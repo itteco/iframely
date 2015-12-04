@@ -44,7 +44,7 @@ module.exports = {
                 return;
             } 
 
-            if (urlMatch[1] === "forms" || urlMatch[1] === "document") {                
+            if (urlMatch[1] === "forms" || urlMatch[1] === "document" || (urlMatch[1] === "file" && /\.pdf$/i.test(schemaFileObject.name))) {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader); 

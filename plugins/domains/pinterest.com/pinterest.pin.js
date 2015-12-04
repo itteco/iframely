@@ -24,8 +24,7 @@ module.exports = {
                 width: null,
                 height: null,
                 pinWidth: null
-            },
-            width: 250
+            }
         };
     },
 
