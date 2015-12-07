@@ -443,5 +443,12 @@
             "widgetic.com/widgets/.*"
         ],
         "endpoint": "https://widgetic.com/services/oembed/"
+    },
+    {
+        "name": "Adobe Stock",
+        "templates": [
+            "stock.adobe.com/.*"
+        ],
+        "endpoint": "https://stock.adobe.com/oembed"
     }
 ]
