@@ -43,11 +43,7 @@ module.exports = {
 
         if (url.indexOf('facebook.com/l.php?u=') > -1) {
             return cb({redirect: decodeURIComponent(url.match(/u=([^&]+)/i)[1])});
-        }
-        /*
-        https://m.facebook.com/sinabro1234
-
-        */        
+        }        
 
         cb(null);
     },
