@@ -191,7 +191,8 @@
                 "image": "allow"
               },
               "html-meta": {
-                "video": ["allow", "responsive"]
+                "video": ["allow", "responsive"],
+                "promo": "allow"
               }
         }
         */
