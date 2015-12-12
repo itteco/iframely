@@ -4,11 +4,9 @@ module.exports = {
 
     provides: '__promoUri',
 
-    generic: true,
-
     getData: function(oembedLinks, whitelistRecord) {
 
-		if (meta.promo && whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.promo')) {    	
+		if (whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.promo')) {    	
 
 	        var href = oembedLinks[0].href;
 	        var self_endpoint = false;
