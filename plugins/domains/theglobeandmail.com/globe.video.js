@@ -12,8 +12,6 @@ module.exports = {
 
     getLink: function(meta) {
 
-        console.log(meta);
-
         return {
             href: meta["canonical"] + "?videoembed=true",
             type: CONFIG.T.text_html,
