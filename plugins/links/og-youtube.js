@@ -31,7 +31,7 @@ module.exports = {
         // or Vimeo
         urlMatch = video_src.match(/^https?:\/\/vimeo\.com\/(\d+)/i)
                     || video_src.match(/^https?:\/\/player.vimeo\.com\/video\/(\d+)/i)
-                    || video_src.match(/https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i);
+                    || video_src.match(/^https?:\/\/(?:www\.)?vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i);
 
 
         if (urlMatch) {
@@ -42,7 +42,7 @@ module.exports = {
 
 
         // or DailyMotion, e.g. Liberation, Le Point, L'Express
-        urlMatch = video_src.match(/^https?:\/\/www\.dailymotion\.com\/(?:swf|embed)?\/?video\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^https?:\/\/(?:www\.)?dailymotion\.com\/(?:swf|embed)?\/?video\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
