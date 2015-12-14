@@ -1,4 +1,4 @@
-var core = require('../../../core');
+var core = require('../../../lib/core');
 var _ = require('underscore');
 
 module.exports = {
