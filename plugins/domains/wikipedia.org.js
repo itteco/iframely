@@ -27,7 +27,7 @@ module.exports = {
         }
 
         // Select image of file, or image of article.
-        var $img = cheerio('#file img,.infobox .image img,.thumbimage');
+        var $img = cheerio('#file img,.infobox .image img,.vcard .image img,.thumbimage');
         if ($img.length) {
             $img = cheerio($img[0]);
             result.thumb = $img.attr('src');
@@ -42,7 +42,7 @@ module.exports = {
             $p.find('.language').remove();
         } else {
             // Article first paragraph.
-            $p = cheerio('#mw-content-text p');
+            $p = cheerio('#mw-content-text>p');
         }
         if ($p.length) {
             result.description = decode(cheerio($p[0]).text());
