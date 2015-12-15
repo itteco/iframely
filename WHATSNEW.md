@@ -4,6 +4,16 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2015.12.15, Version 0.9.1
+
+ - Critical fix for Instagram 
+ - Facebook plugin now uses new oEmbed endpoints
+ - Support for Twitter moments
+ - Wider (and responsive) Pinterest pins
+ - Added Bleacherreport, Readymag, CBC.ca, Eltiempo, Adobe Stock, Highcharts
+ - Minor fixes on some other domain plugins
+
+
 ### 2015.10.19, Version 0.9.0
 
 This version brings significant changes and improvements.
