@@ -3,11 +3,7 @@ module.exports = {
     re: /^https?:\/\/quizlet\.com\/(\d+)\/[\w-]+\//i,
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "twitter-description",
-        "twitter-title"
+        "*"
     ],
 
     getLinks: function(urlMatch) {

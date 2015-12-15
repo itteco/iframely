@@ -1,5 +1,35 @@
 [
     {
+        "name": "Facebook Post",
+        "templates": [
+          "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[a-zA-Z0-9\\.\\-]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/notes/([a-zA-Z0-9\\.\\-]+)/[^/]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"            
+        ],
+        "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
+    },
+    {
+        "name": "Facebook Video",
+        "templates": [
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
+          "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
+          "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
+          "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
+          "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
+          "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+"
+        ],
+        "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
+    },
+    {
+        "name": "Facebook Page",
+        "templates": [
+            "(www|m)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/?(?:\\?f?ref=\\w+)?$"
+        ],
+        "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
+    },
+    {
         "name": "Blip",
         "templates": [
             "blip\\.tv/.*"
@@ -143,6 +173,13 @@
         "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}?id={1}"
     },
     {
+        "name": "Twitter Moments",
+        "templates": [
+            "twitter\\.com/i/moments/(\\d+)"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed.json"
+    },    
+    {
         "name": "Gist",
         "templates": [
             "gist\\.github\\.com/(.+)"
@@ -162,7 +199,7 @@
             "([\\w\\.]*instagram\\.com/p/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
-        "endpoint": "http://api.instagram.com/oembed?format={format}&url=http://{1}"
+        "endpoint": "https://api.instagram.com/oembed?format={format}&url=http://{1}"
     },
     {
         "name": "Instagr.am user page",
@@ -170,7 +207,7 @@
             "([\\w\\.]*instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
             "(instagr\\.am/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "http://api.instagram.com/oembed?format={format}&url=http://{1}{2}"
+        "endpoint": "https://api.instagram.com/oembed?format={format}&url=http://{1}{2}"
     },
     {
         "name": "DailyMotion",
@@ -406,5 +443,12 @@
             "widgetic.com/widgets/.*"
         ],
         "endpoint": "https://widgetic.com/services/oembed/"
+    },
+    {
+        "name": "Adobe Stock",
+        "templates": [
+            "stock.adobe.com/.*"
+        ],
+        "endpoint": "https://stock.adobe.com/oembed"
     }
 ]

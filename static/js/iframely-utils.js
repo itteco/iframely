@@ -43,25 +43,19 @@
         };
     }();
 
-    window.onresize = function() {
-        resize();
-    };
+    var contentElement = document.getElementById('iframely-content');
 
     var windowId;
     var height, width;
-    var preventOverloadCount = 0;
 
-    var TEST_INITIAL_HEIGHT_PERIOD = 200;
-    var TEST_INITIAL_HEIGHT_DURATION = 30000;
-
-    function resize() {
+    function resize(force) {
 
         var h = heightGetter();
         var w = widthGetter();
 
         // h > height and w > width needed to prevent circular resize.
         // h != height - facebook gives too big height at start.
-        if (h && (h != height || !height || !w || !width || w > width)) {
+        if (h && (force || h != height || !height || !w || !width || w > width)) {
             height = h;
             width = w;
             windowMessaging.postMessage({
@@ -69,14 +63,21 @@
                 method: 'resize',
                 height: height
             });
-            preventOverloadCount = 0;
-        }
-
-        if (preventOverloadCount < TEST_INITIAL_HEIGHT_DURATION / TEST_INITIAL_HEIGHT_PERIOD) {
-            preventOverloadCount++;
-            setTimeout(resize, TEST_INITIAL_HEIGHT_PERIOD);
         }
     }
+
+    window.onresize = function() {
+        resize();
+    };
+
+    var lastContentElementHeight;
+    setInterval(function() {
+        var elHeight = contentElement.scrollHeight;
+        if (elHeight != lastContentElementHeight) {
+            lastContentElementHeight = elHeight;
+            resize();
+        }
+    }, 100);
 
     windowMessaging.receiveMessage(function(e, message) {
 
@@ -86,9 +87,8 @@
 
             // Reset height to force send size.
             height = null;
-            preventOverloadCount = 0;
 
-            resize();
+            resize(true);
         }
     });
 
@@ -97,8 +97,7 @@
     }
 
     function heightGetter() {
-        var d = document.getElementById('iframely-content');
-        var elHeight = d.scrollHeight;
+        var elHeight = contentElement.scrollHeight;
         var docHeight = document.body.scrollHeight;
 
         var height;

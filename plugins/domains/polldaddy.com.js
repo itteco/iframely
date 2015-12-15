@@ -14,7 +14,7 @@ module.exports = {
         return [{
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.html5],
-            html: oembed.html,
+            html: oembed.html.replace(/src=\"http:\/\/static\.polldaddy\.com/, "src=\"https://secure.polldaddy.com"),
             "min-width": 332
         }, {
             type: CONFIG.T.image,
@@ -28,6 +28,7 @@ module.exports = {
     },
 
     tests: [
-        "https://polldaddy.com/poll/7451882/?s=twitter"
+        "https://polldaddy.com/poll/7451882/?s=twitter",
+        "http://polldaddy.com/poll/9113163/"
     ]
 };

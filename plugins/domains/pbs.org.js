@@ -2,7 +2,8 @@ module.exports = {
 
     //http://video.pbs.org/video/1863101157/    
     re: [
-        /^https?:\/\/video\.(pbs|[a-zA-Z]+)\.org\/video\/(\d+)\//i // + Powered by PBS
+        /^https?:\/\/www\.pbs\.org\/video\/(\d+)\//i,
+        /^https?:\/\/video\.pbs|[a-zA-Z]+\.org\/video\/(\d+)\//i // + Powered by PBS
     ],
 
     mixins: ["*"],
@@ -12,10 +13,9 @@ module.exports = {
         if (!meta.twitter || !meta.twitter.site === "@PBS") {
             return;
         }
-
-        // http://video.pbs.org/viralplayer/1863101157
+        
         return {
-            href: "http://video."+ urlMatch[1] +".org/viralplayer/"+ urlMatch[2],
+            href: "http://player.pbs.org/viralplayer/"+ urlMatch[1],        
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 512/376

@@ -1,5 +1,7 @@
 module.exports = {
 
+    notPlugin: true,
+
     mixins: [
         "og-title",
         "og-site",

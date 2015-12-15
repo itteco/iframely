@@ -1,26 +1,21 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/my\.mail\.ru\/(inbox|mail)\/[a-zA-Z0-9\._\-]+\/video\/(\d+)\/(\d+)\.html/i
+        /^https?:\/\/my\.mail\.ru\/(inbox|mail)\/[a-zA-Z0-9\._\-]+\/video\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)\.html/i
     ],
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "keywords",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
-    getLink: function(og, urlMatch) {
+    getLink: function(og, url) {
 
-        if (!og.video) {
+        if (og.type !== 'video.other') {
             return;
         }
 
         return {
-                href: (og.video.url || og.video).replace(/http:\/\//, '//'),
+                href: 'http://videoapi.my.mail.ru/videos/embed/mail/' + url.replace(/^https?:\/\/my\.mail\.ru\/(inbox|mail)\//, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
@@ -29,6 +24,7 @@ module.exports = {
 
     tests: [
         "http://my.mail.ru/mail/ee.vlz/video/22396/44907.html",
-        "http://my.mail.ru/mail/stryukova_lv/video/6177/1029.html"
+        "http://my.mail.ru/mail/stryukova_lv/video/6177/1029.html",
+        "http://my.mail.ru/mail/shiniavskii/video/_myvideo/4.html"
     ]
 };

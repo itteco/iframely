@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /https:\/\/\w+\.wikipedia\.org\/wiki\/.+/i,
-        /https:\/\/\w+\.wikimedia\.org\/wiki\/.+/i
+        /https:\/\/\w+\.(m\.)?wikipedia\.org\/wiki\/.+/i,
+        /https:\/\/\w+\.(m\.)?wikimedia\.org\/wiki\/.+/i
     ],
 
     provides: 'wikiData',
@@ -27,7 +27,7 @@ module.exports = {
         }
 
         // Select image of file, or image of article.
-        var $img = cheerio('#file img,.vcard .image img');
+        var $img = cheerio('#file img,.infobox .image img,.vcard .image img,.thumbimage');
         if ($img.length) {
             $img = cheerio($img[0]);
             result.thumb = $img.attr('src');
@@ -42,7 +42,7 @@ module.exports = {
             $p.find('.language').remove();
         } else {
             // Article first paragraph.
-            $p = cheerio('#mw-content-text p');
+            $p = cheerio('#mw-content-text>p');
         }
         if ($p.length) {
             result.description = decode(cheerio($p[0]).text());
