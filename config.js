@@ -139,7 +139,8 @@
                 "photo"
             ],
             "html-meta": [  // TODO: Need change to 'fb'.
-                "video"
+                "video",
+                "embedURL"
             ]
         },
 
