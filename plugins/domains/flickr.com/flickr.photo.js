@@ -12,7 +12,7 @@ module.exports = {
         "domain-icon"
     ],
 
-    getLink: function(urlMatch, request, options, cb) {
+    getLink: function(urlMatch, oembed, request, options, cb) {
         gUtils.getPhotoSizes(urlMatch[2], request, options.getProviderOptions('flickr.apiKey'), function(error, sizes) {
 
             if (error) {
@@ -47,12 +47,22 @@ module.exports = {
             var media_only = options.getProviderOptions('flickr.media_only', false);
 
             if (!media_only) {
-                result.splice(0, 0, {
-                    href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
-                    rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
-                    type: CONFIG.T.text_html,
-                    "aspect-ratio": last.width / last.height
-                });
+
+                if (oembed.html) {
+                    result.splice(0, 0, {
+                        html: oembed.html,
+                        rel: [CONFIG.R.image, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                        type: CONFIG.T.text_html,
+                        "aspect-ratio": last.width / last.height
+                    });
+                } else { // future-proof, if html disappears
+                    result.splice(0, 0, {
+                        href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
+                        rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
+                        type: CONFIG.T.text_html,
+                        "aspect-ratio": last.width / last.height
+                    });
+                }
             }
 
             cb(null, result);
@@ -63,6 +73,7 @@ module.exports = {
         feed: "http://api.flickr.com/services/feeds/photos_public.gne"
     },
         "http://www.flickr.com/photos/jup3nep/8243797061/?f=hp",
+        "https://www.flickr.com/photos/marshal-banana/23869537421",
         {
             skipMixins: [
                 "oembed-title",
