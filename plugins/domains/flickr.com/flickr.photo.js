@@ -12,61 +12,33 @@ module.exports = {
         "domain-icon"
     ],
 
-    getLink: function(urlMatch, oembed, request, options, cb) {
-        gUtils.getPhotoSizes(urlMatch[2], request, options.getProviderOptions('flickr.apiKey'), function(error, sizes) {
+    getLink: function(oembed) {
 
-            if (error) {
-                return cb(error);
-            }
+        var result =  [{
+            html: oembed.html,
+            rel: [oembed.type === 'photo' ? CONFIG.R.image : CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+            type: CONFIG.T.text_html,
+            "aspect-ratio": oembed.width / oembed.height,
+            "max-width": oembed.width
+        } , {
+            href: oembed.thumbnail_url,
+            rel: CONFIG.R.thumbnail,
+            type: CONFIG.T.image_jpeg,
+            width: oembed.thumbnail_width,
+            heigh: oembed.thumbnail_height 
+        }];
 
-            var result = sizes && sizes.map(function(size, idx) {
+        if (oembed.type === 'photo') {
+            result.push ({
+                href: oembed.url,
+                rel: [CONFIG.R.image, CONFIG.R.thumbnail],
+                type: CONFIG.T.image_jpeg,
+                width: oembed.width,
+                heigh: oembed.height
+            });
+        }
 
-                if (size.media == "photo") {
-
-                    return {
-                        href: size.source.replace(/^https?:/i, ""),
-                        width: size.width,
-                        height: size.height,
-                        type: CONFIG.T.image_jpeg,
-                        rel: size.width >= 800 || (idx === sizes.length - 1) ? CONFIG.R.image : CONFIG.R.thumbnail
-                    };
-
-                } else if (size.media == "video") {
-
-                    return {
-                        href: size.source,
-                        "aspect-ratio": size.width / size.height,
-                        type: /mp4/i.test(size.label) ? CONFIG.T.video_mp4 : CONFIG.T.flash,
-                        rel: CONFIG.R.player
-                    };
-                }
-            }) || [];
-
-            var last = sizes[sizes.length - 1];
-
-            var media_only = options.getProviderOptions('flickr.media_only', false);
-
-            if (!media_only) {
-
-                if (oembed.html) {
-                    result.splice(0, 0, {
-                        html: oembed.html,
-                        rel: [CONFIG.R.image, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
-                        type: CONFIG.T.text_html,
-                        "aspect-ratio": last.width / last.height
-                    });
-                } else { // future-proof, if html disappears
-                    result.splice(0, 0, {
-                        href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + urlMatch[2] + '/player',
-                        rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
-                        type: CONFIG.T.text_html,
-                        "aspect-ratio": last.width / last.height
-                    });
-                }
-            }
-
-            cb(null, result);
-        });
+        return result;
     },
 
     tests: [{
@@ -74,6 +46,7 @@ module.exports = {
     },
         "http://www.flickr.com/photos/jup3nep/8243797061/?f=hp",
         "https://www.flickr.com/photos/marshal-banana/23869537421",
+        "http://www.flickr.com/photos/gonzai/6027481335/in/photostream/",
         {
             skipMixins: [
                 "oembed-title",
