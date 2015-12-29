@@ -111,10 +111,6 @@
                 omit_script: false,
                 cache_ttl: 100 * 365 * 24 * 3600 // 100 Years.
             },
-            flickr: {
-                apiKey: 'INSERT YOUR VALUE'
-                // media_only: true     // disables slideshow and gives plain image
-            },
             "google.maps": {
             //  apiKey: 'INSERT YOUR VALUE' // not required, but recommended
             },

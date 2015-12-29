@@ -3,7 +3,7 @@ var $ = require('cheerio');
 module.exports = {
 
     // Photos only for now. TODO: Stay tuned for when video embeds become available
-    re: /^https?:\/\/www\.gettyimages\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/detail\/([a-zA-Z0-9\-]+)\/[a-zA-Z0-9\-]+\/(\d+)/i,
+    re: /^https?:\/\/www\.gettyimages\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/detail\/([^\/]+)\/[^\/]+\/(\d+)/i,
 
     provides: 'getty',
 
@@ -68,6 +68,7 @@ module.exports = {
     tests: [
         "http://www.gettyimages.ca/detail/photo/reflection-of-trees-high-res-stock-photography/103260792",
         "http://www.gettyimages.com/detail/illustration/pizza-icons-white-series-royalty-free-illustration/185819032",
-        "http://www.gettyimages.de/detail/nachrichtenfoto/sylvie-meis-and-daniel-hartwich-attend-the-8th-show-of-nachrichtenfoto/493388593"
+        "http://www.gettyimages.de/detail/nachrichtenfoto/sylvie-meis-and-daniel-hartwich-attend-the-8th-show-of-nachrichtenfoto/493388593",
+        "http://www.gettyimages.fr/detail/photo-d'actualit%C3%A9/filipe-toledo-of-brasil-is-the-2015-quiksilver-pro-photo-dactualit%C3%A9/466056674?license"
     ]
 };

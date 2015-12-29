@@ -61,7 +61,7 @@ module.exports = {
         'https://itunes.apple.com/us/movie/the-matrix/id271469518?ign-mpt=uo%3D4',
         'https://itunes.apple.com/us/tv-season/abc-news-specials/id183240032?uo=4',
         {
-            skipMixins: 'noindex-meta'
+            skipMixins: ['noindex-meta']
         }
     ]
 };
