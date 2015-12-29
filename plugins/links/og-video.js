@@ -1,12 +1,18 @@
 var _ = require("underscore");
 var utils = require('./utils');
 
-function getVideoLinks(video, whitelistRecord) {
+function getVideoLinks(video, whitelistRecord, og) {
+
+    var rel = [CONFIG.R.player, CONFIG.R.og];
+
+    if (og.type && typeof og.type === 'string' && og.type.match(/article/i)) {
+        rel.push (CONFIG.R.promo);
+    }
 
     var players = [{
         href: video.url || video,
         type: CONFIG.T.maybe_text_html,
-        rel: [CONFIG.R.player, CONFIG.R.og],
+        rel: rel,
         width: video.width,
         height: video.height
     }];
@@ -15,7 +21,7 @@ function getVideoLinks(video, whitelistRecord) {
         players.push({
             href: video.secure_url,
             type: CONFIG.T.maybe_text_html,
-            rel: [CONFIG.R.player, CONFIG.R.og],
+            rel: rel,
             width: video.width,
             height: video.height
         });
@@ -25,7 +31,7 @@ function getVideoLinks(video, whitelistRecord) {
         players.push({
             href: video.iframe,
             type: CONFIG.T.maybe_text_html,
-            rel: [CONFIG.R.player, CONFIG.R.og],
+            rel: rel,
             width: video.width,
             height: video.height
         });
@@ -43,12 +49,12 @@ module.exports = {
             if (og.video instanceof Array) {
 
                 return utils.mergeMediaSize(_.flatten(og.video.map(function(video) {
-                    return getVideoLinks(video, whitelistRecord);
+                    return getVideoLinks(video, whitelistRecord, og);
                 })));
 
             } else if (og.video) {
 
-                return getVideoLinks(og.video, whitelistRecord);
+                return getVideoLinks(og.video, whitelistRecord, og);
             }
         }
     }
