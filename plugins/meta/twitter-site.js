@@ -2,10 +2,17 @@ module.exports = {
 
     lowestPriority: true,
 
-    getMeta: function(twitter) {
+    getMeta: function(url, twitter) {
 
-        return {
-            site: (twitter.site && twitter.site.value) || twitter.site
-        }
+    	var site = (twitter.site && twitter.site.value) || twitter.site;
+    	if (!site) {return;}
+
+    	site = site.replace(/^@/, '');
+
+    	if (url.indexOf(site.toLowerCase())) {
+	        return {
+	            site: site
+	        }
+    	}
     }
 };
