@@ -159,6 +159,21 @@
                 media_only: true // disables branded player for gifs and returns just the image
             }
             */
+            /*
+            bandcamp: {
+                get_params: '/size=large/bgcol=333333/linkcol=ffffff/artwork=small/transparent=true/',
+                media: {
+                    album: {
+                        height: 472,
+                        'max-width': 700
+                    }, 
+                    track: {
+                        height: 120,
+                        'max-width': 700
+                    }
+                }
+            }
+            */            
         },
 
         // WHITELIST_WILDCARD, if present, will be added to whitelist as record for top level domain: "*"
