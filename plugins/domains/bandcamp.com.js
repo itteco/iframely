@@ -27,15 +27,18 @@ module.exports = {
         };
     },
 
-    getLinks: function(meta, twitter) {
+    getLinks: function(meta, twitter, options) {
 
-        if (twitter.site !== 'bandcamp') {
+        if (twitter.site !== 'bandcamp' || !twitter.player.value) {
             return;
         }
+        
+        var params = options.getProviderOptions('bandcamp');
+        var result = null;
 
-        if (meta.og && meta.og.video && meta.twitter.site == "bandcamp") {
+        if (!params && meta.og && meta.og.video) {
 
-            return [{
+            result = [{
                 href: meta.twitter.player.value,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5],
@@ -47,8 +50,23 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
                 "max-width": 700,
                 height: meta.og.video.height
-            }]
-        }        
+            }];
+
+        } else if (params) {
+
+            var album = /album=\d+/i.test(twitter.player.value) && twitter.player.value.match(/album=(\d+)/i)[1];
+            var track = /track=\d+/i.test(twitter.player.value) && twitter.player.value.match(/track=(\d+)/i)[1];
+
+            result = {
+                href: 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '') + (track ? '/track=' + track : '') + params.get_params, // (in /../../ way)
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                type: CONFIG.T.text_html,
+                media: album ? params.media.album : params.media.track
+            }
+
+        }
+
+        return result;
 
     },
 

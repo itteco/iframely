@@ -7,7 +7,8 @@ module.exports = {
     mixins: [
         "twitter-player",
         "twitter-stream",
-        "oembed-video",
+        //"oembed-video",
+        "og-video",
         "oembed-thumbnail",
         "favicon",
         "oembed-author",

@@ -43,9 +43,9 @@ Also, for [oEmbed API](https://iframely.com/docs/oembed-api) only:
 
 ## For individual embeds publishers
 
-By default, Iframely provides what we believe is the best embeds for any individual publisher. But tastes do differ.
+Number of publishers give different embedding options. By default, Iframely provides embeds that we believe is the best fit for most common use case. But you, of course, may need it differently.
 
-Iframely team can configure what embeds you get for most publishers with multiple options. [Send us an email](mailto:support@iframely.com) and we'll start from there. Most adjustments take less than 30 mins to turn around. Since it's a manual process, however, we only offer this option for paid accounts.
+In that case, Iframely team can configure the exact embeds you like for your favourite publishers. Since it's a manual process, we offer it for paid accounts only. [Send us an email](mailto:support@iframely.com) and we'll start from there. Most adjustments take less than 30 mins to manually turn around.
 
 Examples of what people often request: 
 
@@ -57,4 +57,6 @@ Examples of what people often request:
  - Show user message for Instagram embeds
  - Giphy: disable branded GIF player and use Iframely's [friendly GIFs](/docs/gifs) instead
  - Turn on support of Twitter videos (experimental)
+ - Bandcamp players
+ - Etc.
 

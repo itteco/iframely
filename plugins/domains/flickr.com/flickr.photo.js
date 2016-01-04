@@ -2,7 +2,7 @@ var gUtils = require('./utils');
 
 module.exports = {
 
-    re: /^https?:\/\/www\.flickr\.com\/photos\/([@a-zA-Z0-9_\.-]+)\/(\d+).*?$/i,
+    re: /^https?:\/\/www\.flickr\.com\/photos\/([@a-zA-Z0-9_\.\-]+)\/(\d+).*?$/i,
 
     mixins: [
         "oembed-title",
@@ -15,11 +15,10 @@ module.exports = {
     getLink: function(oembed) {
 
         var result =  [{
-            html: oembed.html,
+            html: oembed.html.replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
             rel: [oembed.type === 'photo' ? CONFIG.R.image : CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": oembed.width / oembed.height,
-            "max-width": oembed.width
+            "aspect-ratio": oembed.width / oembed.height
         } , {
             href: oembed.thumbnail_url,
             rel: CONFIG.R.thumbnail,
