@@ -110,6 +110,10 @@
                 hide_thread: false,
                 omit_script: false
             },
+            flickr: {
+                apiKey: 'INSERT YOUR VALUE'
+                // media_only: true     // disables slideshow and gives plain image
+            },
             "google.maps": {
             //  apiKey: 'INSERT YOUR VALUE' // not required, but recommended
             },
