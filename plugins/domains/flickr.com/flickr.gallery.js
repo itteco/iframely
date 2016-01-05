@@ -16,7 +16,9 @@ module.exports = {
             type: CONFIG.T.flash,
             rel: CONFIG.R.player
         }, {
-            html: oembed.html.replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
+            html: oembed.html
+                .replace(/\@n/g, "@N")
+                .replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
             rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width / oembed.height            
