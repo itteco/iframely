@@ -23,7 +23,7 @@ module.exports = {
 	            var urlObj = urlLib.parse(href, true);
 	            var promo = urlObj.query.promo;
 
-	            if (promo.match(/https?:\/\/.+/i)) {
+	            if (promo && promo.match(/https?:\/\/.+/i)) {
 
 	                return {
 	                    __promoUri: promo
