@@ -70,7 +70,8 @@ module.exports = function(app) {
                     readability: getBooleanParam(req, 'readability'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
-                    promoUri: req.query.promoUri
+                    promoUri: req.query.promoUri,
+                    refresh: getBooleanParam(req, 'refresh')
                 }, cb);
             }
 
@@ -375,7 +376,8 @@ module.exports = function(app) {
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: getBooleanParam(req, 'ssl'),
                     filterNonHTML5: getBooleanParam(req, 'html5'),
-                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
+                    refresh: getBooleanParam(req, 'refresh')
                 }, cb);
             }
 
