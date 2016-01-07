@@ -1,4 +1,4 @@
-var core = require('../../../core');
+var core = require('../../../lib/core');
 var _ = require('underscore');
 
 module.exports = {
@@ -37,6 +37,13 @@ module.exports = {
                 // Detect if has something except thumbnail.
                 hasGoodLinks = true;
             }
+
+            if (link.href && link.type === CONFIG.T.text_html && (!link.media || link.media["aspect-ratio"])) {
+                // Detect responsive iframes.
+                hasGoodLinks = true;
+                return true;
+            }
+
             return match.length;
         });
 

@@ -17,9 +17,13 @@ module.exports = {
                 player.height = meta.video_height;
             }
 
-            if (whitelistRecord.isAllowed('html-meta.video', 'html5')) {
-                player.rel.push('html5');
-            }            
+            if (whitelistRecord.isAllowed('html-meta.video', CONFIG.R.html5)) {
+                player.rel.push(CONFIG.R.html5);
+            }
+
+            if (whitelistRecord.isAllowed('html-meta.video', CONFIG.R.autoplay)) {
+                player.rel.push(CONFIG.R.autoplay);
+            }
 
             return player;
         }

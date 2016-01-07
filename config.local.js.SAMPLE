@@ -108,7 +108,8 @@
                 access_token_secret: 'INSERT YOUR VALUE',
                 hide_media: false,
                 hide_thread: false,
-                omit_script: false
+                omit_script: false,
+                cache_ttl: 100 * 365 * 24 * 3600 // 100 Years.
             },
             "google.maps": {
             //  apiKey: 'INSERT YOUR VALUE' // not required, but recommended
@@ -203,7 +204,8 @@
                 "image": "allow"
               },
               "html-meta": {
-                "video": ["allow", "responsive"]
+                "video": ["allow", "responsive"],
+                "promo": "allow"
               }
         }
         */

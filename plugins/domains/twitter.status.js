@@ -65,6 +65,7 @@ module.exports = {
                             oauth: oauth,
                             json: true,
                             useCacheOnly: blockExpireIn > 0,
+                            ttl: c.cache_ttl,
                             prepareResult: function(error, response, data, cb) {
 
                                 if (response.fromRequestCache) {

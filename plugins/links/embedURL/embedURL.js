@@ -64,10 +64,10 @@ module.exports = {
                 type: type
             };
 
-            if (whitelistRecord.isAllowed('html-meta.embedURL', 'html5')) {
+            if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {
                 player.rel.push(CONFIG.R.html5);
             }
-            if (whitelistRecord.isAllowed('html-meta.embedURL', 'autoplay')) {
+            if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.autoplay)) {
                 player.rel.push(CONFIG.R.autoplay);
             }
 
