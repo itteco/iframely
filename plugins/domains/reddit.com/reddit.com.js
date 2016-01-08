@@ -1,13 +1,13 @@
 module.exports = {
 
-    re: /^https?:\/\/(?:www|m\.)?reddit\.com\/r\/([^\/]+)\/comments\/([a-zA-Z0-9]+)\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9]+)/i,
+
+    re: /^https?:\/\/(?:www\.|m\.)?reddit\.com\/r\/([^\/]+)\/comments\/([a-zA-Z0-9]+)\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9]+)/i,
 
     mixins: [
         "*"
     ],
 
     getLink: function(urlMatch, twitter) {
-            
         return {
             template_context: {
                 url: 'https://reddit.com/r/' + urlMatch[1] + '/comments/' + urlMatch[2] + '/' + urlMatch[3] + '/' + urlMatch[4],
@@ -17,7 +17,7 @@ module.exports = {
             },
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl]
-        }
+        };
     },
 
     tests: [
