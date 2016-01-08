@@ -452,5 +452,12 @@
             "stock.adobe.com/.*"
         ],
         "endpoint": "https://stock.adobe.com/oembed"
+    },
+    {
+        "name": "Reddit comment",
+        "templates": [
+            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)"
+        ],
+        "endpoint": "https://www.reddit.com/oembed"
     }
 ]
