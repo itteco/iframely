@@ -25,7 +25,7 @@ module.exports = {
         }
         
 
-        var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i);
+        var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\/?\?/i);
 
         if (urlMatch) {
 
