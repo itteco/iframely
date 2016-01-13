@@ -22,7 +22,7 @@ module.exports = {
 
         var rel = [CONFIG.R.player];
 
-        if (!(options.getProviderOptions("vine") && options.getProviderOptions("vine").disable_on_mobile)) {
+        if (!options.getProviderOptions("vine.disable_on_mobile")) {
             rel.push(CONFIG.R.html5);
         }
 
