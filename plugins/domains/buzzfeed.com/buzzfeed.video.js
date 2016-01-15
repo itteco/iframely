@@ -12,7 +12,7 @@ module.exports = {
 
     getData: function(cheerio, __isBuzzFeedVideo, cb) {
 
-        var $el = cheerio('.video-embed-videopost');
+        var $el = cheerio('.video-embed-area');
         var embed = JSON.parse($el.attr('rel:bf_bucket_data'));
 
         if (embed.video && embed.video.url) {
@@ -25,6 +25,7 @@ module.exports = {
     },
 
     tests: [ 
-        "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA"
+        "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA",
+        "http://www.buzzfeed.com/tristanhill/if-you-won-the-lottery"
     ]
 };
