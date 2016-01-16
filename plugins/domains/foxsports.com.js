@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.foxsports\.com\/video\/?\?vid=(\d+)/i
+        /^https?:\/\/www\.foxsports\.com\/(?:\w+\/)?video\/?\?vid=(\d+)/i
     ],
 
     mixins: [
@@ -24,6 +24,7 @@ module.exports = {
     },
 
     tests: [ 
-        "http://www.foxsports.com/video?vid=551579203750"
+        "http://www.foxsports.com/video?vid=551579203750",
+        "http://www.foxsports.com/mlb/video?vid=602673731627"
     ]
 };
