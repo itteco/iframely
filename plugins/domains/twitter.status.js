@@ -51,7 +51,7 @@ module.exports = {
 
                     oembed: function(cb) {
 
-                        var url = "https://api.twitter.com/1.1/statuses/oembed.json";
+                        var url = "https://api.twitter.com/1" + (blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";              
 
                         var qs = {
                             id: id,
@@ -68,12 +68,10 @@ module.exports = {
                         })).digest("hex") + '"';
 
 
-                        request({
+                        request(_.extend({
                             url: url,
-                            qs: qs,
-                            oauth: oauth,
+                            qs: qs,                            
                             json: true,
-                            useCacheOnly: blockExpireIn > 0,
                             cache_key: cache_key,
                             new_cache_key: 'twitter:oembed:' + id,
                             ttl: c.cache_ttl,
@@ -115,7 +113,7 @@ module.exports = {
                                         }
 
                                         // Store expire date as value to be sure it past.
-                                        var expireIn = now + ttl;
+                                        var expireIn = now + ttl;                                        
 
                                         cache.set(block_key, expireIn, {ttl: ttl});
                                     }
@@ -129,9 +127,10 @@ module.exports = {
                                     return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
                                 }
 
+
                                 cb(error, data);
                             }
-                        }, cb);
+                        }, (blockExpireIn > 0 ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
                     },
 
                     post: function(cb) {
@@ -181,10 +180,6 @@ module.exports = {
 
         ], function(error, data) {
 
-            if (error === 'no-cache') {
-                sysUtils.log('   -- Twitter API limit reached, plugin temporary disabled for ' + blockExpireIn + ' seconds.');
-                return cb('Twitter API limit reached, wait ' + blockExpireIn + ' seconds.');
-            }
 
             if (error) {
                 return cb(error);
