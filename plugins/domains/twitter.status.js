@@ -10,11 +10,11 @@ module.exports = {
         /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
     ],
 
-    provides: 'twitter_oembed',
+    provides: ['twitter_oembed', 'twitter_video', '__allow_twitter_video'],
 
     mixins: ['domain-icon'],
 
-    getData: function(urlMatch, og, request, options, cb) {
+    getData: function(urlMatch, request, options, cb) {
         var id = urlMatch[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
@@ -141,12 +141,18 @@ module.exports = {
 
             oembed["min-width"] = c["min-width"];
             oembed["max-width"] = c["max-width"];
-            
-            oembed.is_video = og.type === 'video';
 
-            cb(null, {
-                twitter_oembed: oembed
-            });
+            var result = {
+                twitter_oembed: oembed,                
+            };
+
+            if (c.media_only) {
+                result.__allow_twitter_video = true;
+            } else {
+                result.twitter_video = false;
+            }
+
+            cb(null, result);
         });
     },
 
@@ -161,7 +167,7 @@ module.exports = {
         };
     },
 
-    getLink: function(twitter_oembed, options) {
+    getLink: function(twitter_oembed, twitter_video, options) {
 
         var html = twitter_oembed.html;
 
@@ -171,15 +177,14 @@ module.exports = {
 
         var links = [];
 
-        if (twitter_oembed.is_video) {
+        if (twitter_video) {
 
             html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
             links.push({
                 html: html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl],
-                "min-width": twitter_oembed["min-width"],
-                "max-width": twitter_oembed["max-width"]
+                rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
+                "aspect-ratio": twitter_video.width / twitter_video.height
             });
 
         } else {
@@ -187,23 +192,11 @@ module.exports = {
             links.push({
                 html: html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.oembed, CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
+                rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
                 "min-width": twitter_oembed["min-width"],
                 "max-width": twitter_oembed["max-width"]
             });
         }
-
-
-        /*
-        // forget about image for now - it takes 500 ms to verify its size
-        if (og.image && og.image.user_generated) {
-            links.push({
-                href: og.image.url,
-                type: CONFIG.T.image,
-                rel: [CONFIG.R.image]
-            });
-        }
-        */
 
         return links;
     },
