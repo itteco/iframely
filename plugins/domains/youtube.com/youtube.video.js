@@ -28,6 +28,8 @@ module.exports = {
 
         request({
             uri: statsUri,
+            cache_key: "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + api_key + "&id=" + urlMatch[1],
+            new_cache_key: "youtube:" + urlMatch[1],
             json: true,
             prepareResult: function(error, b, data, cb) {
 
