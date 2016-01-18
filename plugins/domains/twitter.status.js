@@ -14,7 +14,7 @@ module.exports = {
 
     mixins: ['domain-icon'],
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(urlMatch, og, request, options, cb) {
         var id = urlMatch[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
@@ -47,156 +47,102 @@ module.exports = {
                     }
                 }
 
-                async.parallel({
+                var url = "https://api.twitter.com/1" + (blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
 
-                    oembed: function(cb) {
+                var qs = {
+                    id: id,
+                    hide_media: c.hide_media,
+                    hide_thread: c.hide_thread,
+                    omit_script: c.omit_script
+                };
 
-                        var url = "https://api.twitter.com/1" + (blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";              
-
-                        var qs = {
-                            id: id,
-                            hide_media: c.hide_media,
-                            hide_thread: c.hide_thread,
-                            omit_script: c.omit_script
-                        };
-
-                        var cache_key = '"' + crypto.createHash('md5').update(JSON.stringify({
-                            url: 'https://api.twitter.com/1.1/statuses/oembed.json',
-                            qs: qs,
-                            oauth: oauth,
-                            json: true
-                        })).digest("hex") + '"';
+                var cache_key = '"' + crypto.createHash('md5').update(JSON.stringify({
+                        url: 'https://api.twitter.com/1.1/statuses/oembed.json',
+                        qs: qs,
+                        oauth: oauth,
+                        json: true
+                    })).digest("hex") + '"';
 
 
-                        request(_.extend({
-                            url: url,
-                            qs: qs,                            
-                            json: true,
-                            cache_key: cache_key,
-                            new_cache_key: 'twitter:oembed:' + id,
-                            ttl: c.cache_ttl,
-                            prepareResult: function(error, response, data, cb) {
+                request(_.extend({
+                    url: url,
+                    qs: qs,
+                    json: true,
+                    cache_key: cache_key,
+                    new_cache_key: 'twitter:oembed:' + id,
+                    ttl: c.cache_ttl,
+                    prepareResult: function(error, response, data, cb) {
 
-                                if (response.fromRequestCache) {
-                                    if (blockExpireIn > 0) {
-                                        sysUtils.log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
-                                    } else {
-                                        sysUtils.log('   -- Twitter API cache used.');
-                                    }
-                                }
-
-                                // Do not block api if data from cache.
-                                if (!response.fromRequestCache) {
-
-                                    var remaining = parseInt(response.headers['x-rate-limit-remaining']);
-
-                                    if (response.statusCode === 429 || remaining <= 7) {
-                                        var now = Math.round(new Date().getTime() / 1000);
-                                        var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
-                                        var ttl = limitResetAt - now;
-
-                                        // Do not allow ttl 0.
-                                        // 5 seconds - to cover possible time difference with twitter.
-                                        if (ttl < 5) {
-                                            ttl = 5;
-                                        }
-
-                                        // Block maximum for 15 minutes.
-                                        if (ttl > 15*60) {
-                                            ttl = 15*60
-                                        }
-
-                                        if (response.statusCode === 429) {
-                                            sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
-                                        } else {
-                                            sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
-                                        }
-
-                                        // Store expire date as value to be sure it past.
-                                        var expireIn = now + ttl;                                        
-
-                                        cache.set(block_key, expireIn, {ttl: ttl});
-                                    }
-                                }
-
-                                if (response.statusCode !== 200) {
-                                    return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
-                                }
-
-                                if (typeof data !== 'object') {
-                                    return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
-                                }
-
-
-                                cb(error, data);
+                        if (response.fromRequestCache) {
+                            if (blockExpireIn > 0) {
+                                sysUtils.log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
+                            } else {
+                                sysUtils.log('   -- Twitter API cache used.');
                             }
-                        }, (blockExpireIn > 0 ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
-                    },
-
-                    post: function(cb) {
-
-                        var show_video = c.media_only;
-
-                        if (show_video) {
-
-                            var url = "https://api.twitter.com/1.1/statuses/show.json";
-
-                            var qs = {
-                                id: id
-                            };
-
-                            request({
-                                url: url,
-                                qs: qs,
-                                oauth: oauth,
-                                json: true,
-                                useCacheOnly: blockExpireIn > 0,
-                                prepareResult: function(error, response, data, cb) {
-
-                                    if (response.statusCode !== 200) {
-                                        return cb('Non-200 response from Twitter API (statuses/show.json): ' + response.statusCode);
-                                    }
-
-                                    if (typeof data !== 'object') {
-                                        return cb('Object expected in Twitter API (statuses/show.json), got: ' + data);
-                                    }
-
-                                    var is_video = !!_.find(data.extended_entities && data.extended_entities.media, function(m) {
-                                        return m.video_info && m.type === "video";
-                                    });
-
-                                    cb(error, {
-                                        is_video: is_video
-                                    });
-                                }
-                            }, cb);
-
-                        } else {
-                            cb(null, null);
                         }
+
+                        // Do not block api if data from cache.
+                        if (!response.fromRequestCache) {
+
+                            var remaining = parseInt(response.headers['x-rate-limit-remaining']);
+
+                            if (response.statusCode === 429 || remaining <= 7) {
+                                var now = Math.round(new Date().getTime() / 1000);
+                                var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
+                                var ttl = limitResetAt - now;
+
+                                // Do not allow ttl 0.
+                                // 5 seconds - to cover possible time difference with twitter.
+                                if (ttl < 5) {
+                                    ttl = 5;
+                                }
+
+                                // Block maximum for 15 minutes.
+                                if (ttl > 15*60) {
+                                    ttl = 15*60
+                                }
+
+                                if (response.statusCode === 429) {
+                                    sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
+                                } else {
+                                    sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
+                                }
+
+                                // Store expire date as value to be sure it past.
+                                var expireIn = now + ttl;
+
+                                cache.set(block_key, expireIn, {ttl: ttl});
+                            }
+                        }
+
+                        if (response.statusCode !== 200) {
+                            return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
+                        }
+
+                        if (typeof data !== 'object') {
+                            return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
+                        }
+
+
+                        cb(error, data);
                     }
-                }, cb);
+                }, (blockExpireIn > 0 ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
+
             }
 
-        ], function(error, data) {
+        ], function(error, oembed) {
 
 
             if (error) {
                 return cb(error);
             }
 
-            // Oembed.
-
-            var oembed = data.oembed;
-
             oembed.title = oembed.author_name + ' on Twitter';
 
             oembed["min-width"] = c["min-width"];
             oembed["max-width"] = c["max-width"];
-
-            // Post data.
-
-            oembed.is_video = data.post && data.post.is_video;
+            
+            oembed.is_video = og.type === 'video';
 
             cb(null, {
                 twitter_oembed: oembed
