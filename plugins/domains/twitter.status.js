@@ -2,6 +2,7 @@ var async = require('async');
 var cache = require('../../lib/cache');
 var sysUtils = require('../../logging');
 var _ = require('underscore');
+var crypto = require('crypto'); // temp
 
 module.exports = {
 
@@ -59,12 +60,22 @@ module.exports = {
                             omit_script: c.omit_script
                         };
 
+                        var cache_key = '"' + crypto.createHash('md5').update(JSON.stringify({
+                            url: 'https://api.twitter.com/1.1/statuses/oembed.json',
+                            qs: qs,
+                            oauth: oauth,
+                            json: true
+                        })).digest("hex") + '"';
+
+
                         request({
                             url: url,
                             qs: qs,
                             oauth: oauth,
                             json: true,
                             useCacheOnly: blockExpireIn > 0,
+                            cache_key: cache_key,
+                            new_cache_key: 'twitter:oembed:' + id,
                             ttl: c.cache_ttl,
                             prepareResult: function(error, response, data, cb) {
 
