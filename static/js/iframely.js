@@ -228,7 +228,7 @@
 
         // Default aspect ratio.
         if (!media || (!media.height && !media["aspect-ratio"])) {
-            $container.css('padding-bottom', '75%');
+            $container.css('padding-bottom', '56.25%');
         }
 
         if (media) {
