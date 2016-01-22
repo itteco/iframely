@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
+    re: [
+        /https?:\/\/imgur\.com\/t\/\w+\/(\w+).*/i,
+        /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i
+    ],
 
     provides: ["oembedLinks"],
 
@@ -64,6 +67,8 @@ module.exports = {
         // "http://imgur.com/r/aww/tFKv2zQ",    // kitten bomb before, doesn't seem to show up any longer
         "http://imgur.com/gallery/bSE9nTM",
         "http://imgur.com/gallery/EqmEsJj",
-        "https://imgur.com/gallery/kkEzJsa"
+        "https://imgur.com/gallery/kkEzJsa",
+        "http://imgur.com/t/workout/HFwjGoF",
+        "http://imgur.com/t/water/ud7YwQp"
     ]
 };
