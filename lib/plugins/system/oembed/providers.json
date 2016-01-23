@@ -23,13 +23,6 @@
         "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
     },
     {
-        "name": "Facebook Page",
-        "templates": [
-            "(www|m)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/?(?:\\?f?ref=\\w+)?$"
-        ],
-        "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
-    },
-    {
         "name": "Blip",
         "templates": [
             "blip\\.tv/.*"
