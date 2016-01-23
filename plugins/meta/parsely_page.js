@@ -28,8 +28,7 @@ module.exports = {
             date: parsely_page.pub_date,
             author: parsely_page.author,
             keywords: parsely_page.tags && parsely_page.tags instanceof Array ? parsely_page.tags.join(', ') : null,
-            category: parsely_page.section,
-            media: parsely_page.type == "post" ? 'reader': null
+            category: parsely_page.section            
         };
     }
 };
