@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.foxsports\.com\/(?:\w+\/)?video\/?\?vid=(\d+)/i
+        /^https?:\/\/www\.foxsports\.com\/(?:\w+\/)?video\/?\?vid=(\d+)/i,
+        /^https?:\/\/www\.foxsports\.com\/(?:\w+\/)?video\/[a-zA-Z-]+\-()/i        
     ],
 
     mixins: [
@@ -25,6 +26,7 @@ module.exports = {
 
     tests: [ 
         "http://www.foxsports.com/video?vid=551579203750",
-        "http://www.foxsports.com/mlb/video?vid=602673731627"
+        "http://www.foxsports.com/mlb/video?vid=602673731627",
+        "http://www.foxsports.com/mlb/video/scherzer-harper-mock-papelbon-incident-with-handshake-100115?utm_medium=twitter&utm_source=twitterfeed"
     ]
 };
