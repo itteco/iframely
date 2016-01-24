@@ -5,14 +5,12 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
     ],
 
-    getLink: function(oembed, options) {
+    getLink: function(oembed, meta, options) {
 
-        // skip user profiles - they can not be embedded
-        /*
-        if (!meta.al || (meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url))) {
+        // skip user profiles - they can not be embedded        
+        if ((meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url)) || !/blockquote/.test(oembed.html)) {
            return;
-        }*/
-        // not required: as of Jan 23, 2016 the private profile do not have oembed discovery link, whereas public pages do.
+        }        
 
         return {
             type: CONFIG.T.text_html,
