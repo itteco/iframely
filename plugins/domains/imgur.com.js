@@ -32,6 +32,14 @@ module.exports = {
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl]
                 };
+            } else {
+                return {
+                    href: "http://s.imgur.com/images/favicon-96x96.png",
+                    width: 96,
+                    height: 96,
+                    type: CONFIG.T.image_png,
+                    rel: CONFIG.R.icon
+                }
             }
         }
     },
