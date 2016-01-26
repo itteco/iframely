@@ -24,7 +24,7 @@ module.exports = {
             }
 
 
-            if (/\.(mp4)$/i.test(player.href)) {
+            if (/\.(mp4|avi)$/i.test(player.href)) {
                 player["aspect-ratio"] = twitter.player.width / twitter.player.height;
             }
 
@@ -40,6 +40,7 @@ module.exports = {
     },
 
     tests: [
-        "https://archive.org/details/um2000-09-01.shnf"
+        "https://archive.org/details/um2000-09-01.shnf",
+        "https://archive.org/details/ChronoTrigger_456"
     ]
 };
