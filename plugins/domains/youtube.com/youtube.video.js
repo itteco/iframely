@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var crypto = require('crypto'); // temp
 
 module.exports = {
 
@@ -24,10 +25,17 @@ module.exports = {
             return cb (new Error ("No youtube.api_key configured"));
         }
 
-        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + api_key + "&id=" + urlMatch[1];
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer%2Cstatus&key=" + api_key + "&id=" + urlMatch[1];
+
+        var cache_key = '"' + crypto.createHash('md5').update(JSON.stringify({
+            uri: "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + api_key + "&id=" + urlMatch[1], //old_one
+            json: true
+        })).digest("hex") + '"';
 
         request({
             uri: statsUri,
+            cache_key: cache_key,
+            new_cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
             prepareResult: function(error, b, data, cb) {
 
@@ -67,7 +75,8 @@ module.exports = {
                         viewCount: entry.statistics && entry.statistics.viewCount,
 
                         hd: entry.contentDetails && entry.contentDetails.definition == "hd",
-                        playerHtml: entry.player && entry.player.embedHtml
+                        playerHtml: entry.player && entry.player.embedHtml,
+                        embeddable: entry.status ? entry.status.embeddable : true
                     };
 
                     if (entry.snippet && entry.snippet.thumbnails ) {
@@ -105,6 +114,7 @@ module.exports = {
             likes: youtube_video_gdata.likeCount,
             dislikes: youtube_video_gdata.dislikeCount,
             views: youtube_video_gdata.viewCount,
+            media: 'player', 
             site: "YouTube"
         };
     },
@@ -161,22 +171,28 @@ module.exports = {
         
 
         var links = [{
-            href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.text_html,
-            "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
-        }, {
-            href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-            type: CONFIG.T.text_html,
-            "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
-        }, {
             href: youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: 320,
             height: 180
         }];
+
+        if (youtube_video_gdata.embeddable) {
+            links.push({
+                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                type: CONFIG.T.text_html,
+                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
+            }); 
+
+            links.push({
+                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
+                type: CONFIG.T.text_html,
+                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
+            });
+        }
 
         if (youtube_video_gdata.thumbnails.maxres) {
             links.push({
@@ -208,5 +224,6 @@ module.exports = {
     },
         "http://www.youtube.com/watch?v=etDRmrB9Css",
         "http://www.youtube.com/embed/Q_uaI28LGJk"
+        // embeds disabled - https://www.youtube.com/watch?v=e58FeKOgsU8
     ]
 };
