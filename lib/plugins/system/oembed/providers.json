@@ -459,5 +459,12 @@
             "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)"
         ],
         "endpoint": "https://www.reddit.com/oembed"
+    },
+    {
+        "name": "Interlude",
+        "templates": [
+            "interlude.fm/v/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "https://v.interlude.fm/oembed?vid={1}"
     }
 ]
