@@ -1,6 +1,10 @@
 module.exports = {
 
-    re: /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
+    re: [
+        /https?:\/\/imgur\.com\/t\/\w+\/(\w+).*/i,
+        /https?:\/\/imgur\.com\/topic\/[a-zA-Z0-9\-_&]+\/(\w+).*/i,
+        /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
+    ],
 
     provides: ["oembedLinks"],
 
@@ -29,6 +33,14 @@ module.exports = {
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl]
                 };
+            } else {
+                return {
+                    href: "http://s.imgur.com/images/favicon-96x96.png",
+                    width: 96,
+                    height: 96,
+                    type: CONFIG.T.image_png,
+                    rel: CONFIG.R.icon
+                }
             }
         }
     },
@@ -64,6 +76,9 @@ module.exports = {
         // "http://imgur.com/r/aww/tFKv2zQ",    // kitten bomb before, doesn't seem to show up any longer
         "http://imgur.com/gallery/bSE9nTM",
         "http://imgur.com/gallery/EqmEsJj",
-        "https://imgur.com/gallery/kkEzJsa"
+        "https://imgur.com/gallery/kkEzJsa",
+        "http://imgur.com/t/workout/HFwjGoF",
+        "http://imgur.com/t/water/ud7YwQp",
+        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl"
     ]
 };

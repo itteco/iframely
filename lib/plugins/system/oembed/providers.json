@@ -39,9 +39,11 @@
     {
         "name": "Flickr",
         "templates": [
-            "(www\\.)?flickr\\.com/.*"
+            "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/?(?:[?#].*)?$)",
+            "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/\\d+.*?$)",
+            "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/(?:sets|albums)/(?:\\d+))"
         ],
-        "endpoint": "http://www.flickr.com/services/oembed/"
+        "endpoint": "http://www.flickr.com/services/oembed/?format={format}&url=https://www.flickr.com/{1}"
     },
     {
         "name": "Hulu",
@@ -450,5 +452,19 @@
             "stock.adobe.com/.*"
         ],
         "endpoint": "https://stock.adobe.com/oembed"
+    },
+    {
+        "name": "Reddit comment",
+        "templates": [
+            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)"
+        ],
+        "endpoint": "https://www.reddit.com/oembed"
+    },
+    {
+        "name": "Interlude",
+        "templates": [
+            "interlude.fm/v/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "https://v.interlude.fm/oembed?vid={1}"
     }
 ]

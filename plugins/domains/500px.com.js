@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https:\/\/500px\.com\/photo.+/,
+    re: /^https?:\/\/500px\.com\/photo.+/,
 
     mixins: [
         "*",

@@ -18,7 +18,7 @@ module.exports = {
         }
 
         return {
-            title: tumblr_post.title || caption || tumblr_post.blog_name,
+            title: tumblr_post.title || caption || tumblr_post.summary || tumblr_post.blog_name,
             site: 'Tumblr',
             author: tumblr_post.blog_name,
             author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',

@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.8.3
+     Version 0.9.2
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -228,7 +228,7 @@
 
         // Default aspect ratio.
         if (!media || (!media.height && !media["aspect-ratio"])) {
-            $container.css('padding-bottom', '75%');
+            $container.css('padding-bottom', '56.25%');
         }
 
         if (media) {

@@ -30,7 +30,7 @@ module.exports = {
     },
         "http://videos.nymag.com/video/Models-Studio-Jourdan-Dunn-2;toprated",
         {
-            skipMixins: ["og-description"]
+            skipMixins: ["og-description", "favicon"]
         }
     ]
 };

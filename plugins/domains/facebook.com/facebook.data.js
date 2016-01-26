@@ -11,7 +11,8 @@ module.exports = {
 
     getMeta: function(meta) {
         return {
-            title: title = meta["description"] ? meta["description"]: meta["html-title"].replace(/ \| Facebook$/, "")
+            title: meta["html-title"].replace(/ \| Facebook$/, ""),
+            description: meta["description"]
         };
     },
 

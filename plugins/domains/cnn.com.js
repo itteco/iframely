@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|edition)\.cnn\.com\/videos\//i,        
+        /^https?:\/\/(www|edition)\.cnn\.com\/videos\//i,
     ],
 
     mixins: [

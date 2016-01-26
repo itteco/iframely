@@ -108,11 +108,8 @@
                 access_token_secret: 'INSERT YOUR VALUE',
                 hide_media: false,
                 hide_thread: false,
-                omit_script: false
-            },
-            flickr: {
-                apiKey: 'INSERT YOUR VALUE'
-                // media_only: true     // disables slideshow and gives plain image
+                omit_script: false,
+                cache_ttl: 100 * 365 * 24 * 3600 // 100 Years.
             },
             "google.maps": {
             //  apiKey: 'INSERT YOUR VALUE' // not required, but recommended
@@ -163,6 +160,21 @@
                 media_only: true // disables branded player for gifs and returns just the image
             }
             */
+            /*
+            bandcamp: {
+                get_params: '/size=large/bgcol=333333/linkcol=ffffff/artwork=small/transparent=true/',
+                media: {
+                    album: {
+                        height: 472,
+                        'max-width': 700
+                    }, 
+                    track: {
+                        height: 120,
+                        'max-width': 700
+                    }
+                }
+            }
+            */            
         },
 
         // WHITELIST_WILDCARD, if present, will be added to whitelist as record for top level domain: "*"
@@ -192,7 +204,8 @@
                 "image": "allow"
               },
               "html-meta": {
-                "video": ["allow", "responsive"]
+                "video": ["allow", "responsive"],
+                "promo": "allow"
               }
         }
         */

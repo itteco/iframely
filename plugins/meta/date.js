@@ -2,7 +2,7 @@ module.exports = {
 
     getMeta: function(meta, url) {
 
-        var date = meta.date || meta.pubdate || meta.lastmod || (meta.article && meta.article.published_time) || meta['last-modified'];
+        var date = meta.date || meta.pubdate || meta.lastmod || (meta.article && meta.article.published_time) || meta['last-modified'] || meta.timestamp;
 
         // Can be multiple dates.
         if (date && date instanceof Array) {

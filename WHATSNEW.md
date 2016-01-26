@@ -4,6 +4,14 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2016.01.26, Version 0.9.2
+
+ - Domains clean up & maintenance
+ - Added: Reddit comments, Discovery, amCharts, Buzzfeed videos, Fox Sports, NBC Sports, Aljazeera, Naver tvcast, Cinesports, thumbnails for Amazon products
+ - Gave better life for `rel=promo`, treat it as attachment media, if you see it
+
+
+
 ### 2015.12.15, Version 0.9.1
 
  - Critical fix for Instagram 
