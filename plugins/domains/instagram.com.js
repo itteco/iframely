@@ -7,13 +7,23 @@ module.exports = {
     ],
 
     mixins: [
-        "oembed-title",
         "oembed-site",
         "oembed-author",
         "oembed-thumbnail",
 
         "favicon"
     ],
+
+    getMeta: function (og) {
+
+        var match = og.title.match(/[a-zA-Z0-9\s]+on\sInstagram/i);
+
+        return {
+            title: match ? match[0] : "Post on Instagram",
+            description: og.description
+        }
+
+    },
 
     getLinks: function(urlMatch, meta, oembed, options) {
         var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
