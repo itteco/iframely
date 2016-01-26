@@ -2,7 +2,8 @@ module.exports = {
 
     re: [
         /https?:\/\/imgur\.com\/t\/\w+\/(\w+).*/i,
-        /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i
+        /https?:\/\/imgur\.com\/topic\/[a-zA-Z0-9\-_&]+\/(\w+).*/i,
+        /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
     ],
 
     provides: ["oembedLinks"],
@@ -77,6 +78,7 @@ module.exports = {
         "http://imgur.com/gallery/EqmEsJj",
         "https://imgur.com/gallery/kkEzJsa",
         "http://imgur.com/t/workout/HFwjGoF",
-        "http://imgur.com/t/water/ud7YwQp"
+        "http://imgur.com/t/water/ud7YwQp",
+        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl"
     ]
 };
