@@ -222,7 +222,8 @@
     {
         "name": "SoundCloud",
         "templates": [
-            "soundcloud\\.com/.+"
+            "soundcloud\\.com/.+",
+            "api\\.soundcloud\\.com\/tracks\\/\\d+"
         ],
         "endpoint": "http://soundcloud.com/oembed"
     },
