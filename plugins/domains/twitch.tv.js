@@ -1,25 +1,34 @@
 module.exports = {
 
     mixins: [
-        "og-image",
-        "favicon",
-        "og-description",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
-    getLink: function (og) {
+    getLink: function (og, request, cb) {
 
-        if (!(og.video && og.video.secure_url)) {
-            return;
+        if (og.video && og.video.secure_url) {
+
+            request({
+                uri: og.video.secure_url,
+                followRedirect: false,
+                prepareResult: function(error, response, body, cb) {
+
+                    if (error) {
+                        return cb(error);
+                    }
+
+                    return cb (null, {
+                        href: response.headers.location ? response.headers.location.replace(/^http/, 'https') : og.video.secure_url, // ssl re-directs to non-ssl.
+                        type: og.video.type,
+                        rel: [CONFIG.R.player, CONFIG.R.autoplay],
+                        "aspect-ratio": og.video.width / og.video.height
+                    });
+
+                }
+            }, cb);
+
+        } else {
+            return cb(null);
         }
-
-
-        return {
-            href: og.video.secure_url,
-            type: og.video.type,
-            rel: [CONFIG.R.player, CONFIG.R.autoplay],
-            "aspect-ratio": og.video.width / og.video.height
-        };
     }
 };
