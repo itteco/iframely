@@ -56,7 +56,7 @@ module.exports = {
 
             if ($iframe.length == 1) {
                 links.push({
-                    href: $iframe.attr('src') + "?width=100%&height=100%",
+                    href: $iframe.attr('src').replace(/^http:\/\//, '//') + "?width=100%&height=100%",
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.oembed]
                 });
