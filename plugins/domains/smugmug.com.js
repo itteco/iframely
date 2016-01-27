@@ -8,6 +8,16 @@ module.exports = {
         "*"
     ],
 
+    highestPriority: true, 
+
+    getMeta: function (oembed) {
+
+        return {
+            media: 'player'
+        }
+
+    },
+
     getLink: function (oembed) {
 
         var links = [];
