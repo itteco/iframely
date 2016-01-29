@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/my\.mail\.ru\/(inbox|mail)\/[a-zA-Z0-9\._\-]+\/video\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)\.html/i
+        /^https?:\/\/my\.mail\.ru\/(inbox|mail|list|bk|corp)\/[a-zA-Z0-9\._\-]+\/video\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)\.html/i
     ],
 
     mixins: [
@@ -15,7 +15,7 @@ module.exports = {
         }
 
         return {
-                href: 'http://videoapi.my.mail.ru/videos/embed/mail/' + url.replace(/^https?:\/\/my\.mail\.ru\/(inbox|mail)\//, ''),
+                href: 'http://videoapi.my.mail.ru/videos/embed/' + url.replace(/^https?:\/\/my\.mail\.ru\//, '').replace(/^inbox/, 'mail'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
