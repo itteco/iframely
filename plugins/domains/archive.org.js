@@ -24,7 +24,7 @@ module.exports = {
             }
 
 
-            if (/\.(mp4|avi)$/i.test(player.href)) {
+            if (/\.(mp4|avi|mov)$/i.test(player.href)) {
                 player["aspect-ratio"] = twitter.player.width / twitter.player.height;
             }
 
