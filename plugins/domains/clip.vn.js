@@ -3,6 +3,7 @@ module.exports = {
     re: /^http:\/\/clip\.vn\/watch\/(?:[\w-]+,)?([\w-]+)\/?/i,
 
     mixins: ["*"],
+    highestPriority: true,    
 
     getLink: function(urlMatch) {
         return {
@@ -12,6 +13,12 @@ module.exports = {
             'aspect-ratio': 640/389
         };
     },
+
+    getMeta: function(urlMatch) {
+        return {
+            "media": "player"
+        };
+    },    
 
     tests: [{
         pageWithFeed: "http://clip.vn/"
