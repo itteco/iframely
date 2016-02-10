@@ -15,7 +15,7 @@ module.exports = {
         }
 
         return {
-                href: 'http://videoapi.my.mail.ru/videos/embed/' + url.replace(/^https?:\/\/my\.mail\.ru\//, '').replace(/^inbox/, 'mail'),
+                href: '//videoapi.my.mail.ru/videos/embed/' + url.replace(/^https?:\/\/my\.mail\.ru\//, '').replace(/^inbox/, 'mail'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
