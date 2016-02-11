@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [        
-        /https?:\/\/www\.cc\.com\/video\-clips\//i
+        /https?:\/\/www\.cc\.com\/video\-(clips|collections)\//i
     ],
 
     mixins: ["*"],
@@ -25,6 +25,7 @@ module.exports = {
     },
 
     tests: [
-        "http://www.cc.com/video-clips/4hfvws/the-daily-show-with-trevor-noah-jon-stewart-returns-to-shame-congress"
+        "http://www.cc.com/video-clips/4hfvws/the-daily-show-with-trevor-noah-jon-stewart-returns-to-shame-congress",
+        "http://www.cc.com/video-collections/igf7f1/the-daily-show-with-jon-stewart-jon-s-final-episode/bjutn7?xrs=share_copy_email"
     ]
 };
