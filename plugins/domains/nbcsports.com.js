@@ -8,20 +8,28 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(twitter) {
+    getLink: function(twitter, cheerio) {
 
         if (twitter.player) {
 
-            return {
-                href: twitter.player.stream.value || twitter.player.stream,
-                type: CONFIG.T.maybe_text_html, // verify, it is likely a text/html rather than mp4
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": 16 / 9 // twitter.player width & height are incorrect
+            var $player = cheerio('#vod-player');
+
+            if ($player.length) {
+                
+                var src = $player.attr('src');
+                
+                return {
+                    href: src.match(/\/\/vplayer\.nbcsports\.com\/p\/[a-zA-Z0-9_]+\/nbcsports\/select\/media\/[a-zA-Z0-9_]+/i)[0],
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    type: CONFIG.T.text_html,
+                    "aspect-ratio": 16/9
+                }
             }
         }
     },
 
     tests: [
-        "http://www.nbcsports.com/video/redskins-team-beat-wild-card-matchup-vs-packers"
+        "http://www.nbcsports.com/video/redskins-team-beat-wild-card-matchup-vs-packers",
+        "http://www.nbcsports.com/video/alex-morgan-scores-opening-12-seconds-vs-costa-rica"
     ]
 };
