@@ -73,6 +73,10 @@ module.exports = {
                     ttl: c.cache_ttl,
                     prepareResult: function(error, response, data, cb) {
 
+                        if (error) {
+                            return cb(error);
+                        }
+
                         if (response.fromRequestCache) {
                             if (blockExpireIn > 0) {
                                 sysUtils.log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
