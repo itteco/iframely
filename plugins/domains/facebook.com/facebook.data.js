@@ -3,7 +3,7 @@ module.exports = {
     // It's official: https://developers.facebook.com/docs/plugins/oembed-endpoints
 
     mixins: [
-        "domain-favicon",
+        "domain-icon",
         "oembed-author",
         "oembed-canonical",
         "oembed-site"
