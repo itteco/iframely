@@ -16,12 +16,16 @@ module.exports = {
             var description = oembed.html.match(/<p>([^<>]+)<\/p>/i);
             description = description ? description[1]: '';
 
+            var author = oembed.html.match(/Posted by <a(?:[^<>]+)>([^<>]+)<\/a>/);
+            author = author ? author[1]: oembed.author_name;
+
             var title = oembed.html.match(/>([^<>]+)<\/a><p>/i);
-            title = title ? title [1] : oembed.author_name;
+            title = title ? title[1] : author;
 
             return {
                 title: title,
-                description: description 
+                description: description,
+                author: author
             };
         }
     },

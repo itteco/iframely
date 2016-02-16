@@ -5,6 +5,19 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
     ],
 
+    getMeta: function(oembed, urlMatch) {
+
+        if (oembed.html) {
+
+            var title = oembed.html.match(/>([^<>]+)<\/a><\/blockquote>/i);
+            title = title ? title[1] : urlMatch[2];
+
+            return {
+                title: title
+            };
+        }
+    },    
+
     getLink: function(oembed, meta, options) {
 
         // skip user profiles - they can not be embedded        
