@@ -13,7 +13,7 @@ module.exports = {
 
         if (oembed.html) {
 
-            var description = oembed.html.match(/<p>(.*?)<\/p>/i);
+            var description = oembed.html.match(/<p>([^<>]+)<\/p>/i);
             description = description ? description[1]: '';
 
             var title = oembed.html.match(/>([^<>]+)<\/a><p>/i);
