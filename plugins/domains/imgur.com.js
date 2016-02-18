@@ -18,7 +18,7 @@ module.exports = {
         "oembed-site"
     ],
     
-    getLinks: function(urlMatch, oembed, meta, twitter, options) {
+    getLinks: function(urlMatch, oembed, twitter, options) {
 
         var links = [];
 
@@ -26,9 +26,7 @@ module.exports = {
             links.push({
                 href: twitter.image,
                 type: CONFIG.T.image_jpeg,
-                rel: CONFIG.R.image,
-                width: meta.og && meta.og.image && meta.og.image.width,
-                height: meta.og && meta.og.image && meta.og.image.height
+                rel: CONFIG.R.image
             });
         }
 
@@ -36,7 +34,7 @@ module.exports = {
             // oembed photo isn't used as of May 18, 2015
 
             var media_only = options.getProviderOptions('imgur.media_only', false);
-            var isGallery = twitter.card == "gallery";
+            var isGallery = twitter.card !== 'player' && links.length === 0;
 
             if (!media_only || isGallery) {
                 links.push({
@@ -59,19 +57,23 @@ module.exports = {
         return links;
     },
 
-    getData: function (meta, urlMatch, cb) {
+    getData: function (meta, url, urlMatch, cb) {
 
-         var links =  ['json', 'xml'].map(function(format) {
+        if (url.indexOf('/topic/') > -1) {
+            var links =  ['json', 'xml'].map(function(format) {
                 return {
-                    href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + (meta.twitter && meta.twitter.card == 'gallery' ? 'a/' : '') + urlMatch[1] ,
+                    href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + urlMatch[1],
                     rel: 'alternate',
                     type: 'application/' + format + '+oembed'
                 }
-            });        
+            });
 
-        cb(null, {
-            oembedLinks: links
-        });            
+            cb(null, {
+                oembedLinks: links
+            });
+        } else {
+            cb();
+        }
     },
 
     tests: [{
