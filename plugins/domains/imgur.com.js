@@ -57,10 +57,12 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, urlMatch, twitter, cb) {
+    getData: function (url, urlMatch, meta, cb) {
 
         var isGallery = false;
         var isA = url.indexOf('/a/') > -1;
+
+        var twitter = meta.twitter;
 
         if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1) {
             isGallery = twitter.card !== 'player';
