@@ -1,5 +1,4 @@
 var cheerio = require('cheerio');
-var crypto = require('crypto'); // temp
 
 module.exports = {
 
@@ -27,15 +26,9 @@ module.exports = {
 
         var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer%2Cstatus&key=" + api_key + "&id=" + urlMatch[1];
 
-        var cache_key = '"' + crypto.createHash('md5').update(JSON.stringify({
-            uri: "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer&key=" + api_key + "&id=" + urlMatch[1], //old_one
-            json: true
-        })).digest("hex") + '"';
-
         request({
             uri: statsUri,
-            cache_key: cache_key,
-            new_cache_key: "youtube:gdata:" + urlMatch[1],
+            cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
             prepareResult: function(error, b, data, cb) {
 
