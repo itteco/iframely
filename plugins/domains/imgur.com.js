@@ -18,7 +18,19 @@ module.exports = {
         "oembed-site"
     ],
     
-    getLink: function(oembed, twitter, options) {
+    getLinks: function(urlMatch, oembed, meta, twitter, options) {
+
+        var links = [];
+
+        if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1) {
+            links.push({
+                href: twitter.image,
+                type: CONFIG.T.image_jpeg,
+                rel: CONFIG.R.image,
+                width: meta.og && meta.og.image && meta.og.image.width,
+                height: meta.og && meta.og.image && meta.og.image.height
+            });
+        }
 
         if (oembed.type == "rich") {
             // oembed photo isn't used as of May 18, 2015
@@ -26,23 +38,25 @@ module.exports = {
             var media_only = options.getProviderOptions('imgur.media_only', false);
             var isGallery = twitter.card == "gallery";
 
-            if (!media_only || isGallery) {                
-                return {
+            if (!media_only || isGallery) {
+                links.push({
                     html: oembed.html,
                     width: oembed.width,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl]
-                };
+                });
             } else {
-                return {
+                links.push({
                     href: "http://s.imgur.com/images/favicon-96x96.png",
                     width: 96,
                     height: 96,
                     type: CONFIG.T.image_png,
                     rel: CONFIG.R.icon
-                }
+                });
             }
         }
+
+        return links;
     },
 
     getData: function (meta, urlMatch, cb) {
