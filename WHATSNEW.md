@@ -4,6 +4,15 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
 
+### 2016.02.18, Version 0.9.3
+
+ - Fix errors for Facebook videos where origin pages return sparadic HTTP code 500 ([#106](https://github.com/itteco/iframely/issues/106))
+ - Twitter retired 1.1 API for oEmbed from their documentation. oAuth configuration is now optional
+ - 500px provides HTML embeds for photos now
+ - Fix NHL after their site's re-design
+ - Minor fixes for number of other domain parsers
+
+
 ### 2016.01.26, Version 0.9.2
 
  - Domains clean up & maintenance
