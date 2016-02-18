@@ -22,19 +22,26 @@ module.exports = {
             return cb('Twitter API Disabled');
         }
 
-        var oauth = {
-            consumer_key: c.consumer_key,
-            consumer_secret: c.consumer_secret,
-            token: c.access_token,
-            token_secret: c.access_token_secret
-        };
+        var oauth = c.consumer_key 
+            ? {
+                consumer_key: c.consumer_key,
+                consumer_secret: c.consumer_secret,
+                token: c.access_token,
+                token_secret: c.access_token_secret
+            } : false;
+
         var blockExpireIn = 0;
         var block_key = 'twbl:' + c.consumer_key;
 
         async.waterfall([
 
             function(cb) {
-                cache.get(block_key, cb);
+
+                if (oauth) {
+                    cache.get(block_key, cb);
+                } else {
+                    cb(null, null);
+                }
             },
 
             function(expireIn, cb) {
@@ -46,7 +53,7 @@ module.exports = {
                     }
                 }
 
-                var url = "https://api.twitter.com/1" + (blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
+                var url = "https://api.twitter.com/1" + (!oauth || blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
 
                 var qs = {
                     id: id,
@@ -75,10 +82,11 @@ module.exports = {
                             }
                         }
 
-                        // Do not block api if data from cache.
-                        if (!response.fromRequestCache) {
+                        // Do not block 1.1 api if data from cache.
+                        if (oauth && !response.fromRequestCache) {
 
                             var remaining = parseInt(response.headers['x-rate-limit-remaining']);
+                            console.log('x-rate-limit-remaining: ' + remaining);
 
                             if (response.statusCode === 429 || remaining <= 7) {
                                 var now = Math.round(new Date().getTime() / 1000);
@@ -120,7 +128,7 @@ module.exports = {
 
                         cb(error, data);
                     }
-                }, (blockExpireIn > 0 ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
+                }, (!oauth || blockExpireIn ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
 
             }
 
