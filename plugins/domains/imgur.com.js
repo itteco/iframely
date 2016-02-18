@@ -65,6 +65,7 @@ module.exports = {
         var twitter = meta.twitter;
 
         if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1) {
+        } else {
             isGallery = twitter.card !== 'player';
         }
 
