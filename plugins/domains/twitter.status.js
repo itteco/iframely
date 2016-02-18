@@ -29,12 +29,25 @@ module.exports = {
             token: c.access_token,
             token_secret: c.access_token_secret
         };
+        var blockExpireIn = 0;
+        var block_key = 'twbl:' + c.consumer_key;
 
         async.waterfall([
 
             function(cb) {
+                cache.get(block_key, cb);
+            },
 
-                var url = "https://api.twitter.com/1/statuses/oembed.json";
+            function(expireIn, cb) {
+
+                if (expireIn) {
+                    var now = Math.round(new Date().getTime() / 1000);
+                    if (expireIn > now) {
+                        blockExpireIn = expireIn - now;
+                    }
+                }
+
+                var url = "https://api.twitter.com/1" + (blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
 
                 var qs = {
                     id: id,
@@ -50,7 +63,8 @@ module.exports = {
                         json: true
                     })).digest("hex") + '"';
 
-                request({
+
+                request(_.extend({
                     url: url,
                     qs: qs,
                     json: true,
@@ -63,6 +77,48 @@ module.exports = {
                             return cb(error);
                         }
 
+                        if (response.fromRequestCache) {
+                            if (blockExpireIn > 0) {
+                                sysUtils.log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
+                            } else {
+                                sysUtils.log('   -- Twitter API cache used.');
+                            }
+                        }
+
+                        // Do not block api if data from cache.
+                        if (!response.fromRequestCache) {
+
+                            var remaining = parseInt(response.headers['x-rate-limit-remaining']);
+
+                            if (response.statusCode === 429 || remaining <= 7) {
+                                var now = Math.round(new Date().getTime() / 1000);
+                                var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
+                                var ttl = limitResetAt - now;
+
+                                // Do not allow ttl 0.
+                                // 5 seconds - to cover possible time difference with twitter.
+                                if (ttl < 5) {
+                                    ttl = 5;
+                                }
+
+                                // Block maximum for 15 minutes.
+                                if (ttl > 15*60) {
+                                    ttl = 15*60
+                                }
+
+                                if (response.statusCode === 429) {
+                                    sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
+                                } else {
+                                    sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
+                                }
+
+                                // Store expire date as value to be sure it past.
+                                var expireIn = now + ttl;
+
+                                cache.set(block_key, expireIn, {ttl: ttl});
+                            }
+                        }
+
                         if (response.statusCode !== 200) {
                             return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
                         }
@@ -71,9 +127,11 @@ module.exports = {
                             return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
                         }
 
+
                         cb(error, data);
                     }
-                }, cb);
+                }, (blockExpireIn > 0 ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
+
             }
 
         ], function(error, oembed) {
