@@ -86,7 +86,6 @@ module.exports = {
                         if (oauth && !response.fromRequestCache) {
 
                             var remaining = parseInt(response.headers['x-rate-limit-remaining']);
-                            console.log('x-rate-limit-remaining: ' + remaining);
 
                             if (response.statusCode === 429 || remaining <= 7) {
                                 var now = Math.round(new Date().getTime() / 1000);
