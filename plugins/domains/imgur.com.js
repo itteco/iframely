@@ -59,27 +59,22 @@ module.exports = {
 
     getData: function (meta, url, urlMatch, cb) {
 
-        if (url.indexOf('/topic/') > -1) {
-            var links =  ['json', 'xml'].map(function(format) {
-                return {
-                    href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + urlMatch[1],
-                    rel: 'alternate',
-                    type: 'application/' + format + '+oembed'
-                }
-            });
+        var links =  ['json', 'xml'].map(function(format) {
+            return {
+                href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + urlMatch[1],
+                rel: 'alternate',
+                type: 'application/' + format + '+oembed'
+            }
+        });
 
-            cb(null, {
-                oembedLinks: links
-            });
-        } else {
-            cb();
-        }
+        cb(null, {
+            oembedLinks: links
+        });
     },
 
     tests: [{
         pageWithFeed: "http://imgur.com/"
     }, {
-        skipMethods: ["getData"],
         skipMixins: [
             "twitter-image",
             "twitter-stream",       // works for GIFvs only
