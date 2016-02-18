@@ -79,6 +79,7 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://imgur.com/"
     }, {
+        skipMethods: ["getData"],
         skipMixins: [
             "twitter-image",
             "twitter-stream",       // works for GIFvs only
