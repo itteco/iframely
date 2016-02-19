@@ -18,46 +18,68 @@ module.exports = {
         "oembed-site"
     ],
     
-    getLink: function(oembed, twitter, options) {
+    getLinks: function(urlMatch, oembed, twitter, options) {
+
+        var links = [];
+
+        if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1) {
+            links.push({
+                href: twitter.image,
+                type: CONFIG.T.image_jpeg,
+                rel: CONFIG.R.image
+            });
+        }
 
         if (oembed.type == "rich") {
             // oembed photo isn't used as of May 18, 2015
 
             var media_only = options.getProviderOptions('imgur.media_only', false);
-            var isGallery = twitter.card == "gallery";
+            var isGallery = twitter.card !== 'player' && links.length === 0;
 
-            if (!media_only || isGallery) {                
-                return {
+            if (!media_only || isGallery) {
+                links.push({
                     html: oembed.html,
                     width: oembed.width,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl]
-                };
+                });
             } else {
-                return {
+                links.push({
                     href: "http://s.imgur.com/images/favicon-96x96.png",
                     width: 96,
                     height: 96,
                     type: CONFIG.T.image_png,
                     rel: CONFIG.R.icon
-                }
+                });
             }
         }
+
+        return links;
     },
 
-    getData: function (meta, urlMatch, cb) {
+    getData: function (url, urlMatch, meta, cb) {
 
-         var links =  ['json', 'xml'].map(function(format) {
-                return {
-                    href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + (meta.twitter && meta.twitter.card == 'gallery' ? 'a/' : '') + urlMatch[1] ,
-                    rel: 'alternate',
-                    type: 'application/' + format + '+oembed'
-                }
-            });        
+        var isGallery = false;
+        var isA = url.indexOf('/a/') > -1;
+
+        var twitter = meta.twitter;
+
+        if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1) {
+        } else {
+            isGallery = twitter.card !== 'player';
+        }
+
+        var links =  ['json', 'xml'].map(function(format) {
+            return {
+                href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + (isGallery || isA ? 'a/' : '') + urlMatch[1],
+                rel: 'alternate',
+                type: 'application/' + format + '+oembed'
+            }
+        });
 
         cb(null, {
             oembedLinks: links
-        });            
+        });
     },
 
     tests: [{
@@ -79,6 +101,7 @@ module.exports = {
         "https://imgur.com/gallery/kkEzJsa",
         "http://imgur.com/t/workout/HFwjGoF",
         "http://imgur.com/t/water/ud7YwQp",
-        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl"
+        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl",
+        "http://imgur.com/a/G1oOO"
     ]
 };

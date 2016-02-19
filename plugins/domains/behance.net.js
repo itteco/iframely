@@ -45,7 +45,8 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.oembed, CONFIG.R.html5],
                 "min-width": oembed.thumbnail_width,
-                "min-height": oembed.thumbnail_height
+                "min-height": oembed.thumbnail_height,
+                "aspect-ratio": 1 / Math.sqrt(2) // A4
             };
         }
     },

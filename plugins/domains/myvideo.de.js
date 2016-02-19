@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.myvideo\.de\/watch\/([0-9]+)/i
+        /^https?:\/\/www\.myvideo\.de\/watch\/([0-9]+)/i,
+        /^https?:\/\/www\.myvideo\.de[\/a-zA-Z0-9\-]+\/[a-zA-Z0-9\-]+\-m\-(\d+)/i
         // the rest should be covered by whitelist via embedURL - it verifies permissions etc
     ],
 
@@ -19,6 +20,8 @@ module.exports = {
     },
 
     tests: [
-        "http://www.myvideo.de/watch/9790416/Balbina_Seife_feat_Maeckes"
+        "http://www.myvideo.de/watch/9790416/Balbina_Seife_feat_Maeckes",
+        "http://www.myvideo.de/filme/cristiano-ronaldo-feet-m-11870130",
+        "http://www.myvideo.de/serien/zoo/highlights/preview-folge-9-gefahr-droht-oben-m-12145697"
     ]
 };

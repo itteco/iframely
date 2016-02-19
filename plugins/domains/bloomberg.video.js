@@ -1,7 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.bloomberg\.com\/news\/videos\/(\d{4}\-\d{2}\-\d{2}\/[a-zA-Z0-9\-]+)/i
+        /^https?:\/\/www\.bloomberg\.com\/news\/videos\/(\d{4}\-\d{2}\-\d{2}\/[a-zA-Z0-9\-]+)/i,
+        /^https?:\/\/www\.bloomberg\.com\/news\/videos\/(b\/[a-zA-Z0-9-]+)/i,
+        /^https?:\/\/www\.bloomberg\.com\/video\/([a-zA-Z0-9-]+)\.html$/i
     ],
 
     mixins: ['*'],

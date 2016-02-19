@@ -23,19 +23,26 @@ module.exports = {
         };
     },
 
-    getLinks: function(meta) {
-        return {
-            href: meta["shortcut icon"].href,
-            type: CONFIG.T.image_icon,
-            rel: CONFIG.R.icon,
-            width: 32,
-            height: 32
+    getLinks: function(url, oembed) {
+        if (oembed.type === 'photo') {
+            return {
+                template_context: {
+                    title: oembed.title + ' | ' + oembed.provider_name,
+                    img_src: oembed.url,
+                    canonical: url
+                },
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.image, CONFIG.R.inline, CONFIG.R.html5, CONFIG.R.ssl],
+                "aspect-ratio": oembed.width / oembed.height
+
+            }
         }
     },
 
     tests: [{
         pageWithFeed: "https://500px.com/flow"
     },
-        "http://500px.com/photo/13541787?from=upcoming"
+        "http://500px.com/photo/13541787?from=upcoming",
+        "https://500px.com/photo/56891080/frozen-by-ryan-pendleton?ctx_page=1&from=user&user_id=116369"
     ]
 };

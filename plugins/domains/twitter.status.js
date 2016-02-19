@@ -2,7 +2,6 @@ var async = require('async');
 var cache = require('../../lib/cache');
 var sysUtils = require('../../logging');
 var _ = require('underscore');
-var crypto = require('crypto'); // temp
 
 module.exports = {
 
@@ -23,19 +22,26 @@ module.exports = {
             return cb('Twitter API Disabled');
         }
 
-        var oauth = {
-            consumer_key: c.consumer_key,
-            consumer_secret: c.consumer_secret,
-            token: c.access_token,
-            token_secret: c.access_token_secret
-        };
+        var oauth = c.consumer_key 
+            ? {
+                consumer_key: c.consumer_key,
+                consumer_secret: c.consumer_secret,
+                token: c.access_token,
+                token_secret: c.access_token_secret
+            } : false;
+
         var blockExpireIn = 0;
         var block_key = 'twbl:' + c.consumer_key;
 
         async.waterfall([
 
             function(cb) {
-                cache.get(block_key, cb);
+
+                if (oauth) {
+                    cache.get(block_key, cb);
+                } else {
+                    cb(null, null);
+                }
             },
 
             function(expireIn, cb) {
@@ -47,7 +53,7 @@ module.exports = {
                     }
                 }
 
-                var url = "https://api.twitter.com/1" + (blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
+                var url = "https://api.twitter.com/1" + (!oauth || blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
 
                 var qs = {
                     id: id,
@@ -56,22 +62,17 @@ module.exports = {
                     omit_script: c.omit_script
                 };
 
-                var cache_key = '"' + crypto.createHash('md5').update(JSON.stringify({
-                        url: 'https://api.twitter.com/1.1/statuses/oembed.json',
-                        qs: qs,
-                        oauth: oauth,
-                        json: true
-                    })).digest("hex") + '"';
-
-
                 request(_.extend({
                     url: url,
                     qs: qs,
                     json: true,
-                    cache_key: cache_key,
-                    new_cache_key: 'twitter:oembed:' + id,
+                    cache_key: 'twitter:oembed:' + id,
                     ttl: c.cache_ttl,
                     prepareResult: function(error, response, data, cb) {
+
+                        if (error) {
+                            return cb(error);
+                        }
 
                         if (response.fromRequestCache) {
                             if (blockExpireIn > 0) {
@@ -81,8 +82,8 @@ module.exports = {
                             }
                         }
 
-                        // Do not block api if data from cache.
-                        if (!response.fromRequestCache) {
+                        // Do not block 1.1 api if data from cache.
+                        if (oauth && !response.fromRequestCache) {
 
                             var remaining = parseInt(response.headers['x-rate-limit-remaining']);
 
@@ -126,7 +127,7 @@ module.exports = {
 
                         cb(error, data);
                     }
-                }, (blockExpireIn > 0 ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
+                }, (!oauth || blockExpireIn ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
 
             }
 
