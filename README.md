@@ -1,6 +1,6 @@
 # Iframely API for Responsive Web Embeds
 
-Iframely is fast and simple HTTP API for responsive web embeds and semantic meta. The API covers well [over 1600 domains](https://iframely.com/try) through 150 custom domain plugins and generic parsers for [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards), powered by Iframely's whitelist. 
+Iframely is fast and simple HTTP API for responsive web embeds and semantic meta. The API covers well [over 1600 domains](https://iframely.com/try) through 150 custom domain plugins and generic parsers for [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/cards/overview), powered by Iframely's whitelist. 
 
 The whitelisting is manual process, and we do every-day manual regression testing to ensure integrity. [Submit your domain](https://iframely.com/qa/request), if you publish embeds.
 
@@ -38,7 +38,7 @@ We have provided specific endpoint for the use in open source projects. Read mor
 
 ## Contribute
 
-We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions. Our support email is support at iframely.com
+We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](https://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions. Our support email is support at iframely.com
 
 Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
