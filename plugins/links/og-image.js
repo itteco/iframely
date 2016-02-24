@@ -6,7 +6,7 @@ function getImageLinks(image) {
 
     var images = [{
         href: image.url || image,
-        type: image.type || CONFIG.T.image,
+        type: image.type && /^image\//i.test(image.type) ? image.type : CONFIG.T.image,
         rel: rel,
         width: image.width,
         height: image.height
@@ -15,7 +15,7 @@ function getImageLinks(image) {
     if (image.secure_url) {
         images.push({
             href: image.secure_url,
-            type: image.type || CONFIG.T.image,
+            type: image.type && /^image\//i.test(image.type) ? image.type : CONFIG.T.image,
             rel: rel,
             width: image.width,
             height: image.height
