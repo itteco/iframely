@@ -97,6 +97,11 @@
             }
         }],
 
+        PROXY: [{
+            re: [/^https?:\/\/www\.domain\.com/],
+            proxy_server: 'http://1.2.3.4:8080'
+        }]
+
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
             "twitter": {
