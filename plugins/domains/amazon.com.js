@@ -3,8 +3,8 @@ var $ = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.amazon\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|pl|co\.uk|co\.jp)\/([a-zA-Z0-9\-]+\/)?dp\/[a-zA-Z0-9\-]+/i,
-        /^https?:\/\/www\.amazon\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|pl|co\.uk|co\.jp)\/gp\/product\/[a-zA-Z0-9\-]+/i
+        /^https?:\/\/www\.amazon\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|pl|co\.uk|co\.jp)\/([a-zA-Z0-9\-%]+\/)?dp\/[a-zA-Z0-9\-]+/i,
+        /^https?:\/\/www\.amazon\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|pl|co\.uk|co\.jp)\/gp\/product\/[a-zA-Z0-9\-%]+/i
     ],
 
     provides: "__isAmazonImageNeeded",
