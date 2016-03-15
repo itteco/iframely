@@ -31,7 +31,7 @@ module.exports = {
     },
 
     getData: function (meta) {
-        if ((meta.twitter && meta.twitter.image) || (meta.og && meta.og.image)) {
+        if (meta.twitter && meta.twitter.image) {
             return;
         } else {
             return {
@@ -46,6 +46,7 @@ module.exports = {
         "http://www.amazon.co.uk/Vegetable-Perfection-tasty-recipes-shoots/dp/1849757097/ref=asap_bc?ie=UTF8",
         "http://www.amazon.com/Tapestry-Hanging-Mandala-Tapestries-Bedspread/dp/B00ODVE012/ref=sr_1_75?s=furniture&ie=UTF8&qid=1450055989&sr=1-75&keywords=tapestry",
         "http://www.amazon.ca/The-Fight-Security-Failings-Political/dp/1250082986?tag=smarturl-ca-20",
-        "http://www.amazon.com/gp/product/B0057OC5O8/"
+        "http://www.amazon.com/gp/product/B0057OC5O8/",
+        "http://www.amazon.com/The-Borderland-A-Novel-Texas/dp/0786884932"
     ]
 };
