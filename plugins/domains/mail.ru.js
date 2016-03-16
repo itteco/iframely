@@ -15,7 +15,7 @@ module.exports = {
         }
 
         return {
-                href: '//videoapi.my.mail.ru/videos/embed/' + url.replace(/^https?:\/\/my\.mail\.ru\//, '').replace(/^inbox/, 'mail'),
+                href: '//videoapi.my.mail.ru/videos/embed/' + url.replace(/^https?:\/\/my\.mail\.ru\//, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": 626 / 367
@@ -25,6 +25,7 @@ module.exports = {
     tests: [
         "http://my.mail.ru/mail/ee.vlz/video/22396/44907.html",
         "http://my.mail.ru/mail/stryukova_lv/video/6177/1029.html",
-        "http://my.mail.ru/mail/shiniavskii/video/_myvideo/4.html"
+        "http://my.mail.ru/mail/shiniavskii/video/_myvideo/4.html",
+        "https://my.mail.ru/inbox/wwf00/video/11/46.html"
     ]
 };
