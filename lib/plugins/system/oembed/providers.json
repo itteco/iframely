@@ -467,5 +467,12 @@
             "interlude.fm/v/([a-zA-Z0-9-]+)"
         ],
         "endpoint": "https://v.interlude.fm/oembed?vid={1}"
+    },
+    {
+        "name": "NYTimes",
+        "templates": [
+            "www\\.nytimes\\.com/(interactive|video)/"            
+        ],
+        "endpoint": "http://www.nytimes.com/svc/oembed/json/"
     }
 ]
