@@ -21,7 +21,7 @@ module.exports = {
             return {
                 href: schemaVideoObject.contentURL || schemaVideoObject.contentUrl,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html, 
+                type: CONFIG.T.maybe_text_html
                 // "aspect-ratio": use default
             };
         }
