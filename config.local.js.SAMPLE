@@ -23,7 +23,8 @@
             // /^https?:\/\/yourdomain\.com\//,
         ],
 
-        port: 8061,
+        port: 8061, //can be overridden by PORT env var
+        host: 'localhost', //can be overridden by HOST env var
 
         // Optional SSL cert, if you serve under HTTPS. 
         /*
