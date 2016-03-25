@@ -9,6 +9,7 @@ module.exports = {
 
     mixins: [
         "oembed-thumbnail",
+        "domain-icon",
         "oembed-author",
         "oembed-canonical",
         "media-detector",
