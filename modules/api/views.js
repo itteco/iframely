@@ -56,7 +56,7 @@ module.exports = function(app) {
             return next(new Error("local domains not supported"));
         }
 
-        log('Loading /iframely for', uri);
+        log(req, 'Loading /iframely for', uri);
 
         async.waterfall([
 
@@ -188,7 +188,7 @@ module.exports = function(app) {
             return next(new Error("local domains not supported"));
         }
 
-        log('Loading /reader for', uri);
+        log(req, 'Loading /reader for', uri);
 
         async.waterfall([
 
@@ -251,7 +251,7 @@ module.exports = function(app) {
             return next(new Error("local domains not supported"));
         }
 
-        log('Loading /render for', uri);
+        log(req, 'Loading /render for', uri);
 
         async.waterfall([
 
@@ -366,7 +366,7 @@ module.exports = function(app) {
             return next(new Error("local domains not supported"));
         }
 
-        log('Loading /oembed for', uri);
+        log(req, 'Loading /oembed for', uri);
 
         async.waterfall([
 
