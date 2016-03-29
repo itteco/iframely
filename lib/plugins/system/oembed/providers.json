@@ -474,5 +474,13 @@
             "www\\.nytimes\\.com/(interactive|video)/"            
         ],
         "endpoint": "http://www.nytimes.com/svc/oembed/json/"
+    },
+    {
+        "name": "Academie de Bordeaux",
+        "templates": [
+            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)"
+            
+        ],
+        "endpoint": "http://{1}.ac-bordeaux.fr/mediacad/default/media/display/{2}/d/j?format={format}"
     }
 ]
