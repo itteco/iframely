@@ -13,7 +13,7 @@ module.exports = {
 
         if (meta.medium == "video") {
             return {
-                href: "//graphics8.nytimes.com/bcvideo/1.0/iframe/embed.html?videoId=" + urlMatch[1] + "&playerType=embed",
+                href: "//graphics8.nytimes.com/video/players/offsite/index.html?videoId=" + urlMatch[1],                
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 1.45 // seems to work well on diff widths                
