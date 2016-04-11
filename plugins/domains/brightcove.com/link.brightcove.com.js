@@ -2,6 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/link\.brightcove\.com\/services\/player\//i,
+        /^https?:\/\/link\.brightcove\.co.jp\/services\/player\//i,
         /^https?:\/\/[a-z\-]+\.\w+\.(com|org|net|co|)\/services\/player\/bcpid\d+\/?\?bc/i
     ],
 
