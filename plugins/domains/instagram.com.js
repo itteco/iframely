@@ -16,7 +16,7 @@ module.exports = {
 
     getMeta: function (og) {
 
-        var match = og.title.match(/[a-zA-Z0-9\s]+on\sInstagram/i);
+        var match = og.title.match(/[^:]+on\sInstagram/i);
 
         return {
             title: match ? match[0] : "Post on Instagram",

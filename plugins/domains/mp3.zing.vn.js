@@ -2,7 +2,16 @@ module.exports = {
 
     re: /^https?:\/\/mp3\.zing\.vn\/([a-zA-Z-]+)\/[0-9a-zA-Z-]+\/(\w+)\.html/i,
 
-    mixins: ['*'],
+    mixins: [
+        "og-image",
+        "favicon",
+        "canonical",
+        "og-description",
+        "keywords",
+        "geo-url",
+        "og-site",
+        "og-title"
+    ],
 
     getLink: function(og, urlMatch) {
 
