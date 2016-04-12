@@ -30,12 +30,6 @@ module.exports = {
         if (oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
             var links = [];
 
-            var aspect = oembed.width / oembed.height;
-            // It is actually hardcoded to 4:3 + 38px for nav bar :(
-            // So we'll try to optimize it for option.maxwidth || 600px
-            // For this, we'll get the aspect of the first slide - we need it anyway
-
-
             var firstSlide = (/^\/\//.test(oembed.slide_image_baseurl) ? 'http:' : '') + oembed.slide_image_baseurl + '1' + oembed.slide_image_baseurl_suffix;
 
             utils.getImageMetadata(firstSlide, options, function(error, data) {
@@ -53,10 +47,6 @@ module.exports = {
                         width: data.width,
                         height: data.height
                     });
-
-                    var width = options.maxWidth || options.getProviderOptions('slideshare.width', 600);
-                    aspect = width / (width / (data.width / data.height) + 38);
-
                 }
 
                 var $container = $('<div>');
@@ -71,7 +61,8 @@ module.exports = {
                         href: $iframe.attr('src').replace('http:', ''),
                         type: CONFIG.T.text_html,
                         rel: [CONFIG.R.player, CONFIG.R.html5],
-                        "aspect-ratio": aspect
+                        "aspect-ratio": data.width / data.height,
+                        "padding-bottom": 38
                     });
                 }
 
