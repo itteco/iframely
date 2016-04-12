@@ -23,7 +23,8 @@ module.exports = {
                 href: schemaVideoObject.embedURL || schemaVideoObject.embedUrl,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html, 
-                "aspect-ratio": 4/3 // Fixes it for NBC news
+                "aspect-ratio": 16/9,
+                'padding-bottom': 65 //ignore branding overlay of 50px- it gets removed on playback
             };
         }
     },
