@@ -61,7 +61,7 @@ module.exports = {
                         href: $iframe.attr('src').replace('http:', ''),
                         type: CONFIG.T.text_html,
                         rel: [CONFIG.R.player, CONFIG.R.html5],
-                        "aspect-ratio": data.width / data.height,
+                        "aspect-ratio": (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height,
                         "padding-bottom": 38
                     });
                 }
