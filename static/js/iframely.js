@@ -240,6 +240,10 @@
 
                 $container.css('padding-bottom', Math.round(1000 * 100 / media["aspect-ratio"]) / 1000 + '%');
 
+                if (media["padding-bottom"]) {
+                    $container.css('padding-top', media["padding-bottom"] + 'px');
+                }
+
             } else {
 
                 if (media.height) {
