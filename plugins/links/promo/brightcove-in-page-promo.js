@@ -22,22 +22,21 @@ module.exports = {
                     <script src="//players.brightcove.net/1125911414/VJ949r8Fg_default/index.min.js"></script>
         */
 
-        var $video = cheerio('video.video-js[id*="video-js-"]');
+        var $video = cheerio('video.video-js');
 
         if ($video.length == 1) {
 
             var embed = $video.attr('data-embed');
-            var id = $video.attr('id');
             var account = $video.attr('data-account');
             var player = $video.attr('data-player');
             var video_id = $video.attr('data-video-id');
 
             // Let's validate
-            if (!embed || !id || !account || !player || !video_id) {
+            if (!embed || !account || !player || !video_id) {
                 return;
             } 
 
-            if (embed !== 'default' || id.indexOf(video_id) ==-1 || !/^\d+$/.test(account) || !/^\d+$/.test(video_id)) {
+            if (embed !== 'default' || !/^\d+$/.test(account) || !/^\d+$/.test(video_id)) {
                 return;
             }
 
@@ -50,6 +49,7 @@ module.exports = {
     /**
     * http://www.hollywoodreporter.com/video/vin-diesel-voicing-groot-guardians-615140
     * http://www.billboard.com/articles/columns/rock/6605231/eddie-van-halen-addiction-david-lee-roth-touring?mobile_redirection=false
+    * http://www.mirror.co.uk/3am/celebrity-news/stephen-fry-blasted-dangerous-views-7733815
     */
 
 };
