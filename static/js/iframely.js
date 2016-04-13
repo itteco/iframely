@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.9.2
+     Version 0.9.4
 
      Fetches and renders iframely oebmed/2 widgets.
 
