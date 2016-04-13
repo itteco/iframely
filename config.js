@@ -78,7 +78,8 @@
             "height",
             "min-height",
             "max-height",
-            "aspect-ratio"
+            "aspect-ratio",
+            "padding-bottom"
         ],
 
         R: {

@@ -16,7 +16,8 @@ module.exports = {
                 href: "//graphics8.nytimes.com/video/players/offsite/index.html?videoId=" + urlMatch[1],                
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": 1.45 // seems to work well on diff widths                
+                "aspect-ratio": 16/9,
+                "padding-bottom": 71 + 1
             }
         }
     },
