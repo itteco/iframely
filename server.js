@@ -106,7 +106,9 @@ app.get('/', function(req, res) {
 process.title = "iframely";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-app.listen(CONFIG.port);
+var listener = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || CONFIG.host, function(){
+    console.log('\niframely is listening on ' + listener.address().address + ':' + listener.address().port + '\n');
+});
 
 if (CONFIG.ssl) {
     var options = { key: CONFIG.ssl.key, cert: CONFIG.ssl.cert };
@@ -114,7 +116,6 @@ if (CONFIG.ssl) {
 }
 
 console.log('');
-console.log('Iframely listening on port', CONFIG.port);
 console.log(' - support@iframely.com - if you need help');
 console.log(' - twitter.com/iframely - news & updates');
 console.log(' - github.com/itteco/iframely - star & contribute');

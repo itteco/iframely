@@ -20,9 +20,9 @@ module.exports = {
         }
 
         return {
-            href: "//pastebin.com/embed_iframe.php?i="+ urlMatch[1],
-            type: CONFIG.T.text_html,  // Will have scrollbars, true. However, JS embeds of PasteBin use document.write, and so do not work in async js apps
-            rel: CONFIG.R.reader
+            href: "//pastebin.com/embed_js/"+ urlMatch[1],
+            type: CONFIG.T.javascript,  
+            rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl]  // not inline
         }
     },
 

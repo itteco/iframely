@@ -467,5 +467,13 @@
             "interlude.fm/v/([a-zA-Z0-9-]+)"
         ],
         "endpoint": "https://v.interlude.fm/oembed?vid={1}"
+    },
+    {
+        "name": "Academie de Bordeaux",
+        "templates": [
+            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
+            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/(m/\\d+)"            
+        ],
+        "endpoint": "http://{1}.ac-bordeaux.fr/mediacad/default/media/display/{2}/d/j?format={format}"
     }
 ]

@@ -13,7 +13,8 @@ module.exports = {
     getMeta: function(oembed) {
 
         return {
-            canonical: "https://vimeo.com/" + oembed.video_id
+            canonical: "https://vimeo.com/" + oembed.video_id,
+            date: oembed.upload_date
         };
     },
 

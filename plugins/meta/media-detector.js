@@ -12,17 +12,20 @@ module.exports = {
 
                 has_player = true;
             }
+            
+        } else {
+            if (meta.video_src || meta.video_type) {
+                has_player = true;
+            }
+            if (meta.medium === 'video') {
+                has_player = true;
+            }
         }
+
         if (meta.twitter) {
             if (meta.twitter.player || meta.twitter.stream) {
                 has_player = true;
             }
-        }
-        if (meta.video_src || meta.video_type) {
-            has_player = true;
-        }
-        if (meta.medium === 'video') {
-            has_player = true;
         }
 
         if (has_player) {

@@ -6,20 +6,17 @@ module.exports = {
 
     mixins: ["*"],
 
-    getLink: function(sm4, cheerio) {
+    getLink: function(cheerio) {        
 
-        if (sm4.type && /video/i.test(sm4.type)) {
-
-            var $player = cheerio('.video_player[data-mgid*="mgid:arc:video:comedycentral.com"]');
+        var $player = cheerio('.video_player[data-mgid*="mgid:arc:video:comedycentral.com"]');
         
-            if ($player.length) {
-                return {
-                    href: "http://media.mtvnservices.com/embed/" + $player.attr('data-mgid'),
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player,  CONFIG.R.html5],
-                    "aspect-ratio": 512 / 288
+        if ($player.length) {
+            return {
+                href: "http://media.mtvnservices.com/embed/" + $player.attr('data-mgid'),
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player,  CONFIG.R.html5],
+                "aspect-ratio": 512 / 288
 
-                }
             }
         }
     },

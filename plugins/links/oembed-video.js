@@ -51,9 +51,12 @@ module.exports = {
 
     },
 
-    getMeta: function(oembed) {
+    highestPriority: true,
 
-        if (oembed.type === "video" || oembed.type === "audio") {
+    getMeta: function(oembed, whitelistRecord) {
+
+        if (oembed.type === "video" || oembed.type === "audio"
+            || (oembed.type === "rich" && !whitelistRecord.isDefault && whitelistRecord.isAllowed('oembed.rich') && whitelistRecord.isAllowed('oembed.rich', "player")) ) {
             return {
                 media: "player"
             };

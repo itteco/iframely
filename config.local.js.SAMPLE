@@ -23,7 +23,8 @@
             // /^https?:\/\/yourdomain\.com\//,
         ],
 
-        port: 8061,
+        port: 8061, //can be overridden by PORT env var
+        host: 'localhost', //can be overridden by HOST env var
 
         // Optional SSL cert, if you serve under HTTPS. 
         /*
@@ -96,6 +97,11 @@
                 "maxwidth": 600
             }
         }],
+
+        PROXY: [{
+            re: [/^https?:\/\/www\.domain\.com/],
+            proxy_server: 'http://1.2.3.4:8080'
+        }]
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {

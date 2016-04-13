@@ -1,12 +1,12 @@
 module.exports = {
 
-    provides: '__promoUri',    
+    provides: '__promoUri',
 
     getData: function(url, meta, whitelistRecord) {
 
         if (!whitelistRecord.isDefault && ((meta.og && meta.og.image) || (meta.twitter && meta.twitter.image))) {return;}
 
-        if (url.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\?/i)) {return;}
+        if (url.match(/^https?:\/\/link\.brightcove\.(?:com|co\.jp)\/services\/player\/bcpid(\d+)\?/i)) {return;}
         // do not process links to itself, otherwise -> infinite recursion
 
 
@@ -20,12 +20,12 @@ module.exports = {
             video_src = ogv && (ogv.url || ogv.secure_url);          
         }
 
-        if (!video_src || !/\.brightcove\.com\/services\//i.test(video_src)) {
+        if (!video_src || !/\.brightcove\.(?:com|co\.jp)\/services\//i.test(video_src)) {
             return;
         }
         
 
-        var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.com\/services\/player\/bcpid(\d+)\/?\?/i);
+        var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.(?:com|co\.jp)\/services\/player\/bcpid(\d+)\/?\?/i);
 
         if (urlMatch) {
 
@@ -34,14 +34,14 @@ module.exports = {
             };
         }
 
-        if (/^https?:\/\/(?:c|secure)\.brightcove\.com\/services\/viewer\/federated_f9\//i.test(video_src)) {
+        if (/^https?:\/\/(?:c|secure)\.brightcove\.(?:com|co\.jp)\/services\/viewer\/federated_f9\/?/i.test(video_src)) {
             var playerID = video_src.match(/playerID=([^&]+)/i);
             var videoID = video_src.match(/videoID=([^&]+)/i); // some have `Id` for some reason
 
             if (playerID && videoID) {
 
                 return {
-                    __promoUri: "http://link.brightcove.com/services/player/bcpid" + playerID[1] + "?bctid=" + videoID[1]
+                    __promoUri: "http://link.brightcove." + (/\.co\.jp/.test(video_src) ? 'co.jp' : 'com')+ "/services/player/bcpid" + playerID[1] + "?bctid=" + videoID[1]
                 };
             }
 
@@ -99,5 +99,8 @@ module.exports = {
         http://www.packersnews.com/videos/sports/nfl/packers/2015/08/15/31800211/
         http://www.shreveporttimes.com/videos/news/2015/08/18/31906711/
         http://www.hudsonstarobserver.com/video/4384889790001
+    */
+
+    /* http://tv.tokyo-gas.co.jp/watch/902548399002  - Japaneese
     */
 };

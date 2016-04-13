@@ -222,7 +222,7 @@
 
                                 if (head) {
 
-                                    log("Using cache for", req.url.replace(/\?.+/, ''), req.query.uri || req.query.url);
+                                    log(req, "Using cache for", req.url.replace(/\?.+/, ''), req.query.uri || req.query.url);
 
                                     var requestedEtag = req.headers['if-none-match'];
 

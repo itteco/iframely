@@ -1,3 +1,4 @@
+var utils = require('../../lib/utils');
 var cheerio = require('cheerio');
 
 module.exports = {
@@ -12,11 +13,11 @@ module.exports = {
 
         "twitter-player",
         "og-video",
-        "og-image",
+        // "og-image", // Added in getLinks
         "favicon"
     ],
 
-    getLink: function (meta, oembed) {
+    getLinks: function (meta, oembed, options, cb) {
 
         // When there is no project video, Kikstarter's oEmbed has diff output
         // 'meta' param is there to determine if there's a video
@@ -25,14 +26,6 @@ module.exports = {
         // Also, unfortunatelly, Kickstarter oEmbed API doesn't accept all canonical addresses.
         // We have to rely on auto-discovery as it seems to work. 
         // Ex.: https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data/posts/1148266
-
-        var links = [{
-            href: oembed.thumbnail_url,
-            rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-            type: CONFIG.T.image,
-            width: oembed.thumbnail_width,
-            height: oembed.thumbnail_height
-        }];
 
         var $container = cheerio('<div>');
 
@@ -48,27 +41,62 @@ module.exports = {
 
             if ((meta.twitter && meta.twitter.card == 'player') || (meta.og && meta.og.type == 'video') || meta.video_src || (href && /video\.html$/.test(href))) {
 
-                links.push ({
-                    href: href,
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
-                    "aspect-ratio": oembed.width / oembed.height
+                var aspect = oembed.height ? oembed.width / oembed.height : 0;
+
+                // This is to fix incorrect aspect for both iFrame and images :\
+                utils.getImageMetadata((meta.og.image && meta.og.image.url) || oembed.thumbnail_url, options, function(error, data) {
+
+                    var links = [];
+
+                    if (error || data.error) {
+
+                        console.log ('Error getting og image for Kickstarter: ' + error);
+
+                    } else if (data.width && data.height) {
+
+                        links.push({
+                            href: (meta.og.image && meta.og.image.url) || oembed.thumbnail_url,
+                            type: CONFIG.T.image, 
+                            rel: CONFIG.R.thumbnail,
+                            width: data.width,
+                            height: data.height
+                        });
+                    
+                        aspect = Math.max(aspect, data.width / data.height);
+
+                    }
+
+                    links.push({
+                        href: href,
+                        type: CONFIG.T.text_html,
+                        rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
+                        "aspect-ratio": aspect
+                    });
+
+                    return cb(null, links);
+
                 });
 
 
             } else {
  
-                links.push ({
+                return cb(null, [{
                     href: href,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
                     width: oembed.width,
                     height: oembed.height
-                });
+                }, {
+                    href: oembed.thumbnail_url,
+                    rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+                    type: CONFIG.T.image
+                }]);
+                
             }
-        }
 
-        return links;
+        } else {
+            cb (null, null);
+        }        
 
     },
 
@@ -82,6 +110,7 @@ module.exports = {
     },
         "http://www.kickstarter.com/projects/1104350651/taktik-premium-protection-system-for-the-iphone",
         "https://www.kickstarter.com/projects/1578116861/toejam-and-earl-back-in-the-groove",
-        "https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data/posts/1148266"
+        "https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data/posts/1148266",
+        "https://www.kickstarter.com/projects/1818505613/codeybot-new-robot-who-teaches-coding?ref=home_potd"
     ]
 };

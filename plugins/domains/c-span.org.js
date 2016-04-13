@@ -6,7 +6,7 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(urlMatch, cheerio) {
+    getLink: function(urlMatch) {
 
         return {
             href: "http://www.c-span.org/video/standalone/?" + urlMatch[1] + urlMatch[2],
