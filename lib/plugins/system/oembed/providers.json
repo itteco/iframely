@@ -436,7 +436,7 @@
     {
         "name": "cartodb.com",
         "templates": [
-            "\\w+.cartodb.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
+            "\\w+.cartodb\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
     },
@@ -475,5 +475,12 @@
             "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/(m/\\d+)"            
         ],
         "endpoint": "http://{1}.ac-bordeaux.fr/mediacad/default/media/display/{2}/d/j?format={format}"
+    },
+    {
+        "name": "RTL XL",
+        "templates": [
+            "rtlxl\\.nl/#!/[^\/]+/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
     }
 ]
