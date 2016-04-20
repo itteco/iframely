@@ -12,7 +12,8 @@ module.exports = {
                 href: "http://www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                height: 290
+                height: 290,
+                'max-width': 800
             };
     },
 
