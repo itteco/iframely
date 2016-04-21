@@ -16,9 +16,10 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function(url) {
+    getMeta: function(url, meta) {
         return {
-            canonical: url.replace(/\/embed_map/, '/public_map')
+            canonical: url.replace(/\/embed_map/, '/public_map'),
+            description: meta.og && meta.og.description && (meta.og.description.split(' — ')[0])
         };
     },
 
