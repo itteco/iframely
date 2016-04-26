@@ -4,7 +4,7 @@ Iframely follows unique approach in determining which providers it supports. Con
 
 However, consider this:
 
- - Iframely supports over [1600 domains](https://iframely.com/domains) out of the box.
+ - Iframely supports over [1800 domains](https://iframely.com/domains) out of the box.
  - This doesn't include thousands of custom domains by hosters. For example, Tumblr, WordPress, BrightCove, Wistia and Behance.
  - Plus it doesn't include (quite a lot of) domains that opted to use YouTube and Vimeo as their Twitter card or Open Graph representation.
  - Even the list of 1600+ is not set in stone due to our whitelisting approach. As we do our every-day QA cycle, some domains get added and some get removed.
