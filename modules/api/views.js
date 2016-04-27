@@ -42,6 +42,21 @@ function getIntParam(req, param) {
     return v && parseInt(v);
 }
 
+function handleIframelyError(error, res, next) {
+
+    res.tryCacheError(error);
+
+    if (error == 404 || error.code == 'ENOTFOUND') {
+        return next(new utils.NotFound('Page not found'));
+    }
+
+    if (typeof error === "number") {
+        next(new utils.HttpError(error, "Requested page error: " + error));
+    } else {
+        next(new Error("Iframely error: " + error));
+    }
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
@@ -77,14 +92,9 @@ module.exports = function(app) {
 
         ], function(error, result) {
 
+
             if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error("Requested page error: " + error));
+                return handleIframelyError(error, res, next);
             }
 
             if (result.safe_html) {
@@ -215,13 +225,7 @@ module.exports = function(app) {
         ], function(error, html) {
 
             if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error("Requested page error: " + error));
+                return handleIframelyError(error, res, next);
             }
 
             var htmlArray = (html || "").match(/.{1,8191}/g) || "";
@@ -295,13 +299,7 @@ module.exports = function(app) {
         ], function(error, link) {
 
             if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error(error));
+                return handleIframelyError(error, res, next);
             }
 
             if (!link) {
@@ -384,13 +382,7 @@ module.exports = function(app) {
         ], function(error, result) {
 
             if (error) {
-
-                res.tryCacheError(error);
-
-                if (error == 404 || error.code == 'ENOTFOUND') {
-                    return next(new utils.NotFound('Page not found'));
-                }
-                return next(new Error(error));
+                return handleIframelyError(error, res, next);
             }
 
             iframelyCore.sortLinks(result.links);
