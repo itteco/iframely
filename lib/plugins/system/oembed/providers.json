@@ -482,5 +482,12 @@
             "rtlxl\\.nl/#!/[^\/]+/([a-zA-Z0-9-]+)"
         ],
         "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
-    }
+    },
+    {
+        "name": "Ranker",
+        "templates": [
+            "(?:www\\.)?ranker\\.com/widget/([0-9]+)"
+        ],
+        "endpoint": "https://widget.ranker.com/oembed/{1}?for={format}"
+    }    
 ]
