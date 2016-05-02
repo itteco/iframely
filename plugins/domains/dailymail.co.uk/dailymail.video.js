@@ -1,19 +1,10 @@
 module.exports = {
 
-    // direct "share" links to players from DailyMail articles. They end with #v-1467332342001
-    re: [        
-        /https?:\/\/www\.dailymail\.co\.uk\/[^#]+#(v\-\d+)$/i
-    ],
-
     provides: 'dailymailVideo',
 
-    mixins: [
-        "domain-icon"
-    ],
+    getData: function(dailymailVideoID, cheerio) {
 
-    getData: function(urlMatch, cheerio) {
-
-        var $player = cheerio('#' + urlMatch[1] + ' video[data-opts]');
+        var $player = cheerio('#' + dailymailVideoID + ' video[data-opts]');
         
         if ($player.length) {
             return {
