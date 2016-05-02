@@ -9,6 +9,7 @@ module.exports = {
         "oembed-author",
         "oembed-site",
         "oembed-title",
+        "description",        
         "domain-icon"
     ],
 
@@ -18,7 +19,7 @@ module.exports = {
             return { // Anonymous Pens can't be embedded
                     // return icon to avoid fallback to generic (whitelisted) parser
                 href: 'http://codepen.io/logo-pin.svg',
-                type: CONFIG.T.icon, 
+                type: CONFIG.T.icon,
                 rel: CONFIG.R.icon
             }
         }
