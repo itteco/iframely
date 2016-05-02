@@ -469,12 +469,13 @@
         "endpoint": "https://v.interlude.fm/oembed?vid={1}"
     },
     {
-        "name": "Academie de Bordeaux",
+        "name": "Academie de Bordeaux etc",
         "templates": [
-            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
-            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/(m/\\d+)"            
+            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
+            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/(m/\\d+)",
+            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/(m/\\d+)"            
         ],
-        "endpoint": "http://{1}.ac-bordeaux.fr/mediacad/default/media/display/{2}/d/j?format={format}"
+        "endpoint": "http://{1}.ac-{2}.fr/mediacad/default/media/display/{3}/d/j?format={format}"
     },
     {
         "name": "RTL XL",
