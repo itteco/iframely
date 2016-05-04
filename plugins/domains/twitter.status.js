@@ -13,7 +13,7 @@ module.exports = {
 
     mixins: ['domain-icon'],
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(url, urlMatch, request, options, cb) {
         var id = urlMatch[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
@@ -53,17 +53,26 @@ module.exports = {
                     }
                 }
 
-                var url = "https://api.twitter.com/1" + (!oauth || blockExpireIn > 0 ? "" : ".1") + "/statuses/oembed.json";
+                var usePublicApi = !oauth || blockExpireIn > 0;
+
+                var apiUrl;
 
                 var qs = {
-                    id: id,
                     hide_media: c.hide_media,
                     hide_thread: c.hide_thread,
                     omit_script: c.omit_script
                 };
 
+                if (usePublicApi) {
+                    apiUrl = "https://publish.twitter.com/oembed";
+                    qs.url = url;
+                } else {
+                    apiUrl = "https://api.twitter.com/1.1/statuses/oembed.json";
+                    qs.id = id;
+                }
+
                 request(_.extend({
-                    url: url,
+                    url: apiUrl,
                     qs: qs,
                     json: true,
                     cache_key: 'twitter:oembed:' + id,
@@ -127,7 +136,7 @@ module.exports = {
 
                         cb(error, data);
                     }
-                }, (!oauth || blockExpireIn ? null : {oauth: oauth})), cb); // add oauth if 1.1, else skip it
+                }, usePublicApi ? null : {oauth: oauth}), cb); // add oauth if 1.1, else skip it
 
             }
 
@@ -144,7 +153,7 @@ module.exports = {
             oembed["max-width"] = c["max-width"];
 
             var result = {
-                twitter_oembed: oembed,                
+                twitter_oembed: oembed
             };
 
             if (c.media_only) {
