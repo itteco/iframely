@@ -13,7 +13,7 @@ module.exports = {
 
     mixins: ['domain-icon'],
 
-    getData: function(url, urlMatch, request, options, cb) {
+    getData: function(urlMatch, request, options, cb) {
         var id = urlMatch[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
@@ -65,7 +65,7 @@ module.exports = {
 
                 if (usePublicApi) {
                     apiUrl = "https://publish.twitter.com/oembed";
-                    qs.url = url;
+                    qs.url = urlMatch[0];
                 } else {
                     apiUrl = "https://api.twitter.com/1.1/statuses/oembed.json";
                     qs.id = id;
