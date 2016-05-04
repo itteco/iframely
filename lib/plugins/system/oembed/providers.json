@@ -168,6 +168,13 @@
         "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=iframely&url={url}"
     },
     {
+        "name": "Twitter Moments",
+        "templates": [
+            "twitter\\.com/i/moments/(\\d+)"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed"
+    },
+    {
         "name": "Gist",
         "templates": [
             "gist\\.github\\.com/(.+)"
