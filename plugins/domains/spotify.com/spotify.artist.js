@@ -49,5 +49,6 @@ module.exports = {
     },
 
     tests: [
+        "https://play.spotify.com/artist/586uxXMyD5ObPuzjtrzO1Q"
     ]
 };

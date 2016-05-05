@@ -51,6 +51,7 @@ module.exports = {
     },
 
     tests: [
-        "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi"
+        "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi",
+        "https://open.spotify.com/album/3N5MQ6jJk5P0bXpsMh4biJ"
     ]
 };

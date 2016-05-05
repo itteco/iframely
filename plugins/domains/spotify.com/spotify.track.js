@@ -48,5 +48,8 @@ module.exports = {
 
     tests: [
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
+        "https://open.spotify.com/track/4by34YzNiEFRESAnBXo7x4",
+        "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
+        "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg"
     ]
 };
