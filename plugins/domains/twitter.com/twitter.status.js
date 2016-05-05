@@ -1,6 +1,6 @@
 var async = require('async');
-var cache = require('../../lib/cache');
-var sysUtils = require('../../logging');
+var cache = require('../../../lib/cache');
+var sysUtils = require('../../../logging');
 var _ = require('underscore');
 
 module.exports = {
@@ -189,7 +189,9 @@ module.exports = {
 
         if (twitter_video) {
 
-            html = html.replace(/class="twitter-tweet"/g, 'class="twitter-video"');
+            html = html.replace(/class="twitter-tweet"/g, 
+                'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));
+
             links.push({
                 html: html,
                 type: CONFIG.T.text_html,
