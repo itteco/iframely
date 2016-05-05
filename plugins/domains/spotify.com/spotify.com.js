@@ -39,7 +39,9 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
