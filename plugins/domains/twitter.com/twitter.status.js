@@ -194,7 +194,8 @@ module.exports = {
                 html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": twitter_video.width / twitter_video.height
+                "aspect-ratio": twitter_video.width / twitter_video.height,
+                "max-width": 888 // good one, Twitter!
             });
 
         } else {
