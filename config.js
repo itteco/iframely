@@ -47,6 +47,7 @@
             image_png: "image/png",
             image_svg: "image/svg",
             image_gif: "image/gif",
+            image_webp: "image/webp",
             video_mp4: "video/mp4",
             video_ogg: "video/ogg",
             video_webm: "video/webm"

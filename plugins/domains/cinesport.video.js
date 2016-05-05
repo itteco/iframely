@@ -35,7 +35,7 @@ module.exports = {
             return {
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 1 /  0.5725
             };
         }

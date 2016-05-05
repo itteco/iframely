@@ -27,41 +27,53 @@ module.exports = {
         };
     },
 
-    getLinks: function(meta, twitter, options) {
+    getLinks: function(meta, options) {
 
-        if (twitter.site !== 'bandcamp' || !twitter.player.value) {
+        if (!/bandcamp/i.test(meta.twitter && meta.twitter.site || meta.generator)) {
             return;
         }
         
         var params = options.getProviderOptions('bandcamp');
-        var result = null;
+        var result = [];
 
-        if (!params && meta.og && meta.og.video) {
+        if (!params) {
 
-            result = [{
-                href: meta.twitter.player.value,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5],
-                "aspect-ratio": 1, // it will just overlay the player nicely
-                "max-width": 700
-            }, {
-                href: meta.og.video.secure_url || meta.og.video.url,
-                type: meta.og.video.type || CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
-                "max-width": 700,
-                height: meta.og.video.height
-            }];
+            if (meta.twitter && meta.twitter.player) {
+                result.push({
+                    href: meta.twitter.player.value,
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5],
+                    "aspect-ratio": 1, // it will just overlay the player nicely
+                    "max-width": 700
+                });
+            }
+
+            if (meta.og && meta.og.video) {
+                result.push({
+                    href: meta.og.video.secure_url || meta.og.video.url,
+                    type: meta.og.video.type || CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
+                    "max-width": 700,
+                    height: meta.og.video.height
+                });
+            }
 
         } else if (params) {
 
-            var album = /album=\d+/i.test(twitter.player.value) && twitter.player.value.match(/album=(\d+)/i)[1];
-            var track = /track=\d+/i.test(twitter.player.value) && twitter.player.value.match(/track=(\d+)/i)[1];
+            var player = (meta.twitter && meta.twitter.player && meta.twitter.player.value) ||
+                        (meta.og && meta.og.video && meta.og.video.url);
 
-            result = {
-                href: 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '') + (track ? '/track=' + track : '') + params.get_params, // (in /../../ way)
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html,
-                media: album ? params.media.album : params.media.track
+            if (player) {
+
+                var album = /album=\d+/i.test(player) && player.match(/album=(\d+)/i)[1];
+                var track = /track=\d+/i.test(player) && player.match(/track=(\d+)/i)[1];
+
+                result.push ({
+                    href: 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '') + (track ? '/track=' + track : '') + params.get_params, // (in /../../ way)
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    type: CONFIG.T.text_html,
+                    media: album ? params.media.album : params.media.track
+                });
             }
 
         }
@@ -79,9 +91,10 @@ module.exports = {
         "http://yancyderon.com/album/the-difference-sp",
         "http://music.freddiejoachim.com/album/begonia",
         "http://radiojuicy.com/album/rio",
-        "http://hannibalkingmusic.com/album/flowers-for-pamela",
         "http://music.freddiejoachim.com/album/patiently",
         "https://decembersongs.bandcamp.com/",
+        "http://sonsofoflaherty.bandcamp.com/album/misc-songs",
+        "http://badsheeps.bandcamp.com/album/bad-sheeps", // doesn't have twitter player when not published
         {
             skipMixins: [
                 "og-description"

@@ -68,12 +68,11 @@ module.exports = {
                     var status = data.response[0];
                     var m = url.match(/hash=([\w-]+)/i);
 
-
                     cb(null, {
                         vk_status: {
                             date: status.date,
                             text: status.text,
-                            image: status.attachment && ((status.attachment.photo && status.attachment.photo.src) || status.attachment.video && status.attachment.video.image),
+                            image: status.attachment && ((status.attachment.photo && (status.attachment.photo.src_big || status.attachment.photo.src_big)) || status.attachment.video && status.attachment.video.image),
                             embed_hash: status.embed_hash || (m && m[1]),
                             element_id: urlMatch[2],
                             owner_id: urlMatch[1]
