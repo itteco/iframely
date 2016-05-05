@@ -115,5 +115,19 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 If you fork, make sure to merge from the upstream for the newer versions.
 
 
+## Docker
+
+The Docker container will:
+
+ * Run forever start cluster.js by default
+ * Run forever start <args> if command line arguments are supplied
+ * Gracefully shutdown when receiving SIGTERM from docker stop
+
+A brief documentation:
+
+    docker build -t iframely:latest .
+    docker run -it -p 8061:8061 -v $PWD/config.local.js:/iframely/config.local.js --name iframely iframely:latest
+    docker stop iframely
+
 
 (c) 2013-2015 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
