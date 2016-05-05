@@ -50,8 +50,12 @@ module.exports = {
         }, cb);
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi",
-        "https://open.spotify.com/album/3N5MQ6jJk5P0bXpsMh4biJ"
+        "https://open.spotify.com/album/3N5MQ6jJk5P0bXpsMh4biJ",
+        "https://play.spotify.com/album/3xqv5Al4TjgG9daEWZplIy",
+        "https://play.spotify.com/album/65GHnO5PcfuXUADdyUPL70"
     ]
 };

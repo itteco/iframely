@@ -48,7 +48,12 @@ module.exports = {
         }, cb);
     },
 
-    tests: [
-        "https://play.spotify.com/artist/586uxXMyD5ObPuzjtrzO1Q"
+    tests: [{
+        noFeeds: true
+    },
+        "https://play.spotify.com/artist/586uxXMyD5ObPuzjtrzO1Q",
+        "https://play.spotify.com/artist/1ls8tCaZ7FVugjGbQI74zW",
+        "https://play.spotify.com/artist/586eJg9tmYDLSahAhozZBo",
+        "https://play.spotify.com/artist/6RAx8RRxoHeJIqD2d0EjOa"
     ]
 };
