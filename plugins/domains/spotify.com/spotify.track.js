@@ -5,7 +5,7 @@ module.exports = {
     // keep dependency on oEmbed only. Otherwise, there's redirect to relative path for "play.*" and no embeds as a result
     // -- plugin redirect (by "htmlparser") /error/browser-not-supported.php
 
-    re: /https?:\/\/(?:open|play).spotify.com\/track\/(.*)/,
+    re: /https?:\/\/(?:open|play).spotify.com\/(?:embed\/)?track\/(.*)/,
 
     provides: 'spotify_data',
 
