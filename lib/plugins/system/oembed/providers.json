@@ -379,9 +379,9 @@
     {
         "name": "Spotify",
         "templates": [
-            "(open|embed|play)\\.spotify\\.com/.*"
+            "((?:open|embed|play)\\.spotify\\.com/[^\\?]*)\\??.*"
         ],
-        "endpoint": "https://embed.spotify.com/oembed/"
+        "endpoint": "https://embed.spotify.com/oembed/?url=https://{1}&format={format}"
     },
     {
         "name": "Issuu",
