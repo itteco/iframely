@@ -2,7 +2,17 @@
 
 This is the history of the Iframely changes. Updates that are older than one year are not shown.
 
-Stay tuned, either by watching [Iframely on GitHub](https://github.com/itteco/iframely) or following [Iframely on Twitter](https://twitter.com/iframely).
+To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
+
+### 2016.05.11, Version 0.9.5
+
+Heads-up: `request` module dependency was upgraded. Please run `npm update` when deploying this version.
+
+ - Twitter plugin was switched to new oEmbed endpoint according to current docs
+ - Medium embeds were disabled as they are broken as of version's date
+ - NPR.org plugin supports links to section in addition to direct player links
+ - Minor fixes for number of other domain parsers
+
 
 ### 2016.04.13, Version 0.9.4
 
