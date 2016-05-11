@@ -8,6 +8,9 @@
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",
 
+        // Or just skip built-in renders altogether
+        SKIP_IFRAMELY_RENDERS: true,
+
         // For legacy reasons the response format of Iframely open-source is
         // different by default as it does not group the links array by rel.
         // In order to get the same grouped ressonse as in Cloud API,
@@ -108,13 +111,6 @@
             "twitter": {
                 "max-width": 550,
                 "min-width": 250,
-
-                // Twitter rolled back to oEmbed v 1, their 1.1+oauth endpoint is no longer in the documentation
-                // consumer_key: 'INSERT YOUR VALUE',
-                // consumer_secret: 'INSERT YOUR VALUE',
-                // access_token: 'INSERT YOUR VALUE',
-                // access_token_secret: 'INSERT YOUR VALUE',
-
                 hide_media: false,
                 hide_thread: false,
                 omit_script: false,
