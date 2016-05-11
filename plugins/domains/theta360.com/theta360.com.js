@@ -7,7 +7,6 @@ module.exports = {
         "favicon",
         "canonical",
         "og-description",
-        "media-detector",
         "og-site",
         "og-title"
     ],
@@ -15,7 +14,7 @@ module.exports = {
     getLink: function(og) {
         return {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl],
+            rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.autoplay],
             template_context: {
                 title: og.title,
                 description: og.description,

@@ -1,38 +1,48 @@
+var $ = require('cheerio');
+
 module.exports = {
 
     // No regexps here. We'll let it fall back to generic parsers, if no podcast is detected.
 
+    provides: "__stitcherEpisode",
+
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "keywords",
-        "og-title"
+        "*"
     ],
 
-    getLinks: function(og) {
+    getLinks: function(__stitcherEpisode, cheerio) {
 
-        var episode = og.url && og.url.match(/^https?:\/\/www\.stitcher\.com\/s\?eid=(\d+)/i);
-        var station = og.image && (og.image.value || og.image).match(/_(\d+)\.jpg$/i);
+        var $listenLater = cheerio('#listenLater[data-eid="'+ __stitcherEpisode +'"]');
 
-        if (!episode || !station) {
-            // so it falls back to generic parsers
-            return;
+        if ($listenLater.length && $listenLater.attr('data-fid')) {
+            return {
+                href: "https://app.stitcher.com/splayer/f/" + $listenLater.attr('data-fid') + "/" + __stitcherEpisode,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                height: 220
+                //"aspect-ratio": 220 / 150
+            };
         }
-
-        return {
-            href: "https://app.stitcher.com/splayer/f/" + station[1] + "/" + episode[1] + "?refId=iframely",
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": 400 / 400
-        };
     },
+
+    getData: function (og) {
+        var episode = og.url && og.url.match(/^https?:\/\/www\.stitcher\.com\/s\?eid=(\d+)/i);
+
+        if (!episode) {
+            return;
+        } else {
+            return {
+                __stitcherEpisode: episode[1]
+            }
+        }
+    },    
 
     tests: [{
         noFeeds: true
     },
         "http://www.stitcher.com/s?eid=35290263",
-        "http://www.stitcher.com/podcast/nodeup/episode/35312671?refid=stpr&autoplay=true"
+        "http://www.stitcher.com/podcast/nodeup/episode/35312671?refid=stpr&autoplay=true",
+        "http://www.stitcher.com/podcast/twit/the-new-screen-savers/e/tnss-49-from-russia-with-code-43809567",
+        "https://www.stitcher.com/podcast/times-the-brief/times-top-stories/e/ireland-votes-to-legalize-gay-marriage-in-historic-referendum-38202217?autoplay=true"
     ]
 };

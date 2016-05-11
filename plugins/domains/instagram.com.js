@@ -14,13 +14,11 @@ module.exports = {
         "favicon"
     ],
 
-    getMeta: function (og) {
-
-        var match = og.title.match(/[^:]+on\sInstagram/i);
-
+    getMeta: function (og, oembed) {
+        
         return {
-            title: match ? match[0] : "Post on Instagram",
-            description: og.description
+            title: og.title ? og.title.match(/([^•]+)/i)[0] : "Post on Instagram",
+            description: oembed.title
         }
 
     },

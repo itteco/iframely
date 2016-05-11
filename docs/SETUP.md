@@ -1,6 +1,6 @@
-# Deploy Iframely to Your Own Servers
+# Deploy Iframely on Your Own Servers
 
-The source-code of [Iframely APIs](https://iframely.com) is hosted [on GitHub](https://github.com/itteco/iframely). It's the Node.js code published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of hosted widgets via [Short URLs](https://iframely.com/docs/url-shortener)).
+The source-code of [Iframely](https://iframely.com) parsers is hosted [on GitHub](https://github.com/itteco/iframely). It's a Node.js library and server published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of [smart iFrames](https://iframely.com/docs/iframes)).
 
 Here are the instructions to get your instance of APIs up and running.
 
@@ -30,24 +30,17 @@ If you see error `../lib/kerberos.h:5:27: fatal error: gssapi/gssapi.h: No such 
 
 ## Configure Iframely
 
-Please, create your local config file to adjust settings. This local config file will be ignored when you pull new versions from Git later on.
+Please create your local config file and adjust settings. This local config file will be ignored when you pull new versions from Git later on.
 
     cp config.local.js.SAMPLE config.local.js
     vi config.local.js
 
 If you support various environment configs and pass it as `NODE_ENV`, create config files that match your enviroments. For example, `config.develop.js`.
 
-Edit the sample config file as you need. You may also override any values from main config.js in your local config.
-
-At the very least, you need to properly configure:
-
-- `baseAppUrl` - the domain you host Iframely Gateway on. This is required for some embeds that need custom renders.
-- `CACHE_ENGINE` - the caching middleware you'd prefer to use (No Cache, Redis, Memcached or Node.js in-memory cache)
-- If you chose Redis or Memcached, you need to connect Iframely gateway with these systems
-- `allowedOrigins` - very important to list your main app's domain(s) here, and block access to others 
+Edit the sample config file as you need. Follow the comments put in `config.local.js.SAMPLE` for particular settings. You may also override any values from main config.js in your local config.
 
 
-There are also some provider-specific values that are required for some domain plugins to work (e.g. wheather to include media in Twitter status embeds). Please, enter your own application keys and secret tokens where applicable. Parsers for Twitter, Flickr and Tumblr won't work without the access tokens to their APIs.
+There are also some provider-specific values that are required for some domain plugins to work (e.g. Google API key for maps and YouTube). Please, enter your own application keys and secret tokens where applicable.
 
 
 Readability parser to get the HTML of the articles is optional and is turned off by default as it affects the processing time of the URLs. If need be, you can also fine-tune API response time by disabling image size detection.
@@ -58,7 +51,7 @@ Iframely has built-in cache with support of Memcached, Redis and Node.js in-memo
 
 In your local config file, define caching parameters:
 
-        CACHE_ENGINE: 'redis',
+        CACHE_ENGINE: 'memcached',
         CACHE_TTL: 0, // In milliseconds. 0 for 'never expire' to let cache engine decide itself when to evict the record
 
 
@@ -98,6 +91,9 @@ Depending on your setup, you may need to configure these pathes in your reverse 
     /meta-mappings      -- optional API endpoint with available unified meta
     /supported-plugins-re.json - the list of regexps for plugins
 
+## Your self-hosted endpoints
+
+You can now access your self-hosted API on your domain as `/iframely?url=` and `/oembed?url=` with any optional [query-string parameters](https://iframely.com/docs/parameters) supported by open-source version.
 
 
 ## Update Iframely
@@ -105,7 +101,7 @@ Depending on your setup, you may need to configure these pathes in your reverse 
 Please, keep Iframely up-to-date as we keep adding features or releasing fixes. 
 
 
-Custom domain plugins may be returning invalid data if your Iframely instance is obsolete. The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time, and we'll release hot fixes in this case. Please, follow [Iframely on Twitter](http://twitter.com/iframely) to get timely heads up when hot fixes are required.
+Custom domain plugins may be returning invalid data if your Iframely instance is obsolete. The domain plugins are error-prone due to dependencies to 3rd parties. Domain plugins do break from time to time. Keeping Iframely up-to-date is important.
 
 
 To update Iframely package to its latest version run from Iframely home directory:
@@ -118,6 +114,20 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 
 If you fork, make sure to merge from the upstream for the newer versions.
 
+
+## Docker
+
+The Docker container will:
+
+ * Run forever start cluster.js by default
+ * Run forever start <args> if command line arguments are supplied
+ * Gracefully shutdown when receiving SIGTERM from docker stop
+
+A brief documentation:
+
+    docker build -t iframely:latest .
+    docker run -it -p 8061:8061 -v $PWD/config.local.js:/iframely/config.local.js --name iframely iframely:latest
+    docker stop iframely
 
 
 (c) 2013-2015 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

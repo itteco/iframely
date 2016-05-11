@@ -29,11 +29,26 @@
         this.name = this.constructor.name; //set our function’s name as error name.
         this.message = message; //set the error message
 
-    };
+    }
 
     NotFound.prototype.__proto__ = Error.prototype;
 
     exports.NotFound = NotFound;
+
+    function HttpError(code, message) {
+
+        Error.call(this); //super constructor
+        Error.captureStackTrace(this, this.constructor); //super helper method to include stack trace in error object
+
+        this.name = this.constructor.name; //set our function’s name as error name.
+        this.message = message; //set the error message
+        this.code = code; //set the error code
+
+    }
+
+    HttpError.prototype.__proto__ = Error.prototype;
+
+    exports.HttpError = HttpError;
 
     var send = require('send')
         , utils = require('connect/lib/utils')

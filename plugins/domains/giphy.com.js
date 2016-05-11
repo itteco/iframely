@@ -10,7 +10,7 @@ module.exports = {
         "oembed-site",
         "oembed-title",
         "keywords",
-        "twitter-image",
+        // "twitter-image",
         "favicon"
     ],
 
@@ -36,6 +36,14 @@ module.exports = {
             width: oembed.width,
             height: oembed.height
         });
+
+        links.push({
+            href: twitter.image && (twitter.image.src || twitter.image.url),
+            type: CONFIG.T.image, // keep it here, otherwise thumbnail may come up with GIF MIME type
+            rel: CONFIG.R.thumbnail,
+            width: oembed.width,
+            height: oembed.height
+        });        
 
         return links;
     },

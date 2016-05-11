@@ -168,19 +168,12 @@
         "endpoint": "http://public-api.wordpress.com/oembed/1.0/?format={format}&for=iframely&url={url}"
     },
     {
-        "name": "Twitter",
-        "templates": [
-            "twitter\\.com/#?!?/?\\w+/status/(\\d+)"
-        ],
-        "endpoint": "https://api.twitter.com/1/statuses/oembed.{format}?id={1}"
-    },
-    {
         "name": "Twitter Moments",
         "templates": [
             "twitter\\.com/i/moments/(\\d+)"
         ],
-        "endpoint": "https://publish.twitter.com/oembed.json"
-    },    
+        "endpoint": "https://publish.twitter.com/oembed"
+    },
     {
         "name": "Gist",
         "templates": [
@@ -386,9 +379,9 @@
     {
         "name": "Spotify",
         "templates": [
-            "(open|embed|play)\\.spotify\\.com/.*"
+            "((?:open|embed|play)\\.spotify\\.com/)(?:embed/)?([^\\?]*)\\??.*"
         ],
-        "endpoint": "https://embed.spotify.com/oembed/"
+        "endpoint": "https://embed.spotify.com/oembed/?url=https://{1}{2}&format={format}"
     },
     {
         "name": "Issuu",
@@ -436,7 +429,7 @@
     {
         "name": "cartodb.com",
         "templates": [
-            "\\w+.cartodb.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
+            "\\w+.cartodb\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
         "endpoint": "http://services.cartodb.com/oembed"
     },
@@ -469,11 +462,26 @@
         "endpoint": "https://v.interlude.fm/oembed?vid={1}"
     },
     {
-        "name": "Academie de Bordeaux",
+        "name": "Academie de Bordeaux etc",
         "templates": [
-            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
-            "(\\w+)\\.ac\\-bordeaux\\.fr/mediacad/(m/\\d+)"            
+            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
+            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/(m/\\d+)",
+            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/(m/\\d+)"            
         ],
-        "endpoint": "http://{1}.ac-bordeaux.fr/mediacad/default/media/display/{2}/d/j?format={format}"
-    }
+        "endpoint": "http://{1}.ac-{2}.fr/mediacad/default/media/display/{3}/d/j?format={format}"
+    },
+    {
+        "name": "RTL XL",
+        "templates": [
+            "rtlxl\\.nl/#!/[^\/]+/([a-zA-Z0-9-]+)"
+        ],
+        "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
+    },
+    {
+        "name": "Ranker",
+        "templates": [
+            "(?:www\\.)?ranker\\.com/widget/([0-9]+)"
+        ],
+        "endpoint": "https://widget.ranker.com/oembed/{1}?for={format}"
+    }    
 ]

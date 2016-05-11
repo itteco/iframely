@@ -1,34 +1,27 @@
 module.exports = {
 
+    re: [
+        /^https?:\/\/www\.twitch\.tv\/([a-zA-Z0-9_]+)$/i
+    ],
+
     mixins: [
         "*"
     ],
 
-    getLink: function (og, request, cb) {
+    getLink: function (urlMatch, og) {
 
         if (og.video && og.video.secure_url) {
-
-            request({
-                uri: og.video.secure_url,
-                followRedirect: false,
-                prepareResult: function(error, response, body, cb) {
-
-                    if (error) {
-                        return cb(error);
-                    }
-
-                    return cb (null, {
-                        href: response.headers.location ? response.headers.location.replace(/^http/, 'https') : og.video.secure_url, // ssl re-directs to non-ssl.
-                        type: og.video.type,
-                        rel: [CONFIG.R.player, CONFIG.R.autoplay],
-                        "aspect-ratio": og.video.width / og.video.height
-                    });
-
-                }
-            }, cb);
-
-        } else {
-            return cb(null);
+            return {
+                href: "//player.twitch.tv/?channel=" + urlMatch[1],
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+                "aspect-ratio": og.video.width / og.video.height
+            };
         }
-    }
+    },
+
+    tests: [
+        "https://www.twitch.tv/imaqtpie",
+        "http://www.twitch.tv/adultswim"
+    ]
 };
