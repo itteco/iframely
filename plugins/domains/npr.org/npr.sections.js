@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.npr\.org\/sections\//i
+        /^https?:\/\/www\.npr\.org\/sections\//i,
+        /^https?:\/\/www\.npr\.org\/\d{4}\/\d{2}\/\d{2}\/\d+\//i        
     ],
 
     mixins: ["*"],
@@ -31,6 +32,7 @@ module.exports = {
     tests: [
         "http://www.npr.org/sections/thetwo-way/2016/04/11/473874785/hundreds-protest-gerrymandering-campaign-finance-laws-on-capitols-steps",
         "http://www.npr.org/sections/alltechconsidered/2015/04/29/401236656/libraries-make-space-for-3-d-printers-rules-are-sure-to-follow",
-        "http://www.npr.org/sections/itsallpolitics/2015/08/27/434872755/exactly-what-kind-of-socialist-is-bernie-sanders"
+        "http://www.npr.org/sections/itsallpolitics/2015/08/27/434872755/exactly-what-kind-of-socialist-is-bernie-sanders",
+        "http://www.npr.org/2016/05/04/476793671/first-listen-mudcrutch-2"
     ]
 };
