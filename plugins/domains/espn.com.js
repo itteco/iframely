@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /https?:\/\/espn\.go\.com\/video\/clip\?id=(espn):(\d+)/i,
-        /https?:\/\/(espn)\.go\.com\/video\/clip\?id=(\d+)/i,
-        /https?:\/\/xgames\.espn\.go\.com\/(xgames)\/video\/(\d+)\//i
+        /^https?:\/\/espn\.go\.com\/video\/clip\?id=(espn):(\d+)/i,
+        /^https?:\/\/(espn)\.go\.com\/video\/clip\?id=(\d+)/i,
+        /^https?:\/\/xgames\.espn\.go\.com\/(xgames)\/video\/(\d+)\//i
     ],
 
     mixins: ["*"],
