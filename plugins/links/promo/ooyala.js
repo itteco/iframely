@@ -49,7 +49,7 @@ module.exports = {
                     return cb(null, {
                         href: "https://player.ooyala.com/tframe.html?embedCode=" + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' 
                             + (__ooyalaPlayer.pbid ? '&pbid=' + __ooyalaPlayer.pbid : ''),
-                        rel: [CONFIG.R.player, CONFIG.R.html5, 'ivan'],
+                        rel: [CONFIG.R.player, CONFIG.R.html5],
                         type: CONFIG.T.text_html,
                         "aspect-ratio": __ooyalaPlayer.width && __ooyalaPlayer.height ? __ooyalaPlayer.width / __ooyalaPlayer.height : CONFIG.DEFAULT_ASPECT_RATIO
                     });
