@@ -30,6 +30,7 @@ module.exports = {
             uri: statsUri,
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
+            refresh: options.refresh,
             prepareResult: function(error, b, data, cb) {
 
                 if (error) {
