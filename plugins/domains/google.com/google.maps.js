@@ -113,7 +113,9 @@ module.exports = {
     getData: function(url, urlMatch, options, cb) {
 
         if (!options.getProviderOptions('google.maps_key')) {
-            return cb (new Error ("No google.maps_key configured"));
+            return cb ({
+                responseStatusCode: 415
+            });
         }
 
         var gmap = {};
