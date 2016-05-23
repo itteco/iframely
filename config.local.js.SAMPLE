@@ -101,10 +101,14 @@
             }
         }],
 
+        /*
+        // Configure use of HTTP proxies as needed
         PROXY: [{
             re: [/^https?:\/\/www\.domain\.com/],
-            proxy_server: 'http://1.2.3.4:8080'
-        }]
+            proxy_server: 'http://1.2.3.4:8080',
+            // user_agent: 'CHANGE YOUR AGENT'
+        }],
+        */
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
