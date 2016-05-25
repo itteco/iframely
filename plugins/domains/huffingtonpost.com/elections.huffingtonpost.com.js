@@ -3,8 +3,7 @@ var utils = require('../../../lib/utils');
 module.exports = {
 
     re: [
-        /^https?:\/\/elections\.huffingtonpost\.com\/pollster\/embed\/([^\/\?]+)/i,
-        /^https?:\/\/elections\.huffingtonpost\.com\/pollster\/([^\/\?]+)/i
+        /^https?:\/\/elections\.huffingtonpost\.com\/pollster\/(?:embed\/)?([-a-z0-9]+)(?:\/edit)?(.*)/i
     ],    
 
     mixins: ["*"],
@@ -12,10 +11,10 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: '//elections.huffingtonpost.com/pollster/embed/' + urlMatch[1] + '#!estimate=official',
+            href: '//elections.huffingtonpost.com/pollster/embed/' + urlMatch[1] + urlMatch[2],
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.html5],
-            height: 400
+            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl],
+            height: 500
         }
 
     },
