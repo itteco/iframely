@@ -38,7 +38,7 @@ module.exports = {
 
             return {
                 href: result.embedURL.replace(/&amp;/g, '&') + '&autoplay=true',
-                type: CONFIG.T.flash,
+                type: CONFIG.T.text_html, // it's actually not, but without it the playback glitches from time to time
                 rel: [CONFIG.R.player, CONFIG.R.autoplay],
                 'aspect-ratio': result.width / result.height
             };
