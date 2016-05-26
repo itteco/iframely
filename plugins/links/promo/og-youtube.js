@@ -7,7 +7,7 @@ module.exports = {
         // do not process if there is a whitelist record for this domain as processing will take longer
         if (!whitelistRecord.isDefault && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {return;}
         
-        var video_src = (og.video && og.video.url || og.video.secure_url) || (og.video && og.video.iframe) || og.video;
+        var video_src = (og.video && (og.video.url || og.video.secure_url)) || (og.video && og.video.iframe) || og.video;
         if (!video_src || /youtube\.com|vimeo\.com|dailymotion\.com/.test(url) || video_src instanceof Array) {
             return;
         }
