@@ -1,6 +1,8 @@
+var re = /^https:\/\/medium\.com\/@?[\w-]+/i;
+
 module.exports = {
 
-    re: /^https:\/\/medium\.com\/@?[\w-]+/i,
+    re: re,
 
     mixins: [
         "og-image",
@@ -48,10 +50,16 @@ module.exports = {
 
     tests: [{
         page: 'https://medium.com/top-100',
-        selector: '.link--secondary'
+        selector: 'article>a',
+        getUrl: function(url) {
+            return url.match(re) && url;
+        }
     }, {
         page: 'https://medium.com/top-100',
-        selector: '.block-title a'
+        selector: '.postMetaInline-feedSummary>a',
+        getUrl: function(url) {
+            return url.match(re) && url;
+        }
     }, {
         skipMixins: [
             "media-detector" // as plugin covers not only articles
