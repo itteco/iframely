@@ -8,10 +8,12 @@ module.exports = {
 
     getLink: function(og) {
 
-        if (og.type === 'video' && og.video && og.video.url) {
+        var video = og.video && (og.video.url || og.video.secure_url);
+
+        if (video) {
 
             return {
-                href: og.video.url.replace(/https?:\/\/www\.theguardian\.com\//, "https://embed.theguardian.com/embed/video/"),
+                href: video.replace(/https?:\/\/www\.theguardian\.com\//, "https://embed.theguardian.com/embed/video/"),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 560 / 315
