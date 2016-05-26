@@ -1,5 +1,3 @@
-var cheerio = require('cheerio');
-
 module.exports = {
 
     getLink: function(spotify_data) {
