@@ -1,10 +1,14 @@
+var _ = require('underscore');
+
+var res = [
+    /^https?:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
+    /^https?:\/\/v\.qq\.com\/\w+\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
+    /^https?:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i
+];
+
 module.exports = {
 
-    re: [
-        /^https?:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
-        /^https?:\/\/v\.qq\.com\/\w+\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
-        /^https?:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i
-    ],
+    re: res,
 
     mixins: [
         "favicon",
@@ -27,8 +31,13 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://v.qq.com/games/list/501_50101/0/1_0.html",
-        selector: "a.mod_poster_160"
+        page: "http://v.qq.com/index.html",
+        selector: "a.figure",
+        getUrl: function(url) {
+            return _.find(res, function(r) {
+                return url.match(r);
+            }) && url;
+        }
     }, {
         skipMixins: ['canonical', 'description', 'keywords']
     },

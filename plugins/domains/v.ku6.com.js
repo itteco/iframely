@@ -20,8 +20,8 @@ module.exports = {
     },
 
     tests: [{
-        page: 'http://www.ku6.com/',
-        selector: '.l_vlist .ckl_a',
+        page: 'http://www.ku6.com',
+        selector: '.md-li>a',
         skipMixins: [
             "favicon"
         ]
