@@ -66,6 +66,6 @@ module.exports = {
         ]
     },
         "https://medium.com/@startswithabang",
-        "https://medium.com/better-humans"
+        "https://medium.com/hackerpreneur-magazine/nobody-s-heard-of-you-and-that-s-okay-82792dfecc12#.31za23rhx"
     ]
 };
