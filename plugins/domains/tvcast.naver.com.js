@@ -44,7 +44,7 @@ module.exports = {
         if ($iframe.length == 1) {
 
             return {
-                href: $iframe.attr('src').replace(/isAutoPlay=true/, 'isAutoPlay=false'),
+                href: $iframe.attr('src').replace(/isAutoPlay=true/, 'isAutoPlay=false').replace(/^http:\/\//, '//'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": $iframe.attr('height') && $iframe.attr('width') ? $iframe.attr('width') / $iframe.attr('height') : CONFIG.DEFAULT_ASPECT_RATIO
