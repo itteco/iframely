@@ -1,14 +1,9 @@
 module.exports = {
 
-    re: /http:\/\/content\.time\.com\/time\/video\/player\/.+/i,
+    re: /^http:\/\/content\.time\.com\/time\/video\/player\/.+/i,
 
     mixins: [
-        "twitter-image",
-        "favicon",
-        "canonical",
-        "twitter-description",
-        "og-site",
-        "twitter-title"
+        "*"
     ],
 
     getLink: function(twitter) {
