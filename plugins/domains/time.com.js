@@ -3,7 +3,13 @@ module.exports = {
     re: /^http:\/\/content\.time\.com\/time\/video\/player\/.+/i,
 
     mixins: [
-        "*"
+        "favicon",
+        "canonical",
+        "keywords",
+        "og-site",
+        "twitter-description",
+        "twitter-title",
+        "media-detector"
     ],
 
     getLink: function(twitter) {
@@ -16,7 +22,8 @@ module.exports = {
     },
 
     tests: [{
-        noFeeds: true
+        noFeeds: true,
+        skipMixins: ['keywords']
     },
         "http://content.time.com/time/video/player/0,32068,3295741285001_2167317,00.html",
         "http://content.time.com/time/video/player/0,32068,3293479731001_2167328,00.html",
