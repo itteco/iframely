@@ -151,7 +151,7 @@ module.exports = {
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
-        var widescreen = youtube_video_gdata.hd || youtube_video_gdata.thumbnails.maxres != null; 
+        var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
 
         if (!widescreen && youtube_video_gdata.playerHtml) { // maybe still widescreen
             var $container = cheerio('<div>');
@@ -169,7 +169,7 @@ module.exports = {
         
 
         var links = [{
-            href: youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
+            href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: 320,
@@ -192,7 +192,7 @@ module.exports = {
             });
         }
 
-        if (youtube_video_gdata.thumbnails.maxres) {
+        if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {
             links.push({
                 href: youtube_video_gdata.thumbnails.maxres.url,
                 rel: CONFIG.R.thumbnail,
@@ -206,7 +206,7 @@ module.exports = {
 
         if (!widescreen) {
             links.push({
-                href: youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
+                href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 480,
