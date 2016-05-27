@@ -9,7 +9,7 @@ module.exports = {
         if (!whitelistRecord.isDefault && whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.player')) {return;}
 
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
-        if (!video_src || typeof video_src !== "String" || /youtube\.com|vimeo\.com|dailymotion\.com/.test(url)) {
+        if (!video_src || typeof video_src !== "string" || /youtube\.com|vimeo\.com|dailymotion\.com/.test(url)) {
             return;
         }
 
