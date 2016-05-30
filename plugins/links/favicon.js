@@ -53,7 +53,10 @@ module.exports = {
             links.push({
                 href: '/favicon.ico',
                 type: CONFIG.T.image,
-                rel: CONFIG.R.icon
+                rel: CONFIG.R.icon,
+                _imageStatus: {
+                    forceSyncCheck: true
+                }
             });
         }
 
