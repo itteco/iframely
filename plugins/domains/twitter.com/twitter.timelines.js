@@ -21,7 +21,7 @@ module.exports = {
 
         var html = oembed.html;
 
-        if (options.getProviderOptions('twitter.center', true)) {
+        if (options.getProviderOptions('twitter.center', true) && oembed.width) {
             html = '<div align="center">' + html + '</div>';
         }
 
