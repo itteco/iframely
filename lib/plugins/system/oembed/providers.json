@@ -172,7 +172,23 @@
         "templates": [
             "twitter\\.com/i/moments/(\\d+)"
         ],
-        "endpoint": "https://publish.twitter.com/oembed"
+        "endpoint": "https://publish.twitter.com/oembed?i=moment&url={url}"
+    },
+    {
+        "name": "Twitter Timelines",
+        "templates": [
+            "twitter\\.com/(\\w+)/timelines/(\\d+)",
+            "twitter\\.com/(\\w+)/lists/(\\w+)",
+             "twitter\\.com/(\\w+)/likes"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed?i=timeline&url={url}"
+    },
+    {
+        "name": "Twitter Users",
+        "templates": [
+            "twitter\\.com/(\\w+)$"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed?i=user&url={url}"
     },
     {
         "name": "Gist",

@@ -97,7 +97,15 @@
             params: {
                 show_posts: 0,
                 show_facepile: 0,
-                "maxwidth": 600
+                maxwidth: 600
+            }
+        }, {
+            // match i=user or i=moment or i=timeline to configure these types invidually
+            // see params spec at https://dev.twitter.com/web/embedded-timelines/oembed
+            re: [/^https?:\/\/publish\.twitter\.com\/oembed\?i=user/i],
+            params: {
+                limit: 1,
+                maxwidth: 600
             }
         }],
 
