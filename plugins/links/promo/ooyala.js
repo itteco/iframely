@@ -27,10 +27,12 @@ module.exports = {
         } 
     },
 
-    getLink: function(__ooyalaPlayer, request, cb) {
+    getLink: function(__ooyalaPlayer, url, request, cb) {
 
         request({
             uri: "http://player.ooyala.com/nuplayer?embedCode=" + __ooyalaPlayer.embedCode,
+            // Ooyala is really slow - allow all players from a domain after the first check
+            cache_key: 'ooyala:domain:' + url.replace(/^https?:\/\//i, '').split('/')[0].toLowerCase(),
             method: 'HEAD',
             headers: {
                 'Accept-Encoding': 'gzip, deflate, sdch', // this is required for head request to return content_length
