@@ -6,6 +6,7 @@ module.exports = {
 
         // Redirect to canonical for known domains
         if (canonical && url !== canonical && (
+                canonical.match &&
                 canonical.match(/^https?:\/\/news\.iheart\.com\/media\/play\/\d+/i)                
             )) {
 
