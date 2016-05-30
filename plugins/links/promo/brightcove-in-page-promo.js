@@ -41,7 +41,7 @@ module.exports = {
             }
 
             return {
-                __promoUri: 'https://players.brightcove.net/' + account + '/' + player + '_' + embed + '/index.html?videoId=' + video_id
+                __promoUri: 'https://players.brightcove.net/' + account + '/' + player + '_' + embed + '/index.html?videoId=' + video_id + (__allowBrightcoveInPage === 'autoplay' ? '&autoplay=true' : '')
             }
         }
     },
