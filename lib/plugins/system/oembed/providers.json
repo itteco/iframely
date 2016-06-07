@@ -116,15 +116,6 @@
         "endpoint": "http://www.collegehumor.com/oembed.{format}"
     },
     {
-        "name": "Poll Everywhere",
-        "templates": [
-            "www\\.polleverywhere\\.com/polls/.*",
-            "www\\.polleverywhere\\.com/multiple_choice_polls/.*",
-            "www\\.polleverywhere\\.com/free_text_polls/.*"
-        ],
-        "endpoint": "http://www.polleverywhere.com/services/oembed/"
-    },
-    {
         "name": "My Opera",
         "templates": [
             "my\\.opera\\.com/.*"
@@ -179,7 +170,7 @@
         "templates": [
             "twitter\\.com/(\\w+)/timelines/(\\d+)",
             "twitter\\.com/(\\w+)/lists/(\\w+)",
-             "twitter\\.com/(\\w+)/likes"
+            "twitter\\.com/(\\w+)/likes"
         ],
         "endpoint": "https://publish.twitter.com/oembed?i=timeline&url={url}"
     },
