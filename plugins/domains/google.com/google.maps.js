@@ -24,7 +24,11 @@ module.exports = {
         // https://www.google.com.br/maps/@-23.5812118,-46.6308331,13z?hl=pt-BR
         // https://www.google.com.br/maps/@-23.5812118,-46.6308331,7627m/data=!3m1!1e3?hl=pt-BR
         /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/(maps)\/()(@[^\/\?]+)/i, // empty search string as urlMatch[2]
-        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/(maps)\/place\/()(@[^\/\?]+)/i, // empty search string as urlMatch[2]        
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/(maps)\/place\/()(@[^\/\?]+)/i, // empty search string as urlMatch[2]
+
+        // directions, but actually a view
+        // https://www.google.nl/maps/dir/52.3389833,5.5608613//@52.3352336,5.5477077,15z
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/(maps)\/dir\/(?:[^\/]+)\/()\/(@[^\/\?]+)/i, // empty search string
 
         // street view
         // https://www.google.ca/maps/place/1+Wellington+St,+Ottawa,+ON+K1A+0A6/@45.425013,-75.695273,3a,75y,221.72h,76.43t/data=!3m5!1e1!3m3!1s5EpfU65PIZKcX26GbqBpVA!2e0!3e5!4m2!3m1!1s0x4cce04ff23c99f1d:0x4275051b90152635!6m1!1e1?hl=en
