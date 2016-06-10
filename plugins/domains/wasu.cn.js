@@ -23,11 +23,11 @@ module.exports = {
 
     tests: [{
         page: 'http://www.wasu.cn/',
-        selector: '.block a',
+        selector: '.pic_img a',
         getUrl: function(url) {
             if (url.match(re)) return url;
         }
     },
-        'http://www.wasu.cn/Play/show/id/5039416'
+        'http://www.wasu.cn/Play/show/id/7473137'
     ]
 };

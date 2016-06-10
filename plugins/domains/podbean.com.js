@@ -40,7 +40,6 @@ module.exports = {
     }, {
         pageWithFeed: 'http://anfieldindex.podbean.com'
     },
-        "http://realenglishconversations.podbean.com/e/english-podcast-17-our-personal-story-real-english-conversations/",
-        "http://thehashtaghunter.podbean.com/e/law-of-attraction/"
+        "http://realenglishconversations.podbean.com/e/english-podcast-17-our-personal-story-real-english-conversations/"
     ]
 };

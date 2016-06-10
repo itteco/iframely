@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /^https:\/\/squareup\.com\/market\/[\w-]+\/[\w-]+/i,
+    re: [
+        /^https:\/\/squareup\.com\/market\/[\w-]+\/[\w-]+/i,
+        /^https:\/\/squareup\.com\/store\/[\w-]+\/item\/[\w-]+/i
+    ],
 
     mixins: [
         "og-image",
@@ -30,6 +33,13 @@ module.exports = {
     tests: [{
         page: "https://squareup.com/market/categories/home?hl=en-UA",
         selector: '.item-element-content'
+    }, {
+        skipMixins: [
+            "og-product",
+            "canonical",
+            "og-description",
+            "keywords"
+        ]
     },
         "https://squareup.com/market/mobile-concepts/spider-coffee-table?hl=en-UA"
     ]

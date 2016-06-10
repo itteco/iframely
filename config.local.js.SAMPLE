@@ -97,14 +97,26 @@
             params: {
                 show_posts: 0,
                 show_facepile: 0,
-                "maxwidth": 600
+                maxwidth: 600
+            }
+        }, {
+            // match i=user or i=moment or i=timeline to configure these types invidually
+            // see params spec at https://dev.twitter.com/web/embedded-timelines/oembed
+            re: [/^https?:\/\/publish\.twitter\.com\/oembed\?i=user/i],
+            params: {
+                limit: 1,
+                maxwidth: 600
             }
         }],
 
+        /*
+        // Configure use of HTTP proxies as needed
         PROXY: [{
             re: [/^https?:\/\/www\.domain\.com/],
-            proxy_server: 'http://1.2.3.4:8080'
-        }]
+            proxy_server: 'http://1.2.3.4:8080',
+            // user_agent: 'CHANGE YOUR AGENT'
+        }],
+        */
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {

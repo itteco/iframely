@@ -17,7 +17,9 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://www.theonion.com/video/",
-        selector: ".title h1 a"
-    }]
+        page: "http://www.onionstudios.com/videos/popular/the-onion",
+        selector: ".item>a"
+    },
+        "http://www.onionstudios.com/videos/tips-for-throwing-an-anniversary-party-4004"
+    ]
 };

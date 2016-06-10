@@ -24,7 +24,7 @@ module.exports = {
 
     tests: [{
         page: "http://www.youku.com/",
-        selector: ".v-meta-entry a.btn-small"
+        selector: ".p-thumb>a"
     },
         "http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842"
     ]

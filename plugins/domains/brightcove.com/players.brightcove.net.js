@@ -9,11 +9,16 @@ module.exports = {
     ],
 
     //HTML parser will 404 if BC account or player does not exist.
-    getLink: function(urlMatch) {
+    getLink: function(url, urlMatch) {
+
+        var rel = [CONFIG.R.player, CONFIG.R.html5];
+
+        // this comes from `brightcove-in-page-promo` only and follows whitelistRecord
+        if (/&autoplay=true/.test(url)) {rel.push(CONFIG.R.autoplay);}
 
         return {
             href: '//players.brightcove.net/' + urlMatch[1] + '/' + urlMatch[2] + '_default/index.html?videoId=' + urlMatch[3] + '&for=embed',
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: rel,
             type: CONFIG.T.text_html,
             // aspect-ratio not known, use default...
         };

@@ -1,5 +1,3 @@
-var cheerio = require('cheerio');
-
 module.exports = {
 
     // keep dependency on oEmbed only. Otherwise, there's redirect to relative path for "play.*" and no embeds as a result

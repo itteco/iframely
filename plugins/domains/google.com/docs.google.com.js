@@ -3,7 +3,7 @@ module.exports = {
     provides: "schemaFileObject",
 
     re: [
-        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|spreadsheets|file)\/d\//i
+        /https:\/\/(?:docs|drive)\.google\.com\/(forms|document|presentation|spreadsheets|file)\/d\/([a-zA-Z0-9_-]+)/i
     ],
 
     mixins: [
@@ -39,22 +39,26 @@ module.exports = {
             };            
 
             if (schemaFileObject.playerType) {
-                // file.rel.push(CONFIG.R.player);
-                // There is a problem with player as embedURL: x-frame-options is SAMEORIGIN
-                return;
-            } 
 
-            if (urlMatch[1] === "forms" || urlMatch[1] === "document" || (urlMatch[1] === "file" && /\.pdf$/i.test(schemaFileObject.name))) {
+                // HEADS UP: 
+                // There is a problem with player as embedURL: x-frame-options is SAMEORIGIN
+                file.href = "https://drive.google.com/file/d/" + urlMatch[2] + "/preview";
+                file.rel.push(CONFIG.R.player);
+                // use default aspect
+
+            } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader); 
+
+            /// } else if (urlMatch[1] === "file" && schemaFileObject.playerType) {
 
             } else if (urlMatch[1] === "spreadsheets" ) {
                 file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
                 file.rel.push (CONFIG.R.reader);
 
-            } else {
-                file["aspect-ratio"] = 4/3;
+            } else { // presentation                
+                // file["aspect-ratio"] = 4/3; // use default aspect ratio
                 file.rel.push (CONFIG.R.player);
             }
 

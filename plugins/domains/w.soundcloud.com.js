@@ -4,7 +4,7 @@ module.exports = {
         /^https:?\/\/w\.soundcloud\.com\/player\/?\?\/?url=(https:\/\/api\.soundcloud\.com\/tracks\/\d+)$/i
     ],
 
-    getLink: function(urlMatch, cb) {
+    getData: function(urlMatch, cb) {
 
         cb ({
             redirect: urlMatch[1]

@@ -69,7 +69,8 @@ module.exports = {
 
                         hd: entry.contentDetails && entry.contentDetails.definition == "hd",
                         playerHtml: entry.player && entry.player.embedHtml,
-                        embeddable: entry.status ? entry.status.embeddable : true
+                        embeddable: entry.status ? entry.status.embeddable: true,
+                        uploadStatus: entry.status && entry.status.uploadStatus
                     };
 
                     if (entry.snippet && entry.snippet.thumbnails ) {
@@ -80,9 +81,13 @@ module.exports = {
                         gdata.duration = duration;
                     }
 
-                    cb(null, {
-                        youtube_video_gdata: gdata
-                    });
+                    if (gdata.uploadStatus === "rejected") {
+                        cb({responseStatusCode: 410});
+                    } else {
+                        cb(null, {
+                            youtube_video_gdata: gdata
+                        });
+                    }
 
                 } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
 
@@ -146,7 +151,7 @@ module.exports = {
         var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
-        var widescreen = youtube_video_gdata.hd; 
+        var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
 
         if (!widescreen && youtube_video_gdata.playerHtml) { // maybe still widescreen
             var $container = cheerio('<div>');
@@ -164,7 +169,7 @@ module.exports = {
         
 
         var links = [{
-            href: youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
+            href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: 320,
@@ -187,7 +192,7 @@ module.exports = {
             });
         }
 
-        if (youtube_video_gdata.thumbnails.maxres) {
+        if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {
             links.push({
                 href: youtube_video_gdata.thumbnails.maxres.url,
                 rel: CONFIG.R.thumbnail,
@@ -201,7 +206,7 @@ module.exports = {
 
         if (!widescreen) {
             links.push({
-                href: youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
+                href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
                 width: 480,

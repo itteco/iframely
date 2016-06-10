@@ -9,7 +9,7 @@ module.exports = {
         if (whitelistRecord.isAllowed('html-meta.brightcoveInPage')) {
 
             return {
-                __allowBrightcoveInPage: true
+                __allowBrightcoveInPage: whitelistRecord.isAllowed('html-meta.brightcoveInPage', 'autoplay') ? 'autoplay': true
             };
         }
     }
