@@ -4,6 +4,11 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2016.06.10, Version 0.9.6
+
+ - Maintenance for many domain plugins: minor fixes and better coverage
+ - Added Plot.ly
+
 ### 2016.05.11, Version 0.9.5
 
 Heads-up: `request` module dependency was upgraded. Please run `npm update` when deploying this version.
