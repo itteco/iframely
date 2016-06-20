@@ -16,7 +16,7 @@ module.exports = {
             // no '/' at the end and no ?embed=1
 
             return {
-                href: '//www.break.com/embed/' + id + '?embed=1',
+                href: 'http://www.break.com/embed/' + id + '?embed=1',
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 464 / 280
