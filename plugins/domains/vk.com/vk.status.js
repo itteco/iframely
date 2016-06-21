@@ -3,8 +3,8 @@ module.exports = {
     provides: "vk_status",
 
     re: [
-        /^https?:\/\/(?:m\.)?vk\.com\/[a-z0-9_-]+\?w=wall([0-9-]+)_(\d+)/i,
-        /^https?:\/\/(?:m\.)?vk\.com\/wall([0-9-]+)_(\d+)/i
+        /^https?:\/\/(?:m|new\.)?vk\.com\/[a-z0-9_-]+\?w=wall([0-9-]+)_(\d+)/i,
+        /^https?:\/\/(?:m|new\.)?vk\.com\/wall([0-9-]+)_(\d+)/i
     ],
 
     mixins: ["domain-icon"],
