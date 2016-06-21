@@ -17,7 +17,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.player,
             width: 480,
-            height: 345
+            height: 375
         };
     },
 
