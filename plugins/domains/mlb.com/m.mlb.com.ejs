@@ -1,0 +1,14 @@
+<iframe id="<%= id %>" data-src="<%= src %>" data-aspect="<%= aspect %>" style="width:100%" frameborder="0"></iframe>
+<script>
+    (function(){
+    var iframe = document.getElementById("<%= id %>");
+    iframe.removeAttribute('id');
+    var aspect = parseFloat(iframe.getAttribute('data-aspect'));
+    var width = iframe.offsetWidth;
+    var height = Math.round(width / aspect);
+    var src = iframe.getAttribute('data-src');
+    src += 'width=' + width + '&height=' + height;
+    iframe.setAttribute('src', src);
+    iframe.style.height = height + 'px';
+    })();
+</script>

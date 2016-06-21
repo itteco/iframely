@@ -1,3 +1,9 @@
+var crypto = require('crypto');
+
+function short_hash(value) {
+    return crypto.createHash('md5').update(value).digest("hex").slice(0, 5);
+}
+
 module.exports = {
 
     re: [
@@ -10,27 +16,34 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(og, urlMatch, options) {
+    getLink: function(og, url, urlMatch) {
 
 
         if (og.type == "video") {
 
             var topic_id = urlMatch[1];
             var content_id = urlMatch[2];
-            var width = options.maxWidth || 600;
-            var height = options.maxWidth ? options.maxWidth / (600/336) : 336;
 
             if (!urlMatch[2]) {
                 topic_id = (og.video.url || og.video).match(/topic_id=(\d+)/)[1];
                 content_id = urlMatch[1];
             }
+            var aspect = 400 / 224;
+            if (og.video && og.video.width && og.video.height) {
+                aspect = og.video.width / og.video.height;
+            }
+
+            aspect = Math.round(25 / 14 * 10000) / 10000;
 
             return {
-                href: "https://securea.mlb.com/shared/video/embed/embed.html?content_id=" + content_id + "&topic_id=" + topic_id + "&width=" + width + "&height=" + height + "&property=mlb",
+                template_context: {
+                    id: short_hash(url),
+                    src: "https://securea.mlb.com/shared/video/embed/embed.html?content_id=" + content_id + "&topic_id=" + topic_id + "&property=mlb&",
+                    aspect: aspect
+                },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                width: width,
-                height: height
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+                "aspect-ratio": aspect
             }
         }
     },
