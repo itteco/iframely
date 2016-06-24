@@ -17,7 +17,6 @@ module.exports = {
     },
 
     getLinks: function(urlMatch, meta) {
-        console.log(__width, __height);
         var fullUrl = urlMatch[0];
         var videoId = urlMatch[2];
         var playerId = urlMatch[1];
