@@ -18,8 +18,20 @@ module.exports = {
     getLinks: function(urlMatch) {
         var fullUrl = urlMatch[0];
         var videoId = urlMatch[1];
-        var src = "http://cloud-www.envrmnt.com/embed/#/video/"+videoId;
-        var html = '<script async src="http://cloud-www.envrmnt.com/scripts/embed_v1.js"></script><div style="width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;"><iframe id="envrmnt_'+videoId+'" data-envrmnt-id="'+videoId+'" src="'+src+'" frameborder="0" allowfullscreen style="width: 100%; height: 100%; position: absolute;"></iframe></div>';
+
+        var scriptURL = "http://cloud-www.envrmnt.com/scripts/embed_v1.js";
+        var wrapperCSS = "width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;";
+        var iframeSrc = "http://cloud-www.envrmnt.com/embed/#/video/"+videoId;
+        var iframeCss = "width: 100%; height: 100%; position: absolute;";
+        var fullscreenCSS = ".envrmnt--fullscreen {top: 0; right: 0; bottom: 0; left: 0; height: 100%; width: 100%; position: fixed; z-index: 9999999;}";
+
+        var html = '<script async src="'+scriptURL+'"></script>'+
+                   '<style>'+fullscreenCSS+'</style>'+
+                   '<div style="'+wrapperCSS+'">'+
+                   '<iframe id="envrmnt_'+videoId+'" data-envrmnt-id="'+videoId+'" '+
+                   'src="'+iframeSrc+'" frameborder="0" allowfullscreen '+
+                   'style="'+iframeCss+'"></iframe>'+
+                   '</div>';
 
         return [{
             type: CONFIG.T.text_html,
