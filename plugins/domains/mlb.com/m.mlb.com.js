@@ -42,7 +42,7 @@ module.exports = {
                         aspect: aspect
                     },
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
+                    rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
                     "aspect-ratio": aspect
                 }
             }
