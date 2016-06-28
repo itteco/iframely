@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var URL = require("url");
 
 function short_hash(value) {
     return crypto.createHash('md5').update(value).digest("hex").slice(0, 5);
@@ -21,29 +22,29 @@ module.exports = {
 
         if (og.type == "video") {
 
-            var topic_id = urlMatch[1];
-            var content_id = urlMatch[2];
+            var flash = URL.parse(og.video.url || og.video,true);
+            var query = flash.query;
 
-            if (!urlMatch[2]) {
-                topic_id = (og.video.url || og.video).match(/topic_id=(\d+)/)[1];
-                content_id = urlMatch[1];
-            }
-            var aspect = 400 / 224;
-            if (og.video && og.video.width && og.video.height) {
-                aspect = og.video.width / og.video.height;
-            }
+            var topic_id = query.topic_id;
+            var content_id = query.content_id;
+            var property = query.property || 'mlb';
+            var width = query.width || og.video.width;
+            var height = query.height || og.video.height;
 
-            aspect = Math.round(25 / 14 * 10000) / 10000;
+            if (content_id && topic_id && width && height) {
 
-            return {
-                template_context: {
-                    id: short_hash(url),
-                    src: "https://securea.mlb.com/shared/video/embed/embed.html?content_id=" + content_id + "&topic_id=" + topic_id + "&property=mlb&",
-                    aspect: aspect
-                },
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                "aspect-ratio": aspect
+                var aspect = Math.round(width / height * 10000) / 10000;
+
+                return {
+                    template_context: {
+                        id: short_hash(url),
+                        src: "https://securea.mlb.com/shared/video/embed/embed.html?content_id=" + content_id + "&topic_id=" + topic_id + "&property=" + property + '&',
+                        aspect: aspect
+                    },
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
+                    "aspect-ratio": aspect
+                }
             }
         }
     },
