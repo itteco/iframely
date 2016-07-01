@@ -80,7 +80,8 @@
             "min-height",
             "max-height",
             "aspect-ratio",
-            "padding-bottom"
+            "padding-bottom",
+            "scrolling"
         ],
 
         R: {
