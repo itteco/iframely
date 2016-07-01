@@ -490,5 +490,12 @@
             "(?:www\\.)?ranker\\.com/widget/([0-9]+)"
         ],
         "endpoint": "https://widget.ranker.com/oembed/{1}?for={format}"
+    },
+    {
+        "name": "Art19",
+        "templates": [
+            "art19\\.com/shows/\\/[a-zA-Z0-9\\-_]+\\/episodes\\/[a-zA-Z0-9\\-_]+"
+        ],
+        "endpoint": "https://art19.com/oembed.json"
     }    
 ]
