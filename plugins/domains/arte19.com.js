@@ -40,7 +40,8 @@ module.exports = {
                     href: player,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5],
-                    height: oembed.height
+                    height: oembed.height,
+                    scrolling: 'no'
                 };
             }
         }
