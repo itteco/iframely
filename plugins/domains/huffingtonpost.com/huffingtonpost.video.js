@@ -15,7 +15,7 @@ module.exports = {
         var $embed_code = cheerio('.video-page__video__embed-code');
 
         if ($embed_code.length) {
-            console.log($embed_code.html());
+
             return {
                 html: $embed_code.html(),
                 rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.autoplay],
