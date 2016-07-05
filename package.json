@@ -37,6 +37,7 @@
         "imagesize":    "1.0.0",
         "iconv-lite":   "0.4.13",
         "mimelib":      "0.2",
+        "http-parser-js":"0.4.2",
 
         "redis":        "0.8.3",
         "memcached":    "2.2.*",
