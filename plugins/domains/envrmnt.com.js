@@ -27,11 +27,7 @@ module.exports = {
         var videoId = urlMatch[1];
         var userUUID = urlMatch[2];
 
-        var metaURI = "http://cloud-www.envrmnt.com/share/?share="+videoId+"/"+userUUID;
-
-        console.log("videoId", videoId);
-        console.log("userUUID", userUUID);
-        console.log("metaURI", metaURI);
+        var metaURI = "http://cloud-media.envrmnt.com/media/vrexperience/"+videoId;
 
         request({
             uri: metaURI,
@@ -40,14 +36,13 @@ module.exports = {
                     return cb(error);
                 }
 
-                console.log("status", body);
+                var bodyJSON = JSON.parse(body);
 
                 cb(null, {
-                    // TEMP Thumbnail while we resolve timeout issue
                     envrmnt: {
                         thumbnail: {
-                            media: { width: 500, height: 500 },
-                            href: "https://placekitten.com/g/500/500",
+                            media: { width: 1286, height: 724 },
+                            href: bodyJSON.thumbnailImageUrl,
                         },
                         videoId: videoId
                     }
@@ -58,7 +53,7 @@ module.exports = {
     },
 
     getLinks: function(urlMatch, envrmnt) {
-        var scriptURL = "http://fe-www.envrmnt.com/lib/ext-embed-v1.js";
+        var scriptURL = "http://www.envrmnt.com/lib/ext-embed-v1.js";
         var wrapperCSS = "width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;";
         var iframeSrc = "http://www.envrmnt.com/embed/v1/#/video/"+envrmnt.videoId;
         var iframeCss = "width: 100%; height: 100%; position: absolute;";
@@ -85,5 +80,11 @@ module.exports = {
             width: envrmnt.thumbnail.media.width,
             height: envrmnt.thumbnail.media.height
         }];
-    }
+    },
+
+    tests: [{
+        noFeeds: true,
+    },
+        "http://cloud-www.envrmnt.com/#/video/a4e56f72-5be9-4b08-bf59-51dd6b2b072f?4a41b15c-dce0-44e5-879f-c0d4b05713ab"
+    ]
 };
