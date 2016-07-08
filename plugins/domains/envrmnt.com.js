@@ -27,7 +27,7 @@ module.exports = {
         var videoId = urlMatch[1];
         var userUUID = urlMatch[2];
 
-        var metaURI = "http://cloud-media.envrmnt.com/media/vrexperience/"+videoId;
+        var metaURI = "http://media.envrmnt.com/media/vrexperience/"+videoId;
 
         request({
             uri: metaURI,
