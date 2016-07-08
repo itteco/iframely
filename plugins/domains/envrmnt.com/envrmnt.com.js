@@ -42,17 +42,6 @@ module.exports = {
     },
 
     getLinks: function(urlMatch, envrmnt) {
-        var scriptURL = "http://www.envrmnt.com/shared/ext-embed-v1.js";
-        var wrapperCSS = "width: 100%; height: 0px; position: relative; padding-bottom: 56.2493%;";
-        var iframeSrc = "http://www.envrmnt.com/embed/v1/#/video/"+envrmnt.videoId;
-        var iframeCss = "width: 100%; height: 100%; position: absolute;";
-
-        var html = '<script async src="'+scriptURL+'"></script>'+
-                   '<div style="'+wrapperCSS+'">'+
-                   '<div><iframe id="envrmnt_'+envrmnt.videoId+'" data-envrmnt-id="'+envrmnt.videoId+'" data-vrplayer '+
-                   'src="'+iframeSrc+'" frameborder="0" allowfullscreen '+
-                   'style="'+iframeCss+'"></iframe></div>'+
-                   '</div>';
 
         return [{
             type: CONFIG.T.text_html,
@@ -61,7 +50,9 @@ module.exports = {
                 CONFIG.R.inline,
                 CONFIG.R.html5
             ],
-            html: html
+            template_context: {
+                id: envrmnt.videoId
+            }
         }, {
             href: envrmnt.thumbnail.href,
             type: CONFIG.T.image_jpeg,
