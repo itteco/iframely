@@ -1,18 +1,9 @@
 module.exports = {
     re: [
-        /^https?:\/\/(?:[a-z]+-)?www\.envrmnt\.com\/#\/video\/([\w\-]+)\?([\w\-]+)$/i
+        /^https?:\/\/(?:[a-z]+-)?www\.envrmnt\.com\/#\/video\/([\w\-]+)\??([\w\-]+)?$/i
     ],
 
-    mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "video",
-        "twitter-description",
-        "media-detector",
-        "og-site",
-        "twitter-title"
-    ],
+    mixins: ["*"],
 
     provides: 'envrmnt',
 
@@ -23,11 +14,9 @@ module.exports = {
     },
 
     getData: function(urlMatch, request, cb) {
-        var fullUrl = urlMatch[0];
         var videoId = urlMatch[1];
-        var userUUID = urlMatch[2];
 
-        var metaURI = "http://media.envrmnt.com/media/vrexperience/"+videoId;
+        var metaURI = "http://media.envrmnt.com/media/vrexperience/" + videoId;
 
         request({
             uri: metaURI,
@@ -85,6 +74,8 @@ module.exports = {
     tests: [{
         noFeeds: true,
     },
-        "http://cloud-www.envrmnt.com/#/video/a4e56f72-5be9-4b08-bf59-51dd6b2b072f?4a41b15c-dce0-44e5-879f-c0d4b05713ab"
+        "http://www.envrmnt.com/#/video/6ec3f3f8-69f4-4b29-b64d-14992e19005f?3e6d6290-cd65-46b8-b4a6-1b1b6e3674d9",
+        "http://www.envrmnt.com/#/video/619125f4-8c30-4549-bddb-4ece058797cb?c2efeabd-bb85-4363-b23c-e7f3eb7e160c",
+        "http://www.envrmnt.com/#/video/ba1e1de1-54db-4962-8cac-40cd66aad44b"
     ]
 };
