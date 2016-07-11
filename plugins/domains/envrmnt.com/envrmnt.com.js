@@ -7,8 +7,11 @@ module.exports = {
 
     getMeta: function (envrmnt) {
         return {
-            videoId: envrmnt.videoId
-        }
+            title: envrmnt.title,
+            date: envrmnt.timeCreated,
+            author: envrmnt.user_fullname,
+            views: envrmnt.views
+        };
     },
 
     getData: function(urlMatch, request, cb) {
@@ -18,26 +21,21 @@ module.exports = {
 
         request({
             uri: metaURI,
+            json: true,
             prepareResult: function(error, response, body, cb) {
                 if (error) {
                     return cb(error);
                 }
 
                 cb(null, {
-                    envrmnt: {
-                        thumbnail: {
-                            media: { width: 1286, height: 724 },
-                            href: body.thumbnailImageUrl,
-                        },
-                        videoId: videoId
-                    }
+                    envrmnt: body
                 });
             }
         }, cb);
 
     },
 
-    getLinks: function(urlMatch, envrmnt) {
+    getLinks: function(envrmnt) {
 
         return [{
             type: CONFIG.T.text_html,
@@ -47,19 +45,17 @@ module.exports = {
                 CONFIG.R.html5
             ],
             template_context: {
-                id: envrmnt.videoId
+                id: envrmnt.uuid
             }
         }, {
-            href: envrmnt.thumbnail.href,
+            href: envrmnt.thumbnailImageUrl,
             type: CONFIG.T.image_jpeg,
-            rel: CONFIG.R.thumbnail,
-            width: envrmnt.thumbnail.media.width,
-            height: envrmnt.thumbnail.media.height
+            rel: CONFIG.R.thumbnail
         }];
     },
 
     tests: [{
-        noFeeds: true,
+        noFeeds: true
     },
         "http://www.envrmnt.com/#/video/6ec3f3f8-69f4-4b29-b64d-14992e19005f?3e6d6290-cd65-46b8-b4a6-1b1b6e3674d9",
         "http://www.envrmnt.com/#/video/619125f4-8c30-4549-bddb-4ece058797cb?c2efeabd-bb85-4363-b23c-e7f3eb7e160c",
