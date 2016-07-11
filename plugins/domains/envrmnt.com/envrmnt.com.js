@@ -3,8 +3,6 @@ module.exports = {
         /^https?:\/\/(?:[a-z]+-)?www\.envrmnt\.com\/#\/video\/([\w\-]+)\??([\w\-]+)?$/i
     ],
 
-    mixins: ["*"],
-
     provides: 'envrmnt',
 
     getMeta: function (envrmnt) {
@@ -25,13 +23,11 @@ module.exports = {
                     return cb(error);
                 }
 
-                var bodyJSON = JSON.parse(body);
-
                 cb(null, {
                     envrmnt: {
                         thumbnail: {
                             media: { width: 1286, height: 724 },
-                            href: bodyJSON.thumbnailImageUrl,
+                            href: body.thumbnailImageUrl,
                         },
                         videoId: videoId
                     }
