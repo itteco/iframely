@@ -434,11 +434,11 @@
         "endpoint": "http://roomshare.jp/oembed.xml?url=http://{0}"
     },
     {
-        "name": "cartodb.com",
+        "name": "carto.com",
         "templates": [
-            "\\w+.cartodb\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
+            "\\w+.carto(?:db)?\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
-        "endpoint": "http://services.cartodb.com/oembed"
+        "endpoint": "http://services.carto.com/oembed"
     },
     {
         "name": "Widgetic",
@@ -490,5 +490,12 @@
             "(?:www\\.)?ranker\\.com/widget/([0-9]+)"
         ],
         "endpoint": "https://widget.ranker.com/oembed/{1}?for={format}"
+    },
+    {
+        "name": "Art19",
+        "templates": [
+            "art19\\.com/shows/\\/[a-zA-Z0-9\\-_]+\\/episodes\\/[a-zA-Z0-9\\-_]+"
+        ],
+        "endpoint": "https://art19.com/oembed.json"
     }    
 ]

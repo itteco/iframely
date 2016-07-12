@@ -24,7 +24,7 @@ module.exports = {
             rel: CONFIG.R.thumbnail,
             type: CONFIG.T.image_jpeg,
             width: oembed.thumbnail_width,
-            heigh: oembed.thumbnail_height 
+            height: oembed.thumbnail_height 
         }];
 
         if (oembed.type === 'photo') {
@@ -33,7 +33,7 @@ module.exports = {
                 rel: [CONFIG.R.image, CONFIG.R.thumbnail],
                 type: CONFIG.T.image_jpeg,
                 width: oembed.width,
-                heigh: oembed.height
+                height: oembed.height
             });
         }
 

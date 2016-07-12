@@ -107,7 +107,14 @@
                 limit: 1,
                 maxwidth: 600
             }
-        }],
+        }, {
+            // Facebook https://developers.facebook.com/docs/plugins/oembed-endpoints
+            re: [/^https:\/\/www\.facebook\.com\/plugins\/\w+\/oembed\.json/i],
+            params: {
+                // Skip script tag and fb-root div.
+                omitscript: true
+            }
+         }],
 
         /*
         // Configure use of HTTP proxies as needed
@@ -187,7 +194,7 @@
                     }
                 }
             }
-            */            
+            */
         },
 
         // WHITELIST_WILDCARD, if present, will be added to whitelist as record for top level domain: "*"

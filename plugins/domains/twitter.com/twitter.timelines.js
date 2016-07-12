@@ -37,6 +37,7 @@ module.exports = {
         "https://twitter.com/potus",
         "https://twitter.com/i/moments/737260069209972736",
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
-        "https://twitter.com/TwitterDev/lists/national-parks"
+        "https://twitter.com/TwitterDev/lists/national-parks",
+        { skipMixins: ["og-image"]}
     ]
 };

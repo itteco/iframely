@@ -53,6 +53,10 @@ module.exports = {
             if (whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
                 widget.href = widget.href.replace(/^http:\/\//i, '//');
             }
+
+            if ($iframe.attr('scrolling') === 'no') {
+                widget.scrolling = 'no';
+            }
         
         } else { 
             widget.html = oembed.html || oembed.html5; // will render in an iframe, unless "inline" is in rels

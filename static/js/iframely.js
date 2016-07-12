@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 0.9.4
+     Version 0.9.7
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -423,6 +423,10 @@
                     .attr('allowfullscreen', true)
                     .attr('webkitallowfullscreen', true)
                     .attr('mozallowfullscreen', true);
+
+                if (data.media && data.media.scrolling === 'no') {
+                    $iframe.attr('scrolling', 'no');
+                }
 
                 if (options && options.disableSizeWrapper) {
                     return $iframe;

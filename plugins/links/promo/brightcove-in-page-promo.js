@@ -36,7 +36,7 @@ module.exports = {
                 return;
             } 
 
-            if (embed !== 'default' || !/^\d+$/.test(account) || !/^\d+$/.test(video_id)) {
+            if (embed !== 'default' || !/^\d+$/.test(account)) {
                 return;
             }
 

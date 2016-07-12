@@ -1,6 +1,16 @@
+var utils = require('../links/utils');
+var _ = require('underscore');
+
 module.exports = {
 
-    getMeta: function(meta, url) {
+    getMeta: function(meta, url, whitelistRecord) {
+
+        var iframelyLinks = _.flatten(_.keys(meta).map(function(key) {
+            return utils.parseMetaLinks(key, meta[key], whitelistRecord);
+        }));
+        if (iframelyLinks.length) {
+            return;
+        }
 
         // Player.
 

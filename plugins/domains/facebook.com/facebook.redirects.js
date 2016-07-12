@@ -4,7 +4,7 @@ module.exports = {
         /^https?:\/\/m\.facebook\.com\/story\.php/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/login\.php/i,
         /^https?:\/\/m\.facebook\.com/i,
-        /^https?:\/\/facebook\.com\/l\.php\?u=/i
+        /^https?:\/\/(?:touch\.)?facebook\.com\/l\.php\?u=/i        
     ],
 
     getData: function(url, meta, cb) {

@@ -3,10 +3,10 @@ var utils = require('../../lib/utils');
 module.exports = {
 
     re: [
-    	/^https?:\/\/tube\.geogebra\.org\/material\/\w+\/id\/(\d+)/i,
-    	/^https?:\/\/tube\.geogebra\.org\/m\/(\d+)/i,
-    	/^https?:\/\/tube\.geogebra\.org\/student\/m(\d+)/i,
-    	/^https?:\/\/\w+\.geogebra\.org\/m\/(\d+)/i    	
+    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/material\/\w+\/id\/([a-zA-Z0-9]+)/i,
+    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/m\/([a-zA-Z0-9]+)/i,
+    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/student\/m([a-zA-Z0-9]+)/i,    	
+    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/m\/([a-zA-Z0-9]+)/i    	
     ],
 
     mixins: [

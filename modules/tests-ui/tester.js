@@ -374,6 +374,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                 setTimeout(function() {
                     iframely(url, {
                         debug: true,
+                        refresh: true,
                         readability: true,
                         getWhitelistRecord: whitelist.findWhitelistRecordFor
                     }, callback);
