@@ -4,6 +4,13 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2016.07.12, Version 0.9.7
+
+ - Maintenance of number of domain plugins;
+ - Fix for CartoDB's new domain name in particular
+ - And especially making MLB responsive
+ - Also, added BigThink, Art19, Hudl
+
 ### 2016.06.10, Version 0.9.6
 
  - Maintenance for many domain plugins: minor fixes and better coverage
