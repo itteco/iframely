@@ -10,7 +10,8 @@ module.exports = {
             title: envrmnt.title,
             date: envrmnt.timeCreated,
             author: envrmnt.user_fullname,
-            views: envrmnt.views
+            views: envrmnt.views,
+            videoId: envrmnt.uuid
         };
     },
 
