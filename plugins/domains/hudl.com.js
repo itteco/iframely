@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /^https?:\/\/www\.hudl\.com\/(athlete\/\d+\/highlights\/\d+)/i,    
+    re: [
+        /^https?:\/\/www\.hudl\.com\/(athlete\/\d+\/highlights\/\d+)/i,
+        /^https?:\/\/www\.hudl\.com\/(video\/[0-9a-zA-Z\/]+)/i
+    ],
 
     mixins: [
         "*"
@@ -20,6 +23,7 @@ module.exports = {
 
     tests: [
         "http://www.hudl.com/athlete/4927189/highlights/309644377",
+        "http://www.hudl.com/video/3/4927189/5721d64c4df6124b70241827",
         "http://www.hudl.com/v/Tqusi"
     ]
 };

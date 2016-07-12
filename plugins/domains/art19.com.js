@@ -9,7 +9,7 @@ module.exports = {
     mixins: [
         "oembed-title",
         "oembed-description",
-        "oembed-thumbnail",
+        "twitter-image",
         "oembed-site",
         "domain-icon"
     ],
