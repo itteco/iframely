@@ -6,6 +6,8 @@ To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itte
 
 ### 2016.07.12, Version 0.9.7
 
+Heads-up: `http-parser-js` module dependency was added for a fix of invalid HTTP headers. Please run `npm install` when deploying this version.
+
  - Maintenance of number of domain plugins;
  - Fix for CartoDB's new domain name in particular
  - And especially making MLB responsive
