@@ -434,11 +434,11 @@
         "endpoint": "http://roomshare.jp/oembed.xml?url=http://{0}"
     },
     {
-        "name": "cartodb.com",
+        "name": "carto.com",
         "templates": [
-            "\\w+.cartodb\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
+            "\\w+.carto(?:db)?\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
         ],
-        "endpoint": "http://services.cartodb.com/oembed"
+        "endpoint": "http://services.carto.com/oembed"
     },
     {
         "name": "Widgetic",
