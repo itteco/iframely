@@ -31,7 +31,8 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             'aspect-ratio': 16/9,
-            'padding-bottom': 50,
+            'padding-bottom': 60,
+            scrolling: 'no',
             'max-width': 1000
         };
     },

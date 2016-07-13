@@ -12,7 +12,8 @@ module.exports = {
             href: '//www.washingtonpost.com/video/c/embed/' + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": 16 / 9
+            "aspect-ratio": 16 / 9,
+            scrolling: 'no'
         };
     },
 

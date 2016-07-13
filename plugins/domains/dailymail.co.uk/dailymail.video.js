@@ -32,7 +32,8 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,             
             "aspect-ratio": 484 / 282, // taken from mp4 aspect
-            "padding-bottom": 50 + 50 + 50
+            "padding-bottom": 50 + 50 + 50,
+            scrolling: 'no'
         }];
     },    
 

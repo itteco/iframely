@@ -31,7 +31,8 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             width: width,
-            height: width / (16/9)
+            height: width / (16/9),
+            scrolling: 'no'
         }
     },
 
