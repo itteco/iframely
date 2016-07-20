@@ -47,7 +47,7 @@ if (cluster.isMaster) {
 
                     if (averageCpu > CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
                         sysUtils.log('Cluster: worker ' + process.pid + ' used too much CPU (' + averageCpu + '%), exiting...');
-                        process.exit(1);
+                        process.kill(process.pid);
                     }
                 }
             });
@@ -60,7 +60,7 @@ if (cluster.isMaster) {
             var mem = process.memoryUsage().rss;
             if (mem > CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED) {
                 sysUtils.log('Cluster: worker ' + process.pid + ' used too much memory (' + Math.round(mem / (1024*1024)) + ' MB), exiting...');
-                process.exit(1);
+                process.kill(process.pid);
             }
 
         }, 1000);
@@ -71,7 +71,7 @@ if (cluster.isMaster) {
         setInterval(function() {
 
             sysUtils.log('Cluster: worker ' + process.pid + ' restarting by timer...');
-            process.exit(1);
+            process.kill(process.pid);
 
         }, CONFIG.CLUSTER_WORKER_RESTART_ON_PERIOD);
     }
