@@ -8,6 +8,8 @@ module.exports = function(server) {
     var state = new EventEmitter;
     state.shutdown = false;
 
+    var REQUESTS_COUNT = 0;
+
     server.shutdown = function () {
         server.close(function() {
             process.exit(0);
@@ -28,16 +30,23 @@ module.exports = function(server) {
     server.on('request', function (req, res) {
         var socket = req.connection;
         socket.HAS_OPEN_REQUESTS++;
+        REQUESTS_COUNT++;
         res.on('finish', function () {
+            REQUESTS_COUNT--;
+            if (state.shutdown) logShutdown();
             socket.HAS_OPEN_REQUESTS--;
-            if (state.shutdown && socket.HAS_OPEN_REQUESTS === 0) {socket.destroy();}
+            if (state.shutdown && socket.HAS_OPEN_REQUESTS === 0) socket.destroy();
         });
     });
 
     // Bind to termination events.
 
+    function logShutdown() {
+        sysUtils.log('pid:' + process.pid + ' graceful stutdown: ' + (REQUESTS_COUNT ? 'wait ' + REQUESTS_COUNT + ' requests to finish.' : 'done.'));
+    }
+
     function gracefulExit() {
-        sysUtils.log('Start graceful stutdown: wait connections to close.');
+        logShutdown();
         server.shutdown();
     }
     process.on('SIGTERM', gracefulExit);
