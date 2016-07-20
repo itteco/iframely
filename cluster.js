@@ -48,6 +48,7 @@ if (cluster.isMaster) {
 
     require('./server');
 
+    // TODO: prevent restarting all at same time.
 
     if (CONFIG.CLUSTER_MAX_CPU_LOAD_TIME_IN_SECONDS && CONFIG.CLUSTER_MAX_CPU_LOAD_IN_PERCENT) {
 
