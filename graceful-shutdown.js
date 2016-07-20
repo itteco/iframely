@@ -44,7 +44,7 @@ module.exports = function(server) {
     // Bind to termination events.
 
     function logShutdown() {
-        sysUtils.log('pid:' + process.pid + ' graceful stutdown: ' + (REQUESTS_COUNT ? 'wait ' + REQUESTS_COUNT + ' requests to finish.' : 'done.'));
+        sysUtils.log('pid:' + process.pid + ' graceful stutdown: ' + (REQUESTS_COUNT ? 'wait ' + REQUESTS_COUNT + ' request' + (REQUESTS_COUNT > 1 ? 's': '') + ' to finish.' : 'done.'));
     }
 
     function gracefulExit() {
