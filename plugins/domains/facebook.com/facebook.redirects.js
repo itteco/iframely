@@ -1,10 +1,12 @@
+var URL = require("url");
+
 module.exports = {
 
     re: [        
         /^https?:\/\/m\.facebook\.com\/story\.php/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/login\.php/i,
         /^https?:\/\/m\.facebook\.com/i,
-        /^https?:\/\/(?:touch\.)?facebook\.com\/l\.php\?u=/i        
+        /^https?:\/\/(?:touch\.|www\.)?facebook\.com\/l\.php\?u=/i        
     ],
 
     getData: function(url, meta, cb) {
@@ -33,8 +35,13 @@ module.exports = {
             return cb({redirect: url.replace("m.facebook.com", "www.facebook.com")});
         }
 
+
         if (url.indexOf('facebook.com/l.php?u=') > -1) {
-            return cb({redirect: decodeURIComponent(url.match(/u=([^&]+)/i)[1])});
+            var uri = URL.parse(url,true);
+            var query = uri.query;
+
+            // https://www.facebook.com/l.php?u=https://www.youtube.com/watch?v=OpONaotsgow
+            return cb({redirect: decodeURIComponent(query.u)});
         }        
 
         cb(null);
