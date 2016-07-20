@@ -119,3 +119,7 @@ console.log('');
 console.log(' - support@iframely.com - if you need help');
 console.log(' - twitter.com/iframely - news & updates');
 console.log(' - github.com/itteco/iframely - star & contribute');
+
+if (!CONFIG.DEBUG) {
+    require('./graceful-shutdown')(listener);
+}
