@@ -13,6 +13,7 @@ if (cluster.isMaster) {
     }
 
     function checkIfNoWorkersAndExit() {
+        // TODO: add timeout.
         if (!workersCount) {
             sysUtils.log('Cluster graceful shutdown: done.');
             process.exit(0);

@@ -12,6 +12,7 @@ module.exports = function(server) {
     var REQUESTS_COUNT = 0;
 
     server.shutdown = function () {
+        // TODO: add timeout.
         server.close(function() {
             process.exit(0);
         });
