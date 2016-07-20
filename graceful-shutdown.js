@@ -6,6 +6,7 @@ module.exports = function(server) {
     // Solution got from: https://github.com/nodejs/node-v0.x-archive/issues/9066#issuecomment-124210576
 
     var state = new EventEmitter;
+    state.setMaxListeners(0);
     state.shutdown = false;
 
     var REQUESTS_COUNT = 0;
