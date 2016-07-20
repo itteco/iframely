@@ -4,18 +4,44 @@ var numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {
 
+    var sigkill = false;
+    var workersCount = 0;
+
     // Fork workers.
     for (var i = 0; i < numCPUs; i++) {
         cluster.fork();
     }
 
+    function checkIfNoWorkersAndExit() {
+        if (!workersCount) {
+            sysUtils.log('Cluster graceful shutdown: done.');
+            process.exit(0);
+        } else {
+            sysUtils.log('Cluster graceful shutdown: wait ' + workersCount + ' worker' + (workersCount > 1 ? 's' : '') + '.');
+        }
+    }
+
+    function startShutdown() {
+        sigkill = true;
+        checkIfNoWorkersAndExit();
+    }
+
     cluster.on('fork', function(worker) {
         sysUtils.log('Cluster: worker ' + worker.process.pid + ' started');
+        workersCount++;
     });
     cluster.on('exit', function(worker, code, signal) {
+        workersCount--;
+        if (sigkill) {
+            checkIfNoWorkersAndExit();
+            return;
+        }
         sysUtils.log('Cluster: worker ' + worker.process.pid + ' died (code: ' + code + '), restarting...');
         cluster.fork();
     });
+
+    process.on('SIGTERM',startShutdown);
+    process.on('SIGINT',startShutdown);
 
 } else {
 
