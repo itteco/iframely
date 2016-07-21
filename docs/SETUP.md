@@ -112,6 +112,10 @@ and restart your server afterwards. If you use [Forever](https://github.com/node
 
     forever restartall
 
+or do cluster graceful restart:
+
+    kill -s SIGUSR2 <node cluster.js pid>
+
 If you fork, make sure to merge from the upstream for the newer versions.
 
 
