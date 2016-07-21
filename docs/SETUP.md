@@ -72,8 +72,8 @@ To run server in cluster mode, use
 We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
     npm install -g forever
-    forever start -l iframely.log cluster.js
-
+    forever start -a -l iframely.log --killSignal=SIGTERM cluster.js
+    forever logs 0 -fifo
 
 For production deployments, we recommend the cluster mode. It will properly utilize the CPU if you are on multiple cores. Plus, as with any Node.js memory buffers, it is beneficial for performance to peridically restart the running processes.
 

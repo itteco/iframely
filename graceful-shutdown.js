@@ -12,7 +12,12 @@ module.exports = function(server) {
     var REQUESTS_COUNT = 0;
 
     server.shutdown = function () {
-        // TODO: add timeout.
+
+        setTimeout(function() {
+            sysUtils.log('pid:' + process.pid + ' graceful stutdown: timeout, force exit.');
+            process.exit(0);
+        }, CONFIG.SHUTDOWN_TIMEOUT);
+
         server.close(function() {
             process.exit(0);
         });

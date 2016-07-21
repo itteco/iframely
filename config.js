@@ -33,6 +33,8 @@
 
         RESPONSE_TIMEOUT: 5 * 1000,
 
+        SHUTDOWN_TIMEOUT: 6 * 1000,
+
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
         VERSION: version,
 
