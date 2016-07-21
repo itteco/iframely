@@ -4,6 +4,8 @@ var numCPUs = require('os').cpus().length;
 
 if (cluster.isMaster) {
 
+    process.title = "iframely-cluster";
+
     var sigkill = false;
     var workersCount = 0;
     var listeningWorkersCount = 0;
