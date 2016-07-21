@@ -11,38 +11,26 @@ module.exports = function(server) {
 
     var REQUESTS_COUNT = 0;
 
-    server.shutdown = function () {
-
-        setTimeout(function() {
-            sysUtils.log('pid:' + process.pid + ' graceful stutdown: timeout, force exit.');
-            process.exit(0);
-        }, CONFIG.SHUTDOWN_TIMEOUT);
-
-        server.close(function() {
-            process.exit(0);
-        });
-        state.shutdown = true;
-        state.emit('shutdown');
-    };
     server.on('connection', function (socket) {
         function destroy() {
-            if (socket.HAS_OPEN_REQUESTS === 0) socket.destroy();
+            if (socket._GS_HAS_OPEN_REQUESTS === 0) socket.destroy();
         }
-        socket.HAS_OPEN_REQUESTS = 0;
+        socket._GS_HAS_OPEN_REQUESTS = 0;
         state.once('shutdown', destroy);
         socket.once('close', function () {
             state.removeListener('shutdown', destroy);
         });
     });
+
     server.on('request', function (req, res) {
         var socket = req.connection;
-        socket.HAS_OPEN_REQUESTS++;
+        socket._GS_HAS_OPEN_REQUESTS++;
         REQUESTS_COUNT++;
         res.on('finish', function () {
             REQUESTS_COUNT--;
             if (state.shutdown) logShutdown();
-            socket.HAS_OPEN_REQUESTS--;
-            if (state.shutdown && socket.HAS_OPEN_REQUESTS === 0) socket.destroy();
+            socket._GS_HAS_OPEN_REQUESTS--;
+            if (state.shutdown && socket._GS_HAS_OPEN_REQUESTS === 0) socket.destroy();
         });
     });
 
@@ -53,8 +41,20 @@ module.exports = function(server) {
     }
 
     function gracefulExit() {
+
         logShutdown();
-        server.shutdown();
+
+        setTimeout(function() {
+            sysUtils.log('pid:' + process.pid + ' graceful stutdown: timeout, force exit.');
+            process.exit(0);
+        }, CONFIG.SHUTDOWN_TIMEOUT);
+
+        server.close(function() {
+            process.exit(0);
+        });
+
+        state.shutdown = true;
+        state.emit('shutdown');
     }
     process.on('SIGTERM', gracefulExit);
     process.on('SIGINT', gracefulExit);
