@@ -1,7 +1,15 @@
-var sysUtils = require('./utils');
 var EventEmitter = require('events').EventEmitter;
 
-module.exports = function(server) {
+module.exports = function(options) {
+
+    var server = options.server;
+
+    if (!server) {
+        throw new Error('Graceful shutdown: `options.server` required.');
+    }
+
+    var log = options.log || console.log;
+    var shutdownTimeout = options.shutdownTimeout || 5000;
 
     // Solution got from: https://github.com/nodejs/node-v0.x-archive/issues/9066#issuecomment-124210576
 
@@ -37,7 +45,7 @@ module.exports = function(server) {
     // Bind to termination events.
 
     function logShutdown() {
-        sysUtils.log('pid:' + process.pid + ' graceful stutdown: ' + (REQUESTS_COUNT ? 'wait ' + REQUESTS_COUNT + ' request' + (REQUESTS_COUNT > 1 ? 's': '') + ' to finish.' : 'done.'));
+        log('pid:' + process.pid + ' graceful stutdown: ' + (REQUESTS_COUNT ? 'wait ' + REQUESTS_COUNT + ' request' + (REQUESTS_COUNT > 1 ? 's': '') + ' to finish.' : 'done.'));
     }
 
     function gracefulExit() {
@@ -45,9 +53,9 @@ module.exports = function(server) {
         logShutdown();
 
         setTimeout(function() {
-            sysUtils.log('pid:' + process.pid + ' graceful stutdown: timeout, force exit.');
+            log('pid:' + process.pid + ' graceful stutdown: timeout, force exit.');
             process.exit(0);
-        }, CONFIG.SHUTDOWN_TIMEOUT);
+        }, shutdownTimeout);
 
         server.close(function() {
             process.exit(0);
@@ -58,5 +66,4 @@ module.exports = function(server) {
     }
     process.on('SIGTERM', gracefulExit);
     process.on('SIGINT', gracefulExit);
-
 };
