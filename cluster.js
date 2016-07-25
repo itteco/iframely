@@ -1,9 +1,9 @@
-var gracefulCluster = require('./graceful-cluster');
+var GracefulCluster = require('graceful-cluster').GracefulCluster;
 var sysUtils = require('./utils');
 
 process.title = 'iframely-cluster';
 
-gracefulCluster.start({
+GracefulCluster.start({
     log: sysUtils.log,
     shutdownTimeout: CONFIG.SHUTDOWN_TIMEOUT,
     disableGraceful: CONFIG.DEBUG,

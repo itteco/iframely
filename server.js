@@ -121,7 +121,8 @@ console.log(' - twitter.com/iframely - news & updates');
 console.log(' - github.com/itteco/iframely - star & contribute');
 
 if (!CONFIG.DEBUG) {
-    require('./graceful-shutdown')({
+    var GracefulServer = require('graceful-cluster').GracefulServer;
+    new GracefulServer({
         server: listener,
         log: sysUtils.log,
         shutdownTimeout: CONFIG.SHUTDOWN_TIMEOUT
