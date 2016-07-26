@@ -3,6 +3,7 @@
         "name": "Facebook Post",
         "templates": [
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[a-zA-Z0-9\\.\\-]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/notes/([a-zA-Z0-9\\.\\-]+)/[^/]+/(\\d{10,})",
@@ -12,8 +13,7 @@
     },
     {
         "name": "Facebook Video",
-        "templates": [
-          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
+        "templates": [          
           "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
           "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
