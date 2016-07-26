@@ -44,7 +44,9 @@
         "node-cache":   "1.0.3",
 
         "readabilitySAX":"1.6.1",
-        "cheerio":      "0.19.0"
+        "cheerio":      "0.19.0",
+
+        "graceful-cluster": "*"
     },
 
     "devDependencies": {
