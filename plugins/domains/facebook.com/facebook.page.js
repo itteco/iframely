@@ -35,8 +35,7 @@ module.exports = {
 
     tests: [
         "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
-        {
-            noFeeds: true
-        }
+        { skipMixins: ["oembed-error"]},
+        { noFeeds: true}
     ]
 };
