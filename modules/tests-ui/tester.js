@@ -2,7 +2,7 @@ GLOBAL.CONFIG = require('../../config');
 
 if (!CONFIG.tests) {
     console.error('Tests not started: CONFIG.tests not configured.');
-    process.abort();
+    process.exit(0);
     return;
 }
 
@@ -49,7 +49,7 @@ var TestUrlsSet = models.TestUrlsSet;
 var TestingProgress = models.TestingProgress;
 
 if (!PluginTest) {
-    process.abort();
+    process.exit(0);
     return;
 }
 
@@ -570,12 +570,12 @@ function startTest() {
     testAll(function() {
 
         if (testOnePlugin) {
-            process.abort();
+            process.exit(0);
         }
 
         setTimeout(function() {
             // Script should be restarted on that period to check new files version.
-            process.abort();
+            process.exit(0);
         }, CONFIG.tests.relaunch_script_period);
     });
 }
