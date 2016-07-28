@@ -50,7 +50,7 @@ module.exports = {
 
         if (tableau_image.width && tableau_image.height) {
             var links = [{                
-                href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true',
+                href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true&:tabs=no',
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.html5],
                 'aspect-ratio': tableau_image.width / tableau_image.height,
@@ -76,7 +76,6 @@ module.exports = {
         // not responsive:
         "http://public.tableau.com/views/HEROremodel/Dashboard1",
         "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no",
-        "http://public.tableau.com/shared/X7RMWXZYQ?:display_count=yes",
-        "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no"
+        "http://public.tableau.com/shared/X7RMWXZYQ?:display_count=yes"
     ]
 };
