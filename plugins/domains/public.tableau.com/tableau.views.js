@@ -86,9 +86,9 @@ module.exports = {
         "https://public.tableau.com/profile/callie3559#!/vizhome/Philly2/Sheet2",
         //tabs:
         "https://public.tableau.com/views/Metro-levelDataVizoftheWeek/UrbanCorePerformance?:embed=y&:display_count=yes&:showTabs=y",
+        "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no",
         // not responsive:
         "http://public.tableau.com/views/HEROremodel/Dashboard1",
-        "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no",
         "http://public.tableau.com/shared/X7RMWXZYQ?:display_count=yes"
     ]
 };
