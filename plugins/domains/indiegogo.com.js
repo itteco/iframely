@@ -15,7 +15,8 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: CONFIG.R.app,
             width: 222,
-            height: 445
+            height: 445,
+            scrolling: 'no'
         };
     },
 
