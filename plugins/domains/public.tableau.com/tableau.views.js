@@ -59,7 +59,8 @@ module.exports = {
                 href: '//public.tableau.com/thumb/views/' + tableau.workbook + '/' + tableau.view,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-                // no sizes = let's validate this thumbnail
+                width: 736,
+                height: 454 // it's always the same
             }];
 
             links.push(tableau_image);
