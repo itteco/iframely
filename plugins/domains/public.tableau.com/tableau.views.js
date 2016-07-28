@@ -49,19 +49,30 @@ module.exports = {
     getLinks: function(tableau, tableau_image) {
 
         if (tableau_image.width && tableau_image.height) {
-            var links = [{                
-                href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true&:tabs=no',
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.html5],
-                'aspect-ratio': tableau_image.width / tableau_image.height,
-                'max-width': tableau_image.width + 20
-            }, {
+
+            var links = [{
                 href: '//public.tableau.com/thumb/views/' + tableau.workbook + '/' + tableau.view,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail,
                 width: 736,
                 height: 454 // it's always the same
             }];
+
+            var app = {                
+                href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true',
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.html5],
+                'aspect-ratio': tableau_image.width / tableau_image.height,
+                'max-width': tableau_image.width + 20
+            };
+
+            if (tableau.showTabs) {
+                app['padding-bottom'] = 25;
+            } else {
+                app.href += '&:tabs=no';
+            }
+
+            links.push(app);
 
             links.push(tableau_image);
 
@@ -73,6 +84,8 @@ module.exports = {
         "http://public.tableau.com/views/williamsburghSubstitue_v2/L_pocalyse",
         "http://public.tableau.com/views/williamsburghSubstitue_v2/L_pocalyse?:embed=y&:showVizHome=no&:display_count=y&:display_static_image=y&:bootstrapWhenNotified=true",
         "https://public.tableau.com/profile/callie3559#!/vizhome/Philly2/Sheet2",
+        //tabs:
+        "https://public.tableau.com/views/Metro-levelDataVizoftheWeek/UrbanCorePerformance?:embed=y&:display_count=yes&:showTabs=y",
         // not responsive:
         "http://public.tableau.com/views/HEROremodel/Dashboard1",
         "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no",

@@ -24,7 +24,8 @@ module.exports = {
                     tableau.description = body.description || body.defaultViewName;
                     tableau.views = body.viewCount;
                     tableau.author = body.authorName;
-                    tableau.date = body.lastUpdateDate
+                    tableau.date = body.lastUpdateDate;
+                    tableau.showTabs = body.showTabs;
                 }
                 
                 cb(error, {
