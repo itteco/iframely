@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/plot\.ly\/~(\w+)\/(\d+)/i,
+    re: /^https?:\/\/plot\.ly\/~([a-zA-Z0-9]+)\/(\d+)/i,
 
     mixins: [
         "*"
@@ -27,6 +27,7 @@ module.exports = {
     tests: [
         "https://plot.ly/~Vox/17/cumulative-emissions-from-fossil-fuel-and-cement-1870-2013/",
         "https://plot.ly/~jbatucan/2/col2/",
-        "https://plot.ly/~avnerkantor/203/"
+        "https://plot.ly/~avnerkantor/203/",
+        "https://plot.ly/~bsbell21/189/"
     ]
 };
