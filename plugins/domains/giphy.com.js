@@ -22,7 +22,7 @@ module.exports = {
 
         if (!media_only && twitter.player) {
             links.push({
-                href: twitter.player.value || twitter.player,
+                href: (twitter.player.value || twitter.player).replace(/\/twitter\/iframe$/, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
                 "aspect-ratio": twitter.player.width / twitter.player.height
