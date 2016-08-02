@@ -55,7 +55,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:www\\.)?scribd\\.com)/(?:doc|book|read)/(.*)"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document)/(.*)"
         ],
         "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
