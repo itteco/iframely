@@ -12,7 +12,8 @@ module.exports = {
             href: "https://www.c-span.org/video/standalone/?" + urlMatch[1] + urlMatch[2],
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            'aspect-ratio': 1024/616,
+            'aspect-ratio': 16/9,
+            'padding-bottom': 40,
             'max-width': 1024
         };
     },
