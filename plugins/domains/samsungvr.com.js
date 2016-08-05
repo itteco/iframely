@@ -4,17 +4,13 @@ module.exports = {
 
     mixins: ["*"],
 
-    highestPriority: true,
-
-    getMeta: function (urlMatch) {
-
+    getMeta: function () {
         return {
             "media": "player"
-        }
-
+        };
     },
 
-    getLinks: function(urlMatch, og) {        
+    getLinks: function(urlMatch) {
 
     	return [
         // wait until they put a proper image placeholder for player that doesn't autoplay
@@ -29,7 +25,7 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             type: CONFIG.T.text_html,
             "aspect-ratio": 16 / 9
-        }]
+        }];
     },
 
     tests: [{
