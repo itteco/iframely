@@ -6,7 +6,8 @@ module.exports = {
 
     highestPriority: true,
 
-    getMeta: function () {
+    // highestPriority + 'meta' in getMeta forces this code run after media-detector and override it result.
+    getMeta: function (meta) {
         return {
             "media": "player"
         };
