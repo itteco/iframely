@@ -4,6 +4,8 @@ module.exports = {
 
     mixins: ["*"],
 
+    highestPriority: true,
+
     getMeta: function () {
         return {
             "media": "player"
