@@ -5,8 +5,8 @@ module.exports = {
     // Photos only for now. TODO: Stay tuned for when video embeds become available or when slideshows get a canonical address.
     re: [
         /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:detail|license)\/(?:[^\/]+\/[^\/]+\/)?(\d+)/i,
-        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:event|pictures)\/(?:[^\/]+\/?)#[^\/]+picture\-id(\d+)/i,
-        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:event|pictures)\/[^\/]+photo\-(\d+)/i
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/(?:[^\/]+\/?)#[^\/]+picture\-id(\d+)/i,
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/[^\/]+photo\-(\d+)/i
 
     ],
 
