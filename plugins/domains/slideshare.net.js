@@ -7,22 +7,8 @@ module.exports = {
         "oembed-title",
         "oembed-author",
         "oembed-site",
-        "canonical",
         "domain-icon"
     ],
-
-    getMeta: function(meta) {
-
-        if (!meta.slideshare) {
-            return;
-        }
-
-        return {
-            category: meta.slideshare.category,
-            date: meta.slideshare.published,
-            views: meta.slideshare.view_count
-        };
-    },
 
     getLink: function(oembed, options, cb) {
 
