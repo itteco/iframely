@@ -4,10 +4,7 @@ module.exports = {
 
     mixins: ["*"],
 
-    highestPriority: true,
-
-    // highestPriority + 'meta' in getMeta forces this code run after media-detector and override it result.
-    getMeta: function (meta) {
+    getMeta: function () {
         return {
             "media": "player"
         };

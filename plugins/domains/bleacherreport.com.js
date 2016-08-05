@@ -26,7 +26,7 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 'aspect-ratio': 630 / 355
-            }
+            };
         }
     },
 
@@ -37,11 +37,9 @@ module.exports = {
                 media: "player", 
                 views: oembed.article_reads,
                 videoId: oembed.video_id
-            }
+            };
         }
     },
-
-    highestPriority: true,    
 
     tests: [
         "http://bleacherreport.com/articles/2522329-cam-newton-most-fun-substitute-teacher-ever",

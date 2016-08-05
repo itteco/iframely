@@ -3,7 +3,6 @@ module.exports = {
     re: /^http:\/\/clip\.vn\/watch\/(?:[\w-]+,)?([\w-]+)\/?/i,
 
     mixins: ["*"],
-    highestPriority: true,    
 
     getLink: function(urlMatch) {
         return {
@@ -14,7 +13,7 @@ module.exports = {
         };
     },
 
-    getMeta: function(urlMatch) {
+    getMeta: function() {
         return {
             "media": "player"
         };
