@@ -8,16 +8,20 @@ module.exports = {
 
     getLink: function(urlMatch) {
         return {
-            href: '//cloud.highcharts.com/embed/' + urlMatch[1],
+            // href: '//cloud.highcharts.com/embed/' + urlMatch[1],
+            // iFrame has height issues
+
+            html: "<div id='highcharts-" + urlMatch[1] + "'><script src='//cloud.highcharts.com/inject/" + urlMatch[1] + "' defer='defer'></script></div>",
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.html5],
-            height: 400 // even though they give 500px for manual copy-paste, it is actually 400px
+            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.inline],
+            height: 500
         };
     },
 
     tests: [
         "https://cloud.highcharts.com/show/uqykon",
-        "https://cloud.highcharts.com/show/equrij"
+        "https://cloud.highcharts.com/show/equrij",
+        "https://cloud.highcharts.com/show/ifihuh"
     ]
 
 };
