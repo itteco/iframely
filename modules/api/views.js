@@ -297,13 +297,12 @@ module.exports = function(app) {
             }
 
         ], function(error, link) {
-
             if (error) {
                 return handleIframelyError(error, res, next);
             }
 
             if (!link) {
-                return next(new utils.NotFound());
+                return next(new utils.NotFound('No render available'));
             }
 
             res.renderCached('embed-html.ejs', {
