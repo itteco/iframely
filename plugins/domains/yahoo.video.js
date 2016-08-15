@@ -16,9 +16,9 @@ module.exports = {
         }
     },    
 
-    getLinks: function(twitter) {
+    getLinks: function(twitter, whitelistRecord) {
 
-        if (twitter.card == 'player' && !/\?format=embed$/i.test(twitter.player.value || twitter.player)) {
+        if (twitter.card == 'player' && !(whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.player')) ) {
 
             return {
                 href: (twitter.player.value || twitter.player) + '?format=embed',
