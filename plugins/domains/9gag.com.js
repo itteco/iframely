@@ -59,7 +59,7 @@ module.exports = {
         }
     },
 
-    getData: function(og, options, cb) {å   
+    getData: function(og, options, cb) {
         if (og.image) {
 
             utils.getImageMetadata(og.image, options, function(error, data) {
