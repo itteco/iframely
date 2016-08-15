@@ -60,7 +60,7 @@ module.exports = {
                     height: data.height ? Math.round (oembed.thumbnail_width / (data.width / data.height)) : oembed.thumbnail_height
                 });
 
-                cb(null, links);                
+                cb(null, links);
 
             });
         }
