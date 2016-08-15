@@ -11,8 +11,8 @@ module.exports = {
         "og-description",
         "og-video-duration",
         "og-site",
-        "og-title", 
-        "domain-icon"
+        "og-title"
+        // ["domain-icon"], // it's broken
     ],
 
     getLink: function(url, meta, cb) {

@@ -20,7 +20,11 @@ module.exports = {
 
     tests: [{
         page: 'http://www.tudou.com/',
-        selector: '.pic a'
+        selector: '.pic a',
+        getUrl: function(url) {
+            return !/^https?:\/\/v\.youku\.com\//i.test(url);            
+        }
+
     },
         "http://www.tudou.com/listplay/Jy6tBwii48M/xLShdaQMhrU.html"
     ]

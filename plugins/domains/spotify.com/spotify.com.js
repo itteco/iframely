@@ -41,6 +41,10 @@ module.exports = {
 
     tests: [{
         noFeeds: true
+    }, {
+            skipMixins: [
+                "oembed-site", "oembed-title" // these are here as a fallback only: priority values provided by spotify.album .artist or .track
+            ]
     },
         "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
