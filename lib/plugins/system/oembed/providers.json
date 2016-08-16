@@ -260,9 +260,9 @@
     {
         "name": "500px",
         "templates": [
-            "500px\\.com/photo/(\\d+)\\[a-zA-Z0-9_-]+"
+            "500px\\.com/photo/(\\d+)/.*"
         ],
-        "endpoint": "https://500px.com/oembed"        
+        "endpoint": "https://500px.com/oembed?url=https://500px.com/photo/{1}&format={format}"
     },
     {
         "name": "Dipdive",
