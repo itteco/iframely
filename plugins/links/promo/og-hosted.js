@@ -8,7 +8,7 @@ module.exports = {
         if (!whitelistRecord.isDefault && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {return;}
         
         var video_src = (og.video && (og.video.url || og.video.secure_url)) || (og.video && og.video.iframe) || og.video;
-        if (!video_src || /youtube\.com|vimeo\.com|dailymotion\.com/.test(url) || video_src instanceof Array) {
+        if (!video_src || /youtube\.com|vimeo\.com|dailymotion\.com|theplatform\.com|jwplatform\.com/.test(url) || video_src instanceof Array) {
             return;
         }
 
@@ -47,6 +47,32 @@ module.exports = {
         if (urlMatch) {
             return {
                 __promoUri: "http://www.dailymotion.com/video/" + urlMatch[1]
+            };
+        }
+
+        // or theplatform flash
+        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf\/select\/media\/([_a-zA-Z0-9\-]+)/i);
+
+        if (urlMatch) {
+            return {
+                __promoUri: {
+                    url: 'https://player.theplatform.com/p/' + urlMatch[1] + '/' + urlMatch[2] + '/select/' + urlMatch[3] + '?for=iframely', // otherwise player=canonical,                    
+                    rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                }
+            };
+        }
+
+
+        // or jwplatform
+        urlMatch = video_src.match(/^https?:\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.html/i)
+                    || video_src.match(/^https?:\/\/content\.jwplatform\.com\/videos\/([_a-zA-Z0-9\-]+)\.mp4/i);
+
+        if (urlMatch) {
+            return {
+                __promoUri: {
+                    url: 'https://content.jwplatform.com/players/' + urlMatch[1] + '.html?for=iframely', // otherwise player=canonical
+                    rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                }
             };
         } 
 
