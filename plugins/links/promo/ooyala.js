@@ -9,11 +9,11 @@ module.exports = {
         
         var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
 
-        if (!video_src || video_src instanceof Array || !/^https?:\/\/player\.ooyala\.com\/(?:tframe\.html|player\.swf)/i.test(video_src)) {
+        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:tframe\.html|player\.swf)/i.test(video_src)) {
             return;
         }
         
-        var urlMatch = video_src.match(/^https?:\/\/player\.ooyala\.com\/(?:tframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
+        var urlMatch = video_src.match(/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:tframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
 
         if (urlMatch) {
             return {
