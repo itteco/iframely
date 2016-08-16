@@ -25,6 +25,6 @@ module.exports = {
     },
 
     tests: [
-        "http://d.pr/i/1eTFK"
+        "http://d.pr/i/9jB7"
     ]
 };
