@@ -58,8 +58,9 @@ module.exports = {
                 }                
             }            
 
+            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl;
             var player = {
-                href: schemaVideoObject.embedURL || schemaVideoObject.embedUrl,
+                href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
                 type: type
             };
