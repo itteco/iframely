@@ -7,7 +7,11 @@ module.exports = {
 
     getData: function(url, __promoUri, options, cb) {
 
-        if (url === __promoUri) {
+        // __promoUri may be not string if no rel=promo need to be added
+        // see theplatform plugin for example
+        var promoUri = typeof __promoUri !== "string" ? __promoUri.url : __promoUri;
+
+        if (url === promoUri) {
             // Prevent self recursion.
             return cb();
         }
@@ -15,7 +19,7 @@ module.exports = {
         var options2 = _.extend({}, options, {debug: false});
         delete options2.promoUri;
 
-        core.run(__promoUri, options2, function(error, data) {
+        core.run(promoUri, options2, function(error, data) {
             cb(error, {
                 promo: data
             });
@@ -24,7 +28,7 @@ module.exports = {
 
     getMeta: function(__promoUri, promo) {
         return {
-            promo: promo.meta.canonical || __promoUri
+            promo: promo.meta.canonical || (typeof __promoUri !== "string" ? __promoUri.url : __promoUri)
         };
     },
 
@@ -63,7 +67,9 @@ module.exports = {
             if (!_.isEmpty(m)) {
                 link.media = m;
             }
-            link.rel.push('promo');
+            if (typeof __promoUri === "string") {
+                link.rel.push(CONFIG.R.promo);
+            }
             return link;
         });
     }
