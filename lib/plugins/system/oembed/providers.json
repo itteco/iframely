@@ -182,6 +182,13 @@
         "endpoint": "https://publish.twitter.com/oembed?i=user&url={url}"
     },
     {
+        "name": "GfyCat",
+        "templates": [
+            "gfycat\\.com/.+"
+        ],
+        "endpoint": "https://api.gfycat.com/v1/oembed?url={url}"
+    },    
+    {
         "name": "Gist",
         "templates": [
             "gist\\.github\\.com/(.+)"
