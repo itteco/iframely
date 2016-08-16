@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var entities = require('entities');
 
 module.exports = {
 
@@ -38,9 +39,16 @@ module.exports = {
             type: CONFIG.T.text_html
         };
 
+        // allow encoded entities if they start from $lt; and end with &gt;
+        var html = oembed.html5 || oembed.html; 
+        if (/^&lt;.*&gt;$/i.test(html)) {
+            html = entities.decodeHTML(html);
+        }
+
+
         var $container = cheerio('<div>');
         try {
-            $container.html(oembed.html5 || oembed.html);
+            $container.html(html);
         } catch (ex) {}
 
         var $iframe = $container.find('iframe');
@@ -59,13 +67,13 @@ module.exports = {
             }
         
         } else { 
-            widget.html = oembed.html || oembed.html5; // will render in an iframe, unless "inline" is in rels
+            widget.html = html; // will render in an iframe, unless "inline" is in rels
         }
 
 
         if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
             // Output exact HTML from oEmbed
-            widget.html = oembed.html5 || oembed.html;
+            widget.html = html;
         }
 
         if (widget.html && whitelistRecord.isAllowed('oembed.rich', "ssl")) {

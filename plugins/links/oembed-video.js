@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var entities = require('entities');
 
 module.exports = {
 
@@ -14,10 +15,16 @@ module.exports = {
             rel:[CONFIG.R.oembed, CONFIG.R.player]
         };
 
+        // allow encoded entities if they start from $lt; and end with &gt;
+        var html = oembed.html5 || oembed.html; 
+        if (/^&lt;.*&gt;$/i.test(html)) {
+            html = entities.decodeHTML(html);
+        }
+
 
         var $container = cheerio('<div>');
         try {
-            $container.html(oembed.html5 || oembed.html);
+            $container.html(html);
         } catch (ex) {}
 
         var $iframe = $container.find('iframe');
@@ -32,7 +39,7 @@ module.exports = {
             }
 
         } else { 
-            player.html = oembed.html || oembed.html5; // will render in an iframe
+            player.html = html; // will render in an iframe
         }
 
 
