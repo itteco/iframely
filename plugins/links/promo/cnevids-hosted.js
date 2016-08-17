@@ -1,6 +1,6 @@
 module.exports = {
 
-    provides: 'oembedLinks',
+    //provides: 'oembedLinks', // do not uncomment - it breaks play.spotify.com atm
 
     getData: function(video_src) {
         
