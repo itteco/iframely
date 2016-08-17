@@ -6,10 +6,9 @@ module.exports = {
 
         if (!whitelistRecord.isDefault && ((meta.og && meta.og.image) || (meta.twitter && meta.twitter.image))) {return;}
 
-        if (url.match(/^https?:\/\/link\.brightcove\.(?:com|co\.jp)\/services\/player\/bcpid(\d+)\?/i)) {return;}
+        if (/^https?:\/\/(link|players)\.brightcove\.(?:com|net|co\.jp)/i.test(url)) {return;}
         // do not process links to itself, otherwise -> infinite recursion
-
-
+        
         if (!meta.twitter && !meta.og) {return;}
         
         var video_src = (meta.twitter && ((meta.twitter.player && meta.twitter.player.value) || meta.twitter.player));
@@ -20,12 +19,14 @@ module.exports = {
             video_src = ogv && (ogv.url || ogv.secure_url);          
         }
 
-        if (!video_src || !/\.brightcove\.(?:com|co\.jp)\/services\//i.test(video_src)) {
+        if (!video_src || !/\.brightcove\.(?:com|net|co\.jp)\//i.test(video_src)) {
             return;
         }
         
 
-        var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.(?:com|co\.jp)\/services\/player\/bcpid(\d+)\/?\?/i);
+        var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.(?:com|co\.jp)\/services\/player\/bcpid(\d+)\/?\?/i)
+                    || video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i);
+
 
         if (urlMatch) {
 
@@ -74,4 +75,6 @@ module.exports = {
 
     /* http://tv.tokyo-gas.co.jp/watch/902548399002  - Japaneese
     */
+
+    // http://archive.jsonline.com/multimedia/video/?bctid=5047519850001&bctid=5047519850001 - new HTML 5 players
 };
