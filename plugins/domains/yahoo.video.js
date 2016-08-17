@@ -16,7 +16,7 @@ module.exports = {
         }
     },    
 
-    getLinks: function(twitter, whitelistRecord) {
+    getLink: function(twitter, whitelistRecord) {
 
         if (twitter.card == 'player' && !(whitelistRecord.isAllowed && whitelistRecord.isAllowed('twitter.player')) ) {
 
@@ -30,6 +30,10 @@ module.exports = {
     },
 
     tests: [
+        {
+            noFeeds: true,
+            skipMethods: ["getLink"] // it's just a backup in case twitter player is broken
+        },
         "https://ca.news.yahoo.com/video/unicorn-leads-california-highway-patrol-134024517.html",
         "https://uk.news.yahoo.com/video/cctv-shows-london-thieves-moped-164116329.html",
         "https://br.noticias.yahoo.com/video/colombiano-cria-biblioteca-com-livros-173319839.html",
