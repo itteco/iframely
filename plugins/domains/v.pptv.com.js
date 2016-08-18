@@ -3,11 +3,7 @@ module.exports = {
     re: /http:\/\/v\.pptv\.com\/show\/\w+\.html/i,
 
     mixins: [
-        "favicon",
-        "description",
-        "keywords",
-        "site",
-        "html-title"
+        "*"
     ],
 
     getLink: function(htmlparser, cb) {
@@ -28,8 +24,8 @@ module.exports = {
                     cb(null, {
                         href: m[1].replace(/\\\//g, '/'),
                         rel: [CONFIG.R.player, CONFIG.R.autoplay],
-                        type: CONFIG.T.flash,
-                        'aspect-ratio': 480 / 390
+                        type: CONFIG.T.flash
+                        //'aspect-ratio': 480 / 392 // use default aspect instead
                     });
                 }
             },
@@ -49,10 +45,7 @@ module.exports = {
         htmlparser.addHandler(parser);
     },
 
-    tests: [{
-        page: 'http://www.pptv.com/',
-        selector: 'a[target="_play"]'
-    },
+    tests: [
         "http://v.pptv.com/show/jEWvLIAQ2hh7ibWE.html",
         "http://v.pptv.com/show/VBeBictBcltQ3tR0.html"
     ]

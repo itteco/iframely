@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^http:\/\/www\.c-span\.org\/video\/\?(c?[\d-]+)(\/[\w-]+)/i,
+    re: /^https?:\/\/www\.c-span\.org\/video\/\?(c?[\d-]+)(\/[\w-]+)/i,    
 
     mixins: [
         "*"
@@ -9,10 +9,11 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: "http://www.c-span.org/video/standalone/?" + urlMatch[1] + urlMatch[2],
+            href: "https://www.c-span.org/video/standalone/?" + urlMatch[1] + urlMatch[2],
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            'aspect-ratio': 1024/616,
+            'aspect-ratio': 16/9,
+            'padding-bottom': 40,
             'max-width': 1024
         };
     },

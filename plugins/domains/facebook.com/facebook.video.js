@@ -14,7 +14,8 @@ module.exports = {
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-            html: oembed.html,
+            html: oembed.html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
+                'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US') + '/sdk.js'),
             "aspect-ratio": oembed.height ? oembed.width / oembed.height : 16/9
         }
     },

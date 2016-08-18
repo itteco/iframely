@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(\w+\.)?d\.pr\/i\/([a-zA-Z0-9]+)/i
+        /^https?:\/\/(\w+\.)?d\.pr\/(?:i\/)([a-zA-Z0-9]+)/i
     ],
 
     mixins: [
@@ -25,6 +25,6 @@ module.exports = {
     },
 
     tests: [
-        "http://d.pr/i/1eTFK"
+        "http://d.pr/i/9jB7"
     ]
 };

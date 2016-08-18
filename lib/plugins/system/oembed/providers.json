@@ -3,8 +3,9 @@
         "name": "Facebook Post",
         "templates": [
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[a-zA-Z0-9\\.\\-]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/notes/([a-zA-Z0-9\\.\\-]+)/[^/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"            
         ],
@@ -12,8 +13,7 @@
     },
     {
         "name": "Facebook Video",
-        "templates": [
-          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
+        "templates": [          
           "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
           "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
@@ -55,7 +55,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:www\\.)?scribd\\.com)/(?:doc|book|read)/(.*)"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document)/(.*)"
         ],
         "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
@@ -182,6 +182,13 @@
         "endpoint": "https://publish.twitter.com/oembed?i=user&url={url}"
     },
     {
+        "name": "GfyCat",
+        "templates": [
+            "gfycat\\.com/.+"
+        ],
+        "endpoint": "https://api.gfycat.com/v1/oembed?url={url}"
+    },    
+    {
         "name": "Gist",
         "templates": [
             "gist\\.github\\.com/(.+)"
@@ -253,9 +260,9 @@
     {
         "name": "500px",
         "templates": [
-            "500px\\.com/photo/(\\d+)\\[a-zA-Z0-9_-]+"
+            "500px\\.com/photo/(\\d+)/.*"
         ],
-        "endpoint": "https://500px.com/oembed"        
+        "endpoint": "https://500px.com/oembed?url=https://500px.com/photo/{1}&format={format}"
     },
     {
         "name": "Dipdive",
@@ -455,9 +462,10 @@
         "endpoint": "https://stock.adobe.com/oembed"
     },
     {
-        "name": "Reddit comment",
+        "name": "Reddit",
         "templates": [
-            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)"
+            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)",
+            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/?"            
         ],
         "endpoint": "https://www.reddit.com/oembed"
     },

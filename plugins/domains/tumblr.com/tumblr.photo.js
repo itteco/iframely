@@ -55,7 +55,6 @@ module.exports = {
         pageWithFeed: "http://lincolnmotorco.tumblr.com/"
     },
         "http://fewthistle.tumblr.com/post/58045916432",
-        "http://memesdabola.com/post/77805975089/qual-sera-o-resultado-que-o-porto-trara-de-lisboa",
         "http://www.staskhrustalev.com/post/76759388227"
     ]
 };

@@ -1,7 +1,10 @@
 {
   "apps" : [{
-    "name"        : "iframely-app",
+    "name"        : "iframely",
     "script"      : "server.js",
-    "watch"       : ["modules", "lib", "plugins", "config", "server.js"]
+    "instances"   : 0,
+    "exec_mode"   : "cluster",
+    "max_memory_restart": "120M",
+    "kill_timeout": 6000
   }]
 }

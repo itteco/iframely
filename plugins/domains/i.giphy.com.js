@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
     	/https?:\/\/i\.giphy\.com\/(\w+)\.gif(\?.*)?$/i,
-    	/https?:\/\/media\d?\.giphy\.com\/media\/(\w+)\/(?:giphy|\d+)\.gif$/i,
+    	/https?:\/\/media\d?\.giphy\.com\/media\/(\w+)\/(?:giphy|\d+)(?:_\w)?\.gif$/i,        
         /https?:\/\/giphy\.com\/gifs\/(\w+)\/html5$/i,
         /https?:\/\/giphy\.com\/embed\/(\w+)/i        
     ],

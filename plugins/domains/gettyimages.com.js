@@ -2,8 +2,13 @@ var $ = require('cheerio');
 
 module.exports = {
 
-    // Photos only for now. TODO: Stay tuned for when video embeds become available
-    re: /^https?:\/\/www\.gettyimages\.(com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/detail\/([^\/]+)\/[^\/]+\/(\d+)/i,
+    // Photos only for now. TODO: Stay tuned for when video embeds become available or when slideshows get a canonical address.
+    re: [
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:detail|license)\/(?:[^\/]+\/[^\/]+\/)?(\d+)/i,
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/(?:[^\/]+\/?)#[^\/]+picture\-id(\d+)/i,
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/[^\/]+photo\-(\d+)/i
+
+    ],
 
     provides: 'getty',
 
@@ -19,11 +24,13 @@ module.exports = {
     getData: function(urlMatch, request, cb) {
 
         request({
-            uri: "http://embed.gettyimages.com/preview/" + urlMatch[3],
+            uri: "http://embed.gettyimages.com/preview/" + urlMatch[1],
             json: true,
             limit: 1, 
             timeout: 1000,
             prepareResult: function(error, response, body, cb) {
+
+                // Ex: We're having trouble processing your request. -> likely for videos. Stay tuned for when embeds become available
 
                 if (error) {
                     return cb(error);
@@ -69,6 +76,8 @@ module.exports = {
         "http://www.gettyimages.ca/detail/photo/reflection-of-trees-high-res-stock-photography/103260792",
         "http://www.gettyimages.com/detail/illustration/pizza-icons-white-series-royalty-free-illustration/185819032",
         "http://www.gettyimages.de/detail/nachrichtenfoto/sylvie-meis-and-daniel-hartwich-attend-the-8th-show-of-nachrichtenfoto/493388593",
-        "http://www.gettyimages.fr/detail/photo-d'actualit%C3%A9/filipe-toledo-of-brasil-is-the-2015-quiksilver-pro-photo-dactualit%C3%A9/466056674?license"
+        "http://www.gettyimages.fr/detail/photo-d'actualit%C3%A9/filipe-toledo-of-brasil-is-the-2015-quiksilver-pro-photo-dactualit%C3%A9/466056674?license",
+        "http://www.gettyimages.com/event/championship-round-two-597177571#rafa-cabrerabello-of-spain-plays-a-shot-on-the-17th-hole-during-the-picture-id584665654",
+        "http://www.gettyimages.com/pictures/partners-a-statue-of-walt-disney-and-mickey-mouse-sits-in-news-photo-94967642"
     ]
 };

@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/(?:[\w\-]+\.)?genius\.com\/(?!jobs)([a-zA-Z\-]+)/i,
+    re: /^https?:\/\/(?:[\w\-]+\.)?genius\.com\/(?!jobs)([a-zA-Z0-9\-]+)/i,    
 
     mixins: [ 
         "domain-icon",

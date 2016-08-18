@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /https?:\/\/live\.amcharts\.com\/([a-zA-Z0-9\-]+)/i,
+    re: /^https?:\/\/live\.amcharts\.com\/([a-zA-Z0-9\-]+)/i,
 
     mixins: ["*"],
 
@@ -15,6 +15,6 @@ module.exports = {
     },
 
     tests: [
-        "http://live.amcharts.com/UxZGR/"
+        "https://live.amcharts.com/UxZGR/"
     ]
 };

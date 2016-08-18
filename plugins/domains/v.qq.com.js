@@ -11,23 +11,16 @@ module.exports = {
     re: res,
 
     mixins: [
-        "favicon",
-        "author",
-        "canonical",
-        "description",
-        "keywords",
-        "html-title"
+        "*"
     ],    
 
     getLinks: function(urlMatch) {
-        return [
-            {
+        return {
                 href: "http://static.video.qq.com/TPout.swf?vid=" + urlMatch[1],
                 type: CONFIG.T.flash,
-                rel: CONFIG.R.player,
-                "aspect-ratio": 4/3
-            }
-        ];
+                rel: CONFIG.R.player
+                // "aspect-ratio": 4/3 // use default aspect instead
+            };
     },
 
     tests: [{
@@ -38,8 +31,6 @@ module.exports = {
                 return url.match(r);
             }) && url;
         }
-    }, {
-        skipMixins: ['canonical', 'description', 'keywords']
     },
         "http://v.qq.com/boke/page/j/5/7/j0115mhkc57.html"
     ]

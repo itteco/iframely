@@ -68,14 +68,27 @@ To run server in cluster mode, use
 
     node cluster
 
-
 We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
 
-    npm install -g forever
-    forever start -l iframely.log cluster.js
+    npm install forever -g
+    forever start -a -l iframely.log --killSignal=SIGTERM cluster.js
+    forever logs 0 -fifo
+    
+If you use 'node cluster' or [Forever](https://github.com/nodejitsu/forever) you can do graceful server restart without aborting active user connections. Just send 'SIGUSR2' signal to 'cluster.js' process:
 
+    pkill -USR2 iframely-c
 
 For production deployments, we recommend the cluster mode. It will properly utilize the CPU if you are on multiple cores. Plus, as with any Node.js memory buffers, it is beneficial for performance to peridically restart the running processes.
+    
+Good all-in-one alternative is [PM2](https://github.com/Unitech/pm2):
+
+    npm install pm2 -g
+    pm2 start pm2.json
+    pm2 logs
+
+[PM2](https://github.com/Unitech/pm2) can do graceful reload:
+
+    pm2 reload iframely
 
 
 ## Add Required Locations to Your Reverse Proxy
@@ -111,6 +124,10 @@ To update Iframely package to its latest version run from Iframely home director
 and restart your server afterwards. If you use [Forever](https://github.com/nodejitsu/forever), run for example:
 
     forever restartall
+    
+or in case of [PM2](https://github.com/Unitech/pm2):
+
+    pm2 reload iframely
 
 If you fork, make sure to merge from the upstream for the newer versions.
 

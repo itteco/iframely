@@ -1,0 +1,1 @@
+pkill -USR2 iframely-c

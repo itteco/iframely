@@ -6,13 +6,7 @@ module.exports = {
     ],    
 
     mixins: [
-        "oembed-title",
-        "oembed-author",
-        "oembed-duration",
-        "oembed-thumbnail",
-        "oembed-site",
-        "domain-icon",
-        "twitter-player"
+        "*"
     ],
 
     getMeta: function(oembed) {

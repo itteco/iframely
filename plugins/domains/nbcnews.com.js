@@ -4,8 +4,6 @@ module.exports = {
         "*"
     ],
 
-    highestPriority: true, 
-
     getMeta: function (schemaVideoObject) {
 
         // if schemaVideoObject -> media=player

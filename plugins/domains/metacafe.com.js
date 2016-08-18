@@ -5,13 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "canonical",
-        "favicon",
-        "copyright",
-        "og-site",
-        "og-title",
-        "og-description",
-        "author"
+        "*"
     ],
 
     getLink: function(og, urlMatch) {
@@ -30,10 +24,7 @@ module.exports = {
         }]
     },
 
-    tests: [{
-        page: "http://www.metacafe.com",
-        selector: ".ItemTitle a"
-    },
+    tests: [
         "http://www.metacafe.com/watch/9677285/django_unchained_movie_review"
     ]
 };

@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/espn\.go\.com\/video\/clip\?id=(espn):(\d+)/i,
-        /^https?:\/\/(espn)\.go\.com\/video\/clip\?id=(\d+)/i,
-        /^https?:\/\/xgames\.espn\.go\.com\/(xgames)\/video\/(\d+)\//i
+        /^https?:\/\/(?:www\.)?espn\.com\/video\/clip\?id=(espn):(\d+)/i,
+        /^https?:\/\/(?:www\.)?(espn)\.com\/video\/clip\?id=(\d+)/i,
+        /^https?:\/\/xgames\.espn\.com\/(xgames)\/video\/(\d+)\//i
     ],
 
     mixins: ["*"],
@@ -24,8 +24,8 @@ module.exports = {
     },
 
     tests: [
-        "http://espn.go.com/video/clip?id=espn:14780138",
+        "http://www.espn.com/video/clip?id=espn:14780138",
         "http://espn.go.com/video/clip?id=13328484",
-        "http://xgames.espn.go.com/xgames/video/13380522/real-moto-drake-mcelroy"
+        "http://xgames.espn.com/xgames/video/13380522/real-moto-drake-mcelroy"
     ]
 };

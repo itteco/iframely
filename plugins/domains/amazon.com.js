@@ -40,8 +40,7 @@ module.exports = {
         }
     },
 
-    tests: [
-        "http://www.amazon.com/Vegucated/dp/B006LZSF8M/ref=sr_1_1?s=instant-video&ie=UTF8&qid=1372118186&sr=1-1&keywords=vegucated",
+    tests: [        
         "http://www.amazon.com/The-Whole-Truth-Shaw-Book-ebook/dp/B0011UCPM4/ref=pd_zg_rss_ts_b_17_6?ie=UTF8&tag=recomshop-22",
         "http://www.amazon.co.uk/Vegetable-Perfection-tasty-recipes-shoots/dp/1849757097/ref=asap_bc?ie=UTF8",
         "http://www.amazon.com/Tapestry-Hanging-Mandala-Tapestries-Bedspread/dp/B00ODVE012/ref=sr_1_75?s=furniture&ie=UTF8&qid=1450055989&sr=1-75&keywords=tapestry",

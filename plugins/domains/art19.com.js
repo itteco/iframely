@@ -19,7 +19,7 @@ module.exports = {
         if (oembed.html) {
 
             var $container = $('<div>');
-            try{
+            try {
                 $container.html(oembed.html);
             } catch(ex) {}
 

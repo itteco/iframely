@@ -4,6 +4,15 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2016.08.18, Version 0.9.8
+
+Heads up: jwplatform, theplatform, vidyard and cnevids are now covered by generic parsers and appropirate domains will be removed from whitelist. Please update to this version to keep the proper coverage.
+
+
+- Maintenance of number of domain plugins;
+- Added Tableau, Reddit posts, BBC, NPR music section, Samsung VR, Hockey DB
+
+
 ### 2016.07.12, Version 0.9.7
 
 Heads-up: `http-parser-js` module dependency was added for a fix of invalid HTTP headers. Please run `npm install` when deploying this version.
