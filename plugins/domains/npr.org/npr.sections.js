@@ -37,7 +37,7 @@ module.exports = {
                 return {
                     href: config.embedLink,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.app], // `app` prevents it from being wrapped as promo card],
                     'aspect-ratio': 16 / 9
                 };
             }
