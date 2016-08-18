@@ -111,7 +111,7 @@ var listener = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || C
 });
 
 if (CONFIG.ssl) {
-    var options = { key: CONFIG.ssl.key, cert: CONFIG.ssl.cert };
+    var options = { key: CONFIG.ssl.key, cert: CONFIG.ssl.cert,ca:[CONFIG.ssl.ca]};
     require('https').createServer(options, app).listen(CONFIG.ssl.port);
 }
 
