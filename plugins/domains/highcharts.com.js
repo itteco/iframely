@@ -13,7 +13,7 @@ module.exports = {
 
             html: "<div id='highcharts-" + urlMatch[1] + "'><script src='//cloud.highcharts.com/inject/" + urlMatch[1] + "' defer='defer'></script></div>",
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.inline],
+            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
             height: 500
         };
     },
