@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/cloud\.highcharts\.com\/show\/(\w+)/i,    
+    re: /^https?:\/\/cloud\.highcharts\.com\/(?:show|charts)\/(\w+)/i,
 
     mixins: [
         "*"
@@ -13,8 +13,9 @@ module.exports = {
 
             html: "<div id='highcharts-" + urlMatch[1] + "'><script src='//cloud.highcharts.com/inject/" + urlMatch[1] + "' defer='defer'></script></div>",
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl],
-            height: 500
+            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl],
+            // leave then not inline - otherwise they are not responsive on load
+            // height: 500
         };
     },
 
