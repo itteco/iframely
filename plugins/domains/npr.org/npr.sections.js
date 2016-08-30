@@ -18,7 +18,7 @@ module.exports = {
             
             if (urlMatch) {
                 return {
-                    href: "http://www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
+                    href: "//www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.app], // `app` prevents it from being wrapped as promo card
                     height: 290,
@@ -37,7 +37,7 @@ module.exports = {
                 return {
                     href: config.embedLink,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.app], // `app` prevents it from being wrapped as promo card],
+                    rel: [CONFIG.R.html5, CONFIG.R.app], // `app` prevents it from being wrapped as promo card],
                     'aspect-ratio': 16 / 9
                 };
             }
