@@ -13,7 +13,7 @@ module.exports = {
                     slug: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl]
+                rel: [CONFIG.R.app] // as of Sept 2, 2016 - SSL throws active warnings
         }
     },
 
