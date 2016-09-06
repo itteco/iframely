@@ -10,7 +10,7 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/plugins\/video\.php\?href=/i        
     ],
 
-    getData: function(url, meta, cb) {        
+    getData: function(url, meta, cb) {
 
         // Little hack for FB mobile URLs, as FB embeds don't recognize it's own mobile links.
         if (url.indexOf("m.facebook.com/story.php") > -1) {
