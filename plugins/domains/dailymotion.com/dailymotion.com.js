@@ -10,7 +10,7 @@ module.exports = {
         "oembed-author",
         "oembed-site",
         "oembed-thumbnail",
-        "oembed-video-responsive"
+        "oembed-video"
     ],
 
     getLink: function (url, oembed, cb) {
