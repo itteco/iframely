@@ -10,7 +10,7 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-                href: "http://www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
+                href: "//www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.app],
                 height: 290,

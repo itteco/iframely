@@ -13,7 +13,7 @@ module.exports = {
 
     getLink: function (twitter, whitelistRecord) {
 
-        if ((whitelistRecord.isDefault || !whitelistRecord.isAllowed('twitter.player')) && twitter.player) {
+        if ((whitelistRecord.isDefault || !whitelistRecord.isAllowed('twitter.player') || whitelistRecord.isAllowed('twitter.player', 'autoplay')) && twitter.player) {
 
             var href = URL.parse(twitter.player.value, true);
             var query = href.query;

@@ -6,7 +6,8 @@ module.exports = {
         "domain-icon",
         "oembed-author",
         "oembed-canonical",
-        "oembed-site"
+        "oembed-site",
+        "oembed-error"
     ],
 
     getMeta: function(oembed) {
