@@ -10,8 +10,8 @@ module.exports = {
         var video_src = (og.video && (og.video.url || og.video.secure_url)) || (og.video && og.video.iframe) || og.video;
 
         if (video_src && !(video_src instanceof Array)
-            && /(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids)\.com/.test(video_src)
-            && !/(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids)\.com/i.test(url)) {
+            && /(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\.com/.test(video_src)
+            && !/(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\.com/i.test(url)) {
 
             return {
                 video_src: video_src
