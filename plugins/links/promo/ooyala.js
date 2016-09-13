@@ -85,7 +85,6 @@ module.exports = {
         "http://www.vox.com/explains/2014/4/23/5643382/how-bitcoin-is-like-the-internet-in-the-80s",
         "http://www.polygon.com/2013/10/23/4947500/cooperatives-pokemon-x-and-y",
         "http://www.orlandocitysc.com/post/2016/05/16/barber-shop-darwin-cer-n?autoplay=true",
-        "https://www.rei.com/video/2015/10/07/how-to-size-snowboard-boots.html",
         "http://www.thisisinsider.com/cheesy-breakfast-potatoes-2016-5",
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/",
         "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html"
