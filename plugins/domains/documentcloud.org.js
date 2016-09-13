@@ -1,62 +1,25 @@
 module.exports = {
 
+    re: /^https?:\/\/(?:www\.)?documentcloud\.org\/documents?\/\d+/i,
+
     mixins: [
-        "favicon",
+        "domain-icon",
         "oembed-site",
         "html-title"
     ],
 
-    getLink: function(oembed, whitelistRecord) {
+    // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
 
-        var rels = [CONFIG.R.oembed];
+    getLink: function(oembed) {
 
-        if (whitelistRecord.isAllowed('oembed.rich', "reader")) {
-            rels.push(CONFIG.R.reader);
+        if (oembed.type === 'rich') { // else: fallback to generic
+            return {
+                html: oembed.html,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+                'aspect-ratio': 1 / Math.sqrt(2) // document aspect
+            }
         }
-        if (whitelistRecord.isAllowed('oembed.rich', "player")) {
-            rels.push(CONFIG.R.player);
-        }
-        if (rels.length == 1) {
-            rels.push(CONFIG.R.app);
-        }
-        // if (whitelistRecord.isAllowed('oembed.rich', "responsive")) rels.push("responsive");
-        if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
-            rels.push(CONFIG.R.inline);
-        }
-        if (whitelistRecord.isAllowed('oembed.rich', "html5")) {
-            rels.push(CONFIG.R.html5);
-        }
-        if (whitelistRecord.isAllowed('oembed.rich', "summary")) {
-            rels.push(CONFIG.R.summary);
-        }
-        rels.push ("allow"); // otherwise, rich->players get denied by oembed:video whitelist record
-
-        var widget = {
-            rel: rels,
-            type: CONFIG.T.text_html
-        };
-
-        // allow encoded entities if they start from $lt; and end with &gt;
-        var html = oembed.html5 || oembed.html;
-        if (/^&lt;.*&gt;$/i.test(html)) {
-            html = entities.decodeHTML(html);
-        }
-
-        widget.html = html; // will render in an iframe, unless "inline" is in rels
-
-        if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
-            // Output exact HTML from oEmbed
-            widget.html = html;
-        }
-
-        if (widget.html && whitelistRecord.isAllowed('oembed.rich', "ssl")) {
-            // For pure HTML, the only way to detect SSL is to take it from Whitelist.
-            widget.rel.push (CONFIG.R.ssl);
-        }
-
-        widget['aspect-ratio'] = 1;
-
-        return widget;
     },
 
     tests: [
