@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(listen\.)?tidal\.com\/(album|track|playlist)/i
+        /^https?:\/\/(?:listen\.)?tidal\.com\/(album|track|playlist)/i
         // `video` is broken
     ],
 
@@ -15,6 +15,16 @@ module.exports = {
             width: twitter.player.width,
             height: twitter.player.height
         };
+    },
+
+    getData: function (url, cb)  {
+
+        if (/^https?:\/\/listen\.tidal\.com\/(album|track|playlist)/i.test(url)) {
+
+            return cb ({
+                redirect: url.replace(/^https?:\/\/listen\./i, 'http://')
+            }); 
+        } else { return cb (null, {});}
     },
 
     tests: [
