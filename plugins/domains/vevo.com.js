@@ -11,21 +11,26 @@ module.exports = {
         "*"
     ],
 
-    getLink: function (twitter, whitelistRecord) {
+    getLinks: function (twitter, whitelistRecord) {
 
         if ((whitelistRecord.isDefault || !whitelistRecord.isAllowed('twitter.player') || whitelistRecord.isAllowed('twitter.player', 'autoplay')) && twitter.player) {
 
             var href = URL.parse(twitter.player.value, true);
             var query = href.query;
 
-            if (query.isrc && query.partnerId) {
+            if (query.isrc) {
 
-                return {
-                    href: 'https://scache.vevo.com/assets/html/embed.html?video=' + query.isrc + '&autoplay=0&siteSection=vevo_player_embedded_twitter&partnerId=' + query.partnerId,
+                return [{
+                    href: 'https://scache.vevo.com/assets/html/embed.html?video=' + query.isrc + '&autoplay=0',
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     "aspect-ratio": twitter.player.width / twitter.player.height
-                }
+                }, {
+                    href: 'http://cache.vevo.com/assets/html/embed.html?video=' + query.isrc + '&autoplay=0',
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    "aspect-ratio": twitter.player.width / twitter.player.height
+                }]
             }
         }
     },
