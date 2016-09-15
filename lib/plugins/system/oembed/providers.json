@@ -505,5 +505,12 @@
             "art19\\.com/shows/\\/[a-zA-Z0-9\\-_]+\\/episodes\\/[a-zA-Z0-9\\-_]+"
         ],
         "endpoint": "https://art19.com/oembed.json"
-    }    
+    },
+        {
+        "name": "Graphiq",
+        "templates": [
+            "graphiq\\.com/[a-zA-Z0-9\\-_]+/([a-zA-Z0-9\\-_]+)"
+        ],
+        "endpoint": "https://oembed.graphiq.com/services/oembed?url=https://m.graphiq.com/w/{1}&format={format}"
+    }
 ]
