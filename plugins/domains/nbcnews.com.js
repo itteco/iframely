@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.nbcnews\.com\/videos?\/[a-zA-Z0-9-]+\-(\d+)/i
+        /^https?:\/\/www\.nbcnews\.com\/videos?\/[a-zA-Z0-9-]+\-(\d+)/i,
+        /^https?:\/\/www\.nbcnews\.com\/widget\/video-embed\/(\d+)/i
     ],
 
     mixins: [
