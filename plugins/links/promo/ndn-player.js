@@ -20,7 +20,8 @@ module.exports = {
                         href: '//launch.newsinc.com/embed.html?type=VideoPlayer/Single&widgetId=1&trackingGroup=' + feed_match[1] + '&videoId=' + feed_match[2],
                         rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
                         type: CONFIG.T.text_html,
-                        'aspect-ratio': 16 / 9 
+                        'aspect-ratio': 16 / 9 ,
+                        scrolling: 'no'
 
                     }
                 }
@@ -48,6 +49,7 @@ http://video.lauraingraham.com/MSNBC-Host-Says-Donald-Trump-is-as-Dangerous-as-S
 http://video.theindependent.com/Sights-and-sounds-from-2015-Harvest-of-Harmony-29773789?playlistId=15376
 http://video.denverpost.com/Denver-Broncos-pregame-show-Super-Bowl-rematch-with-Carolina-Panthers-big-test-Week-1-31359028?ndn.trackingGroup=90115&ndn.siteSection=denverpost&ndn.videoId=31359028&freewheel=90115&sitesection=denverpost&vid=31359028
 http://video.dailycaller.com/PolitiFact-No-President-Obama-didnt-say-people-are-too-smallminded-to-govern-their-own-affairs-26333855
+http://video.nydailynews.com/Gregg-Turkin-MTA-See-Something-Say-Something-ad-30512002
 
 broken:
 http://video.bostonherald.com/-?ndn.trackingGroup=90017&ndn.siteSection=bostonherald&ndn.videoId=29235852&freewheel=90017&sitesection=bostonherald&vid=29235852
