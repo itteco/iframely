@@ -124,7 +124,7 @@ module.exports = {
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
         try {     
-            var start = url.match(/(?:t|start)=(\d+(?:m)?\d+(?:s)?)/i);
+            var start = url.match(/(?:t|start|time_continue)=(\d+(?:m)?\d+(?:s)?)/i);
             var end = url.match(/(?:stop|end)=(\d+(?:m)?\d+(?:s)?)/i);
 
             if (start) {
