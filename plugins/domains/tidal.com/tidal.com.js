@@ -29,7 +29,9 @@ module.exports = {
         } else { return cb (null, {});}
     },
 
-    tests: [
+    tests: [{
+        skipMethods: ['getData']
+    },
         "http://tidal.com/track/56638583",
         "http://tidal.com/album/64522277",
         "http://tidal.com/video/64415005",
