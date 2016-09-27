@@ -506,11 +506,18 @@
         ],
         "endpoint": "https://art19.com/oembed.json"
     },
-        {
+    {
         "name": "Graphiq",
         "templates": [
             "graphiq\\.com/[a-zA-Z0-9\\-_]+/([a-zA-Z0-9\\-_]+)"
         ],
         "endpoint": "https://oembed.graphiq.com/services/oembed?url=https://m.graphiq.com/w/{1}&format={format}"
-    }
+    },
+    {
+        "name": "Slidely",
+        "templates": [
+            "slide\\.ly\/(?:\\w+\/)?view\/\\w+"            
+        ],
+        "endpoint": "http://slide.ly/oembed"
+    }    
 ]
