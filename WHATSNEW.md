@@ -4,7 +4,7 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
-### 2016.09.23, Version 0.9.9
+### 2016.09.27, Version 0.9.9
 
 - Mainly keeping up with domains changes (though a number of them);
 
