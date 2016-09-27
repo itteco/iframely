@@ -1,54 +1,27 @@
 module.exports = {
 
-    re: /^http:\/\/www\.cbsnews\.com\/videos\/[a-z0-9-]+\//i,
+    re: /^https?:\/\/www\.cbsnews\.com\/videos\/([^\/\?]+)\/?/i,
 
     mixins: ["*"],
 
-    getLink: function(cheerio) {
+    getLink: function(urlMatch) {
 
-        var videoObjectSchema = 'VideoObject';
+        // http://www.cbsnews.com/embed/videos/jacob-wetterlings-mother-speaks-out-after-danny-heinrich-confesses-to-murder
 
-        var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
-
-        if ($scope.length) {
-
-            var $aScope = cheerio($scope);
-
-            var result = {};
-
-            $aScope.find('[itemprop]').each(function() {
-                var $el = cheerio(this);
-
-                var scope = $el.attr('itemscope');
-                if (typeof scope !== 'undefined') {
-                    return;
-                }
-
-                var $parentScope = $el.parents('[itemscope]');
-                if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
-                    return;
-                }
-
-                var key = $el.attr('itemprop');
-                if (key) {
-                    var value = $el.attr('content') || $el.attr('href');
-                    result[key] = value;
-                }
-            });
-
-            return {
-                href: result.embedURL.replace(/&amp;/g, '&') + '&autoplay=true',
-                type: CONFIG.T.text_html, // it's actually not, but without it the playback glitches from time to time
-                rel: [CONFIG.R.player, CONFIG.R.autoplay],
-                'aspect-ratio': result.width / result.height
-            };
-        }
+        return {
+            href: 'http://www.cbsnews.com/embed/videos/' + urlMatch[1],
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.autoplay],
+            'aspect-ratio': 640 / 360,
+            'max-width': 640
+        };
     },
 
     tests: [{
         feed: 'http://www.cbsnews.com/latest/rss/video'
     },
-        "http://www.cbsnews.com/videos/hurricane-katrina-photographer-new-orleans-on-road-to-recovery/"
+        "http://www.cbsnews.com/videos/hurricane-katrina-photographer-new-orleans-on-road-to-recovery/",
+        "http://www.cbsnews.com/videos/jacob-wetterlings-mother-speaks-out-after-danny-heinrich-confesses-to-murder"
     ]
 
 };

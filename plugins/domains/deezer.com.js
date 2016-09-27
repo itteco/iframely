@@ -6,14 +6,16 @@ module.exports = {
 
     getLink: function(url, twitter) {
 
-        if (twitter.card !== 'player' || !twitter.player) {
+        if (!twitter.player || !twitter.player.value) {
 
             return;
 
         } else {
 
+            var href = twitter.player.value.replace(/format=square&?(amp;)?/i, '');            
+
             return {
-                href: /\/track\//i.test(url) ? twitter.player.value.replace(/&height=\d+/i, '&height=92') : twitter.player.value,
+                href: /\/track\//i.test(url) ? href.replace(/&height=\d+/i, '&height=92') : href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 height: /\/track\//i.test(url) ? 92 : twitter.player.height

@@ -7,7 +7,7 @@ module.exports = {
         if (/^https?:\/\/player\.cnevids\.com\/embed\/[0-9a-zA-Z]+\/[0-9a-zA-Z]+/i.test(video_src)) {
             
             return {oembedLinks: [{
-                    href: "https://player.cnevids.com/services/oembed?url=" + video_src,                    
+                    href: "https://player.cnevids.com/services/oembed?url=" + video_src,
                     rel: 'alternate',
                     type: 'application/json+oembed'
                 }]}

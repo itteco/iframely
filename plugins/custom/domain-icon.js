@@ -2,6 +2,7 @@
 
 var core = require('../../lib/core');
 var cache = require('../../lib/cache');
+var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
 var _ = require('underscore');
 var async = require('async');
 
@@ -61,7 +62,8 @@ module.exports = {
                 } else {
 
                     core.run(domainUri, {
-                        fetchParam: 'meta'
+                        fetchParam: 'meta',
+                        getWhitelistRecord: findWhitelistRecordFor
                     }, function(error, meta) {
 
                         if (!error) {

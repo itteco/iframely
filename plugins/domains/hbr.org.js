@@ -3,20 +3,14 @@ module.exports = {
     re: /^(https:\/\/hbr\.org\/video\/)(\d+\/)([\w-]+)$/i,
 
     mixins: [
-        "og-video",
-        "og-image",
-        "favicon",
-        "og-description",
-        "og-video-duration",
-        "twitter-site",
-        "twitter-title"
+        "*"
     ],    
 
     getLink: function(urlMatch) {
         return {
             href: urlMatch[1] + 'embed/' + urlMatch[2] + urlMatch[3],
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 16/9
         };
     },

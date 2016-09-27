@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.nytimes\.com\/video\/\w+\/(\d+)\//,
+        /^https?:\/\/www\.nytimes\.com\/video\/[a-zA-Z0-9\-]+\/(\d+)\//,
         /^https?:\/\/www\.nytimes\.com\/video\/\w+\/\w+\/(\d+)\//
-    ], 
+    ],
 
     mixins: [
         "*"
@@ -13,7 +13,7 @@ module.exports = {
 
         if (meta.medium == "video") {
             return {
-                href: "//graphics8.nytimes.com/video/players/offsite/index.html?videoId=" + urlMatch[1],                
+                href: "//static01.nyt.com/video/players/offsite/index.html?videoId=" + urlMatch[1],
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16/9,
@@ -26,6 +26,7 @@ module.exports = {
         "http://www.nytimes.com/video/nyregion/100000003880254/a-complicated-love-story.html?playlistId=1194811622241",
         "http://www.nytimes.com/video/realestate/100000003852081/block-by-block-hoboken.html?playlistId=1194811622241",
         "http://www.nytimes.com/video/world/middleeast/100000004055530/turkey-footage-shows-plane-blast.html",
-        "http://www.nytimes.com/video/us/100000004255656/the-terminator-and-the-washing-machine.html?smid=tw-share"
+        "http://www.nytimes.com/video/us/100000004255656/the-terminator-and-the-washing-machine.html?smid=tw-share",
+        "http://www.nytimes.com/video/t-magazine/100000004528545/on-set-natalie-portman.html?smid=pl-share"
     ]
 };

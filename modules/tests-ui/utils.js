@@ -4,6 +4,8 @@ var request = require('request');
 var async = require('async');
 var url = require('url');
 
+var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
+
 var iframelyGetPluginData = require('../../lib/core').getPluginData;
 
 var pluginLoader = require('../../lib/loader/pluginLoader');
@@ -106,7 +108,7 @@ exports.fetchUrlsByPageOnFeed = function(pageWithFeed, otpions, cb) {
     async.waterfall([
 
         function(cb) {
-            iframelyGetPluginData(pageWithFeed, 'meta', cb);
+            iframelyGetPluginData(pageWithFeed, 'meta', findWhitelistRecordFor, cb);
         },
 
         function(meta, cb) {
@@ -149,7 +151,7 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
     async.waterfall([
 
         function(cb) {
-            iframelyGetPluginData(page, 'cheerio', cb);
+            iframelyGetPluginData(page, 'cheerio', findWhitelistRecordFor, cb);
         },
 
         function($, cb) {

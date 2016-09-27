@@ -5,6 +5,7 @@ var assert = require('assert'),
 GLOBAL.CONFIG = require('../config');
 
 var iframely = require('../lib/core').getPluginData;
+var findWhitelistRecordFor = require('../lib/whitelist').findWhitelistRecordFor;
 var utils = require('../lib/utils');
 
 // Must be to pass tests.
@@ -76,7 +77,7 @@ vows.describe('Tests')
 
         'vimeo meta': {
             topic: function() {
-                iframely("https://vimeo.com/63683408", 'meta', this.callback);
+                iframely("https://vimeo.com/63683408", 'meta', findWhitelistRecordFor, this.callback);
             },
             'not error': notError,
             'has meta': hasMeta
@@ -84,7 +85,7 @@ vows.describe('Tests')
 
         'vimeo oembed': {
             topic: function() {
-                iframely("https://vimeo.com/63683408", 'oembed', this.callback);
+                iframely("https://vimeo.com/63683408", 'oembed', findWhitelistRecordFor, this.callback);
             },
             'not error': notError,
             'has valid oEmbed object': hasValidOEmbedObject

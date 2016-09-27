@@ -5,13 +5,7 @@ module.exports = {
     re: re,
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title",
-        "media-detector"
+        "*"
     ],
 
     getLinks: function(og, url) {
@@ -48,23 +42,7 @@ module.exports = {
         return links;
     },
 
-    tests: [{
-        page: 'https://medium.com/top-100',
-        selector: 'article>a',
-        getUrl: function(url) {
-            return url.match(re) && url;
-        }
-    }, {
-        page: 'https://medium.com/top-100',
-        selector: '.postMetaInline-feedSummary>a',
-        getUrl: function(url) {
-            return url.match(re) && url;
-        }
-    }, {
-        skipMixins: [
-            "media-detector" // as plugin covers not only articles
-        ]
-    },
+    tests: [
         "https://medium.com/@startswithabang",
         "https://medium.com/hackerpreneur-magazine/nobody-s-heard-of-you-and-that-s-okay-82792dfecc12#.31za23rhx"
     ]
