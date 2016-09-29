@@ -427,9 +427,7 @@
                 var $iframe = $('<iframe>')
                     .attr('src', data.href)
                     .attr('frameborder', '0')
-                    .attr('allowfullscreen', true)
-                    .attr('webkitallowfullscreen', true)
-                    .attr('mozallowfullscreen', true);
+                    .attr('allowfullscreen', '');
 
                 if (data.media && data.media.scrolling === 'no') {
                     $iframe.attr('scrolling', 'no');
