@@ -59,7 +59,7 @@ module.exports = {
             var app = {                
                 href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true',
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.html5],
+                rel: [CONFIG.R.reader, CONFIG.R.html5],
                 'aspect-ratio': tableau_image.width / tableau_image.height,
                 'max-width': tableau_image.width + 20
             };
