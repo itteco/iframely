@@ -502,9 +502,10 @@
     {
         "name": "Art19",
         "templates": [
-            "art19\\.com/shows/\\/[a-zA-Z0-9\\-_]+\\/episodes\\/[a-zA-Z0-9\\-_]+"
+            "art19\\.com/shows/([a-zA-Z0-9\\-_]+)\\/episodes/([a-zA-Z0-9\\-_]+)",
+            "art19\\.com/shows/([a-zA-Z0-9\\-_]+)\\/episodes/([a-zA-Z0-9\\-_]+)/embed"
         ],
-        "endpoint": "https://art19.com/oembed.json"
+        "endpoint": "https://art19.com/oembed.json?url=https://art19.com/shows/{1}/episodes/{2}"
     },
     {
         "name": "Graphiq",
