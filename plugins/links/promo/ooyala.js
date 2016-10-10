@@ -1,3 +1,5 @@
+var URL = require('url');
+
 module.exports = {
 
     provides: '__ooyalaPlayer',
@@ -9,17 +11,20 @@ module.exports = {
         
         var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
 
-        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:tframe\.html|player\.swf)/i.test(video_src)) {
+        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
             return;
         }
-        
-        var urlMatch = video_src.match(/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:tframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
 
-        if (urlMatch) {
+        var url = URL.parse(video_src, true);
+        var query = url.query;
+        
+        var urlMatch = video_src.match(/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:stable\/[^\.])?(?:tframe\.html|iframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
+
+        if (query.embedCode || query.ec || query.embedcode) {
             return {
                 __ooyalaPlayer: {
-                    embedCode: urlMatch[1],
-                    pbid: /&(pbid|player)=/.test(video_src) ? video_src.match(/(?:pbid|player)=([_a-zA-Z0-9\-]+)/)[1] : null,
+                    embedCode: query.embedCode || query.ec || query.embedcode,
+                    pbid: query.pbid || query.player,
                     width: (meta.twitter && meta.twitter.player && meta.twitter.player.width) || (meta.og && meta.og.video && meta.og.video.width),
                     height: (meta.twitter && meta.twitter.player && meta.twitter.player.height) || (meta.og && meta.og.video && meta.og.video.height)
                 }

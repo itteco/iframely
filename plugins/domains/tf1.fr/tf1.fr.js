@@ -30,7 +30,6 @@ module.exports = {
         "http://www.tf1.fr/tf1/secret-story/news/entre-melanie-bastien-rien-ne-va-plus-3194547.html",
         "http://www.tf1.fr/tf1/secret-story/videos/secret-story-10-anais-deja-nerfs.html",
         "http://www.tf1.fr/xtra/en-coloc/videos/episode-3-repas-de-famille.html",
-        "http://www.tf1.fr/tf1/telefilms/videos/patricia-cornwell-trompe-l-oeil.html",
         "http://www.tf1.fr/nt1/telefilms-fictions/videos/j-ai-change-destin.html"
     ]
 };

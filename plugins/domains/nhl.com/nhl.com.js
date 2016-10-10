@@ -38,7 +38,7 @@ module.exports = {
     },
 
     tests: [
-        "https://www.nhl.com/blackhawks/video/whatsyourgoal-emilie/t-277443408/c-40739903",
+        "https://www.nhl.com/video/whatsyourgoal-emilie/t-277443408/c-40739903",
         "https://www.nhl.com/video/toews-ot-winner/t-277350912/c-40861003",
         "https://www.nhl.com/video/niskanens-go-ahead-goal/t-277983160/c-40970503",
         "https://www.nhl.com/video/embed/abramov-interview-video/t-277521762/c-44299003",
