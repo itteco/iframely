@@ -40,7 +40,7 @@ module.exports = {
 
         // Filter not 'shortcut icon'.
         findIcons(links, function(key) {
-            return /icon/i.test(key) && key != 'shortcut icon';
+            return /icon/i.test(key) && key != 'shortcut icon' && !/ss-svg-icons/i.test(key);
         });
 
         // Use 'shortcut icon' if no other.
