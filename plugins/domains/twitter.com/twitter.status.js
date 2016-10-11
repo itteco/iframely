@@ -2,6 +2,7 @@ var async = require('async');
 var cache = require('../../../lib/cache');
 var sysUtils = require('../../../logging');
 var _ = require('underscore');
+var entities = require('entities');
 
 module.exports = {
 
@@ -172,7 +173,7 @@ module.exports = {
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
             site: twitter_oembed.site_name || twitter_oembed.provider_name,
-            description: twitter_oembed.html.replace(/<(.*?)>/g, ''),
+            description: entities.decodeHTML(twitter_oembed.html.replace(/<(.*?)>/g, '')),
             canonical: twitter_oembed.url
         };
     },
