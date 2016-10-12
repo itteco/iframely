@@ -520,5 +520,12 @@
             "slide\\.ly\/(?:\\w+\/)?view\/\\w+"            
         ],
         "endpoint": "http://slide.ly/oembed"
-    }    
+    },
+    {
+        "name": "Getty Images",
+        "templates": [
+            "gty.im"
+        ],
+        "endpoint": "http://embed.gettyimages.com//oembed"
+    }
 ]
