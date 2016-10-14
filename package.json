@@ -52,7 +52,11 @@
     "devDependencies": {
         "vows":         "~0.7.0",
         "feedparser":   "0.16",
-        "mongoose":     "4.0.3"
+        "mongoose":     "4.0.3",
+        "chai": "^3.5.0",
+        "mocha": "^3.1.2",
+        "mock-http-server": "0.0.4",
+        "supertest": "^2.0.0"
     },
 
     "iframely-proxy-plugins": true,
@@ -60,7 +64,8 @@
     "main": "./lib/core",
 
     "scripts": {
-        "test": "vows test/main.js --isolate --spec"
+        "test": "vows test/main.js --isolate --spec && npm run test-e2e",
+        "test-e2e": "NODE_ENV=test PORT=8080 mocha test"
     },
 
     "engines": {
