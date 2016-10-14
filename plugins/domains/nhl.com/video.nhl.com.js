@@ -13,7 +13,7 @@ module.exports = {
                 href: (twitter.player.value || twitter.player).replace(/^https:\/\//, 'http://').replace(/&?twitter=true/, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ration": twitter.player.width / twitter.player.height
+                "aspect-ratio": twitter.player.width / twitter.player.height
             };
         }
     },
