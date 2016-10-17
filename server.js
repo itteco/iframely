@@ -59,17 +59,23 @@ function logErrors(err, req, res, next) {
 
 var errors = [401, 403, 408];
 
+function respondWithError (res, code, msg) {
+    var err = {
+        error: {
+            source: 'iframely',
+            code: code,
+            message: msg
+        }
+    };
+    res.statusCode = code;
+    res.json(err);
+}
+
 function errorHandler(err, req, res, next) {
-
     if (err instanceof NotFound) {
-
-        res.writeHead(404);
-        res.end(err.message);
-
+        respondWithError(res, 404, err.message);
     } else {
-
         var code = err.code || 500;
-
         errors.map(function(e) {
             if (err.message.indexOf(e) > - 1) {
                 code = e;
@@ -77,11 +83,20 @@ function errorHandler(err, req, res, next) {
         });
 
         if (err.message.indexOf('timeout') > -1) {
-            code = 408;
+            respondWithError(res, 408, 'Timeout');
         }
-
-        res.writeHead(code);
-        res.end(err.message);
+        else if (code === 401) {
+            respondWithError(res, 401, 'Unauthorized');
+        }
+        else if (code === 403) {
+            respondWithError(res, 403, 'Forbidden');
+        }
+        else if (code === 410) {
+            respondWithError(res, 410, 'Gone');
+        }
+        else {
+            respondWithError(res, code, 'Server error');
+        }
     }
 }
 
