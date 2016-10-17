@@ -50,31 +50,6 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, urlMatch, meta, cb) {
-
-        var isGallery = false;
-        var isA = url.indexOf('/a/') > -1;
-
-        var twitter = meta.twitter;
-
-        if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1) {
-        } else {
-            isGallery = twitter.card !== 'player';
-        }
-
-        var links =  ['json', 'xml'].map(function(format) {
-            return {
-                href: "http://api.imgur.com/oembed." + format + "?url=http://imgur.com/" + (isGallery || isA ? 'a/' : '') + urlMatch[1],
-                rel: 'alternate',
-                type: 'application/' + format + '+oembed'
-            }
-        });
-
-        cb(null, {
-            oembedLinks: links
-        });
-    },
-
     tests: [{
         pageWithFeed: "http://imgur.com/"
     }, {
@@ -94,7 +69,6 @@ module.exports = {
         "https://imgur.com/gallery/kkEzJsa",
         "http://imgur.com/t/workout/HFwjGoF",
         "http://imgur.com/t/water/ud7YwQp",
-        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl",
-        "http://imgur.com/a/G1oOO"
+        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl"
     ]
 };
