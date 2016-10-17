@@ -191,7 +191,7 @@ describe('meta endpoint', function() {
             error: {
               source: 'iframely',
               code: 410,
-              message: 'Blacklisted'
+              message: 'Gone'
             }
           });
           done(err);

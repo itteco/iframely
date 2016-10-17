@@ -92,7 +92,7 @@ function errorHandler(err, req, res, next) {
             respondWithError(res, 403, 'Forbidden');
         }
         else if (code === 410) {
-            respondWithError(res, 410, 'Blacklisted');
+            respondWithError(res, 410, 'Gone');
         }
         else {
             respondWithError(res, code, 'Server error');
