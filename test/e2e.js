@@ -1,16 +1,18 @@
 'use strict';
 
-const request = require('supertest');
-const ServerMock = require("mock-http-server");
-const chai = require('chai');
+var request = require('supertest');
+var ServerMock = require('mock-http-server');
+var chai = require('chai');
 
-describe('meta endpoint', () => {
+describe('meta endpoint', function() {
 
-  const BASE_IFRAMELY_SERVER_URL = `http://localhost:${process.env.PORT}`;
-  const server = require('../server'); // start card meta
+  var BASE_IFRAMELY_SERVER_URL = 'http://localhost:' + process.env.PORT;
+  var server = require('../server'); // start card meta
 
-  const TARGET_MOCKED_SERVER_PORT = 9000;
-  const targetMockedServer = new ServerMock({ host: "localhost", port: TARGET_MOCKED_SERVER_PORT });
+  var TARGET_MOCKED_SERVER_PORT = 9000;
+  var TARGET_MOCKED_SERVER_BASEURL = 'http://127.0.0.1:' + TARGET_MOCKED_SERVER_PORT;
+
+  var targetMockedServer = new ServerMock({ host: 'localhost', port: TARGET_MOCKED_SERVER_PORT });
 
   beforeEach(function(done) {
     targetMockedServer.start(done);
@@ -20,27 +22,27 @@ describe('meta endpoint', () => {
     targetMockedServer.stop(done);
   });
 
-  it('should return a valid response for a valid url', done => {
+  it('should return a valid response for a valid url', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/testok',
       reply: {
         status:  200,
-        headers: { "content-type": "text/html" },
+        headers: { 'content-type': 'text/html' },
         body: "<html><body>Hi there!</body></html>"
       }
     });
 
-    const url = `http://127.0.0.1:${TARGET_MOCKED_SERVER_PORT}/testok`;
+    var url = TARGET_MOCKED_SERVER_BASEURL + '/testok';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.body.meta).to.exist;
           done(err);
         });
   });
 
-  it('should handle 404 responses in target urls', done => {
+  it('should handle 404 responses in target urls', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test404',
@@ -49,9 +51,9 @@ describe('meta endpoint', () => {
       }
     });
 
-    const url = `http://127.0.0.1:${TARGET_MOCKED_SERVER_PORT}/test404`;
+    var url = TARGET_MOCKED_SERVER_BASEURL + '/test404';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.statusCode).to.equal(404);
           chai.expect(res.body).to.deep.equal({
@@ -65,7 +67,7 @@ describe('meta endpoint', () => {
         });
   });
 
-  it('should handle 500 responses in target urls', done => {
+  it('should handle 500 responses in target urls', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test500',
@@ -74,9 +76,9 @@ describe('meta endpoint', () => {
       }
     });
 
-    const url = `http://127.0.0.1:${TARGET_MOCKED_SERVER_PORT}/test500`;
+    var url = TARGET_MOCKED_SERVER_BASEURL + '/test500';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.statusCode).to.equal(500);
           chai.expect(res.body).to.deep.equal({
@@ -90,7 +92,7 @@ describe('meta endpoint', () => {
         });
   });
 
-  it('should handle 401 responses from target servers', done => {
+  it('should handle 401 responses from target servers', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test401',
@@ -99,9 +101,9 @@ describe('meta endpoint', () => {
       }
     });
 
-    const url = `http://127.0.0.1:${TARGET_MOCKED_SERVER_PORT}/test401`;
+    var url = TARGET_MOCKED_SERVER_BASEURL + '/test401';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.statusCode).to.equal(401);
           chai.expect(res.body).to.deep.equal({
@@ -115,7 +117,7 @@ describe('meta endpoint', () => {
         });
   });
 
-  it('should handle 403 responses from target servers', done => {
+  it('should handle 403 responses from target servers', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test403',
@@ -124,9 +126,9 @@ describe('meta endpoint', () => {
       }
     });
 
-    const url = `http://127.0.0.1:${TARGET_MOCKED_SERVER_PORT}/test403`;
+    var url = TARGET_MOCKED_SERVER_BASEURL + '/test403';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.statusCode).to.equal(403);
           chai.expect(res.body).to.deep.equal({
@@ -153,9 +155,9 @@ describe('meta endpoint', () => {
       }
     });
 
-    const url = `http://127.0.0.1:${TARGET_MOCKED_SERVER_PORT}/test-timeout`;
+    var url = TARGET_MOCKED_SERVER_BASEURL + '/test-timeout';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.statusCode).to.equal(408);
           chai.expect(res.body).to.deep.equal({
@@ -175,14 +177,14 @@ describe('meta endpoint', () => {
       path: '/test-timeout',
       reply: {
         status:  200,
-        headers: { "content-type": "text/html" },
+        headers: { 'content-type': 'text/html' },
         body: "<html><body>Hi there!</body></html>"
       }
     });
 
-    const url = `http://blacklisted.com/test-timeout`;
+    var url = 'http://blacklisted.com/test-timeout';
     request(BASE_IFRAMELY_SERVER_URL)
-        .get(`/iframely?url=${url}`)
+        .get('/iframely?url=' + url)
         .end(function(err, res) {
           chai.expect(res.statusCode).to.equal(410);
           chai.expect(res.body).to.deep.equal({
