@@ -64,7 +64,7 @@ module.exports = {
                         rel.push(CONFIG.R.html5);
                     } else {
                         href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
-                        type = CONFIG.T.flash;
+                        type = CONFIG.T.text_html; // there's a 302 re-direct at the moment so it returns as text/html
                     }
 
                     return cb(null, [{
@@ -92,6 +92,7 @@ module.exports = {
         "http://www.orlandocitysc.com/post/2016/05/16/barber-shop-darwin-cer-n?autoplay=true",
         "http://www.thisisinsider.com/cheesy-breakfast-potatoes-2016-5",
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/",
-        "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html"
+        "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html",
+        "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433"
     ]
 };
