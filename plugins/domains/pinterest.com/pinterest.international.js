@@ -1,10 +1,10 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(gr|in|it|cz|id|es|uk|ru|nl|br|no|tr|pl|fr|ro|de|hu|fi|dk|jp|pt|kr|se|sk)\.pinterest\.com\//i
+        /^https?:\/\/\w{2}\.pinterest\.com\//i
     ],
 
-    //for example, https://fr.pinterest.com/pin/347973508683865484/
+    //for example, https://au.pinterest.com/pin/80783387037637534/
 
     getLink: function(url, og, cb) {
 

@@ -6,10 +6,11 @@ module.exports = {
     // ex: 
     // https://be1d.ac-dijon.fr/mediacad/m/118
     // https://flii.by/file/rk3mg02r7kf/
+    // https://stock.adobe.com/au/stock-photo/fresh-orange/95965825
 
     getLink: function(oembed, whitelistRecord) {
 
-        if ((oembed.type === "photo" || oembed.type === "image") && oembed.html && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.photo')) {
+        if ((oembed.type === "photo" || oembed.type === "image") && !oembed.url && oembed.html && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.photo')) {
 
             var image = {
                 type: CONFIG.T.text_html,  // Always an iframe, either native, or hosted

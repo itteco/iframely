@@ -21,7 +21,6 @@ module.exports = {
 
     tests: [
         "https://s3.amazonaws.com/uploads.knightlab.com/storymapjs/86a5b5c6facef8e74eb685573b846f6b/civilian-deaths-evidence-of-war-crimes-in-yemen/index.html",
-        "http://cdn.knightlab.com/libs//latest/embed/index.html?source=1t9XBaa5oqMpwgi49smaUdk269PL0miJ-xtjsuExOZwQ&font=Default&lang=en&initial_zoom=100&height=650",
         "https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=f9031656-dcc3-11e5-a524-0e7075bba956",
         "http://cdn.knightlab.com/libs/juxtapose/dev/embed/index.html?uid=75ec66e0-204a-11e5-91b9-0e7075bba956",
         "http://cdn.knightlab.com/libs/timeline/latest/embed/index.html?source=0Atwxho6G5yhjdEdJNU1JMzhLdjdHUTFMNnc4bHNud3c&font=PTSerif-PTSans&maptype=toner&lang=en&hash_bookmark=true&start_zoom_adjust=2&height=650#13",
