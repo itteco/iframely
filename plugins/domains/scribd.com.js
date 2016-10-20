@@ -2,6 +2,10 @@ var $ = require('cheerio');
 
 module.exports = {
 
+    re: [
+        /^https?:\/\/www\.scribd\.com\/doc\//i
+    ],    
+
     mixins: [
         "oembed-title",
         "oembed-thumbnail",
