@@ -3,7 +3,7 @@ var $ = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|\w{2})\.scribd\.com\/doc\//i
+        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|book)\//i,
     ],    
 
     mixins: [

@@ -31,7 +31,5 @@ module.exports = {
                 return url.match(r);
             }) && url;
         }
-    },
-        "http://v.qq.com/boke/page/j/5/7/j0115mhkc57.html"
-    ]
+    }]
 };

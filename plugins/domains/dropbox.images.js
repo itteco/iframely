@@ -17,7 +17,11 @@ module.exports = {
     },
 
 
-    tests: ["https://www.dropbox.com/s/fwsudc05agl2pwo/Screenshot%202016-08-16%2009.54.37.png?dl=0"]
+    tests: ["https://www.dropbox.com/s/fwsudc05agl2pwo/Screenshot%202016-08-16%2009.54.37.png?dl=0", 
+    {
+        noFeeds: true,
+        skipMethods: ["getData"]
+    }]
     // error: https://www.dropbox.com/s/iyyric8d1aid51g/2013-12-23%2012.23.15.png
 
 };
