@@ -349,12 +349,14 @@
                 this.send(body);
             };
 
-            res.sendCached = function(content_type, body) {
+            res.sendCached = function(content_type, body, options) {
 
-                setResponseToCache(200, content_type, req, res, body);
+                var status = options && options.code || 200;
+
+                setResponseToCache(status, content_type, req, res, body, options && options.ttl);
 
                 this.charset = this.charset || 'utf-8';
-                this.writeHead(200, {'Content-Type': content_type});
+                this.writeHead(status, {'Content-Type': content_type});
                 this.end(body);
             };
 
@@ -370,7 +372,7 @@
                 this.charset = this.charset || 'utf-8';
                 this.set('Content-Type', 'application/json');
 
-                var status = options && options.status || 200;
+                var status = options && options.code || 200;
 
                 setResponseToCache(status, 'application/json', req, res, body, options && options.ttl);
 

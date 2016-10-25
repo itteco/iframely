@@ -6,6 +6,7 @@ console.log("Base URL for embeds that require hosted renders:", CONFIG.baseAppUr
 
 var path = require('path');
 var express = require('express');
+var jsonxml = require('jsontoxml');
 
 var NotFound = sysUtils.NotFound;
 
@@ -59,7 +60,7 @@ function logErrors(err, req, res, next) {
 
 var errors = [401, 403, 408];
 
-function respondWithError (res, code, msg) {
+function respondWithError(req, res, code, msg) {
     var err = {
         error: {
             source: 'iframely',
@@ -77,15 +78,32 @@ function respondWithError (res, code, msg) {
         ttl = CONFIG.CACHE_TTL_PAGE_OTHER_ERROR
     }
 
-    res.sendJsonCached(err, {
-        status: code,
-        ttl: ttl
-    });
+    if (req.query.format === 'xml') {
+
+        var xmlError = jsonxml(err, {
+            escape: true,
+            xmlHeader: {
+                standalone: true
+            }
+        });
+
+        res.sendCached('text/xml', xmlError, {
+            code: code,
+            ttl: ttl
+        });
+
+    } else {
+
+        res.sendJsonCached(err, {
+            code: code,
+            ttl: ttl
+        });
+    }
 }
 
 function errorHandler(err, req, res, next) {
     if (err instanceof NotFound) {
-        respondWithError(res, 404, err.message);
+        respondWithError(req, res, 404, err.message);
     } else {
         var code = err.code || 500;
         errors.map(function(e) {
@@ -95,19 +113,19 @@ function errorHandler(err, req, res, next) {
         });
 
         if (err.message.indexOf('timeout') > -1) {
-            respondWithError(res, 408, 'Timeout');
+            respondWithError(req, res, 408, 'Timeout');
         }
         else if (code === 401) {
-            respondWithError(res, 401, 'Unauthorized');
+            respondWithError(req, res, 401, 'Unauthorized');
         }
         else if (code === 403) {
-            respondWithError(res, 403, 'Forbidden');
+            respondWithError(req, res, 403, 'Forbidden');
         }
         else if (code === 410) {
-            respondWithError(res, 410, 'Gone');
+            respondWithError(req, res, 410, 'Gone');
         }
         else {
-            respondWithError(res, code, 'Server error');
+            respondWithError(req, res, code, 'Server error');
         }
     }
 }
