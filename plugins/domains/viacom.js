@@ -1,23 +1,29 @@
 module.exports = {
 
     re: [        
-        /https?:\/\/\w+\.(cc|mtv|spike)\.com\/video\-(clips|collections|playlists)\//i
+        /https?:\/\/\w+\.(cc|mtv)\.com\/video\-(clips|collections|playlists)\//i
     ],
 
     mixins: ["*"],
 
-    getLink: function(cheerio) {        
+    getLink: function(og, cheerio) {
 
-        var $player = cheerio('.video_player[data-mgid*="mgid:arc:video:"]');
+        var mgid;
+
+        if (og.video && og.video.url && /^https?:\/\/media\.mtvnservices\.com\/fb\/(mgid:arc:video:[0-9a-zA-Z:\._\-]+)\.swf$/i.test(og.video.url)) {
+            mgid = og.video.url.match(/^https?:\/\/media\.mtvnservices\.com\/fb\/(mgid:arc:video:[0-9a-zA-Z:\._\-]+)\.swf$/i)[1];
+        } else {
+            var $player = cheerio('.video_player[data-mgid*="mgid:arc:video:"]');
+            mgid = $player.attr('data-mgid');
+        }
         
-        if ($player.length) {
-            return {
-                href: "http://media.mtvnservices.com/embed/" + $player.attr('data-mgid'),
+        if (mgid) {
+            return [{
+                href: "http://media.mtvnservices.com/embed/" + mgid,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player,  CONFIG.R.html5],
                 "aspect-ratio": 512 / 288
-
-            }
+            }]            
         }
     },
 
@@ -25,7 +31,6 @@ module.exports = {
         "http://www.cc.com/video-clips/4hfvws/the-daily-show-with-trevor-noah-jon-stewart-returns-to-shame-congress",
         "http://www.cc.com/video-collections/igf7f1/the-daily-show-with-jon-stewart-jon-s-final-episode/bjutn7?xrs=share_copy_email",
         "http://www.mtv.com/video-clips/clur1b/are-you-the-one-deleted-scene-austin-and-kayla-get-muddy",
-        "http://bellator.spike.com/video-clips/1uo4tc/bellator-162-what-to-watch-shlemenko-vs-grove",
-        "http://www.spike.com/video-clips/xbz35t/bar-rescue-barstool-sports-on-bar-rescue"
+        "http://www.mtv.com/video-clips/7zcf54/vma-2016-britney-spears-make-me-me-myself-i-ft-g-eazy-live-performance-vma-2016-mtv"
     ]
 };
