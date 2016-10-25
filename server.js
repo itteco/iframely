@@ -67,8 +67,20 @@ function respondWithError (res, code, msg) {
             message: msg
         }
     };
-    res.statusCode = code;
-    res.json(err);
+
+    var ttl;
+    if (code === 404) {
+        ttl = CONFIG.CACHE_TTL_PAGE_404;
+    } else if (code === 408) {
+        ttl = CONFIG.CACHE_TTL_PAGE_TIMEOUT;
+    } else {
+        ttl = CONFIG.CACHE_TTL_PAGE_OTHER_ERROR
+    }
+
+    res.sendJsonCached(err, {
+        status: code,
+        ttl: ttl
+    });
 }
 
 function errorHandler(err, req, res, next) {

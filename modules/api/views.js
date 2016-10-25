@@ -44,8 +44,6 @@ function getIntParam(req, param) {
 
 function handleIframelyError(error, res, next) {
 
-    res.tryCacheError(error);
-
     if (error == 404 || error.code == 'ENOTFOUND') {
         return next(new utils.NotFound('Page not found'));
     }
