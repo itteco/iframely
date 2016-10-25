@@ -84,7 +84,7 @@ describe('meta endpoint', function() {
           chai.expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
-              code: 500,
+              code: 417,
               message: 'Server error'
             }
           });
