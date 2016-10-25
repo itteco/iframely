@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [        
-        /https?:\/\/\w+\.(cc|mtv)\.com\/video\-(clips|collections|playlists)\//i
+        /https?:\/\/\w+\.(cc|mtv|logotv)\.com\/video\-(clips|collections|playlists)\//i
     ],
 
     mixins: ["*"],
@@ -31,6 +31,7 @@ module.exports = {
         "http://www.cc.com/video-clips/4hfvws/the-daily-show-with-trevor-noah-jon-stewart-returns-to-shame-congress",
         "http://www.cc.com/video-collections/igf7f1/the-daily-show-with-jon-stewart-jon-s-final-episode/bjutn7?xrs=share_copy_email",
         "http://www.mtv.com/video-clips/clur1b/are-you-the-one-deleted-scene-austin-and-kayla-get-muddy",
-        "http://www.mtv.com/video-clips/7zcf54/vma-2016-britney-spears-make-me-me-myself-i-ft-g-eazy-live-performance-vma-2016-mtv"
+        "http://www.mtv.com/video-clips/7zcf54/vma-2016-britney-spears-make-me-me-myself-i-ft-g-eazy-live-performance-vma-2016-mtv",
+        "http://www.logotv.com/video-playlists/rlxfkb/rupauls-all-stars-drag-race-the-final-lap-all-stars-supergroup/xpkvdc"
     ]
 };
