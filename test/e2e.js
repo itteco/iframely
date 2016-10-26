@@ -3,6 +3,7 @@
 var request = require('supertest');
 var ServerMock = require('mock-http-server');
 var chai = require('chai');
+var async = require('async');
 
 describe('meta endpoint', function() {
 
@@ -196,6 +197,44 @@ describe('meta endpoint', function() {
           });
           done(err);
         });
+  });
+
+  // https://github.com/itteco/iframely/issues/141
+  it('should maintain format on cached error responses', function(done) {
+    targetMockedServer.on({
+      method: 'GET',
+      path: '/test403',
+      reply: {
+        status: 403
+      }
+    });
+
+    var url = 'http://127.0.0.1:9000/test403';
+    var endpoint = '/iframely?url=' + url;
+
+    function runExpectations(res) {
+      chai.expect(res.statusCode).to.equal(403);
+      chai.expect(res.body).to.deep.equal({
+        error: {
+          source: 'iframely',
+          code: 403,
+          message: 'Forbidden'
+        }
+      });
+    }
+
+    function issueRequest (cb) {
+      request(BASE_IFRAMELY_SERVER_URL)
+          .get(endpoint)
+          .end(function(err, res) {
+            runExpectations(res);
+            cb(err);
+          });
+    }
+
+    //hit twice the same endpoint with error
+    async.series([issueRequest,issueRequest], done);
+
   });
 
 });
