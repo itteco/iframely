@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/itunes\.apple\.com(?:\/)?(\w+)?\/(album|app|movie|tv-season)(?:\/[^\/]+)?\/id(\d+)/i
+        /^https?:\/\/itunes\.apple\.com(?:\/)?(\w+)?\/(app|movie|tv-season)(?:\/[^\/]+)?\/id(\d+)/i
     ],
 
     mixins: [
@@ -19,7 +19,6 @@ module.exports = {
     getLink: function(urlMatch, options) {
 
         var content = {
-            'album': 'album',
             'app': 'software',
             'movie': 'movie',
             'tv-season': 'tvSeason'
@@ -50,7 +49,6 @@ module.exports = {
     },
 
     tests: [
-        'https://itunes.apple.com/us/album/12-12-12-concert-for-sandy/id585701590?v0=WWW-NAUS-ITSTOP100-ALBUMS&ign-mpt=uo%3D4',
 
         // Not supported.
         //'https://itunes.apple.com/us/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D4',

@@ -12,7 +12,7 @@ module.exports = {
         return [{
             href: "//embed.beatport.com/player/?id=" + urlMatch[2] + "&type=" + urlMatch[1],
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             height: og.video && og.video.height || 162,
             'min-width': og.video && og.video.width || 398
         }, {
