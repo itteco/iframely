@@ -54,7 +54,6 @@ module.exports = {
         //'https://itunes.apple.com/us/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D4',
 
         'https://itunes.apple.com/us/app/google-maps/id585027354?mt=8',
-        'https://itunes.apple.com/us/album/id944094900?i&ls=1',
         "https://itunes.apple.com/app/2048/id840919914",
         'https://itunes.apple.com/us/movie/the-matrix/id271469518?ign-mpt=uo%3D4',
         'https://itunes.apple.com/us/tv-season/abc-news-specials/id183240032?uo=4',
