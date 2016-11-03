@@ -8,19 +8,24 @@ var async = require('async');
 describe('meta endpoint', function() {
 
   var BASE_IFRAMELY_SERVER_URL = 'http://localhost:' + process.env.PORT;
-  var server = require('../server'); // start card meta
 
   var TARGET_MOCKED_SERVER_PORT = 9000;
   var TARGET_MOCKED_SERVER_BASEURL = 'http://127.0.0.1:' + TARGET_MOCKED_SERVER_PORT;
 
   var targetMockedServer = new ServerMock({ host: 'localhost', port: TARGET_MOCKED_SERVER_PORT });
+  var server;
 
   beforeEach(function(done) {
-    targetMockedServer.start(done);
+    var app = require('../app');
+    server = app.listen(process.env.PORT, function() {
+      targetMockedServer.start(done);
+    });
   });
 
   afterEach(function(done) {
-    targetMockedServer.stop(done);
+    server.close(function() {
+      targetMockedServer.stop(done);
+    });
   });
 
   it('should return a valid response for a valid url', function(done) {
