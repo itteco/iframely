@@ -2,7 +2,7 @@ module.exports = {
 
     getMeta: function(meta) {
 
-    	var color = meta['theme-color'] || meta['msapplication-tilecolor'];
+    	var color = meta['msapplication-tilecolor'] || meta['theme-color'];
 
         if (color && /^#\w{6}$/i.test(color)) {
         	
