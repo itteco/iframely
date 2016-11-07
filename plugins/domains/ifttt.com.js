@@ -1,6 +1,9 @@
 module.exports = {
 
-    re: /https?:\/\/ifttt\.com\/recipes\/\d+/i,
+    re: [
+        /https?:\/\/ifttt\.com\/recipes\/\d+/i,
+        /https?:\/\/ifttt\.com\/applets\/\d+/i
+    ],
 
     mixins: ["*"],
 
@@ -15,6 +18,6 @@ module.exports = {
     },
 
     tests: [
-        "https://ifttt.com/recipes/13341"
+        "https://ifttt.com/applets/13341p"
     ]
 };
