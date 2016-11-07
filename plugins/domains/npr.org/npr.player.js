@@ -19,7 +19,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.npr.org/player/v2/mediaPlayer.html?action=1&t=1&islist=false&id=368714299&m=368931763",
         "http://www.npr.org/player/embed/473953959/473993224"
     ]
 };

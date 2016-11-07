@@ -57,7 +57,6 @@ module.exports = {
         "http://www.behance.net/gallery/ORBITAL-MECHANICS/10105739",
         "http://www.behance.net/gallery/TRIGGER/9939801",
         "http://www.behance.net/gallery/MEGA-CITIES/8406797",
-        "http://portfolios.sva.edu/gallery/Threshold-Furniture-Design/720916",
         "http://portfolios.scad.edu/gallery/Privy-Boards-Graphic-Shirts/11126843",
         "http://talent.adweek.com/gallery/ASTON-MARTIN-Piece-of-Art/3043295",
         "http://ndagallery.cooperhewitt.org/gallery/12332063/Barclays-Center"
