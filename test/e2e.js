@@ -3,23 +3,29 @@
 var request = require('supertest');
 var ServerMock = require('mock-http-server');
 var chai = require('chai');
+var async = require('async');
 
 describe('meta endpoint', function() {
 
   var BASE_IFRAMELY_SERVER_URL = 'http://localhost:' + process.env.PORT;
-  var server = require('../server'); // start card meta
 
   var TARGET_MOCKED_SERVER_PORT = 9000;
   var TARGET_MOCKED_SERVER_BASEURL = 'http://127.0.0.1:' + TARGET_MOCKED_SERVER_PORT;
 
   var targetMockedServer = new ServerMock({ host: 'localhost', port: TARGET_MOCKED_SERVER_PORT });
+  var server;
 
   beforeEach(function(done) {
-    targetMockedServer.start(done);
+    var app = require('../app');
+    server = app.listen(process.env.PORT, function() {
+      targetMockedServer.start(done);
+    });
   });
 
   afterEach(function(done) {
-    targetMockedServer.stop(done);
+    server.close(function() {
+      targetMockedServer.stop(done);
+    });
   });
 
   it('should return a valid response for a valid url', function(done) {
@@ -80,11 +86,11 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(500);
+          chai.expect(res.statusCode).to.equal(417);
           chai.expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
-              code: 500,
+              code: 417,
               message: 'Server error'
             }
           });
@@ -196,6 +202,44 @@ describe('meta endpoint', function() {
           });
           done(err);
         });
+  });
+
+  // https://github.com/itteco/iframely/issues/141
+  it('should maintain format on cached error responses', function(done) {
+    targetMockedServer.on({
+      method: 'GET',
+      path: '/test403',
+      reply: {
+        status: 403
+      }
+    });
+
+    var url = 'http://127.0.0.1:9000/test403';
+    var endpoint = '/iframely?url=' + url;
+
+    function runExpectations(res) {
+      chai.expect(res.statusCode).to.equal(403);
+      chai.expect(res.body).to.deep.equal({
+        error: {
+          source: 'iframely',
+          code: 403,
+          message: 'Forbidden'
+        }
+      });
+    }
+
+    function issueRequest (cb) {
+      request(BASE_IFRAMELY_SERVER_URL)
+          .get(endpoint)
+          .end(function(err, res) {
+            runExpectations(res);
+            cb(err);
+          });
+    }
+
+    //hit twice the same endpoint with error
+    async.series([issueRequest,issueRequest], done);
+
   });
 
 });

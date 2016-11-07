@@ -48,11 +48,8 @@ function handleIframelyError(error, res, next) {
         return next(new utils.NotFound('Page not found'));
     }
 
-    if (typeof error === "number") {
-        next(new utils.HttpError(error, "Requested page error: " + error));
-    } else {
-        next(new Error("Iframely error: " + error));
-    }
+    var code = (typeof error !== "number" || error >= 500) ? 417 : error;
+    next(new utils.HttpError(code, "Requested page error: " + error));
 }
 
 module.exports = function(app) {

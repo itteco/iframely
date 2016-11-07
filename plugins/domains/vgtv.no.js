@@ -8,7 +8,7 @@ module.exports = {
 
     getLink: function(urlMatch) {
         return {
-            href: 'http://www.vgtv.no/embed/?id=' + urlMatch[1],
+            href: '//www.vgtv.no/embed/?id=' + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             'aspect-ratio': 560/315
