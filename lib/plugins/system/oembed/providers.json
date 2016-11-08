@@ -478,6 +478,15 @@
         "endpoint": "https://v.interlude.fm/oembed?vid={1}"
     },
     {
+        "name": "Academie de Nantes",
+        "templates": [
+            "([a-z0-9]+)\\.ac\\-nantes\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
+            "([a-z0-9]+)\\.ac\\-nantes\\.fr/mediacad/(m/\\d+)",
+            "([a-z0-9]+)\\.ac\\-nantes\\.fr/(m/\\d+)"            
+        ],
+        "endpoint": "https://{1}.ac-nantes.fr/default/media/display/{2}/d/j?format={format}"
+    },    
+    {
         "name": "Academie de Bordeaux etc",
         "templates": [
             "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
