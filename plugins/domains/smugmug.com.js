@@ -40,6 +40,6 @@ module.exports = {
     },
 
     tests: [
-        "http://cedricwalter.smugmug.com/Computers/Joomla/i-726WRdK/A"
+        "https://kalyr.smugmug.com/Music/2016/Cambridge-Rock-Festival-2016/i-95w2R4W"
     ]
 };

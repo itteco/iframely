@@ -16,7 +16,11 @@ module.exports = {
         if (!video_src && meta.og) {
 
             var ogv = meta.og.video instanceof Array ? meta.og.video[0] : meta.og.video;
-            video_src = ogv && (ogv.url || ogv.secure_url);          
+            video_src = ogv && (ogv.url || ogv.secure_url);
+
+            if (/^\/\//i.test(video_src)) {
+                video_src = "http:" + video_src;
+            }
         }
 
         if (!video_src || !/\.brightcove\.(?:com|net|co\.jp)\//i.test(video_src)) {
@@ -71,6 +75,7 @@ module.exports = {
         http://www.sheboyganpress.com/videos/sports/golf/2015/08/16/31830213/
         http://www.packersnews.com/videos/sports/nfl/packers/2015/08/15/31800211/
         http://www.shreveporttimes.com/videos/news/2015/08/18/31906711/
+        http://www.glamour.ru/video/tvorozhnyy-tort/
     */
 
     /* http://tv.tokyo-gas.co.jp/watch/902548399002  - Japaneese

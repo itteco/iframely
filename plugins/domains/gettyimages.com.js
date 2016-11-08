@@ -4,9 +4,10 @@ module.exports = {
 
     // Photos only for now. TODO: Stay tuned for when video embeds become available or when slideshows get a canonical address.
     re: [
-        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:detail|license)\/(?:[^\/]+\/[^\/]+\/)?(\d+)/i,
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:detail|license)\/(?:[^\/]+\/[^\/]+\/)?([0-9\-]+)/i,
         /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/(?:[^\/]+\/?)#[^\/]+picture\-id(\d+)/i,
-        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/[^\/]+photo\-(\d+)/i
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/(?:\w+)\/[^\/]+photo\-(\d+)/i,        
+        /^https?:\/\/(?:www\.)?gettyimages\.(?:com|ca|com\.au|be|dk|de|es|fr|in|ie|it|nl|co\.nz|no|at|pt|ch|fi|se|ae|co\.uk|co\.jp)\/share\/event\/[^\/#]\/(\d+)/i
 
     ],
 
@@ -78,6 +79,8 @@ module.exports = {
         "http://www.gettyimages.de/detail/nachrichtenfoto/sylvie-meis-and-daniel-hartwich-attend-the-8th-show-of-nachrichtenfoto/493388593",
         "http://www.gettyimages.fr/detail/photo-d'actualit%C3%A9/filipe-toledo-of-brasil-is-the-2015-quiksilver-pro-photo-dactualit%C3%A9/466056674?license",
         "http://www.gettyimages.com/event/championship-round-two-597177571#rafa-cabrerabello-of-spain-plays-a-shot-on-the-17th-hole-during-the-picture-id584665654",
-        "http://www.gettyimages.com/pictures/partners-a-statue-of-walt-disney-and-mickey-mouse-sits-in-news-photo-94967642"
+        "http://www.gettyimages.com/pictures/partners-a-statue-of-walt-disney-and-mickey-mouse-sits-in-news-photo-94967642",
+        "http://www.gettyimages.co.uk/consumer/share/event/this-week-in-black-and-white-589477793/495178130",
+        "http://www.gettyimages.in/detail/photo/car-accident-high-res-stock-photography/200558056-001"
     ]
 };

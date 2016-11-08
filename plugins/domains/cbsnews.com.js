@@ -11,7 +11,7 @@ module.exports = {
         return {
             href: 'http://www.cbsnews.com/embed/videos/' + urlMatch[1],
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.autoplay],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             'aspect-ratio': 640 / 360,
             'max-width': 640
         };

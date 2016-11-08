@@ -33,10 +33,12 @@ module.exports = {
             var href = $iframe.attr('src');
 
             return {
-                href: href,
+                href: href.replace(/#autostart=on;?$/, '#autostart=off;'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": 1 /  0.5725
+                "aspect-ratio": 1 /  0.5725,
+                "padding-bottom": 25,
+                scrolling: 'no'
             };
         }
 

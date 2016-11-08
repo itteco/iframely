@@ -4,6 +4,17 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2016.11.08, Version 1.0.0
+
+- Add ability to specify custom plugins (thanks @iloire and @tbasse!) - change `CUSTOM_PLUGINS` dir in your local settings;
+- API responses have better JSON formatting for origin errors (thanks @iloire and @tbasse!);
+- Keeping up with various domain changes;
+- Better widgets for Apple Music;
+- Added piktochart, padlet and KHL.
+
+SemVer is raised not because it's not backwards compatible, but simple because it's time as Iframely has been over 4 years in the making now. Error handling may need a bit of change though if you relied on the text messages.
+
+
 ### 2016.09.27, Version 0.9.9
 
 - Mainly keeping up with domains changes (though a number of them);

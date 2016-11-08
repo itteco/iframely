@@ -38,7 +38,7 @@ module.exports = {
 
         // let's try and add bigger image if needed, but check that it's value
         // no need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214
-        if (options.getProviderOptions('images.loadSize') && /\d+_\d{2,3}x\d{2,3}\.jpg$/.test(oembed.thumbnail_url)) {
+        if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}\.jpg$/.test(oembed.thumbnail_url)) {
 
             links.push({
                 href:oembed.thumbnail_url.replace(/_\d+x\d+\.jpg$/, '.jpg'),

@@ -44,17 +44,12 @@ function getIntParam(req, param) {
 
 function handleIframelyError(error, res, next) {
 
-    res.tryCacheError(error);
-
     if (error == 404 || error.code == 'ENOTFOUND') {
         return next(new utils.NotFound('Page not found'));
     }
 
-    if (typeof error === "number") {
-        next(new utils.HttpError(error, "Requested page error: " + error));
-    } else {
-        next(new Error("Iframely error: " + error));
-    }
+    var code = (typeof error !== "number" || error >= 500) ? 417 : error;
+    next(new utils.HttpError(code, "Requested page error: " + error));
 }
 
 module.exports = function(app) {

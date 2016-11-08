@@ -36,12 +36,14 @@ module.exports = {
             href: 'http://mp3.zing.vn/embed/' + type + '/' + urlMatch[2] + '?autostart=false',
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player],
-            "aspect-ratio": aspect
+            "aspect-ratio": aspect,
+            scrolling: 'no'
         }, {
             href: 'http://mp3.zing.vn/embed/' + type + '/' + urlMatch[2] + '?autostart=true',
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.autoplay],
-            "aspect-ratio": aspect
+            "aspect-ratio": aspect,
+            scrolling: 'no'
         }]
     },
 

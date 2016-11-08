@@ -13,6 +13,9 @@ module.exports = {
             && /(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\.com/.test(video_src)
             && !/(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\.com/i.test(url)) {
 
+            if (/^\/\//.test(video_src)) {
+                video_src = 'http:' + video_src;
+            }
             return {
                 video_src: video_src
             };

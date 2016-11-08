@@ -348,36 +348,19 @@
 
                 this.send(body);
             };
-            res.tryCacheError = function(error) {
 
-                if (typeof error === "number" && Math.floor(error / 100) === 4) {
+            res.sendCached = function(content_type, body, options) {
 
-                    var value;
+                var status = options && options.code || 200;
 
-                    if (error === 404) {
-                        value = 'Page not found';
-                    } else {
-                        value = 'Requested page error: ' + error;
-                    }
-
-                    setResponseToCache(error, 'text/html', req, res, value, CONFIG.CACHE_TTL_PAGE_404);
-
-                } else if (typeof error === "string" && error.match(/^timeout/)) {
-
-                    setResponseToCache(408, 'text/html', req, res, 'Requested page error: ' + error, CONFIG.CACHE_TTL_PAGE_TIMEOUT);
-                }
-            };
-
-            res.sendCached = function(content_type, body) {
-
-                setResponseToCache(200, content_type, req, res, body);
+                setResponseToCache(status, content_type, req, res, body, options && options.ttl);
 
                 this.charset = this.charset || 'utf-8';
-                this.writeHead(200, {'Content-Type': content_type});
+                this.writeHead(status, {'Content-Type': content_type});
                 this.end(body);
             };
 
-            res.sendJsonCached = function(obj) {
+            res.sendJsonCached = function(obj, options) {
 
                 var app = this.app;
                 var replacer = app.get('json replacer');
@@ -389,11 +372,12 @@
                 this.charset = this.charset || 'utf-8';
                 this.set('Content-Type', 'application/json');
 
-                setResponseToCache(200, 'application/json', req, res, body);
+                var status = options && options.code || 200;
 
-                this.send(body);
+                setResponseToCache(status, 'application/json', req, res, body, options && options.ttl);
+
+                this.send(status, body);
             };
-
 
             next();
         });

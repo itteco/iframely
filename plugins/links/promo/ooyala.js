@@ -1,3 +1,5 @@
+var URL = require('url');
+
 module.exports = {
 
     provides: '__ooyalaPlayer',
@@ -9,17 +11,20 @@ module.exports = {
         
         var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
 
-        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:tframe\.html|player\.swf)/i.test(video_src)) {
+        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
             return;
         }
-        
-        var urlMatch = video_src.match(/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:tframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
 
-        if (urlMatch) {
+        var url = URL.parse(video_src, true);
+        var query = url.query;
+        
+        var urlMatch = video_src.match(/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:stable\/[^\.])?(?:tframe\.html|iframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
+
+        if (query.embedCode || query.ec || query.embedcode) {
             return {
                 __ooyalaPlayer: {
-                    embedCode: urlMatch[1],
-                    pbid: /&(pbid|player)=/.test(video_src) ? video_src.match(/(?:pbid|player)=([_a-zA-Z0-9\-]+)/)[1] : null,
+                    embedCode: query.embedCode || query.ec || query.embedcode,
+                    pbid: query.pbid || query.player,
                     width: (meta.twitter && meta.twitter.player && meta.twitter.player.width) || (meta.og && meta.og.video && meta.og.video.width),
                     height: (meta.twitter && meta.twitter.player && meta.twitter.player.height) || (meta.og && meta.og.video && meta.og.video.height)
                 }
@@ -59,7 +64,7 @@ module.exports = {
                         rel.push(CONFIG.R.html5);
                     } else {
                         href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
-                        type = CONFIG.T.flash;
+                        type = CONFIG.T.text_html; // there's a 302 re-direct at the moment so it returns as text/html
                     }
 
                     return cb(null, [{
@@ -87,6 +92,7 @@ module.exports = {
         "http://www.orlandocitysc.com/post/2016/05/16/barber-shop-darwin-cer-n?autoplay=true",
         "http://www.thisisinsider.com/cheesy-breakfast-potatoes-2016-5",
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/",
-        "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html"
+        "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html",
+        "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433"
     ]
 };

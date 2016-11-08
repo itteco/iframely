@@ -8,7 +8,7 @@ module.exports = {
 
         if (twitter.player && twitter.player.value) {
 
-            var playlist = twitter.player.value.match(/playlist=(\/\w+\/[a-zA-Z0-9-]+\-\d+)\w?&/);
+            var playlist = twitter.player.value.match(/playlist=\/(\w+\/[a-zA-Z0-9-]+\-\d+)\w?&/);
 
             if (playlist) {                
                 

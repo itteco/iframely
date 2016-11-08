@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.twitch\.tv\/([a-zA-Z0-9_]+)$/i
+        /^https?:\/\/www\.twitch\.tv\/([a-zA-Z0-9_]+)$/i,
+        /^https?:\/\/www\.twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i        
     ],
 
     mixins: [
@@ -10,12 +11,17 @@ module.exports = {
 
     getLink: function (urlMatch, og) {
 
-        if (og.video && og.video.secure_url) {
-            return {
+        if (/^video/i.test(og.type)) {            
+            return !urlMatch[2] ? {
                 href: "//player.twitch.tv/?channel=" + urlMatch[1],
                 type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                "aspect-ratio": 16 /9 
+            } : {
+                href: "//player.twitch.tv/?video=v" + urlMatch[2],
+                type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
-                "aspect-ratio": og.video.width / og.video.height
+                "aspect-ratio": 16 /9 
             };
         }
     },

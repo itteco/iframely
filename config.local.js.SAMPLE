@@ -1,6 +1,9 @@
 (function() {
     var config = {
 
+        // Specify a path for custom plugins. Custom plugins will override core plugins.
+        // CUSTOM_PLUGINS: __dirname + '/yourcustom-plugin-folder',
+
         DEBUG: false,
         RICH_LOG_ENABLED: false,
 

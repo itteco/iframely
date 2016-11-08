@@ -2,7 +2,7 @@ var $ = require('cheerio');
 
 module.exports = {
 
-    re: /https?:\/\/codepen\.io\/([a-z0-9\-]+)\/(pen|details|full)\/([a-z0-9\-]+)/i,
+    re: /https?:\/\/codepen\.io\/([a-z0-9\-_]+)\/(pen|details|full)\/([a-z0-9\-]+)/i,
 
     mixins: [
         "oembed-thumbnail",

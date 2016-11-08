@@ -2,6 +2,7 @@ var async = require('async');
 var cache = require('../../../lib/cache');
 var sysUtils = require('../../../logging');
 var _ = require('underscore');
+var entities = require('entities');
 
 module.exports = {
 
@@ -9,7 +10,7 @@ module.exports = {
         /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
     ],
 
-    provides: ['twitter_oembed', 'twitter_video', '__allow_twitter_video'],
+    provides: ['twitter_oembed', 'twitter_og', '__allow_twitter_video'],
 
     mixins: ['domain-icon'],
 
@@ -159,7 +160,7 @@ module.exports = {
             if (c.media_only) {
                 result.__allow_twitter_video = true;
             } else {
-                result.twitter_video = false;
+                result.twitter_og = false;
             }
 
             cb(null, result);
@@ -172,12 +173,12 @@ module.exports = {
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
             site: twitter_oembed.site_name || twitter_oembed.provider_name,
-            description: twitter_oembed.html.replace(/<(.*?)>/g, ''),
+            description: entities.decodeHTML(twitter_oembed.html.replace(/<(.*?)>/g, '')),
             canonical: twitter_oembed.url
         };
     },
 
-    getLink: function(twitter_oembed, twitter_video, options) {
+    getLink: function(twitter_oembed, twitter_og, options) {
 
         var html = twitter_oembed.html;
 
@@ -187,7 +188,10 @@ module.exports = {
 
         var links = [];
 
-        if (twitter_video) {
+        if (twitter_og && twitter_og.video && twitter_og.image 
+            && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
+            // exclude not embedable videos with proxy images, ex:
+            // https://twitter.com/nfl/status/648185526034395137
 
             html = html.replace(/class="twitter-tweet"/g, 
                 'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));
@@ -196,7 +200,7 @@ module.exports = {
                 html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": twitter_video.width / twitter_video.height,
+                "aspect-ratio": twitter_og.video.width / twitter_og.video.height,
                 "max-width": 888 // good one, Twitter!
             });
 
@@ -210,6 +214,18 @@ module.exports = {
                 "max-width": twitter_oembed["max-width"]
             });
         }
+
+        if (twitter_og && twitter_og.image && 
+            !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image)) {
+            // skip profile pictures
+
+            links.push({
+                href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            });
+
+        }        
 
         return links;
     },

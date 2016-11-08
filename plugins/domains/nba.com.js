@@ -2,12 +2,14 @@ module.exports = {
 
     provides: '__allowEmbedURL',
 
-    getData: function(og) {
-        if (og.type === 'movie' || og.type === 'video' || og.type === 'video.other') {
-            return {
-                __allowEmbedURL: true
-            };
-        }
+    re: [
+        /^https?:\/\/www\.nba\.com\/video\//i
+    ],    
+
+    getData: function(urlMatch) {        
+        return {
+            __allowEmbedURL: true
+        };
     },
 
     mixins: [

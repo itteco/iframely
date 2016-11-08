@@ -44,26 +44,27 @@ module.exports = {
         } 
 
 
-        // or theplatform
-        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-]+\/select\/[_a-zA-Z0-9\-]+/i)
-                || video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-\/]+\/select\/[_a-zA-Z0-9\-]+/i);
-
-        if (urlMatch) {
-            return {
-                __promoUri: {
-                    url: video_src  + '?for=iframely', // otherwise player=canonical,
-                    rel: 'No rel=promo is required' // this field is just for debugging here. Not required
-                }
-            };
-        }
-
         // or theplatform flash
-        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf\/select\/media\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf\/select\/(?:media\/)?([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
                 __promoUri: {
                     url: 'https://player.theplatform.com/p/' + urlMatch[1] + '/' + urlMatch[2] + '/select/' + urlMatch[3] + '?for=iframely', // otherwise player=canonical,
+                    rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                }
+            };
+        }
+
+        // or theplatform
+        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i)
+                || video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-\/]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i);
+                
+
+        if (urlMatch) {
+            return {
+                __promoUri: {
+                    url: video_src  + '?for=iframely', // otherwise player=canonical,
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
                 }
             };

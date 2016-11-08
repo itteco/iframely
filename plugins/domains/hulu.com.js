@@ -19,9 +19,9 @@ module.exports = {
     getLink: function(oembed) {
 
         return [{
-            href: oembed.embed_url,
+            href: oembed.embed_url.replace(/^\/\//, 'http://'),
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.player,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": oembed.width / oembed.height
         }, {
             href: oembed.large_thumbnail_url,

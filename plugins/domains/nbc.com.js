@@ -20,7 +20,6 @@ module.exports = {
 
     tests: [
         "https://www.nbc.com/the-tonight-show/video/alex-rodriguez-clears-up-his-animosity-toward-jimmy/2928739",
-        "http://www.nbc.com/late-night-with-seth-meyers/video/the-bots-performance-blinded/2845870" // US only, wrong width and height
         // "http://www.nbc.com/saturday-night-live/video/hotline-bling-parody/2933534", // not allowed
     ]
 };
