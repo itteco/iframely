@@ -28,14 +28,16 @@ module.exports = {
         };
     },
 
-    getData: function (og) {
+    getData: function (og, options) {
 
         if (og.see_also && /^https?:\/\/(?:www\.)?(youtube|vimeo|soundcloud|ted|dailymotion)\.com\//i.test(og.see_also)) {
 
             return {
-                __promoUri: og.see_also
+                __promoUri: {
+                    url: og.see_also,
+                    rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                }
             };
-
         }
 
     },
