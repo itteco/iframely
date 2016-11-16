@@ -1,4 +1,4 @@
-# Links in Iframely API
+# Iframely API: Embed Links
 
 `links` in [Iframely API](https://iframely.com/docs/iframely-api) is the list of objects with fields `rel`, `href`, `type` and `media`. Just like you would expect a `<link>` in `<html>` `<head>` of the page to be. 
 

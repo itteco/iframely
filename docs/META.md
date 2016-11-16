@@ -1,4 +1,4 @@
-# Iframely META
+# Iframely API: Meta
 
 Most web pages have organic `<meta>` data published using different semantics standards and optimized for different platforms. For example, oEmbed, Open Graph, Twitter Cards, core HTML meta for Google, Dublin Core, Parsely, Sailthru, etc.
 

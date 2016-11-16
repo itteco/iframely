@@ -97,6 +97,7 @@ module.exports = {
         // Not a video - http://www.liveleak.com/view?i=d36_1444922927, broken image
         // Not a video - http://www.liveleak.com/view?i=ee6_1426054685, broken image
         // Not a video - http://www.liveleak.com/view?i=278_1390979374
+        // Not a video - http://www.liveleak.com/view?i=c72_1478733344
         "http://www.liveleak.com/view?i=bb0_1464718288", // portrait
         "http://www.liveleak.com/view?i=589_1210016104" // image matches id in URL
     ]
