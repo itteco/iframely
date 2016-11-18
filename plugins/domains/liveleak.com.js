@@ -34,30 +34,26 @@ module.exports = {
                 cb('Image not available => link is not a video or can not be supported');
             } else if (data.content_length) {
 
-                var id = liveleak.id;
-
-                if (!id) {
-
-                    var image_str = image.split('/');
-                    var image_name = image_str[image_str.length-1];
-
-                    id = image_name.indexOf(urlMatch[1]) > -1 ? urlMatch[1] : image_name.split('_')[0];
-                }
-                
-                var aspect = data.width && data.height ? data.width / data.height : 640/360;
-
-                aspect = aspect > 1.7 ? 16/9: aspect > 1.1 ? 4/3 : aspect > 0.9 ? 1 : aspect > 0.7 ? 3/4 : 9/16;
-
-                cb (null, [{
-                    href: "http://www.liveleak.com/ll_embed?f=" + id,
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
-                    "aspect-ratio": aspect
-                }, {
+                var links = [{
                     href: image, 
                     type: CONFIG.T.image,
                     rel: CONFIG.R.thumbnail
-                }]);
+                }];
+
+                if (liveleak.id) {
+
+                    var aspect = data.width && data.height ? data.width / data.height : 640/360;
+                    aspect = aspect > 1.7 ? 16/9: aspect > 1.1 ? 4/3 : aspect > 0.9 ? 1 : aspect > 0.7 ? 3/4 : 9/16;
+
+                    links.push({
+                        href: "http://www.liveleak.com/ll_embed?f=" + liveleak.id,
+                        type: CONFIG.T.text_html,
+                        rel: [CONFIG.R.player, CONFIG.R.html5],
+                        "aspect-ratio": aspect
+                    });
+                }
+                
+                cb (null, links);
             }
 
         });
@@ -67,14 +63,18 @@ module.exports = {
 
         var liveleak = {};
 
-        var $button = cheerio("a[href*='view?f=']");
+        var $button = cheerio("a[onClick*='generate_embed_code_generator_html'].form_button");
 
         if ($button.length == 1) { 
 
-            var href = $button.attr('href');
+            console.log($button);
 
-            if (/\?f=([_a-zA-Z0-9]+)/.test(href)) {
-                liveleak.id = href.match(/\?f=([_a-zA-Z0-9]+)/)[1];
+            var href = $button.attr('onclick') || $button.attr('onClick');
+
+            console.log('hre=' + href);
+
+            if (/generate_embed_code_generator_html\(\'([_a-zA-Z0-9]+)\'\)/.test(href)) {
+                liveleak.id = href.match(/generate_embed_code_generator_html\(\'([_a-zA-Z0-9]+)\'\)/)[1];
 
                 var $img = cheerio("a[href*='view?f='] img");
 
