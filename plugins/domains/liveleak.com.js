@@ -67,11 +67,7 @@ module.exports = {
 
         if ($button.length == 1) { 
 
-            console.log($button);
-
             var href = $button.attr('onclick') || $button.attr('onClick');
-
-            console.log('hre=' + href);
 
             if (/generate_embed_code_generator_html\(\'([_a-zA-Z0-9]+)\'\)/.test(href)) {
                 liveleak.id = href.match(/generate_embed_code_generator_html\(\'([_a-zA-Z0-9]+)\'\)/)[1];
