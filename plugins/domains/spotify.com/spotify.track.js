@@ -33,6 +33,13 @@ module.exports = {
                     return cb(error);
                 }
 
+                if (body.error && body.error.status === 400) {
+                    return cb({
+                        responseStatusCode: 404
+                    });
+                }
+
+                // error as body.message is probably no longer returned. Stays here as the catcher
                 if (body.message) {
                     return cb(body.message);
                 }
