@@ -40,9 +40,17 @@ module.exports = {
         }
     },
 
-    // TODO: Duration (convert format PY0M0D0TH0M2S36 into ours)
+    getLinks: function(schemaVideoObject, whitelistRecord) {
 
-    getLink: function(schemaVideoObject, whitelistRecord) {
+        var links = [];
+        
+        if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl) {
+            links.push({
+                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl,
+                rel: CONFIG.R.thumbnail,
+                type: CONFIG.T.image            
+            });
+        }
 
         if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl) {
 
@@ -79,12 +87,20 @@ module.exports = {
                 player.height = schemaVideoObject.height;
             }
 
-            return [player, {
-                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl,
-                rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image            
-            }]
+            links.push(player);
         }
+
+        var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl;
+        if (/\.mp4$/.test(contentURL)) {
+            links.push({
+                href: schemaVideoObject.contentURL || schemaVideoObject.contentUrl,
+                type: CONFIG.T.video_mp4, // it will see if *mp4, otherwise verify MIME type
+                rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
+                'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
+            });
+        }
+
+        return links;
     }
 
 };
