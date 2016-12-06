@@ -5,7 +5,8 @@ module.exports = {
         "canonical",
         "og-description",
         "media-detector",
-        "og-title"
+        "og-title",
+        "twitter-stream"
     ],
 
     // fixes incorrect aspect ratio of 320 / 260
