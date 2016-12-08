@@ -115,7 +115,8 @@
             html5: "html5",
             gifv: "gifv",
 
-            promo: "promo"
+            promo: "promo",
+            playerjs: "playerjs"
         },
 
         // Whitelist settings.
