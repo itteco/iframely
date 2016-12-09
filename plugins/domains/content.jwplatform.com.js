@@ -26,6 +26,9 @@ module.exports = {
     },
 
     tests: [
-        "https://content.jwplatform.com/players/s6tol0gj-plsZnDJi.html"
+        "https://content.jwplatform.com/players/s6tol0gj-plsZnDJi.html",
+        {
+            skipMixins: ["twitter-stream"]
+        }
     ]
 };

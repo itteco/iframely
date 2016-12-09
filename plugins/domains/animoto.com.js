@@ -12,13 +12,7 @@ module.exports = {
         "domain-icon"
     ],
 
-    tests: [
-        "http://animoto.com/play/k01h0yvqf59whdd80nla1q",
-        {
-            skipMixins: [
-                "oembed-thumbnail",
-                "oembed-author"
-            ]
-        }
-    ]
+    tests: [{
+        noFeeds: true
+    }]
 };

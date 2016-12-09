@@ -30,6 +30,9 @@ module.exports = {
         "http://my.mail.ru/mail/ee.vlz/video/22396/44907.html",
         "http://my.mail.ru/mail/stryukova_lv/video/6177/1029.html",
         "http://my.mail.ru/mail/shiniavskii/video/_myvideo/4.html",
-        "https://my.mail.ru/inbox/wwf00/video/11/46.html"
+        "https://my.mail.ru/inbox/wwf00/video/11/46.html",
+        {
+            skipMethods: ['getData']
+        }
     ]
 };
