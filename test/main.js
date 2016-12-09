@@ -77,7 +77,7 @@ vows.describe('Tests')
 
         'vimeo meta': {
             topic: function() {
-                iframely("https://vimeo.com/63683408", 'meta', findWhitelistRecordFor, this.callback);
+                iframely("https://www.youtube.com/watch?v=u2Yk1CEgc4g", 'meta', findWhitelistRecordFor, this.callback);
             },
             'not error': notError,
             'has meta': hasMeta
