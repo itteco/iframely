@@ -11,15 +11,8 @@ module.exports = {
         "domain-icon"
     ],
 
-    tests: [         
-        "https://widgetic.com/widgets/util/news-ticker/composition/5572e42d09c7e2227b8b456b/",
-        {
-            skipMixins: [
-                "oembed-title",
-                "oembed-site",
-                "oembed-thumbnail"
-            ]
-        }        
-    ]
+    tests: [{
+        noFeeds: true
+    }]
 
 };
