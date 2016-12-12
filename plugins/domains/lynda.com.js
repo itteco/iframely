@@ -10,7 +10,7 @@ module.exports = {
             var id = $tag.attr('data-initial-video-id');
             return {
                 href: 'https://www.lynda.com/player/embed/' + id + '?fs=3&w=560&h=315&ps=paused&utm_medium=referral&utm_source=embed+video&utm_campaign=ldc-website&utm_content=vid-' + id,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.playerjs],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": 560 / 315
             };
