@@ -39,7 +39,6 @@ module.exports = {
         "http://www.redbull.com/uk/en/esports/stories/1331814022499/project-cars-tips-for-red-bull-5g?linkId=30936298",
         "https://www.redbull.com/ie/en/bike/stories/1331824443479/gee-atherton-pov-foxhunt-2016",
         "https://www.redbull.com/us/en/bike/stories/1331819230253/jump-onboard-kriss-kyle-s-wallride-road-trip",
-        "http://www.redbull.com/en/adventure/stories/1331825478086/new-record-highest-base-jump-rozov",
-        "http://www.redbull.com/en/bike/episodes/1331827190659/szymon-godziek-power-of-mind-episode-2"
+        "http://www.redbull.com/en/adventure/stories/1331825478086/new-record-highest-base-jump-rozov"
     ]
 };
