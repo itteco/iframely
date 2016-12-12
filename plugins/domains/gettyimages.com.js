@@ -77,7 +77,6 @@ module.exports = {
         "http://www.gettyimages.ca/detail/photo/reflection-of-trees-high-res-stock-photography/103260792",
         "http://www.gettyimages.com/detail/illustration/pizza-icons-white-series-royalty-free-illustration/185819032",
         "http://www.gettyimages.de/detail/nachrichtenfoto/sylvie-meis-and-daniel-hartwich-attend-the-8th-show-of-nachrichtenfoto/493388593",
-        "http://www.gettyimages.fr/detail/photo-d'actualit%C3%A9/filipe-toledo-of-brasil-is-the-2015-quiksilver-pro-photo-dactualit%C3%A9/466056674?license",
         "http://www.gettyimages.com/event/championship-round-two-597177571#rafa-cabrerabello-of-spain-plays-a-shot-on-the-17th-hole-during-the-picture-id584665654",
         "http://www.gettyimages.com/pictures/partners-a-statue-of-walt-disney-and-mickey-mouse-sits-in-news-photo-94967642",
         "http://www.gettyimages.co.uk/consumer/share/event/this-week-in-black-and-white-589477793/495178130",

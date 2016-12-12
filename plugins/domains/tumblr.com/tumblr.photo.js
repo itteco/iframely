@@ -54,7 +54,6 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://lincolnmotorco.tumblr.com/"
     },
-        "http://fewthistle.tumblr.com/post/58045916432",
-        "http://www.staskhrustalev.com/post/76759388227"
+        "http://fewthistle.tumblr.com/post/58045916432"
     ]
 };
