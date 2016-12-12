@@ -75,7 +75,7 @@ function assertOembed(oembed) {
 vows.describe('Tests')
     .addBatch({
 
-        'vimeo meta': {
+        'meta': {
             topic: function() {
                 iframely("https://www.youtube.com/watch?v=u2Yk1CEgc4g", 'meta', findWhitelistRecordFor, this.callback);
             },
@@ -83,9 +83,9 @@ vows.describe('Tests')
             'has meta': hasMeta
         },
 
-        'vimeo oembed': {
+        'oembed': {
             topic: function() {
-                iframely("https://vimeo.com/63683408", 'oembed', findWhitelistRecordFor, this.callback);
+                iframely("http://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city", 'oembed', findWhitelistRecordFor, this.callback);
             },
             'not error': notError,
             'has valid oEmbed object': hasValidOEmbedObject
