@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^http:\/\/v\.ku6\.com\/show\/([a-z0-9\._-]+)\.html/i,
-        /^http:\/\/v\.ku6\.com\/special\/show_\d+\/([a-z0-9\._-]+)\.html/i
+        /^http:\/\/v\.ku6\.com\/(\w+)\/show_\d+\/([a-z0-9\._-]+)\.html/i
     ],
 
     mixins: [
