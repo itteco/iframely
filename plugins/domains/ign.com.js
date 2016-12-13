@@ -20,7 +20,7 @@ module.exports = {
             return {
                 href: 'http://widgets.ign.com/video/embed/content.html?url=' + url,
                 type: CONFIG.T.text_html,
-                rel: CONFIG.R.player,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 468 / 263
             };
         }

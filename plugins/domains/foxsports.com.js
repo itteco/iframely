@@ -16,8 +16,8 @@ module.exports = {
 
         if (player.share_embed && player.releaseURL) {
             return {
-                href: '//player.foxfdm.com/sports/embed-iframe.html?videourl=' + player.releaseURL,
-                rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+                href: '//player.foxfdm.com/sports/embed-iframe.html?videourl=' + player.releaseURL +'&autoplay=false',
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 'aspect-ratio': 640 / 360
             }
