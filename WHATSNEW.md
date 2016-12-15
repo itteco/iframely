@@ -4,6 +4,14 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2016.12.15, Version 1.0.1
+
+- Maintenance of the domain plugins
+- Added: iTunes singles, GoPro VR, Lynda.com
+- Better coverage for NBC, Sveriges radio, RedBull, Today.com, Pinterest pins and USA Today
+- New rel `playerjs` for providers that support [playback events API](https://iframely.com/docs/playerjs) (but without the neeed of iFrame adapters)
+
+
 ### 2016.11.08, Version 1.0.0
 
 - Add ability to specify custom plugins (thanks @iloire and @tbasse!) - change `CUSTOM_PLUGINS` dir in your local settings;
