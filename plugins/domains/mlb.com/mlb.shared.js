@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/m\.mlb\.com\/shared\/video\/embed\/embed\.html\?content_id=(\d+)&topic_id=(\d+)/
+        /^https?:\/\/m\.mlb\.com\/shared\/video\/embed\/embed\.html\?content_id=(\d+)&?(?:&amp;)?topic_id=(\d+)/
         
     ],
 

@@ -64,7 +64,7 @@ module.exports = {
                         rel.push(CONFIG.R.html5);
                     } else {
                         href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
-                        type = CONFIG.T.text_html; // there's a 302 re-direct at the moment so it returns as text/html
+                        type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
                     }
 
                     return cb(null, [{

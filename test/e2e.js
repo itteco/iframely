@@ -192,12 +192,12 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(410);
+          chai.expect(res.statusCode).to.equal(418);
           chai.expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
-              code: 410,
-              message: 'Gone'
+              code: 418,
+              message: 'Server error'
             }
           });
           done(err);

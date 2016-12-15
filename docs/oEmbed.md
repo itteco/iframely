@@ -1,4 +1,4 @@
-# oEmbed API
+# oEmbed API endpoint
 
 Iframely gives you a classic [oEmbed v1](http://oembed.com) endpoint, where you send your URL and get embed codes in response. The HTML embed codes will be responsive in most cases, whenever possible.
 

@@ -10,7 +10,7 @@ module.exports = {
     getData: function(urlMatch, cb) {
 
         return cb({
-            responseStatusCode: 410
+            responseStatusCode: 418
         });
     }
 

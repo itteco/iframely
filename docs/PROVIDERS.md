@@ -1,4 +1,4 @@
-# What URLs to send to Iframely
+# Which URLs to send to API?
 
 Iframely follows unique approach in determining which providers it supports. Conventional wisdom comes from oEmbed v1 spec for publishers, which requires them to list the supported URL schemes. Most embed libraries follow in these footsteps.
 

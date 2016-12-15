@@ -94,13 +94,20 @@
         "endpoint": "http://www.youtube.com/oembed"
     },    
     {
+        "name": "Today.com",
+        "templates": [
+            "today\\.com/video/.*"
+        ],
+        "endpoint": "http://www.today.com/oembed"        
+    },
+    {
         "name": "Qik",
         "templates": [
             "qik\\.com/video/.*",
             "qik\\.com/.*"
         ],
         "endpoint": "http://qik.com/api/oembed.{format}"
-    },
+    },    
     {
         "name": "Revision3",
         "templates": [

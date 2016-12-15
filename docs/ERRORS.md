@@ -1,4 +1,4 @@
-# Error handling
+# Result codes & error handling
 
 If everything went well, Iframely will return HTTP status code 200. If there was a problem with processing of your URL, Iframely will return HTTP error code `4xx`.
 

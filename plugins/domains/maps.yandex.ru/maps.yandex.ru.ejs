@@ -1,0 +1,13 @@
+<script src="https://api-maps.yandex.ru/2.1/?lang=en_US" type="text/javascript"></script>
+<div id="map" style="width: 100%;"></div>
+<script type="text/javascript">
+    ymaps.ready(init);
+    function init(){
+        var map = document.getElementById("map");
+        map.style.height = map.offsetWidth / <%= aspect_ratio %> + 'px';
+        var map = new ymaps.Map("map", {
+            center: [<%= latitude %>, <%= longitude %>],
+            zoom: <%= zoom %>
+        });
+    }
+</script>

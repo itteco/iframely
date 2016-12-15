@@ -1,4 +1,4 @@
-# Iframely API for Responsive Embeds and Unified Meta
+# Iframely API endpoint
 
 You send Iframely an URL via HTTP GET request. Iframely will return you semantics and attribution `meta` data and embeds `links`. Together, they mimic the `<head>` element of requested web page.
 

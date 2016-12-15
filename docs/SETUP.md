@@ -1,4 +1,4 @@
-# Deploy Iframely on Your Own Servers
+# Self-host Iframely APIs
 
 The source-code of [Iframely](https://iframely.com) parsers is hosted [on GitHub](https://github.com/itteco/iframely). It's a Node.js library and server published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of [smart iFrames](https://iframely.com/docs/iframes)).
 

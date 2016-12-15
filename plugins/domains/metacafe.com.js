@@ -12,7 +12,7 @@ module.exports = {
 
         return [{
             href: "http://www.metacafe.com/embed/" + urlMatch[1] + "/",
-            rel: [CONFIG.R.player, CONFIG.R.autoplay],
+            rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": 440 / 280 // There is also 
                                     // meta.video_width / meta.video_height, 

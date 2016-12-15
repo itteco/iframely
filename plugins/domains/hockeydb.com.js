@@ -18,8 +18,6 @@ module.exports = {
         var $img = cheerio('img[itemprop*="image"]');
         if ($img.length) {
 
-            console.log('img=' + $img);
-
             links.push({
                 href: $img.attr('src'),
                 rel: CONFIG.R.thumbnail,

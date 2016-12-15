@@ -24,7 +24,7 @@ module.exports = {
         } else if (urlMatch[1] === 'video-clip') {
             aspect = 1280/720;
             type = 'video';
-        } else if (og.type === 'music.song') {
+        } else if (og.type === 'music.song' || og.type === 'website') {
             aspect = 600/168;
             type = 'song';
         } else {

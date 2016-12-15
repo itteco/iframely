@@ -38,7 +38,10 @@ module.exports = {
     },
 
     tests: [
-        "http://www.today.com/video/ted-cruz-explains-why-he-thinks-us-should-police-islamic-neighborhoods-650671171669"
+        "http://www.today.com/video/ted-cruz-explains-why-he-thinks-us-should-police-islamic-neighborhoods-650671171669",
+        {
+            skipMixins: ["oembed-duration"]
+        }
     ]
 
 };

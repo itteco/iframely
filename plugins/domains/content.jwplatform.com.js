@@ -5,7 +5,8 @@ module.exports = {
         "canonical",
         "og-description",
         "media-detector",
-        "og-title"
+        "og-title",
+        "twitter-stream"
     ],
 
     // fixes incorrect aspect ratio of 320 / 260
@@ -25,6 +26,9 @@ module.exports = {
     },
 
     tests: [
-        "https://content.jwplatform.com/players/s6tol0gj-plsZnDJi.html"
+        "https://content.jwplatform.com/players/s6tol0gj-plsZnDJi.html",
+        {
+            skipMixins: ["twitter-stream"]
+        }
     ]
 };

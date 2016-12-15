@@ -14,7 +14,7 @@ module.exports = {
                 
                 return {
                     href: "http://www.bbc.com/" + playlist[1] + '/embed',
-                    rel: [CONFIG.R.player],
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
                     type: CONFIG.T.text_html,
                     "aspect-ratio": 16/9,
                     'padding-bottom': 225, 

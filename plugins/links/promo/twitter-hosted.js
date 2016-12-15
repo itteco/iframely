@@ -9,8 +9,8 @@ module.exports = {
 
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
         if (video_src && typeof video_src === "string" 
-            && /(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\.com/.test(video_src)
-            && !/(youtube|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\.com/i.test(url)) {
+            && /(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\./i.test(video_src)
+            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc)\./i.test(url)) {
 
             return {
                 video_src: video_src

@@ -2,30 +2,43 @@ var URL = require("url");
 
 module.exports = {
 
-    getLink: function(video_src, whitelistRecord) {
+    provides: '__promoUri',    
+
+    getData: function(video_src, whitelistRecord) {
         
         if (whitelistRecord.isDefault && /^https?:\/\/launch\.newsinc\.com\//i.test(video_src)) {
 
-            var uri = URL.parse(video_src, true);
-            var query = uri.query;
+            if (/^https?:\/\/launch\.newsinc\.com\/embed\.html\?.+/i.test(video_src)) {
 
-            if (query.data_feed_url) {                
-                var feed_url = decodeURIComponent(query.data_feed_url);
+                return {
+                    __promoUri: {
+                        url: video_src,
+                        rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                    }
+                };
 
-                var feed_match = feed_url.match(/^https?:\/\/social\.newsinc\.com\/media\/json\/(\d+)\/(\d+)\//i);
-                // ex http://social.newsinc.com/media/json/90161/28916332/singleVideoFeed.json
+            } else { 
 
-                if (feed_match) {
-                    return {
-                        href: '//launch.newsinc.com/embed.html?type=VideoPlayer/Single&widgetId=1&trackingGroup=' + feed_match[1] + '&videoId=' + feed_match[2],
-                        rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
-                        type: CONFIG.T.text_html,
-                        'aspect-ratio': 16 / 9 ,
-                        scrolling: 'no'
+                var uri = URL.parse(video_src, true);
+                var query = uri.query;
+
+                if (query.data_feed_url) {                
+                    var feed_url = decodeURIComponent(query.data_feed_url);
+
+                    var feed_match = feed_url.match(/^https?:\/\/social\.newsinc\.com\/media\/json\/(\d+)\/(\d+)\//i);
+                    // ex http://social.newsinc.com/media/json/90161/28916332/singleVideoFeed.json
+
+                    if (feed_match) {
+
+                        return {
+                            __promoUri: {
+                                url: 'https://launch.newsinc.com/embed.html?type=VideoPlayer/Single&widgetId=1&trackingGroup=' + feed_match[1] + '&videoId=' + feed_match[2],
+                                rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                            }
+                        };
 
                     }
                 }
-
             }
         }
 
@@ -50,6 +63,8 @@ http://video.theindependent.com/Sights-and-sounds-from-2015-Harvest-of-Harmony-2
 http://video.denverpost.com/Denver-Broncos-pregame-show-Super-Bowl-rematch-with-Carolina-Panthers-big-test-Week-1-31359028?ndn.trackingGroup=90115&ndn.siteSection=denverpost&ndn.videoId=31359028&freewheel=90115&sitesection=denverpost&vid=31359028
 http://video.dailycaller.com/PolitiFact-No-President-Obama-didnt-say-people-are-too-smallminded-to-govern-their-own-affairs-26333855
 http://video.nydailynews.com/Gregg-Turkin-MTA-See-Something-Say-Something-ad-30512002
+
+http://dptv.denverpost.com/2015/06/15/top-colorado-court-rules-against-off-duty-pot-use-interview-with-plaintiff-brandon-coats/
 
 broken:
 http://video.bostonherald.com/-?ndn.trackingGroup=90017&ndn.siteSection=bostonherald&ndn.videoId=29235852&freewheel=90017&sitesection=bostonherald&vid=29235852

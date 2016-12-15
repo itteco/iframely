@@ -173,7 +173,7 @@ module.exports = {
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
             site: twitter_oembed.site_name || twitter_oembed.provider_name,
-            description: entities.decodeHTML(twitter_oembed.html.replace(/<(.*?)>/g, '')),
+            description: twitter_oembed.html.replace(/<(.*?)>/g, ''),
             canonical: twitter_oembed.url
         };
     },
