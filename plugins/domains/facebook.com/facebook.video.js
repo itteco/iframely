@@ -22,7 +22,7 @@ module.exports = {
             html = html.replace(/class=\"fb\-video\"/, 'class="fb-comment-embed" data-include-parent="' + (!options.getProviderOptions('facebook.exclude_comment_parent') ? 'true' : 'false') + '"'); 
             rel.push (CONFIG.R.app);
         } else {
-            rel.plush (CONFIG.R.player);
+            rel.push (CONFIG.R.player);
         }
 
 
