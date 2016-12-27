@@ -13,7 +13,7 @@ module.exports = {
 
         if (/^video/i.test(og.type)) {            
             return !urlMatch[2] ? {
-                href: "//player.twitch.tv/?channel=" + urlMatch[1],
+                href: "//player.twitch.tv/?channel=" + urlMatch[1]+"&autoplay=false",
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16 /9 
@@ -28,6 +28,7 @@ module.exports = {
 
     tests: [
         "https://www.twitch.tv/imaqtpie",
-        "http://www.twitch.tv/adultswim"
+        "http://www.twitch.tv/adultswim",
+        "https://www.twitch.tv/xleinonen"
     ]
 };
