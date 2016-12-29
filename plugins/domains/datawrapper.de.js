@@ -26,6 +26,7 @@ module.exports = {
         "http://datawrapper.dwcdn.net/zjCKi/2/",
         "http://cf.datawrapper.de/zjCKi/2/",
         "http://cf.datawrapper.de/Gx44C/21/",
-        "http://cf.datawrapper.de/RrO5t/2/"
+        "http://cf.datawrapper.de/RrO5t/2/",
+        "http://datawrapper.dwcdn.net/pKk9h/1/"
     ]
 };
