@@ -3,7 +3,8 @@ module.exports = {
     re: [
         /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,        
         /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/id(?:pl\.)?(\d+)/i,
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/()(album)\/id(\d+)\?/i
+        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/()(album)\/id(\d+)\??/i
+        
     ],
 
     mixins: [
@@ -33,6 +34,7 @@ module.exports = {
         'https://itunes.apple.com/us/album/12-12-12-concert-for-sandy/id585701590?v0=WWW-NAUS-ITSTOP100-ALBUMS&ign-mpt=uo%3D4',
         'https://itunes.apple.com/us/album/id944094900?i&ls=1',
         'https://itunes.apple.com/album/id1170687816?ls=1',
+        "https://itunes.apple.com/album/id1125277620",
         'https://geo.itunes.apple.com/us/album/trap-or-die-3/id1163301872?app=music',
         'https://geo.itunes.apple.com/us/album/fake-love/id1168503200?i=1168503281&mt=1&app=music',
         'https://itunes.apple.com/ca/album/greatest-feat.-kendrick-lamar/id1149503804?i=1149503816&app=music&ign-mpt=uo%3D4',
