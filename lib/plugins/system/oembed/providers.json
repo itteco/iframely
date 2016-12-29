@@ -376,6 +376,14 @@
         "endpoint": "http://api.meetup.com/oembed"
     },
     {
+        "name": "DeviantArt",
+        "templates": [
+            ".*\\.deviantart\\.com/art/.*",
+            ".*\\.deviantart\\.com/gallery/.*"
+        ],
+        "endpoint": "http://backend.deviantart.com/oembed"
+    },    
+    {
         "name": "Behance",
         "templates": [
             "www\\.behance\\.net/gallery/.*",
@@ -433,13 +441,6 @@
             "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
-    },
-    {
-        "name": "DeviantArt",
-        "templates": [
-            ".*\\.deviantart\\.com/art/.*"
-        ],
-        "endpoint": "http://backend.deviantart.com/oembed"
     },
     {
         "name": "roomshare.jp",
