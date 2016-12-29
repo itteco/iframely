@@ -1,8 +1,8 @@
 module.exports = {
 
-    getLink: function(parsely_page) {
+    getLink: function(parsely) {
         return {
-            href: parsely_page.image_url,
+            href: parsely.image_url,
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail
         };
