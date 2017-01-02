@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /https?:\/\/(?:giant|thumbs|zippy)\.gfycat\.com\/([a-zA-Z0-9]+)(?:\-mobile)?\.(?:webm|mp4|gif)$/i,
+        /https?:\/\/(?:giant|thumbs|zippy)\.gfycat\.com\/([a-zA-Z0-9]+)(?:\-mobile|\-size_restricted)?\.(?:webm|mp4|gif)$/i,
         /https?:\/\/gfycat\.com\/(?:detail|ifr)\/([a-zA-Z0-9]+)$/i        
     ],
 
@@ -20,6 +20,7 @@ module.exports = {
         "https://thumbs.gfycat.com/ObviousEuphoricHadrosaurus-mobile.mp4",
         "https://gfycat.com/detail/ImmaculateWastefulCanine",
         "https://zippy.gfycat.com/YellowHelplessDikdik.webm",
-        "https://gfycat.com/ifr/EvergreenAbsoluteAracari"
+        "https://gfycat.com/ifr/EvergreenAbsoluteAracari",
+        "https://thumbs.gfycat.com/IdealFluffyBabirusa-size_restricted.gif"
     ]
 };
