@@ -113,7 +113,11 @@ module.exports = {
             dislikes: youtube_video_gdata.dislikeCount,
             views: youtube_video_gdata.viewCount,
             media: 'player', 
-            site: "YouTube"
+            site: "YouTube",
+            canonical: "https://www.youtube.com/watch?v=" + youtube_video_gdata.id,
+            author_url: "https://www.youtube.com/user/" + youtube_video_gdata.uploader
+
+
         };
     },
 
