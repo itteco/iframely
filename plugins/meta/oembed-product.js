@@ -12,6 +12,13 @@ module.exports = {
                 quantity: oembed.quantity && parseInt(oembed.quantity),
                 offers: oembed.offers
             };
+        } else if (oembed.price) { // non-shopify products, per pinterest spec
+
+            return {
+                price: oembed.price && parseFloat(oembed.price),
+                currency: oembed.currency_code || oembed.currency,
+                availability: oembed.availability
+            }
         }
     }
 };
