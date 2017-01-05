@@ -9,7 +9,11 @@ module.exports = {
     	} else if (og.video) {
 	        return {
 	            date: og.video.release_date
-	        };    		
+	        };	
+    	} else if (og.updated_time) {
+	        return {
+	            date: og.updated_time
+	        };	
     	}
     }
 };
