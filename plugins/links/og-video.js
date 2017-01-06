@@ -3,12 +3,15 @@ var utils = require('./utils');
 
 function getVideoLinks(video, whitelistRecord) {
 
+    var width = whitelistRecord.isAllowed('og.video', 'rotate') ?  video.height : video.width;
+    var height = whitelistRecord.isAllowed('og.video', 'rotate') ?  video.width : video.height;
+
     var players = [{
         href: video.url || video,
         type: CONFIG.T.maybe_text_html,
         rel: [CONFIG.R.player, CONFIG.R.og],
-        width: video.width,
-        height: video.height
+        width: width,
+        height: height
     }];
 
     if (whitelistRecord.isAllowed('og.video', 'ssl') && video.secure_url) {
@@ -16,8 +19,8 @@ function getVideoLinks(video, whitelistRecord) {
             href: video.secure_url,
             type: CONFIG.T.maybe_text_html,
             rel: [CONFIG.R.player, CONFIG.R.og],
-            width: video.width,
-            height: video.height
+            width: width,
+            height: height
         });
     }
 
@@ -26,8 +29,8 @@ function getVideoLinks(video, whitelistRecord) {
             href: video.iframe,
             type: CONFIG.T.maybe_text_html,
             rel: [CONFIG.R.player, CONFIG.R.og],
-            width: video.width,
-            height: video.height
+            width: width,
+            height: height
         });
     }    
 
