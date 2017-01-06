@@ -544,6 +544,13 @@
         "templates": [
             "gty.im"
         ],
-        "endpoint": "http://embed.gettyimages.com//oembed"
-    }
+        "endpoint": "http://embed.gettyimages.com/oembed"
+    },
+    {
+        "name": "ReverbNation",        
+        "templates": [
+            "reverbnation.com"
+        ],
+        "endpoint": "https://www.reverbnation.com/oembed"
+    }    
 ]
