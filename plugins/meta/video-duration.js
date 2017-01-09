@@ -2,12 +2,12 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        if (!meta.video) {
+        if (!meta.video && !meta.duration) {
             return;
         }
 
         return {
-            duration: meta.video.duration
+            duration: meta.video && meta.video.duration || meta.duration
         };
     }
 };
