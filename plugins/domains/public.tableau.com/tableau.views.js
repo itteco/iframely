@@ -93,6 +93,8 @@ module.exports = {
         "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no",
         // not responsive:
         "http://public.tableau.com/views/HEROremodel/Dashboard1",
-        "http://public.tableau.com/shared/X7RMWXZYQ?:display_count=yes"
+        "http://public.tableau.com/shared/X7RMWXZYQ?:display_count=yes",
+        "https://public.tableau.com/shared/7SRD23PNF?:embed=y&:showVizHome=no&:display_static_image=y&:bootstrapWhenNotified=true",
+        "https://public.tableau.com/shared/NHR6XWHDQ?:display_count=yes"
     ]
 };
