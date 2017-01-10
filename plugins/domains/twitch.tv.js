@@ -6,21 +6,35 @@ module.exports = {
     ],
 
     mixins: [
-        "*"
+        "oembed-title",
+        "oembed-video",
+        "oembed-thumbnail",
+        "oembed-site",
+        "oembed-author",
+        "domain-icon"
     ],
 
-    getLink: function (urlMatch, og) {
+    getMeta: function (oembed) {
+        return {
+            date: oembed.created_at,
+            category: oembed.game,
+            duration: oembed.video_length,
+            canonical: oembed.request_url
+        }
+    },
 
-        if (/^video/i.test(og.type)) {            
+    getLink: function (urlMatch, oembed) {
+
+        if (/^video/i.test(oembed.type)) {            
             return !urlMatch[2] ? {
-                href: "//player.twitch.tv/?channel=" + urlMatch[1]+"&autoplay=false",
+                href: "//player.twitch.tv/?channel=" + urlMatch[1]+"&autoplay=true",
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
                 "aspect-ratio": 16 /9 
             } : {
-                href: "//player.twitch.tv/?video=v" + urlMatch[2],
+                href: "//player.twitch.tv/?video=v" + urlMatch[2]+'&autoplay=true',
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
                 "aspect-ratio": 16 /9 
             };
         }
@@ -29,6 +43,7 @@ module.exports = {
     tests: [
         "https://www.twitch.tv/imaqtpie",
         "http://www.twitch.tv/adultswim",
-        "https://www.twitch.tv/xleinonen"
+        "https://www.twitch.tv/xleinonen",
+        "https://www.twitch.tv/riotgames/v/72749628"
     ]
 };

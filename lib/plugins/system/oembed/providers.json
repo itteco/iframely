@@ -552,5 +552,12 @@
             "reverbnation.com"
         ],
         "endpoint": "https://www.reverbnation.com/oembed"
-    }    
+    },
+    {
+        "name": "Twitch",        
+        "templates": [
+            "twitch.tv"
+        ],
+        "endpoint": "https://api.twitch.tv/v4/oembed"
+    } 
 ]
