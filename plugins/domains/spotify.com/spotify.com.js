@@ -29,7 +29,7 @@ module.exports = {
                 href: $iframe.attr('src'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-                 "aspect-ratio":  100 / 115 // hardcode here as otherwise there's blank space beneath the player
+                height: oembed.height || 80
             }, {
                 href: "http://d2c87l0yth4zbw.cloudfront.net/i/_global/favicon.png",
                 type: CONFIG.T.image,
