@@ -556,7 +556,8 @@
     {
         "name": "Twitch",        
         "templates": [
-            "twitch.tv"
+            "twitch\\.tv/([a-zA-Z0-9_]+)/",
+            "clips.twitch.tv"
         ],
         "endpoint": "https://api.twitch.tv/v4/oembed"
     } 

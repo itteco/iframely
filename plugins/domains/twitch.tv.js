@@ -1,17 +1,12 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.twitch\.tv\/([a-zA-Z0-9_]+)$/i,
-        /^https?:\/\/www\.twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i        
+        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i,
+        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i
     ],
 
     mixins: [
-        "oembed-title",
-        "oembed-video",
-        "oembed-thumbnail",
-        "oembed-site",
-        "oembed-author",
-        "domain-icon"
+        "*"
     ],
 
     getMeta: function (oembed) {
@@ -23,13 +18,15 @@ module.exports = {
         }
     },
 
-    getLink: function (urlMatch, oembed) {
+    getLink: function (urlMatch, og) {
 
-        if (/^video/i.test(oembed.type)) {            
+        if (og.video) { //skip e.g. https://www.twitch.tv/store
+
+            // add only potentially missing options for each a channel and a clip
             return !urlMatch[2] ? {
-                href: "//player.twitch.tv/?channel=" + urlMatch[1]+"&autoplay=true",
+                href: "//player.twitch.tv/?channel=" + urlMatch[1]+"&autoplay=false",
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16 /9 
             } : {
                 href: "//player.twitch.tv/?video=v" + urlMatch[2]+'&autoplay=true',
