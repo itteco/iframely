@@ -22,6 +22,7 @@ module.exports = {
                 player['padding-bottom'] = 90;
             } else {
                 player.height = 90;
+                player.scrolling = 'no';
             }
                 
             return player;
