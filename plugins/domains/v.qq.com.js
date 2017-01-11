@@ -2,8 +2,9 @@ var _ = require('underscore');
 
 var res = [
     /^https?:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
-    /^https?:\/\/v\.qq\.com\/\w+\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
-    /^https?:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i
+    /^https?:\/\/v\.qq\.com\/\w+\/page\/(\w+)\.html$/i,
+    /^https?:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i,
+    /^https?:\/\/v\.qq\.com\/iframe\/(?:player|preview)\.html\?vid=(\w+)/i    
 ];
 
 module.exports = {
@@ -15,12 +16,18 @@ module.exports = {
     ],    
 
     getLinks: function(urlMatch) {
-        return {
-                href: "http://static.video.qq.com/TPout.swf?vid=" + urlMatch[1],
-                type: CONFIG.T.flash,
-                rel: CONFIG.R.player
+        
+        return [{
+                href: "https://v.qq.com/iframe/player.html?vid=" + urlMatch[1] + '&auto=0',
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5]
                 // "aspect-ratio": 4/3 // use default aspect instead
-            };
+            }, {
+                href: "https://v.qq.com/iframe/player.html?vid=" + urlMatch[1] + '&auto=1',
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay]
+                // "aspect-ratio": 4/3 // use default aspect instead
+            }];
     },
 
     tests: [{
