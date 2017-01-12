@@ -12,7 +12,7 @@ module.exports = {
         "*"
     ],
 
-    getLinks: function (urlMatch) {
+    getLinks: function (urlMatch, meta) {
 
         /*
         if ((whitelistRecord.isDefault || !whitelistRecord.isAllowed('twitter.player') || whitelistRecord.isAllowed('twitter.player', 'autoplay')) && twitter.player) {
@@ -23,12 +23,15 @@ module.exports = {
             if (query.isrc) {
         */
 
+        if (!meta.twitter) {
+
                 return {
                     href: 'https://scache.vevo.com/assets/html/embed.html?video=' + urlMatch[1] + '&autoplay=0',
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5]
                     //"aspect-ratio": twitter.player.width / twitter.player.height
                 }
+        }
 
         /*
             , {
