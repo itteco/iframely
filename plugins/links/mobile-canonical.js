@@ -5,7 +5,8 @@ module.exports = {
         var canonical = (meta.canonical && meta.canonical.href) || meta.canonical || (meta.og && meta.og.url);
 
         // Redirect to canonical from mobile url.
-        if (canonical && url !== canonical && url.match(/^https?:\/\/(m|mobile)\./i)) {
+        if (canonical && url !== canonical 
+            && (url.match(/^https?:\/\/(m|mobile)\./i) || url.match(/(\.|\/)amp(\.|\/)/i))) {
 
             // Do not redirect to url from redirects history.
             if (!options.redirectsHistory || options.redirectsHistory.indexOf(canonical) === -1) {

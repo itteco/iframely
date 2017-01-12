@@ -376,6 +376,14 @@
         "endpoint": "http://api.meetup.com/oembed"
     },
     {
+        "name": "DeviantArt",
+        "templates": [
+            ".*\\.deviantart\\.com/art/.*",
+            ".*\\.deviantart\\.com/gallery/.*"
+        ],
+        "endpoint": "http://backend.deviantart.com/oembed"
+    },    
+    {
         "name": "Behance",
         "templates": [
             "www\\.behance\\.net/gallery/.*",
@@ -433,13 +441,6 @@
             "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
-    },
-    {
-        "name": "DeviantArt",
-        "templates": [
-            ".*\\.deviantart\\.com/art/.*"
-        ],
-        "endpoint": "http://backend.deviantart.com/oembed"
     },
     {
         "name": "roomshare.jp",
@@ -543,6 +544,21 @@
         "templates": [
             "gty.im"
         ],
-        "endpoint": "http://embed.gettyimages.com//oembed"
-    }
+        "endpoint": "http://embed.gettyimages.com/oembed"
+    },
+    {
+        "name": "ReverbNation",        
+        "templates": [
+            "reverbnation.com"
+        ],
+        "endpoint": "https://www.reverbnation.com/oembed"
+    },
+    {
+        "name": "Twitch",        
+        "templates": [
+            "twitch\\.tv/([a-zA-Z0-9_]+)/",
+            "clips.twitch.tv"
+        ],
+        "endpoint": "https://api.twitch.tv/v4/oembed"
+    } 
 ]

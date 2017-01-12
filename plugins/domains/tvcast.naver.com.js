@@ -3,7 +3,7 @@ var cheerio = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/tvcast\.naver\.com\/v\/(\d+)/i
+        /^https?:\/\/(?:tvcast|tv)\.naver\.com\/v\/(\d+)/i
     ],
 
     mixins: ['*'],

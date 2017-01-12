@@ -6,13 +6,18 @@ module.exports = {
 
             var type = whitelistRecord.isAllowed('twitter.player', 'html5') ? CONFIG.T.text_html : CONFIG.T.maybe_text_html;
 
-            return {
+            var player =  {
                 href: twitter.player.value || twitter.player,
                 type: type,
                 rel: [CONFIG.R.player, CONFIG.R.twitter],
-                width: twitter.player.width,
                 height: twitter.player.height
             };
+
+            if (!whitelistRecord.isAllowed('twitter.player', 'horizontal')) {
+                player.width = twitter.player.width;
+            }
+
+            return player;
         }
     }
 };

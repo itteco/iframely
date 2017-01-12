@@ -121,9 +121,18 @@ function errorHandler(err, req, res, next) {
     else if (code === 403) {
       respondWithError(req, res, 403, 'Forbidden');
     }
+    else if (code === 404) {
+      respondWithError(req, res, 404, 'Not found');
+    }    
     else if (code === 410) {
       respondWithError(req, res, 410, 'Gone');
     }
+    else if (code === 415) {
+      respondWithError(req, res, 415, 'Unsupported Media Type');
+    } 
+    else if (code === 417) {
+      respondWithError(req, res, 417, 'Unsupported Media Type');
+    }    
     else {
       respondWithError(req, res, code, 'Server error');
     }

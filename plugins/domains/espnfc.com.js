@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.)?espnfc\.com\/[a-zA-Z\-0-9]+\/\d{2,3}\/video\/(\d+)\/?/i    
+        /^https?:\/\/(?:www\.)?espnfc\.(?:com|us|co\.uk|com\.au)\/[a-zA-Z\-0-9]+\/\d{2,3}\/video\/(\d+)\/?/i,
+        /^https?:\/\/(?:www\.)?espnfcasia\.com\/[a-zA-Z\-0-9]+\/\d{2,3}\/video\/(\d+)\/?/i        
     ],
 
     mixins: ["*"],

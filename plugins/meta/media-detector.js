@@ -18,7 +18,7 @@ module.exports = {
 
         if (meta.og) {
 
-            if ((meta.og.video && !meta.og.type )|| (meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/video|movie/i)) || /\/videos?\//i.test(url)) {
+            if ((meta.og.video && !meta.og.type ) || (meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/video|movie/i)) || /\/videos?\//i.test(url) || /https?:\/\/videos?\./i.test(url)) {
 
                 has_player = true;
             }

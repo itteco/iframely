@@ -62,6 +62,7 @@ module.exports = {
                         title: entry.snippet && entry.snippet.title,
                         uploaded: entry.snippet && entry.snippet.publishedAt,
                         uploader: entry.snippet && entry.snippet.channelTitle,
+                        channelId: entry.snippet && entry.snippet.channelId,
                         description: entry.snippet && entry.snippet.description,
                         likeCount: entry.statistics && entry.statistics.likeCount,
                         dislikeCount: entry.statistics && entry.statistics.dislikeCount,
@@ -113,7 +114,9 @@ module.exports = {
             dislikes: youtube_video_gdata.dislikeCount,
             views: youtube_video_gdata.viewCount,
             media: 'player', 
-            site: "YouTube"
+            site: "YouTube",
+            canonical: "https://www.youtube.com/watch?v=" + youtube_video_gdata.id,
+            author_url: "https://www.youtube.com/" + (youtube_video_gdata.channelId  ? "channel/" + youtube_video_gdata.channelId : "user/" + youtube_video_gdata.uploader)
         };
     },
 

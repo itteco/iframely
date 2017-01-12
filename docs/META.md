@@ -62,7 +62,7 @@ Following Open Graph spec:
 Following Pinterest spec:
 
 - `price`
-- `currency_code`
+- `currency`
 - `brand`
 - `product_id`
 - `availability`

@@ -335,7 +335,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                         // Error on unused mandatory methods.
                         if (unusedMethods.mandatory.length > 0) {
-                            logEntry.errors_list = logEntry.errors || [];
+                            logEntry.errors_list = logEntry.errors_list || [];
                             unusedMethods.mandatory.forEach(function(m) {
                                 var inError = _.find(errors, function(error) {
                                     return error.indexOf(m) > -1;

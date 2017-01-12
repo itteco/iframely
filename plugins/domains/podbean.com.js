@@ -4,36 +4,16 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(url, cheerio) {
+    getData: function(twitter) {
+        
+        if (twitter.player && twitter.player.value) {
 
-        // Iframe with video embed.
-        var $iframe = cheerio('.podPress_content iframe');
-        if ($iframe.length) {
             return {
-                href: $iframe.attr('src').replace('http://', '//'),
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                width: $iframe.attr('width'),
-                height: $iframe.attr('height')
+                video_src: twitter.player.value
             };
         }
-
-        // Generate audio embed.
-        var $post = cheerio('.post-toolbar');
-        if ($post.length) {
-            var id_match = $post.attr('id').match(/postbar_(\d+)/);
-
-            if (id_match) {
-                return {
-                    href: '//www.podbean.com/media/player/audio/postId/' + id_match[1] + '/url/' + encodeURI(url) + '/initByJs/1/auto/1',
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
-                    'min-width': 225,
-                    height: 100
-                };
-            }
-        }
     },
+    
 
     tests: [{
         pageWithFeed: 'http://boyt.podbean.com'

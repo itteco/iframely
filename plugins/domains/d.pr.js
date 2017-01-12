@@ -17,14 +17,16 @@ module.exports = {
             return {
                 href: oembed.url,
                 type: CONFIG.T.image,
-                rel: CONFIG.R.image,
-                width: oembed.width,
-                height: oembed.height
+                rel: CONFIG.R.image
+                // verify that image exists, omit sizes
+                // width: oembed.width,
+                // height: oembed.height
             };
         }
     },
 
     tests: [
-        "http://d.pr/i/9jB7"
+        "http://d.pr/i/9jB7",
+        // "http://d.pr/i/vO1p" // 404
     ]
 };
