@@ -4,7 +4,8 @@ var res = [
     /^https?:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
     /^https?:\/\/v\.qq\.com\/\w+\/page\/(\w+)\.html$/i,
     /^https?:\/\/v\.qq\.com\/\w+\/\w\/\w+\.html\?vid=(\w+)$/i,
-    /^https?:\/\/v\.qq\.com\/iframe\/(?:player|preview)\.html\?vid=(\w+)/i    
+    /^https?:\/\/v\.qq\.com\/iframe\/(?:player|preview)\.html\?vid=(\w+)/i,
+    /^https?:\/\/v\.qq\.com\/\w\/cover\/\w+\/(\w+)\.html/i
 ];
 
 module.exports = {
