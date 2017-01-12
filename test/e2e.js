@@ -91,7 +91,7 @@ describe('meta endpoint', function() {
             error: {
               source: 'iframely',
               code: 417,
-              message: 'Server error'
+              message: 'Unsupported Media Type'
             }
           });
           done(err);
