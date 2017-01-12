@@ -37,7 +37,9 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true, skipMethods: ["getMeta"]
+    },
         "https://www.twitch.tv/imaqtpie",
         "http://www.twitch.tv/adultswim",
         "https://www.twitch.tv/xleinonen",
