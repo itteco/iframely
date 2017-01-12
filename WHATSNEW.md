@@ -4,6 +4,13 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2017.01.12, Version 1.0.2
+
+- Maintenance of the domain plugins
+- Better consistency in product prices and article timestamps
+- Added custom domains for hosted podcasts: podbean, simplecast and libsyn
+
+
 ### 2016.12.15, Version 1.0.1
 
 - Maintenance of the domain plugins
