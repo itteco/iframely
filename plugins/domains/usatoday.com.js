@@ -2,6 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/www\.(\w+)\.com\/media\/cinematic\/video\/(\d{7,9})\/[a-zA-Z0-9\-\_:\.]+\/?$/i,
+        /^https?:\/\/www\.(\w+)\.com\/media\/cinematic\/video\/(\d{7,9})\/?$/i,
         /^https?:\/\/www\.(\w+)\.com\/videos\/\w+\/(?:[a-z0-9\/]+)?\d{4}\/\d{2}\/\d{2}\/(\d{7,9})\/?$/i,
         /^https?:\/\/www\.(\w+)\.com\/videos\/\w+\/(?:[a-z0-9\/]+)?\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-\_\.:]+\/(\d{7,9})\/?$/i
     ],
@@ -43,6 +44,7 @@ module.exports = {
         "http://www.usatoday.com/videos/life/2016/11/09/93525560/",
         "http://www.usatoday.com/videos/news/politics/elections/2016/2016/11/09/93532206/",
         "http://www.usatoday.com/videos/sports/2016/12/20/behind-scenes:-michael-phelps-cover-shoot/95645660/",
-        "http://www.usatoday.com/videos/news/2017/01/07/what-know-ft.-lauderdale-airport-shooter/96291014/"
+        "http://www.usatoday.com/videos/news/2017/01/07/what-know-ft.-lauderdale-airport-shooter/96291014/",
+        "http://www.cincinnati.com/media/cinematic/video/9430427/"
     ]
 };

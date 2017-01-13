@@ -16,12 +16,12 @@ module.exports = {
         "*"
     ],    
 
-    getLinks: function(urlMatch) {
+    getLinks: function(url, urlMatch) {
         
         return [{
                 href: "https://v.qq.com/iframe/player.html?vid=" + urlMatch[1] + '&auto=0',
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5]
+                rel: url.indexOf('iframe') > 0 ? [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed] : [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed] // avoid removing url=canonical
                 // "aspect-ratio": 4/3 // use default aspect instead
             }, {
                 href: "https://v.qq.com/iframe/player.html?vid=" + urlMatch[1] + '&auto=1',
