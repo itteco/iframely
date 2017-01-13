@@ -554,11 +554,18 @@
         "endpoint": "https://www.reverbnation.com/oembed"
     },
     {
-        "name": "Twitch",        
+        "name": "Twitch",
         "templates": [
             "twitch\\.tv/([a-zA-Z0-9_]+)/",
             "clips.twitch.tv"
         ],
         "endpoint": "https://api.twitch.tv/v4/oembed"
-    } 
+    },
+    {
+        "name": "CNEvids",        
+        "templates": [        
+            "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+"
+        ],
+        "endpoint": "https://player.cnevids.com/services/oembed"
+    }
 ]
