@@ -13,8 +13,9 @@ module.exports = {
 
     getLink: function(url, oembed, options) {
 
-        var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
+        var width = options.maxWidth || options.getProviderOptions('facebook.width', 'auto');
 
+        // https://developers.facebook.com/docs/plugins/embedded-posts#settings
         var html = oembed.html.replace(/data-width=\"\d+\"/, 'data-width="' + width + '"');
             html = html.replace(/class=\"fb\-video\"/, 'class="fb-post"'); // thank you FB for not working well with photo.php
             html = html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
@@ -27,12 +28,19 @@ module.exports = {
             html = html.replace(/class=\"fb\-post\"/, 'class="fb-comment-embed" data-include-parent="' + (!options.getProviderOptions('facebook.exclude_comment_parent') ? 'true' : 'false') + '"'); 
         }
 
-        return {
+        var post =  {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             html: html, 
-            width: width
+            "min-width": 350,
+            "max-width": 750
         };
+
+        if (width !== 'auto') {
+            post.width = width;
+        }
+
+        return post;
     },
 
     tests: [
