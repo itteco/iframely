@@ -23,7 +23,8 @@ module.exports = {
         return {
             href: 'http://www.nbcnews.com/widget/video-embed/' + urlMatch[1],
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.text_html, 
+            type: CONFIG.T.maybe_text_html, // make sure it doesn't 404 
+                                            // as in http://www.nbcnews.com/video/watch-live-obama-holds-final-press-conference-as-president-857386563735
             "aspect-ratio": 16/9,
             scrolling: 'no'
         };
