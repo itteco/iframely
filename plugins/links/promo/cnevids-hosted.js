@@ -12,10 +12,10 @@ module.exports = {
                     type: 'application/json+oembed'
                 }]}
 
-        } else if (/^https?:\/\/player\-backend\.cnevids\.com\/embed\/[0-9a-zA-Z]+\/[0-9a-zA-Z]+/i.test(video_src)) {
+        } else if (/^https?:\/\/player\-\w+\.cnevids\.com\/embed\/[0-9a-zA-Z]+\/[0-9a-zA-Z]+/i.test(video_src)) {
             return {
                 __promoUri: {
-                    url: video_src.replace (/player\-backend/, 'player'),
+                    url: video_src.replace (/player\-\w+/, 'player'),
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
                 }
             };            
