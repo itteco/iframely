@@ -2,7 +2,8 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i,
-        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i
+        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i,
+        /^https?:\/\/player\.twitch\.tv\/\?channel=([a-zA-Z0-9_]+)/i
     ],
 
     mixins: [
@@ -35,6 +36,13 @@ module.exports = {
                 "aspect-ratio": 16 /9 
             };
         }
+    },
+
+    getData: function (url, urlMatch, cb) {
+
+        cb (/^https?:\/\/player\.twitch\.tv\/\?channel=([a-zA-Z0-9_]+)/i.test(url) ? {
+            redirect: "https://www.twitch.tv/" + urlMatch[1]
+        } : null);
     },
 
     tests: [{
