@@ -69,6 +69,7 @@
             "app",
             "player",
             "survey",
+            "summary",
             "image",
             "reader",
             "thumbnail",

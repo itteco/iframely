@@ -18,6 +18,9 @@ module.exports = {
         if (whitelistRecord.isAllowed('oembed.rich', "player")) {
             rels.push(CONFIG.R.player);
         }
+        if (whitelistRecord.isAllowed('oembed.rich', "summary")) {
+            rels.push(CONFIG.R.summary);
+        }        
         if (rels.length == 1) {
             rels.push(CONFIG.R.app);
         }
@@ -27,9 +30,6 @@ module.exports = {
         }
         if (whitelistRecord.isAllowed('oembed.rich', "html5")) {
             rels.push(CONFIG.R.html5);
-        }
-        if (whitelistRecord.isAllowed('oembed.rich', "summary")) {
-            rels.push(CONFIG.R.summary);
         }
         rels.push ("allow"); // otherwise, rich->players get denied by oembed:video whitelist record
 
