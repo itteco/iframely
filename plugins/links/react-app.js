@@ -1,12 +1,14 @@
 module.exports = {
 
-    getLink: function(meta, cb) {
+	provides: '__reactAppFlag',
+
+    getData: function(meta, cb) {
 
     	if (meta.fragment == '!' && /{{.+}}/.test(meta.title)) {
 
-    		return cb({responseStatusCode: 415});
+    		return cb(null, {__reactAppFlag: true});
     	} else {
-    		return cb(null);
+    		return cb();
     	}
 
     }
