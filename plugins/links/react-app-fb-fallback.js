@@ -9,7 +9,15 @@ module.exports = {
 
     getData: function(url, __reactAppFlag, options, cb) {
 
-        var options2 = _.extend({}, options, {debug: false}, {user_agent: CONFIG.FB_USER_AGENT});
+        if (options.user_agent === CONFIG.FB_USER_AGENT) {
+            return cb();
+        }
+
+        var options2 = _.extend({}, options, {
+            debug: false,
+            refresh: true,
+            user_agent: CONFIG.FB_USER_AGENT
+        });
 
         core.run(url, options2, function(error, data) {
 
