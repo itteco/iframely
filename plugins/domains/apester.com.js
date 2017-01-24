@@ -1,7 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:renderer|preview)\.qmerce\.com\/interaction\/([a-z0-9]+)/i
+        /^https?:\/\/(?:renderer|preview)\.qmerce\.com\/interaction\/([a-z0-9]+)/i,
+        /^https?:\/\/(?:discover)\.apester\.com\/media\/([a-z0-9]+)/i,
+        /^https?:\/\/app\.apester\.com\/editor\/([a-z0-9]+)/i        
     ],
 
     mixins: ['*'],
@@ -31,17 +33,23 @@ module.exports = {
         }, cb);
     },
 
-    getLink: function(qmerce, urlMatch) {
-        return [{
+    getLink: function(qmerce, url, urlMatch) {
+        var links = [{
             href: '//renderer.qmerce.com/interaction/' + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.html5],
             height: qmerce.data.size ? qmerce.data.size.height  : 400 // when "undefined" - no way to check the height :\
-        }, {
-            href: qmerce.image && qmerce.image.path && ('http://images.apester.com/' + qmerce.image.path.replace (/\//g, '%2F')),
-            type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail
-        }]
+        }] 
+
+        if (!/^https?:\/\/(?:discover)\.apester\.com\/media\/([a-z0-9]+)/i.test(url)) {
+            links.push ({
+                href: qmerce.image && qmerce.image.path && ('http://images.apester.com/' + qmerce.image.path.replace (/\//g, '%2F')),
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            })
+        } // else - og-image
+
+        return links;
     },
 
     getMeta: function(qmerce) {
@@ -60,6 +68,6 @@ module.exports = {
         "https://preview.qmerce.com/interaction/562a434547771a99601c3626",
         "http://renderer.qmerce.com/interaction/562146b041d4754d14603b18",
         "http://renderer.qmerce.com/interaction/569388818089e8dd05aff3a8",
-        "https://renderer.qmerce.com/interaction/54d78df0a2eb4c424343c9f9"
+        "http://discover.apester.com/media/5875af23122b4b812e143731?src=link"
     ]
 };
