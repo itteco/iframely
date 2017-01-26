@@ -46,7 +46,7 @@ module.exports = {
     },
 
     tests: [{
-        noFeeds: true, skipMethods: ["getMeta"]
+        noFeeds: true, skipMethods: ["getMeta", "getData"]
     },
         "https://www.twitch.tv/imaqtpie",
         "http://www.twitch.tv/adultswim",
