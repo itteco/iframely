@@ -19,7 +19,8 @@ module.exports = {
                 href: '//player.foxfdm.com/sports/embed-iframe.html?videourl=' + player.releaseURL +'&autoplay=false',
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
-                'aspect-ratio': 640 / 360
+                'aspect-ratio': 640 / 360,
+                autoplay: 'autoplay=true'
             }
         }
     },
