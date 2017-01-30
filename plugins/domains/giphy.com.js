@@ -37,8 +37,18 @@ module.exports = {
             height: oembed.height
         });
 
+        var thumbnail = twitter.image && (twitter.image.src || twitter.image.url); 
+
+        if (oembed.width && oembed.height && (oembed.width / oembed.height < 1.7 || oembed.width / oembed.height > 1.9)) {
+            // fix resized thumbnail 
+            // from https://media.giphy.com/media/.../giphy-facebook_s.jpg?t=1
+            // to https://media3.giphy.com/media/.../giphy_s.gif
+
+            thumbnail = thumbnail.replace(/\/giphy\-facebook_s\.jpg\?t=1$/, '/giphy_s.gif?t=1');
+        }
+
         links.push({
-            href: twitter.image && (twitter.image.src || twitter.image.url),
+            href: thumbnail,
             type: CONFIG.T.image, // keep it here, otherwise thumbnail may come up with GIF MIME type
             rel: CONFIG.R.thumbnail,
             width: oembed.width,
