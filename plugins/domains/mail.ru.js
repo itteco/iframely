@@ -1,3 +1,5 @@
+var URL = require("url");
+
 module.exports = {
 
     re: [
@@ -10,16 +12,23 @@ module.exports = {
 
     getLink: function(og, url) {
 
-        if (og.type !== 'video.other' | !og.url) {
+        if (og.type !== 'video.other' || !og.image) {
             return;
         }
 
-        return {
-                href: '//videoapi.my.mail.ru/videos/embed/' + og.url.replace(/^https?:\/\/my\.mail\.ru\/(video\/)?/, ''),
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": 626 / 367
-            };
+        var thumbnail = URL.parse(og.image, true);
+        var video_url = decodeURIComponent(thumbnail.query.url);
+
+        if (/mail\.ru\/*.\/video\/url\/[a-z0-9]+\/(\d+)/i.test(video_url)) {
+
+            return {
+                    href: "https://my.mail.ru/video/embed/" + video_url.match(/mail\.ru\/*.\/video\/url\/[a-z0-9]+\/(\d+)/i)[1],
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
+                    "aspect-ratio": 626 / 367,
+                    autoplay: "autoplay=1"
+                };
+        }
     },
 
     getData: function(meta, cb) {
