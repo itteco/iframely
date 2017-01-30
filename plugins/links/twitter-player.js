@@ -17,7 +17,7 @@ module.exports = {
                 player.width = twitter.player.width;
             }
 
-            if (whitelistRecord.twitter && whitelistRecord.twitter && whitelistRecord.twitter['player-autoplay']) {
+            if (whitelistRecord.twitter && whitelistRecord.twitter['player-autoplay']) {
                 player.autoplay = whitelistRecord.twitter['player-autoplay'];
             }
 
