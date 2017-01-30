@@ -62,6 +62,7 @@ module.exports = {
         page: 'http://giphy.com',
         selector: '.gif-link'
     },
-        "http://giphy.com/gifs/emma-stone-kiss-oHBlKX1wbIye4"
+        "http://giphy.com/gifs/emma-stone-kiss-oHBlKX1wbIye4",
+        "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS"
     ]
 };
