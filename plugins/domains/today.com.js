@@ -27,7 +27,7 @@ module.exports = {
         // ex.: http://www.today.com/video/cast-of-school-of-rock-perform-youre-in-the-band-545729603874
 
         return {
-            href: "http://www.today.com/offsite/" + urlMatch[1] + '?autoPlay=0',
+            href: "http://www.today.com/offsite/" + urlMatch[1],
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             'aspect-ratio': 16/9,
