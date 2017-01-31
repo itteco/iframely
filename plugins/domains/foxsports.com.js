@@ -1,3 +1,5 @@
+var entities = require('entities');
+
 module.exports = {
 
     re: [
@@ -12,7 +14,7 @@ module.exports = {
     getLink: function(urlMatch, cheerio) {
 
         var $el = cheerio('.platformPlayer');
-        var player = JSON.parse($el.attr('data-player-config'));
+        var player = JSON.parse(entities.decodeHTML($el.attr('data-player-config')));
 
         if (player.share_embed && player.releaseURL) {
             return {
