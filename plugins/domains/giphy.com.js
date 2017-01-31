@@ -59,10 +59,10 @@ module.exports = {
     },
 
     tests: [{
-        page: 'http://giphy.com',
-        selector: '.gif-link'
+        skipMixins: ["oembed-canonical"]
     },
         "http://giphy.com/gifs/emma-stone-kiss-oHBlKX1wbIye4",
-        "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS"
+        "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
+        "http://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E"
     ]
 };
