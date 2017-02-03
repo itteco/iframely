@@ -116,7 +116,9 @@
             gifv: "gifv",
 
             promo: "promo",
-            playerjs: "playerjs"
+            playerjs: "playerjs",
+
+            disableSizeWrapper: true
         },
 
         // Whitelist settings.
