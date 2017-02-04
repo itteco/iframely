@@ -12,7 +12,7 @@ module.exports = {
 
         return {
             href: "https://vine.co/v/" + urlMatch[1] + '/embed/simple',
-            type: CONFIG.T.text_html,
+            type: CONFIG.T.maybe_text_html,
             rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
             "aspect-ratio": 1
         }
