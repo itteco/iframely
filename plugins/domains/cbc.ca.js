@@ -18,13 +18,14 @@ module.exports = {
         var player = {
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],                
+                rel: [CONFIG.R.player, CONFIG.R.html5]                
             };
 
         if (twitter.image && /^https?:\/\/[^\/]+\/[^\/]+\/[^\/]+\/[^\/]+$/i.test(twitter.image)) {
             player.height = 180;            
         }  else {
             player["aspect-ratio"] = twitter.player.width / twitter.player.height;
+            player.autoplay = 'autoPlay=true';
         }
 
         return player;
