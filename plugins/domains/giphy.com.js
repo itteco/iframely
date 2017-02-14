@@ -21,8 +21,14 @@ module.exports = {
         var links = [];
 
         if (!media_only && twitter.player) {
+
+            var href = (twitter.player.value || twitter.player).replace(/^https:\/\//, '//').replace(/\/twitter\/iframe$/, '');
+            if (href.indexOf('?') == -1 && options.getProviderOptions('giphy.get_params', false)) {
+                href+= (options.getProviderOptions('giphy.get_params').indexOf('?') > -1 ? '' : '?') + options.getProviderOptions('giphy.get_params');
+            }
+
             links.push({
-                href: (twitter.player.value || twitter.player).replace(/^https:\/\//, '//').replace(/\/twitter\/iframe$/, ''),
+                href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
                 "aspect-ratio": twitter.player.width / twitter.player.height
