@@ -50,7 +50,7 @@ module.exports = {
     },
         "https://www.twitch.tv/imaqtpie",
         "http://www.twitch.tv/adultswim",
-        "https://www.twitch.tv/xleinonen",
-        "https://www.twitch.tv/riotgames/v/72749628"
+        "https://www.twitch.tv/xleinonen"
+        //"https://www.twitch.tv/riotgames/v/72749628"
     ]
 };
