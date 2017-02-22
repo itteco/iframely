@@ -567,5 +567,12 @@
             "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+"
         ],
         "endpoint": "https://player.cnevids.com/services/oembed"
+    },
+    {
+        "name": "Web TV",
+        "templates": [        
+            "\\w+.web\\.tv/video/"            
+        ],
+        "endpoint": "http://web.tv/api/generalapi/oembed"        
     }
 ]
