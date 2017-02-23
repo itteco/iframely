@@ -1,5 +1,4 @@
 var utils = require('../../../lib/utils');
-var html_utils = require('../../../lib/html-utils');
 
 module.exports = {
 
@@ -19,8 +18,7 @@ module.exports = {
 
     getData: function(meta, tableau, options, cb) {
 
-            var firstImage = (meta.og && meta.og.image ) 
-            || 'http://public.tableau.com/static/images/' + tableau.workbook.substring(0,2) + '/' + tableau.workbook + '/' + tableau.view + '/1.png';
+            var firstImage = 'http://public.tableau.com/static/images/' + tableau.workbook.substring(0,2) + '/' + tableau.workbook + '/' + tableau.view + '/1.png';
 
             utils.getImageMetadata(firstImage, options, function(error, data) {
 
@@ -71,11 +69,6 @@ module.exports = {
             } else {
                 app.href += '&:tabs=no';
             }
-
-            app.html = html_utils.generateLinkElementHtml(app, options) 
-                + '<script src="//public.tableau.com/javascripts/api/viz_v1.js" async></script>';
-
-            delete app.href;
 
             links.push(app);
 
