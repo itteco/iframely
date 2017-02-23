@@ -1,4 +1,12 @@
 language: node_js
 node_js:
+    - node
+    - iojs
+    - 6
+    - 5
+    - 4
     - 0.12
+    - 0.11
     - 0.10
+    - 0.8
+    - 0.6
