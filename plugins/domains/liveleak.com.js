@@ -23,8 +23,9 @@ module.exports = {
         // So we can tell that if og:image contains "embed" - then it's not a hosted video
 
         var image = liveleak.image || og.image;
+        var img_check = liveleak.image + og.image;
 
-        if (!image || image.indexOf ('embed') > -1 || image.indexOf('mature') > -1) {
+        if (!img_check || img_check.indexOf ('embed') > -1 || img_check.indexOf('mature') > -1) {
             cb('Embed videos or mature content not supported');
         }
 
