@@ -518,13 +518,21 @@
         "endpoint": "https://widget.ranker.com/oembed/{1}?for={format}"
     },
     {
-        "name": "Art19",
+        "name": "Art19 Episodes",
         "templates": [
             "art19\\.com/shows/([a-zA-Z0-9\\-_]+)\\/episodes/([a-zA-Z0-9\\-_]+)",
             "art19\\.com/shows/([a-zA-Z0-9\\-_]+)\\/episodes/([a-zA-Z0-9\\-_]+)/embed"
         ],
         "endpoint": "https://art19.com/oembed.json?url=https://art19.com/shows/{1}/episodes/{2}"
     },
+    {
+        "name": "Art19 Shows",
+        "templates": [
+            "art19\\.com/shows/([a-zA-Z0-9\\-_]+)",
+            "art19\\.com/shows/([a-zA-Z0-9\\-_]+)/embed"
+        ],
+        "endpoint": "https://art19.com/oembed.json?url=https://art19.com/shows/{1}"
+    },    
     {
         "name": "Graphiq",
         "templates": [
