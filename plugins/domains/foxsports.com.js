@@ -32,7 +32,7 @@ module.exports = {
         "http://www.foxsports.com/video?vid=551579203750",
         "http://www.foxsports.com/mlb/video?vid=602673731627",
         "http://www.foxsports.com/mlb/video/scherzer-harper-mock-papelbon-incident-with-handshake-100115?utm_medium=twitter&utm_source=twitterfeed",
-        "http://www.foxsports.com/ufc/video/862901315655",
+        "http://www.foxsports.com/ufc/video/885871683770",
         "http://www.foxsports.com/san-diego/video/872704067851"
     ]
 };
