@@ -66,7 +66,9 @@ module.exports = {
     tests: [{
         pageWithFeed: "http://imgur.com/",
     }, {
-        skipMethods: ["getLink"]
+        skipMethods: [
+            "getData"
+        ]
     }, {
         skipMixins: [
             "twitter-image",
