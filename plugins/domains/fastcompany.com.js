@@ -23,8 +23,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.fastcolabs.com/3018374/can-wearable-computers-revolutionize-how-we-learn-to-code",
-        "http://m.fastcompany.com/1677370/actress-felicia-day-reroutes-her-career-web-series-guild",
         "http://www.fastcocreate.com/3016916/creation-stories/ricky-gervais-tells-a-story-about-how-he-learned-to-write",
         "http://www.fastcodesign.com/3062335/the-worlds-ugliest-color-examined-by-graphic-design-experts",
         "http://www.fastcoexist.com/3033651/watch-strausss-blue-danube-recreated-using-the-sound-of-wind-turbines"
