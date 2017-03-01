@@ -1,12 +1,10 @@
 module.exports = {
 
     re: [
-        /https?:\/\/imgur\.com\/t\/\w+\/(\w+).*/i,
+        /https?:\/\/imgur\.com\/t\/[a-zA-Z0-9\-_&]+\/(\w+).*/i,        
         /https?:\/\/imgur\.com\/topic\/[a-zA-Z0-9\-_&]+\/(\w+).*/i,
         /https?:\/\/imgur\.com\/(?:\w+\/)?(\w+).*/i,
     ],
-
-    provides: ["oembedLinks"],
 
     mixins: [
         "favicon",
@@ -50,8 +48,27 @@ module.exports = {
         return links;
     },
 
+    getData: function(oembedError, url, og, options, cb) {
+
+        if (og.url && og.url !== url &&
+            (!options.redirectsHistory || options.redirectsHistory.indexOf(og.url) === -1)) {
+
+            cb ({
+                redirect: og.url
+            });            
+
+        } else {
+            cb(null);
+        }
+    },    
+
+
     tests: [{
-        pageWithFeed: "http://imgur.com/"
+        pageWithFeed: "http://imgur.com/",
+    }, {
+        skipMethods: [
+            "getData"
+        ]
     }, {
         skipMixins: [
             "twitter-image",
@@ -69,6 +86,6 @@ module.exports = {
         "https://imgur.com/gallery/kkEzJsa",
         "http://imgur.com/t/workout/HFwjGoF",
         "http://imgur.com/t/water/ud7YwQp",
-        "http://imgur.com/topic/The_Oscars_&_Movies/YFQo6Vl"
+        "http://imgur.com/t/The_Oscars_&_Movies/YFQo6Vl"
     ]
 };

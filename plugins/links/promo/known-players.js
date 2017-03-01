@@ -73,7 +73,7 @@ module.exports = {
 
         // or jwplatform
         urlMatch = video_src.match(/^https?:\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.html/i)
-                || video_src.match(/^https?:\/\/content\.jwplatform\.com\/videos\/([_a-zA-Z0-9\-]+)\.mp4/i);
+                || video_src.match(/^https?:\/\/content\.jwplatform\.com\/videos\/([_a-zA-Z0-9\-]+)\.(?:mp4|m3u8)/i);
 
         if (urlMatch) {
             return {

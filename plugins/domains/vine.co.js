@@ -1,36 +1,20 @@
 module.exports = {
 
     re:[
-        /^https?:\/\/vine\.co\/v\//i
+        /^https?:\/\/vine\.co\/v\/(\w+)/i
     ],
 
     mixins: [
-        //"twitter-player",
-        "twitter-stream",
-        //"oembed-video",
-        "og-video",
-        "oembed-thumbnail",
-        "favicon",
-        "oembed-author",
-        "canonical",
-        "twitter-description",
-        "oembed-site",
-        "oembed-title"
+        "*"
     ],
 
-    getLink: function (twitter, options) {
-
-        var rel = [CONFIG.R.player];
-
-        if (!options.getProviderOptions("vine.disable_on_mobile")) {
-            rel.push(CONFIG.R.html5);
-        }
+    getLink: function (urlMatch) {
 
         return {
-            href: twitter.player.value,
-            type: CONFIG.T.text_html,
-            rel: rel,
-            "aspect-ratio": twitter.player.width / twitter.player.height
+            href: "https://vine.co/v/" + urlMatch[1] + '/embed/simple',
+            type: CONFIG.T.maybe_text_html,
+            rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
+            "aspect-ratio": 1
         }
     },
 
@@ -39,7 +23,6 @@ module.exports = {
         "https://vine.co/v/bjHh0zHdgZT",
         "https://vine.co/v/blrJgOKXg19",
         "https://vine.co/v/blr5dvQn2xU",
-        "https://vine.co/v/blrexgYzeve",
         {
             noFeeds: true
         }

@@ -42,6 +42,8 @@ module.exports = {
 
     getLinks: function(schemaVideoObject, whitelistRecord) {
 
+        if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return;}
+
         var links = [];
         
         if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl) {

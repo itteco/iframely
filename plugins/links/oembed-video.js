@@ -3,7 +3,7 @@ var entities = require('entities');
 
 module.exports = {
 
-    getLink: function(oembed, whitelistRecord) {
+    getLink: function(oembed, whitelistRecord) {        
 
 
         if (!(oembed.type === "video" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video'))) {
@@ -52,6 +52,10 @@ module.exports = {
 
         if (whitelistRecord.isAllowed('oembed.video', 'autoplay')) {
             player.rel.push(CONFIG.R.autoplay);
+        }
+
+        if (whitelistRecord.oembed && whitelistRecord.oembed['video-autoplay']) {
+            player.autoplay = whitelistRecord.oembed['video-autoplay'];
         }
 
         return player;

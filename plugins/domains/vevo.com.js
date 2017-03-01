@@ -45,7 +45,10 @@ module.exports = {
         */
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true,
+        skipMethods: ["getLink"]
+    },
         "http://www.vevo.com/watch/ellie-goulding/Still-Falling-For-You/GBUV71601272",
         "http://www.vevo.com/watch/USQX91700004?isrc=USQX91700004&utm_campaign=ing&share_location=ingestion"
     ]

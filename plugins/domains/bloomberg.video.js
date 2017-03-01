@@ -41,7 +41,7 @@ module.exports = {
 
         if (bmmr.bmmrId) {
             return {
-                href: '//www.bloomberg.com/api/embed/iframe?id=' + bmmr.bmmrId,                
+                href: 'https://www.bloomberg.com/api/embed/iframe?id=' + bmmr.bmmrId,                
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16 / 9

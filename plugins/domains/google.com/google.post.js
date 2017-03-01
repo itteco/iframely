@@ -5,7 +5,7 @@ module.exports = {
     https://developers.google.com/+/web/embedded-post/
     */
 
-    provides: "google_user_id",
+    provides: "__google_plus_enabled",
 
     re: [
         /^https:\/\/plus\.google\.com\/(\d+)\/posts\/(\w+)/i,
@@ -22,53 +22,29 @@ module.exports = {
     ],
 
 
-    getLink: function(urlMatch, google_user_id, meta) {
-
-        var title = meta['html-title'];
+    getLink: function(url, __google_plus_enabled) {
 
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
             template_context: {
-                title: title,
-                uri: "https://plus.google.com/" + google_user_id + "/posts/" + urlMatch[2]
+                uri: url
             },
-            width: 440,
-            height: 440
+            width: 440
         };
 
     },
 
-    getData: function (urlMatch, cheerio) { 
+    getData: function (cheerio) { 
 
-        if (cheerio('a[href*="communities/"]').length) {
-            return;
+        if (! cheerio('a[href*="communities/"]').length) {
+            return {
+                __google_plus_enabled: true
+            }
         }
         // G+ doesn't support community posts!
         // ex. https://plus.google.com/101947077689367869700/posts/2fdzVY9LoSw
-
-
-        if (urlMatch[1].indexOf ('+') == -1 ) {
-
-            return {
-                google_user_id: urlMatch[1]
-            }
-
-        } else {
-
-            var $author = cheerio('[oid][rel*=author]');
-
-            if ($author.length && $author.attr('oid')) {
-                return {
-                    google_user_id: $author.attr('oid')
-                };
-            }
-
-
-        }
-
-
-    },
+    },    
 
     tests: [
         "https://plus.google.com/106601272932768187104/posts/iezWej2wQmw",

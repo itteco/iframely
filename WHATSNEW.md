@@ -4,6 +4,16 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2017.02.28, Version 1.0.3
+
+- Gzip fixes for Node 7.2.1 - thanks to @VisualFox
+- `autoplay` variants for way more various different providers.
+- You can have Facebook width fluid width. Configure as `providerOptions:` `facebook: {width: 'auto'}`
+- Customize Giphy: congigure query-string params as `giphy: {get_params: '...'}`
+- Added support of whitelisted videos via microforamts in json+ld scripts
+- Maintenance of the number of other domain plugins (Vine, G+, Tableau and others)
+
+
 ### 2017.01.12, Version 1.0.2
 
 - Maintenance of the domain plugins

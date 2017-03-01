@@ -37,6 +37,8 @@
         USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
         VERSION: version,
 
+        FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
+
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
 
@@ -69,6 +71,7 @@
             "app",
             "player",
             "survey",
+            "summary",
             "image",
             "reader",
             "thumbnail",

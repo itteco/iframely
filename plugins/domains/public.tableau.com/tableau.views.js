@@ -16,9 +16,9 @@ module.exports = {
         }
     },
 
-    getData: function(tableau, options, cb) {
+    getData: function(meta, tableau, options, cb) {
 
-            var firstImage = 'http://public.tableau.com/static/images/wi/' + tableau.workbook + '/' + tableau.view + '/1.png';
+            var firstImage = 'http://public.tableau.com/static/images/' + tableau.workbook.substring(0,2) + '/' + tableau.workbook + '/' + tableau.view + '/1.png';
 
             utils.getImageMetadata(firstImage, options, function(error, data) {
 
@@ -26,7 +26,7 @@ module.exports = {
 
                 if (error || data.error) {
 
-                    console.log ('Error getting first image for Tableau: ' + error);
+                    console.log ('Error getting first image for Tableau: ' + (error || data.error));
 
                 } else if (data.width && data.height) {
 
@@ -44,7 +44,7 @@ module.exports = {
             });
     },
 
-    getLinks: function(tableau, tableau_image) {
+    getLinks: function(tableau, tableau_image, options) {
 
         if (tableau_image.width && tableau_image.height) {
 
@@ -56,10 +56,10 @@ module.exports = {
                 height: 454 // it's always the same
             }];
 
-            var app = {                
+            var app = {
                 href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true',
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5],
+                rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.html5],
                 'aspect-ratio': tableau_image.width / tableau_image.height,
                 'max-width': tableau_image.width + 20
             };
@@ -92,8 +92,8 @@ module.exports = {
         "https://public.tableau.com/views/Metro-levelDataVizoftheWeek/UrbanCorePerformance?:embed=y&:display_count=yes&:showTabs=y",
         "http://public.tableau.com/shared/7P2SM3PQG?:display_count=no",
         // not responsive:
-        "http://public.tableau.com/views/HEROremodel/Dashboard1",
         "http://public.tableau.com/shared/X7RMWXZYQ?:display_count=yes",
+        "https://public.tableau.com/profile/will.gates#!/vizhome/OleMissvs_AlabamaWeek32016/Story1",
         "https://public.tableau.com/shared/7SRD23PNF?:embed=y&:showVizHome=no&:display_static_image=y&:bootstrapWhenNotified=true",
         "https://public.tableau.com/shared/NHR6XWHDQ?:display_count=yes"
     ]

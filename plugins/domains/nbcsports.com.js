@@ -22,7 +22,8 @@ module.exports = {
                     href: src.match(/\/\/vplayer\.nbcsports\.com\/p\/[a-zA-Z0-9_]+\/nbcsports\/select\/media\/[a-zA-Z0-9_]+/i)[0],
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     type: CONFIG.T.text_html,
-                    "aspect-ratio": 16/9
+                    "aspect-ratio": 16/9,
+                    autoplay: 'autoPlay=true'
                 }
             }
         }

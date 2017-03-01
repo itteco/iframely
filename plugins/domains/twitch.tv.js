@@ -2,7 +2,8 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i,
-        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i
+        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i,
+        /^https?:\/\/player\.twitch\.tv\/\?channel=([a-zA-Z0-9_]+)/i
     ],
 
     mixins: [
@@ -37,12 +38,19 @@ module.exports = {
         }
     },
 
+    getData: function (url, urlMatch, cb) {
+
+        cb (/^https?:\/\/player\.twitch\.tv\/\?channel=([a-zA-Z0-9_]+)/i.test(url) ? {
+            redirect: "https://www.twitch.tv/" + urlMatch[1]
+        } : null);
+    },
+
     tests: [{
-        noFeeds: true, skipMethods: ["getMeta"]
+        noFeeds: true, skipMethods: ["getMeta", "getData"]
     },
         "https://www.twitch.tv/imaqtpie",
         "http://www.twitch.tv/adultswim",
-        "https://www.twitch.tv/xleinonen",
-        "https://www.twitch.tv/riotgames/v/72749628"
+        "https://www.twitch.tv/xleinonen"
+        //"https://www.twitch.tv/riotgames/v/72749628"
     ]
 };

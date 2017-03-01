@@ -2,7 +2,8 @@ module.exports = {
 
     re: [
         /^https?:\/\/public\.tableau\.com\/views\/([^\/]+)\/([^\/\?#]+)/i,
-        /^https?:\/\/public\.tableau\.com\/profile\/[^\/\?#!]+#!\/vizhome\/([^\/]+)\/([^\/\?#]+)/i        
+        /^https?:\/\/public\.tableau\.com\/profile\/[^\/\?#!]+#!\/vizhome\/([^\/]+)\/([^\/\?#]+)/i,
+        /^https?:\/\/public\.tableau\.com\/profile\/publish\/([^\/]+)\/([^\/\?#]+)/i        
     ],
 
     provides: 'tableau',

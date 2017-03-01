@@ -11,7 +11,8 @@ module.exports = {
             return {
                 href: 'https://www.tout.com/embed/touts/' + tout + '?platform=twcard',
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5]
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                autoplay: 'autoplay=true'
                 // 'aspect-ratio': twitter.player.width / twitter.player.height // use default
             };
         }

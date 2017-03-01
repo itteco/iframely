@@ -4,16 +4,16 @@ module.exports = {
         /^https?:\/\/(\w+\.)?d\.pr\/(?:i\/)([a-zA-Z0-9]+)/i
     ],
 
+    // oembeds here to avoid redirects for 404s
     mixins: [
         "oembed-thumbnail",
         "oembed-site",
         "oembed-title"
-
     ],
 
     getLink: function(oembed) {
 
-        if (oembed.type == "image" || oembed.type == "photo") {
+        if ( /image|photo/.test(oembed.type)) {
             return {
                 href: oembed.url,
                 type: CONFIG.T.image,

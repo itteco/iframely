@@ -23,8 +23,9 @@ module.exports = {
         // So we can tell that if og:image contains "embed" - then it's not a hosted video
 
         var image = liveleak.image || og.image;
+        var img_check = liveleak.image + og.image;
 
-        if (!image || image.indexOf ('embed') > -1 || image.indexOf('mature') > -1) {
+        if (!img_check || img_check.indexOf ('embed') > -1 || img_check.indexOf('mature') > -1) {
             cb('Embed videos or mature content not supported');
         }
 
@@ -42,14 +43,19 @@ module.exports = {
 
                 if (liveleak.id) {
 
+                    /*
+
+                    // unfortuantelly, aspect is no longer needed: Liveleak have harcoded their embed player for 16/9
+
                     var aspect = data.width && data.height ? data.width / data.height : 640/360;
                     aspect = aspect > 1.7 ? 16/9: aspect > 1.1 ? 4/3 : aspect > 0.9 ? 1 : aspect > 0.7 ? 3/4 : 9/16;
+                    */
 
                     links.push({
-                        href: "http://www.liveleak.com/ll_embed?f=" + liveleak.id,
+                        href: "https://www.liveleak.com/ll_embed?f=" + liveleak.id,
                         type: CONFIG.T.text_html,
                         rel: [CONFIG.R.player, CONFIG.R.html5],
-                        "aspect-ratio": aspect
+                        "aspect-ratio": 16/9
                     });
                 }
                 
@@ -63,27 +69,33 @@ module.exports = {
 
         var liveleak = {};
 
-        var $button = cheerio("a[onClick*='generate_embed_code_generator_html'].form_button");
+        var $video = cheerio("video.video-js");
 
-        if ($button.length == 1) { 
+        if ($video.length == 1) { 
 
-            var href = $button.attr('onclick') || $button.attr('onClick');
+            var poster = $video.attr('poster');
 
-            if (/generate_embed_code_generator_html\(\'([_a-zA-Z0-9]+)\'\)/.test(href)) {
-                liveleak.id = href.match(/generate_embed_code_generator_html\(\'([_a-zA-Z0-9]+)\'\)/)[1];
+            if (poster) {
 
-                var $img = cheerio("a[href*='view?f='] img");
+                var id = ($video.attr('id') || '').replace(/^player_file_/, '');
 
-                if ($img.length) { 
-                    liveleak.image = $img.attr('src').replace('_thumb_', '_sf_');
+                while (poster.indexOf(id) < 0 && id.length > 0) {
+                    id = id.substring(0, id.length - 1);
+                }
+
+                if (id.length > 6) {
+                    liveleak.id = id;
+                }
+
+                liveleak.image = poster;
+
+                return {
+                    liveleak: liveleak
                 }
 
             }
         }
 
-        return {
-            liveleak: liveleak
-        }
     },
 
     tests: [{

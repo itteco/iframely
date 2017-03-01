@@ -23,17 +23,13 @@ module.exports = {
 
         } else {
 
-            return cb (null, [{
+            return cb (null, {
                 href: "https://www.nhl.com" + urlMatch[1] + "video/embed/" + urlMatch[2] + "?autostart=false",
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player,  CONFIG.R.html5],
-                "aspect-ratio": 540 / 310
-            }, {
-                href: "https://www.nhl.com" + urlMatch[1] + "video/embed/" + urlMatch[2] + "?autostart=true",
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player,  CONFIG.R.html5, CONFIG.R.autoplay],
-                "aspect-ratio": 540 / 310
-            }]);
+                "aspect-ratio": 540 / 310,
+                autoplay: 'autostart=true'
+            });
         }
     },
 
