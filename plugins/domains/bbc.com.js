@@ -12,21 +12,14 @@ module.exports = {
 
             if (playlist) {                
                 
-                return [{
+                return {
                     href: "http://www.bbc.com/" + playlist[1] + '/embed',
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     type: CONFIG.T.text_html,
                     "aspect-ratio": 16/9,
                     'padding-bottom': 225, 
                     scrolling: 'no'
-                }, {
-                    href: "https://ssl.bbc.co.uk/" + playlist[1] + '/embed',
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
-                    type: CONFIG.T.text_html,
-                    "aspect-ratio": 16/9,
-                    'padding-bottom': 225, 
-                    scrolling: 'no'
-                }]
+                }
             }
         }
     },
