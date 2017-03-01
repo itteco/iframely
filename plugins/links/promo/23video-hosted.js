@@ -16,7 +16,7 @@ module.exports = {
 
                 players.push({
                     href: meta.video_src,
-                    type: CONFIG.T.mp4,
+                    type: CONFIG.T.video_mp4,
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     'aspect-ratio': oembed.width / oembed.height
                 });
@@ -39,7 +39,7 @@ module.exports = {
                     autoplay: 'autoPlay=1'
                 });
 
-            }            
+            }
 
             return players;
         }
