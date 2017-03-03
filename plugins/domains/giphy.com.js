@@ -5,7 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "oembed-canonical",
+        "canonical",
         "author",
         "oembed-site",
         "oembed-title",
