@@ -29,7 +29,7 @@ module.exports = {
 
             var $iframe = $container.find('iframe');
 
-            if ($iframe.length == 1 && /\/v\.ihtml\/player\.html/i.test($iframe.attr('src'))) {
+            if ($iframe.length == 1 && /\/v\.ihtml(?:\/player\.html)?/i.test($iframe.attr('src'))) {
 
                 players.push({
                     href: $iframe.attr('src'),                    
@@ -54,6 +54,7 @@ module.exports = {
     http://videos.theconference.se/paul-adams-solving-real-world-problems
     http://www.fftv.no/skipatruljen-s3e3-voss-resort
     https://videos.23video.com/novo-nordisk
-    http://video.nextconf.eu/video/1880845/data-without-limits    
+    http://video.nextconf.eu/video/1880845/data-without-limits
+    http://stream.umbraco.org/v.ihtml?source=share&photo%5fid=11665495&autoPlay=0
     */
 };
