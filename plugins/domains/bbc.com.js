@@ -8,7 +8,7 @@ module.exports = {
 
         if (twitter.player && twitter.player.value) {
 
-            var playlist = twitter.player.value.match(/playlist=\/(\w+\/[a-zA-Z0-9-]+\-\d+)\w?&/);
+            var playlist = twitter.player.value.match(/playlist=\/(\w+\/[a-zA-Z0-9-]+\-?\d+)\w?&/);
 
             if (playlist) {                
                 
@@ -27,6 +27,7 @@ module.exports = {
     tests: [
         "http://www.bbc.com/news/science-environment-23767323",
         "http://www.bbc.com/mundo/media-36726262",
-        "http://www.bbc.com/news/business-35324289"
+        "http://www.bbc.com/news/business-35324289",
+        "http://www.bbc.com/urdu/38576329"
     ]
 };
