@@ -5,9 +5,9 @@ module.exports = {
 
     highestPriority: true,
 
-    provides: 'reactUriData',
+    provides: 'appUriData',
 
-    getData: function(url, __reactAppFlag, options, cb) {
+    getData: function(url, __appFlag, options, cb) {
 
         if (options.user_agent === CONFIG.FB_USER_AGENT) {
             return cb();
@@ -21,21 +21,21 @@ module.exports = {
 
         core.run(url, options2, function(error, data) {
 
-            if (!data.meta || (data.meta.fragment == '!' && /{{.+}}/.test(data.meta.title))) {
+            if (!data.meta || (data.meta.fragment == '!' && /{{.+}}/.test(data.meta.title)) || /^{{ng.+}}$/.test(data.meta.title)) {
                 return cb({responseStatusCode: 415});
             } else {
                 return cb(error, {
-                    reactUriData: data
+                    appUriData: data
                 });
             }
         });
     },
 
-    getMeta: function(reactUriData) {
-        return _.extend({}, reactUriData.meta);
+    getMeta: function(appUriData) {
+        return _.extend({}, appUriData.meta);
     },
 
-    getLinks: function(reactUriData) {
-        return _.extend({}, reactUriData.links);
+    getLinks: function(appUriData) {
+        return appUriData.links;
     }
 };
