@@ -9,8 +9,8 @@ module.exports = {
 
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
         if (video_src && typeof video_src === "string" 
-            && /(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|podbean|simplecast|libsyn)\./i.test(video_src)
-            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|libsyn)\./i.test(url)) {
+            && /(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|podbean|simplecast|libsyn|wistia)\./i.test(video_src)
+            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|libsyn|wistia)\./i.test(url)) {
 
             return {
                 video_src: video_src
