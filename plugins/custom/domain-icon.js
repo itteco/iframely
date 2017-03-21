@@ -64,11 +64,11 @@ module.exports = {
                         getWhitelistRecord: findWhitelistRecordFor
                     }, function(error, meta) {
 
-                        var links = favicon.getLink(meta);
+                        var links = {favicons: favicon.getLink(meta)};
                         var logoLink = logo.getLink(meta);
 
                         if (logoLink) {
-                            links.push(logoLink);
+                            links.logo = logoLink;
                         }
 
                         if (!error) {
