@@ -7,7 +7,6 @@ module.exports = {
     ],
 
     mixins: [
-        "favicon",
         "canonical",
         "oembed-author",
         "twitter-title",

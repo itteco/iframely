@@ -11,7 +11,7 @@ module.exports = {
         "oembed-title",
         "keywords",
         // "twitter-image",
-        "favicon"
+        "domain-icon"
     ],
 
     getLinks: function(oembed, twitter, options) {
