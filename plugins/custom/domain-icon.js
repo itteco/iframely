@@ -11,17 +11,15 @@ var logo = require('../links/logo');
 
 module.exports = {
 
-    provides: 'domain_meta',
+    provides: 'domain_links',
 
-    getLinks: function(domain_meta) {
+    getLinks: function(domain_links) {
 
-        var links = favicon.getLink(domain_meta);
-        var logoLink = logo.getLink(domain_meta);
+        var links = domain_links.favicons;
 
-        if (logoLink) {
-            links.push(logoLink);
+        if (domain_links.logo) {
+            links.push(domain_links.logo);
         }
-
         return links;
     },
 
@@ -43,7 +41,7 @@ module.exports = {
         var domainUri = protocol + domain;
 
         // Same key as in cachedMeta.js
-        var key = 'meta:' + domainUri;
+        var key = 'domain_links:' + domain;
 
         async.waterfall([
 
@@ -56,7 +54,7 @@ module.exports = {
                 if (data) {
 
                     cb(null, {
-                        domain_meta: data
+                        domain_links: data
                     });
 
                 } else {
@@ -66,12 +64,19 @@ module.exports = {
                         getWhitelistRecord: findWhitelistRecordFor
                     }, function(error, meta) {
 
+                        var links = favicon.getLink(meta);
+                        var logoLink = logo.getLink(meta);
+
+                        if (logoLink) {
+                            links.push(logoLink);
+                        }
+
                         if (!error) {
-                            cache.set(key, meta);
+                            cache.set(key, links);
                         }
 
                         cb(error, {
-                            domain_meta: meta
+                            domain_links: links
                         });
                     });
                 }
