@@ -13,7 +13,7 @@ module.exports = {
         "oembed-author",
         "oembed-site",
         "keywords",
-        "favicon"
+        "domain-icon"
     ],
 
     getMeta: function(url, meta) {

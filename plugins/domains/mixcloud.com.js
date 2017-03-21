@@ -5,7 +5,8 @@ module.exports = {
         "oembed-description",
         "oembed-author",
         "oembed-site",
-        "oembed-rich"
+        "oembed-rich",
+        "domain-icon"
     ],
 
     getLink: function (oembed) {
