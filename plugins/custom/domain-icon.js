@@ -70,6 +70,10 @@ module.exports = {
         ], function(error, data) {
             return cb(null, data);
         });
+    },
+
+    tests: {
+        skipTestAsMixin: true
     }
 
 };
