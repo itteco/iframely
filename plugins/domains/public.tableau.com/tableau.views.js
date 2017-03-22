@@ -16,7 +16,7 @@ module.exports = {
         }
     },
 
-    getData: function(meta, tableau, options, cb) {
+    getData: function(tableau, options, cb) {
 
             var firstImage = 'http://public.tableau.com/static/images/' + tableau.workbook.substring(0,2) + '/' + tableau.workbook + '/' + tableau.view + '/1.png';
 
