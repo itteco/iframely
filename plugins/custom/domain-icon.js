@@ -2,34 +2,24 @@
 
 var core = require('../../lib/core');
 var cache = require('../../lib/cache');
-var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
-var _ = require('underscore');
 var async = require('async');
-
 var favicon = require('../links/favicon');
-var logo = require('../links/logo');
 
 module.exports = {
 
-    provides: 'domain_links',
+    provides: 'domain_meta',
 
-    getLinks: function(domain_links) {
-
-        var links = domain_links.favicons;
-
-        if (domain_links.logo) {
-            links.push(domain_links.logo);
-        }
-        return links;
+    getLinks: function(domain_meta) {
+        return favicon.getLink(domain_meta);
     },
 
-    getData: function(url, cb) {
+    getData: function(url, whitelistRecord, cb, options) {
 
         // find domain and protocol
         var domain, protocol;
         var m = url.toLowerCase().match(/^(https?:\/\/)([^/]+)\/(.)/i);
         
-        if (m) {
+        if (m && (m[1] + m[2] !== url)) {
             domain = m[2];
             protocol = m[1];
         } else {
@@ -41,7 +31,12 @@ module.exports = {
         var domainUri = protocol + domain;
 
         // Same key as in cachedMeta.js
-        var key = 'domain_links:' + domain;
+        var key = 'meta:' + domainUri;
+
+        var whitelistHash = whitelistRecord && whitelistRecord.getRecordHash();
+        if (whitelistHash) {
+            key += ':' + whitelistHash;
+        }        
 
         async.waterfall([
 
@@ -54,30 +49,20 @@ module.exports = {
                 if (data) {
 
                     cb(null, {
-                        domain_links: data
+                        domain_meta: data
                     });
 
                 } else {
 
-                    core.run(domainUri, {
-                        fetchParam: 'meta',
-                        getWhitelistRecord: findWhitelistRecordFor
-                    }, function(error, meta) {
+                    // skip domain icon on cache miss 
+                    cb (null, null); 
 
-                        var links = {favicons: favicon.getLink(meta)};
-                        var logoLink = logo.getLink(meta);
+                    // and asynchronously put in cache for next time
+                    // + run icons validation right away
 
-                        if (logoLink) {
-                            links.logo = logoLink;
-                        }
-
-                        if (!error) {
-                            cache.set(key, links);
-                        }
-
-                        cb(error, {
-                            domain_links: links
-                        });
+                    core.run(domainUri, options, function(error, data) {
+                    // don't really have to do anything. 
+                    // domain's meta will be stored in cache by core.run                                                
                     });
                 }
             }
