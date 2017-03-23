@@ -60,7 +60,7 @@ module.exports = {
                     var type = CONFIG.T.text_html;
 
                     if (__ooyalaPlayer.pbid) {
-                        href = href + 'tframe.html?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' + '&pbid=' + __ooyalaPlayer.pbid;
+                        href = href + 'tframe.html?platform=html5-priority&embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' + '&pbid=' + __ooyalaPlayer.pbid;
                         rel.push(CONFIG.R.html5);
                     } else {
                         href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
