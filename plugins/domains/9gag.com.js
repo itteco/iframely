@@ -65,6 +65,10 @@ module.exports = {
             utils.getImageMetadata(og.image, options, function(error, data) {
                 cb(error, {gag_aspect: data.width && data.height ? '' + data.width / data.height : null});
             });
+
+        } else {
+
+            cb();
         }
     },
     
