@@ -39,7 +39,7 @@ If you see an error in our domains whitelist (you can [debug URLs here](http://i
 
 ## License & Authors
 
-MIT License. (c) 2012-2016 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau)
+MIT License. (c) 2012-2017 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau)
 
 Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
 

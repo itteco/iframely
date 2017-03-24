@@ -7,6 +7,7 @@ module.exports = {
         "oembed-site",
         "oembed-author",
         "oembed-description",
+        // do not link to meta as it disables support for direct player urls redirects from w.soundcloud.com
         "domain-icon"
     ],
 
