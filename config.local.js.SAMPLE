@@ -16,9 +16,9 @@
 
         // For legacy reasons the response format of Iframely open-source is
         // different by default as it does not group the links array by rel.
-        // In order to get the same grouped ressonse as in Cloud API,
+        // In order to get the same grouped response as in Cloud API,
         // add `&group=true` to your request to change response per request
-        // or set `groupLinks` in your config to `true` for a global change.
+        // or set `GROUP_LINKS` in your config to `true` for a global change.
         GROUP_LINKS: true,
 
         // Number of maximum redirects to follow before aborting the page
