@@ -21,7 +21,9 @@ module.exports = {
 
         core.run(url, options2, function(error, data) {
 
-            if (!data.meta || (data.meta.fragment == '!' && /{{.+}}/.test(data.meta.title)) || /^{{ng.+}}$/.test(data.meta.title)) {
+            var title = data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
+
+            if (!title ||  /^{{.+}}$/.test(title)) {
                 return cb({responseStatusCode: 415});
             } else {
                 return cb(error, {
