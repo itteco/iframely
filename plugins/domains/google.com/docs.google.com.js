@@ -1,9 +1,11 @@
+var decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     provides: "schemaFileObject",
 
     re: [
-        /https:\/\/(?:docs|drive)\.google\.com\/(?:a\/[a-zA-Z0-9\-\_\.]+\/)?(forms|document|presentation|spreadsheets|file)\/d\/([a-zA-Z0-9_-]+)/i        
+        /https:\/\/(?:docs|drive)\.google\.com\/(?:a\/[a-zA-Z0-9\-\_\.]+\/)?(forms|document|presentation|spreadsheets|file)\/d\/([a-zA-Z0-9_-]+)/i
     ],
 
     mixins: [
@@ -35,12 +37,12 @@ module.exports = {
             var file = {
                 rel: [CONFIG.R.file, CONFIG.R.html5],
                 href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
-                type: CONFIG.T.text_html 
-            };            
+                type: CONFIG.T.text_html
+            };
 
             if (schemaFileObject.playerType) {
 
-                // HEADS UP: 
+                // HEADS UP:
                 // There is a problem with player as embedURL: x-frame-options is SAMEORIGIN
                 file.href = "https://drive.google.com/file/d/" + urlMatch[2] + "/preview";
                 file.rel.push(CONFIG.R.player);
@@ -49,7 +51,7 @@ module.exports = {
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
-                file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader); 
+                file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader);
 
             /// } else if (urlMatch[1] === "file" && schemaFileObject.playerType) {
 
@@ -57,7 +59,7 @@ module.exports = {
                 file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
                 file.rel.push (CONFIG.R.reader);
 
-            } else { // presentation                
+            } else { // presentation
                 // file["aspect-ratio"] = 4/3; // use default aspect ratio
                 file.rel.push (CONFIG.R.player);
             }
@@ -87,7 +89,7 @@ module.exports = {
 
                 var key = $el.attr('itemprop');
                 if (key) {
-                    var value = decode($el.attr('content') || $el.attr('href'));
+                    var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
                     result[key] = value;
                 }
             });
@@ -96,7 +98,7 @@ module.exports = {
                 schemaFileObject: result
             };
         }
-    }, 
+    },
 
     tests: [
         "https://docs.google.com/document/d/17jg1RRL3RI969cLwbKBIcoGDsPwqaEdBxafGNYGwiY4/preview?sle=true",
