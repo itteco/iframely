@@ -2,36 +2,24 @@
 
 var core = require('../../lib/core');
 var cache = require('../../lib/cache');
-var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
-var _ = require('underscore');
 var async = require('async');
-
 var favicon = require('../links/favicon');
-var logo = require('../links/logo');
 
 module.exports = {
 
     provides: 'domain_meta',
 
     getLinks: function(domain_meta) {
-
-        var links = favicon.getLink(domain_meta);
-        var logoLink = logo.getLink(domain_meta);
-
-        if (logoLink) {
-            links.push(logoLink);
-        }
-
-        return links;
+        return favicon.getLink(domain_meta);
     },
 
-    getData: function(url, cb) {
+    getData: function(url, whitelistRecord, cb, options) {
 
         // find domain and protocol
         var domain, protocol;
         var m = url.toLowerCase().match(/^(https?:\/\/)([^/]+)\/(.)/i);
         
-        if (m) {
+        if (m && (m[1] + m[2] !== url)) {
             domain = m[2];
             protocol = m[1];
         } else {
@@ -44,6 +32,11 @@ module.exports = {
 
         // Same key as in cachedMeta.js
         var key = 'meta:' + domainUri;
+
+        var whitelistHash = whitelistRecord && whitelistRecord.getRecordHash();
+        if (whitelistHash) {
+            key += ':' + whitelistHash;
+        }        
 
         async.waterfall([
 
@@ -61,18 +54,15 @@ module.exports = {
 
                 } else {
 
-                    core.run(domainUri, {
-                        fetchParam: 'meta',
-                        getWhitelistRecord: findWhitelistRecordFor
-                    }, function(error, meta) {
+                    // skip domain icon on cache miss 
+                    cb (null, null); 
 
-                        if (!error) {
-                            cache.set(key, meta);
-                        }
+                    // and asynchronously put in cache for next time
+                    // + run icons validation right away
 
-                        cb(error, {
-                            domain_meta: meta
-                        });
+                    core.run(domainUri, options, function(error, data) {
+                    // don't really have to do anything. 
+                    // domain's meta will be stored in cache by core.run                                                
                     });
                 }
             }
@@ -80,6 +70,10 @@ module.exports = {
         ], function(error, data) {
             return cb(null, data);
         });
+    },
+
+    tests: {
+        skipTestAsMixin: true
     }
 
 };

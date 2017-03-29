@@ -7,7 +7,7 @@ module.exports = {
 
     provides: 'dailymailVideoID',
 
-    mixins: ['domain-icon'],
+    mixins: ['favicon'],
 
     getData: function(urlMatch) {
         

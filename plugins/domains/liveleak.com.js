@@ -13,7 +13,7 @@ module.exports = {
         "canonical",
         "og-title",
         "og-description",
-        "favicon"
+        "domain-icon"
     ],
 
     getLink: function (liveleak, urlMatch, og, options, cb) {

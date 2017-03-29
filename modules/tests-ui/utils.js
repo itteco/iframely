@@ -11,8 +11,18 @@ var iframelyGetPluginData = require('../../lib/core').getPluginData;
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var pluginUtils = require('../../lib/loader/utils');
 var plugins = pluginLoader._plugins,
+    pluginsList = pluginLoader._pluginsList,
     DEFAULT_PARAMS = [].concat(pluginUtils.DEFAULT_PARAMS, pluginUtils.POST_PLUGIN_DEFAULT_PARAMS),
     PLUGIN_METHODS = pluginUtils.PLUGIN_METHODS;
+
+var globalSkipMixins = [];
+
+pluginsList.forEach(function(p) {
+    var tests = p.module.tests;
+    if (tests && tests.skipTestAsMixin) {
+        globalSkipMixins.push(p.id);
+    }
+});
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 
@@ -222,9 +232,7 @@ function findAllPluginMethods(pluginId, plugins, result, skipped) {
     var skipMethods = [];
     var tests = plugin.module.tests;
     tests && tests.forEach && tests.forEach(function(test) {
-        if (test.skipMixins) {
-            skipMixins = _.union(skipMixins, test.skipMixins);
-        }
+        skipMixins = _.union(skipMixins, test.skipMixins, globalSkipMixins);
         if (test.skipMethods) {
             skipMethods = _.union(skipMethods, test.skipMethods);
         }

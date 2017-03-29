@@ -10,8 +10,7 @@ module.exports = {
         "oembed-site",
         "oembed-author",
         "oembed-thumbnail",
-
-        "favicon"
+        "domain-icon"
     ],
 
     getMeta: function (og, oembed) {

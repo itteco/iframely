@@ -5,26 +5,22 @@ module.exports = {
     ],
 
     mixins: [
-        "oembed-title",
-        "oembed-site"
+        "twitter-image",
+        "domain-icon",
+        "canonical",
+        "twitter-description",
+        "oembed-site",
+        "twitter-title"
     ],
 
     getLink: function(oembed) {
 
-        return [{
+        return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.html5],
             html: oembed.html.replace(/src=\"http:\/\/static\.polldaddy\.com/, "src=\"https://secure.polldaddy.com"),
             "min-width": 332
-        }, {
-            type: CONFIG.T.image,
-            rel: CONFIG.R.icon, 
-            href: "https://polldaddy.com/favicon.ico"
-        }, {
-            type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail,
-            href: "http://polldaddy.com/images/pd-swirl.png"
-        }];
+        };
     },
 
     tests: [
