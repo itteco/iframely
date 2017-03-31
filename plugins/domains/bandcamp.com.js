@@ -3,6 +3,7 @@ module.exports = {
     re: [
         /^https?:\/\/[a-z0-9-]+\.bandcamp\.com\/(album|track)\/(\w+)/i,
         /^https?:\/\/[a-z0-9-]+\.bandcamp\.com/i,
+        // hosted bandcamp with digits is now covered via og:url redirect in general plugins. Requires FB user agent
         /^https?:\/\/([a-z-\.]+)\/(album|track)\/([a-z-]+)\/?$/i // watch out for overlay with play.spotify.com which has digits
     ],
 
