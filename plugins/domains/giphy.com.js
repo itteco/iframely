@@ -22,7 +22,7 @@ module.exports = {
 
         if (!media_only && twitter.player) {
 
-            var href = (twitter.player.value || twitter.player).replace(/^https:\/\//, '//').replace(/\/twitter\/iframe$/, '');
+            var href = (twitter.player.value || twitter.player).replace(/\/twitter\/iframe$/, '');
             if (href.indexOf('?') == -1 && options.getProviderOptions('giphy.get_params', false)) {
                 href+= (options.getProviderOptions('giphy.get_params').indexOf('?') > -1 ? '' : '?') + options.getProviderOptions('giphy.get_params');
             }
