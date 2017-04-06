@@ -37,7 +37,7 @@ module.exports = {
             if (!media_only || isGallery) {
                 links.push({
                     html: oembed.html,
-                    width: oembed.width,
+                    'max-width': oembed.width,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5, CONFIG.R.inline, CONFIG.R.ssl]
                 });
