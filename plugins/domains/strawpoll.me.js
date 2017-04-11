@@ -12,12 +12,14 @@ module.exports = {
         var embed = entities.decodeHTML(cheerio('#embed-field-' + urlMatch[1]).attr('value'));
         var iframe = $('<div>').html(embed).children('iframe');
         var height = parseInt(iframe.css('height').replace(/px$/, ''), 10) || 300;
+        var width = parseInt(iframe.css('width').replace(/px$/, ''), 10) || 690;
 
         return [{
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.html5],
             href: '//www.strawpoll.me/embed_1/' + urlMatch[1],
-            height: height
+            height: height,
+            "max-width": width
         }];
 
     },
