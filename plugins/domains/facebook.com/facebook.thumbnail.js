@@ -9,19 +9,28 @@ module.exports = {
     // then we grab meta and get og:image from there if it's not "security checked" for rate limits.
     // Similar to what we do in domain-icon: ignore if failed.
 
-    // for videos only for now - as an indicator of proper aspect ratio
     re: [
+        //fb videos
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/.+/i
+        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/.+/i,
+
+        //fb posts
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?fbid=(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[^\/]+\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i        
+
+
     ],
 
     getLink: function(url, __allowFBThumbnail, meta) {
 
-        if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && meta.og && meta.og.image) {
+        if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && meta.og && meta.og.image
+            && !/\/p200x200\//i.test(meta.og.image)) { // skip profile pictures
 
             return {
                 href: meta.og.image,
