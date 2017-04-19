@@ -10,7 +10,7 @@ module.exports = {
         /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
     ],
 
-    provides: ['twitter_oembed', 'twitter_og', '__allow_twitter_video'],
+    provides: ['twitter_oembed', 'twitter_og', '__allow_twitter_og'],
 
     mixins: ['domain-icon'],
 
@@ -157,8 +157,9 @@ module.exports = {
                 twitter_oembed: oembed
             };
 
-            if (c.media_only) {
-                result.__allow_twitter_video = true;
+            if (c.media_only || /pic\.twitter\.com/i.test(oembed.html)) {
+                result.__allow_twitter_og = true;
+                options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
             } else {
                 result.twitter_og = false;
             }
@@ -180,6 +181,7 @@ module.exports = {
 
     getLink: function(twitter_oembed, twitter_og, options) {
 
+        var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
         var html = twitter_oembed.html;
 
         if (options.getProviderOptions('twitter.center', true)) {
@@ -188,7 +190,7 @@ module.exports = {
 
         var links = [];
 
-        if (twitter_og && twitter_og.video && twitter_og.image 
+        if (c.media_only && twitter_og && twitter_og.video && twitter_og.image 
             && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137
@@ -206,24 +208,37 @@ module.exports = {
 
         } else {
 
-            links.push({
+            var app = {
                 html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-                "min-width": twitter_oembed["min-width"],
-                "max-width": twitter_oembed["max-width"]
-            });
+                "max-width": twitter_oembed["width"] || 550
+            };
+
+            if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) 
+                || (twitter_og.image && !twitter_og.image.user_generated)) { // user_generated is string = 'true' for pics
+                app['aspect-ratio'] = 1;
+            }
+
+            links.push(app);
         }
 
         if (twitter_og && twitter_og.image && 
             !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image)) {
             // skip profile pictures
 
-            links.push({
+            var thumbnail = {
                 href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-            });
+            };
+
+            if (twitter_og.video && twitter_og.video.width && twitter_og.video.height) {
+                thumbnail.width = twitter_og.video.width;
+                thumbnail.height = twitter_og.video.height;
+            }
+
+            links.push(thumbnail);
 
         }        
 

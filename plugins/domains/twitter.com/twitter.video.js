@@ -6,7 +6,7 @@ module.exports = {
 
     provides: ['twitter_og'],
 
-    getData: function(__allow_twitter_video, og) {
+    getData: function(__allow_twitter_og, og) {
 
         return {
             twitter_og: og
