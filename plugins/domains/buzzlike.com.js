@@ -4,15 +4,14 @@ module.exports = {
         /((https?:\/\/)?widget.)?buzzlike\.com\/[\w]+\/[\w-]+/i
     ],
 
-    provides: ['buzzlike'],
+    mixins: ["*"],
 
-    getLinks: function(urlMatch) {
-        return [{
+    getLink: function(urlMatch) {
+        return {
             html: '<div class="bzl-widget" data-url="' + urlMatch[0] + '" data-width="100%" data-share="0"></div><script src="https://b.static.buzzlike.com/app/embed/dist/embed.js" async type="text/javascript"></script>',
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.ssl, CONFIG.R.app],
-            href: urlMatch[0],
-        }]
+            rel: [CONFIG.R.survey, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5]
+        }
     },
 
     getMeta: function() {
