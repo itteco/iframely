@@ -82,7 +82,19 @@ module.exports = {
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
                 }
             };
+        }
+
+        // or wistia
+        urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.net\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
+
+        if (urlMatch) {
+            return {
+                __promoUri: {
+                    url: 'https://fast.wistia.net/embed/iframe/' + urlMatch[1] + '?for=iframely'                    
+                }
+            };
         } 
+
 
         // or simplecast
         urlMatch = video_src.match(/https?:\/\/simplecast\.com\/card\/[a-zA-Z0-9\-]+/i);

@@ -582,5 +582,11 @@
             "\\w+.web\\.tv/video/"            
         ],
         "endpoint": "http://web.tv/api/generalapi/oembed"        
+    }, {
+        "name": "Kickstarter",
+        "templates": [        
+            "kickstarter.com/projects/.*"            
+        ],
+        "endpoint": "https://www.kickstarter.com/services/oembed"        
     }
 ]

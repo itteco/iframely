@@ -10,7 +10,7 @@ module.exports = {
     getLink: function(urlMatch, cb) {
 
         cb ({
-            redirect: "http://giphy.com/gifs/" + urlMatch[1]
+            redirect: "https://giphy.com/gifs/" + urlMatch[1]
         });
     },
 

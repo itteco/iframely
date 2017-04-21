@@ -11,7 +11,7 @@ module.exports = {
 
     mixins: [
         "oembed-thumbnail",
-        "favicon",
+        "domain-icon",
         "oembed-author",
         "oembed-canonical",
         "copyright",

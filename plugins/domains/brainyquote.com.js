@@ -1,7 +1,7 @@
 module.exports = {
 
     mixins: [
-        "favicon",
+        "domain-icon",
         "canonical",
         "twitter-description",
         "og-site",

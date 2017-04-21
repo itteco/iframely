@@ -2,7 +2,7 @@ module.exports = {
 
     getLink: function(oembed, whitelistRecord) {
 
-        if ((oembed.type === "photo" || oembed.type === "image") && oembed.url && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.photo')) {
+        if ((oembed.type === "photo" || /^image/i.test(oembed.type)) && oembed.url && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.photo')) {
 
             return {
                 href: oembed.url,

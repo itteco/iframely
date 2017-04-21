@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:renderer|preview)\.qmerce\.com\/interaction\/([a-z0-9]+)/i,
-        /^https?:\/\/(?:discover)\.apester\.com\/media\/([a-z0-9]+)/i,
+        /^https?:\/\/(?:discover\.)?apester\.com\/media\/([a-z0-9]+)/i,        
         /^https?:\/\/app\.apester\.com\/editor\/([a-z0-9]+)/i        
     ],
 
@@ -68,6 +68,6 @@ module.exports = {
         "https://preview.qmerce.com/interaction/562a434547771a99601c3626",
         "http://renderer.qmerce.com/interaction/562146b041d4754d14603b18",
         "http://renderer.qmerce.com/interaction/569388818089e8dd05aff3a8",
-        "http://discover.apester.com/media/5875af23122b4b812e143731?src=link"
+        "https://apester.com/media/5875af23122b4b812e143731?src=link"
     ]
 };

@@ -24,7 +24,8 @@ module.exports = {
                 width: null,
                 height: null,
                 pinWidth: null
-            }
+            },
+            'max-width': 600
         };
     },
 

@@ -5,15 +5,11 @@ module.exports = {
     ],
 
     mixins: [
-        "og-site",
-        "og-image",
-        "twitter-player",
-        "favicon"
+        "*"
     ],
 
     getMeta: function(meta) {
         return {
-            title: (meta.og.title || meta["html-title"]).split(" · ")[0],
             author_url: meta.storifyapp && meta.storifyapp.author
         };
     },

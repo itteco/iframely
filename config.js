@@ -11,11 +11,11 @@
 
     var config = {
 
-        WHITELIST_URL: 'http://iframely.com/qa/whitelist.json',
+        WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         WHITELIST_WILDCARD: {},
-        WHITELIST_LOG_URL: 'http://iframely.com/whitelist-log',
+        WHITELIST_LOG_URL: 'https://iframely.com/whitelist-log',
 
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
@@ -41,6 +41,9 @@
 
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
+
+        DEFAULT_OMIT_CSS_WRAPPER_CLASS: 'iframely-responsive',
+        DEFAULT_MAXWIDTH_WRAPPER_CLASS: 'iframely-embed',
 
         T: {
             text_html: "text/html",

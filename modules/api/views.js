@@ -138,8 +138,14 @@ module.exports = function(app) {
                 maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
+            var omit_css = getBooleanParam(req, 'omit_css');
+
             iframelyUtils.generateLinksHtml(result, {
-                autoplayMode: getBooleanParam(req, 'autoplay')
+                autoplayMode: getBooleanParam(req, 'autoplay'),
+                aspectWrapperClass:     omit_css ? CONFIG.DEFAULT_OMIT_CSS_WRAPPER_CLASS : false,
+                maxWidthWrapperClass:   omit_css ? CONFIG.DEFAULT_MAXWIDTH_WRAPPER_CLASS : false,
+                omitInlineStyles: omit_css,
+                forceWidthLimitContainer: true
             });
 
             var forceGroup = req.query.group ? getBooleanParam(req, 'group') : CONFIG.GROUP_LINKS;
@@ -390,7 +396,8 @@ module.exports = function(app) {
             });
 
             var oembed = oembedUtils.getOembed(uri, result, {
-                mediaPriority: getBooleanParam(req, 'media')
+                mediaPriority: getBooleanParam(req, 'media'),
+                omit_css: getBooleanParam(req, 'omit_css')
             });
 
             if (req.query.format === "xml") {
