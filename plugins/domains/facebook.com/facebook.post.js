@@ -1,6 +1,7 @@
-var DEFAULT_WIDTH = 550;
+var DEFAULT_WIDTH = 640;
 
 module.exports = {
+
 
     re: [
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/(permalink|story)\.php\?[^\/]+(\d{10,})/i,
@@ -31,7 +32,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             html: html, 
-            width: width
+            "max-width": width
         };
     },
 
