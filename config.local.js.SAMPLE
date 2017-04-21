@@ -173,7 +173,7 @@
                 get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters
             },
             vimeo: {
-                get_params: "?byline=0&badge=0"     // http://developer.vimeo.com/player/embedding
+                get_params: "?byline=0&badge=0"     // https://developer.vimeo.com/player/embedding
             },
 
             /*
