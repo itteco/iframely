@@ -2,7 +2,8 @@ var sysUtils = require('./utils');
 var app = require('./app');
 
 var server = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || CONFIG.host, function(){
-    console.log('\niframely is running on http://' + server.address().address + ':' + server.address().port + '/debug\n');
+    console.log('\niframely is running on ' + server.address().address + ':' + server.address().port);
+    console.log('API endpoints: /oembed and /iframely; Debugger UI: /debug\n');
 });
 
 if (CONFIG.ssl) {
