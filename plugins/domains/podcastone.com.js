@@ -35,7 +35,6 @@ module.exports = {
     tests: [
         'http://podcastone.com/pg/jsp/program/episode.jsp?programID=975&pid=1685628',
         'http://www.podcastone.com/embed?progID=975&pid=1685628',
-        'https://podcastone.com/pg/jsp/program/episode.jsp?programID=592',
         'http://podcastone.com/pg/jsp/program/episode.jsp?programID=658&pid=524353'
     ]
 };

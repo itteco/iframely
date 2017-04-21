@@ -1,5 +1,3 @@
-var URL = require("url");
-
 module.exports = {
 
     re: [
@@ -16,13 +14,13 @@ module.exports = {
             return;
         }
 
-        var thumbnail = URL.parse(og.image, true);
-        var video_url = decodeURIComponent(thumbnail.query.url);
+        var thumbnail = og.image;
+        var video_id = og.image.match(/\/url\/\w{3,6}\/(\d+)$/);
 
-        if (/mail\.ru\/*.\/video\/url\/[a-z0-9]+\/(\d+)/i.test(video_url)) {
+        if (video_id) {
 
             return {
-                    href: "https://my.mail.ru/video/embed/" + video_url.match(/mail\.ru\/*.\/video\/url\/[a-z0-9]+\/(\d+)/i)[1],
+                    href: "https://my.mail.ru/video/embed/" + video_id[1],
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                     "aspect-ratio": 626 / 367,
