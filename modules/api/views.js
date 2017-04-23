@@ -8,6 +8,7 @@ var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var jsonxml = require('jsontoxml');
+var display = require('../../lib/display');
 
 function prepareUri(uri) {
 
@@ -245,6 +246,20 @@ module.exports = function(app) {
         });
 
     });
+
+    app.get('/display', function(req, res, next) {
+      var handler = _.last(_.findWhere(app.routes.get, {path: '/iframely'}).callbacks)
+        , interceptRes;
+
+      interceptRes = {
+        sendJsonCached: function (response) {
+          res.locals.links = response;
+          next();
+        }
+      };
+
+      handler.call(this, req, interceptRes, next);
+    }, display);
 
     app.get('/render', function(req, res, next) {
 
