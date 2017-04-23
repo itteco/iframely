@@ -6,7 +6,7 @@ config.local.js
 test/test2.js
 static/test
 iframely-*.json
-
+logs
 node_modules083
 node_modules2
 
