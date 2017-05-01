@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^(https:\/\/hbr\.org\/video\/)(\d+\/)([\w-]+)$/i,
+    re: /^(https:\/\/hbr\.org\/video\/)(\d+\/)([\w-]+)/i,
 
     mixins: [
         "*"
@@ -17,7 +17,8 @@ module.exports = {
 
     tests: [
         "https://hbr.org/video/2371653503001/six-skills-middle-managers-need",
-        "https://hbr.org/video/2363646218001/the-risk-and-reward-of-disagreeing-with-your-boss"
+        "https://hbr.org/video/2363646218001/the-risk-and-reward-of-disagreeing-with-your-boss",
+        "https://hbr.org/video/5397112037001/5-principles-for-innovation-in-emerging-markets?utm_source=dlvr.it&utm_medium=twitter"
     ]
 
 };

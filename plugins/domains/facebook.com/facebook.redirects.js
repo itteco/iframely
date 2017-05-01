@@ -5,7 +5,7 @@ module.exports = {
     re: [        
         /^https?:\/\/m\.facebook\.com\/story\.php/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/login\.php/i,
-        /^https?:\/\/m\.facebook\.com/i,
+        /^https?:\/\/(m|\w{2}\-\w{2})\.facebook\.com/i,
         /^https?:\/\/(?:touch\.|www\.)?facebook\.com\/l\.php\?u=/i,
         /^https?:\/\/www\.facebook\.com\/plugins\/(?:video|post)\.php\?href=/i 
     ],
@@ -15,8 +15,8 @@ module.exports = {
         // Little hack for FB mobile URLs, as FB embeds don't recognize it's own mobile links.
         if (url.indexOf("m.facebook.com/story.php") > -1) {
             return cb({redirect: url.replace("m.facebook.com/story.php", "www.facebook.com/permalink.php")});
-        } else if (url.indexOf("m.facebook.com/") > -1) {
-            return cb({redirect: url.replace("m.facebook.com", "www.facebook.com")});
+        } else if (/^https?:\/\/(m|\w{2}\-\w{2})\.facebook\.com/i.test(url)) {
+            return cb({redirect: url.replace(/(m|\w{2}\-\w{2})\.facebook\.com/i, "www.facebook.com")});
         }
 
         if (url.indexOf('facebook.com/l.php?u=') > -1 || url.indexOf('facebook.com/plugins/video.php?href=') > -1 || url.indexOf('facebook.com/plugins/post.php?href=') > -1) {
