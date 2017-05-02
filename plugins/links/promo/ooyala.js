@@ -72,6 +72,8 @@ module.exports = {
                         href = href + where_hosted + '/'
                             + 'iframe.html?ec=' + __ooyalaPlayer.embedCode + '&pbid=' + __ooyalaPlayer.pbid + '&pcode=' + __ooyalaPlayer.pcode;
 
+                        rel.push(CONFIG.R.html5);
+
                     //v3, 2
                     } else if (__ooyalaPlayer.pbid) {
                         href = href + 'tframe.html?platform=html5-priority&embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' + '&pbid=' + __ooyalaPlayer.pbid;
@@ -81,6 +83,7 @@ module.exports = {
                         }
 
                         rel.push(CONFIG.R.html5);
+                        
                     } else {
                         href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
                         type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
