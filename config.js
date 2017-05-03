@@ -41,7 +41,7 @@
 
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
-        MAX_VERTICAL_ASPECT: 1,
+        MAX_VERTICAL_ASPECT_RATIO: 1,
 
         DEFAULT_OMIT_CSS_WRAPPER_CLASS: 'iframely-responsive',
         DEFAULT_MAXWIDTH_WRAPPER_CLASS: 'iframely-embed',
