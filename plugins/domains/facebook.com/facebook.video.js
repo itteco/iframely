@@ -23,7 +23,13 @@ module.exports = {
         if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
             // thank you FB for not working with comments
             // https://developers.facebook.com/docs/plugins/embedded-comments
-            link.html = html.replace(/class=\"fb\-video\"/, 'class="fb-comment-embed" data-include-parent="' + (!options.getProviderOptions('facebook.exclude_comment_parent') ? 'true' : 'false') + '"'); 
+
+            var width = options.maxWidth || options.getProviderOptions('facebook.width', 640);            
+            link.html = html.replace(/class=\"fb\-video\"/, 
+                'class="fb-comment-embed" data-include-parent="'                
+                + (!options.getProviderOptions('facebook.exclude_comment_parent') ? 'true' : 'false') + '"'
+                + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"')
+                ); 
             link.rel.push (CONFIG.R.app);
         } else {
             link.rel.push (CONFIG.R.player);
