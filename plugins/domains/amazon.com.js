@@ -30,13 +30,15 @@ module.exports = {
         }
     },
 
-    getData: function (meta) {
-        if (meta.twitter && meta.twitter.image) {
-            return;
+    getData: function (meta, cb) {
+        if ((meta.twitter && meta.twitter.image) || (meta.og && meta.og.image) || (meta.image_src)) {
+            return cb(null, null);
+        } if (/robot check/i.test(meta['html-title'] || meta.title)) {
+            return cb({responseStatusCode: 408});
         } else {
-            return {
+            return cb(null, {
                 __isAmazonImageNeeded: true
-            }
+            })
         }
     },
 
