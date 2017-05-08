@@ -1,5 +1,7 @@
 var $ = require('cheerio');
 
+var sysUtils = require('../../logging');
+
 module.exports = {
 
     re: [
@@ -30,10 +32,12 @@ module.exports = {
         }
     },
 
-    getData: function (meta, cb) {
+    getData: function (url,meta, cb) {
+
         if ((meta.twitter && meta.twitter.image) || (meta.og && meta.og.image) || (meta.image_src)) {
             return cb(null, null);
         } if (/robot check/i.test(meta['html-title'] || meta.title)) {
+            sysUtils.log('Amaron robot check', url, meta);
             return cb({responseStatusCode: 408});
         } else {
             return cb(null, {
