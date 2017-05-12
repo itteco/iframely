@@ -2,7 +2,7 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        var k = meta.keywords || meta.metaKeywords || meta.news_keywords;
+        var k = meta.news_keywords || meta.keywords || meta.metaKeywords;
 
         if (!k && meta.article && meta.article.tag) {
             k = meta.article.tag;
