@@ -2,20 +2,14 @@ module.exports = {
 
     provides: 'schemaVideoObject',
 
-    getData: function(meta, whitelistRecord) {
+    getData: function(ld, whitelistRecord) {
 
-        if (meta['ld-json'] && whitelistRecord.date > new Date(1485530476990)) { // allow to update whitelist
+        if (whitelistRecord.date > new Date(1485530476990)) { // allow to update whitelist
 
-            try {
-                var obj = JSON.parse(meta['ld-json']);
-
-                if (obj['@context'] && /schema\.org$/i.test(obj['@context']) && obj['@type'] === 'VideoObject') {
-                    return {
-                        schemaVideoObject: obj
-                    }
+            if (ld.VideoObject) {
+                return {
+                    schemaVideoObject: ld.VideoObject
                 }
-            } catch (ex) {
-                // just ignore invalid object
             }
         }
     }
