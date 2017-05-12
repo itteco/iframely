@@ -46,7 +46,7 @@ module.exports = {
 
         var links = [];
         
-        if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || chemaVideoObject.thumbnailurl) {
+        if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl) {
             links.push({
                 href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || chemaVideoObject.thumbnailurl,
                 rel: CONFIG.R.thumbnail,
@@ -68,7 +68,7 @@ module.exports = {
                 }                
             }            
 
-            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || || schemaVideoObject.embedurl;
+            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
