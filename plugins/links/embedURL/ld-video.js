@@ -7,13 +7,13 @@ module.exports = {
 
     getData: function(ld, whitelistRecord, url) {
 
-        if (ld.VideoObject) {
+        if (ld.videoobject) {
 
             var data = {
-                schemaVideoObject: ld.VideoObject
+                schemaVideoObject: ld.videoobject
             };
 
-            var video_src = ld.VideoObject.embedURL || ld.VideoObject.embedUrl || ld.VideoObject.contentUrl || ld.VideoObject.contentURL;
+            var video_src = ld.videoobject.embedurl || ld.videoobject.embedUrl || ld.videoobject.contenturl || ld.videoobject.contentUrl;
 
             if (video_src && typeof video_src === "string" && whitelistRecord.isAllowed && (whitelistRecord.isDefault || !whitelistRecord.isAllowed('html-meta.embedURL'))
                 && /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|podbean|simplecast|libsyn|wistia)\./i.test(video_src)

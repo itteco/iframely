@@ -2,20 +2,20 @@ module.exports = {
 
     getMeta: function(ld) {
 
-    	if (ld.NewsArticle) {
+    	if (ld.newsarticle) {
 	        return {
-	        	title: ld.NewsArticle.headline,
-	        	date: ld.NewsArticle.dateCreated, 
-	        	category: ld.NewsArticle.articleSection
+	        	title: ld.newsarticle.headline,
+	        	date: ld.newsarticle.datecreated, 
+	        	category: ld.newsarticle.articlesection
 	        }
     	}
     },
 
     getLink: function(ld) {
 
-    	if (ld.NewsArticle && ld.NewsArticle.thumbnailUrl) {
+    	if (ld.newsarticle && ld.newsarticle.thumbnailurl) {
 	        return {
-	        	href: ld.NewsArticle.thumbnailUrl,
+	        	href: ld.newsarticle.thumbnailurl,
 	        	type: CONFIG.T.image,
 	        	rel: CONFIG.R.thumbnail
 	        }

@@ -46,15 +46,15 @@ module.exports = {
 
         var links = [];
         
-        if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl) {
+        if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || chemaVideoObject.thumbnailurl) {
             links.push({
-                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl,
+                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || chemaVideoObject.thumbnailurl,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image            
             });
         }
 
-        if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl) {
+        if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl) {
 
             var type = CONFIG.T.maybe_text_html;
 
@@ -68,7 +68,7 @@ module.exports = {
                 }                
             }            
 
-            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl;
+            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || || schemaVideoObject.embedurl;
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
@@ -92,10 +92,10 @@ module.exports = {
             links.push(player);
         }
 
-        var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl;
+        var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl;
         if (/\.mp4$/.test(contentURL)) {
             links.push({
-                href: schemaVideoObject.contentURL || schemaVideoObject.contentUrl,
+                href: schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl,
                 type: CONFIG.T.video_mp4, // it will see if *mp4, otherwise verify MIME type
                 rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
                 'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
