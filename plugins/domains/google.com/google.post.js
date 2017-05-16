@@ -10,7 +10,7 @@ module.exports = {
     re: [
         /^https:\/\/plus\.google\.com\/(\d+)\/posts\/(\w+)/i,
         /^https:\/\/plus\.google\.com\/u\/0\/(\d+)\/posts\/(\w+)/i,
-        /^https:\/\/plus\.google\.com\/(\+[a-zA-Z0-9%]+)\/posts\/(\w+)/i, // e.g. https://plus.google.com/+UmarHansa/posts/2m8yF7aFonn, plus international domains
+        /^https:\/\/plus\.google\.com\/(\+[a-zA-Z0-9\-%]+)\/posts\/(\w+)/i, // e.g. https://plus.google.com/+UmarHansa/posts/2m8yF7aFonn, plus international domains
         /^https:\/\/plus\.google\.com\/u\/0\/(\+\w+)\/posts\/(\w+)/i
     ],
 

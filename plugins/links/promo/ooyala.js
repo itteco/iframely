@@ -11,16 +11,14 @@ module.exports = {
         
         var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
 
-        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
+        if (!video_src || video_src instanceof Array || !/^(?:https?:)?\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
             return;
         }
 
         var url = URL.parse(video_src, true);
-        var query = url.query;        
+        var query = url.query;
 
         if (query.embedCode || query.ec || query.embedcode) {
-
-            var where_hosted = null;
             
             return {
                 __ooyalaPlayer: {
@@ -64,10 +62,10 @@ module.exports = {
                     var where_hosted;
 
                     //v4
-                    if (__ooyalaPlayer.video_src && /^https?:\/\/player\.ooyala\.com\/(.+\/)iframe\.html/i.test(__ooyalaPlayer.video_src) && __ooyalaPlayer.pbid && __ooyalaPlayer.pcode) {
+                    if (__ooyalaPlayer.video_src && /(?:https?:)?\/\/player\.ooyala\.com\/(.+\/)iframe\.html/i.test(__ooyalaPlayer.video_src) && __ooyalaPlayer.pbid && __ooyalaPlayer.pcode) {
                         // doc: http://help.ooyala.com/video-platform/concepts/pbv4_resources.html
 
-                        where_hosted = __ooyalaPlayer.video_src.match(/^https?:\/\/player\.ooyala\.com\/(.+)\/iframe\.html/i)[1];                         
+                        where_hosted = __ooyalaPlayer.video_src.match(/^(?:https?:)?\/\/player\.ooyala\.com\/(.+)\/iframe\.html/i)[1];                         
 
                         href = href + where_hosted + '/'
                             + 'iframe.html?ec=' + __ooyalaPlayer.embedCode + '&pbid=' + __ooyalaPlayer.pbid + '&pcode=' + __ooyalaPlayer.pcode;
@@ -122,6 +120,7 @@ module.exports = {
         "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433",
         "http://matchcenter.mlssoccer.com/matchcenter/2015-10-02-dc-united-vs-new-york-city-fc/details/video/51448",
         "https://www.technologyreview.com/s/603558/this-robot-will-carry-your-stuff-and-follow-you-around/",
-        "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9"
+        "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
+        "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
     ]
 };
