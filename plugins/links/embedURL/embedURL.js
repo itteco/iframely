@@ -48,7 +48,7 @@ module.exports = {
         
         if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl) {
             links.push({
-                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || chemaVideoObject.thumbnailurl,
+                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image            
             });
