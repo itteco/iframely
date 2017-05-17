@@ -38,6 +38,7 @@
         "iconv-lite":   "0.4.13",
         "mimelib":      "0.2",
         "http-parser-js":"0.4.2",
+        "parse-iso-duration": "1.0.0",
 
         "redis":        "2.7.1",
         "memcached":    "2.2.*",
