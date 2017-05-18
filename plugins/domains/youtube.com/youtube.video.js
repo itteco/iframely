@@ -1,4 +1,6 @@
-var cheerio = require('cheerio');
+const cheerio = require('cheerio');
+const querystring = require('querystring');
+const _ = require('underscore');
 
 module.exports = {
 
@@ -122,7 +124,7 @@ module.exports = {
 
     getLinks: function(url, youtube_video_gdata, options) {
 
-        var params = options.getProviderOptions('youtube.get_params', '');
+        var params = querystring.parse(options.getProviderOptions('youtube.get_params', '').replace(/^\?/, ''));
 
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
@@ -142,16 +144,24 @@ module.exports = {
                     time += 1 * s[1];
                 }
                 
-                params = params + (params.indexOf ('?') > -1 ? "&": "?") + "start=" + (time ? time : start[1]);
+                params.start = time ? time : start[1];
             }
 
             if (end) {
-                params = params + (params.indexOf ('?') > -1 ? "&": "?") + "end=" + end[1];
+                params.end = end[1];
             }
         } catch (ex) {/* and ignore */}
         // End of time extractions
 
-        var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
+        if (options.playerjs) {
+            params.enablejsapi = 1;
+        }
+
+        if (options.getProviderOptions('youtube.showinfo')) {
+            params.showinfo = 1;
+        }
+
+        var autoplay = _.extend (params, {autoplay: 1});
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
@@ -181,14 +191,14 @@ module.exports = {
 
         if (youtube_video_gdata.embeddable) {
             links.push({
-                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
+                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + '?' + querystring.stringify(params),
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
             }); 
 
             links.push({
-                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
+                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + '?' + querystring.stringify(autoplay),
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
