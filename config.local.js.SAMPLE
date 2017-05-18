@@ -139,6 +139,9 @@
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
+            "request": {
+                "lang": "en"
+            }
             "twitter": {
                 "max-width": 550,
                 "min-width": 250,
