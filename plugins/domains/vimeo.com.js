@@ -35,18 +35,15 @@ module.exports = {
             params.byline = 1;
         }
 
-        var autoplay = _.extend ({}, params, {autoplay: 1});
+        var qs = querystring.stringify(params);
+        if (qs !== '') {qs = '?' + qs}        
 
         var links = [{
-            href: "https://player.vimeo.com/video/" + oembed.video_id + '?' + querystring.stringify(params),
+            href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": oembed.width / oembed.height
-        }, {
-            href: "https://player.vimeo.com/video/" + oembed.video_id + '?' + querystring.stringify(autoplay),
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-            "aspect-ratio": oembed.width / oembed.height
+            "aspect-ratio": oembed.width / oembed.height,
+            autoplay: "autoplay=1"
         }];
 
         // let's try and add bigger image if needed, but check that it's value

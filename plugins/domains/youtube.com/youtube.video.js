@@ -159,9 +159,7 @@ module.exports = {
 
         if (options.getProviderOptions('players.showinfo', false)) {
             params.showinfo = 1;
-        }
-
-        var autoplay = _.extend ({}, params, {autoplay: 1});
+        }    
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
@@ -179,7 +177,6 @@ module.exports = {
             }
         }
         // End of widescreen check
-        
 
         var links = [{
             href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
@@ -190,19 +187,16 @@ module.exports = {
         }];
 
         if (youtube_video_gdata.embeddable) {
+            var qs = querystring.stringify(params);
+            if (qs !== '') {qs = '?' + qs}        
+            
             links.push({
-                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + '?' + querystring.stringify(params),
+                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + qs,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
-                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
+                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
+                autoplay: "autoplay=1"
             }); 
-
-            links.push({
-                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + '?' + querystring.stringify(autoplay),
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-                type: CONFIG.T.text_html,
-                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
-            });
         }
 
         if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {
