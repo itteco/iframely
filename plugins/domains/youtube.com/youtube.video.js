@@ -159,7 +159,11 @@ module.exports = {
 
         if (options.getProviderOptions('players.showinfo', false)) {
             params.showinfo = 1;
-        }    
+        }
+
+        if (options.getProviderOptions('locale', false)) {
+            params.hl = options.getProviderOptions('locale', 'en_US');
+        }
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
@@ -189,7 +193,7 @@ module.exports = {
         if (youtube_video_gdata.embeddable) {
             var qs = querystring.stringify(params);
             if (qs !== '') {qs = '?' + qs}        
-            
+
             links.push({
                 href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + qs,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
