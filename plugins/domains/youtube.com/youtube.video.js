@@ -153,15 +153,15 @@ module.exports = {
         } catch (ex) {/* and ignore */}
         // End of time extractions
 
-        if (options.playerjs) {
+        if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
             params.enablejsapi = 1;
         }
 
-        if (options.getProviderOptions('youtube.showinfo')) {
+        if (options.getProviderOptions('players.showinfo', false)) {
             params.showinfo = 1;
         }
 
-        var autoplay = _.extend (params, {autoplay: 1});
+        var autoplay = _.extend ({}, params, {autoplay: 1});
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);

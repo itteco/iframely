@@ -1,3 +1,6 @@
+const querystring = require('querystring');
+const _ = require('underscore');
+
 module.exports = {
 
     mixins: [
@@ -21,16 +24,26 @@ module.exports = {
 
     getLink: function(oembed, options) {
 
-        var params = options.getProviderOptions('vimeo.get_params', '');
-        var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
+        var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
+
+        if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
+            params.api = 1;
+        }
+
+        if (options.getProviderOptions('players.showinfo', false)) {
+            params.title = 1;
+            params.byline = 1;
+        }
+
+        var autoplay = _.extend ({}, params, {autoplay: 1});
 
         var links = [{
-            href: "https://player.vimeo.com/video/" + oembed.video_id + params,
+            href: "https://player.vimeo.com/video/" + oembed.video_id + '?' + querystring.stringify(params),
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": oembed.width / oembed.height
         }, {
-            href: "https://player.vimeo.com/video/" + oembed.video_id + autoplay,
+            href: "https://player.vimeo.com/video/" + oembed.video_id + '?' + querystring.stringify(autoplay),
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
             "aspect-ratio": oembed.width / oembed.height
