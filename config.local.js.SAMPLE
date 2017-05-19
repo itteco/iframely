@@ -161,7 +161,9 @@
             },
             google: {
                 // https://developers.google.com/maps/documentation/embed/guide#api_key
-                maps_key: "INSERT YOUR VALUE"
+                maps_key: "INSERT YOUR VALUE",
+                // when 'true' use editable Google Docs links instead of previews
+                editableDocs: false
             },
 
             /*
