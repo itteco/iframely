@@ -177,7 +177,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                 cb(null, [tests]);
 
-            } else {
+            } else if (_.isArray(tests)) {
 
                 async.map(tests.filter(function(x) {return x;}), function(url, cb) {
 
@@ -221,6 +221,9 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         cb(null, null);
                     }
                 }, cb);
+
+            } else {
+                cb(null, null);
             }
         },
 

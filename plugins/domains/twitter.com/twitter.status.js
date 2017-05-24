@@ -188,6 +188,11 @@ module.exports = {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
         }
 
+        var locale = options.getProviderOptions('locale');
+        if (locale && /^\w{2}\-\w{2,3}$/.test(locale)) {
+            html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+_\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale + '"');
+        }
+
         var links = [];
 
         if (c.media_only && twitter_og && twitter_og.video && twitter_og.image 
@@ -196,7 +201,7 @@ module.exports = {
             // https://twitter.com/nfl/status/648185526034395137
 
             html = html.replace(/class="twitter-tweet"/g, 
-                'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));
+                'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));            
 
             links.push({
                 html: html,

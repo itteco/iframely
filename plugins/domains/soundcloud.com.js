@@ -19,47 +19,38 @@ module.exports = {
         } catch(ex) {}
 
         var $iframe = $container.find('iframe');
-        var player, thumbnail, autoplay;
+        var links = [];
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions('soundcloud.old_player', false);
+            var old_player = options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false);
 
             var href = $iframe.attr('src');
             if (old_player) {
                 href = href.replace('visual=true', 'visual=false');
             }
 
-            player = {
+            links.push({
                 href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
+                autoplay: "auto_play=true",
                 height: old_player ? 114 : oembed.height,
                 "min-width": oembed.width
-            };
-
-            autoplay = {
-                href: href + '&auto_play=true',
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-                height: old_player ? 114 : oembed.height,
-                "min-width": oembed.width
-            };            
+            });            
         }
 
         if (oembed.thumbnail_url) {
-            thumbnail = {
+            links.push({
                 href: oembed.thumbnail_url.replace('http:',''),
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
                 width: oembed.thumbnail_width,
                 height: oembed.thumbnail_height
-            }
+            });
         }
 
-        return [
-            player, thumbnail, autoplay
-        ];
+        return links;
     },
 
     tests: [

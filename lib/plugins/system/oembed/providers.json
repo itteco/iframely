@@ -572,7 +572,8 @@
     {
         "name": "CNEvids",        
         "templates": [        
-            "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+"
+            "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+",
+            "player(?:\\-backend)?\\.cnevids\\.com/iframe/video/[0-9a-zA-Z]+"            
         ],
         "endpoint": "https://player.cnevids.com/services/oembed"
     },
