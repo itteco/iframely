@@ -1,21 +1,11 @@
 module.exports = {
 
-    //provides: 'oembedLinks', // do not uncomment - it breaks play.spotify.com atm
-
     getData: function(video_src) {
         
-        if (/^https?:\/\/player\.cnevids\.com\/embed\/[0-9a-zA-Z]+\/[0-9a-zA-Z]+/i.test(video_src)) {
-            
-            return {oembedLinks: [{
-                    href: "https://player.cnevids.com/services/oembed?url=" + video_src,
-                    rel: 'alternate',
-                    type: 'application/json+oembed'
-                }]}
-
-        } else if (/^https?:\/\/player\-\w+\.cnevids\.com\/embed\/[0-9a-zA-Z]+\/[0-9a-zA-Z]+/i.test(video_src)) {
+        if (/^https?:\/\/player(?:\-[a-z-Z\-]+)?\.cnevids\.com\/(?:embed|iframe)\/[0-9a-zA-Z]+\/[0-9a-zA-Z]+/i.test(video_src)) {
             return {
                 __promoUri: {
-                    url: video_src.replace (/player\-\w+/, 'player'),
+                    url: video_src.replace (/player\-[a-z-Z\-]+/, 'player'),
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
                 }
             };            
