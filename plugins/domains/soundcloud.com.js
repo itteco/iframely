@@ -23,7 +23,7 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false);
+            var old_player = options.getProviderOptions('iframely.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false);
 
             var href = $iframe.attr('src');
             if (old_player) {

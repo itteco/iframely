@@ -30,7 +30,7 @@ module.exports = {
             params.api = 1;
         }
 
-        if (options.getProviderOptions('players.showinfo', false)) {
+        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions('iframely.showinfo', false)) {
             params.title = 1;
             params.byline = 1;
         }
