@@ -128,8 +128,13 @@
             playerjs: "playerjs"
         },
 
-        // Whitelist settings.
+        // Option names   
+        O: {
+            compact: "iframely.compact",
+            full: "iframely.full"
+        },        
 
+        // Whitelist settings.
         REL: {
             "iframely": [
                 "reader",
