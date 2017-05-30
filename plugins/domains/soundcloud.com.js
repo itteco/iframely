@@ -28,7 +28,9 @@ module.exports = {
             var href = $iframe.attr('src');
             if (old_player) {
                 href = href.replace('visual=true', 'visual=false');
-            } else if (options.getProviderOptions(CONFIG.O.full, false)) {
+            } 
+
+            if (options.getProviderOptions(CONFIG.O.full, false)) {
                 href = href.replace('visual=false', 'visual=true');
             }
 
