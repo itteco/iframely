@@ -130,7 +130,7 @@
 
         // Option names   
         O: {
-            compact: "iframely.compact",
+            compact: "iframely.short",
             full: "iframely.full"
         },        
 

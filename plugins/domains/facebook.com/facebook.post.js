@@ -25,7 +25,10 @@ module.exports = {
         if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
             // thank you FB for not working with comments
             // https://developers.facebook.com/docs/plugins/embedded-comments
-            html = html.replace(/class=\"fb\-post\"/, 'class="fb-comment-embed" data-include-parent="' + (!options.getProviderOptions('facebook.exclude_comment_parent') ? 'true' : 'false') + '"'); 
+            html = html.replace(/class=\"fb\-post\"/, 'class="fb-comment-embed" data-include-parent="' 
+                + (options.getProviderOptions('facebook.include_comment_parent') || options.getProviderOptions(CONFIG.O.full) ? 'true' : 'false') + '"'); 
+        } else if (/photos?/.test(url) && options.getProviderOptions (CONFIG.O.compact) && !/data-show-text/.test(html)) {
+            html = html.replace(/class=\"fb\-post\"/, 'class="fb-post" data-show-text="false"' )
         }
 
         return {
