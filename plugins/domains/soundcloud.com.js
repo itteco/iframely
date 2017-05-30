@@ -23,11 +23,13 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions('iframely.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false);
+            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false);
 
             var href = $iframe.attr('src');
             if (old_player) {
                 href = href.replace('visual=true', 'visual=false');
+            } else if (options.getProviderOptions(CONFIG.O.full, false)) {
+                href = href.replace('visual=false', 'visual=true');
             }
 
             links.push({
@@ -35,7 +37,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 autoplay: "auto_play=true",
-                height: old_player ? 114 : oembed.height,
+                height: /visual=false/.test(href) ? 114 : oembed.height,
                 "min-width": oembed.width
             });            
         }

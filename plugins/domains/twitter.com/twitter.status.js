@@ -59,8 +59,8 @@ module.exports = {
                 var apiUrl;
 
                 var qs = {
-                    hide_media: c.hide_media,
-                    hide_thread: c.hide_thread,
+                    hide_media:  options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_media, 
+                    hide_thread: options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_thread,
                     omit_script: c.omit_script
                 };
 
@@ -195,7 +195,8 @@ module.exports = {
 
         var links = [];
 
-        if (c.media_only && twitter_og && twitter_og.video && twitter_og.image 
+        if (((c.media_only && !options.getProviderOptions(CONFIG.O.full, false)) || options.getProviderOptions(CONFIG.O.compact, false)) 
+            && twitter_og && twitter_og.video && twitter_og.image 
             && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137

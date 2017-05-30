@@ -157,7 +157,7 @@ module.exports = {
             params.enablejsapi = 1;
         }
 
-        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions('iframely.showinfo', false)) {
+        if (options.getProviderOptions('players.showinfo', false)) {
             params.showinfo = 1;
         }
 
