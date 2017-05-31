@@ -157,7 +157,7 @@ module.exports = {
                 twitter_oembed: oembed
             };
 
-            if (c.media_only || /pic\.twitter\.com/i.test(oembed.html)) {
+            if (c.media_only || options.getProviderOptions(CONFIG.O.compact, false) || /pic\.twitter\.com/i.test(oembed.html)) {
                 result.__allow_twitter_og = true;
                 options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
             } else {
