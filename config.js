@@ -130,8 +130,8 @@
 
         // Option names   
         O: {
-            compact: "iframely.short",
-            full: "iframely.full"
+            compact: "iframely.less",
+            full: "iframely.more"
         },        
 
         // Whitelist settings.
