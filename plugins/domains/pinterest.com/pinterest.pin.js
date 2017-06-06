@@ -1,7 +1,7 @@
 
 module.exports = {
 
-    re: /^https?:\/\/(?:www\.)?pinterest\.com\/pin\/(\d+)/i,
+    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest\.com\/pin\/(\d+)/i,
 
     mixins: [
         "*"

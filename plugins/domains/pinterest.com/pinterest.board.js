@@ -2,7 +2,7 @@ var DEFAULT_WIDTH = 600;
 
 module.exports = {
 
-    re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%_]+)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%_]+)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
 
     mixins: [
         "*"
