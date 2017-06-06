@@ -19,7 +19,7 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             template: "pinterest.widget",
             template_context: {
-                url: url,
+                url: og.url || url,
                 title: "Pinterest Board",
                 type: "embedBoard",
                 width: options.maxWidth || DEFAULT_WIDTH,
