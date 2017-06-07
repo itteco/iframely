@@ -1,4 +1,4 @@
-global.CONFIG = require('../../config');
+GLOBAL.CONFIG = require('../../config');
 
 if (!CONFIG.tests) {
     console.error('Tests not started: CONFIG.tests not configured.');

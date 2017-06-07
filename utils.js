@@ -1,6 +1,6 @@
 (function() {
 
-    global.CONFIG = require('./config');
+    GLOBAL.CONFIG = require('./config');
 
     var async = require('async');
     var cache = require('./lib/cache');
