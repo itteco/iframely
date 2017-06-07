@@ -88,10 +88,11 @@
                 next(err);
             }
 
-            send(req, path)
-                .maxage(options.maxAge || 0)
-                .root(root)
-                .hidden(options.hidden)
+            send(req, path, {
+                maxAge: options.maxAge || 0,
+                root: root,
+                hidden: options.hidden
+            })
                 .on('error', error)
                 .on('directory', directory)
                 .pipe(res);
