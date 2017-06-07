@@ -12,7 +12,6 @@ var NotFound = sysUtils.NotFound;
 
 var app = express();
 
-app.use(express.bodyParser());
 app.set('view engine', 'ejs');
 
 if (CONFIG.allowedOrigins) {
