@@ -46,7 +46,7 @@
         "readabilitySAX":"1.6.1",
         "cheerio":      "0.22.0",
 
-        "graceful-cluster": "0.0.2"
+        "graceful-cluster": "0.0.3"
     },
 
     "devDependencies": {
