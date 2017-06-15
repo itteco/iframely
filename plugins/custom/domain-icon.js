@@ -36,7 +36,12 @@ module.exports = {
         var whitelistHash = whitelistRecord && whitelistRecord.getRecordHash();
         if (whitelistHash) {
             key += ':' + whitelistHash;
-        }        
+        }
+
+        var lang = options.getProviderOptions('locale');
+        if (lang) {
+            key += ':' + lang;
+        }
 
         async.waterfall([
 
