@@ -71,10 +71,7 @@ module.exports = {
         return links;
     },
 
-    tests: [{
-        page: "http://magnatune.com/",
-        selector: "ol li a:first-child"
-    },
+    tests: [
         "http://magnatune.com/artists/albums/sieber-hidden/",
         "http://magnatune.com/artists/albums/fallingyou-adore/lofi_play"
     ]

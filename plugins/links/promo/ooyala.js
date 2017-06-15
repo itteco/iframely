@@ -118,9 +118,8 @@ module.exports = {
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/",
         "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html",
         "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433",
-        "http://matchcenter.mlssoccer.com/matchcenter/2015-10-02-dc-united-vs-new-york-city-fc/details/video/51448",
-        "https://www.technologyreview.com/s/603558/this-robot-will-carry-your-stuff-and-follow-you-around/",
-        "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
-        "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
+        "http://matchcenter.mlssoccer.com/matchcenter/2015-10-02-dc-united-vs-new-york-city-fc/details/video/51448"
+        // "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
+        // "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
     ]
 };

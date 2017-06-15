@@ -17,12 +17,32 @@ module.exports = {
         'canonical'
     ],
 
-    getLink: function(oembed, options) {
+    getLink: function(url, oembed, options) {
 
         var html = oembed.html;
 
         if (options.getProviderOptions('twitter.center', true) && oembed.width) {
             html = '<div align="center">' + html + '</div>';
+        }
+
+        if (!/like/.test(url) && (options.getProviderOptions(CONFIG.O.full, false) || options.getProviderOptions(CONFIG.O.compact, false))) {
+
+            var limit = 20;
+
+            if (/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(html)) {
+                limit = parseInt(html.match(/data\-(?:tweet\-)?limit=\"(\d+)\"/)[1]);
+                html = html.replace(/data\-(?:tweet\-)?limit=\"\d+\"/, '');
+            }
+
+            if (options.getProviderOptions(CONFIG.O.full, false)) {
+                limit = Math.min(20, limit * 2);
+            } else if (options.getProviderOptions(CONFIG.O.compact, false)) {
+                limit = Math.max(url.indexOf('moment') > -1 ? 4: 1, parseInt (limit / 2)); 
+            }
+
+            html = html.replace(/href="/, 'data-' 
+                + (url.indexOf('moment') > -1 ? '' : 'tweet-')
+                + 'limit="' + limit + '" href="');
         }
 
         return {

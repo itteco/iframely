@@ -28,7 +28,6 @@ module.exports = {
     },
 
     tests: [ 
-        "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA",
-        "http://www.buzzfeed.com/tristanhill/if-you-won-the-lottery"
+        "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA"
     ]
 };
