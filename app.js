@@ -146,10 +146,7 @@ process.on('uncaughtException', function(err) {
   }
 });
 
-app.get(CONFIG.relativeStaticUrl + '/*', function(req, res, next) {
-  var url = '/' + req.url.split('/').splice(2).join('/');
-  sysUtils.static(path.resolve(__dirname, 'static'), {path: url})(req, res, next);
-});
+app.use(CONFIG.relativeStaticUrl, express.static('static'));
 
 app.get('/', function(req, res) {
   res.writeHead(302, { Location: 'http://iframely.com'});

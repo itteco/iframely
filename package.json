@@ -22,7 +22,6 @@
         "async": "2.4.1",
         "cheerio": "0.22.0",
         "chokidar": "1.7.0",
-        "connect": "2.7.9",
         "ejs": "2.3.4",
         "entities": "1.1.1",
         "express": "^4.15.3",
