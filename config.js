@@ -1,12 +1,7 @@
 (function() {
 
     // Monkey patch before you require http for the first time.
-    var HTTPParser = require('http-parser-js').HTTPParser;
-    if (!HTTPParser.prototype.getAsyncId) {
-        // Fix "TypeError: parser.getAsyncId is not a function" for Node 8.
-        HTTPParser.prototype.getAsyncId = function() { return false; };
-    }
-    process.binding('http_parser').HTTPParser = HTTPParser;
+    process.binding('http_parser').HTTPParser = require('http-parser-js').HTTPParser;
 
     var _ = require('underscore');
     var path = require('path');
