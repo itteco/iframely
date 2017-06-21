@@ -3,9 +3,13 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
     ],
 
-    getMeta: function(oembed, urlMatch) {
+    getMeta: function(oembed, meta, urlMatch) {
 
-        if (oembed.html) {
+        if (meta.og && meta.og.title) {
+            return {
+                title: meta.og.title
+            }
+        } else if (oembed.html) {
 
             var title = oembed.html.match(/>([^<>]+)<\/a><\/blockquote>/i);
             title = title ? title[1] : urlMatch[2];
@@ -16,19 +20,39 @@ module.exports = {
         }
     },    
 
-    getLink: function(oembed, meta, options) {
+    getLinks: function(oembed, meta, options) {
 
-        // skip user profiles - they can not be embedded        
-        if ((meta.al && meta.al.android && meta.al.android.url && /\/profile\//.test(meta.al.android.url)) || !/blockquote/.test(oembed.html)) {
-           return;
-        }        
+        var links = [];
 
-        return {
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
-            html: oembed.html,                
-            "max-width": oembed.width
-        };
+        if (meta.og && meta.og.image) {
+            links.push ({
+                href: meta.og.image,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            });
+        }
+        // skip user profiles - they can not be embedded
+        if (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html)) {
+
+            var html = oembed.html;
+
+            if (options.getProviderOptions(CONFIG.O.full, false)) {
+                html = html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="1"');
+                html = html.replace(/data\-show\-facepile=\"(?:false|0)?\"/i, 'data-show-facepile="1"');
+            } else if (options.getProviderOptions(CONFIG.O.compact, false)) {
+                html = html.replace(/data\-show\-posts=\"(?:true|1)?\"/i, 'data-show-posts="0"');
+                html = html.replace(/data\-show\-facepile=\"(?:true|1)?\"/i, 'data-show-facepile="0"');
+            }
+
+            links.push ({
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+                html: html,
+                "max-width": oembed.width
+            });
+        }
+
+        return links;
     },
 
     tests: [
