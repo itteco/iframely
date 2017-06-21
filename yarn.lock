@@ -257,7 +257,7 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-connect@^3.4.0, connect@^3.6.2:
+connect@^3.4.0:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/connect/-/connect-3.6.2.tgz#694e8d20681bfe490282c8ab886be98f09f42fe7"
   dependencies:
@@ -790,9 +790,9 @@ http-errors@~1.6.1:
     setprototypeof "1.0.3"
     statuses ">= 1.3.1 < 2"
 
-http-parser-js@0.4.4:
-  version "0.4.4"
-  resolved "https://registry.yarnpkg.com/http-parser-js/-/http-parser-js-0.4.4.tgz#c1273cf9897ac2caccc4779959780aa903de41a4"
+http-parser-js@^0.4.5:
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/http-parser-js/-/http-parser-js-0.4.5.tgz#a3ecf39a667481a38ca60882ab57a2db578b9970"
 
 http-signature@~1.1.0:
   version "1.1.1"
