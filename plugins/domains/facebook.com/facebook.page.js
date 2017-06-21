@@ -7,7 +7,8 @@ module.exports = {
 
         if (meta.og && meta.og.title) {
             return {
-                title: meta.og.title
+                title: meta.og.title,
+                description: meta.og.description
             }
         } else if (oembed.html) {
 

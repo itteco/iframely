@@ -14,8 +14,6 @@ module.exports = {
 
         var $el = cheerio('.js-placeholder-link');
 
-        console.log($el.attr('href'));
-
         var href = $el.attr('href');
 
         if (href && /youtube\.com/.test(href)) {
