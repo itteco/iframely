@@ -1,6 +1,6 @@
 module.exports = {
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/?(?:\?f?ref=\w+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([a-zA-Z0-9\.\-]+)\/?(?:about|photos|videos|events)?\/?(?:\?p?n?f?ref=\w+)?$/i
     ],
 
     getMeta: function(oembed, meta, urlMatch) {
@@ -21,7 +21,7 @@ module.exports = {
         }
     },    
 
-    getLinks: function(oembed, meta, options) {
+    getLinks: function(oembed, meta, url, options) {
 
         var links = [];
 
@@ -37,17 +37,26 @@ module.exports = {
 
             var html = oembed.html;
 
+            if (/^https?:\/\/(?:www|m)\.facebook\.com\/(?:pg\/)?[a-zA-Z0-9\.\-]+\/?(events)\/?(?:\?f?ref=\w+)?$/i.test(url)) {
+
+                html = html.replace(/data\-show\-posts=\"(?:true|1|0)?\"/i, 'data-show-posts="0" data-tabs="' + url.match(/^https?:\/\/(?:www|m)\.facebook\.com\/(?:pg\/)?[a-zA-Z0-9\.\-]+\/?(events)\/?(?:\?f?ref=\w+)?$/i)[1]+ '"');
+            }
+
             if (options.getProviderOptions(CONFIG.O.full, false)) {
+
                 html = html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="1"');
                 html = html.replace(/data\-show\-facepile=\"(?:false|0)?\"/i, 'data-show-facepile="1"');
+
             } else if (options.getProviderOptions(CONFIG.O.compact, false)) {
+
                 html = html.replace(/data\-show\-posts=\"(?:true|1)?\"/i, 'data-show-posts="0"');
                 html = html.replace(/data\-show\-facepile=\"(?:true|1)?\"/i, 'data-show-facepile="0"');
+                
             }
 
             links.push ({
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 html: html,
                 "max-width": oembed.width
             });
@@ -58,6 +67,7 @@ module.exports = {
 
     tests: [
         "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
+        "https://www.facebook.com/pg/RhulFencing/about/",
         {
             noFeeds: true
         }
