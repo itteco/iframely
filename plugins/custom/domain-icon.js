@@ -12,7 +12,7 @@ module.exports = {
         return domain_icons;
     },
 
-    getLinks: function(url, cb, options) {
+    getData: function(url, cb, options) {
 
         // find domain and protocol
         var domain, protocol;
