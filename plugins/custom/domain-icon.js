@@ -52,7 +52,7 @@ module.exports = {
                     // + run icons validation right away
 
                     core.run(domainUri, options, function(error, data) {
-                        if (data.links) {
+                        if (data && data.links) {
 
                             // do need to set cache here as domains may redirect, 
                             // e.g. http ->https, then http urls will always miss icons.
