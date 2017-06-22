@@ -63,7 +63,8 @@ module.exports = {
 
 
     tests: [{
-        pageWithFeed: "http://imgur.com/",
+        page: "http://imgur.com/",
+        selector: "a.image-list-link"
     }, {
         skipMethods: [
             "getData"
