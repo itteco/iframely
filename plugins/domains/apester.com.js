@@ -39,7 +39,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.html5],
             height: qmerce.data.size ? qmerce.data.size.height  : 400 // when "undefined" - no way to check the height :\
-        }] 
+        }];
 
         if (!/^https?:\/\/(?:discover)\.apester\.com\/media\/([a-z0-9]+)/i.test(url)) {
             links.push ({
@@ -57,10 +57,12 @@ module.exports = {
             title: qmerce.title,
             date: qmerce.updated || qmerce.created,
             author: qmerce.publisher && qmerce.publisher.name
-        }
+        };
     },    
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://renderer.qmerce.com/interaction/5661a18763937fdb5ef4fa87",
         "http://renderer.qmerce.com/interaction/567cd70dc3b9c606515e7716",
         "http://renderer.qmerce.com/interaction/567af436781fde0551b3e049",

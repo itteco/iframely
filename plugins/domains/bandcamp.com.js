@@ -88,8 +88,12 @@ module.exports = {
     },
 
     tests: [{
-        feed: "http://mellomusicgroup.bandcamp.com/feed"
-        },
+        page: "https://mellomusicgroup.bandcamp.com/",
+        selector: ".music-grid-item>a",
+        skipMixins: [
+            "og-description"
+        ]
+    },
         "http://mad-hop.bandcamp.com/track/fracture",
         "http://music.zackhemsey.com/album/ronin",
         "http://music.zackhemsey.com/track/dont-get-in-my-way",
@@ -99,11 +103,6 @@ module.exports = {
         "http://music.freddiejoachim.com/album/patiently",
         "https://decembersongs.bandcamp.com/",
         "http://sonsofoflaherty.bandcamp.com/album/misc-songs",
-        "http://badsheeps.bandcamp.com/album/bad-sheeps", // doesn't have twitter player when not published
-        {
-            skipMixins: [
-                "og-description"
-            ]
-        }
+        "http://badsheeps.bandcamp.com/album/bad-sheeps" // doesn't have twitter player when not published
     ]
 };

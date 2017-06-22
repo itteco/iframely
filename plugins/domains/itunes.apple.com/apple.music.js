@@ -30,7 +30,9 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         'https://itunes.apple.com/us/album/12-12-12-concert-for-sandy/id585701590?v0=WWW-NAUS-ITSTOP100-ALBUMS&ign-mpt=uo%3D4',
         'https://itunes.apple.com/us/album/id944094900?i&ls=1',
         'https://itunes.apple.com/album/id1170687816?ls=1',

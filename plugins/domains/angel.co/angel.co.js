@@ -31,13 +31,14 @@ module.exports = {
                 rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
                 "max-width": 560 + 40 + 10,
                 "min-height": 300 + 40 + 10
-            }
+            };
         }
-
     },
 
     tests: [{
-        page: "https://angel.co/",
-        selector: ".name a"
-    }]
+        page: "https://angel.co/developer/jobs",
+        selector: ".job>.title>a"
+    },
+        "https://angel.co/earny/jobs"
+    ]
 };

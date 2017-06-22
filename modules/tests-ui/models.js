@@ -11,6 +11,9 @@
     // DB connect.
     try {
         mongoose = require('mongoose');
+        if (global.Promise) {
+            mongoose.Promise = global.Promise;
+        }
         db = mongoose.createConnection(CONFIG.tests.mongodb);
     } catch (ex) {
         console.error("Plugins testing framework will not work. Can't connect to mongodb.");

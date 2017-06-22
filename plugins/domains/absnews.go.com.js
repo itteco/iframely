@@ -16,7 +16,9 @@ module.exports = {
             };
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://abcnews.go.com/GMA/video/subway-prank-college-humor-vitamin-water-mess-nyc-19893934?1=2",
         "http://abcnews.go.com/Nightline/video/bob-drag-queen-surprises-year-dressed-bob-drag-43209383"
     ]
