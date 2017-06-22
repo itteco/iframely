@@ -59,6 +59,8 @@ module.exports = {
                             cache.set(key, data.links.filter(function(link) {
                                 return link.rel.indexOf(CONFIG.R.icon) > -1;
                             }), {ttl: CONFIG.IMAGE_META_CACHE_TTL});
+                        } else {
+                            cache.set(key, [], {ttl: CONFIG.IMAGE_META_CACHE_TTL});
                         }
                     });
                 }
