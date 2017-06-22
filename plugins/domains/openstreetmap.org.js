@@ -58,8 +58,7 @@ module.exports = {
     re: /^https?:\/\/(?:www\.)?openstreetmap\.org\/(?:\?.+|\#.*map=.+|export\/embed\.html\?)/i,
 
     mixins: [
-        'html-title',
-        'favicon'
+        "*"
     ],
 
     getLink: function(url) {

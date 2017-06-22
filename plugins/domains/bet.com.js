@@ -11,7 +11,7 @@ module.exports = {
         if (og.video && og.video.url) {
                 
             return {
-                href: og.video.url.replace(/\.share\.height\-\d+\.width\-\d+\.html$/, '.share.responsive-true.html'),
+                href: og.video.url.replace(/\.share\.height\-\d+\.width\-\d+\.html$/, '.share.responsive-true.html').replace(/^http:\/\//, '//'),
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": 16/9
