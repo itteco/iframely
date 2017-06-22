@@ -2,7 +2,7 @@ var assert = require('assert'),
     events = require('events'),
     vows = require('vows');
 
-GLOBAL.CONFIG = require('../config');
+global.CONFIG = require('../config');
 
 var iframely = require('../lib/core').getPluginData;
 var findWhitelistRecordFor = require('../lib/whitelist').findWhitelistRecordFor;
