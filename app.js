@@ -146,7 +146,11 @@ process.on('uncaughtException', function(err) {
   }
 });
 
-app.use(CONFIG.relativeStaticUrl, express.static('static'));
+if (!CONFIG.DISABLE_SERVE_STATIC) {
+  // This code not compatible with 'supertest' (in e2e.js)
+  // Disabled for tests.
+  app.use(CONFIG.relativeStaticUrl, express.static('static'));
+}
 
 app.get('/', function(req, res) {
   res.writeHead(302, { Location: 'http://iframely.com'});
