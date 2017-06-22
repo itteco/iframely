@@ -3,17 +3,16 @@
 var core = require('../../lib/core');
 var cache = require('../../lib/cache');
 var async = require('async');
-var favicon = require('../links/favicon');
 
 module.exports = {
 
-    provides: 'domain_meta',
+    provides: 'domain_icons',
 
-    getLinks: function(domain_meta) {
-        return favicon.getLink(domain_meta);
+    getLinks: function(domain_icons) {
+        return domain_icons;
     },
 
-    getData: function(url, whitelistRecord, cb, options) {
+    getLinks: function(url, cb, options) {
 
         // find domain and protocol
         var domain, protocol;
@@ -23,25 +22,12 @@ module.exports = {
             domain = m[2];
             protocol = m[1];
         } else {
-            // also prevent self recursion for root domains like http://domain.com.
-            // TODO: get domain icon from current url meta.
+            // prevent self recursion for root domains like http://domain.com.
             return cb();
         }
 
         var domainUri = protocol + domain;
-
-        // Same key as in cachedMeta.js
-        var key = 'meta:' + domainUri;
-
-        var whitelistHash = whitelistRecord && whitelistRecord.getRecordHash();
-        if (whitelistHash) {
-            key += ':' + whitelistHash;
-        }
-
-        var lang = options.getProviderOptions('locale');
-        if (lang) {
-            key += ':' + lang;
-        }
+        var key = 'domain_icon:' + domain;
 
         async.waterfall([
 
@@ -54,7 +40,7 @@ module.exports = {
                 if (data) {
 
                     cb(null, {
-                        domain_meta: data
+                        domain_icons: data
                     });
 
                 } else {
@@ -66,8 +52,14 @@ module.exports = {
                     // + run icons validation right away
 
                     core.run(domainUri, options, function(error, data) {
-                    // don't really have to do anything. 
-                    // domain's meta will be stored in cache by core.run                                                
+                        if (data.links) {
+
+                            // do need to set cache here as domains may redirect, 
+                            // e.g. http ->https, then http urls will always miss icons.
+                            cache.set(key, data.links.filter(function(link) {
+                                return link.rel.indexOf(CONFIG.R.icon) > -1;
+                            }), {ttl: CONFIG.IMAGE_META_CACHE_TTL});
+                        }
                     });
                 }
             }
