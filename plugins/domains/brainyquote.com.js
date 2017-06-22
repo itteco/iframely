@@ -21,7 +21,7 @@ module.exports = {
 
     tests: [ {
         page: "http://www.brainyquote.com/quotes/authors/a/aristotle.html",
-        selector: ".bq-aut a"
+        selector: "a.oncl_q"
     },
         "http://www.brainyquote.com/quotes/quotes/s/socrates107382.html",
         "http://www.brainyquote.com/quotes/quotes/s/socrates101211.html"

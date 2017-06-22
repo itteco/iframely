@@ -24,7 +24,10 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        page: "http://www.break.com/video/soldier-returns-from-iraq-with-ptsd-movie-trailer-3114995",
+        selector: "a.ContentCard-title"
+    },
         "http://www.break.com/video/this-girl-is-not-a-fan-of-litterbugs-2759576",
         "http://www.break.com/video/how-to-get-downstairs-in-russia-3028517"
     ]

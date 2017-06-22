@@ -41,7 +41,9 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://bleacherreport.com/articles/2650400-4-star-ot-kai-leon-herbert-makes-college-decision-with-walking-dead-commitment"
         // Should not work - http://bleacherreport.com/articles/2580263-newsman-says-michigan-beat-michigan-state-while-reporting-outside-the-big-house (embeded video)
         // Should not work - http://bleacherreport.com/articles/2586711-is-a-high-powered-offense-or-stingy-defense-a-better-path-to-2015-cfb-playoff (article)

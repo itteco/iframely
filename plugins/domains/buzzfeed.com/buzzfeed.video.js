@@ -25,7 +25,9 @@ module.exports = {
         }
     },
 
-    tests: [ 
+    tests: [{
+        noFeeds: true
+    },
         "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA"
     ]
 };
