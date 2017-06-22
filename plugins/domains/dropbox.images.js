@@ -17,7 +17,7 @@ module.exports = {
     },
 
 
-    tests: ["https://www.dropbox.com/s/fwsudc05agl2pwo/Screenshot%202016-08-16%2009.54.37.png?dl=0", 
+    tests: ["https://www.dropbox.com/s/cqoidxr7ed0nsj9/Entrepreneur%20to%20scale-up%20CEO.png?dl=0", 
     {
         noFeeds: true,
         skipMethods: ["getData"]

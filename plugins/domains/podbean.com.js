@@ -20,6 +20,6 @@ module.exports = {
     }, {
         pageWithFeed: 'http://anfieldindex.podbean.com'
     },
-        "http://realenglishconversations.podbean.com/e/english-podcast-17-our-personal-story-real-english-conversations/"
+        "https://www.podbean.com/media/share/pb-4b3p9-6c1e03#.WUmvykLHCNg.twitter"
     ]
 };
