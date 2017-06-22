@@ -15,7 +15,10 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        page: "http://bigthink.com/videos",
+        selector: "#video_ideas_index .headline a"
+    },
         "http://bigthink.com/videos/bre-pettis-on-makerbot-3-d-printing",
         "http://bigthink.com/videos/vivek-wadhwa-every-industry-will-be-disrupted"
     ]

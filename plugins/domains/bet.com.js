@@ -19,7 +19,9 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://www.bet.com/video/hiphopawards/2016/cyphers/kur-dave-east-young-m-a-sam-black-ms-jade.html",
         "http://www.bet.com/video/106andpark/highlights/mack-wilds-106-and-park-3449.html"
     ]
