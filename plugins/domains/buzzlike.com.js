@@ -21,7 +21,9 @@ module.exports = {
     },
 
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "https://widget.buzzlike.com/poll/a14493e6-f8fa-11e6-aee7-22000b0d85a7",
         "https://widget.buzzlike.com/sweepstake/ff780f7f-20de-44ec-9232-1acefe7437b8"
     ]
