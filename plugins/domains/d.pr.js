@@ -25,8 +25,10 @@ module.exports = {
         }
     },
 
-    tests: [
-        "http://d.pr/i/9jB7",
+    tests: [{
+        noFeeds: true
+    },
+        "http://d.pr/i/9jB7"
         // "http://d.pr/i/vO1p" // 404
     ]
 };

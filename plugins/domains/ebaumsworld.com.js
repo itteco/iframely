@@ -18,7 +18,10 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        page: "http://www.ebaumsworld.com/videos/",
+        selector: ".title a"
+    },
         "http://www.ebaumsworld.com/video/watch/81387150/"
     ]
 };

@@ -28,7 +28,9 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://www.deezer.com/track/11523496",
         "http://www.deezer.com/track/61423083",
         "http://www.deezer.com/album/11417888",

@@ -21,7 +21,10 @@ module.exports = {
         });
     },
 
-    tests: [ 
+    tests: [{
+        page: "http://www.dailymotion.com/",
+        selector: ".media-block a.link"
+    },
         "http://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
         "http://www.dailymotion.com/swf/video/xcv6dv_pixels-by-patrick-jean_creation",
         "http://www.dailymotion.com/embed/video/xcv6dv_pixels-by-patrick-jean_creation"

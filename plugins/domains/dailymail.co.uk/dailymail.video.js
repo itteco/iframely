@@ -37,7 +37,9 @@ module.exports = {
         }];
     },    
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://www.dailymail.co.uk/tvshowbiz/article-2885993/A-look-unconventional-13-year-relationship-Helena-Bonham-Carter-Tim-Burton-movies-made.html#v-1467332342001"
     ]
 };

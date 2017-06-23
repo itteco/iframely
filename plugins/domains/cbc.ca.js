@@ -31,7 +31,10 @@ module.exports = {
         return player;
     },
 
-    tests: [
+    tests: [{
+        page: "http://www.cbc.ca/player/play/2558388650",
+        selector: ".medialist-item>a"
+    },
         "http://www.cbc.ca/player/play/2558388650",
         "http://www.cbc.ca/player/Shows/Shows/Dragons+Den/ID/2558469970/",
         "http://www.cbc.ca/player/play/2695081582",
