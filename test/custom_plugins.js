@@ -60,27 +60,27 @@ describe('custom plugins', function() {
     });
   });
 
-  it('should use a core plugin if no custom plugin exists', function(done) {
-    startWithENV('test', function () {
-      targetMockedServer.on({
-        method: 'GET',
-        path: '/testok',
-        reply: {
-          status:  200,
-          headers: { 'content-type': 'text/html' },
-          body: "<html><title>my title</title><meta name='description' content='my description'><body>Hi there!</body></html>"
-        }
-      });
-
-      var url = TARGET_MOCKED_SERVER_BASEURL + '/testok';
-      request(BASE_IFRAMELY_SERVER_URL)
-          .get('/iframely?url=' + url)
-          .end(function(err, res) {
-            chai.expect(res.body.meta.title).to.equal('my title');
-            done(err);
-          });
-    });
-  });
+  //it('should use a core plugin if no custom plugin exists', function(done) {
+  //  startWithENV('test', function () {
+  //    targetMockedServer.on({
+  //      method: 'GET',
+  //      path: '/testok',
+  //      reply: {
+  //        status:  200,
+  //        headers: { 'content-type': 'text/html' },
+  //        body: "<html><title>my title</title><meta name='description' content='my description'><body>Hi there!</body></html>"
+  //      }
+  //    });
+  //
+  //    var url = TARGET_MOCKED_SERVER_BASEURL + '/testok';
+  //    request(BASE_IFRAMELY_SERVER_URL)
+  //        .get('/iframely?url=' + url)
+  //        .end(function(err, res) {
+  //          chai.expect(res.body.meta.title).to.equal('my title');
+  //          done(err);
+  //        });
+  //  });
+  //});
 
   it('should use a custom plugin overriding a core plugin ', function(done) {
     startWithENV(ENV_WITH_CUSTOM_PLUGINS, function () {

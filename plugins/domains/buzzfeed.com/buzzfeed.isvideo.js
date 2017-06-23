@@ -8,7 +8,7 @@ module.exports = {
 
     getData: function(twitter, cb) {
 
-        if (twitter.card === 'player') {
+        if (twitter.card === 'player' || twitter.site === '@BuzzFeedVideo') {
             cb(null, {
                 __isBuzzFeedVideo: true
             });

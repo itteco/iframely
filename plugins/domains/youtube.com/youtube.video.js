@@ -1,4 +1,6 @@
-var cheerio = require('cheerio');
+const cheerio = require('cheerio');
+const querystring = require('querystring');
+const _ = require('underscore');
 
 module.exports = {
 
@@ -122,7 +124,7 @@ module.exports = {
 
     getLinks: function(url, youtube_video_gdata, options) {
 
-        var params = options.getProviderOptions('youtube.get_params', '');
+        var params = querystring.parse(options.getProviderOptions('youtube.get_params', '').replace(/^\?/, ''));
 
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
@@ -142,16 +144,26 @@ module.exports = {
                     time += 1 * s[1];
                 }
                 
-                params = params + (params.indexOf ('?') > -1 ? "&": "?") + "start=" + (time ? time : start[1]);
+                params.start = time ? time : start[1];
             }
 
             if (end) {
-                params = params + (params.indexOf ('?') > -1 ? "&": "?") + "end=" + end[1];
+                params.end = end[1];
             }
         } catch (ex) {/* and ignore */}
         // End of time extractions
 
-        var autoplay = params + (params.indexOf ('?') > -1 ? "&": "?") + "autoplay=1";
+        if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
+            params.enablejsapi = 1;
+        }
+
+        if (options.getProviderOptions('players.showinfo', false)) {
+            params.showinfo = 1;
+        }
+
+        if (options.getProviderOptions('locale', false)) {
+            params.hl = options.getProviderOptions('locale', 'en_US');
+        }
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
@@ -169,7 +181,6 @@ module.exports = {
             }
         }
         // End of widescreen check
-        
 
         var links = [{
             href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
@@ -180,19 +191,16 @@ module.exports = {
         }];
 
         if (youtube_video_gdata.embeddable) {
-            links.push({
-                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + params,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html,
-                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
-            }); 
+            var qs = querystring.stringify(params);
+            if (qs !== '') {qs = '?' + qs}        
 
             links.push({
-                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + autoplay,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
+                href: 'https://www.youtube.com/embed/' + youtube_video_gdata.id + qs,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
-                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3
-            });
+                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
+                autoplay: "autoplay=1"
+            }); 
         }
 
         if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {

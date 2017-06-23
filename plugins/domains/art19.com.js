@@ -48,15 +48,15 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true,
+        skipMixins: [
+            "twitter-image"
+        ]
+    },
         "https://art19.com/shows/fox-sports-live/episodes/4c924063-ca48-487c-ad93-b2b3485a267c",
         "https://art19.com/shows/the-audible/episodes/6cfafe96-16e8-44bc-8d18-6a69ff807c63",
         "https://art19.com/shows/the-audible/episodes/ba9724d3-8a79-4e8f-a5dd-0f816f217e50/embed?theme=light-gray-blue",
-        "https://art19.com/shows/skip-and-shannon-undisputed/embed",
-        {
-            skipMixins: [
-                "twitter-image"
-            ]
-        }        
+        "https://art19.com/shows/skip-and-shannon-undisputed/embed"
     ]
 };

@@ -25,7 +25,8 @@
     {
         "name": "Facebook Page",
         "templates": [
-            "(www|m)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/?(?:\\?f?ref=\\w+)?$"
+            "(?:www|m)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/?(?:\\?f?ref=\\w+)?$",
+            "(?:www|m)\\.facebook\\.com/(?:pg/?)?([a-zA-Z0-9\\.\\-]+)/(about|events)/(?:\\?f?ref=\\w+)?$"
         ],
         "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
     },
@@ -572,7 +573,8 @@
     {
         "name": "CNEvids",        
         "templates": [        
-            "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+"
+            "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+",
+            "player(?:\\-backend)?\\.cnevids\\.com/iframe/video/[0-9a-zA-Z]+"            
         ],
         "endpoint": "https://player.cnevids.com/services/oembed"
     },

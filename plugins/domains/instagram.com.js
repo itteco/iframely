@@ -9,7 +9,7 @@ module.exports = {
     mixins: [
         "oembed-site",
         "oembed-author",
-        "oembed-thumbnail",
+        "og-image",
         "domain-icon"
     ],
 
@@ -62,21 +62,26 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": meta.og.video.width / meta.og.video.height
             });
-        } else {
-            links.push({
-                href: oembed.thumbnail_url,
-                type: CONFIG.T.image_jpeg,
-                rel: CONFIG.R.image,
-                width: oembed.thumbnail_width,
-                height: oembed.thumbnail_height
-            });
         }
 
         var media_only = options.getProviderOptions('instagram.media_only', false);
 
         if (oembed.type === 'rich' && !media_only) {
+
+            var html = oembed.html;
+
+            var showinfo = options.getProviderOptions(CONFIG.O.full, false) || options.getProviderOptions('instagram.showcaption', false); 
+            if (showinfo && !/data\-instgrm\-captioned/i.test(html)) {
+                html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");            
+            }
+
+            var hideinfo = options.getProviderOptions(CONFIG.O.compact, false);
+            if (hideinfo && /data\-instgrm\-captioned/i.test(html)) {
+                html = html.replace("data-instgrm-captioned ", "");
+            }            
+
             links.push({
-                html: oembed.html,
+                html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 'max-width': 660

@@ -17,7 +17,9 @@ module.exports = {
         }
     },    
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://www.dailymail.co.uk/video/news/video-1284607/Heart-rending-scenes-child-marriage-ceremonies-India.html"
     ]
 };

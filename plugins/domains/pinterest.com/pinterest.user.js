@@ -2,7 +2,7 @@ var DEFAULT_WIDTH = 600;
 
 module.exports = {
 
-    re: /^https?:\/\/(?:www\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%_]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%_]+)\/?(?:$|\?|#)/i,
 
     mixins: [
         "og-image",
@@ -24,7 +24,7 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             template: "pinterest.widget",
             template_context: {
-                url: url,
+                url: og.url || url,
                 title: "Pinterest User",
                 type: "embedUser",
                 width: options.maxWidth || DEFAULT_WIDTH,

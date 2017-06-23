@@ -21,7 +21,7 @@ module.exports = {
                     href: 'https://archive.org/embed/' + hrefMatch[1],
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5]
-                }
+                };
 
                 if (/\.(mp3|wma)$/i.test(playerHref)) {
                     player.height = 40;
@@ -45,7 +45,10 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{
+        page: "https://archive.org/details/audio_tech?&sort=-downloads&page=2",
+        selector: ".item-ttl>a"
+    },
         "https://archive.org/details/Podcast8.23GoethesIronicMephistopheles1700s1800s",
         "https://archive.org/details/TheInternetArchivistsFinalCutBoostedSound",
         "https://archive.org/details/um2000-09-01.shnf",

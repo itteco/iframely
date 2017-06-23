@@ -11,20 +11,21 @@ module.exports = {
         
         var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
 
-        if (!video_src || video_src instanceof Array || !/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
+        if (!video_src || video_src instanceof Array || !/^(?:https?:)?\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
             return;
         }
 
         var url = URL.parse(video_src, true);
         var query = url.query;
-        
-        var urlMatch = video_src.match(/^https?:\/\/(?:www\.)?(?:player\.)?ooyala\.com\/(?:stable\/[^\.])?(?:tframe\.html|iframe\.html|player\.swf)\?(?:embedCode|ec)=([_a-zA-Z0-9\-]+)/);
 
         if (query.embedCode || query.ec || query.embedcode) {
+            
             return {
                 __ooyalaPlayer: {
+                    video_src: video_src,
                     embedCode: query.embedCode || query.ec || query.embedcode,
-                    pbid: query.pbid || query.player,
+                    pbid: query.pbid || query.player || query.playerBrandingId,
+                    pcode: query.pcode || query.videoPcode,                    
                     width: (meta.twitter && meta.twitter.player && meta.twitter.player.width) || (meta.og && meta.og.video && meta.og.video.width),
                     height: (meta.twitter && meta.twitter.player && meta.twitter.player.height) || (meta.og && meta.og.video && meta.og.video.height)
                 }
@@ -34,7 +35,7 @@ module.exports = {
 
     getLink: function(__ooyalaPlayer, url, request, cb) {
 
-        request({
+        var opts = {
             uri: "http://player.ooyala.com/nuplayer?embedCode=" + __ooyalaPlayer.embedCode,
             // Ooyala is really slow - allow all players from a domain after the first check
             cache_key: 'ooyala:domain:' + url.replace(/^https?:\/\//i, '').split('/')[0].toLowerCase(),
@@ -43,7 +44,6 @@ module.exports = {
                 'Accept-Encoding': 'gzip, deflate, sdch', // this is required for head request to return content_length
                 'Connection': 'close'
             },
-
             prepareResult: function(error, response, body, cb) {
 
                 if (error) {
@@ -55,32 +55,56 @@ module.exports = {
                 } else {
 
                     var aspect = __ooyalaPlayer.width && __ooyalaPlayer.height && (__ooyalaPlayer.width / __ooyalaPlayer.height < 1.5) ? 4 / 3 : 16/9;
-                    var rel = [CONFIG.R.player];
+                    var rel = [CONFIG.R.player, CONFIG.R.oembed]; // to bypass href=canonical validation
                     var href = 'https://player.ooyala.com/';
                     var type = CONFIG.T.text_html;
 
-                    if (__ooyalaPlayer.pbid) {
-                        href = href + 'tframe.html?platform=html5-priority&embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' + '&pbid=' + __ooyalaPlayer.pbid;
+                    var where_hosted;
+
+                    //v4
+                    if (__ooyalaPlayer.video_src && /(?:https?:)?\/\/player\.ooyala\.com\/(.+\/)iframe\.html/i.test(__ooyalaPlayer.video_src) && __ooyalaPlayer.pbid && __ooyalaPlayer.pcode) {
+                        // doc: http://help.ooyala.com/video-platform/concepts/pbv4_resources.html
+
+                        where_hosted = __ooyalaPlayer.video_src.match(/^(?:https?:)?\/\/player\.ooyala\.com\/(.+)\/iframe\.html/i)[1];                         
+
+                        href = href + where_hosted + '/'
+                            + 'iframe.html?ec=' + __ooyalaPlayer.embedCode + '&pbid=' + __ooyalaPlayer.pbid + '&pcode=' + __ooyalaPlayer.pcode;
+
                         rel.push(CONFIG.R.html5);
+
+                    //v3, 2
+                    } else if (__ooyalaPlayer.pbid) {
+                        href = href + 'tframe.html?platform=html5-priority&embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' + '&pbid=' + __ooyalaPlayer.pbid;
+
+                        if (__ooyalaPlayer['options[adSetTag]'] && '' !== __ooyalaPlayer['options[adSetTag]']) {
+                            href += '&options[adSetTag]=' + __ooyalaPlayer['options[adSetTag]'];
+                        }
+
+                        rel.push(CONFIG.R.html5);
+                        
                     } else {
                         href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
                         type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
                     }
 
-                    return cb(null, [{
+                    var player = {
                         href: href,
                         rel: rel,
                         type: type,
-                        'aspect-ratio': aspect
-                    }, {
-                        href: type === CONFIG.T.text_html ? href + '&options[autoplay]=true' : href + '&autoplay=1',
-                        rel: rel.concat(CONFIG.R.autoplay),
-                        type: type,
-                        'aspect-ratio': aspect
-                    }]);
+                        'aspect-ratio': aspect,
+                        autoplay: type === CONFIG.T.text_html ? 'options[autoplay]=true' : 'autoplay=1'
+                    };
+
+                    return cb(null, player);
                 }
             }
-        }, cb);
+        };            
+
+        if (/^https?:\/\/player.ooyala\.com\//i.test(url)) {
+            delete opts['cache_key']; // let it validate each direct link to a vid individually
+        }
+
+        request(opts, cb);
     },
 
     tests: [
@@ -93,6 +117,9 @@ module.exports = {
         "http://www.thisisinsider.com/cheesy-breakfast-potatoes-2016-5",
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/",
         "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html",
-        "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433"
+        "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433",
+        "http://matchcenter.mlssoccer.com/matchcenter/2015-10-02-dc-united-vs-new-york-city-fc/details/video/51448"
+        // "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
+        // "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
     ]
 };

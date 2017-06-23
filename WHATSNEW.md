@@ -4,6 +4,12 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2017.06.23, Version 1.1.0
+
+- Node modules dependencies have been upgraded to the recent versions. Please `npm update`
+- Added `providerOptions.locale` config option to make parsers requests language-specific version of the sites (test e.g. on facebook.com)
+- Domains cleanup
+
 ### 2017.04.21, Version 1.0.4
 
 - Added `&omit_css=1` query-string param. Read [details here](https://iframely.com/docs/omit-css) (except for smart iFrame-specific features).
@@ -74,26 +80,5 @@ Heads-up: `http-parser-js` module dependency was added for a fix of invalid HTTP
  - And especially making MLB responsive
  - Also, added BigThink, Art19, Hudl
 
-### 2016.06.10, Version 0.9.6
-
- - Maintenance for many domain plugins: minor fixes and better coverage
- - Added Plot.ly
-
-### 2016.05.11, Version 0.9.5
-
-Heads-up: `request` module dependency was upgraded. Please run `npm update` when deploying this version.
-
- - Twitter plugin was switched to new oEmbed endpoint according to current docs
- - Medium embeds were disabled as they are broken as of version's date
- - NPR.org plugin supports links to section in addition to direct player links
- - Minor fixes for number of other domain parsers
-
-
-### 2016.04.13, Version 0.9.4
-
- - Better responsive embeds for players with fixed bottom padding: Slideshare, NBC news, TODAY.com, NY Times
- - Added support for Deezer, vbox7.com, Libération.fr, hosted CloudApps, Knightlab's juxtapose and timeline.js, NBA, Atlas charts, HuffPost elections pollster
- - Better support for Brightcove's newer HTML5 players
- - Minor fixes for number of other domain parsers
 
 

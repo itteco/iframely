@@ -12,20 +12,22 @@ module.exports = {
 
     getData: function(cheerio, __isBuzzFeedVideo, cb) {
 
-        var $el = cheerio('.video-embed-area');
-        var embed = JSON.parse($el.attr('rel:bf_bucket_data'));
+        var $el = cheerio('.js-placeholder-link');
 
-        if (embed.video && embed.video.url) {
+        var href = $el.attr('href');
+
+        if (href && /youtube\.com/.test(href)) {
             cb (null, {
-                __promoUri: embed.video.url.replace(/^http:\/\/youtube/, 'https://www.youtube')
+                __promoUri: href.replace(/^http:\/\/youtube/, 'https://www.youtube')
             });
         } else {
             cb();
         }
     },
 
-    tests: [ 
-        "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA",
-        "http://www.buzzfeed.com/tristanhill/if-you-won-the-lottery"
+    tests: [{
+        noFeeds: true
+    },
+        "http://www.buzzfeed.com/brentbennett/star-wars-cast-members-do-star-wars-impersonations#.idE4zm45aA"
     ]
 };

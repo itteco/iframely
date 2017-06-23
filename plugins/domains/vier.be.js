@@ -11,7 +11,7 @@ module.exports = {
         var id = urlMatch[1];
          
         return {
-            href: "http://www.vier.be/video/v3/embed/" + id,
+            href: "//www.vier.be/video/v3/embed/" + id,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 800 / 450

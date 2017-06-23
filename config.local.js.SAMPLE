@@ -139,6 +139,9 @@
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
+            locale: "en_US",    // ISO 639-1 two-letter language code, e.g. en_CA or fr_CH. 
+                                // Will be added as highest priotity in accept-language header with each request. 
+                                // Plus is used in FB, YouTube and perhaps other plugins
             "twitter": {
                 "max-width": 550,
                 "min-width": 250,

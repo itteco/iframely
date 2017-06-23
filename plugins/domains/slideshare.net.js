@@ -42,12 +42,14 @@ module.exports = {
 
                 var $iframe = $container.find('iframe');
 
+                var aspect = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+
                 if ($iframe.length == 1) {
                     links.push({
                         href: $iframe.attr('src').replace('http:', ''),
                         type: CONFIG.T.text_html,
-                        rel: [CONFIG.R.player, CONFIG.R.html5],
-                        "aspect-ratio": (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height,
+                        rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.html5],
+                        "aspect-ratio": aspect,
                         "padding-bottom": 38
                     });
                 }
@@ -72,6 +74,7 @@ module.exports = {
         page: "http://www.slideshare.net/popular/today",
         selector: "a.iso_slideshow_link"
     },
-        "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext"
+        "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext",
+        "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562"
     ]
 };

@@ -59,8 +59,8 @@ module.exports = {
                 var apiUrl;
 
                 var qs = {
-                    hide_media: c.hide_media,
-                    hide_thread: c.hide_thread,
+                    hide_media:  options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_media, 
+                    hide_thread: options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_thread,
                     omit_script: c.omit_script
                 };
 
@@ -157,7 +157,7 @@ module.exports = {
                 twitter_oembed: oembed
             };
 
-            if (c.media_only || /pic\.twitter\.com/i.test(oembed.html)) {
+            if (c.media_only || options.getProviderOptions(CONFIG.O.compact, false) || /pic\.twitter\.com/i.test(oembed.html)) {
                 result.__allow_twitter_og = true;
                 options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
             } else {
@@ -188,15 +188,21 @@ module.exports = {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
         }
 
+        var locale = options.getProviderOptions('locale');
+        if (locale && /^\w{2}\-\w{2,3}$/.test(locale)) {
+            html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+_\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale + '"');
+        }
+
         var links = [];
 
-        if (c.media_only && twitter_og && twitter_og.video && twitter_og.image 
+        if (((c.media_only && !options.getProviderOptions(CONFIG.O.full, false)) || options.getProviderOptions(CONFIG.O.compact, false)) 
+            && twitter_og && twitter_og.video && twitter_og.image 
             && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137
 
             html = html.replace(/class="twitter-tweet"/g, 
-                'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));
+                'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));            
 
             links.push({
                 html: html,

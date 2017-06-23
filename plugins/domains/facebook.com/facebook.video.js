@@ -17,21 +17,32 @@ module.exports = {
         var link = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.ssl, CONFIG.R.html5],
-            html: html
         }; 
 
         if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
             // thank you FB for not working with comments
             // https://developers.facebook.com/docs/plugins/embedded-comments
-            link.html = html.replace(/class=\"fb\-video\"/, 'class="fb-comment-embed" data-include-parent="' + (!options.getProviderOptions('facebook.exclude_comment_parent') ? 'true' : 'false') + '"'); 
+
+            var width = options.maxWidth || options.getProviderOptions('facebook.width', 640);            
+            html = html.replace(/class=\"fb\-video\"/, 
+                'class="fb-comment-embed" data-include-parent="'
+                + (options.getProviderOptions('facebook.include_comment_parent') || options.getProviderOptions(CONFIG.O.full) ? 'true' : 'false') + '"'
+                + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"')
+                ); 
             link.rel.push (CONFIG.R.app);
         } else {
             link.rel.push (CONFIG.R.player);
+
+            if (options.getProviderOptions(CONFIG.O.full) && !/data\-show\-text/.test(html)) {
+                html = html.replace(/class=\"fb\-video\"/, 'class="fb-video" data-show-text="true"');
+            }
             // aspect-ratio is incorrect in oEmbed responses.
             // Let's skip it and check og image instead, if any
             // link['aspect-ratio'] = oembed.thumbnail_height && oembed.thumbnail_width ? oembed.thumbnail_width / oembed.thumbnail_height : 16/9
 
         }
+
+        link.html = html;
 
         return link;
     },

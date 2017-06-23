@@ -33,59 +33,67 @@ module.exports = {
         if (!/bandcamp/i.test(meta.twitter && meta.twitter.site || meta.generator)) {
             return;
         }
-        
-        var params = options.getProviderOptions('bandcamp');
-        var result = [];
 
-        if (!params) {
+        var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) 
+                        || (meta.og && meta.og.video && meta.og.video.url);
 
-            if (meta.twitter && meta.twitter.player) {
-                result.push({
-                    href: meta.twitter.player.value,
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5],
-                    "aspect-ratio": 1, // it will just overlay the player nicely
-                    "max-width": 700
-                });
+        if (video_src) {
+
+            var album = /album=\d+/i.test(video_src) && video_src.match(/album=(\d+)/i)[1];
+            var track = /track=\d+/i.test(video_src) && video_src.match(/track=(\d+)/i)[1];
+
+            var href = 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '')
+
+                    + (options.getProviderOptions('bandcamp.get_params') ? 
+                        
+                        options.getProviderOptions('bandcamp.get_params') 
+                        : ('/size=large/bgcol=ffffff/linkcol=0687f5'
+                            + (
+                            options.getProviderOptions('bandcamp.small_player', false) || options.getProviderOptions(CONFIG.O.compact, false) ? 
+                            '/artwork=small/tracklist=false' : '/minimal=true'
+                            )
+                            + '/transparent=true'
+                        )
+                    )
+                    + (track ? '/track=' + track : '')
+                    + '/';
+
+            if (!options.getProviderOptions('bandcamp.get_params') && options.getProviderOptions('bandcamp.small_player', false) && options.getProviderOptions(CONFIG.O.full, false)) {
+                href = href.replace("/artwork=small/tracklist=false/", "/minimal=true/")
             }
 
-            if (meta.og && meta.og.video) {
-                result.push({
-                    href: meta.og.video.secure_url || meta.og.video.url,
-                    type: meta.og.video.type || CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5],
-                    "max-width": 700,
-                    height: meta.og.video.height
-                });
+            var media;
+
+            if (options.getProviderOptions('bandcamp.get_params') && options.getProviderOptions('bandcamp.media')) {
+                media = (album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track);
+            } else {
+
+                media = {'max-width' : 700};
+                if (/\/minimal=true\//i.test(href)) {
+                    media['aspect-ratio'] = 1;                    
+                } else {
+                    media.height = 120;
+                }
+
             }
 
-        } else if (params) {
-
-            var player = (meta.twitter && meta.twitter.player && meta.twitter.player.value) ||
-                        (meta.og && meta.og.video && meta.og.video.url);
-
-            if (player) {
-
-                var album = /album=\d+/i.test(player) && player.match(/album=(\d+)/i)[1];
-                var track = /track=\d+/i.test(player) && player.match(/track=(\d+)/i)[1];
-
-                result.push ({
-                    href: 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '') + (track ? '/track=' + track : '') + params.get_params, // (in /../../ way)
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
-                    type: CONFIG.T.text_html,
-                    media: album ? params.media.album : params.media.track
-                });
-            }
+            return {
+                href: href,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                type: CONFIG.T.text_html,
+                media: media
+            };
 
         }
-
-        return result;
-
     },
 
     tests: [{
-        feed: "http://mellomusicgroup.bandcamp.com/feed"
-        },
+        page: "https://mellomusicgroup.bandcamp.com/",
+        selector: ".music-grid-item>a",
+        skipMixins: [
+            "og-description"
+        ]
+    },
         "http://mad-hop.bandcamp.com/track/fracture",
         "http://music.zackhemsey.com/album/ronin",
         "http://music.zackhemsey.com/track/dont-get-in-my-way",
@@ -95,11 +103,6 @@ module.exports = {
         "http://music.freddiejoachim.com/album/patiently",
         "https://decembersongs.bandcamp.com/",
         "http://sonsofoflaherty.bandcamp.com/album/misc-songs",
-        "http://badsheeps.bandcamp.com/album/bad-sheeps", // doesn't have twitter player when not published
-        {
-            skipMixins: [
-                "og-description"
-            ]
-        }
+        "http://badsheeps.bandcamp.com/album/bad-sheeps" // doesn't have twitter player when not published
     ]
 };

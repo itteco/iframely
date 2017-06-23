@@ -1,13 +1,12 @@
 (function() {
 
-    GLOBAL.CONFIG = require('./config');
+    global.CONFIG = require('./config');
 
     var async = require('async');
     var cache = require('./lib/cache');
     var ejs = require('ejs');
     var fs = require('fs');
     var crypto = require('crypto');
-    var moment = require('moment');
     var _ = require('underscore');
     var urlLib = require('url');
 
@@ -49,54 +48,6 @@
     HttpError.prototype.__proto__ = Error.prototype;
 
     exports.HttpError = HttpError;
-
-    var send = require('send')
-        , utils = require('connect/lib/utils')
-        , parse = utils.parseUrl
-        , url = require('url');
-
-
-    exports.static = function(root, options){
-        options = options || {};
-
-        // root required
-        if (!root) throw new Error('static() root path required');
-
-        // default redirect
-        var redirect = false !== options.redirect;
-
-        return function static(req, res, next) {
-            if ('GET' != req.method && 'HEAD' != req.method) return next();
-            var path = parse(options.path ? {url: options.path} : req).pathname;
-            var pause = utils.pause(req);
-
-            function resume() {
-                next();
-                pause.resume();
-            }
-
-            function directory() {
-                if (!redirect) return resume();
-                var pathname = url.parse(req.originalUrl).pathname;
-                res.statusCode = 301;
-                res.setHeader('Location', pathname + '/');
-                res.end('Redirecting to ' + utils.escape(pathname) + '/');
-            }
-
-            function error(err) {
-                if (404 == err.status) return resume();
-                next(err);
-            }
-
-            send(req, path)
-                .maxage(options.maxAge || 0)
-                .root(root)
-                .hidden(options.hidden)
-                .on('error', error)
-                .on('directory', directory)
-                .pipe(res);
-        };
-    };
 
     var version = require('./package.json').version;
 
@@ -179,7 +130,7 @@
         return urlLib.format(urlObj);
     }
 
-    function setResponseToCache(code, content_type, req, res, body, ttl) {
+    function setResponseToCache(code, req, res, body, ttl) {
 
         if (!res.get('ETag')) {
             res.set('ETag', etag(body));
@@ -190,7 +141,7 @@
         var head = {
             statusCode: code,
             headers: {
-                'Content-Type': content_type
+                'Content-Type': res.get('Content-Type'),
             },
             etag: res.get('ETag')
         };
@@ -261,11 +212,12 @@
                                             res.writeHead(304);
                                             res.end();
                                         } else {
-                                            this.charset = this.charset || 'utf-8';
+                                            res.set(head.headers);
                                             res.set('ETag', realEtag);
                                             res.set('Content-Type', 'text/javascript');
-                                            res.writeHead(head.statusCode || 200, head.headers);
-                                            res.end(body);
+                                            res
+                                                .status(head.statusCode || 200)
+                                                .send(body);
                                         }
 
                                     } else {
@@ -276,12 +228,13 @@
                                             res.writeHead(304);
                                             res.end();
                                         } else {
-                                            this.charset = this.charset || 'utf-8';
+                                            res.set(head.headers);
                                             if (head.etag) {
                                                 res.set('ETag', head.etag);
                                             }
-                                            res.writeHead(head.statusCode || 200, head.headers);
-                                            res.end(data.substring(index + 2));
+                                            res
+                                                .status(head.statusCode || 200)
+                                                .send(data.substring(index + 2));
                                         }
                                     }
 
@@ -311,11 +264,11 @@
                 var template = fs.readFileSync(view, 'utf8');
                 var body = ejs.render(template, context);
 
-                setResponseToCache(200, 'text/html', req, res, body);
+                this.set(headers);
 
-                this.charset = this.charset || 'utf-8';
-                this.writeHead(200, headers);
-                this.end(body);
+                setResponseToCache(200, req, res, body);
+
+                this.send(body);
             };
 
             // Copy from source.
@@ -328,11 +281,10 @@
                 var body = JSON.stringify(obj, replacer, spaces);
 
                 // content-type
-                this.charset = this.charset || 'utf-8';
                 this.set('Content-Type', 'application/json');
 
                 // Cache without jsonp callback.
-                setResponseToCache(200, 'application/json', req, res, body);
+                setResponseToCache(200, req, res, body);
 
                 // jsonp
                 var callback = this.req.query[app.get('jsonp callback name')];
@@ -353,11 +305,11 @@
 
                 var status = options && options.code || 200;
 
-                setResponseToCache(status, content_type, req, res, body, options && options.ttl);
+                this.set('Content-Type', content_type);
 
-                this.charset = this.charset || 'utf-8';
-                this.writeHead(status, {'Content-Type': content_type});
-                this.end(body);
+                setResponseToCache(status, req, res, body, options && options.ttl);
+
+                this.status(status).send(body);
             };
 
             res.sendJsonCached = function(obj, options) {
@@ -368,15 +320,13 @@
 
                 var body = JSON.stringify(obj, replacer, spaces);
 
-                // content-type
-                this.charset = this.charset || 'utf-8';
                 this.set('Content-Type', 'application/json');
 
                 var status = options && options.code || 200;
 
-                setResponseToCache(status, 'application/json', req, res, body, options && options.ttl);
+                setResponseToCache(status, req, res, body, options && options.ttl);
 
-                this.send(status, body);
+                this.status(status).send(body);
             };
 
             next();

@@ -39,8 +39,11 @@
 
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
 
+        ACCEPT_LANGUAGE_SUFFIX: ';q=0.9,en-US;q=0.8,en;q=0.7,*;q=0.5',
+
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
+        MAX_VERTICAL_ASPECT_RATIO: 1,
 
         DEFAULT_OMIT_CSS_WRAPPER_CLASS: 'iframely-responsive',
         DEFAULT_MAXWIDTH_WRAPPER_CLASS: 'iframely-embed',
@@ -125,8 +128,13 @@
             playerjs: "playerjs"
         },
 
-        // Whitelist settings.
+        // Option names   
+        O: {
+            compact: "iframely.less",
+            full: "iframely.more"
+        },        
 
+        // Whitelist settings.
         REL: {
             "iframely": [
                 "reader",

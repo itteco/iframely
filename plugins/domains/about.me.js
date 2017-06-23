@@ -15,7 +15,9 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://about.me/zachperkins",
         "https://about.me/mirinanase"
     ]

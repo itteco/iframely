@@ -12,7 +12,6 @@ var NotFound = sysUtils.NotFound;
 
 var app = express();
 
-app.use(express.bodyParser());
 app.set('view engine', 'ejs');
 
 if (CONFIG.allowedOrigins) {
@@ -147,10 +146,11 @@ process.on('uncaughtException', function(err) {
   }
 });
 
-app.get(CONFIG.relativeStaticUrl + '/*', function(req, res, next) {
-  var url = '/' + req.url.split('/').splice(2).join('/');
-  sysUtils.static(path.resolve(__dirname, 'static'), {path: url})(req, res, next);
-});
+if (!CONFIG.DISABLE_SERVE_STATIC) {
+  // This code not compatible with 'supertest' (in e2e.js)
+  // Disabled for tests.
+  app.use(CONFIG.relativeStaticUrl, express.static('static'));
+}
 
 app.get('/', function(req, res) {
   res.writeHead(302, { Location: 'http://iframely.com'});

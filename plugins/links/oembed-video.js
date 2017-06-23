@@ -15,12 +15,12 @@ module.exports = {
             rel:[CONFIG.R.oembed, CONFIG.R.player]
         };
 
-        // allow encoded entities if they start from $lt; and end with &gt;
+        // allow encoded entities if they start from $lt;
+        // ex.: http://www.nfb.ca/film/wild_life/
         var html = oembed.html5 || oembed.html; 
-        if (/^&lt;.*&gt;$/i.test(html)) {
+        if (/^&lt;/i.test(html)) {
             html = entities.decodeHTML(html);
         }
-
 
         var $container = cheerio('<div>');
         try {

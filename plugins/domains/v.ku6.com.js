@@ -29,7 +29,7 @@ module.exports = {
             "favicon"
         ]
     },
-        "http://v.ku6.com/show/igXYIuwqHCPANcvrwFd63A...html?hpsrc=1_28_1_1_0",
+        "http://v.ku6.com/show/QoLqgi6skAlA7iD7uv39Sw...html",
         "http://v.ku6.com/show/E70nubAr4nj5oh7fQK_vMQ...html?hpsrc=1_28_1_2_0",
         "http://v.ku6.com/special/show_6614796/KrwaOs2KFBO2EDdySiaO_w...html?hpsrc=1_25_1_2_0"
     ]
