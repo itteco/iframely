@@ -507,7 +507,8 @@
     {
         "name": "RTL XL",
         "templates": [
-            "rtlxl\\.nl/#!/[^\/]+/([a-zA-Z0-9-]+)"
+            "rtlxl\\.nl/?(?:\\?.+)?#!/?[^\/]+/([a-zA-Z0-9-]+)",            
+            "rtl\\.nl/video/([a-zA-Z0-9-]+)"            
         ],
         "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
     },
