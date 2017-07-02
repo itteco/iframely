@@ -214,6 +214,10 @@ module.exports = {
 
         } else {
 
+            if (options.getProviderOptions(CONFIG.O.full, false)) {
+                html = html.replace(/ ?data-conversation=\"none\"/, '');
+            }
+
             var app = {
                 html: html,
                 type: CONFIG.T.text_html,
