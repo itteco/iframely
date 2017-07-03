@@ -215,7 +215,7 @@ module.exports = {
         } else {
 
             if (options.getProviderOptions(CONFIG.O.full, false)) {
-                html = html.replace(/ ?data-conversation=\"none\"/, '');
+                html = html.replace(/\s?data-conversation=\"none\"/, '');
             }
 
             var app = {
