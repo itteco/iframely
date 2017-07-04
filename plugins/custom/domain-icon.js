@@ -27,7 +27,7 @@ module.exports = {
         }
 
         var domainUri = protocol + domain;
-        var key = 'domain_icon:' + domain;
+        var key = 'ha:domain_icon:' + domain;
 
         async.waterfall([
 
