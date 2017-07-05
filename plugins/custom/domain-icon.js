@@ -3,6 +3,7 @@
 var core = require('../../lib/core');
 var cache = require('../../lib/cache');
 var async = require('async');
+var _ = require('underscore');
 
 module.exports = {
 
@@ -39,6 +40,11 @@ module.exports = {
 
                 if (data) {
 
+                    // Ask 'checkFavicon' to skip check.
+                    data.forEach(function(link) {
+                        link._imageStatus = {doNotCheck: true};
+                    });
+
                     cb(null, {
                         domain_icons: data
                     });
@@ -51,14 +57,19 @@ module.exports = {
                     // and asynchronously put in cache for next time
                     // + run icons validation right away
 
-                    core.run(domainUri, options, function(error, data) {
+                    // forceSyncCheck - ask 'checkFavicon' to check favicon this time before callback.
+                    core.run(domainUri, _.extend({}, options, {forceSyncCheck: true}), function(error, data) {
                         if (data && data.links) {
 
                             // do need to set cache here as domains may redirect, 
                             // e.g. http ->https, then http urls will always miss icons.
-                            cache.set(key, data.links.filter(function(link) {
+
+                            var icons = data.links.filter(function(link) {
                                 return link.rel.indexOf(CONFIG.R.icon) > -1;
-                            }), {ttl: CONFIG.IMAGE_META_CACHE_TTL});
+                            });
+
+                            cache.set(key, icons, {ttl: CONFIG.IMAGE_META_CACHE_TTL});
+
                         } else {
                             cache.set(key, [], {ttl: CONFIG.IMAGE_META_CACHE_TTL});
                         }
