@@ -3,7 +3,7 @@ var $ = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|book)\//i,
+        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|document|book)\//i,
     ],    
 
     mixins: [
@@ -22,25 +22,22 @@ module.exports = {
         } catch(ex) {}
 
         var $iframe = $container.find('iframe');
-        var doc; 
 
         if ($iframe.length == 1) {
-            doc = {
+            return {
                 href: $iframe.attr('src').replace("http://", "//"),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.oembed],
-                "aspect-ratio": $iframe.attr('data-aspect-ratio')
+                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
+                "aspect-ratio": oembed.thumbnail_height ?  oembed.thumbnail_width / oembed.thumbnail_height : null
             }
         }
-
-        return doc;
     },
 
     tests: [{
         page: "https://www.scribd.com/books/scribd-selects",
         selector: "a.doc_link.book_link"
     },
-        "http://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013"
+        "https://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013"
     ]
 
 
