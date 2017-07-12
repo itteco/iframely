@@ -1,23 +1,17 @@
-# Iframely Domains DB File Format
+# Iframely Whitelist File Format
 
-Itteco provides [Domains DB](https://iframely.com/qa), as the first independently run embeds QA service. 
+Iframely parsers relies on the whitelist file to allow rich media embeds via [Iframely Protocol](https://iframely.com/oembed2), oEmbed, Twitter Cards and Open Graph. 
+ 
+The central whitelist is already included with default config of the self-hosted [open-source](https://github.com/itteco/iframely) Iframely. Your Iframely instance will fetch the file updates periodically from our servers.
 
-We cover [Iframely Protocol](https://iframely.com/oembed2), oEmbed v1, Twitter Cards and Open Graph in our test runs. 
+Here's the up-to-date version of the file [http://iframely.com/qa/whitelist.json](https://iframely.com/qa/whitelist.json).
 
-There are technical/security considerations that can be resolved algorithmically, but it really 
-requires a human eye to check if the user experience of the embeds can be relied on. 
-
-The domains DB can be downloaded as JSON file, the format of which is given in this document. It contains the list of domains with `allow` or `deny` tags for each protocol, with supplementary instructions on how to improve the embeds (that are easy to translate into code).
-
-If you use [Iframely Open Source](https://iframely.com/get), the Domains DB support is already included. Just upload the latest file to the `/whitelist` folder of your Iframely server. See [Setup Instructions](https://iframely.com/docs/host).
-
-You can get our domains DB at [http://iframely.com/qa/whitelist.json](https://iframely.com/qa/whitelist.json).
-
+If you like, you can download it, change and upload into `/whitelist` folder of your Iframely server to replace the default behaviour. Or generate your own file altogether based on the structure defined below.
 
 
 ## Basic file structure
 
-File name contains the timestamp when the DB was last updated:
+For your own file, its name should contain the timestamp when the whitelist was last updated:
 
     iframely-2013-08-27-14-18-UTC.json
 
@@ -27,7 +21,7 @@ The file itself contains the list of domains, with the protocols the domains sup
 
     {
     	"youtube.com": {
-    		date: "2013-09-01",
+    		date: "1485789423106",
     		og: {
     			video: ["allow", "ssl", "responsive"]
     		},
@@ -40,7 +34,7 @@ The file itself contains the list of domains, with the protocols the domains sup
     	},
 
     	"mashable.com": {
-    		date: "2013-09-01",    		
+    		date: "1485789423106",    		
     		twitter: {
     			photo: "deny",
     			player: ["allow", "ssl", "responsive", "autoplay"]
@@ -48,14 +42,14 @@ The file itself contains the list of domains, with the protocols the domains sup
     	},
 
     	"*.nbcsports.com": {
-    		date: "2013-09-01",    		
+    		date: "1485789423106",    		
     		oembed: {
     			link: ["allow", "reader"]
     		}
     	},
 
 		"iframe.ly": {
-    		date: "2013-09-01",			
+    		date: "1485789423106",			
 			iframely: {
 				reader: "allow",
 				player: "allow",
@@ -81,7 +75,7 @@ The file itself contains the list of domains, with the protocols the domains sup
 
 The domain name is given as the top-level key. 
 
-Its value contains an object with keys equal to protocol names and values listing the tags associated with the domain-protocol pair. Type within a protocol is at the bottom of hierarchy, followed by the list of QA Results as a list of tags.
+Its value contains an object with keys equal to protocol names and values listing the tags associated with the domain-protocol pair. Type within a protocol is at the bottom of hierarchy, followed by the list of QA results as a list of tags.
 
 If the protocol is not supported by the domain, the value of `domain.protocol` will be `null`. If we did not test the domain yet, `domain` will be `null`. If domain does not support specific type on the protocol, then `domain.protocol.type` will be null.
 
@@ -89,7 +83,7 @@ The basic and most important values in tags list are:
  - `"allow"` - means the domain-protocol is whitelisted
  - `"deny"` - indicates that domain-protocol does not provide reliable or expected user experience
 
-`date` value for the domain gives the date when this domain was last updated with the test results. You may opt to ignore test results that are not recent enough for your needs. 
+`date` value for the domain gives the date when this domain was last updated with the test results. The format is the number of milliseconds since 1970/01/01. You may opt to ignore test results that are not recent enough for your needs. 
 
 
 ## Choosing proper domain object
@@ -112,19 +106,16 @@ Please, note that `www.domain.com` and `domain.com` are the same in most cases. 
 
 ## Protocols
 
-Iframely QA is being done on the following protocols and types:
+Iframely QA team tests the following protocols and types:
 
  - `iframely` is for Iframely protocol ([see spec](https://iframely.com/oembed2)) types:
   - player
   - reader
   - image 
-  - survey
-  - thumbnail
-  - logo
+  - survey  
  - `oembed` is for [oEmbed](http://oembed.com) types:
   - video 
   - photo
-  - link
   - rich
  - `og` is for Facebook [Open Graph](http://ogp.me) types. However, we only test video type.
  - `twitter` is for [Twitter Cards](https://dev.twitter.com/docs/cards):
@@ -136,7 +127,7 @@ Please, note, that Twitter's photo card allows the fallback onto `og:image` if `
 
 
 
-## QA Result Tags: `allow` or `deny`
+## QA result tags: `allow` or `deny`
 
 The basic and most important values in tags list are:
  - `"allow"` - means the domain-protocol is whitelisted
@@ -156,6 +147,10 @@ You can see it in following protocol-type combinations: `oembed video`, `og vide
 For `oembed video`, this tag also means that you need to extract the value of attribute `src` of an `<iframe>` within `html` code (and we only assign this tag for oembed html with iframes in it).
 
 
+### Additional `html5` tag
+
+If the media works on mobile, there should be `html5` flag, which will be proxied in API responses.
+
 ### Additional `ssl` tag
 
 If `https` is the transport protocol of frames in embed code, we verify that the SSL certificate is valid and does not generate browser errors on load and does not break the lock of the browser. Passive mixed content browser warnings when the video or audio starts to play may still occur.
@@ -174,7 +169,3 @@ Most of `og video` implementations come with `autoplay`.
 
 For `oembed link` and `oembed rich` we add tag `reader`, in case the `html` actually contains the complete article. oEmbed spec does not include article types, and so many publishers (WordPress in particular) provider `link` and `rich` types instead.
 
-
-### More to come
-
-Please, stay tuned as we have plans to add more tags in our test runs. Follow [@iframely](https://twitter.com/iframely) to get the updates.
