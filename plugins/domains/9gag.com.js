@@ -25,11 +25,13 @@ module.exports = {
 
             if ($raw_image.attr('data-mp4')) {
 
+                var $isVid = cheerio('[data-image] .badge-video-duration');
+
                 // ok, use MP4 for new gifvs or original gif image for older (pre-gifv) posts
                 return {
-                    href: $raw_image.attr('data-mp4').replace(/^https?:/, ''),
+                    href: $raw_image.attr('data-mp4'),
                     type: CONFIG.T.video_mp4,
-                    rel: [CONFIG.R.player, CONFIG.R.gifv],
+                    rel: $isVid.length ? [CONFIG.R.player, CONFIG.R.promo] : [CONFIG.R.player, CONFIG.R.gifv, CONFIG.R.promo],
                     'aspect-ratio': gag_aspect
                 };
 
@@ -78,6 +80,7 @@ module.exports = {
     },
         "http://9gag.com/gag/5500821",
         "http://9gag.com/gag/arK0nWB", // gifv
-        "http://9gag.com/gag/amzozZy"  // gifv
+        "http://9gag.com/gag/amzozZy",  // gifv
+        "https://9gag.com/gag/abzb40E" // vid
     ]
 };
