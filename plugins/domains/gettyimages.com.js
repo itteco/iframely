@@ -73,7 +73,9 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://www.gettyimages.ca/detail/photo/reflection-of-trees-high-res-stock-photography/103260792",
         "http://www.gettyimages.com/detail/illustration/pizza-icons-white-series-royalty-free-illustration/185819032",
         "http://www.gettyimages.de/detail/nachrichtenfoto/sylvie-meis-and-daniel-hartwich-attend-the-8th-show-of-nachrichtenfoto/493388593",

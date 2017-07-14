@@ -19,7 +19,9 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://elections.huffingtonpost.com/pollster/2016-florida-presidential-republican-primary",
         "http://elections.huffingtonpost.com/pollster/2016-national-gop-primary",
         "http://elections.huffingtonpost.com/pollster/2016-general-election-trump-vs-clinton",

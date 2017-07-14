@@ -16,7 +16,10 @@ module.exports = {
             };
     },
 
-    tests: [
+    tests: [{
+        page: "http://globalnews.ca/national/videos/",
+        selector: "a.video-thumb"
+    },
         "http://globalnews.ca/video/1915279/red-wings-forward-drew-miller-gets-slashed-in-face-on-ice"
     ]
 };

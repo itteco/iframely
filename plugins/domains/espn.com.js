@@ -20,7 +20,9 @@ module.exports = {
         };
     },
 
-    tests: [
+    tests: [{
+        noFeeds: true
+    },
         "http://www.espn.com/video/clip?id=espn:14780138",
         "http://espn.go.com/video/clip?id=13328484",
         "http://xgames.espn.com/xgames/video/13380522/real-moto-drake-mcelroy",

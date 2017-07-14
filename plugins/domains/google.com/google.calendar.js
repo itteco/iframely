@@ -15,5 +15,9 @@ module.exports = {
     	}
     },
 
-    tests: ['https://calendar.google.com/calendar/embed?src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com&ctz=America/Toronto']
+    tests: [{
+		noFeeds: true
+	},
+		'https://calendar.google.com/calendar/embed?src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com&ctz=America/Toronto'
+	]
 };    
