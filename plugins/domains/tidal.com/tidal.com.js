@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:listen\.)?tidal\.com\/(album|track|video)\/(\d+)/i
+        /^https?:\/\/(?:listen\.)?tidal\.com\/(album|track|video)\/(\d+)/i,
+        /^https?:\/\/(?:listen\.)?tidal\.com\/(playlist)\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: ["*"],
@@ -38,6 +39,7 @@ module.exports = {
         "http://tidal.com/track/61554642",
         "https://listen.tidal.com/album/64979423",
         "http://tidal.com/track/61757248",
-        "https://tidal.com/video/59727844"
+        "https://tidal.com/video/59727844",
+        "https://listen.tidal.com/playlist/6a230741-f052-49f1-99aa-d8845e581c2e"
     ]
 };

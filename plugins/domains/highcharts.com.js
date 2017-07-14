@@ -19,10 +19,15 @@ module.exports = {
         };
     },
 
+    getData: function(meta, cb) {
+        return cb(meta.twitter || meta.og ? null : {responseStatusCode: 404});
+    },
+
     tests: [
         "https://cloud.highcharts.com/show/uqykon",
         "https://cloud.highcharts.com/show/equrij",
         "https://cloud.highcharts.com/show/ifihuh"
+        // n/a http://cloud.highcharts.com/show/ebanol/3
     ]
 
 };

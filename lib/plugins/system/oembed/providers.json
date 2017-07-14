@@ -56,7 +56,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document)/(.*)"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document|embeds)/(.*)"
         ],
         "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
@@ -293,6 +293,27 @@
         ],
         "endpoint": "http://video.yandex.ru/oembed.{format}"
     },
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/album/(\\d+)/track/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}&track={2}"
+    },    
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/track/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?track={1}"
+    },
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/album/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}"
+    },    
     {
         "name": "qz.com",
         "templates": [
