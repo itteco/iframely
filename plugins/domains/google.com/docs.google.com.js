@@ -30,13 +30,18 @@ module.exports = {
 
     },
 
-    getLink: function(urlMatch, schemaFileObject) {
+    getLink: function(urlMatch, schemaFileObject, options) {
+        var href;
 
-        if (schemaFileObject.embedURL || schemaFileObject.embedUrl) {
+        if (urlMatch[1] !== 'file' && options.getProviderOptions('google.editableDocs')) href = schemaFileObject.url;
+
+        if (!href) href = schemaFileObject.embedURL || schemaFileObject.embedUrl;
+
+        if (href) {
 
             var file = {
                 rel: [CONFIG.R.file, CONFIG.R.html5],
-                href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
+                href: href,
                 type: CONFIG.T.text_html
             };
 
