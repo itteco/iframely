@@ -2,8 +2,8 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:renderer|preview)\.qmerce\.com\/interaction\/([a-z0-9]+)/i,
-        /^https?:\/\/(?:discover\.)?apester\.com\/media\/([a-z0-9]+)/i,        
-        /^https?:\/\/app\.apester\.com\/editor\/([a-z0-9]+)/i        
+        /^https?:\/\/(?:discover|www)?\.?apester\.com\/media\/([a-z0-9]+)/i,
+        /^https?:\/\/app\.apester\.com\/editor\/([a-z0-9]+)/i     
     ],
 
     mixins: ['*'],
@@ -14,7 +14,7 @@ module.exports = {
 
         // need to detect the height
         request({
-            uri: "http://preview.qmerce.com/api/interaction/" + urlMatch[1],
+            uri: "http://renderer.qmerce.com/api/interaction/" + urlMatch[1],
             json: true,
             prepareResult: function(error, response, body, cb) {
 
@@ -41,7 +41,7 @@ module.exports = {
             height: qmerce.data.size ? qmerce.data.size.height  : 400 // when "undefined" - no way to check the height :\
         }];
 
-        if (!/^https?:\/\/(?:discover)\.apester\.com\/media\/([a-z0-9]+)/i.test(url)) {
+        if (!/^https?:\/\/(?:discover|www)?\.?apester\.com\/media\/([a-z0-9]+)/i.test(url)) {
             links.push ({
                 href: qmerce.image && qmerce.image.path && ('http://images.apester.com/' + qmerce.image.path.replace (/\//g, '%2F')),
                 type: CONFIG.T.image,
@@ -70,6 +70,7 @@ module.exports = {
         "https://preview.qmerce.com/interaction/562a434547771a99601c3626",
         "http://renderer.qmerce.com/interaction/562146b041d4754d14603b18",
         "http://renderer.qmerce.com/interaction/569388818089e8dd05aff3a8",
-        "https://apester.com/media/5875af23122b4b812e143731?src=link"
+        "https://apester.com/media/5875af23122b4b812e143731?src=link",
+        "http://www.apester.com/media/597e72726f3d040c0fa9087b"
     ]
 };
