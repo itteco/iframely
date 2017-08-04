@@ -29,7 +29,7 @@ module.exports = {
         
 
         var urlMatch = video_src.match(/^https?:\/\/link\.brightcove\.(?:com|co\.jp)\/services\/player\/bcpid(\d+)\/?\?/i)
-                    || video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i);
+                    || video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i);
 
 
         if (urlMatch) {

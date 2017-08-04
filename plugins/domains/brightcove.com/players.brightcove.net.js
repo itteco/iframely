@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i
+        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i
     ],
 
     mixins: [
