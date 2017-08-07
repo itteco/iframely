@@ -19,7 +19,7 @@ module.exports = {
     },
 
     tests: [{
-        noFeed: true
+        noFeeds: true
     },
         "http://www.espnfc.com/english-premier-league/23/video/2941397",
         "http://www.espnfc.com/international-friendly/53/video/3173945/chapecoense-survivor-to-return-vs-barca",
