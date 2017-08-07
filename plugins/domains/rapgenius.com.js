@@ -7,10 +7,11 @@ module.exports = {
         "*"
     ],
 
-    getLinks: function(urlMatch, twitter) {
-        var id = twitter.app.url.iphone.match(/\d+/)[0];
+    getLinks: function(urlMatch, meta) {
 
-        if (id) {
+        if (/\d+/.test(meta['newrelic-resource-path'])) {
+
+            var id = meta['newrelic-resource-path'].match(/\d+/)[0];
 
             return {
                 html: '<div id="rg_embed_link_' + id + '" class="rg_embed_link" data-song-id="' + id + '"></div><script src="//genius.com/songs/' + id + '/embed.js?dark=1"></script>',

@@ -14,7 +14,7 @@ module.exports = {
             html: "<div id='highcharts-" + urlMatch[1] + "'><script src='//cloud.highcharts.com/inject/" + urlMatch[1] + "' defer='defer'></script></div>",
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl],
-            // leave then not inline - otherwise they are not responsive on load
+            // leave them not inline - otherwise they are not responsive on load
             // height: 500
         };
     },
@@ -23,10 +23,11 @@ module.exports = {
         return cb(meta.twitter || meta.og ? null : {responseStatusCode: 404});
     },
 
-    tests: [
+    tests: [{skipMethods: ["getData"]},
         "https://cloud.highcharts.com/show/uqykon",
         "https://cloud.highcharts.com/show/equrij",
-        "https://cloud.highcharts.com/show/ifihuh"
+        "https://cloud.highcharts.com/show/ifihuh",
+        "http://cloud.highcharts.com/show/akijequ"
         // n/a http://cloud.highcharts.com/show/ebanol/3
     ]
 

@@ -1,14 +1,9 @@
 module.exports = {
 
-    re: /^https?:\/\/angel\.co\/(?!jobs)([a-z0-9\-]+)/i,
+    re: /^https?:\/\/angel\.co\/(?!jobs)([a-zA-Z0-9\-]+)$/i,
 
     mixins: [
-        "keywords",
-        "favicon",
-        "twitter-title",
-        "twitter-image",
-        "twitter-description",
-        "canonical"
+        "*"
     ],
 
     getLink: function(urlMatch, twitter) {
@@ -35,10 +30,7 @@ module.exports = {
         }
     },
 
-    tests: [{
-        page: "https://angel.co/developer/jobs",
-        selector: ".job>.title>a"
-    },
-        "https://angel.co/earny/jobs"
+    tests: [
+        "https://angel.co/iframely"
     ]
 };

@@ -49,25 +49,15 @@ module.exports = {
     },
 
     getLink: function(getty) {
-
-
-        var $container = $('<div>');
-        try {
-            $container.html(getty.embedTag);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-
-        // if embed code contains <iframe>, return src
-        if ($iframe.length == 1) {
+        
+        if (getty.width && getty.height) {
             
             return {
-                href: $iframe.attr('src'),
+                html: getty.embedTag,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.image, CONFIG.R.html5],
-                "aspect-ratio": $iframe.attr('width') / $iframe.attr('height'),
-                "max-width": $iframe.attr('width')
+                rel: [CONFIG.R.image, CONFIG.R.inline, CONFIG.R.html5],
+                "aspect-ratio": getty.width / getty.height,
+                "max-width": getty.width
             };
 
         }

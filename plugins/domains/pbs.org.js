@@ -3,6 +3,7 @@ module.exports = {
     //http://video.pbs.org/video/1863101157/    
     re: [
         /^https?:\/\/www\.pbs\.org\/video\/(\d+)\//i,
+        /^https?:\/\/www\.pbs\.org\/video\/([a-zA-Z0-9\-]+)\//i,        
         /^https?:\/\/video\.pbs|[a-zA-Z]+\.org\/video\/(\d{8,12})\/?$/i // + Powered by PBS
     ],
 
@@ -13,19 +14,26 @@ module.exports = {
         if (!meta.twitter || meta.twitter.site !== "@PBS") {
             return;
         }
-        
-        return {
-            href: "//player.pbs.org/viralplayer/"+ urlMatch[1],        
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": 16/9,
-            "padding-bottom": 90,
-            "max-width": 953
-        };
+
+        var vid = /^\d+$/.test(urlMatch[1]) ? urlMatch[1] : 
+            (meta.og && /^https?:\/\/www\.pbs\.org\/video\/(\d+)\//i.test(meta.og.url) ?
+            meta.og.url.match(/^https?:\/\/www\.pbs\.org\/video\/(\d+)\//i)[1] : null);
+
+        if (vid) {        
+            return {
+                href: "//player.pbs.org/viralplayer/" + vid, 
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                "aspect-ratio": 16/9,
+                "padding-bottom": 90,
+                "max-width": 953
+            }
+        }
     },
 
     tests: [
         "http://video.pbs.org/video/1863101157/",
+        "http://www.pbs.org/video/frontline-college-inc/",
         "http://video.wmht.org/video/2365159854/",
         "http://video.valleypbs.org/video/2365156636/",
         "http://video.indianapublicmedia.org/video/2365148408/",
