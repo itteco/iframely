@@ -37,15 +37,15 @@ module.exports = {
 
         // File description.
         var $p = cheerio('.description');
-        if ($p.length) {
+        if ($p.length === 1) {
             // Remove language label.
             $p.find('.language').remove();
         } else {
-            // Article first paragraph.
-            $p = cheerio('#mw-content-text>p');
+            // Article first paragraph.            
+            $p = cheerio('.mw-parser-output>p');
         }
         if ($p.length) {
-            result.description = decode(cheerio($p[0]).text());
+            result.description = decode(cheerio($p[0]).text()).replace(/\[\d+\]/g, '');
         }
 
         return {
