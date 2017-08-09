@@ -20,12 +20,10 @@ module.exports = {
         if (trackingGroup && videoId) {
 
             return [{                
-                href: '//launch.newsinc.com/embed.html?type=VideoPlayer/Single&widgetId=2&trackingGroup=' + trackingGroup + '&videoId=' + videoId + (siteSection ? '&siteSection=ndn' + siteSection : ''),
-                        // embed code in player lists `widegtId=1`, but that one autoplays and no thumbnail available
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": 16 / 9,
-                scrolling: 'no'
+                href: 'http://image.newsinc.com/' + videoId + '.sfxl.jpg',
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+                // let validator check it + add sizes
             }, {                
                 href: '//launch.newsinc.com/embed.html?type=VideoPlayer/Single&widgetId=1&trackingGroup=' + trackingGroup + '&videoId=' + videoId + (siteSection ? '&siteSection=ndn' + siteSection : ''),
                         // embed code in player lists `widegtId=1`, but that one autoplays and no thumbnail available
