@@ -2,6 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:renderer|preview)\.qmerce\.com\/interaction\/([a-z0-9]+)/i,
+        /^https?:\/\/(?:renderer|preview)\.apester\.com\/interaction\/([a-z0-9]+)/i,
         /^https?:\/\/(?:discover|www)?\.?apester\.com\/media\/([a-z0-9]+)/i,
         /^https?:\/\/app\.apester\.com\/editor\/([a-z0-9]+)/i     
     ],
@@ -35,7 +36,7 @@ module.exports = {
 
     getLink: function(qmerce, url, urlMatch) {
         var links = [{
-            href: '//renderer.qmerce.com/interaction/' + urlMatch[1],
+            href: '//renderer.apester.com/interaction/' + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.html5],
             height: qmerce.data.size ? qmerce.data.size.height  : 400 // when "undefined" - no way to check the height :\
@@ -71,6 +72,7 @@ module.exports = {
         "http://renderer.qmerce.com/interaction/562146b041d4754d14603b18",
         "http://renderer.qmerce.com/interaction/569388818089e8dd05aff3a8",
         "https://apester.com/media/5875af23122b4b812e143731?src=link",
-        "http://www.apester.com/media/597e72726f3d040c0fa9087b"
+        "http://www.apester.com/media/597e72726f3d040c0fa9087b",
+        "https://renderer.apester.com/interaction/599553f5365115dd1c6b36cf"
     ]
 };
