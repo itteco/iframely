@@ -7,12 +7,7 @@ module.exports = {
     ],    
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "description",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
     getLink: function(url, urlMatch, options) {

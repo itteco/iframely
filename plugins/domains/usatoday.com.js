@@ -50,7 +50,6 @@ module.exports = {
         "http://www.courier-journal.com/videos/sports/college/kentucky/2015/08/17/31862551/",
         "http://www.newarkadvocate.com/videos/sports/high-school/football/2015/08/15/31789999/",
         "http://www.citizen-times.com/videos/news/2015/08/17/31865067/",
-        "http://www.bucyrustelegraphforum.com/videos/news/2015/08/15/31799953/",
         "http://www.sctimes.com/videos/weather/2015/08/17/31839437/",
         "http://www.baxterbulletin.com/videos/news/local/2015/08/17/31843911/",
         "http://www.delmarvanow.com/videos/sports/high-school/2015/08/18/31933549/",

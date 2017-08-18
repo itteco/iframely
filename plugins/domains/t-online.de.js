@@ -24,7 +24,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.t-online.de/tv/stars/vip-spotlight/id_58647502/sexy-bilder-stars-im-bikini.html?vid=ap",
         "http://www.t-online.de/-/id_81361574/",
         "http://www.t-online.de/nachrichten/deutschland/militaer-verteidigung/id_81164408/bundeswehr-von-der-leyen-will-kasernen-umbenennen.html"
     ]
