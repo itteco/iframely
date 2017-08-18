@@ -55,7 +55,7 @@ module.exports = {
             return {
                 html: getty.embedTag,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.image, CONFIG.R.inline, CONFIG.R.html5],
+                rel: [CONFIG.R.image, CONFIG.R.inline, CONFIG.R.html5, CONFIG.R.ssl],
                 "aspect-ratio": getty.width / getty.height,
                 "max-width": getty.width
             };
