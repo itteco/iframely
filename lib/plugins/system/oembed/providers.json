@@ -391,6 +391,14 @@
         "endpoint": "http://polldaddy.com/oembed/"
     },
     {
+        "name": "Polleverywhere",
+        "templates": [
+            "polleverywhere\\.com/.*",
+            "pollev\\.com/.*"
+        ],
+        "endpoint": "https://www.polleverywhere.com/services/oembed.{format}"        
+    },    
+    {
         "name": "Meetup",
         "templates": [
             "www\\.meetup\\.com/.*"
