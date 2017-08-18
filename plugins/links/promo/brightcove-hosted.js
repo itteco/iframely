@@ -39,9 +39,9 @@ module.exports = {
             };
         }
 
-        if (/^https?:\/\/(?:c|secure)\.brightcove\.(?:com|co\.jp)\/services\/viewer\/federated_f9\/?/i.test(video_src)) {
+        if (/^https?:\/\/(?:c|secure)\.brightcove\.(?:com|co\.jp)\/services\/viewer\/federated_f9\/?/i.test(video_src)) {            
             var playerID = video_src.match(/playerID=([^&]+)/i);
-            var videoID = video_src.match(/videoID=([^&]+)/i); // some have `Id` for some reason
+            var videoID = video_src.match(/video(?:ID|Player)?=([^&]+)/i); // some have `Id` for some reason
 
             if (playerID && videoID) {
 
@@ -60,4 +60,5 @@ module.exports = {
 
     // http://archive.jsonline.com/multimedia/video/?bctid=5047519850001&bctid=5047519850001 - new HTML 5 players
     // http://www.servustv.com/de/Medien/Frances-Ha - custom twitter, bug og brightcove
+    // http://carnaval.lavozdigital.es/noticias/2017-02-15/asi-prepara-comparsa-los-equilibristas-para-pase-cuartos-coac-2017-20170215.html
 };

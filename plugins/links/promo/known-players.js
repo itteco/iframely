@@ -109,11 +109,12 @@ module.exports = {
         }
 
         // or brightcove
-        urlMatch = video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i);
+        urlMatch = video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i) ||
+                   video_src.match(/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i);
 
         if (urlMatch) {
             return {
-                __promoUri: video_src + '&autoplay=true'
+                __promoUri: video_src + (!/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i.test(video_src) ? '&autoplay=true': '')
             };
         }
 
