@@ -5,7 +5,11 @@ module.exports = {
     mixins: [
         "domain-icon",
         "oembed-site",
-        "html-title"
+        "canonical",
+        "author",
+        "html-title",
+        "og-image",
+        "og-description"
     ],
 
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
