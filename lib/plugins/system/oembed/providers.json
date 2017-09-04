@@ -425,9 +425,9 @@
     {
         "name": "Ted",
         "templates": [
-            "ted\\.com/talks/.*"
+            "ted\\.com/talks/([a-zA-Z0-9-_]+)"
         ],
-        "endpoint": "http://www.ted.com/talks/oembed.{format}"
+        "endpoint": "http://www.ted.com/services/v1/oembed.{format}?url=https://ted.com/talks/{1}"        
     },
     {
         "name": "Codepen",

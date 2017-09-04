@@ -1,4 +1,5 @@
-var cheerio = require('cheerio');
+const cheerio = require('cheerio');
+const URL = require("url");
 
 module.exports = {
 
@@ -16,7 +17,7 @@ module.exports = {
         "oembed-title"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, url, options) {
 
         var $container = cheerio('<div>');
         try {
@@ -25,13 +26,15 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-
-        // iframe is with ".html" which re-directs to http://* w/o ".html". = bye-bye SSL.
         if ($iframe.length == 1) {
+
+            var query = URL.parse(url,true).query;
+            var lang = query.language || query.nolanguage || (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, ''));
+
             return {
                 type: CONFIG.T.text_html, 
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: $iframe.attr('src').replace(/\.html$/i, ''),
+                href: lang ? $iframe.attr('src').replace(/\/lang\/\w+\//i, '/').replace(/\/talks\//i, '/talks/lang/' + lang.toLowerCase() + '\/') : $iframe.attr('src'),
                 "aspect-ratio": oembed.width / oembed.height
             }
         }
