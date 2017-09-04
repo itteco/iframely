@@ -1,64 +1,65 @@
 {
-    "name": "iframely",
-    "version": "1.1.0",
-    "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
-    "keywords": [
-        "oembed",
-        "embed",
-        "open graph",
-        "og",
-        "twitter cards"
-    ],
-    "homepage": "http://iframely.com",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/itteco/iframely.git"
-    },
-    "bugs": {
-        "url": "https://github.com/itteco/iframely/issues"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "async": "2.4.1",
-        "cheerio": "0.22.0",
-        "chokidar": "1.7.0",
-        "ejs": "2.3.4",
-        "entities": "1.1.1",
-        "express": "^4.15.3",
-        "graceful-cluster": "0.0.3",
-        "htmlparser2": "3.9.2",
-        "http-parser-js": "^0.4.5",
-        "iconv-lite": "0.4.17",
-        "imagesize": "1.0.0",
-        "jslint": "0.8",
-        "jsontoxml": "0.0.11",
-        "memcached": "2.2.2",
-        "moment": "2.18.1",
-        "node-cache": "1.*",
-        "parse-iso-duration": "1.0.0",
-        "readabilitySAX": "1.6.1",
-        "redis": "2.7.1",
-        "request": "2.81.0",
-        "sax": "1.2.2",
-        "send": "0.15.3",
-        "underscore": "1.8.3"
-    },
-    "devDependencies": {
-        "vows": "0.7.0",
-        "feedparser": "2.2.0",
-        "mongoose": "4.10.5",
-        "chai": "^3.5.0",
-        "mocha": "^3.1.2",
-        "mock-http-server": "0.0.4",
-        "supertest": "^2.0.0"
-    },
-    "iframely-proxy-plugins": true,
-    "main": "./lib/core",
-    "scripts": {
-        "test": "vows test/main.js --isolate --spec && npm run test-e2e",
-        "test-e2e": "NODE_ENV=test PORT=8080 mocha test"
-    },
-    "engines": {
-        "node": ">=0.10.21"
-    }
+  "name": "iframely",
+  "version": "1.1.0",
+  "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
+  "keywords": [
+    "oembed",
+    "embed",
+    "open graph",
+    "og",
+    "twitter cards"
+  ],
+  "homepage": "http://iframely.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itteco/iframely.git"
+  },
+  "bugs": {
+    "url": "https://github.com/itteco/iframely/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "async": "2.4.1",
+    "body-parser": "^1.17.2",
+    "cheerio": "0.22.0",
+    "chokidar": "1.7.0",
+    "ejs": "2.3.4",
+    "entities": "1.1.1",
+    "express": "^4.15.3",
+    "graceful-cluster": "0.0.3",
+    "htmlparser2": "3.9.2",
+    "http-parser-js": "^0.4.5",
+    "iconv-lite": "0.4.17",
+    "imagesize": "1.0.0",
+    "jslint": "0.8",
+    "jsontoxml": "0.0.11",
+    "memcached": "2.2.2",
+    "moment": "2.18.1",
+    "node-cache": "1.*",
+    "parse-iso-duration": "1.0.0",
+    "readabilitySAX": "1.6.1",
+    "redis": "2.7.1",
+    "request": "2.81.0",
+    "sax": "1.2.2",
+    "send": "0.15.3",
+    "underscore": "1.8.3"
+  },
+  "devDependencies": {
+    "vows": "0.7.0",
+    "feedparser": "2.2.0",
+    "mongoose": "4.10.5",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "mock-http-server": "0.0.4",
+    "supertest": "^2.0.0"
+  },
+  "iframely-proxy-plugins": true,
+  "main": "./lib/core",
+  "scripts": {
+    "test": "vows test/main.js --isolate --spec && npm run test-e2e",
+    "test-e2e": "NODE_ENV=test PORT=8080 mocha test"
+  },
+  "engines": {
+    "node": ">=0.10.21"
+  }
 }
