@@ -16,8 +16,9 @@ module.exports = {
             return cb();
         }
 
-        var options2 = _.extend({}, options, {debug: false});
+        var options2 = _.extend({}, options, {debug: false, mixAllWithDomainPlugin: false});
         delete options2.promoUri;
+        delete options2.jar;
 
         core.run(promoUri, options2, function(error, data) {
             cb(error, {
