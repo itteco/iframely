@@ -1,4 +1,5 @@
-FROM node:5.8
+#FROM node:5.8
+FROM arm64v8/node:6.11.2
 
 EXPOSE 8061
 
