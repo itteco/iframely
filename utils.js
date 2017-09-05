@@ -105,7 +105,8 @@
 
         var query = urlObj.query;
         var postUrls = req.body.urls
-        postUrls.sort()
+        if(postUrls)
+          postUrls.sort()
 
         delete query.refresh;
 
