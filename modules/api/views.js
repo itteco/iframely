@@ -8,7 +8,7 @@ var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var jsonxml = require('jsontoxml');
-var bodyParser = require('body-parser')
+
 
 function prepareUri(uri) {
 
@@ -470,9 +470,7 @@ module.exports = function(app) {
       })
     }
 
-    var jsonParser = bodyParser.json()
-
-    app.post('/oembed.bulk',jsonParser,function(req, res, next) {
+    app.post('/oembed.bulk',function(req, res, next) {
 
         if (!req.body.urls || req.body.urls.length==0) {
               return next(new Error("'urls' post param expected"));

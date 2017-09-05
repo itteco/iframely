@@ -1,4 +1,5 @@
 var sysUtils = require('./utils');
+var bodyParser = require('body-parser')
 
 console.log("");
 console.log("Starting Iframely...");
@@ -35,7 +36,7 @@ app.use(function(req, res, next) {
   res.setHeader('X-Powered-By', 'Iframely');
   next();
 });
-
+app.use(bodyParser.json());
 app.use(sysUtils.cacheMiddleware);
 
 
@@ -122,16 +123,16 @@ function errorHandler(err, req, res, next) {
     }
     else if (code === 404) {
       respondWithError(req, res, 404, 'Not found');
-    }    
+    }
     else if (code === 410) {
       respondWithError(req, res, 410, 'Gone');
     }
     else if (code === 415) {
       respondWithError(req, res, 415, 'Unsupported Media Type');
-    } 
+    }
     else if (code === 417) {
       respondWithError(req, res, 417, 'Unsupported Media Type');
-    }    
+    }
     else {
       respondWithError(req, res, code, 'Server error');
     }
