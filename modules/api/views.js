@@ -426,11 +426,11 @@ module.exports = function(app) {
     let processUrlOEmbed = (req,url,cb) => {
         var uri = prepareUri(url);
         if (!uri) {
-            return cb({url:url,error:"empty url"});
+            return cb({url:url,error:"empty url",error_code:"EMPTYURI"},null);
         }
 
         if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
-            return cb({url:url,error:"local domains not supported"});
+            return cb({url:url,error:"local domains not supported",error_code:"LOCALDOMAIN"},null);
         }
 
         log(req, 'Loading /oembed for', uri);
@@ -451,7 +451,7 @@ module.exports = function(app) {
         ], function(error, result) {
 
             if (error) {
-                return cb({url:url,error:error},null)
+                return cb({url:url,error:error,error_code:error.code || error},null)
             }
 
             iframelyCore.sortLinks(result.links);
@@ -466,7 +466,8 @@ module.exports = function(app) {
                 mediaPriority: getBooleanParam(req, 'media'),
                 omit_css: getBooleanParam(req, 'omit_css')
             });
-            cb(null,{url,oembed})
+            oembed.url = url
+            cb(null,oembed)
       })
     }
 
@@ -484,7 +485,7 @@ module.exports = function(app) {
           let [errors,results] = _.partition(result,(r) => r.error)
           let errorUrls = _.pluck(errors,'error')
           let resultUrls = _.pluck(results,'value')
-          let response = {errors:errorUrls,results:resultUrls}
+          let response = errorUrls.concat(resultUrls)
           res.jsonpCached(response);
         });
 
