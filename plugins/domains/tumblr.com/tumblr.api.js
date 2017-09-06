@@ -25,8 +25,9 @@ module.exports = {
             canonical: tumblr_post.permalink_url || tumblr_post.post_url,
             tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
             shortlink: tumblr_post.short_url,
-            date: tumblr_post.timestamp * 1000,
-            duration: tumblr_post.duration
+            date: tumblr_post.date,
+            duration: tumblr_post.duration,
+            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? $('<div>').html(tumblr_post.body).find('p').first().text() : null
         };
     },
 

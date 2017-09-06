@@ -22,13 +22,13 @@ module.exports = {
         }
 
         var $post = $('<div>').html(tumblr_post.body);
-        var $images = $post.find('img');
+        var $image = $post.find('img').first();
 
-        if ($images.length ) {
+        if ($image ) {
                         // Could be more than 1 image, true. 
             return {    // But the response time will be unacceptable as post-processing will check alll image sizes.
-                href: $images.attr('src'),
-                title: $images.attr('alt'),
+                href: $image.attr('src'),
+                title: $image.attr('alt'),
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
             };
@@ -48,15 +48,12 @@ module.exports = {
         return {
             safe_html: tumblr_post.body || tumblr_post.caption
         };
-    }
+    },
 
-    /* Skipping tests not to fail them with disabled readability 
-    tests: [
+    tests: [{skipMethod: "getData"},
         "http://asimpleweirdlass.tumblr.com/post/58054585454/nakakatakot-kanina-ang-dilim-sa-street-tapos",
         "http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more",
-        "http://pin.it/gotOeRU",
         "http://blog.path.com/post/76550009909/stickers-xoxo-and-valentines",
         "http://blog.slides.com/post/84828911898/slides-turns-one-year-old"
     ]
-    */
 };
