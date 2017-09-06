@@ -466,7 +466,7 @@ module.exports = function(app) {
                 mediaPriority: getBooleanParam(req, 'media'),
                 omit_css: getBooleanParam(req, 'omit_css')
             });
-            cb(null,oembed)
+            cb(null,{url,oembed})
       })
     }
 
