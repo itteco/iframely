@@ -196,8 +196,8 @@ describe('meta endpoint', function() {
           chai.expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
-              code: 418,
-              message: 'Server error'
+              code: 417,
+              message: 'Unsupported Media Type'
             }
           });
           done(err);
