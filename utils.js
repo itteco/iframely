@@ -104,7 +104,8 @@
         var urlObj = urlLib.parse(req.url, true);
 
         var query = urlObj.query;
-        var postUrls = req.body.urls
+        //use slice to generate a copy of array so sort doesnt modify the original
+        var postUrls = req.body.urls.slice(0)
         if(postUrls)
           postUrls.sort()
 
