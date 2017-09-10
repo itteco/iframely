@@ -466,7 +466,9 @@ module.exports = function(app) {
                 mediaPriority: getBooleanParam(req, 'media'),
                 omit_css: getBooleanParam(req, 'omit_css')
             });
-            oembed.url = url
+            if(!oembed.url)
+              oembed.url = url
+            oembed.orgUrl = url
             cb(null,oembed)
       })
     }
@@ -482,10 +484,7 @@ module.exports = function(app) {
           if (err) {
               return handleIframelyError(error, res, next);
           }
-          let [errors,results] = _.partition(result,(r) => r.error)
-          let errorUrls = _.pluck(errors,'error')
-          let resultUrls = _.pluck(results,'value')
-          let response = errorUrls.concat(resultUrls)
+          let response = _.map(result,r => r.error || r.value)
           res.jsonpCached(response);
         });
 
