@@ -105,9 +105,13 @@
 
         var query = urlObj.query;
         //use slice to generate a copy of array so sort doesnt modify the original
-        var postUrls = req.body.urls.slice(0)
-        if(postUrls)
-          postUrls.sort()
+        var postUrls = []
+        if(req.body & req.body.urls)
+        {
+          postUrls = req.body.urls.slice(0)
+          if(postUrls)
+            postUrls.sort()
+        }
 
         delete query.refresh;
 
