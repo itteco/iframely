@@ -1,3 +1,8 @@
+# Knil Version
+ - /oembed.bulk Post end point to process upto 10 urls in async
+ - fix to include unshortened final url
+ - fix to use oemebed type if available (didnt work for facebook videos)
+ 
 # Iframely API for Responsive Web Embeds
 
 This is the self-hosted version of Iframely's APIs and parsers. 
