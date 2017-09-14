@@ -331,7 +331,8 @@
     {
         "name": "Mixcloud",
         "templates": [
-            "www\\.mixcloud\\.com/.+/.+/.*"
+            "www\\.mixcloud\\.com/.+/.+/.*",
+            "www\\.mixcloud\\.com/.+"
         ],
         "endpoint": "http://www.mixcloud.com/oembed/"
     },
