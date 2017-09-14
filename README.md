@@ -1,8 +1,10 @@
 # Iframely API for Responsive Web Embeds
 
-Iframely is fast and simple HTTP API for responsive web embeds and semantic meta. The API covers well [over 1800 domains](https://iframely.com/domains) through 200 custom domain plugins and generic parsers for [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards), powered by Iframely's whitelist. 
+This is the self-hosted version of Iframely's APIs and parsers. 
 
-The whitelist file is pulled from iframely.com and is updated automatically. You can also [have your own whitelist](https://iframely.com/docs/whitelist-format) file. The whitelisting is manual process, and we do every-day manual regression testing to ensure integrity. [Submit your domain](https://iframely.com/qa/request), if you publish embeds.
+Iframely gives your fast and simple API for responsive web embeds and semantic meta. The parsers cover well [over 1800 domains](https://iframely.com/domains) through 200+ custom domain plugins and generic support for [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards), that are powered by Iframely's whitelist. 
+
+The whitelist file is pulled from iframely.com database and is updated automatically. You can also [have your own whitelist](https://iframely.com/docs/whitelist-format) file. The whitelisting is manual process on our end.
 
 HTTP API are available as [oEmbed](https://iframely.com/docs/oembed-api) or [Iframely API](https://iframely.com/docs/iframely-api) formats. To make it simple to understand, Iframely format mimics the `<head>` section of the page with its `meta` and `links` elements.
 
@@ -11,20 +13,29 @@ In response to `url` request, APIs returns you the embeds and meta for a request
 - [>> Here’s API call for Coub video](http://iframe.ly/ACcM3Y.json)
 - [>> Same one, but as oEmbed](http://iframe.ly/ACcM3Y.oembed)
 
-Iframely can also be used as Node.js library. 
+Iframely can also be used as Node.js library (that's how it is used in our [cloud API](https://iframely.com)). 
 
 Requires Node version 0.10.22 and up. 
+
+
+## Not included as compared with Cloud API
+
+Hosted [cloud APIs](https://iframely.com) add optional iFrame renders and number of widgets such as cards, GIF support, AMP, and others. This open-source version provides the web parsers only, though hosted API uses data from parsers as data as-is. The API endpoints between the version should match format pretty closely, though there might be minor discrepancies.
+
+There's also a bunch of domain parsers that are not included in self-hosted version. Those are the parsers that we consider vulnarable for the changes on publisher's origin servers and so requiring quicker turnaround time for any updates and fixes.
+
 
 ## Get started:
 
 To get started with the APIs: 
 
- - There's a hosted version of these APIs at [iframely.com](https://iframely.com), if you'd rather rely on the cloud
+ - Your API endpoints will be at `{your.server}/iframely?url=` and `{your.server}/oembed?url=`
  - [How to install & configure](https://iframely.com/docs/host) your Iframely host.  
  - [API in Iframely format](https://iframely.com/docs/iframely-api)
  - [API in oEmbed format](https://iframely.com/docs/oembed-api)
  - [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) in Iframely format (players, thumbnails, app, reader, survey, slideshow, etc)
  - [META semantics](https://iframely.com/docs/meta) Iframely API scrapes for you.
+ - Visual debug tool included in the package is at `{your.server}/debug`
 
 
 
