@@ -9,7 +9,6 @@ module.exports = {
 
     mixins: [
         "og-image",
-        "twitter-image",
         "favicon",
         "canonical",
         "og-description",
@@ -18,7 +17,7 @@ module.exports = {
 
     getMeta: function(meta, twitter) {
 
-        if (twitter.site !== 'bandcamp') {
+        if (!/^@?bandcamp$/i.test(twitter.site)) {
             return;
         }
 

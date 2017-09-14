@@ -35,13 +35,16 @@ module.exports = {
             });
         }
 
-        links.push({
-            href: oembed.image,
-            type: CONFIG.T.image_gif,
-            rel: CONFIG.R.image,
-            width: oembed.width,
-            height: oembed.height
-        });
+        if (oembed.type == 'photo') {
+
+            links.push({
+                href: oembed.image || oembed.url,
+                type: CONFIG.T.image_gif,
+                rel: CONFIG.R.image,
+                width: oembed.width,
+                height: oembed.height
+            });
+        }
 
         var thumbnail = twitter.image && (twitter.image.src || twitter.image.url); 
 

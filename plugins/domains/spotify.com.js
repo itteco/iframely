@@ -62,7 +62,6 @@ module.exports = {
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
         "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg",
         "https://play.spotify.com/track/2vN0b6d2ogn72kL75EmN3v",
-        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
-        "https://play.spotify.com/artist/0BFm7QbsegelxqVIJdXCjq"    
+        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4"
     ]
 };

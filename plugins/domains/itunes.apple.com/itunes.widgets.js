@@ -10,10 +10,7 @@ module.exports = {
         "og-site",
         "og-description",       
         "og-image",
-        "favicon",
-
-        // Skip some urls with robots noindex.
-        "noindex-meta"
+        "favicon"
     ],
 
     getLink: function(urlMatch, options) {

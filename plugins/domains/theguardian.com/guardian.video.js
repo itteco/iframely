@@ -22,7 +22,10 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{
+        page: "https://www.theguardian.com/world/world+content/video",
+        selector: ".fc-item__link"
+    },
         "http://www.theguardian.com/world/video/2013/jun/26/julia-gillard-ousted-prime-minister-video",
         "http://www.theguardian.com/tv-and-radio/video/2014/may/14/russian-mp-sings-protest-austria-conchita-wurst-eurovision-video"
     ]

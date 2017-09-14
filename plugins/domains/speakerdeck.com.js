@@ -9,7 +9,7 @@ module.exports = {
         "domain-icon"        
     ],
 
-    getLink: function (oembed) {
+    getLink: function (url, oembed) {
         var $container = $('<div>');
         try {
             $container.html(oembed.html);
@@ -19,8 +19,13 @@ module.exports = {
         var doc; 
 
         if ($iframe.length == 1) {
+            var href = $iframe.attr('src');
+            if (/\?slide=\d+/i.test(url)) {
+                href +=  href.indexOf('?') > -1 ? '&' : '?';
+                href += url.match(/\?(slide=\d+)/i)[1];
+            }
             doc = {
-                href: $iframe.attr('src'),
+                href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.width / oembed.height 

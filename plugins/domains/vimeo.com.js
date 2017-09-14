@@ -26,10 +26,6 @@ module.exports = {
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
 
-        if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
-            params.api = 1;
-        }
-
         if (options.getProviderOptions('players.showinfo', false)) {
             params.title = 1;
             params.byline = 1;

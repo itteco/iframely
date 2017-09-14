@@ -1,5 +1,5 @@
 module.exports = {
-    re: /https?:\/\/imageshack\.com\/i\/\w+/i,
+    re: /^https?:\/\/imageshack\.com\/i\/\w+/i,
 
     mixins: [
         "og-image-rel-image",

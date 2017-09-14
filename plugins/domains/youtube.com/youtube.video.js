@@ -207,11 +207,9 @@ module.exports = {
             links.push({
                 href: youtube_video_gdata.thumbnails.maxres.url,
                 rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image_jpeg
-                // remove width so that image is checked for 404 as well 
-                // - there is no other way to make sure image is accurate AND exists.
-                // width: 1280,  // sometimes the sizes are 1920x1080, but it is impossible to tell based on API. 
-                // height: 720   // Image load will take unnecessary time, so we hard code the size since aspect ratio is the same
+                type: CONFIG.T.image_jpeg,
+                width: youtube_video_gdata.thumbnails.maxres.width, 
+                height: youtube_video_gdata.thumbnails.maxres.height
             });
         } 
 

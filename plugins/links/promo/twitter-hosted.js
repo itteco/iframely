@@ -9,8 +9,8 @@ module.exports = {
 
         var video_src = (twitter.player && twitter.player.value) || twitter.player;
         if (video_src && typeof video_src === "string" 
-            && /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|podbean|simplecast|libsyn|wistia)\./i.test(video_src)
-            && !/(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|libsyn|wistia)\./i.test(url)) {
+            && /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|bcove)\./i.test(video_src)
+            && !/(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|libsyn|wistia|podiant|art19|kaltura|mtvnservices|bcove)\./i.test(url)) {
 
             return {
                 video_src: video_src

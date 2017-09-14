@@ -37,7 +37,7 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.video_mp4,
                 'aspect-ratio': 16/9
-        }]
+        }];
     },
 
     tests: [

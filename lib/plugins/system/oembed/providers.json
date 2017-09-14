@@ -56,7 +56,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document)/(.*)"
+            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document|embeds)/(.*)"
         ],
         "endpoint": "http://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
@@ -294,6 +294,27 @@
         "endpoint": "http://video.yandex.ru/oembed.{format}"
     },
     {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/album/(\\d+)/track/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}&track={2}"
+    },    
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/track/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?track={1}"
+    },
+    {
+        "name": "Yandex Music",
+        "templates": [
+            "music\\.yandex\\.ru/album/(\\d+)"
+        ],
+        "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}"
+    },    
+    {
         "name": "qz.com",
         "templates": [
             "qz\\.com/\\d+/[a-zA-Z0-9_-]+/"
@@ -310,7 +331,8 @@
     {
         "name": "Mixcloud",
         "templates": [
-            "www\\.mixcloud\\.com/.+/.+/.*"
+            "www\\.mixcloud\\.com/.+/.+/.*",
+            "www\\.mixcloud\\.com/.+"
         ],
         "endpoint": "http://www.mixcloud.com/oembed/"
     },
@@ -370,6 +392,14 @@
         "endpoint": "http://polldaddy.com/oembed/"
     },
     {
+        "name": "Polleverywhere",
+        "templates": [
+            "polleverywhere\\.com/.*",
+            "pollev\\.com/.*"
+        ],
+        "endpoint": "https://www.polleverywhere.com/services/oembed.{format}"        
+    },    
+    {
         "name": "Meetup",
         "templates": [
             "www\\.meetup\\.com/.*"
@@ -396,9 +426,9 @@
     {
         "name": "Ted",
         "templates": [
-            "ted\\.com/talks/.*"
+            "ted\\.com/talks/([a-zA-Z0-9-_]+)"
         ],
-        "endpoint": "http://www.ted.com/talks/oembed.{format}"
+        "endpoint": "http://www.ted.com/services/v1/oembed.{format}?url=https://ted.com/talks/{1}"        
     },
     {
         "name": "Codepen",
@@ -507,7 +537,8 @@
     {
         "name": "RTL XL",
         "templates": [
-            "rtlxl\\.nl/#!/[^\/]+/([a-zA-Z0-9-]+)"
+            "rtlxl\\.nl/?(?:\\?.+)?#!/?[^\/]+/([a-zA-Z0-9-]+)",            
+            "rtl\\.nl/video/([a-zA-Z0-9-]+)"            
         ],
         "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
     },
@@ -590,5 +621,11 @@
             "kickstarter.com/projects/.*"            
         ],
         "endpoint": "https://www.kickstarter.com/services/oembed"        
+    }, {
+        "name": "Producthunt Comments",
+        "templates": [
+            "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
+        ],
+        "endpoint": "https://api.producthunt.com/widgets/oembed?url=https://www.producthunt.com/comments/{1}"
     }
 ]

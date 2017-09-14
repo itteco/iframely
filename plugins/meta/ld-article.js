@@ -5,8 +5,8 @@ module.exports = {
     	if (ld.newsarticle) {
 	        return {
 	        	title: ld.newsarticle.headline,
-	        	date: ld.newsarticle.datecreated, 
-	        	category: ld.newsarticle.articlesection
+	        	category: ld.newsarticle.articlesection,
+                description: ld.newsarticle.description
 	        }
     	}
     },

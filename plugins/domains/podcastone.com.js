@@ -1,4 +1,4 @@
-var URL = require("url");
+const URL = require("url");
 
 module.exports = {
 
@@ -13,9 +13,7 @@ module.exports = {
 
     getLink: function(url) {
 
-        url = URL.parse(url,true);
-
-        var query = url.query;
+        var query = URL.parse(url,true).query;
         var progID = query.programID || query.progID;
         var pid = query.pid || '0';
 

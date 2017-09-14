@@ -133,7 +133,15 @@
         PROXY: [{
             re: [/^https?:\/\/www\.domain\.com/],
             proxy_server: 'http://1.2.3.4:8080',
-            // user_agent: 'CHANGE YOUR AGENT'
+            user_agent: 'CHANGE YOUR AGENT',
+            headers: {
+                // HTTP headers
+                // Overrides previous params if overlapped.
+            },
+            request_options: {
+                // Refer to: https://github.com/request/request
+                // Overrides previous params if overlapped.
+            }
         }],
         */
 

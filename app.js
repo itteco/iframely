@@ -4,6 +4,10 @@ console.log("");
 console.log("Starting Iframely...");
 console.log("Base URL for embeds that require hosted renders:", CONFIG.baseAppUrl);
 
+if (!CONFIG.baseAppUrl) {
+  console.warn('Warning: CONFIG.baseAppUrl not set, default value used');
+}
+
 var path = require('path');
 var express = require('express');
 var jsonxml = require('jsontoxml');

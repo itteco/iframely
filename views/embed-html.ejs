@@ -3,17 +3,22 @@
 <head>
     <title><%= title %></title>
     <style>
-        html, body, object, embed, iframe {
-            margin:  0;
-            padding: 0;
+        html,
+        body {
             height: 100%;
-            width: 100%;
-            background: white;
-            color: white;
         }
         body {
             position: relative;
+            display: block;
+            margin: 0;
+            background: none transparent;
             overflow: hidden;
+        }
+        object, embed, iframe {
+            margin:  0;
+            padding: 0;
+            background: white;
+            color: white;
         }
     </style>
 <body>
