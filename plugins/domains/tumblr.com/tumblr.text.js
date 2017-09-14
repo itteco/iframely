@@ -50,9 +50,7 @@ module.exports = {
         };
     },
 
-    tests: [{skipMethod: "getData"},
-        "http://asimpleweirdlass.tumblr.com/post/58054585454/nakakatakot-kanina-ang-dilim-sa-street-tapos",
-        "http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more",
+    tests: [{skipMethods: ["getData"]},
         "http://blog.path.com/post/76550009909/stickers-xoxo-and-valentines",
         "http://blog.slides.com/post/84828911898/slides-turns-one-year-old"
     ]
