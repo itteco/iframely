@@ -31,6 +31,6 @@ module.exports = {
         page: "http://www.trutv.com/shows/worlds-dumbest/videos/index.html",
         selector: "#most-recent a"
     },
-        "http://www.trutv.com/shows/worlds-dumbest/videos/bike-jump-fails.html"
+        "http://www.trutv.com/shows/adam-ruins-everything/videos/the-messed-up-story-of-how-hawaii-became-a-state.html"
     ]
 };

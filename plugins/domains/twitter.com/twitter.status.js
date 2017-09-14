@@ -259,7 +259,6 @@ module.exports = {
         "https://twitter.com/TSwiftOnTour/status/343846711346737153",
 
         "https://twitter.com/Tackk/status/610432299486814208/video/1",
-        "https://twitter.com/BarstoolSam/status/602688682739507200/video/1",
         "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"  // og-image
     ]
 };
