@@ -53,7 +53,7 @@ module.exports = {
             // from https://media.giphy.com/media/.../giphy-facebook_s.jpg?t=1
             // to https://media3.giphy.com/media/.../giphy_s.gif
 
-            thumbnail = thumbnail.replace(/\/giphy\-facebook_s\.jpg\?t=1$/, '/giphy_s.gif?t=1');
+            thumbnail = thumbnail.replace(/\/giphy\-facebook_s\.jpg$/, '/giphy_s.gif');
         }
 
         links.push({
