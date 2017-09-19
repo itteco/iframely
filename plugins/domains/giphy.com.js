@@ -10,6 +10,7 @@ module.exports = {
         "oembed-site",
         "oembed-title",
         "keywords",
+        "twitter-description",
         // "twitter-image",
         "domain-icon"
     ],

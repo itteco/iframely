@@ -4,11 +4,22 @@ var $ = require('cheerio');
 module.exports = {
 
     mixins: [
-        "oembed-title",
-        "oembed-author",
-        "oembed-site",
-        "domain-icon"
+        "*"
     ],
+
+    getMeta: function(meta) {
+
+        if (meta.slideshare) {
+            return {
+                views: meta.slideshare.view_count,
+                date: meta.slideshare.published || meta.slideshare.created_at || meta.slideshare.updated_at,
+                category: meta.slideshare.category,
+                likes: meta.slideshare.favorites_count,
+                author_url: /^https:\/\//.test(meta.slideshare.author) ? meta.slideshare.author : null
+            }
+        }
+
+    },
 
     getLink: function(oembed, options, cb) {
 
