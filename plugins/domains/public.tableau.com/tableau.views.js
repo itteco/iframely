@@ -60,7 +60,8 @@ module.exports = {
                 href: '//public.tableau.com/views/' + tableau.workbook + '/' + tableau.view + '?:showVizHome=no&:embed=true',
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.html5],
-                'aspect-ratio': tableau_image.width / tableau_image.height,
+                'aspect-ratio': tableau_image.width / (tableau_image.height > 60 ? tableau_image.height - 60 : tableau_image.height ),
+                'padding-bottom': 60,
                 'max-width': tableau_image.width + 20
             };
 

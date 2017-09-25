@@ -12,7 +12,7 @@ module.exports = {
 
         if (video_src && !(video_src instanceof Array)
             && /(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|wistia|kaltura|mtvnservices|bcove)\./i.test(video_src)
-            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|wistia|kaltura|mtvnservices|bcove)\./i.test(url)) {
+            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|wistia|kaltura\.com|mtvnservices|bcove)\./i.test(url)) {
 
             if (/^\/\//.test(video_src)) {
                 video_src = 'http:' + video_src;

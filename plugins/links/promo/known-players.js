@@ -85,7 +85,7 @@ module.exports = {
         }
 
         // or wistia
-        urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.net\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.(?:net|com)\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
@@ -117,6 +117,17 @@ module.exports = {
                 __promoUri: video_src + (!/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i.test(video_src) ? '&autoplay=true': '')
             };
         }
+
+        // Or Soundcloud
+        urlMatch = video_src.match(/^https?:\/\/(?\w+\.)?soundcloud\.com/i);
+
+
+        if (urlMatch) {
+            return {
+                __promoUri: video_src
+            };
+        } 
+
 
     }
 };
