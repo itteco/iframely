@@ -119,7 +119,7 @@ module.exports = {
         }
 
         // Or Soundcloud
-        urlMatch = video_src.match(/^https?:\/\/(?\w+\.)?soundcloud\.com/i);
+        urlMatch = video_src.match(/^https?:\/\/(?:\w+\.)?soundcloud\.com/i);
 
 
         if (urlMatch) {
