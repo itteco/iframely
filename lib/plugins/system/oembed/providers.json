@@ -469,10 +469,17 @@
     {
         "name": "Tumblr",
         "templates": [
-            "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
+            "[a-z0-9-]+\\.tumblr\\.com/post/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
     },
+    {
+        "name": "Tumblr",
+        "templates": [
+            "([a-z0-9-]+)\\.tumblr\\.com/image/(\\d+)"
+        ],
+        "endpoint": "https://www.tumblr.com/oembed/1.0?url=http://{1}.tumblr.com/post/{2}"
+    },    
     {
         "name": "roomshare.jp",
         "templates": [
