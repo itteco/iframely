@@ -9,7 +9,7 @@ module.exports = {
     getLink: function (urlMatch) {
 
         return {
-            href: "http://www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],            
+            href: "//www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],            
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
             'aspect-ratio': 512 / 288
