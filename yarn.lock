@@ -827,9 +827,9 @@ http-errors@1.6.2, http-errors@~1.6.1, http-errors@~1.6.2:
     setprototypeof "1.0.3"
     statuses ">= 1.3.1 < 2"
 
-"http-parser-js@git://github.com/itteco/http-parser-js.git#fix-duplicate-content-length":
-  version "0.4.7"
-  resolved "git://github.com/itteco/http-parser-js.git#fbecb26eecea888ccdfdbd408b92e341e6003ea7"
+http-parser-js@0.4.9:
+  version "0.4.9"
+  resolved "https://registry.yarnpkg.com/http-parser-js/-/http-parser-js-0.4.9.tgz#ea1a04fb64adff0242e9974f297dd4c3cad271e1"
 
 http-signature@~1.1.0:
   version "1.1.1"

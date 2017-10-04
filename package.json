@@ -27,7 +27,7 @@
         "express": "^4.15.3",
         "graceful-cluster": "0.0.3",
         "htmlparser2": "3.9.2",
-        "http-parser-js": "git://github.com/itteco/http-parser-js.git#fix-duplicate-content-length",
+        "http-parser-js": "0.4.9",
         "iconv-lite": "0.4.17",
         "imagesize": "1.0.0",
         "jslint": "0.8",
