@@ -601,10 +601,16 @@
         "endpoint": "https://www.reverbnation.com/oembed"
     },
     {
+        "name": "Twitch Beta",
+        "templates": [
+            "go.twitch\\.tv/([a-zA-Z0-9_\/]+)"
+        ],
+        "endpoint": "https://api.twitch.tv/v4/oembed?url=https://twitch.tv/{1}&format={format}"
+    },    
+    {
         "name": "Twitch",
         "templates": [
             "twitch\\.tv/([a-zA-Z0-9_]+)/",
-            "go.twitch\\.tv/([a-zA-Z0-9_]+)/",
             "clips.twitch.tv"
         ],
         "endpoint": "https://api.twitch.tv/v4/oembed"
