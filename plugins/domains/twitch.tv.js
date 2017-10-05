@@ -22,7 +22,9 @@ module.exports = {
 
     getLink: function (urlMatch, meta) {
 
-        if ((!meta.og && meta['html-title'] == 'Twitch (Beta)') || (meta.og && meta.og.video)) { //skip e.g. https://www.twitch.tv/store
+        // skip e.g. https://www.twitch.tv/store
+        // but patch go.twitch.tv beta
+        if (!meta.og || (meta.og && meta.og.video)) {
 
             // add only potentially missing options for each a channel and a clip
             return !urlMatch[2] ? {
