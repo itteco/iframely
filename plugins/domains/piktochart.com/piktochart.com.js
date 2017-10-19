@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/magic\.piktochart\.com\/output\/(\d+\-[\-a-zA-Z-0-9_]+)/i,
+    re: /^https?:\/\/(?:magic|create)\.piktochart\.com\/output\/(\d+\-[\-a-zA-Z-0-9_]+)/i,
 
     mixins: [
         "*"
@@ -18,7 +18,7 @@ module.exports = {
     },
 
     tests: [
-        "https://magic.piktochart.com/output/16331484-new-piktochart",
+        "https://create.piktochart.com/output/16331484-new-piktochart",
         "https://magic.piktochart.com/output/16505417-projet-immigration-copy"
     ]
 
