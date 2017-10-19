@@ -3,11 +3,7 @@ module.exports = {
     re: /(https?:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/).*/i,
 
     mixins: [
-        "html-title",
-        "copyright",
-        "description",
-
-        "favicon"
+        "*"
     ],
 
     getLink: function(urlMatch) {

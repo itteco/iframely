@@ -65,7 +65,7 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{noFeeds: true}, {skipMixins: ["oembed-description"]},
         "https://www.mixcloud.com/djtraviesa/"
     ]
 };
