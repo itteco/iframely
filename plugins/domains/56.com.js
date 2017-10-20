@@ -21,8 +21,6 @@ module.exports = {
         page: 'http://www.56.com/',
         selector: '#index_focus .cfix h3 a'
     },
-        "http://www.56.com/u38/v_MTAxODk4MjE5.html",
-        "http://www.56.com/u45/v_MTAwNTk3MjM0.html",
-        "http://www.56.com/w76/play_album-aid-12208640_vid-MTA2MzQ4NDkz.html"
+        "http://www.56.com/u38/v_MTAxODk4MjE5.html"
     ]
 };
