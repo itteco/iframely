@@ -85,7 +85,8 @@ module.exports = {
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
                     width: oembed.width,
-                    height: oembed.height
+                    height: oembed.height,
+                    scrolling: 'no'
                 }, {
                     href: oembed.thumbnail_url,
                     rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],

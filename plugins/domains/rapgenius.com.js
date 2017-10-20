@@ -17,7 +17,7 @@ module.exports = {
                 html: '<div id="rg_embed_link_' + id + '" class="rg_embed_link" data-song-id="' + id + '"></div><script src="//genius.com/songs/' + id + '/embed.js?dark=1"></script>',
 
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.ssl]
+                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl]
             };
         }
     },

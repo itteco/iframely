@@ -17,6 +17,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.reuters.com/video/2014/01/10/russian-cossacks-patrol-sochi-prior-to-o?videoId=276394330"
+        "http://www.reuters.com/video/2017/10/18/four-legged-robodog-leaps-into-action?videoId=372769822&videoChannel=118065&channelName=Moments+of+Innovation"
     ]
 };

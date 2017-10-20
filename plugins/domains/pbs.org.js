@@ -21,7 +21,7 @@ module.exports = {
 
         if (vid) {        
             return {
-                href: "//player.pbs.org/viralplayer/" + vid, 
+                href: "http://player.pbs.org/viralplayer/" + vid + '/', 
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16/9,
