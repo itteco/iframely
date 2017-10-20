@@ -108,17 +108,11 @@ module.exports = {
     },
 
     tests: [
-        "http://www.torontofc.ca/video/2015/06/24/bacardi-match-highlights-mtl-vs-tor-june-24-2014",
         "http://www.theverge.com/2013/8/5/4588634/moto-x-hands-on-review-video",
-        "http://www.revolutionsoccer.net/post/2016/01/26/outside-box-1-entrance-physicals-and-first-day-back?autoplay=true",
         "http://www.vox.com/explains/2014/4/23/5643382/how-bitcoin-is-like-the-internet-in-the-80s",
         "http://www.polygon.com/2013/10/23/4947500/cooperatives-pokemon-x-and-y",
-        "http://www.orlandocitysc.com/post/2016/05/16/barber-shop-darwin-cer-n?autoplay=true",
         "http://www.thisisinsider.com/cheesy-breakfast-potatoes-2016-5",
-        "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/",
-        "http://www.livescience.com/54668-spacex-lands-again-first-stage-on-droneship-despite-extreme-velocities-video.html",
-        "http://matchcenter.mlssoccer.com/matchcenter/2016-09-10-philadelphia-union-vs-montreal-impact/details/video/88433",
-        "http://matchcenter.mlssoccer.com/matchcenter/2015-10-02-dc-united-vs-new-york-city-fc/details/video/51448"
+        "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/"
         // "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
         // "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
     ]

@@ -9,7 +9,7 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: "//www.newschoolers.com/videoembed/" + urlMatch[1],
+            href: "http://www.newschoolers.com/videoembed/" + urlMatch[1],
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             'aspect-ratio': 720 / 430

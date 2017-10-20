@@ -9,7 +9,7 @@ module.exports = {
     getLinks: function(urlMatch) {
 
         return {
-            href: "//vbox7.com/emb/external.php?vid=" + urlMatch[1],
+            href: "https://vbox7.com/emb/external.php?vid=" + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player,  CONFIG.R.html5],
             "aspect-ratio": 16 / 9

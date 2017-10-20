@@ -22,7 +22,6 @@ module.exports = {
         noFeeds: true
     },
         "http://www.espnfc.com/english-premier-league/23/video/2941397",
-        "http://www.espnfc.com/international-friendly/53/video/3173945/chapecoense-survivor-to-return-vs-barca",
         "http://www.espnfc.com/english-premier-league/23/video/3157719/rooney-ive-been-waiting-for-that-goal"
         // "http://www.espnfc.com/european-championship/74/video/2907466/watch-ronaldo-demands-moutinho-takes-pen"
     ]

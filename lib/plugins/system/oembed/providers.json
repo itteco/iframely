@@ -469,10 +469,17 @@
     {
         "name": "Tumblr",
         "templates": [
-            "[a-z0-9-]+\\.tumblr\\.com/(post|image)/\\d+"
+            "[a-z0-9-]+\\.tumblr\\.com/post/\\d+"
         ],
         "endpoint": "https://www.tumblr.com/oembed/1.0"
     },
+    {
+        "name": "Tumblr",
+        "templates": [
+            "([a-z0-9-]+)\\.tumblr\\.com/image/(\\d+)"
+        ],
+        "endpoint": "https://www.tumblr.com/oembed/1.0?url=http://{1}.tumblr.com/post/{2}"
+    },    
     {
         "name": "roomshare.jp",
         "templates": [
@@ -593,6 +600,13 @@
         ],
         "endpoint": "https://www.reverbnation.com/oembed"
     },
+    {
+        "name": "Twitch Beta",
+        "templates": [
+            "go.twitch\\.tv/([a-zA-Z0-9_\/]+)"
+        ],
+        "endpoint": "https://api.twitch.tv/v4/oembed?url=https://twitch.tv/{1}&format={format}"
+    },    
     {
         "name": "Twitch",
         "templates": [

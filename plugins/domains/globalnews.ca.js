@@ -9,7 +9,7 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-                href: "http://globalnews.ca/video/embed/" + urlMatch[1] + "/",
+                href: "//globalnews.ca/video/embed/" + urlMatch[1] + "/",
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 670 / 437

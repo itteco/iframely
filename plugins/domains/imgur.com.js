@@ -12,6 +12,7 @@ module.exports = {
         "twitter-title",
         "twitter-image",  // image for images, thumbnails for gallery
         "twitter-stream", // only for gifv
+        "twitter-description",
         "oembed-site", 
         "domain-icon"
     ],

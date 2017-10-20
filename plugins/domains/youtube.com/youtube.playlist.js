@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)$/i
+        /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)/i        
     ],
 
     mixins: [
@@ -9,31 +9,9 @@ module.exports = {
         "oembed-author",
         "oembed-site",
         "oembed-title",
+        "oembed-video",
         "domain-icon"
     ],    
-
-    getLinks: function(urlMatch, options) {
-
-        var params = options.getProviderOptions('youtube.get_params', '');
-
-        params = params.replace(/^\?/, '&');
-
-        var autoplay = params + "&autoplay=1";
-
-        var links = [{
-            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + params,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.text_html,
-            "aspect-ratio": 560/315
-        }, {
-            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + autoplay,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-            type: CONFIG.T.text_html,
-            "aspect-ratio": 560/315
-        }];
-
-        return links;
-    },
 
     tests: [{
         noFeeds: true

@@ -91,6 +91,8 @@ module.exports = {
             } else {
                 widget['aspect-ratio'] = oembed.width / oembed.height;
             }
+        } else if (whitelistRecord.isAllowed('oembed.rich', 'horizontal')) {
+                widget.height = oembed.height || $iframe.attr('height');            
         } else {
             widget.width = oembed.width;
             widget.height = oembed.height

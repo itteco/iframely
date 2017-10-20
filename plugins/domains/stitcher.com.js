@@ -1,5 +1,3 @@
-var $ = require('cheerio');
-
 module.exports = {
 
     // No regexps here. We'll let it fall back to generic parsers, if no podcast is detected.
@@ -43,6 +41,6 @@ module.exports = {
         "http://www.stitcher.com/s?eid=35290263",
         "http://www.stitcher.com/podcast/nodeup/episode/35312671?refid=stpr&autoplay=true",
         "http://www.stitcher.com/podcast/twit/the-new-screen-savers/e/tnss-49-from-russia-with-code-43809567",
-        "https://www.stitcher.com/podcast/times-the-brief/times-top-stories/e/ireland-votes-to-legalize-gay-marriage-in-historic-referendum-38202217?autoplay=true"
+        "https://www.stitcher.com/podcast/spoken-edition/times-top-stories/e/51905978"
     ]
 };

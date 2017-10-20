@@ -4,7 +4,7 @@ module.exports = {
 
     getData: function(cheerio, __allowEmbedURL) {
 
-        var videoObjectSchema = 'VideoObject';
+        var videoObjectSchema = 'Object';
 
         var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
 

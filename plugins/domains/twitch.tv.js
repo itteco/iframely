@@ -1,8 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i,
-        /^https?:\/\/(?:www\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i,
+        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i,
+        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)\/v\/(\d+)/i,
+        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/(video)\/(\d+)/i,
         /^https?:\/\/player\.twitch\.tv\/\?channel=([a-zA-Z0-9_]+)/i
     ],
 
@@ -19,9 +20,11 @@ module.exports = {
         }
     },
 
-    getLink: function (urlMatch, og) {
+    getLink: function (urlMatch, meta) {
 
-        if (og.video) { //skip e.g. https://www.twitch.tv/store
+        // skip e.g. https://www.twitch.tv/store
+        // but patch go.twitch.tv beta
+        if (!meta.og || (meta.og && meta.og.video)) {
 
             // add only potentially missing options for each a channel and a clip
             return !urlMatch[2] ? {

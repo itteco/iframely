@@ -10,7 +10,7 @@ module.exports = {
     	return {
     		href: 'https://www.google.com/calendar/embed?' + urlMatch[1] + '&via=iframely',
     		type: CONFIG.T.text_html,
-    		rel: [CONFIG.R.app, CONFIG.R.html5],
+    		rel: [CONFIG.R.reader, CONFIG.R.html5],
     		"aspect-ratio": 800 / 600
     	}
     },

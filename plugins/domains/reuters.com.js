@@ -9,7 +9,7 @@ module.exports = {
     getLink: function (urlMatch) {
 
         return {
-            href: "http://www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],            
+            href: "//www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],            
             rel: CONFIG.R.player,
             type: CONFIG.T.text_html,
             'aspect-ratio': 512 / 288
@@ -17,6 +17,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.reuters.com/video/2014/01/10/russian-cossacks-patrol-sochi-prior-to-o?videoId=276394330"
+        "http://www.reuters.com/video/2017/10/18/four-legged-robodog-leaps-into-action?videoId=372769822&videoChannel=118065&channelName=Moments+of+Innovation"
     ]
 };

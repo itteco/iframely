@@ -88,7 +88,6 @@ module.exports = {
     },
 
     tests: [
-        "http://m.vk.com/wall-6507719_32735?hash=FdsHbXcBqnCk3pJEr3WYxtexBU-9",
         "http://vk.com/wall1_45616?hash=Zsw6OdFrrA5KJZQJUcb8"
     ]
 
