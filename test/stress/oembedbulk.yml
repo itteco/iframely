@@ -1,0 +1,40 @@
+config:
+  payload:
+    # path is relative to the location of the test script
+    path: "urlsbatches.csv"
+    fields:
+      - "batch"
+  environments:
+    dev:
+      target: "http://localhost:8061"
+      phases:
+        - duration: 10
+          arrivalRate: 1
+    production-slow:
+      target: "https://api.knil.co"
+      phases:
+        - duration: 30
+          arrivalRate: 1
+    production:
+      target: "https://api.knil.co"
+      phases:
+        - duration: 90
+          arrivalRate: 1
+          rampTo: 4
+scenarios:
+- name: "load testing"
+  flow:
+#  - log: "batch: {{ batch }}"
+  - post:
+          url: "/oembed.bulk"
+          headers:
+            Content-Type: "application/json"
+          body: '{"urls":[{{ batch }}]}'
+          capture:
+            - json: "$.results.length"
+              as: "numres"
+            - json: "$.errors.length"
+              as: "numerr"
+            - json: "$.results"
+              as: "results"
+  - log: "results:{{ numres }} errors: {{ numerr }} {{ results }}"

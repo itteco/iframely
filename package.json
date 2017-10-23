@@ -19,6 +19,7 @@
     },
     "license": "MIT",
     "dependencies": {
+        "body-parser": "^1.17.2",
         "async": "2.4.1",
         "cheerio": "0.22.0",
         "chokidar": "1.7.0",

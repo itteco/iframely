@@ -9,6 +9,7 @@ var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var jsonxml = require('jsontoxml');
 
+
 function prepareUri(uri) {
 
     if (!uri) {
@@ -420,6 +421,73 @@ module.exports = function(app) {
 
             //iframely.disposeObject(result);
         });
+    });
+
+    let processUrlOEmbed = (req,url,cb) => {
+        var uri = prepareUri(url);
+        if (!uri) {
+            return cb({url:url,error:"empty url",error_code:"EMPTYURI"},null);
+        }
+
+        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
+            return cb({url:url,error:"local domains not supported",error_code:"LOCALDOMAIN"},null);
+        }
+
+        log(req, 'Loading /oembed for', uri);
+
+        async.waterfall([
+
+            function(wcb) {
+
+                iframelyCore.run(uri, {
+                    getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                    filterNonSSL: getBooleanParam(req, 'ssl'),
+                    filterNonHTML5: getBooleanParam(req, 'html5'),
+                    maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
+                    refresh: getBooleanParam(req, 'refresh')
+                }, wcb);
+            }
+
+        ], function(error, result) {
+
+            if (error) {
+                return cb({url:url,error:error,error_code:error.code || error},null)
+            }
+
+            iframelyCore.sortLinks(result.links);
+
+            iframelyUtils.filterLinks(result, {
+                filterNonSSL: getBooleanParam(req, 'ssl'),
+                filterNonHTML5: getBooleanParam(req, 'html5'),
+                maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
+            });
+
+            var oembed = oembedUtils.getOembed(uri, result, {
+                mediaPriority: getBooleanParam(req, 'media'),
+                omit_css: getBooleanParam(req, 'omit_css')
+            });
+            if(!oembed.url)
+              oembed.url = url
+            oembed.orgUrl = url
+            cb(null,oembed)
+      })
+    }
+
+    app.post('/oembed.bulk',function(req, res, next) {
+
+        if (!req.body.urls || req.body.urls.length==0) {
+              return next(new Error("'urls' post param expected"));
+        }
+        var urls = req.body.urls.slice(0,10)
+        let curriedProcessUrlOEmbed = processUrlOEmbed.bind(undefined,req)
+        async.map(urls,async.reflect(curriedProcessUrlOEmbed),function(err,result) {
+          if (err) {
+              return handleIframelyError(error, res, next);
+          }
+          let response = _.map(result,r => r.error || r.value)
+          res.jsonpCached(response);
+        });
+
     });
 
 };

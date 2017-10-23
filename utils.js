@@ -104,6 +104,14 @@
         var urlObj = urlLib.parse(req.url, true);
 
         var query = urlObj.query;
+        //use slice to generate a copy of array so sort doesnt modify the original
+        var postUrls = []
+        if(req.body && req.body.urls)
+        {
+          postUrls = req.body.urls.slice(0)
+          if(postUrls)
+            postUrls.sort()
+        }
 
         delete query.refresh;
 
@@ -124,6 +132,7 @@
         keys.forEach(function(key) {
             newQuery[key] = query[key];
         });
+        newQuery['urls'] = postUrls
 
         urlObj.query = newQuery;
 
@@ -188,7 +197,7 @@
 
                                 if (head) {
 
-                                    log(req, "Using cache for", req.url.replace(/\?.+/, ''), req.query.uri || req.query.url);
+                                    log(req, "Using cache for", req.url.replace(/\?.+/, ''), req.query.uri || req.query.url || req.body.urls);
 
                                     var requestedEtag = req.headers['if-none-match'];
 
