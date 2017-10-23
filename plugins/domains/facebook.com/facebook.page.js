@@ -60,6 +60,10 @@ module.exports = {
                 html: html,
                 "max-width": oembed.width
             });
+        } else {
+            links.push ({
+                message: "Facebook user profile pages are not embeddable."
+            });
         }
 
         return links;

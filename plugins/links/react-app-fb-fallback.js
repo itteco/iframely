@@ -22,12 +22,17 @@ module.exports = {
         core.run(url, options2, function(error, data) {
 
             var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
+            var message = "This appears to be a single-page, isomorphic app with templated values in META section. If you are the owner, please run the templates on the server.";
 
             if (!title ||  /^{{.+}}$/.test(title)) {
-                return cb({responseStatusCode: 415});
+                return cb({
+                    responseStatusCode: 415,
+                    message: message
+                });
             } else {
                 return cb(error, {
-                    appUriData: data
+                    appUriData: data,
+                    message: message
                 });
             }
         });

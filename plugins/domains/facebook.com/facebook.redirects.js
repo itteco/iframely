@@ -33,12 +33,18 @@ module.exports = {
 
         if (meta["html-title"] === "Facebook" || meta["html-title"] === "Leaving Facebook...") {
             // the content is not public
-            return cb({responseStatusCode: 403});
+            return cb({
+                responseStatusCode: 403,
+                message: "The content isn't shared publicly or requires a login."
+            });
         }
 
         if (/^https?:\/\/(?:www|m|business)\.facebook\.com\/login\.php/i.test(url)) {
             // redirect to login
-            return cb({responseStatusCode: 403});
+            return cb({
+                responseStatusCode: 403,
+                message: "The content isn't shared publicly and requires special permission."
+            });
         }
 
         
