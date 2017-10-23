@@ -348,7 +348,11 @@ function processUrl() {
         // Errors.
         data.allData.forEach(function(result) {
             if (result.error) {
-                $errors.append('<li><strong>' + result.method.pluginId + '-' + result.method.name + ':</strong> ' + result.error + '</li>').show();
+                var error = result.error;
+                if (typeof error === 'object') {
+                    error = JSON.stringify(error);
+                }
+                $errors.append('<li><strong>' + result.method.pluginId + '-' + result.method.name + ':</strong> ' + error + '</li>').show();
             }
         });
         //
