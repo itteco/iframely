@@ -44,14 +44,35 @@ function getIntParam(req, param) {
 
 function handleIframelyError(error, res, next) {
 
-    var responseCode = error.responseCode;
+    if (error.code) {
 
-    if (responseCode === 404) {
-        return next(new utils.NotFound('Page not found', error.messages));
+        var responseCode = error.responseCode;
+
+        if (responseCode) {
+
+            // code: 'http error'
+
+            if (responseCode === 404) {
+                return next(new utils.NotFound('Page not found', error.messages));
+            }
+
+            var outCode = (typeof responseCode !== "number" || responseCode >= 500) ? 417 : responseCode;
+
+            next(new utils.HttpError(outCode, "Requested page error: " + responseCode, error.messages));
+
+        } else {
+
+            // code: other
+
+            next(new utils.HttpError(417, "Processing error: " + error.code, error.messages));
+        }
+
+
+    } else {
+
+        next(new utils.HttpError(500, "Server error: " + error));
+
     }
-
-    var code = (typeof responseCode !== "number" || responseCode >= 500) ? 417 : responseCode;
-    next(new utils.HttpError(code, "Requested page error: " + responseCode || error, error.messages));
 }
 
 module.exports = function(app) {
