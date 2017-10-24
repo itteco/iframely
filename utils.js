@@ -15,7 +15,7 @@
     var whitelist = require('./lib/whitelist');
     var pluginLoader = require('./lib/loader/pluginLoader');
 
-    function NotFound(message) {
+    function NotFound(message, messages) {
 
         if (typeof message === 'object') {
             this.meta = message;
@@ -27,6 +27,7 @@
 
         this.name = this.constructor.name; //set our function’s name as error name.
         this.message = message; //set the error message
+        this.messages = messages; //additional messages
 
     }
 
@@ -34,13 +35,14 @@
 
     exports.NotFound = NotFound;
 
-    function HttpError(code, message) {
+    function HttpError(code, message, messages) {
 
         Error.call(this); //super constructor
         Error.captureStackTrace(this, this.constructor); //super helper method to include stack trace in error object
 
         this.name = this.constructor.name; //set our function’s name as error name.
         this.message = message; //set the error message
+        this.messages = messages; //additional messages
         this.code = code; //set the error code
 
     }
