@@ -38,6 +38,7 @@ module.exports = {
         var opts = {
             uri: "http://player.ooyala.com/nuplayer?embedCode=" + __ooyalaPlayer.embedCode,
             // Ooyala is really slow - allow all players from a domain after the first check
+            new_cache_key: 'ooyala:embed:' + __ooyalaPlayer.embedCode,
             cache_key: 'ooyala:domain:' + url.replace(/^https?:\/\//i, '').split('/')[0].toLowerCase(),
             method: 'HEAD',
             headers: {
