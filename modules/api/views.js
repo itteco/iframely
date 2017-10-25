@@ -64,6 +64,12 @@ function handleIframelyError(error, res, next) {
 
             next(new utils.HttpError(408, "Processing error: " + error.code, error.messages));
 
+        } else if (error.code === 'request error' && error.error) {
+
+            // Node error in request.
+
+            next(new utils.HttpError(417, "Processing error: " + error.error.code, error.messages));
+
         } else {
 
             // code: other.
