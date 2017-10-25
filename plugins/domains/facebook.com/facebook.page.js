@@ -62,7 +62,7 @@ module.exports = {
             });
         } else {
             links.push ({
-                message: "Facebook user profile pages are not embeddable."
+                message: "Facebook profile pages of individual users are not embeddable."
             });
         }
 

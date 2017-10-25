@@ -41,7 +41,7 @@ module.exports = {
         return ! cheerio('a[href*="communities/"]').length ? {
             __google_plus_enabled: true
         } : {
-            message: "This a post within community. G+ doesn't let those to be embedded yet."
+            message: "This is a post within community. G+ doesn't let those to be embedded yet."
         }
         // G+ doesn't support community posts!
         // ex. https://plus.google.com/101947077689367869700/posts/2fdzVY9LoSw
