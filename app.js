@@ -121,11 +121,7 @@ function errorHandler(err, req, res, next) {
 
     var message = 'Server error';
 
-    if (err.message.indexOf('timeout') > -1) {
-      message = 'Timeout';
-      code = 408;
-    }
-    else if (code === 401) {
+    if (code === 401) {
       message = 'Unauthorized';
     }
     else if (code === 403) {
@@ -134,13 +130,13 @@ function errorHandler(err, req, res, next) {
     else if (code === 404) {
       message = 'Not found';
     }
+    else if (code === 408) {
+      message = 'Timeout';
+    }
     else if (code === 410) {
       message = 'Gone';
     }
-    else if (code === 415) {
-      message = 'Unsupported Media Type';
-    }
-    else if (code === 417) {
+    else if (code === 415 || code === 417) {
       message = 'Unsupported Media Type';
     }
 

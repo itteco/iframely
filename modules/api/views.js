@@ -60,13 +60,16 @@ function handleIframelyError(error, res, next) {
 
             next(new utils.HttpError(outCode, "Requested page error: " + responseCode, error.messages));
 
+        } else if (error.code === 'timeout') {
+
+            next(new utils.HttpError(408, "Processing error: " + error.code, error.messages));
+
         } else {
 
-            // code: other
+            // code: other.
 
             next(new utils.HttpError(417, "Processing error: " + error.code, error.messages));
         }
-
 
     } else {
 
