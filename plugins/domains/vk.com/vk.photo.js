@@ -6,12 +6,12 @@ module.exports = {
         /^https?:\/\/(?:m|new\.)?vk\.com\/photo([0-9-]+)_(\d+)/i
     ],
 
-    // mixins: ["domain-icon"], // it's broken
+    mixins: ["domain-icon"],
 
-    getMeta: function (vk_photo) {
+    getMeta: function (vk_photo, meta) {
 
         return {
-            description: vk_photo.text,
+            title: vk_photo.text || (meta.og && meta.og.title) || meta['html-title'],
             date: vk_photo.created
         }
 
@@ -31,7 +31,7 @@ module.exports = {
 
     },
 
-    getData: function (urlMatch, request, cb) {
+    getData: function (urlMatch, meta, request, cb) {
 
         request({
             uri: "https://api.vk.com/method/photos.getById", //?photos=-27744747_376634226
