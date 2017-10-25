@@ -641,5 +641,11 @@
             "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
         ],
         "endpoint": "https://api.producthunt.com/widgets/oembed?url=https://www.producthunt.com/comments/{1}"
+    }, {
+        "name": "Office Forms",
+        "templates": [        
+            "forms.office.com/.*"            
+        ],
+        "endpoint": "https://forms.office.com/formapi/api/embed"
     }
 ]
