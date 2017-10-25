@@ -87,7 +87,7 @@ module.exports = {
                     if (gdata.uploadStatus === "rejected") {
                         cb({
                             responseStatusCode: 410,
-                            message: "The video has been removed. Reason: " + (entry.status && entry.status.rejectionReason || 'not given');
+                            message: "The video has been removed. Reason: " + (entry.status && entry.status.rejectionReason || 'not given')
                         });
                     } else {
                         cb(null, {
