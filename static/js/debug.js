@@ -357,6 +357,11 @@ function processUrl() {
         });
         //
 
+        // Messages.
+        data.messages && data.messages.forEach(function(message) {
+            $errors.append('<li>' + message + '</li>').show();
+        });
+
         // Render all debug data.
         $result.renderObject(data);
 
