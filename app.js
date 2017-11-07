@@ -61,9 +61,7 @@ function logErrors(err, req, res, next) {
   next(err);
 }
 
-var errors = [401, 403, 408];
-
-function respondWithError(req, res, code, msg) {
+function respondWithError(req, res, code, msg, messages) {
   var err = {
     error: {
       source: 'iframely',
@@ -71,6 +69,10 @@ function respondWithError(req, res, code, msg) {
       message: msg
     }
   };
+
+  if (messages) {
+    err.error.messages = messages;
+  }
 
   var ttl;
   if (code === 404) {
@@ -104,41 +106,41 @@ function respondWithError(req, res, code, msg) {
   }
 }
 
+var proxyErrorCodes = [401, 403, 408];
+
 function errorHandler(err, req, res, next) {
   if (err instanceof NotFound) {
-    respondWithError(req, res, 404, err.message);
+    respondWithError(req, res, 404, err.message, err.messages);
   } else {
     var code = err.code || 500;
-    errors.map(function(e) {
+    proxyErrorCodes.map(function(e) {
       if (err.message.indexOf(e) > - 1) {
         code = e;
       }
     });
 
-    if (err.message.indexOf('timeout') > -1) {
-      respondWithError(req, res, 408, 'Timeout');
-    }
-    else if (code === 401) {
-      respondWithError(req, res, 401, 'Unauthorized');
+    var message = 'Server error';
+
+    if (code === 401) {
+      message = 'Unauthorized';
     }
     else if (code === 403) {
-      respondWithError(req, res, 403, 'Forbidden');
+      message = 'Forbidden';
     }
     else if (code === 404) {
-      respondWithError(req, res, 404, 'Not found');
-    }    
+      message = 'Not found';
+    }
+    else if (code === 408) {
+      message = 'Timeout';
+    }
     else if (code === 410) {
-      respondWithError(req, res, 410, 'Gone');
+      message = 'Gone';
     }
-    else if (code === 415) {
-      respondWithError(req, res, 415, 'Unsupported Media Type');
-    } 
-    else if (code === 417) {
-      respondWithError(req, res, 417, 'Unsupported Media Type');
-    }    
-    else {
-      respondWithError(req, res, code, 'Server error');
+    else if (code === 415 || code === 417) {
+      message = 'Unsupported Media Type';
     }
+
+    respondWithError(req, res, code, message, err.messages);
   }
 }
 

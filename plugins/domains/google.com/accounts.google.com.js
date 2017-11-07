@@ -9,7 +9,8 @@ module.exports = {
     getLink: function(urlMatch, cb) {
 
         cb ({
-            responseStatusCode: 403
+            responseStatusCode: 403,
+            message: "The page is private and requires a login."
         });
     }
 };    

@@ -10,7 +10,8 @@ module.exports = {
     getData: function(urlMatch, cb) {
 
         return cb({
-            responseStatusCode: 417
+            responseStatusCode: 417,
+            message: 'This domain is flagged as inappropriate.'
         });
     }
 

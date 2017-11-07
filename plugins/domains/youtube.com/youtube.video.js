@@ -85,7 +85,10 @@ module.exports = {
                     }
 
                     if (gdata.uploadStatus === "rejected") {
-                        cb({responseStatusCode: 410});
+                        cb({
+                            responseStatusCode: 410,
+                            message: "The video has been removed. Reason: " + (entry.status && entry.status.rejectionReason || 'not given')
+                        });
                     } else {
                         cb(null, {
                             youtube_video_gdata: gdata
@@ -201,6 +204,8 @@ module.exports = {
                 "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
                 autoplay: "autoplay=1"
             }); 
+        } else {
+            links.push({message: "Uploader of this video disabled embedding on other sites."});
         }
 
         if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {
