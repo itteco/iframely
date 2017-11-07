@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/\w{2}\.pinterest\.com\//i,
-        /^https?:\/\/\w{2,3}\.pinterest\.com\/pin\/(\D+)/i
+        /^https?:\/\/\w{2}\.pinterest(?:\.com?)?\.\w{2,3}/i,
+        /^https?:\/\/\w{2,3}\.pinterest(?:\.com?)?\.\w{2,3}\/pin\/(\d+)/i
     ],
 
     // for example, https://au.pinterest.com/pin/80783387037637534/

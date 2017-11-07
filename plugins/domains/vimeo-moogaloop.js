@@ -10,7 +10,7 @@ module.exports = {
     getLink: function(urlMatch, cb) {
 
         cb ({
-            redirect: "http://vimeo.com/" + urlMatch[1]
+            redirect: "https://vimeo.com/" + urlMatch[1]
         });
     }
 

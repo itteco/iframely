@@ -38,6 +38,7 @@ module.exports = {
         var opts = {
             uri: "http://player.ooyala.com/nuplayer?embedCode=" + __ooyalaPlayer.embedCode,
             // Ooyala is really slow - allow all players from a domain after the first check
+            new_cache_key: 'ooyala:embed:' + __ooyalaPlayer.embedCode,
             cache_key: 'ooyala:domain:' + url.replace(/^https?:\/\//i, '').split('/')[0].toLowerCase(),
             method: 'HEAD',
             headers: {
@@ -51,7 +52,11 @@ module.exports = {
                 }
 
                 if (response.statusCode !== 200 || !response.headers || !response.headers['content-length'] || response.headers['content-length'] < 1000) {
-                    return cb("ooyala video isn't valid: " + __ooyalaPlayer.embedCode);
+                    return cb(
+                        "ooyala video isn't valid: " + __ooyalaPlayer.embedCode, 
+                        {
+                            message: "Ooyala video detected, but it isn't working properly."
+                        });
                 } else {
 
                     var aspect = __ooyalaPlayer.width && __ooyalaPlayer.height && (__ooyalaPlayer.width / __ooyalaPlayer.height < 1.5) ? 4 / 3 : 16/9;

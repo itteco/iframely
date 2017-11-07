@@ -294,8 +294,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
-                        if (error.indexOf && error.indexOf("timeout") > -1 || (error == 404)) {
-                            logEntry.warnings = [error];
+                        if (error.code === "timeout") {
+                            logEntry.warnings = [error.code];
+                        } else if ((error.responseCode == 404)) {
+                            logEntry.warnings = [error.responseCode];
                         } else if (error.stack) {
                             logEntry.errors_list = [error.stack];
                         } else {
@@ -376,6 +378,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                 setTimeout(function() {
                     iframely(url, {
+                        v: '1.3',
                         debug: true,
                         refresh: true,
                         readability: true,
