@@ -397,7 +397,8 @@ module.exports = function(app) {
 
             var oembed = oembedUtils.getOembed(uri, result, {
                 mediaPriority: getBooleanParam(req, 'media'),
-                omit_css: getBooleanParam(req, 'omit_css')
+                omit_css: getBooleanParam(req, 'omit_css'),
+                targetWidthForResponsive: getIntParam(req, 'width')
             });
 
             if (req.query.format === "xml") {
