@@ -4,6 +4,11 @@ This is the history of the Iframely changes. Updates that are older than one yea
 
 To stay tuned and up-to-date, watch [Iframely on GitHub](https://github.com/itteco/iframely).
 
+### 2017.11.07, Version 1.2.2
+
+- For oEmbed endpoint, accept `&width=...` parameter and pass width and height into response for embeds with aspect-ratio.
+
+
 ### 2017.9.14, Version 1.2.0
 
 - Keeping domain parsers up-to-date

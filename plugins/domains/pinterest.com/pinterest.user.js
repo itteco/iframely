@@ -2,7 +2,7 @@ var DEFAULT_WIDTH = 600;
 
 module.exports = {
 
-    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest\.com\/((?!pin)[a-zA-Z0-9%_]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+)\/?(?:$|\?|#)/i,
 
     mixins: [
         "og-image",

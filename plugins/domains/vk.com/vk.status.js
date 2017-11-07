@@ -7,12 +7,13 @@ module.exports = {
         /^https?:\/\/(?:m|new\.)?vk\.com\/wall([0-9-]+)_(\d+)/i
     ],
 
-    // mixins: ["domain-icon"], // it's broken
+    mixins: ["domain-icon"],
 
-    getMeta: function (vk_status) {
+    getMeta: function (vk_status, meta) {
 
         return {
-            description: vk_status.text,
+            description: vk_status.text || (meta.og && meta.og.description),
+            title: (meta.og && meta.og.title) || meta['html-title'],
             date: vk_status.date
         }
 
@@ -35,6 +36,10 @@ module.exports = {
                 },
                 width: options.maxWidth
             });
+        } else {
+            result.push ({
+                message: "VK gives per-user security hash for embeds. Get one from their embed code (<a href='http://take.ms/Mkjc6see' target='_blank'>see where</a>) and add it as ?hash=... to your URL"
+            });
         }
 
         if (vk_status.image) {
@@ -49,8 +54,15 @@ module.exports = {
         return result;
     },
 
-    getData: function (url, urlMatch, request, cb) {
+    getData: function (url, urlMatch, meta, request, cb, options) {
 
+        // catch videos posted as statuses
+        if (meta.og && meta.og.url && meta.og.url !== url) {
+            return cb({
+                redirect: meta.og.url
+            });
+        }
+        // else 
         request({
             uri: "https://api.vk.com/method/wall.getById", //?posts=-76229642_10505
             qs: {

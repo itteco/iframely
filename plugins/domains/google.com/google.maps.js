@@ -124,7 +124,8 @@ module.exports = {
 
         if (!options.getProviderOptions('google.maps_key')) {
             return cb ({
-                responseStatusCode: 415
+                responseStatusCode: 415,
+                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/guide#api_key'>Get one</a> and add it to the provider options."
             });
         }
 
