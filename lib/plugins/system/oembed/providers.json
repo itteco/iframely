@@ -647,5 +647,11 @@
             "forms.office.com/.*"            
         ],
         "endpoint": "https://forms.office.com/formapi/api/embed"
-    }
+    }, {
+        "name": "Tapewrite",
+        "templates": [        
+            "tapewrite.com/tapes/play/.*"            
+        ],
+        "endpoint": "https://tapewrite.com/REST/oembed"
+    }    
 ]
