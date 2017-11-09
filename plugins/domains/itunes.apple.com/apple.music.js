@@ -1,17 +1,19 @@
+const URL = require('url');
+const _ = require('underscore');
+
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,        
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/id(?:pl\.)?(\w+)/i,
+        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
+        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
         /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/()(album)\/id(\d+)\??/i
-        
     ],
 
     mixins: [
         "*"
     ],
 
-    getLink: function(urlMatch) {
+    getLink: function(urlMatch, options) {        
 
         var country = urlMatch[1];
 
@@ -22,8 +24,18 @@ module.exports = {
             type = 'song';
         }
 
+        var at = null;
+        if (options.redirectsHistory) {
+            var original_url = _.find(options.redirectsHistory, function(u) {
+                return u.indexOf('at=') > -1;
+            });
+            var query = original_url && URL.parse(original_url, true).query;
+            at = query && query.at ? query.at : null;
+        }
+
+
         return {
-            href: '//tools.applemusic.com/embed/v1/' + type + (type === 'playlist' ? '/pl.':'/' ) + id + '?country=' + country,
+            href: '//tools.applemusic.com/embed/v1/' + type + (type === 'playlist' ? '/pl.':'/' ) + id + '?country=' + country + (at ? '&at=' + at : ''),
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.html5, CONFIG.R.player],
             "height": type === 'playlist' || type === 'album' ? 500 : 110
@@ -37,8 +49,9 @@ module.exports = {
         'https://itunes.apple.com/us/album/id944094900?i&ls=1',
         'https://itunes.apple.com/album/id1170687816?ls=1',
         "https://itunes.apple.com/album/id1125277620",
-        'https://geo.itunes.apple.com/us/album/trap-or-die-3/id1163301872?app=music',
+        'https://geo.itunes.apple.com/us/album/reaching-for-indigo/id1264016548?app=music',
         'https://itunes.apple.com/us/playlist/the-a-list-country/idpl.87bb5b36a9bd49db8c975607452bfa2b?app=music',
+        'https://geo.itunes.apple.com/us/album/call-me-by-your-name-original-motion-picture-soundtrack/id1300430864?app=music',
         'https://geo.itunes.apple.com/uk/album/cozy-tapes-vol.-1-friends/id1169558406?app=music&at=1010lpzb',
         'https://itunes.apple.com/us/playlist/its-lit/idpl.2d4d74790f074233b82d07bfae5c219c?mt=1&app=music'
     ]
