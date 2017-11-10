@@ -33,7 +33,8 @@ module.exports = {
             });
         }
         // skip user profiles - they can not be embedded
-        if (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html)) {
+        if ((meta.ld && meta.ld.organization) 
+            || (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html))) {
 
             var html = oembed.html;
 
@@ -61,6 +62,7 @@ module.exports = {
                 "max-width": oembed.width
             });
         } else {
+            console.log ("Facebook profile meta: " + JSON.stringify(meta));
             links.push ({
                 message: "Facebook profile pages of individual users are not embeddable."
             });
