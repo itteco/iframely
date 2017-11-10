@@ -33,7 +33,7 @@ module.exports = {
             });
         }
         // skip user profiles - they can not be embedded
-        if ((meta.ld && meta.ld.organization) 
+        if ((meta.ld && meta.ld.organization && /blockquote/.test(oembed.html)) 
             || (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html))) {
 
             var html = oembed.html;
