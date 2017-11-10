@@ -5,7 +5,7 @@ module.exports = {
 
     getMeta: function(oembed, meta, urlMatch) {
 
-        if (meta.og && meta.og.title) {
+        if (meta.og && meta.og.title && meta['html-title'] && !/security check required/i.test(meta['html-title'])) {
             return {
                 title: meta.og.title,
                 description: meta.og.description
@@ -34,7 +34,8 @@ module.exports = {
         }
         // skip user profiles - they can not be embedded
         if ((meta.ld && meta.ld.organization && /blockquote/.test(oembed.html)) 
-            || (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html))) {
+            || (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html))
+            || (meta['html-title'] && /security check required/i.test(meta['html-title']) && /blockquote/.test(oembed.html)) ) {
 
             var html = oembed.html;
 
@@ -69,6 +70,13 @@ module.exports = {
         }
 
         return links;
+    },
+
+    getData: function(oembed, options) {
+        
+        if (oembed.html && /blockquote/.test(oembed.html)) {
+            options.followHTTPRedirect = true; // avoid security re-directs of URLs if any
+        }
     },
 
     tests: [
