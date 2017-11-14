@@ -109,6 +109,7 @@ module.exports = {
 
     getMeta: function(youtube_video_gdata) {
         return {
+            id: youtube_video_gdata.id,
             title: youtube_video_gdata.title,
             date: youtube_video_gdata.uploaded,
             author: youtube_video_gdata.uploader,
