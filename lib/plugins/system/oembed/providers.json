@@ -387,7 +387,8 @@
     {
         "name": "Polldaddy",
         "templates": [
-            "polldaddy\\.com/poll/.*"
+            "polldaddy\\.com/(?:poll|s)/.*",
+            ".*\\.polldaddy.com/(?:poll|s)/.*"
         ],
         "endpoint": "http://polldaddy.com/oembed/"
     },
@@ -649,9 +650,9 @@
         "endpoint": "https://forms.office.com/formapi/api/embed"
     }, {
         "name": "Tapewrite",
-        "templates": [        
-            "tapewrite.com/tapes/play/.*"            
+        "templates": [
+            "tapewrite.com/tapes/play/.*"
         ],
         "endpoint": "https://tapewrite.com/REST/oembed"
-    }    
+    }
 ]
