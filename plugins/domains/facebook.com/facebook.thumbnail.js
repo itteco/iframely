@@ -37,7 +37,7 @@ module.exports = {
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
             }
-        } else {
+        } else if (meta['html-title'] && /security check required/i.test(meta['html-title'])) {
             console.log('FB security check on URL: ' + url);
         }
     },

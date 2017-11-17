@@ -1,3 +1,5 @@
+var entities = require('entities');
+
 module.exports = {
 
     // It's official: https://developers.facebook.com/docs/plugins/oembed-endpoints
@@ -24,8 +26,8 @@ module.exports = {
             title = title ? title[1] : author;
 
             return {
-                title: title,
-                description: description,
+                title: entities.decodeHTML(title),
+                description: entities.decodeHTML(description),
                 author: author
             };
         }
