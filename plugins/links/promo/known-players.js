@@ -118,8 +118,8 @@ module.exports = {
             };
         }
 
-        // Or Soundcloud
-        urlMatch = video_src.match(/^https?:\/\/(?:\w+\.)?soundcloud\.com/i);
+        // Or Soundcloud || Giphy
+        urlMatch = video_src.match(/^https?:\/\/(?:\w+\.)?soundcloud\.com/i) || video_src.match(/^https?:\/\/giphy\.com\/embed/i);
 
 
         if (urlMatch) {
