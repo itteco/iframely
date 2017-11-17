@@ -53,7 +53,22 @@ module.exports = {
             });
         }
 
+        if (!oembed.thumbnail_url) {
+            links.push({message: 'Password required for this video'});
+        }
+
         return links;
+    },
+
+    getData: function(oembedError, cb) {
+        // handle private videos, ex. https://vimeo.com/243312327
+        cb (
+            oembedError == 403 ? {
+                responseError: oembedError,
+                message: 'This Vimeo video is private and requires a password'
+            } : null
+        );
+
     },
 
     tests: [{
@@ -63,6 +78,10 @@ module.exports = {
         {
             skipMixins: [
                 "oembed-description"
+            ]
+        }, {
+            skipMethods: [
+                "getData"
             ]
         }
     ]
