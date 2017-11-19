@@ -83,7 +83,8 @@ module.exports = {
         "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
         "https://www.facebook.com/pg/RhulFencing/about/",
         {
-            noFeeds: true
+            noFeeds: true,
+            skipMethods: ['getData']
         }
     ]
 };
