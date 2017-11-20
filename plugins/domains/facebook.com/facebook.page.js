@@ -6,6 +6,7 @@ module.exports = {
     getMeta: function(oembed, meta, urlMatch) {
 
         if (meta.og && meta.og.title && meta['html-title'] && !/security check required/i.test(meta['html-title'])) {
+
             return {
                 title: meta.og.title,
                 description: meta.og.description
@@ -63,7 +64,6 @@ module.exports = {
                 "max-width": oembed.width
             });
         } else {
-            console.log ("Facebook profile meta: " + JSON.stringify(meta));
             links.push ({
                 message: "Facebook profile pages of individual users are not embeddable."
             });

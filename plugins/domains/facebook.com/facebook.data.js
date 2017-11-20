@@ -26,8 +26,8 @@ module.exports = {
             title = title ? title[1] : author;
 
             return {
-                title: entities.decodeHTML(title),
-                description: entities.decodeHTML(description),
+                title: title ? entities.decodeHTML(title) : null,
+                description: description ? entities.decodeHTML(description) : null,
                 author: author
             };
         }
