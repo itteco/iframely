@@ -654,5 +654,12 @@
             "tapewrite.com/tapes/play/.*"
         ],
         "endpoint": "https://tapewrite.com/REST/oembed"
-    }
+    }, {
+        "name": "someecards",
+        "templates": [            
+            "someecards.com/usercards/viewcard/.*",
+            "someecards.com/\\w+\\-cards/.*"
+        ],
+        "endpoint": "https://www.someecards.com/v2/oembed"
+    }    
 ]
