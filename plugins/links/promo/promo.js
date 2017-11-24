@@ -11,7 +11,7 @@ module.exports = {
         // see theplatform plugin for example
         var promoUri = typeof __promoUri !== "string" ? __promoUri.url : __promoUri;
 
-        if (url === promoUri) {
+        if (url === promoUri || (options.redirectHistory && options.redirectHistory.indexOf(promoUri) > -1)) {
             // Prevent self recursion.
             return cb();
         }
