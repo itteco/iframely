@@ -11,7 +11,10 @@ module.exports = {
         "canonical",
         "twitter-description",
         "oembed-site",
-        "twitter-title"
+        "twitter-title",
+        "og-description",
+        "og-title"
+
     ],
 
     getLink: function(oembed, url) {
@@ -25,6 +28,17 @@ module.exports = {
     },
 
     tests: [
+        {
+            skipMixins: [
+                "twitter-image",
+                "canonical",
+                "twitter-description",
+                "oembed-site",
+                "twitter-title",
+                "og-description",
+                "og-title"
+            ]
+        },
         "https://polldaddy.com/poll/7451882/?s=twitter",
         "http://polldaddy.com/poll/9113163/",
         "https://wordpressdotorg.polldaddy.com/s/wordpress-2017-survey"
