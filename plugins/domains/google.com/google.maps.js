@@ -49,7 +49,7 @@ module.exports = {
 
     getMeta: function(gmap) {
         return {
-            title: (gmap.q && decodeURIComponent(gmap.q).replace ('+', ' ').replace ('%20', ' ')) || gmap.center || "Google Maps",
+            title: (gmap.q && decodeURIComponent(gmap.q).replace (/\+/g, ' ').replace (/%20/g, ' ')) || gmap.center || "Google Maps",
             site: "Google Maps"
         }
     },
