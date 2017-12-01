@@ -22,7 +22,7 @@
         "async": "2.4.1",
         "cheerio": "0.22.0",
         "chokidar": "1.7.0",
-        "ejs": "2.3.4",
+        "ejs": "2.5.7",
         "entities": "1.1.1",
         "express": "^4.15.3",
         "graceful-cluster": "0.0.3",
