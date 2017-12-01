@@ -10,10 +10,10 @@ module.exports = {
 
         var query = URL.parse(url, true).query;
 
-        if (!meta.og && query && query.z && /^video\-\d+_\d+/.test(query.z)) {
+        if ((!meta.og || !meta.og.url) && query && query.z && /^video\-?\d+_\d+/.test(query.z)) {
 
             return cb({
-                redirect: 'https://vk.com/' + query.z.match(/^video\-\d+_\d+/)[0]
+                redirect: 'https://vk.com/' + query.z.match(/^video\-?\d+_\d+/)[0]
             })
 
         } else {

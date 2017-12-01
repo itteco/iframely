@@ -40,7 +40,7 @@ module.exports = {
         });
     },
 
-    tests: [
+    tests: [{skipMixins: ["og-description"]},
         "https://vk.com/video246045358_456239211",
         "https://vk.com/videos-130381004?z=video-130381004_456239909%2Fclub130381004%2Fpl_-130381004_-2",
         "https://vk.com/mil?z=video-133441491_456239767%2F3da2a83ffebdae2580%2Fpl_wall_-133441491"
