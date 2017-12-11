@@ -197,7 +197,7 @@ module.exports = {
 
         if (((c.media_only && !options.getProviderOptions(CONFIG.O.full, false)) || options.getProviderOptions(CONFIG.O.compact, false)) 
             && twitter_og && twitter_og.video && twitter_og.image 
-            && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
+            && /^https?:\/\/pbs\.twimg\.com\/(?:media|amplify)/i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {            
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137
 
