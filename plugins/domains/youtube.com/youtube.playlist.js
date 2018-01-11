@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)$/i
+        /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)/i
     ],
 
     mixins: [
@@ -12,27 +12,17 @@ module.exports = {
         "domain-icon"
     ],    
 
-    getLinks: function(urlMatch, options) {
+    getLinks: function(urlMatch, oembed, options) {
 
-        var params = options.getProviderOptions('youtube.get_params', '');
+        var params = options.getProviderOptions('youtube.playlist_params', '');
 
-        params = params.replace(/^\?/, '&');
-
-        var autoplay = params + "&autoplay=1";
-
-        var links = [{
-            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + params,
+        return {
+            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + params.replace(/^\?/, '&'),
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": 560/315
-        }, {
-            href: 'https://www.youtube.com/embed/videoseries?list=' + urlMatch[1] + autoplay,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-            type: CONFIG.T.text_html,
-            "aspect-ratio": 560/315
-        }];
-
-        return links;
+            "aspect-ratio": oembed.width && oembed.height ? oembed.width / oembed.height : 16/9,
+            autoplay: 'autoplay=1'
+        }
     },
 
     tests: [{
