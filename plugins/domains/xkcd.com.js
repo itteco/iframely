@@ -1,3 +1,5 @@
+const decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     re: /^https?:\/\/(?:www.)?xkcd\.com\/\d+/i,
@@ -6,7 +8,7 @@ module.exports = {
 
     provides: 'xkcd_data',
 
-    getData: function(cheerio) {
+    getData: function(cheerio, decode) {
 
         var $img = cheerio('#comic img');
         var $a = cheerio('#comic a');
@@ -15,7 +17,7 @@ module.exports = {
             xkcd_data: {
                 image: $img.attr('src'),
                 has_large_image: $a.length,
-                description: $img.attr('title')
+                description: decodeHTML5(decode($img.attr('title')))
             }
         };
     },
@@ -31,7 +33,7 @@ module.exports = {
         var result = [{
             href: xkcd_data.image,
             type: CONFIG.T.image_png,
-            rel: CONFIG.R.image
+            rel: [CONFIG.R.image, CONFIG.R.thumbnail]
         }];
 
         if (xkcd_data.has_large_image) {

@@ -1,3 +1,5 @@
+const decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     provides: 'dailymailVideo',
@@ -13,10 +15,10 @@ module.exports = {
         }
     },
 
-    getMeta: function(dailymailVideo) {
+    getMeta: function(dailymailVideo, decode) {
         return {
-            title: dailymailVideo.title, 
-            description: dailymailVideo.descr
+            title: decodeHTML5(decode(dailymailVideo.title)),
+            description: decodeHTML5(decode(dailymailVideo.descr))
         }
     },
 

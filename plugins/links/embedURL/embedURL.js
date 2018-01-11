@@ -1,8 +1,10 @@
+const decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     provides: 'schemaVideoObject',
 
-    getData: function(cheerio, __allowEmbedURL) {
+    getData: function(cheerio, decode, __allowEmbedURL) {
 
         var videoObjectSchema = 'Object';
 
@@ -29,7 +31,7 @@ module.exports = {
 
                 var key = $el.attr('itemprop');
                 if (key) {
-                    var value = $el.attr('content') || $el.attr('href');
+                    var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
                     result[key] = value;
                 }
             });
