@@ -661,5 +661,11 @@
             "someecards.com/\\w+\\-cards/.*"
         ],
         "endpoint": "https://www.someecards.com/v2/oembed"
-    }    
+    }, {
+        "name": "Datawrapper",
+        "templates": [            
+            "datawrapper.dwcdn.net/.*"
+        ],
+        "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
+    }
 ]
