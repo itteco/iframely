@@ -31,7 +31,7 @@ module.exports = {
     },
 
     getData: function(meta) {
-        if (meta.generator === 'vidyard.com' && meta.og && meta.og.site_name === 'Vidyard') {
+        if (meta.generator === 'vidyard.com' && meta.twitter && meta.twitter.player) {
             return {
                 __isVidyard: true
             }
