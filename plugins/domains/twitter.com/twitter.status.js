@@ -189,7 +189,7 @@ module.exports = {
         }
 
         var locale = options.getProviderOptions('locale');
-        if (locale && /^\w{2}\-\w{2,3}$/.test(locale)) {
+        if (locale && /^\w{2}\_\w{2,3}$/.test(locale)) {
             html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+_\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale + '"');
         }
 

@@ -11,7 +11,7 @@ module.exports = {
         "favicon",
         "oembed-author",
         "oembed-canonical",
-        "og-description",
+        "oembed-description",
         "keywords",
         "oembed-site",
         "oembed-title"
@@ -29,7 +29,7 @@ module.exports = {
         if ($iframe.length == 1) {
 
             var query = URL.parse(url,true).query;
-            var lang = query.language || query.nolanguage || (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, ''));
+            var lang = query.language || query.nolanguage;
 
             return {
                 type: CONFIG.T.text_html, 
