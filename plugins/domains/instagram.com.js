@@ -78,7 +78,11 @@ module.exports = {
             var hideinfo = options.getProviderOptions(CONFIG.O.compact, false);
             if (hideinfo && /data\-instgrm\-captioned/i.test(html)) {
                 html = html.replace("data-instgrm-captioned ", "");
-            }            
+            }
+
+            if (/script async defer src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
+                html = html.replace ('script async defer src="//www.instagram.com/embed.js"', 'script async defer src="//platform.instagram.com/' + options.getProviderOptions('locale', 'en_US') + '/embeds.js"');
+            }
 
             links.push({
                 html: html,
