@@ -9,6 +9,8 @@ module.exports = {
         "oembed-author",
         "oembed-site",
         "oembed-title",
+        "og-description",
+        "canonical",
         "domain-icon"
     ],    
 
