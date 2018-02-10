@@ -12,7 +12,7 @@ module.exports = {
     getLink: function(url, oembed, options) {
 
         var html = oembed.html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
-                'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US') + '/sdk.js'); 
+                'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); 
 
         var link = {
             type: CONFIG.T.text_html,

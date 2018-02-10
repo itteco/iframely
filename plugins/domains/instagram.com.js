@@ -80,8 +80,12 @@ module.exports = {
                 html = html.replace("data-instgrm-captioned ", "");
             }
 
-            if (/script async defer src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
-                html = html.replace ('script async defer src="//www.instagram.com/embed.js"', 'script async defer src="//platform.instagram.com/' + options.getProviderOptions('locale', 'en_US') + '/embeds.js"');
+            if (/src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
+                html = html.replace ('src="//www.instagram.com/embed.js"', 'src="//platform.instagram.com/en_US/embeds.js"');
+            }
+
+            if (options.getProviderOptions('locale')) {
+                html = html.replace('/en_US/embeds.js', '/' + options.getProviderOptions('locale').replace('-', '_') + '/embeds.js');
             }
 
             links.push({

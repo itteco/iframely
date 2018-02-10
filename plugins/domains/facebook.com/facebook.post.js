@@ -19,7 +19,7 @@ module.exports = {
         var html = oembed.html.replace(/data-width=\"\d+\"/, 'data-width="' + width + '"');
             html = html.replace(/class=\"fb\-video\"/, 'class="fb-post"'); // thank you FB for not working well with photo.php
             html = html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
-                'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US') + '/sdk.js'); // FB gives it based on server IP, and it has inaccurate IP2Location 
+                'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); // FB gives it based on server IP, and it has inaccurate IP2Location 
 
 
         if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
