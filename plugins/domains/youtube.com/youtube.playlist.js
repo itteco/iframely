@@ -28,7 +28,8 @@ module.exports = {
     },
 
     tests: [{
-        noFeeds: true
+        noFeeds: true,
+        skipMixins: ["og-description"]
     },
         "https://www.youtube.com/playlist?list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh"
     ]

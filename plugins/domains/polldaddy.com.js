@@ -40,7 +40,6 @@ module.exports = {
             ]
         },
         "https://polldaddy.com/poll/7451882/?s=twitter",
-        "http://polldaddy.com/poll/9113163/",
-        "https://wordpressdotorg.polldaddy.com/s/wordpress-2017-survey"
+        "http://polldaddy.com/poll/9113163/"
     ]
 };

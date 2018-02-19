@@ -14,6 +14,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player,  CONFIG.R.html5],
             "aspect-ratio": 540 / 310,
+            "max-width": 1280,
             autoplay: 'autostart=true'
         }
     },

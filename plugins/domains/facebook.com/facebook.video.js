@@ -50,7 +50,6 @@ module.exports = {
     tests: [
         "http://www.facebook.com/video/video.php?v=4253262701205&set=vb.1574932468&type=2",
         "http://www.facebook.com/photo.php?v=4253262701205&set=vb.1574932468&type=2&theater",
-        "https://www.facebook.com/video.php?v=10152309398358392&fref=nf",
         "https://www.facebook.com/video.php?v=4392385966850",
         "https://www.facebook.com/joe.yu.94/videos/10206321173378788/",
         "https://business.facebook.com/KMPHFOX26/videos/10154356403004012/",

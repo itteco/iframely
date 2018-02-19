@@ -20,7 +20,5 @@ module.exports = {
     tests: [{
         page: 'http://www.56.com/',
         selector: '#index_focus .cfix h3 a'
-    },
-        "http://www.56.com/u38/v_MTAxODk4MjE5.html"
-    ]
+    }]
 };
