@@ -10,7 +10,7 @@ module.exports = {
         "oembed-title"
     ],
 
-    getLink: function(oembed) {
+    getLink: function(oembed, whitelistRecord) {
 
         var $container = $('<div>');
         try {
@@ -19,7 +19,7 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-        if ($iframe.length == 1) {
+        if ($iframe.length == 1 && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video')) {
 
             var href = $iframe.attr('src');
 
