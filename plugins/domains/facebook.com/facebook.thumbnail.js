@@ -29,20 +29,14 @@ module.exports = {
 
     getLink: function(url, __allowFBThumbnail, meta) {
 
-        if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && meta.og && meta.og.image) {
+        if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && meta.og && meta.og.image
+            && !/\/p200x200\//i.test(meta.og.image)) { // skip profile pictures
 
-            var thumbnail = {
+            return {
                 href: meta.og.image,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-            };
-
-            if (/\/p200x200\//i.test(meta.og.image)) {
-                thumbnail.width = 200;
-                thumbnail.height = 200;
             }
-
-            return thumbnail;
         } else if (meta['html-title'] && /security check required/i.test(meta['html-title'])) {
             console.log('FB security check on URL: ' + url);
         }

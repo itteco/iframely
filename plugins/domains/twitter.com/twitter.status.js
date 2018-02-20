@@ -225,26 +225,23 @@ module.exports = {
                 "max-width": twitter_oembed["width"] || 550
             };
 
-            if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet
-                || (twitter_og.image && !(twitter_og.image.user_generated || /\/profile_images\//i.test(twitter_og.image)))) { // user_generated is string = 'true' for pics
+            if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) 
+                || (twitter_og.image && !twitter_og.image.user_generated)) { // user_generated is string = 'true' for pics
                 app['aspect-ratio'] = 1;
             }
 
             links.push(app);
         }
 
-        if (twitter_og && twitter_og.image) {
+        if (twitter_og && twitter_og.image && 
+            !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image)) {
+            // skip profile pictures
 
             var thumbnail = {
                 href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
             };
-
-            if (/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image)) {
-                thumbnail.width = 400;
-                thumbnail.height = 400;
-            }
 
             if (twitter_og.video && twitter_og.video.width && twitter_og.video.height) {
                 thumbnail.width = twitter_og.video.width;
