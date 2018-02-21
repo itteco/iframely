@@ -33,14 +33,14 @@
         "jslint": "0.8",
         "jsontoxml": "0.0.11",
         "memcached": "2.2.2",
-        "moment": "2.18.1",
+        "moment": "2.19.3",
         "node-cache": "1.*",
         "parse-iso-duration": "1.0.0",
         "readabilitySAX": "1.6.1",
         "redis": "2.7.1",
         "request": "2.81.0",
         "sax": "1.2.2",
-        "send": "0.15.3",
+        "send": "0.16.1",
         "underscore": "1.8.3"
     },
     "devDependencies": {
