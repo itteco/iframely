@@ -55,7 +55,7 @@ module.exports = {
         "http://www.sctimes.com/videos/weather/2015/08/17/31839437/",
         "http://www.baxterbulletin.com/videos/news/local/2015/08/17/31843911/",
         "http://www.delmarvanow.com/videos/sports/high-school/2015/08/18/31933549/",
-        "http://www.courier-journal.com/videos/entertainment/2015/08/18/31920575/",
+        "https://www.courier-journal.com/videos/entertainment/2015/08/24/31920575/",
         "http://www.detroitnews.com/videos/sports/nfl/lions/2015/08/19/31954181/",
         "http://www.press-citizen.com/videos/news/education/k-12/2015/08/18/31959369/",
         "http://www.tennessean.com/videos/entertainment/2015/08/18/31958929/",

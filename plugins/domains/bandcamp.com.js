@@ -98,7 +98,6 @@ module.exports = {
         "http://music.zackhemsey.com/track/dont-get-in-my-way",
         "http://yancyderon.com/album/the-difference-sp",
         "http://music.freddiejoachim.com/album/begonia",
-        "http://radiojuicy.com/album/rio",
         "http://music.freddiejoachim.com/album/patiently",
         "https://decembersongs.bandcamp.com/",
         "http://sonsofoflaherty.bandcamp.com/album/misc-songs",

@@ -33,10 +33,11 @@ module.exports = {
             if ($iframe.length) {
 
                 return {
-                    __promoUri: $iframe.attr('src')
-
-                };
-
+                    __promoUri: {
+                        url: $iframe.attr('src'),
+                        rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                    }
+                }
             }
         }
     },

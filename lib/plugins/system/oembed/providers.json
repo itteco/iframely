@@ -185,9 +185,9 @@
     {
         "name": "Twitter Users",
         "templates": [
-            "twitter\\.com/(\\w+)$"
+            "(twitter\\.com/\\w+)/?$"
         ],
-        "endpoint": "https://publish.twitter.com/oembed?i=user&url={url}"
+        "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
     {
         "name": "GfyCat",
@@ -216,7 +216,7 @@
             "([\\w\\.]*instagram\\.com/p/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
-        "endpoint": "https://api.instagram.com/oembed?format={format}&url=http://{1}"
+        "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://{1}"
     },
     {
         "name": "Instagr.am user page",
@@ -224,7 +224,7 @@
             "([\\w\\.]*instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
             "(instagr\\.am/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "https://api.instagram.com/oembed?format={format}&url=http://{1}{2}"
+        "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://{1}{2}"
     },
     {
         "name": "DailyMotion",
@@ -387,7 +387,8 @@
     {
         "name": "Polldaddy",
         "templates": [
-            "polldaddy\\.com/poll/.*"
+            "polldaddy\\.com/(?:poll|s)/.*",
+            ".*\\.polldaddy.com/(?:poll|s)/.*"
         ],
         "endpoint": "http://polldaddy.com/oembed/"
     },
@@ -422,13 +423,6 @@
             "[^w]+\\.\\w+\\.\\w+/gallery/\\d+/[\\w-]+"
         ],
         "endpoint": "http://www.behance.net/services/oembed"
-    },
-    {
-        "name": "Ted",
-        "templates": [
-            "ted\\.com/talks/([a-zA-Z0-9-_]+)"
-        ],
-        "endpoint": "http://www.ted.com/services/v1/oembed.{format}?url=https://ted.com/talks/{1}"        
     },
     {
         "name": "Codepen",
@@ -647,5 +641,24 @@
             "forms.office.com/.*"            
         ],
         "endpoint": "https://forms.office.com/formapi/api/embed"
+    }, {
+        "name": "Tapewrite",
+        "templates": [
+            "tapewrite.com/tapes/play/.*"
+        ],
+        "endpoint": "https://tapewrite.com/REST/oembed"
+    }, {
+        "name": "someecards",
+        "templates": [            
+            "someecards.com/usercards/viewcard/.*",
+            "someecards.com/\\w+\\-cards/.*"
+        ],
+        "endpoint": "https://www.someecards.com/v2/oembed"
+    }, {
+        "name": "Datawrapper",
+        "templates": [            
+            "datawrapper.dwcdn.net/.*"
+        ],
+        "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
     }
 ]

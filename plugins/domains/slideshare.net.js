@@ -4,7 +4,15 @@ var $ = require('cheerio');
 module.exports = {
 
     mixins: [
-        "*"
+        // "*" // Linking to * will enable oembed-rich and will result in incorrect aspect-ratios
+            "twitter-image",
+            "oembed-thumbnail",
+            "favicon",
+            "oembed-author",
+            "canonical",
+            "description",
+            "oembed-site",
+            "oembed-title"
     ],
 
     getMeta: function(meta) {

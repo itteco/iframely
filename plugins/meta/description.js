@@ -1,5 +1,7 @@
 module.exports = {
 
+	lowestPriority: true,
+
     getMeta: function(meta) {
 
         var d = meta.metaDescription || meta.description || meta.Description;

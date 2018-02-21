@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.)?brainyquote\.com\/quotes(?:\/quotes)\/\w\/?/i
+        /^https?:\/\/(?:www\.)?brainyquote\.com\/quotes(?:\/quotes)?\/\w\/?/i
     ],
 
     mixins: [

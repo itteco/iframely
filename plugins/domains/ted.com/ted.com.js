@@ -5,13 +5,17 @@ module.exports = {
 
     re: /^https?:\/\/(?:www\.)?ted\.com\/talks\//i,
 
+    provides: [
+        "oembedLinks"
+    ],    
+
     mixins: [
         "og-image",
         "oembed-thumbnail",
         "favicon",
         "oembed-author",
         "oembed-canonical",
-        "og-description",
+        "oembed-description",
         "keywords",
         "oembed-site",
         "oembed-title"
@@ -29,7 +33,7 @@ module.exports = {
         if ($iframe.length == 1) {
 
             var query = URL.parse(url,true).query;
-            var lang = query.language || query.nolanguage || (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, ''));
+            var lang = query.language || query.nolanguage;
 
             return {
                 type: CONFIG.T.text_html, 
@@ -38,12 +42,29 @@ module.exports = {
                 "aspect-ratio": oembed.width / oembed.height
             }
         }
-    },    
+    },
+
+    getData: function(url, meta, options, cb) {
+
+        var query = URL.parse(url,true).query;
+        var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
+
+        var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
+                return typeof link.indexOf === 'function' && link.indexOf('language='+lang) > -1;
+            });
+
+        cb (null, {oembedLinks: [{
+                href: 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical) + (is_valid_lang ? '&language=' + lang : ''),
+                rel: 'alternate',
+                type: 'application/json+oembed'
+            }]
+        });
+    },
 
     tests: [{
         page: "http://www.ted.com/talks",
         selector: "#browse-results a"
-    },
+    }, {skipMethods: 'getData'},
         "http://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city"
     ]
 };

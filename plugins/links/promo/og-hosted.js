@@ -11,8 +11,8 @@ module.exports = {
         var video_src = (video && (video.url || video.secure_url)) || (video && video.iframe) || video;
 
         if (video_src && !(video_src instanceof Array)
-            && /(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|wistia|kaltura|mtvnservices|bcove)\./i.test(video_src)
-            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|wistia|kaltura\.com|mtvnservices|bcove)\./i.test(url)) {
+            && /(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|jwplayer|cnevids|newsinc|wistia\/embed|kaltura|mtvnservices|bcove|viddler|flowplayer|vidible)\./i.test(video_src)
+            && !/(youtube|youtu|vimeo|dailymotion|theplatform|jwplatform|jwplayer|cnevids|newsinc|wistia|kaltura|mtvnservices|bcove|viddler|flowplayer|vidible)\./i.test(url)) {
 
             if (/^\/\//.test(video_src)) {
                 video_src = 'http:' + video_src;

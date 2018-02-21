@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": [
         "oembed",
@@ -22,7 +22,7 @@
         "async": "2.4.1",
         "cheerio": "0.22.0",
         "chokidar": "1.7.0",
-        "ejs": "2.3.4",
+        "ejs": "2.5.7",
         "entities": "1.1.1",
         "express": "^4.15.3",
         "graceful-cluster": "0.0.3",
@@ -33,14 +33,14 @@
         "jslint": "0.8",
         "jsontoxml": "0.0.11",
         "memcached": "2.2.2",
-        "moment": "2.18.1",
+        "moment": "2.19.3",
         "node-cache": "1.*",
         "parse-iso-duration": "1.0.0",
         "readabilitySAX": "1.6.1",
         "redis": "2.7.1",
         "request": "2.81.0",
         "sax": "1.2.2",
-        "send": "0.15.3",
+        "send": "0.16.1",
         "underscore": "1.8.3"
     },
     "devDependencies": {

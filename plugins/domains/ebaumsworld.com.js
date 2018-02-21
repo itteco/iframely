@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/www\.ebaumsworld\.com\/video\/watch\/(\d+)/i,
-        /^https?:\/\/www\.ebaumsworld\.com\/videos\/[a-zA-Z0-9_-]+\/(\d+)/i
+        /^https?:\/\/\w+\.ebaumsworld\.com\/videos\/[a-zA-Z0-9_-]+\/(\d+)/i
     ],
 
     mixins: ["*"],
@@ -22,6 +22,7 @@ module.exports = {
         page: "http://www.ebaumsworld.com/videos/",
         selector: ".title a"
     },
-        "http://www.ebaumsworld.com/video/watch/81387150/"
+        "http://www.ebaumsworld.com/video/watch/81387150/",
+        "http://gaming.ebaumsworld.com/videos/when-gta-v-online-spirals-way-out-of-control/85583669/"
     ]
 };

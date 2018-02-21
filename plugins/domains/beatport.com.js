@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www|mixes|pro)\.beatport\.com\/(track|mix)\/[a-zA-Z0-9\.\-]+\/(\d+)/i
+        /^https?:\/\/(?:www|pro)\.beatport\.com\/(track|mix)\/[a-zA-Z0-9\.\-]+\/(\d+)/i
     ],
 
     mixins: [
@@ -32,8 +32,6 @@ module.exports = {
         page: "http://www.beatport.com/",
         selector: "a.top-ten-track-title"
     },
-        "http://www.beatport.com/track/kiss-bitches-original-mix/5374571",
-        "http://mixes.beatport.com/mix/happy-ch-electro-pop-vol-006/163618",
-        "http://mixes.beatport.com/mix/winter-mixtape/120091"
+        "http://www.beatport.com/track/kiss-bitches-original-mix/5374571"
     ]
 };

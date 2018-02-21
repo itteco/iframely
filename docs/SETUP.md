@@ -1,6 +1,6 @@
 # Self-host Iframely APIs
 
-The source-code of [Iframely](https://iframely.com) parsers is hosted [on GitHub](https://github.com/itteco/iframely). It's a Node.js library and server published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of [smart iFrames](https://iframely.com/docs/iframes)).
+The source-code of [Iframely](https://iframely.com) parsers engine is hosted [on GitHub](https://github.com/itteco/iframely). It's a Node.js library and server published under MIT license. You can start self-hosting any time, as APIs are nearly identical (except the hosted version requires API key and can output the HTML of [smart iFrames](https://iframely.com/docs/iframes)).
 
 Here are the instructions to get your instance of APIs up and running.
 
@@ -14,7 +14,7 @@ There are few cases, when rendering of embed content is required by the server, 
 
 ## Initial Installation
 
-Node.js version 0.10.22 and higher is required (was tested up to 0.12). Install it from [pre-built installer](http://nodejs.org/download/) for your platform or from any of the [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+Node.js version 0.10.22 and higher is required (was tested up to 8.3.0). Install it from [pre-built installer](http://nodejs.org/download/) for your platform or from any of the [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
     cd <your servers dir>
     git clone https://github.com/itteco/iframely.git
@@ -68,36 +68,43 @@ To run server in cluster mode, use
 
     node cluster
 
-We highly recommend using [Forever](https://github.com/nodejitsu/forever) though. It makes stopping and restarting of the servers so much easier:
+We highly recommend using [PM2](https://github.com/Unitech/pm2) or [Forever](https://github.com/nodejitsu/forever) process managers. It makes stopping and restarting of the servers so much easier:
+
+Forever:
 
     npm install forever -g
     forever start -a -l iframely.log --killSignal=SIGTERM cluster.js
     forever logs 0 -fifo
-    
-If you use 'node cluster' or [Forever](https://github.com/nodejitsu/forever) you can do graceful server restart without aborting active user connections. Just send 'SIGUSR2' signal to 'cluster.js' process:
 
-    pkill -USR2 iframely-c
-
-For production deployments, we recommend the cluster mode. It will properly utilize the CPU if you are on multiple cores. Plus, as with any Node.js memory buffers, it is beneficial for performance to peridically restart the running processes.
-    
-Good all-in-one alternative is [PM2](https://github.com/Unitech/pm2):
+PM2:
 
     npm install pm2 -g
     pm2 start pm2.json
     pm2 logs
 
-[PM2](https://github.com/Unitech/pm2) can do graceful reload:
+    
+If you use 'node cluster' or [Forever](https://github.com/nodejitsu/forever) you can do graceful server restart without aborting active user connections. Just send 'SIGUSR2' signal to 'cluster.js' process:
+
+    pkill -USR2 iframely-c
+
+
+Graceful reload with [PM2](https://github.com/Unitech/pm2):
 
     pm2 reload iframely
 
 
+For production deployments, we recommend the cluster mode. It will properly utilize the CPU if you are on multiple cores. Plus, as with any Node.js memory buffers, it is beneficial for performance to peridically restart the running processes.
+    
+
+
+
 ## Add Required Locations to Your Reverse Proxy
 
-Depending on your setup, you may need to configure these pathes in your reverse proxy settings to point to Iframely's Node.js instance:
+Depending on your setup, you may need to configure these paths in your reverse proxy settings to point to Iframely's Node.js instance:
 
-    /r/.+               -- static files (including iframely.js client library)
     /iframely           -- main API endpoint with get params 
     /oembed             -- oEmbed API endpoint
+    /r/.+               -- static files (including iframely.js client library)    
     /debug              -- optional debugger UI, if you write your own domain plugins
     /reader.js          -- API endpoint with get params - proxies script to render article
     /render             -- API endpoint with get params - prexies custom widgets if required
@@ -147,4 +154,4 @@ A brief documentation:
     docker stop iframely
 
 
-(c) 2013-2015 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
+(c) 2013-2018 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)

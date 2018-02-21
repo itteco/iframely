@@ -17,7 +17,7 @@ module.exports = {
         return {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.html5],
-            href: '//www.strawpoll.me/embed_1/' + urlMatch[1],
+            href: 'https://www.strawpoll.me/embed_1/' + urlMatch[1],
             height: height,
             'max-width': width,
             scrolling: 'no'    

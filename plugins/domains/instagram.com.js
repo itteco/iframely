@@ -78,7 +78,15 @@ module.exports = {
             var hideinfo = options.getProviderOptions(CONFIG.O.compact, false);
             if (hideinfo && /data\-instgrm\-captioned/i.test(html)) {
                 html = html.replace("data-instgrm-captioned ", "");
-            }            
+            }
+
+            if (/src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
+                html = html.replace ('src="//www.instagram.com/embed.js"', 'src="//platform.instagram.com/en_US/embeds.js"');
+            }
+
+            if (options.getProviderOptions('locale')) {
+                html = html.replace('/en_US/embeds.js', '/' + options.getProviderOptions('locale').replace('-', '_') + '/embeds.js');
+            }
 
             links.push({
                 html: html,

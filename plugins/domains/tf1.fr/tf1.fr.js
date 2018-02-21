@@ -27,7 +27,7 @@ module.exports = {
     },
 
     tests: [
-        "http://www.tf1.fr/tf1/secret-story/news/entre-melanie-bastien-rien-ne-va-plus-3194547.html",
-        "http://www.tf1.fr/tf1/secret-story/videos/secret-story-10-anais-deja-nerfs.html"
+        "https://www.tf1.fr/nt1/la-villa-des-coeurs-brises/news/gabano-nadege-j-ai-l-impression-de-me-taper-pote-2692850.html",
+        "https://www.tf1.fr/nt1/la-villa-des-coeurs-brises/videos/gabano-jesseka-bisou-piscine-1.html"
     ]
 };

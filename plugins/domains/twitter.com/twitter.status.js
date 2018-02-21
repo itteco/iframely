@@ -174,7 +174,7 @@ module.exports = {
             author: twitter_oembed.author_name,
             author_url: twitter_oembed.author_url,
             site: twitter_oembed.site_name || twitter_oembed.provider_name,
-            description: twitter_oembed.html.replace(/<(.*?)>/g, ''),
+            description: entities.decodeHTML(twitter_oembed.html.replace(/<(.*?)>/g, '')),
             canonical: twitter_oembed.url
         };
     },
@@ -189,15 +189,15 @@ module.exports = {
         }
 
         var locale = options.getProviderOptions('locale');
-        if (locale && /^\w{2}\-\w{2,3}$/.test(locale)) {
-            html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+_\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale + '"');
+        if (locale && /^\w{2}(?:\_|\-)\w{2,3}$/.test(locale)) {
+            html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+(?:\_|\-)\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale.replace('-', '_') + '"');
         }
 
         var links = [];
 
         if (((c.media_only && !options.getProviderOptions(CONFIG.O.full, false)) || options.getProviderOptions(CONFIG.O.compact, false)) 
             && twitter_og && twitter_og.video && twitter_og.image 
-            && /^https?:\/\/pbs\.twimg\.com\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {
+            && /^https?:\/\/pbs\.twimg\.com\/(?:media|amplify|ext_tw)/i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {            
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137
 
@@ -225,8 +225,8 @@ module.exports = {
                 "max-width": twitter_oembed["width"] || 550
             };
 
-            if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) 
-                || (twitter_og.image && !twitter_og.image.user_generated)) { // user_generated is string = 'true' for pics
+            if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet
+                || (twitter_og.image && !(twitter_og.image.user_generated || /\/profile_images\//i.test(twitter_og.image)))) { // user_generated is string = 'true' for pics
                 app['aspect-ratio'] = 1;
             }
 

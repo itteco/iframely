@@ -9,14 +9,21 @@ module.exports = {
 
     getLink: function(urlMatch) {
 
-        return {
+        var type = urlMatch[1].charAt(0).toLowerCase();
+        var player = {
             template_context: {
                 id: urlMatch[2],
-                type: urlMatch[1].charAt(0).toLowerCase(),
+                type: type,
             },
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5]
+        };
+
+        if (type === 't') {
+            player.height = 180;
         }
+
+        return player;
 
     },
 

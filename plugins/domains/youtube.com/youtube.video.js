@@ -165,7 +165,7 @@ module.exports = {
         }
 
         if (options.getProviderOptions('locale', false)) {
-            params.hl = options.getProviderOptions('locale', 'en_US');
+            params.hl = options.getProviderOptions('locale', 'en-US').replace('_', '-');
         }
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
