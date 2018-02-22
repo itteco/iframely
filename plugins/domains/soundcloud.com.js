@@ -23,7 +23,7 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false);
+            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('players.horizontal', false);
 
             var href = $iframe.attr('src');
             if (old_player) {
@@ -34,14 +34,20 @@ module.exports = {
                 href = href.replace('visual=false', 'visual=true');
             }
 
-            links.push({
+            var player = {
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                autoplay: "auto_play=true",
+                rel: [CONFIG.R.player, CONFIG.R.html5],                
                 height: /visual=false/.test(href) ? 114 : oembed.height,
                 "min-width": oembed.width
-            });            
+            };
+
+            // skip click-to-play card with ?iframely=less
+            if (!options.getProviderOptions(CONFIG.O.compact, false)) {
+                player.autoplay = "auto_play=true";
+            }
+
+            links.push(player);
         }
 
         if (oembed.thumbnail_url) {
