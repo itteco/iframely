@@ -23,7 +23,7 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('players.horizontal', false);
+            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false);
 
             var href = $iframe.attr('src');
             if (old_player) {
@@ -43,7 +43,7 @@ module.exports = {
             };
 
             // skip click-to-play card with ?iframely=less
-            if (!options.getProviderOptions(CONFIG.O.compact, false)) {
+            if (!options.getProviderOptions(CONFIG.O.compact, false) || (options.getProviderOptions(CONFIG.O.compact, false) && options.getProviderOptions('soundcloud.old_player', false))) {
                 player.autoplay = "auto_play=true";
             }
 
