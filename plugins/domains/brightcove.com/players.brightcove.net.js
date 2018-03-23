@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i
+        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?(?:.+)?videoId=([a-zA-Z0-9\-:]+)/i        
     ],
 
     mixins: [
@@ -13,8 +13,8 @@ module.exports = {
 
         var player = {
             href: '//players.brightcove.net/' + urlMatch[1] + '/' + urlMatch[2] + '_default/index.html?videoId=' 
-            + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : '') + '&for=embed',
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''),
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
             type: CONFIG.T.text_html,
             // aspect-ratio not known, use default...
         }
