@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+\/watch\/[a-zA-Z0-9]+/i
+        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+(\/sharing)?\/watch\/[a-zA-Z0-9]+/i
     ],
 
     provides: "__isVidyard",
@@ -15,14 +15,14 @@ module.exports = {
         if (/^https:\/\/play\.vidyard\.com\//i.test(twitter && twitter.player && twitter.player.value)) {
 
             return [{
-                href: twitter.player.value,
+                href: twitter.player.value.replace('autoplay=1', 'autoplay=0'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 'aspect-ratio': twitter.player.width / twitter.player.height,
                 autoplay: "autoplay=1"
             }, {
-                href: twitter.player.stream,
-                type: CONFIG.T.mp4,
+                href: twitter.player.stream && (twitter.player.stream.value || twitter.player.stream),
+                type: CONFIG.T.video_mp4,
                 rel: CONFIG.R.player,
                 'aspect-ratio': twitter.player.width / twitter.player.height                
             }];
@@ -44,6 +44,7 @@ module.exports = {
         "http://video.sencha.com/watch/a2v2Jjy6USsfYXxovNPzVD",
         "http://videos.zignallabs.com/watch/CJb9FicSup-0WgTQE_7RHQ",
         "http://videos.tenable.com/watch/vPyeFncWD-hDT9Yzt8H92g",
-        "http://video.verint.com/watch/yeGzTrpJ6lIPGYyx-i4aYw"
+        "http://video.verint.com/watch/yeGzTrpJ6lIPGYyx-i4aYw",
+        "http://watch.ultimatesoftware.com/sharing/watch/Cc32kg1FgX3faGhW527Y8o"
     ]
 };
