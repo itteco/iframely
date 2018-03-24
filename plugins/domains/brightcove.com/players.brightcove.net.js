@@ -13,8 +13,8 @@ module.exports = {
 
         var player = {
             href: '//players.brightcove.net/' + urlMatch[1] + '/' + urlMatch[2] + '_default/index.html?videoId=' 
-            + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''),
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
+            + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : '') + '&for=embed',
+            rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             'aspect-ratio': CONFIG.DEFAULT_ASPECT_RATIO
         }
