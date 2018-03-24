@@ -16,7 +16,7 @@ module.exports = {
             + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''),
             rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
             type: CONFIG.T.text_html,
-            // aspect-ratio not known, use default...
+            'aspect-ratio': CONFIG.DEFAULT_ASPECT_RATIO
         }
 
         // this comes from `brightcove-in-page-promo` only and follows whitelistRecord
