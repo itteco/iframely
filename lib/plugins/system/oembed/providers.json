@@ -660,5 +660,11 @@
             "datawrapper.dwcdn.net/.*"
         ],
         "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
+    }, {
+        "name": "Tableau Public",
+        "templates": [            
+            "public.tableau.com/.*"
+        ],
+        "endpoint": "https://public.tableau.com/profile/api/oembed"
     }
 ]
