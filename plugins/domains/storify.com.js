@@ -22,7 +22,7 @@ module.exports = {
         return {
             html: '<div class="storify"><iframe src="' + url + '/embed" width="100%" height="750" frameborder="no" allowtransparency="true"></iframe><script src="' + url + '.js"></script><noscript>[<a href="' + url + '" target="_blank">' + title + '</a>]</noscript></div>',
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.inline],
+            rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             "orientation": 'portrait',
             "min-width": 320,
             "max-width": 900
