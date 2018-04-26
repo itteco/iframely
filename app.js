@@ -137,7 +137,7 @@ function errorHandler(err, req, res, next) {
       message = 'Gone';
     }
     else if (code === 415 || code === 417) {
-      message = 'Unsupported Media Type';
+      message = err.message || 'Unsupported Media Type';
     }
 
     respondWithError(req, res, code, message, err.messages);
