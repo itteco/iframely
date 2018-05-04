@@ -1,8 +1,9 @@
 module.exports = {
 
-    getLink: function(url, __nonHtmlContentData) {
+    getLink: function(url, __nonHtmlContentData, options) {
 
-        if (/application\/pdf|text\/rtf/.test(__nonHtmlContentData.type) && __nonHtmlContentData.content_length < 10 * 1024 * 1024) {
+        if (!options.getProviderOptions('disableDocViewers', false) &&
+            /application\/pdf|text\/rtf/.test(__nonHtmlContentData.type) && __nonHtmlContentData.content_length < 10 * 1024 * 1024) {
             // Skip files that are over 10Mb, ex - http://topchoice.com.mt/pdf/TOPCHOICE-AD.pdf 
             // (Though Google seems to have the limit of 25Mb - that is still too much for general Iframley use)
             return {

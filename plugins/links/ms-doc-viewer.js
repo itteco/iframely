@@ -2,9 +2,10 @@
 
 module.exports = {
 
-    getLink: function(url, __nonHtmlContentData) {
+    getLink: function(url, __nonHtmlContentData, options) {
 
-        if (/application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)
+        if (!options.getProviderOptions('disableDocViewers', false)
+            && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)
             && (!__nonHtmlContentData.content_length || __nonHtmlContentData.content_length < 10 * 1024 * 1024)) {
             return {
                 href: "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(url),
