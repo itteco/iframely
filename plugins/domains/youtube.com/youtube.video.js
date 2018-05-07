@@ -160,7 +160,7 @@ module.exports = {
             params.enablejsapi = 1;
         }
 
-        if (options.getProviderOptions('players.showinfo', false)) {
+        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions(CONFIG.O.full, false)) {
             params.showinfo = 1;
         }
 
