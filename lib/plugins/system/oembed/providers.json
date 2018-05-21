@@ -190,6 +190,13 @@
         "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
     {
+        "name": "Twitter Statuses",
+        "templates": [
+            "twitter\\.com/\\w+/status/\\d+"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed"
+    },
+    {
         "name": "GfyCat",
         "templates": [
             "gfycat\\.com/.+"
