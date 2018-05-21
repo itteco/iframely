@@ -61,7 +61,8 @@ module.exports = {
                 var qs = {
                     hide_media:  options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_media, 
                     hide_thread: options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_thread,
-                    omit_script: c.omit_script
+                    omit_script: c.omit_script,
+                    dnt: c.dnt
                 };
 
                 if (usePublicApi) {
