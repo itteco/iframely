@@ -23,7 +23,7 @@ module.exports = {
         }
 
         return {
-            href: "//www.imdb.com/video/imdb/vi" + urlMatch[1] + "/imdb/embed?autoplay=false&width=" + width,
+            href: "https://www.imdb.com/video/imdb/vi" + urlMatch[1] + "/imdb/embed?autoplay=false&width=" + width,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             width: width,
@@ -33,9 +33,9 @@ module.exports = {
     },
 
     tests: [
-        "http://www.imdb.com/video/epk/vi1061203225/",
-        "http://www.imdb.com/video/imdb/vi2792795161?ref_=tt_pv_vi_aiv_2",
-        "http://www.imdb.com/title/tt2937696/?ref_=ext_shr_tw_vi_tt_ov_vi#lb-vi1383576089",
-        "http://www.imdb.com/videoplayer/vi2792795161?ref_=tt_pv_vi_aiv_2"
+        "https://www.imdb.com/video/epk/vi1061203225/",
+        "https://www.imdb.com/video/imdb/vi2792795161?ref_=tt_pv_vi_aiv_2",
+        "https://www.imdb.com/title/tt2937696/?ref_=ext_shr_tw_vi_tt_ov_vi#lb-vi1383576089",
+        "https://www.imdb.com/videoplayer/vi2792795161?ref_=tt_pv_vi_aiv_2"
     ]
 };

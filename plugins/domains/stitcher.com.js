@@ -40,7 +40,6 @@ module.exports = {
     },
         "http://www.stitcher.com/s?eid=35290263",
         "http://www.stitcher.com/podcast/nodeup/episode/35312671?refid=stpr&autoplay=true",
-        "http://www.stitcher.com/podcast/twit/the-new-screen-savers/e/tnss-49-from-russia-with-code-43809567",
-        "https://www.stitcher.com/podcast/spoken-edition/times-top-stories/e/51905978"
+        "http://www.stitcher.com/podcast/twit/the-new-screen-savers/e/tnss-49-from-russia-with-code-43809567"
     ]
 };

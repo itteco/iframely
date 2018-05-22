@@ -30,7 +30,6 @@ module.exports = {
     },
 
     tests: [
-        "https://link.brightcove.com/services/player/bcpid3151725071001?bckey=AQ~~,AAAACEcotwk~,gYcGnPAbE5Ck3BRhnuzIUQ5FzKM7PVaV&bctid=4432841078001&secureConnections=true&secureHTMLConnections=true&linkSrc=twitter&autoStart=false&height=100%25&width=100%25",
         "https://link.brightcove.com/services/player/bcpid1638546175001?bckey=AQ~~,AAAAmtVJIFk~,TVGOQ5ZTwJZhmi7steBjnvKikk1S5nut&bctid=2587584769001&secureConnections=true&secureHTMLConnections=true&linkSrc=twitter&autoStart=false&height=100%25&width=100%25",
         "https://link.brightcove.com/services/player/bcpid616303324001?bckey=AQ~~,AAAAj36EGjE~,w53r2XdUtII0XxxdqYeLp1bOxUXrsIg0&bctid=620166577001&secureConnections=true&secureHTMLConnections=true&linkSrc=twitter&autoStart=false&height=100%25&width=100%25"
     ]
