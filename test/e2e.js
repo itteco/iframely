@@ -91,7 +91,7 @@ describe('meta endpoint', function() {
             error: {
               source: 'iframely',
               code: 417,
-              message: 'Unsupported Media Type'
+              message: 'Requested page error: 500'
             }
           });
           done(err);
@@ -197,7 +197,7 @@ describe('meta endpoint', function() {
             error: {
               source: 'iframely',
               code: 417,
-              message: 'Unsupported Media Type',
+              message: 'Requested page error: 417',
               messages: [
                 "This domain is flagged as inappropriate."
               ]
