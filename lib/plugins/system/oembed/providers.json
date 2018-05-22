@@ -192,7 +192,7 @@
     {
         "name": "Twitter Statuses",
         "templates": [
-            "twitter\\.com/\\w+/status/\\d+"
+            "twitter\\.com/\\w+/status(?:es)?/\\d+"
         ],
         "endpoint": "https://publish.twitter.com/oembed"
     },
