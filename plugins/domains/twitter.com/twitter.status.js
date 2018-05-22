@@ -61,8 +61,7 @@ module.exports = {
                 var qs = {
                     hide_media:  options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_media, 
                     hide_thread: options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_thread,
-                    omit_script: c.omit_script,
-                    dnt: c.dnt
+                    omit_script: c.omit_script
                 };
 
                 if (usePublicApi) {
@@ -185,14 +184,18 @@ module.exports = {
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
         var html = twitter_oembed.html;
 
-        if (options.getProviderOptions('twitter.center', true)) {
-            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
-        }
-
         var locale = options.getProviderOptions('locale');
         if (locale && /^\w{2}(?:\_|\-)\w{2,3}$/.test(locale)) {
             html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+(?:\_|\-)\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale.replace('-', '_') + '"');
         }
+        
+        if (options.getProviderOptions('twitter.center', true)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
+        }
+
+        if (options.getProviderOptions('twitter.dnt')) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-dnt="true"');
+        }        
 
         var links = [];
 
