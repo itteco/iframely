@@ -41,6 +41,10 @@ module.exports = {
 
         if (/^https?:\/\/(?:c|secure)\.brightcove\.(?:com|co\.jp)\/services\/viewer\/federated_f9\/?/i.test(video_src)) {            
             var playerID = video_src.match(/playerID=([^&]+)/i);
+            if (!playerID) {
+                playerID = video_src.match(/federated_f9\/(\d+)\?/i);
+            }
+
             var videoID = video_src.match(/video(?:ID|Player)?=([^&]+)/i); // some have `Id` for some reason
 
             if (playerID && videoID) {

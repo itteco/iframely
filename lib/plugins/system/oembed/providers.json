@@ -190,6 +190,13 @@
         "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
     {
+        "name": "Twitter Statuses",
+        "templates": [
+            "twitter\\.com/\\w+/status(?:es)?/\\d+"
+        ],
+        "endpoint": "https://publish.twitter.com/oembed"
+    },
+    {
         "name": "GfyCat",
         "templates": [
             "gfycat\\.com/.+"
@@ -498,9 +505,9 @@
     {
         "name": "Adobe Stock",
         "templates": [
-            "stock.adobe.com/.*"
+            "stock.adobe.com/(?:images|stock-photo)/([a-zA-Z0-9-]+\/\\d+)"
         ],
-        "endpoint": "https://stock.adobe.com/oembed"
+        "endpoint": "https://stock.adobe.com/oembed?url=https://stock.adobe.com/stock-photo/{1}"
     },
     {
         "name": "Reddit",
@@ -660,5 +667,11 @@
             "datawrapper.dwcdn.net/.*"
         ],
         "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
+    }, {
+        "name": "Tableau Public",
+        "templates": [            
+            "public.tableau.com/.*"
+        ],
+        "endpoint": "https://public.tableau.com/profile/api/oembed"
     }
 ]

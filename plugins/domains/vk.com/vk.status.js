@@ -66,7 +66,8 @@ module.exports = {
         request({
             uri: "https://api.vk.com/method/wall.getById", //?posts=-76229642_10505
             qs: {
-                posts: urlMatch[1] + '_' +urlMatch[2]
+                posts: urlMatch[1] + '_' +urlMatch[2],
+                v: '5.60'
             },
             json: true,
             prepareResult: function(error, b, data, cb) {

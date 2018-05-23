@@ -160,7 +160,7 @@ module.exports = {
             params.enablejsapi = 1;
         }
 
-        if (options.getProviderOptions('players.showinfo', false)) {
+        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions(CONFIG.O.full, false)) {
             params.showinfo = 1;
         }
 
@@ -205,7 +205,7 @@ module.exports = {
                 autoplay: "autoplay=1"
             }); 
         } else {
-            links.push({message: "Uploader of this video disabled embedding on other sites."});
+            links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
         }
 
         if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {

@@ -51,9 +51,12 @@ module.exports = {
     tests: [{
         noFeeds: true, skipMethods: ["getMeta", "getData"]
     },
-        "https://www.twitch.tv/imaqtpie",
-        "http://www.twitch.tv/adultswim",
-        "https://www.twitch.tv/xleinonen"
+        "https://www.twitch.tv/imaqtpie"
+
+        // channels marked for mature audiences cannot be supported:
+        // - those are the same as generic pages like /store
+        // ex.: "http://www.twitch.tv/adultswim",
+
         //"https://www.twitch.tv/riotgames/v/72749628"
     ]
 };

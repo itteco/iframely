@@ -119,6 +119,7 @@
                 limit: 1,
                 maxwidth: 600
             }
+        /*
         }, {
             // Facebook https://developers.facebook.com/docs/plugins/oembed-endpoints
             re: [/^https:\/\/www\.facebook\.com\/plugins\/\w+\/oembed\.json/i],
@@ -126,6 +127,7 @@
                 // Skip script tag and fb-root div.
                 omitscript: true
             }
+        */
          }],
 
         /*
@@ -156,6 +158,8 @@
                 hide_media: false,
                 hide_thread: false,
                 omit_script: false,
+                center: false,
+                // dnt: true,                
                 cache_ttl: 100 * 365 * 24 * 3600 // 100 Years.
             },
             readability: {

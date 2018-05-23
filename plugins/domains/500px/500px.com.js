@@ -32,7 +32,7 @@ module.exports = {
                     canonical: url
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl],
+                rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
                 "aspect-ratio": oembed.width / oembed.height
 
             }

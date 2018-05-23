@@ -6,7 +6,7 @@ module.exports = {
     re: [
         // place 
         // https://www.google.com/maps/place/450+Serra+Mall,+Stanford+University,+Main+Quad,+Stanford,+CA+94305/@37.4278015,-122.1700577,17z/data=!3m1!4b1!4m2!3m1!1s0x808fbb2a0a120909:0xbdb15092feb97c41
-        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/(place)(?:\/preview)?\/([^\/\?@]+)\/?(@[^\/]+)?/i,
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/(?:preview\/)?(place)(?:\/preview)?\/([^\/\?@]+)\/?(@[^\/]+)?/i,
 
         // directions
         // https://www.google.com/maps/dir/41.1744197,-73.0089647/Church+of+Christ,+2+Drew+Circle,+Trumbull,+CT+06611/@41.171124,-73.145653,12z/data=!3m1!4b1!4m9!4m8!1m0!1m5!1m1!1s0x89e80968e8b48d6f:0xf267c1e26968b542!2m2!1d-73.194478!2d41.251582!3e1?hl=en-US
@@ -112,11 +112,11 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             "aspect-ratio": 600 / 450
         }, {
-            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=400x400',
+            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=600x450',
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail,
-            width: 400,
-            height: 400
+            width: 600,
+            height: 450
         }];
     },
 
@@ -125,7 +125,7 @@ module.exports = {
         if (!options.getProviderOptions('google.maps_key')) {
             return cb ({
                 responseStatusCode: 415,
-                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/guide#api_key'>Get one</a> and add it to the provider options."
+                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/guide#api_key' target='_blank'>Get one</a> and add it to the provider options."
             });
         }
 

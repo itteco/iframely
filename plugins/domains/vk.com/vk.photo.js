@@ -36,7 +36,8 @@ module.exports = {
         request({
             uri: "https://api.vk.com/method/photos.getById", //?photos=-27744747_376634226
             qs: {
-                photos: urlMatch[1] + '_' + urlMatch[2]
+                photos: urlMatch[1] + '_' + urlMatch[2],
+                v: '5.60'
             },
             json: true,
             prepareResult: function(error, b, data, cb) {
@@ -53,8 +54,8 @@ module.exports = {
                         vk_photo: {
                             date: status.date,
                             text: status.text,
-                            image: status.src_xbig || status.src_big,
-                            thumbnail: status.src_big || status.src_small
+                            image: status.photo_807 || status.photo_604,
+                            thumbnail: status.photo_130 || status.photo_75
                         }
                     });
                 } else {

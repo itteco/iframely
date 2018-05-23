@@ -58,9 +58,7 @@ module.exports = {
     tests: [{
 		noFeeds: true
 	},
-        "http://tube.geogebra.org/material/simple/id/106299",
         "http://tube.geogebra.org/m/60391",
-        "https://tube.geogebra.org/student/m29659",
         "http://www.geogebra.org/m/141300"
     ]
 };

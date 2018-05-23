@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i
+        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?(?:.+)?videoId=([a-zA-Z0-9\-:]+)/i        
     ],
 
     mixins: [
@@ -16,7 +16,7 @@ module.exports = {
             + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : '') + '&for=embed',
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            // aspect-ratio not known, use default...
+            'aspect-ratio': CONFIG.DEFAULT_ASPECT_RATIO
         }
 
         // this comes from `brightcove-in-page-promo` only and follows whitelistRecord

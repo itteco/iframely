@@ -184,14 +184,18 @@ module.exports = {
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
         var html = twitter_oembed.html;
 
-        if (options.getProviderOptions('twitter.center', true)) {
-            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
-        }
-
         var locale = options.getProviderOptions('locale');
         if (locale && /^\w{2}(?:\_|\-)\w{2,3}$/.test(locale)) {
             html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+(?:\_|\-)\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale.replace('-', '_') + '"');
         }
+        
+        if (options.getProviderOptions('twitter.center', true)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
+        }
+
+        if (options.getProviderOptions('twitter.dnt')) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-dnt="true"');
+        }        
 
         var links = [];
 
@@ -256,7 +260,6 @@ module.exports = {
     },
 
     tests: [
-        "https://twitter.com/TSwiftOnTour/status/343846711346737153",
 
         "https://twitter.com/Tackk/status/610432299486814208/video/1",
         "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"  // og-image

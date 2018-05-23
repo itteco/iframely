@@ -10,6 +10,12 @@ module.exports = {
         "*"
     ],
 
+    getMeta: function(og) {
+        return {
+            title: og.title && og.title.replace(' : Free Download &amp; Streaming : Internet Archive', '')
+        }
+    },
+
     getLink: function(url, twitter, options, cb) {
 
         if (twitter.card === 'player' && twitter.player) {
@@ -28,11 +34,13 @@ module.exports = {
                 if (/\.(mp3|wma|wav|flac)$/i.test(playerHref)) {
                     player.height = 40;
                     player["max-width"] = 776;
+                    player.autoplay = 'autoplay=1';
                 }
 
 
                 if (/\.(mp4|avi|mov|mpeg)$/i.test(playerHref)) {
                     player["aspect-ratio"] = twitter.player.width / twitter.player.height;
+                    player.autoplay = 'autoplay=1';
                 }
 
                 if (/playlist/i.test(playerHref)) {
@@ -82,7 +90,7 @@ module.exports = {
                             type: CONFIG.T.text_html,
                             rel: [CONFIG.R.reader, CONFIG.R.html5],
                             "aspect-ratio": aspect,
-                            "padding-bottom": 40 + 15 // 15 comes from the top padding inside Archive's viewer
+                            //"padding-bottom": 40 + 15 // padding no longer needed
                         });
                     }
 
