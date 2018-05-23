@@ -673,5 +673,11 @@
             "public.tableau.com/.*"
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
-    }
+    }, {
+        "name": "TeamCoco",
+        "templates": [            
+            "teamcoco.com/.*"
+        ],
+        "endpoint": "http://teamcoco.com/oembed.{format}"
+    }    
 ]
