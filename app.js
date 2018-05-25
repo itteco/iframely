@@ -152,7 +152,7 @@ process.on('uncaughtException', function(err) {
   }
 });
 
-if (!CONFIG.DISABLE_SERVE_STATIC) {
+if (process.env.NODE_ENV !== 'test') {
   // This code not compatible with 'supertest' (in e2e.js)
   // Disabled for tests.
   app.use(CONFIG.relativeStaticUrl, express.static('static'));
