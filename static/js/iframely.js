@@ -457,7 +457,15 @@
                 }
                 return $el;
             }
-        }
+        },
+        "mp3audio": {
+            test: function(data) {
+                return /^audio\//i.test(data.type) && data.href;
+            },
+            generate: function(data) {
+                return $('<audio controls preload="auto"><source src="' + data.href + '" type="audio/mp3"></audio>');
+            }
+        },        
     };
 
     $.iframely.generateLinkElement = function(link, options) {

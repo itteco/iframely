@@ -95,10 +95,10 @@ module.exports = {
         }
 
         var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl;
-        if (/\.mp4$/.test(contentURL)) {
+        if (contentURL) {
             links.push({
                 href: schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl,
-                type: CONFIG.T.video_mp4, // it will see if *mp4, otherwise verify MIME type
+                type: CONFIG.T.maybe_video, // it will see if *mp4, otherwise verify MIME type
                 rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
                 'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
             });
