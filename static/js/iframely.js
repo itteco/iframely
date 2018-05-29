@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 1.2.5
+     Version 1.2.6
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -306,9 +306,13 @@
         },
         "mp4video": {
             test: function(data) {
-                return (data.type == "video/mp4"
+                return data.type == "video/mp4"
                     || data.type == "video/webm"
-                    || data.type == "video/ogg");
+                    || data.type == "video/ogg"
+                    || (window.Hls && Hls.isSupported() && (
+                        data.type == "application/x-mpegURL"
+                        || data.type == "application/vnd.apple.mpegurl"
+                    ));
             },
             generate: function(data, options) {
 
@@ -393,6 +397,14 @@
                     .children('source')
                     .attr('src', data.href)
                     .attr('type', data.type);
+
+                if (data.type == "application/x-mpegURL"
+                    || data.type == "application/vnd.apple.mpegurl") {
+
+                    var hls = new Hls();
+                    hls.loadSource(data.href);
+                    hls.attachMedia($video.get(0));
+                }
 
                 if (options && options.disableSizeWrapper) {
                     return $video;
