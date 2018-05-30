@@ -4,7 +4,7 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
         href: stream.value || stream,
-        type: stream.content_type,
+        accept: stream.content_type || ['video/*', 'audio/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'],
         rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
         width: stream.width,
         height: stream.height
@@ -28,6 +28,7 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     if (whitelistRecord.isAllowed('twitter.stream', 'gifv')) {
         player.rel.push(CONFIG.R.gifv);
+        player.accept = CONFIG.T.video_mp4
     }
 
     return player;

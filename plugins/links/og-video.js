@@ -5,10 +5,19 @@ function getVideoLinks(video, whitelistRecord) {
 
     var width = whitelistRecord.isAllowed('og.video', 'rotate') ?  video.height : video.width;
     var height = whitelistRecord.isAllowed('og.video', 'rotate') ?  video.width : video.height;
+    var accept;
+
+    if (whitelistRecord.isAllowed('og.video', 'html5')) {
+        accept = [CONFIG.T.text_html, 'video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'];
+    } else if (!whitelistRecord.isDefault) {
+        accept = [CONFIG.T.text_html, CONFIG.T.flash];
+    } else {
+        accept = ['video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'];
+    }
 
     var players = [{
         href: video.url || video,
-        type: CONFIG.T.maybe_text_html,
+        accept: accept,
         rel: [CONFIG.R.player, CONFIG.R.og],
         width: width,
         height: height
@@ -17,7 +26,7 @@ function getVideoLinks(video, whitelistRecord) {
     if (whitelistRecord.isAllowed('og.video', 'ssl') && video.secure_url) {
         players.push({
             href: video.secure_url,
-            type: CONFIG.T.maybe_text_html,
+            accept: accept,
             rel: [CONFIG.R.player, CONFIG.R.og],
             width: width,
             height: height
@@ -27,7 +36,7 @@ function getVideoLinks(video, whitelistRecord) {
     if (whitelistRecord.isAllowed('og.video', 'iframe') && video.iframe) {
         players.push({
             href: video.iframe,
-            type: CONFIG.T.maybe_text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.og],
             width: width,
             height: height

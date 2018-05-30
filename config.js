@@ -68,9 +68,7 @@
             image_webp: "image/webp",
             video_mp4: "video/mp4",
             video_ogg: "video/ogg",
-            video_webm: "video/webm",            
-            maybe_video: "maybe_video",
-            maybe_audio: "maybe_audio",            
+            video_webm: "video/webm"
         },
 
         PROMO_RELS: [
