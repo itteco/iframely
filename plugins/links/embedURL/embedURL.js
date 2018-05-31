@@ -62,7 +62,7 @@ module.exports = {
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
-                accept: [CONFIG.T.text_html, CONFIG.T.flash, 'video/*']
+                accept: whitelistRecord.isDefault ? ['video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'] : [CONFIG.T.text_html, CONFIG.T.flash, 'video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl']
             };
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {
