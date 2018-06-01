@@ -68,7 +68,9 @@
             image_webp: "image/webp",
             video_mp4: "video/mp4",
             video_ogg: "video/ogg",
-            video_webm: "video/webm"
+            video_webm: "video/webm",
+            stream_apple_mpegurl: "application/vnd.apple.mpegurl",
+            stream_x_mpegurl: "application/x-mpegURL"
         },
 
         PROMO_RELS: [
