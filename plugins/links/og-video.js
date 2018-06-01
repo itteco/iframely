@@ -8,11 +8,11 @@ function getVideoLinks(video, whitelistRecord) {
     var accept;
 
     if (whitelistRecord.isAllowed('og.video', 'html5')) {
-        accept = [CONFIG.T.text_html, 'video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'];
+        accept = [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
     } else if (!whitelistRecord.isDefault) {
         accept = [CONFIG.T.text_html, CONFIG.T.flash];
     } else {
-        accept = ['video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'];
+        accept = ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
     }
 
     var players = [{

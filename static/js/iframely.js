@@ -310,7 +310,7 @@
                     || data.type == "video/webm"
                     || data.type == "video/ogg"
                     || (window.Hls && Hls.isSupported() && (
-                        data.type == "application/x-mpegURL"
+                        data.type == "application/x-mpegURL" || data.type == "application/x-mpegurl"
                         || data.type == "application/vnd.apple.mpegurl"
                     ));
             },

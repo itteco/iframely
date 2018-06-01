@@ -62,7 +62,7 @@ module.exports = {
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
-                accept: whitelistRecord.isDefault ? ['video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'] : [CONFIG.T.text_html, CONFIG.T.flash, 'video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl']
+                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, CONFIG.T.flash, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
             };
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {
@@ -86,7 +86,7 @@ module.exports = {
         if (contentURL) {
             links.push({
                 href: contentURL,
-                accept: ['video/*', 'application/vnd.apple.mpegurl', 'application/x-mpegurl'], // detects and validates mime type
+                accept: ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl], // detects and validates mime type
                 rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
                 'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
             });
