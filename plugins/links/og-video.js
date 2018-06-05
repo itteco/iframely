@@ -10,7 +10,7 @@ function getVideoLinks(video, whitelistRecord) {
     if (whitelistRecord.isAllowed('og.video', 'html5')) {
         accept = [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
     } else if (!whitelistRecord.isDefault) {
-        accept = [CONFIG.T.text_html, CONFIG.T.flash];
+        accept = [CONFIG.T.text_html, CONFIG.T.video_mp4, CONFIG.T.flash];
     } else {
         accept = ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
     }
