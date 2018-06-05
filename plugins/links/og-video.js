@@ -15,15 +15,19 @@ function getVideoLinks(video, whitelistRecord) {
         accept = ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
     }
 
-    var players = [{
-        href: video.url || video,
-        accept: accept,
-        rel: [CONFIG.R.player, CONFIG.R.og],
-        width: width,
-        height: height
-    }];
+    var players = [];
 
-    if (whitelistRecord.isAllowed('og.video', 'ssl') && video.secure_url) {
+    if (!whitelistRecord.isDefault || /\.mp4|m3u8/i.test(video.url || video)) {
+        players.push({
+            href: video.url || video,
+            accept: accept,
+            rel: [CONFIG.R.player, CONFIG.R.og],
+            width: width,
+            height: height
+        });        
+    }
+
+    if (whitelistRecord.isAllowed('og.video', 'ssl') && video.secure_url && (!whitelistRecord.isDefault || /\.mp4|m3u8/i.test(video.secure_url))) {
         players.push({
             href: video.secure_url,
             accept: accept,
@@ -33,7 +37,7 @@ function getVideoLinks(video, whitelistRecord) {
         });
     }
 
-    if (whitelistRecord.isAllowed('og.video', 'iframe') && video.iframe) {
+    if (whitelistRecord.isAllowed('og.video', 'iframe') && video.iframe && (!whitelistRecord.isDefault || /\.mp4|m3u8/i.test(video.iframe))) {
         players.push({
             href: video.iframe,
             accept: CONFIG.T.text_html,
@@ -41,7 +45,7 @@ function getVideoLinks(video, whitelistRecord) {
             width: width,
             height: height
         });
-    }    
+    }
 
     return players;
 }
