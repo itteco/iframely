@@ -4,21 +4,19 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
         href: stream.value || stream,
-        type: stream.content_type,
+        accept: stream.content_type || ['video/*', 'audio/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl],
         rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
         width: stream.width,
         height: stream.height
     };
 
-    if (player.type !== "video/mp4"
-        && player.type !== "video/webm"
-        && player.type !== "video/ogg") {
+    player.type = whitelistRecord.isAllowed('twitter.stream', 'horizontal') ? CONFIG.T.maybe_audio: CONFIG.T.maybe_video;
 
-        player.type = CONFIG.T.video_mp4;
-    }
 
     if (whitelistRecord.isAllowed('twitter.stream', 'responsive') && twitter.player.width && twitter.player.height) {
         player['aspect-ratio'] = twitter.player.width / twitter.player.height;
+    } else if (whitelistRecord.isAllowed('twitter.stream', 'horizontal')) {
+        player.height = twitter.player.height || 32;
     } else {
         player.width = twitter.player.width;
         player.height = twitter.player.height;
@@ -30,6 +28,7 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     if (whitelistRecord.isAllowed('twitter.stream', 'gifv')) {
         player.rel.push(CONFIG.R.gifv);
+        player.accept = CONFIG.T.video_mp4
     }
 
     return player;

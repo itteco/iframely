@@ -18,7 +18,7 @@ module.exports = {
 
         if (meta.og) {
 
-            if ((meta.og.video && !meta.og.type ) || (meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/video|movie/i)) || /\/videos?\//i.test(url) || /https?:\/\/videos?\./i.test(url)) {
+            if ((meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/video|movie/i)) || /\/videos?\//i.test(url) || /https?:\/\/videos?\./i.test(url)) {
 
                 has_player = true;
             }
@@ -54,7 +54,8 @@ module.exports = {
 
             if (/article|blog|news|post|noticia/i.test(url) 
                 || (/\/(\d{4})\/(\d{2})\/(\d{2})/).test(url) 
-                || (meta.og && meta.og.type && typeof meta.og.type === 'string' && meta.og.type.match(/article|post/i))) {
+                || (meta.og && meta.og.type && typeof meta.og.type === 'string' && /article|post/i.test(meta.og.type))
+                || (meta.og && meta.og.video && whitelistRecord.isDefault && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video') && (typeof meta.og.type !== 'string' || !/video/.test(meta.og.type))) ) {
                 
                 has_reader = true;
             }
