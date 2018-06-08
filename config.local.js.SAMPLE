@@ -184,6 +184,7 @@
             camoProxy: {
                 camo_proxy_key: "INSERT YOUR VALUE",
                 camo_proxy_host: "INSERT YOUR VALUE"
+                // ssl_only: true // will only proxy non-ssl images
             },
             */
 
