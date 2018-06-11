@@ -52,7 +52,7 @@ module.exports = {
             links.push(player);
         }
 
-        if (oembed.thumbnail_url && !   /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {
+        if (oembed.thumbnail_url && !/\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {
             links.push({
                 href: oembed.thumbnail_url.replace('http:',''),
                 type: CONFIG.T.image,
