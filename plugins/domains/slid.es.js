@@ -4,19 +4,8 @@ module.exports = {
     ],
 
     mixins: [
-        "canonical",
-        "twitter-title",
-        "twitter-image",
-        "og-site",
-        "favicon"
+        "*"
     ],
-
-    getMeta: function(meta) {
-
-        return {
-            author: meta.og.title.split('by ')[1],
-        };
-    },
 
     getLink: function(urlMatch) {
 
