@@ -3,9 +3,17 @@ module.exports = {
         /^https?:\/\/slides\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
     ],
 
+    highestPriority: true, 
+
     mixins: [
         "*"
     ],
+
+    getMeta: function(urlMatch) {
+        return {
+            media: 'player'
+        }
+    },
 
     getLink: function(urlMatch) {
 
