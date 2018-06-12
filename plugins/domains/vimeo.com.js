@@ -38,7 +38,7 @@ module.exports = {
             href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": oembed.width / oembed.height < 1 ? 16/9: oembed.width / oembed.height, // ex. https://vimeo.com/216098214
+            "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
             autoplay: "autoplay=1"
         }];
 
