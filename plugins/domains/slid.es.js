@@ -17,8 +17,14 @@ module.exports = {
         };
     },
 
+    getData: function (url, cb) {
 
-    tests: [
+        cb (/^(https?:\/\/slides\.com\/[a-zA-Z0-9_\-]+\/[a-zA-Z0-9_\-]+)\/embed/i.test(url)
+            ? {redirect: url.match(/^(https?:\/\/slides\.com\/[a-zA-Z0-9_\-]+\/[a-zA-Z0-9_\-]+)\/embed/i)[1]} 
+            : null);
+    },
+
+    tests: [{skipMethods: ["getData"]},
         "http://slides.com/timkindberg/ui-router"
     ]
 };
