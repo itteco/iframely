@@ -6,8 +6,9 @@ module.exports = {
 
         if (!whitelistRecord.isDefault && ((meta.og && meta.og.image) || (meta.twitter && meta.twitter.image))) {return;}
 
-        if (/^https?:\/\/(link|players)\.brightcove\.(?:com|net|co\.jp)/i.test(url)) {return;}
+        if (/^https?:\/\/(link|players)\.brightcove\.(?:com|net|co\.jp)/i.test(url) || /^brightcove$/i.test(meta.generator)) {return;}
         // do not process links to itself, otherwise -> infinite recursion
+        // || do not process brightcove's custom domains - it's covered by record through oembed endpoint
         
         if (!meta.twitter && !meta.og) {return;}
         
@@ -65,4 +66,13 @@ module.exports = {
     // http://archive.jsonline.com/multimedia/video/?bctid=5047519850001&bctid=5047519850001 - new HTML 5 players
     // http://www.servustv.com/de/Medien/Frances-Ha - custom twitter, bug og brightcove
     // http://carnaval.lavozdigital.es/noticias/2017-02-15/asi-prepara-comparsa-los-equilibristas-para-pase-cuartos-coac-2017-20170215.html
+
+    /* Sample URLs for hosted Brightcove video galleries
+        http://video.ibc.org/detail/videos/media-distribution/video/4486234369001/e102-sunday-1130-mam-is-dead?autoStart=true        
+        http://video.massachusetts.edu/detail/videos/here-for-a-reason/video/4767578288001/transform?autoStart=true
+        http://oncologyvu.brightcovegallery.com/detail/videos/treatment-methods/video/3880531728001/importance-of-the-nurse-patient-relationship?autoStart=true
+        http://vod.miraclechannel.ca/detail/videos/all-episodes/video/4803972939001/the-leon-show---vaccines-and-your-health?autoStart=true
+        http://video.brightcovelearning.com/detail/videos/managing-players/video/4805928382001/styling-players?autoStart=true
+    */
+
 };
