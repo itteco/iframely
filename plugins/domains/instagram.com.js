@@ -43,7 +43,7 @@ module.exports = {
                 height: 306
             }, {
                 href: src + 'l',
-                type: [CONFIG.T.image,
+                type: CONFIG.T.image,
                 rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
                 width: Math.round(aspect * 612),
                 height: 612
