@@ -33,7 +33,7 @@
     {
         "name": "Instagram",
         "templates": [
-            "([\\w\\.]*instagram\\.com/p/([a-zA-Z0-9_-]+))",
+            "(www\\.instagram\\.com/p/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
         "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://{1}"
@@ -41,7 +41,7 @@
     {
         "name": "Instagram user page",
         "templates": [
-            "([\\w\\.]*instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
+            "(www\\.instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
             "(instagr\\.am/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)"
         ],
         "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://{1}{2}"
