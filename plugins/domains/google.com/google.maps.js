@@ -178,7 +178,8 @@ module.exports = {
                 var paramsMap = {
                     z: "zoom",
                     m: "elevation",
-                    h: "heading"
+                    h: "heading",
+                    t: "fov"
                 };
 
                 var i;
