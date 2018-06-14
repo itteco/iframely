@@ -112,11 +112,11 @@ module.exports = {
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
             "aspect-ratio": 600 / 450
         }, {
-            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=600x450',
+            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=600x450' + '&key=' + api_key,
             type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail,
-            width: 600,
-            height: 450
+            rel: CONFIG.R.thumbnail
+            // width: 600, // make sure API is authorized to use static maps
+            // height: 450
         }];
     },
 
