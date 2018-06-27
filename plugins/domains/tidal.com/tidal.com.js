@@ -1,8 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:listen\.)?tidal\.com\/(album|track|video)\/(\d+)/i,
-        /^https?:\/\/(?:listen\.)?tidal\.com\/(playlist)\/([a-zA-Z0-9\-]+)/i
+        /^https?:\/\/(?:listen\.)?tidal\.com\/(?:browse\/)?(album|track|video)\/(\d+)/i,
+        /^https?:\/\/(?:listen\.)?tidal\.com\/(?:browse\/)?(playlist)\/([a-zA-Z0-9\-]+)/i
     ],
 
     mixins: ["*"],
