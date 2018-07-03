@@ -15,7 +15,7 @@ module.exports = {
 
     getData: function (urlMatch, twitter) {
 
-        if (/^https?:\/\/www\.gannett\-cdn\.com\//i.test(twitter.image) || /^https?:\/\/videos\.usatoday\.net\//i.test(twitter.image)) {
+        if (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(twitter.image) || /^https?:\/\/videos\.usatoday\.net\//i.test(twitter.image)) {
             return {
                 gannettVideo: {
                     id: urlMatch[2],
@@ -42,6 +42,7 @@ module.exports = {
         "http://www.usatoday.com/videos/news/nation/2016/07/29/87694100/",
         "http://www.usatoday.com/videos/life/people/2016/11/03/93261598/",
         "http://www.usatoday.com/videos/news/humankind/2016/09/20/90730062/",
+        "https://www.usatoday.com/videos/news/2018/07/03/white-house-twitter-account-attacks-senators-critical-ice/36581999/",
         "http://www.desertsun.com/media/cinematic/video/92390930/police-chief-quit-ignoring-red-flags/",
         "http://www.usatoday.com/videos/life/2016/11/09/93525560/",
         "http://www.usatoday.com/videos/news/politics/elections/2016/2016/11/09/93532206/",
