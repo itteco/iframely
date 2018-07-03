@@ -15,7 +15,7 @@ module.exports = {
 
     getData: function (urlMatch, twitter) {
 
-        if (/^https?:\/\/www\.gannett\-cdn\.com\//i.test(twitter.image)) {
+        if (/^https?:\/\/www\.gannett\-cdn\.com\//i.test(twitter.image) || /^https?:\/\/videos\.usatoday\.net\//i.test(twitter.image)) {
             return {
                 gannettVideo: {
                     id: urlMatch[2],
@@ -29,7 +29,7 @@ module.exports = {
         return {
             href: 'https://www.' + gannettVideo.domain +'.com/videos/embed/' + gannettVideo.id + '/?fullsite=true',
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.maybe_text_html, // let validators check it, including ssl
+            accept: CONFIG.T.text_html, // let validators check it, including ssl
             'aspect-ratio': 16/9,
             scrolling: 'no',
             autoplay: 'autoplay=1'
