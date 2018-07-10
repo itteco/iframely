@@ -8,7 +8,7 @@ module.exports = {
 
     getLink: function(urlMatch) {
         return {
-            href: "http://bigthink.com/embeds/video_idea/" + urlMatch[1],
+            href: "https://bigthink.com/embeds/video_idea/" + urlMatch[1],
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             'aspect-ratio': 16 / 9
