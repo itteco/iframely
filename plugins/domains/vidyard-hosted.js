@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+(\/sharing)?\/watch\/[a-zA-Z0-9\-]+\/?(?:\?[^\/]+)?$/i
+        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+(\/sharing)?\/watch\/[a-zA-Z0-9\-\_]+\/?(?:\?[^\/]+)?$/i
     ],
 
     provides: "__isVidyard",
