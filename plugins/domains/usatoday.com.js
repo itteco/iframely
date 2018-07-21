@@ -15,7 +15,7 @@ module.exports = {
 
     getData: function (urlMatch, twitter) {
 
-        if (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(twitter.image) || /^https?:\/\/videos\.usatoday\.net\//i.test(twitter.image)) {
+        if (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(twitter.image) || /^https?:\/\/videos\.usatoday\.net\//i.test(twitter.image) || /brightcove/i.test(twitter.image)) {
             return {
                 gannettVideo: {
                     id: urlMatch[2],
@@ -27,9 +27,9 @@ module.exports = {
 
     getLink: function (gannettVideo) {
         return {
-            href: 'https://www.' + gannettVideo.domain +'.com/videos/embed/' + gannettVideo.id + '/?fullsite=true',
+            href: 'https://uw-media.' + gannettVideo.domain +'.com/video/embed/' + gannettVideo.id + '/?placement=embed',
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            accept: CONFIG.T.text_html, // let validators check it, including ssl
+            accept: CONFIG.T.text_html, // let validators check it, including ssl            
             'aspect-ratio': 16/9,
             scrolling: 'no',
             autoplay: 'autoplay=1'
