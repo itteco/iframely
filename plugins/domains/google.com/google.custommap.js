@@ -33,7 +33,6 @@ module.exports = {
     tests: [{
             noFeeds: true
         },
-        "https://www.google.com/maps/d/embed?mid=zIu8FZTTrK3g.kBFlDU9zb2mA",
         "https://www.google.com/maps/d/viewer?mid=zkaGBGYwQzao.kWqUdP2InpAI",
         "https://www.google.com/maps/d/edit?mid=zHfMwAb37EWA.kW-Lq0FR1l5c",
         "https://www.google.com/maps/d/viewer?mid=z_qsuFRasJVo.kKU-PVbA1F_0",

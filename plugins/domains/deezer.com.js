@@ -34,7 +34,6 @@ module.exports = {
         "http://www.deezer.com/track/11523496",
         "http://www.deezer.com/track/61423083",
         "http://www.deezer.com/album/11417888",
-        "http://www.deezer.com/album/1215117",
-        "https://www.deezer.com/album/42756701" // in fact, single track
+        "http://www.deezer.com/album/1215117"
     ]
 };
