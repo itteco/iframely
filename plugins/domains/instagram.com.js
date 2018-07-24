@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/[\w\.]*instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/(?:www.)?instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)\/?/i,
         /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)$/i
     ],
@@ -9,14 +9,14 @@ module.exports = {
     mixins: [
         "oembed-site",
         "oembed-author",
-        "og-image",
+        // "og-image", it's the same as size L
         "domain-icon"
     ],
 
     getMeta: function (og, oembed) {
         
         return {
-            title: og.title ? og.title.match(/([^•]+)/i)[0] : "Post on Instagram",
+            title: og.title ? og.title.match(/([^•\"]+)/i)[0] : "Post on Instagram",
             description: oembed.title
         }
 
@@ -44,7 +44,7 @@ module.exports = {
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : CONFIG.R.image,
+                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
                 width: Math.round(aspect * 612),
                 height: 612
             }];
@@ -99,17 +99,29 @@ module.exports = {
         return links;
     },
 
+    getData: function (url, options) {
+        options.followHTTPRedirect = true; // avoid any issues with possible redirects
+
+        if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
+            return {
+                redirect: url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com')
+            }
+        }
+    },
+
     tests: [{
         page: "http://blog.instagram.com/",
         selector: ".photogrid a"
     },
-        "http://instagram.com/p/HbBy-ExIyF/",
-        "http://instagram.com/p/a_v1-9gTHx/",
+        "https://instagram.com/p/HbBy-ExIyF/",
+        "http://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
             skipMixins: [
                 "oembed-title"
             ]
+        }, {
+            skipMethods: ['getData']
         }
     ]
 };

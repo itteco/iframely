@@ -44,7 +44,7 @@
 
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
 
-        ACCEPT_LANGUAGE_SUFFIX: ';q=0.9,en-US;q=0.8,en;q=0.7,*;q=0.5',
+        ACCEPT_LANGUAGE_SUFFIX: ';q=0.9,en;q=0.7,*;q=0.5',
 
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
@@ -55,7 +55,7 @@
 
         T: {
             text_html: "text/html",
-            maybe_text_html: "maybe_text_html",
+            maybe_text_html: "maybe_text_html",            
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
@@ -68,7 +68,9 @@
             image_webp: "image/webp",
             video_mp4: "video/mp4",
             video_ogg: "video/ogg",
-            video_webm: "video/webm"
+            video_webm: "video/webm",
+            stream_apple_mpegurl: "application/vnd.apple.mpegurl",
+            stream_x_mpegurl: "application/x-mpegURL"
         },
 
         PROMO_RELS: [
@@ -130,7 +132,11 @@
             gifv: "gifv",
 
             promo: "promo",
-            playerjs: "playerjs"
+            playerjs: "playerjs",
+
+            audio: 'audio',
+            slideshow: 'slideshow',
+            playlist: 'playlist'            
         },
 
         // Option names   

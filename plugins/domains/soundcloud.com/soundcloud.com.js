@@ -2,6 +2,8 @@ var $ = require('cheerio');
 
 module.exports = {
 
+    provides: '__allow_soundcloud_meta',
+
     mixins: [
         "oembed-title",
         "oembed-site",
@@ -50,7 +52,7 @@ module.exports = {
             links.push(player);
         }
 
-        if (oembed.thumbnail_url) {
+        if (oembed.thumbnail_url && !/\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {
             links.push({
                 href: oembed.thumbnail_url.replace('http:',''),
                 type: CONFIG.T.image,
@@ -63,7 +65,16 @@ module.exports = {
         return links;
     },
 
-    tests: [
+    getData: function (url, oembed) {
+
+        if (!/w\.soundcloud\.com/i.test(url) && (!oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url))) {
+            return {
+                __allow_soundcloud_meta: true
+            }
+        }
+    },
+
+    tests: [{skipMethods: ["getData"]},
         "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         {
             skipMixins: [

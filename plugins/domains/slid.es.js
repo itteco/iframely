@@ -3,19 +3,16 @@ module.exports = {
         /^https?:\/\/slides\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
     ],
 
+    highestPriority: true, 
+
     mixins: [
-        "canonical",
-        "twitter-title",
-        "twitter-image",
-        "og-site",
-        "favicon"
+        "*"
     ],
 
-    getMeta: function(meta) {
-
+    getMeta: function(urlMatch) {
         return {
-            author: meta.og.title.split('by ')[1],
-        };
+            media: 'player'
+        }
     },
 
     getLink: function(urlMatch) {
@@ -28,8 +25,14 @@ module.exports = {
         };
     },
 
+    getData: function (url, cb) {
 
-    tests: [
+        cb (/^(https?:\/\/slides\.com\/[a-zA-Z0-9_\-]+\/[a-zA-Z0-9_\-]+)\/embed/i.test(url)
+            ? {redirect: url.match(/^(https?:\/\/slides\.com\/[a-zA-Z0-9_\-]+\/[a-zA-Z0-9_\-]+)\/embed/i)[1]} 
+            : null);
+    },
+
+    tests: [{skipMethods: ["getData"]},
         "http://slides.com/timkindberg/ui-router"
     ]
 };

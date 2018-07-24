@@ -1,32 +1,78 @@
+var cheerio = require('cheerio');
+var utils = require('../../../lib/utils');
+
 module.exports = {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?(?:.+)?videoId=([a-zA-Z0-9\-:]+)/i        
+        /^https?:\/\/players\.brightcove\.net\/\d+/i
     ],
 
     mixins: [
-        "*"
+        "oembed-title",
+        "oembed-site",
     ],
 
     //HTML parser will 404 if BC account or player does not exist.
-    getLink: function(url, urlMatch) {
+    getLinks: function(url, oembed, options, cb) {
 
         var player = {
-            href: '//players.brightcove.net/' + urlMatch[1] + '/' + urlMatch[2] + '_default/index.html?videoId=' 
-            + urlMatch[3] + (/&autoplay=true/.test(url) ? '&autoplay=true' : '') + '&for=embed',
-            rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            'aspect-ratio': CONFIG.DEFAULT_ASPECT_RATIO
-        }
+            rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5]
+        };
 
-        // this comes from `brightcove-in-page-promo` only and follows whitelistRecord
+        // autoplay=true comes from `brightcove-in-page-promo` only and follows whitelistRecord
         if (/&autoplay=true/.test(url)) {
-            player.rel.push(CONFIG.R.autoplay);
+            player.rel.push('autoplay');
         } else {
             player.autoplay = "autoplay=true";
         }
 
-        return player;
-    }
+        var $container = cheerio('<div>');
+        try {
+            $container.html(oembed.html);
+        } catch (ex) {}
 
+        var $iframe = $container.find('iframe');
+
+        if ($iframe.length == 1) {
+            player.href = $iframe.attr('src');
+        }
+
+        if (oembed.thumbnail_url) {
+
+            utils.getImageMetadata(oembed.thumbnail_url, options, function(error, data) {
+
+                var links = [];
+
+                if (error || data.error) {
+
+                    console.log ('Error getting thumbnail sizes for Brightcove: ' + url);
+
+                } else if (data.width && data.height) {
+
+                    links.push({
+                        href: oembed.thumbnail_url,
+                        type: CONFIG.T.image, 
+                        rel: CONFIG.R.thumbnail,
+                        width: data.width,
+                        height: data.height
+                    });                    
+                }
+
+                player['aspect-ratio'] = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+                links.push(player);
+
+                cb(null, links);
+
+            });
+        } else {
+            cb (null, player);
+        }
+
+    },
+
+    tests: [
+        "https://players.brightcove.net/5551096162001/BkdJs5SKW_default/index.html?videoId=5789087268001&autoplay=true",
+        "https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001"
+    ]
 };    

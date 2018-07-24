@@ -157,7 +157,7 @@ module.exports = {
                 twitter_oembed: oembed
             };
 
-            if (c.media_only || options.getProviderOptions(CONFIG.O.compact, false) || /pic\.twitter\.com/i.test(oembed.html)) {
+            if (c.enable_video || options.getProviderOptions(CONFIG.O.compact, false) || /pic\.twitter\.com/i.test(oembed.html)) {
                 result.__allow_twitter_og = true;
                 options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
             } else {
@@ -199,43 +199,39 @@ module.exports = {
 
         var links = [];
 
-        if (((c.media_only && !options.getProviderOptions(CONFIG.O.full, false)) || options.getProviderOptions(CONFIG.O.compact, false)) 
-            && twitter_og && twitter_og.video && twitter_og.image 
+        if (c.enable_video
+            && twitter_og && twitter_og.video && twitter_og.video.url && twitter_og.video.width && twitter_og.video.height && twitter_og.image 
             && /^https?:\/\/pbs\.twimg\.com\/(?:media|amplify|ext_tw)/i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {            
             // exclude not embedable videos with proxy images, ex:
             // https://twitter.com/nfl/status/648185526034395137
 
-            html = html.replace(/class="twitter-tweet"/g, 
-                'class="twitter-video"' + (options.getProviderOptions('twitter.hide_tweet') ? ' data-status="hidden"': ''));            
-
             links.push({
-                html: html,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": twitter_og.video.width / twitter_og.video.height,
-                "max-width": 888 // good one, Twitter!
+                href: twitter_og.video.url.replace('?embed_source=facebook', ''),
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html, // let's check it
+                'aspect-ratio': twitter_og.video.width / twitter_og.video.height
             });
 
-        } else {
-
-            if (options.getProviderOptions(CONFIG.O.full, false)) {
-                html = html.replace(/\s?data-conversation=\"none\"/, '');
-            }
-
-            var app = {
-                html: html,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-                "max-width": twitter_oembed["width"] || 550
-            };
-
-            if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet
-                || (twitter_og.image && !(twitter_og.image.user_generated || /\/profile_images\//i.test(twitter_og.image)))) { // user_generated is string = 'true' for pics
-                app['aspect-ratio'] = 1;
-            }
-
-            links.push(app);
         }
+
+        if (options.getProviderOptions(CONFIG.O.compact, false)
+            && !options.getProviderOptions('twitter.hide_thread', true) && !/\s?data-conversation=\"none\"/.test(html)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-conversation="none"');
+        }
+
+        var app = {
+            html: html,
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
+            "max-width": twitter_oembed["width"] || 550
+        };
+
+        if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet
+            || (twitter_og.image && !(twitter_og.image.user_generated || /\/profile_images\//i.test(twitter_og.image)))) { // user_generated is string = 'true' for pics
+            app['aspect-ratio'] = 1;
+        }
+
+        links.push(app);
 
         if (twitter_og && twitter_og.image && 
             !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image)) {

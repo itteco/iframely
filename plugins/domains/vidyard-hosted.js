@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+(\/sharing)?\/watch\/[a-zA-Z0-9]+/i
+        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+(\/sharing)?\/watch\/[a-zA-Z0-9\-\_]+\/?(?:\?[^\/]+)?$/i
     ],
 
     provides: "__isVidyard",
@@ -16,13 +16,13 @@ module.exports = {
 
             return [{
                 href: twitter.player.value.replace('autoplay=1', 'autoplay=0'),
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 'aspect-ratio': twitter.player.width / twitter.player.height,
                 autoplay: "autoplay=1"
             }, {
                 href: twitter.player.stream && (twitter.player.stream.value || twitter.player.stream),
-                type: CONFIG.T.video_mp4,
+                accept: CONFIG.T.video_mp4,
                 rel: CONFIG.R.player,
                 'aspect-ratio': twitter.player.width / twitter.player.height                
             }];

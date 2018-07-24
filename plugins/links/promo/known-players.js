@@ -85,16 +85,24 @@ module.exports = {
             };
         }
 
-        // or wistia
+        // or wistia player
         urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.(?:net|com)\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
-                __promoUri: {
-                    url: 'https://fast.wistia.net/embed/iframe/' + urlMatch[1] + '?for=iframely'                    
-                }
+                __promoUri: 'https://fast.wistia.net/embed/iframe/' + urlMatch[1] + '?for=iframely'
+            };
+        }
+
+        // or wistia canonical
+        urlMatch = video_src.match(/^https?:\/\/\w+\.wistia\.(?:net|com)\/medias?\/([_a-zA-Z0-9\-]+)/i);
+
+        if (urlMatch) {
+            return {
+                __promoUri: video_src                
             };
         } 
+
 
 
         // or simplecast

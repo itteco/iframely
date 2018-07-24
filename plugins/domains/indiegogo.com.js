@@ -13,7 +13,7 @@ module.exports = {
         return {
             href: 'https://www.indiegogo.com/project/' + urlMatch[1] + '/embedded',
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.app,
+            rel: CONFIG.R.summary,
             width: 222,
             height: 445,
             scrolling: 'no'

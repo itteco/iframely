@@ -178,7 +178,7 @@ module.exports = {
 
         // don't use QueryString.stringify here because OpenStreetMap can't
         // cope with "," encoded as "%2C"
-        var embed_url = "//www.openstreetmap.org/export/embed.html?bbox="+
+        var embed_url = "https://www.openstreetmap.org/export/embed.html?bbox="+
                          bbox.join(',')+'&layer='+layer;
 
         var thumb_query = {
@@ -218,10 +218,17 @@ module.exports = {
         ];
     },
 
-    tests: [
-        "http://www.openstreetmap.org/?lat=48.12446&lon=16.42282&zoom=15&layers=M",
-        "http://www.openstreetmap.org/?lat=51.5064&lon=-0.1281&zoom=14&layers=MC",
-        "http://www.openstreetmap.org/#map=12/50.2598/28.6695",
+    getData: function(url, cb, options) {
+        var https = url.replace(/http:\/\//i, 'https://');
+        return cb (https !== url && (!options.redirectsHistory || options.redirectsHistory.indexOf(https) === -1) 
+                ? {redirect: https } : null);
+
+    },
+
+    tests: [{skipMethods: ['getData']},
+        "https://www.openstreetmap.org/?lat=48.12446&lon=16.42282&zoom=15&layers=M",
+        "https://www.openstreetmap.org/?lat=51.5064&lon=-0.1281&zoom=14&layers=MC",
+        "https://www.openstreetmap.org/#map=12/50.2598/28.6695",
         {
             noFeeds: true
         }

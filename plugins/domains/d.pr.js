@@ -13,7 +13,7 @@ module.exports = {
 
     getLink: function(oembed) {
 
-        if ( /image|photo/.test(oembed.type)) {
+        if ( /image|photo/.test(oembed.type) || /image/i.test(oembed.drop_type)) {
             return {
                 href: oembed.url,
                 type: CONFIG.T.image,

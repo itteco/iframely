@@ -48,33 +48,21 @@ module.exports = {
 
         var links = [];
         
-        if (schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl) {
+        var thumbnailURL = schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl;
+        if (thumbnailURL) {
             links.push({
-                href: schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl,
+                href: thumbnailURL,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image            
             });
         }
 
-        if (schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl) {
-
-            var type = CONFIG.T.maybe_text_html;
-
-            if (schemaVideoObject.playerType) {
-                if (schemaVideoObject.playerType.toLowerCase().indexOf('Flash') > -1) {
-                    type = CONFIG.T.flash;
-                }
-            } else if (schemaVideoObject.encodingFormat) {
-                if (schemaVideoObject.encodingFormat.toLowerCase().indexOf('mp4') > -1) {
-                    type = CONFIG.T.video_mp4;
-                }                
-            }            
-
-            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
+        var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
+        if (href) {
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
-                type: type
+                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, CONFIG.T.flash, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
             };
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {
@@ -95,10 +83,10 @@ module.exports = {
         }
 
         var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl;
-        if (/\.mp4$/.test(contentURL)) {
+        if (contentURL) {
             links.push({
-                href: schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl,
-                type: CONFIG.T.video_mp4, // it will see if *mp4, otherwise verify MIME type
+                href: contentURL,
+                accept: ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl], // detects and validates mime type
                 rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
                 'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
             });
