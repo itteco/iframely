@@ -38,7 +38,7 @@ module.exports = {
             return {
                 href: embedSrc,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.html5, CONFIG.R.app],
+                rel: [CONFIG.R.summary, CONFIG.R.html5],
                 "width": width,
                 "height": 300
             };

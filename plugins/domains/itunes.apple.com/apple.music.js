@@ -37,7 +37,7 @@ module.exports = {
         return {
             href: '//tools.applemusic.com/embed/v1/' + type + (type === 'playlist' ? '/pl.':'/' ) + id + '?country=' + country + (at ? '&at=' + at : ''),
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.html5, CONFIG.R.player],
+            rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, CONFIG.R.html5],
             "height": type === 'playlist' || type === 'album' ? 500 : 110
         };
     },
