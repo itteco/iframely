@@ -575,5 +575,12 @@
             "teamcoco.com/.*"
         ],
         "endpoint": "http://teamcoco.com/oembed.{format}"
-    }    
+    },
+    {
+        "name": "Storied",
+        "templates": [        
+            "(\\w+.storied\\.co/.*/)"
+        ],
+        "endpoint": "https://{1}oembed.json?format={format}"
+    }
 ]
