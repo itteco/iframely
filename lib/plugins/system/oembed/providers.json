@@ -582,5 +582,12 @@
             "(\\w+.storied\\.co/.*/)"
         ],
         "endpoint": "https://{1}oembed.json?format={format}"
+    },
+    {
+        "name": "Figma",
+        "templates": [        
+            "figma.com/.*"
+        ],
+        "endpoint": "https://www.figma.com/api/oembed"
     }
 ]
