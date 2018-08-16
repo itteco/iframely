@@ -39,7 +39,7 @@ module.exports = {
             var player = {
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],                
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],                
                 height: /visual=false/.test(href) ? 114 : oembed.height,
                 "min-width": oembed.width
             };

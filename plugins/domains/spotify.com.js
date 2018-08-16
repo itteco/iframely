@@ -37,13 +37,21 @@ module.exports = {
                 src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
             }
 
-            return [{
+            var horizontal_player = options.getProviderOptions(CONFIG.O.compact, false) || (/\/track/i.test(src) && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('bandcamp.small_player', false)));
+
+            var player = {
                 href: src,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-                height: oembed.height || 80
-            }, {
-                href: 'https://d2c87l0yth4zbw-2.global.ssl.fastly.net/i/_global/touch-icon-114.png',
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.ssl, CONFIG.R.html5],
+                height: horizontal_player ? 80 : (oembed.height || 300)
+            };
+
+            if (/album|playlist/.test(src)) {
+                player.rel.push(CONFIG.R.playlist);
+            }
+
+            return [player, {
+                href: 'https://open.scdn.co/static/images/touch-icon-114.png',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.icon
                 // no sizes - let's validate it.
