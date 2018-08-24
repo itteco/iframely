@@ -12,7 +12,7 @@ module.exports = {
         if (meta.og && meta.og.image) {
 
             cb(null, {
-                href: meta.og.image,
+                href: meta.og.image.url || meta.og.image,
                 type: CONFIG.T.image,
                 rel: meta.og.type === 'profile'? [CONFIG.R.image, CONFIG.R.promo] : CONFIG.R.image,
                 width: meta.twitter.image.width,

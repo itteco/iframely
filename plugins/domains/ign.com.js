@@ -3,8 +3,8 @@ var _ = require('underscore');
 module.exports = {
 
     re: [
-        /^http:\/\/\w+\.ign\.com\/\w+\/videos\/\d+\/\w+\/[a-z0-9-]+/i,
-        /^http:\/\/\w+\.ign\.com\/videos\/\d+\/\d+\/\d+\/[a-z0-9-]+/i
+        /^https?:\/\/\w+\.ign\.com\/\w+\/videos\/\d+\/\w+\/[a-z0-9-]+/i,
+        /^https?:\/\/\w+\.ign\.com\/videos\/\d+\/\d+\/\d+\/[a-z0-9-]+/i
     ],
 
 
@@ -13,7 +13,7 @@ module.exports = {
     getLink: function(meta) {
 
         var url = _.find(meta.alternate, function(url) {
-            return url.match && url.match(/http:\/\/www\.ign\.com\/videos/)
+            return url.match && url.match(/https?:\/\/www\.ign\.com\/videos/i)
         });
 
         if (url) {
@@ -28,12 +28,12 @@ module.exports = {
     },
 
     tests: [{
-        feed: 'http://me.ign.com/en/feed.xml',
+        feed: 'https://me.ign.com/en/feed.xml',
         getUrl: function(url) {
-            return url.match(/videos/) && url;
+            return url.match(/videos?/i) && url;
         }
     },
-        "http://me.ign.com/en/videos/112217/video/our-favorite-games-of-new-york-comic-con",
-        "http://me.ign.com/en/videos/111115/fix/ps4-firmware-30-new-battlefront-details-ign-daily"
+        "https://me.ign.com/en/videos/112217/video/our-favorite-games-of-new-york-comic-con",
+        "https://me.ign.com/en/videos/111115/fix/ps4-firmware-30-new-battlefront-details-ign-daily"
     ]
 };
