@@ -23,12 +23,10 @@ module.exports = {
         }
 
         return {
-            href: "https://www.imdb.com/video/imdb/vi" + urlMatch[1] + "/imdb/embed?autoplay=false&width=" + width,
+            href: "https://www.imdb.com/videoembed/vi" + urlMatch[1],
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            width: width,
-            height: width / (16/9),
-            scrolling: 'no'
+            'aspect-ratio': 16/9
         }
     },
 
