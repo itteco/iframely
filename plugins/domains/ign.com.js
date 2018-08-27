@@ -21,7 +21,6 @@ module.exports = {
                 href: '//widgets.ign.com/video/embed/content.html?url=' + url,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                autoplay: 'autoplay=1',
                 "aspect-ratio": 468 / 263
             };
         }
