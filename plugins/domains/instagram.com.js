@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www.)?instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)\/?/i,
+        /^https?:\/\/(?:www.)?instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)\/?/i,
         /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)/i,
-        /^https?:\/\/instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)$/i
+        /^https?:\/\/instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)$/i
     ],
 
     mixins: [
@@ -86,6 +86,11 @@ module.exports = {
 
             if (options.getProviderOptions('locale')) {
                 html = html.replace('/en_US/embeds.js', '/' + options.getProviderOptions('locale').replace('-', '_') + '/embeds.js');
+            }
+
+            if (/instagram.com\/tv\//i.test(html)) {
+                // html has /tv/ links in it - but those actually don't work as of 8/27/2018
+                html = html.replace (/instagram.com\/tv\//g, 'instagram.com/p/');
             }
 
             links.push({
