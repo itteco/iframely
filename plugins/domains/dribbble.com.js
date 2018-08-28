@@ -5,7 +5,15 @@ module.exports = {
         /^https?:\/\/dribbble\.com\/([a-zA-Z0-9\-]+)(?:\?[^\/]+)?$/i
     ],
 
-    mixins: ["*"],
+    // required to bypass canonical=gif for gif shots
+    mixins: [
+        "favicon",
+        "og-description",
+        "twitter-labels",
+        "og-site",
+        "theme-color",
+        "og-title"
+    ],
 
     getLink: function(meta, urlMatch, cb) {
 
@@ -37,6 +45,7 @@ module.exports = {
             "og-description"
         ]
     },
-        "http://dribbble.com/shots/1311850-Winter-Is-Coming"
+        "http://dribbble.com/shots/1311850-Winter-Is-Coming",
+        "http://dribbble.com/shots/5030547-Chairs-Store-App"
     ]
 };
