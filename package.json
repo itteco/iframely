@@ -21,7 +21,7 @@
     "dependencies": {
         "async": "2.4.1",
         "cheerio": "0.22.0",
-        "chokidar": "^2.0.3",
+        "chokidar": "^2.0.4",
         "ejs": "2.5.7",
         "entities": "1.1.1",
         "express": "^4.16.3",
@@ -47,8 +47,8 @@
         "chai": "^3.5.0",
         "feedparser": "2.2.0",
         "mocha": "^5.2.0",
-        "mock-http-server": "0.0.4",
-        "mongoose": "4.10.5",
+        "mock-http-server": "^1.0.0",
+        "mongoose": "^4.13.14",
         "supertest": "^3.1.0",
         "vows": "0.7.0"
     },
