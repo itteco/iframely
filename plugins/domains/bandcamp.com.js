@@ -78,7 +78,7 @@ module.exports = {
 
             return {
                 href: href,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 media: media
             };

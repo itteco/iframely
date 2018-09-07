@@ -59,8 +59,8 @@ module.exports = {
                 var apiUrl;
 
                 var qs = {
-                    hide_media:  options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_media, 
-                    hide_thread: options.getProviderOptions(CONFIG.O.full, false) ? false : c.hide_thread,
+                    hide_media:  c.hide_media, 
+                    hide_thread: c.hide_thread,
                     omit_script: c.omit_script
                 };
 
@@ -215,8 +215,13 @@ module.exports = {
         }
 
         if (options.getProviderOptions(CONFIG.O.compact, false)
-            && !options.getProviderOptions('twitter.hide_thread', true) && !/\s?data-conversation=\"none\"/.test(html)) {
+            && !/\s?data-conversation=\"none\"/.test(html)) {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-conversation="none"');
+        }
+
+        if (options.getProviderOptions(CONFIG.O.full, false)
+            && /\s?data-conversation=\"none\"/.test(html)) {
+            html = html.replace('data-conversation="none"', '');
         }
 
         var app = {
