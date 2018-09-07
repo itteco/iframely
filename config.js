@@ -1,7 +1,11 @@
 (function() {
 
     // Monkey patch before you require http for the first time.
-    process.binding('http_parser').HTTPParser = require('http-parser-js').HTTPParser;
+    var majorVersion = process.version.match(/v(\d+)\./);
+    majorVersion = parseInt(majorVersion);
+    if (majorVersion < 10) {
+        process.binding('http_parser').HTTPParser = require('http-parser-js').HTTPParser;
+    }
 
     var _ = require('underscore');
     var path = require('path');
