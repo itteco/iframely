@@ -113,9 +113,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.theverge.com/2013/8/5/4588634/moto-x-hands-on-review-video",
-        "http://www.vox.com/explains/2014/4/23/5643382/how-bitcoin-is-like-the-internet-in-the-80s",
-        "http://www.polygon.com/2013/10/23/4947500/cooperatives-pokemon-x-and-y",
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/"
         // "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
         // "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
