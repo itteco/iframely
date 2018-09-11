@@ -11,7 +11,7 @@ module.exports = {
         
         if ($player.length == 1) {
             return {
-                dailymailVideo: JSON.parse($player.attr('data-opts'))
+                dailymailVideo: JSON.parse(decodeHTML5($player.attr('data-opts')))
             }
         }
     },
