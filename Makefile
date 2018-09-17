@@ -8,7 +8,6 @@ build:
 	git fetch upstream
 	git checkout master
 	git merge upstream/master
-	git tag | tail -n 1
 	git branch -f ${VERSION}
 	git checkout ${VERSION}
 	docker \
