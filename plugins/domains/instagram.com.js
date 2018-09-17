@@ -1,9 +1,9 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www.)?instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)\/?/i,
+        /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)\/?/i,
         /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_-]+\/)?p\/([a-zA-Z0-9_-]+)/i,
-        /^https?:\/\/instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)$/i
+        /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_-]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)$/i
     ],
 
     mixins: [
@@ -23,12 +23,14 @@ module.exports = {
     },
 
     getLinks: function(urlMatch, meta, oembed, options) {
-        var src = 'http://instagram.com/p/' + urlMatch[1] + '/media/?size=';
+        var src = 'https://instagram.com/p/' + urlMatch[1] + '/media/?size=';
 
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [
             // Images.
+            // /p/shortcode/media is currently not available as of Sept 17, 2018
+            /*
             {
                 href: src + 't',
                 type: CONFIG.T.image,
@@ -43,6 +45,19 @@ module.exports = {
                 height: 306
             }, {
                 href: src + 'l',
+                type: CONFIG.T.image,
+                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
+                width: Math.round(aspect * 612),
+                height: 612
+            } */
+            {
+                href: oembed.thumbnail_url,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail,
+                width: oembed.thumbnail_width,
+                height: oembed.thumbnail_height
+            }, {
+                href: meta.og && meta.og.image,
                 type: CONFIG.T.image,
                 rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
                 width: Math.round(aspect * 612),
@@ -118,8 +133,8 @@ module.exports = {
         page: "http://blog.instagram.com/",
         selector: ".photogrid a"
     },
-        "https://instagram.com/p/HbBy-ExIyF/",
-        "http://www.instagram.com/p/a_v1-9gTHx/",
+        "https://www.instagram.com/p/HbBy-ExIyF/",
+        "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
             skipMixins: [
