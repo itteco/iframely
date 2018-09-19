@@ -18,6 +18,19 @@ module.exports = {
         if (whitelistRecord.isAllowed('oembed.rich', "player")) {
             rels.push(CONFIG.R.player);
         }
+
+        if (whitelistRecord.isAllowed('oembed.rich', "audio")) {
+            rels.push(CONFIG.R.audio);
+        }
+
+        if (whitelistRecord.isAllowed('oembed.rich', "slideshow")) {
+            rels.push(CONFIG.R.slideshow);
+        }        
+
+        if (whitelistRecord.isAllowed('oembed.rich', "playlist")) {
+            rels.push(CONFIG.R.playlist);
+        }
+
         if (whitelistRecord.isAllowed('oembed.rich', "summary")) {
             rels.push(CONFIG.R.summary);
         }        
