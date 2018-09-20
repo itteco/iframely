@@ -20,12 +20,12 @@ module.exports = {
             };
         } 
 
+
+        // Or Vimeo
         urlMatch = video_src.match(/^https?:\/\/vimeo\.com\/(\d+)/i)
                 || video_src.match(/^https?:\/\/player.vimeo\.com\/video\/(\d+)/i)
                 || video_src.match(/^https?:\/\/(?:www\.)?vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i);
 
-
-        // Or Vimeo
         if (urlMatch) {
             return {
                 __promoUri: "https://vimeo.com/" + urlMatch[1]
@@ -56,10 +56,10 @@ module.exports = {
             };
         }
 
+
         // or theplatform
         urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i)
                 || video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-\/]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i);
-                
 
         if (urlMatch) {
             return {
@@ -74,7 +74,8 @@ module.exports = {
         // or jwplatform
         urlMatch = video_src.match(/^https?:\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.html/i)
                 || video_src.match(/^https?:\/\/content\.jwplatform\.com\/videos\/([_a-zA-Z0-9\-]+)\.(?:mp4|m3u8)/i)
-                || video_src.match(/^https?:\/\/content\.jwplatform\.com\/previews\/([_a-zA-Z0-9\-]+)/i);                
+                || video_src.match(/^https?:\/\/content\.jwplatform\.com\/previews\/([_a-zA-Z0-9\-]+)/i)
+                || video_src.match(/https?:\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.js/i); // e.g. https://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9
 
         if (urlMatch) {
             return {
@@ -85,6 +86,7 @@ module.exports = {
             };
         }
 
+
         // or wistia player
         urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.(?:net|com)\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
 
@@ -94,12 +96,13 @@ module.exports = {
             };
         }
 
+
         // or wistia canonical
         urlMatch = video_src.match(/^https?:\/\/\w+\.wistia\.(?:net|com)\/medias?\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
-                __promoUri: video_src                
+                __promoUri: video_src
             };
         } 
 
@@ -117,9 +120,9 @@ module.exports = {
             };
         }
 
+
         // Or Soundcloud || Giphy
         urlMatch = video_src.match(/^https?:\/\/(?:\w+\.)?soundcloud\.com/i) || video_src.match(/^https?:\/\/giphy\.com\/embed/i);
-
 
         if (urlMatch) {
             return {
