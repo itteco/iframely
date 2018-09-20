@@ -4,14 +4,9 @@ module.exports = {
 
     provides: '__ooyalaPlayer',
 
-    getData: function(meta, whitelistRecord) {
+    getData: function(video_src, meta, whitelistRecord) {
 
-        // do not process if there is a whitelist record for this domain
-        if (!whitelistRecord.isDefault) {return;}
-        
-        var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
-
-        if (!video_src || video_src instanceof Array || !/^(?:https?:)?\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
+        if (!/^(?:https?:)?\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
             return;
         }
 
@@ -114,7 +109,5 @@ module.exports = {
 
     tests: [
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/"
-        // "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
-        // "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
     ]
 };

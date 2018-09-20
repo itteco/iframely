@@ -18,8 +18,8 @@ module.exports = {
             var video_src = json.embedurl || json.embedUrl || json.embedURL|| json.contenturl || json.contentUrl || json.contentURL;
 
             if (video_src && typeof video_src === "string" && whitelistRecord.isAllowed && (whitelistRecord.isDefault || !whitelistRecord.isAllowed('html-meta.embedURL'))
-                && /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|podbean|simplecast|libsyn|wistia|brightcove)\./i.test(video_src)
-                && !/(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|cnevids|newsinc|libsyn|wistia|brightcove)\./i.test(url)) {
+                && CONFIG.KNOWN_VIDEO_SOURCES.test(video_src)
+                && !CONFIG.KNOWN_VIDEO_SOURCES.test(url)) {
 
                 data.video_src = video_src;
             }

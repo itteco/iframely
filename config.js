@@ -206,6 +206,8 @@
             "sm4"
         ],
 
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid)\./i,
+
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
 
