@@ -62,6 +62,9 @@ module.exports = {
             } else { // presentation
                 // file["aspect-ratio"] = 4/3; // use default aspect ratio
                 file.rel.push (CONFIG.R.player);
+                file.rel.push (CONFIG.R.slideshow);
+                file['aspect-ratio'] = 16/9;
+                file['padding-bottom'] = 30;
             }
 
             return file;
@@ -105,7 +108,6 @@ module.exports = {
         "https://docs.google.com/document/d/1KHLQiZkTFvMvBHmYgntEQtNxXswOQISjkbpnRO3jLrk/edit",
         "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/edit#slide=id.p",
         "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/preview",
-        "https://docs.google.com/forms/d/1mJcBz16JAfxomVXIohDJv8w-AJw8t-jhAd1HgIwTlF8/viewform?c=0&w=1",
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
         "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
         "https://docs.google.com/spreadsheets/d/10JLM1UniyGNuLaYTfs2fnki-U1iYFsQl4XNHPZTYunw/edit?pli=1#gid=0",
