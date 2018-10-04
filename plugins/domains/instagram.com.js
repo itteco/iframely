@@ -108,12 +108,20 @@ module.exports = {
                 html = html.replace (/instagram.com\/tv\//g, 'instagram.com/p/');
             }
 
-            links.push({
+            var app = {
                 html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 'max-width': 660
-            });
+            };
+
+            if (oembed.thumbnail_width && oembed.thumbnail_height) {
+                app['aspect-ratio'] = oembed.thumbnail_width / oembed.thumbnail_height;
+                app['padding-bottom'] = 206;
+
+            }
+
+            links.push(app);
         }
 
         return links;
