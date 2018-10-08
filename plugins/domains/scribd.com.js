@@ -3,7 +3,7 @@ var $ = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|document|book|embeds)\//i,
+        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|document|book|read|embeds|presentation)\//i,
     ],    
 
     mixins: [
@@ -26,7 +26,7 @@ module.exports = {
         if ($iframe.length == 1) {
             return {
                 href: $iframe.attr('src').replace("http://", "//"),
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
                 "aspect-ratio": oembed.thumbnail_height ?  oembed.thumbnail_width / oembed.thumbnail_height : null
             }
