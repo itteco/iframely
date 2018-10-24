@@ -8,12 +8,19 @@ module.exports = {
             && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)
             && (!__nonHtmlContentData.content_length || __nonHtmlContentData.content_length < 10 * 1024 * 1024)
             &&  !__nonHtmlContentData['set-cookie']) {
-            return {
+
+            var result = {
                 href: "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(url),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
                 "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/.test(__nonHtmlContentData.type) ?  4/3 : 1 / Math.sqrt(2)
             }
+
+            if (/^https?:\/\/[a-zA-Z0-9\-\_]+\.googleapis\.com\//i.test(url)) {
+                result.href = "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url);
+                result.message = "MS Office viewer cannot reach this file server. Falling back to Google Docs viewer."
+            }
+            return result;
         } 
         // checked if viewer could not be used
         if (/application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type) 
