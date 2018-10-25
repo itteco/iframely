@@ -16,14 +16,13 @@ module.exports = {
                 "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/i.test(__nonHtmlContentData.type) ?  4/3 : 1 / Math.sqrt(2)
             }
 
-            if (/presentation|ms\-powerpoint/i.test(__nonHtmlContentData.type)) {
+            if (/^https?:\/\/[a-zA-Z0-9\-\_]+\.googleapis\.com\//i.test(url) || options.getProviderOptions('disableMSDocViewer', false)) {
+                result.href = "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url);
+                result.message = "MS Office viewer is disabled for that URL. Falling back to Google Docs viewer."
+            } else if (/presentation|ms\-powerpoint/i.test(__nonHtmlContentData.type)) {
                 result['padding-bottom'] = 23;
             }
 
-            if (/^https?:\/\/[a-zA-Z0-9\-\_]+\.googleapis\.com\//i.test(url)) {
-                result.href = "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url);
-                result.message = "MS Office viewer cannot reach this file server. Falling back to Google Docs viewer."
-            }
             return result;
         } 
         // checked if viewer could not be used
