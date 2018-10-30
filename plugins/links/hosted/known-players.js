@@ -5,13 +5,13 @@ module.exports = {
     getData: function(video_src) {
 
         // Allow YouTube
-        var urlMatch = video_src.match(/https?:\/\/(?:www\.)?youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/https?:\/\/www\.youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/https?:\/\/www\.youtube-nocookie\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/https?:\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/https?:\/\/youtube\.googleapis\.com\/v\/([\-_a-zA-Z0-9]+)/i) //youtube.googleapis.com/v/k3Cd2lvQlN4?rel=0
-                    || video_src.match(/https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/https?:\/\/youtu\.be\/([\-_a-zA-Z0-9]+)/i);
+        var urlMatch = video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/www\.youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/www\.youtube-nocookie\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/youtube\.googleapis\.com\/v\/([\-_a-zA-Z0-9]+)/i) //youtube.googleapis.com/v/k3Cd2lvQlN4?rel=0
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/youtu\.be\/([\-_a-zA-Z0-9]+)/i);
 
 
         if (urlMatch) {
@@ -22,8 +22,8 @@ module.exports = {
 
 
         // or DailyMotion, e.g. Liberation, Le Point, L'Express
-        urlMatch = video_src.match(/^https?:\/\/(?:www\.)?dailymotion\.com\/(?:swf|embed)?\/?video\/([_a-zA-Z0-9\-]+)/i)
-                || video_src.match(/^https?:\/\/dai.ly\/([_a-zA-Z0-9\-]+)/i); // e.g. Libération.fr
+        urlMatch = video_src.match(/^(?:https?:)?\/\/(?:www\.)?dailymotion\.com\/(?:swf|embed)?\/?video\/([_a-zA-Z0-9\-]+)/i)
+                || video_src.match(/^(?:https?:)?\/\/dai.ly\/([_a-zA-Z0-9\-]+)/i); // e.g. Libération.fr
 
         if (urlMatch) {
             return {
@@ -33,7 +33,7 @@ module.exports = {
 
 
         // or theplatform flash
-        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf(\/select\/(?:media\/)?[_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^(?:https?:)?\/\/player\.theplatform\.com\/p\/([_a-zA-Z0-9\-]+)\/([_a-zA-Z0-9\-]+)\/swf(\/select\/(?:media\/)?[_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
@@ -46,8 +46,8 @@ module.exports = {
 
 
         // or theplatform
-        urlMatch = video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i)
-                || video_src.match(/^https?:\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-\/]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i);
+        urlMatch = video_src.match(/^(?:https?:)?\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i)
+                || video_src.match(/^(?:https?:)?\/\/player\.theplatform\.com\/p\/[_a-zA-Z0-9\-\/]+(?:\/embed)?\/select\/[_a-zA-Z0-9\-]+/i);
 
         if (urlMatch) {
             return {
@@ -60,10 +60,10 @@ module.exports = {
 
 
         // or jwplatform
-        urlMatch = video_src.match(/^https?:\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.html/i)
-                || video_src.match(/^https?:\/\/content\.jwplatform\.com\/videos\/([_a-zA-Z0-9\-]+)\.(?:mp4|m3u8)/i)
-                || video_src.match(/^https?:\/\/content\.jwplatform\.com\/previews\/([_a-zA-Z0-9\-]+)/i)
-                || video_src.match(/https?:\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.js/i); // e.g. https://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9
+        urlMatch = video_src.match(/^(?:https?:)?\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.html/i)
+                || video_src.match(/^(?:https?:)?\/\/content\.jwplatform\.com\/videos\/([_a-zA-Z0-9\-]+)\.(?:mp4|m3u8)/i)
+                || video_src.match(/^(?:https?:)?\/\/content\.jwplatform\.com\/previews\/([_a-zA-Z0-9\-]+)/i)
+                || video_src.match(/(?:https?:)?\/\/content\.jwplatform\.com\/players\/([_a-zA-Z0-9\-]+)\.js/i); // e.g. https://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9
 
         if (urlMatch) {
             return {
@@ -76,7 +76,7 @@ module.exports = {
 
 
         // or wistia player
-        urlMatch = video_src.match(/^https?:\/\/fast\.wistia\.(?:net|com)\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^(?:https?:)?\/\/fast\.wistia\.(?:net|com)\/embed\/iframe\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
@@ -86,7 +86,7 @@ module.exports = {
 
 
         // or wistia canonical
-        urlMatch = video_src.match(/^https?:\/\/\w+\.wistia\.(?:net|com)\/medias?\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^(?:https?:)?\/\/\w+\.wistia\.(?:net|com)\/medias?\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
@@ -97,7 +97,7 @@ module.exports = {
 
 
         // or simplecast
-        urlMatch = video_src.match(/https?:\/\/simplecast\.com\/card\/[a-zA-Z0-9\-]+/i);
+        urlMatch = video_src.match(/(?:https?:)?\/\/simplecast\.com\/card\/[a-zA-Z0-9\-]+/i);
 
         if (urlMatch) {
             return {
@@ -110,7 +110,7 @@ module.exports = {
 
 
         // Or Soundcloud || Giphy
-        urlMatch = video_src.match(/^https?:\/\/(?:\w+\.)?soundcloud\.com/i) || video_src.match(/^https?:\/\/giphy\.com\/embed/i);
+        urlMatch = video_src.match(/^(?:https?:)?\/\/(?:\w+\.)?soundcloud\.com/i) || video_src.match(/^(?:https?:)?\/\/giphy\.com\/embed/i);
 
         if (urlMatch) {
             return {
