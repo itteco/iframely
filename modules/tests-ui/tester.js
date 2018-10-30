@@ -203,7 +203,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         } else if (url.page && url.selector) {
                             // Find urls on page by jqeury selector.
                             utils.fetchUrlsByPageAndSelector(url.page, url.selector, {
-                                getUrl: url.getUrl
+                                getUrl: url.getUrl,
+                                urlAttribute: url.urlAttribute
                             }, getFetchTestUrlsCallback(url, cb));
 
                         } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
