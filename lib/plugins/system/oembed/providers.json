@@ -302,10 +302,12 @@
         "endpoint": "https://ifttt.com/oembed?url=https://ifttt.com/recipes/{1}&format={format}"
     },
     {
-        "name": "Polldaddy",
+        "name": "Crowdsignal",
         "templates": [
             "polldaddy\\.com/(?:poll|s)/.*",
-            ".*\\.polldaddy.com/(?:poll|s)/.*"
+            ".*\\.polldaddy.com/(?:poll|s)/.*",
+            "poll\\.fm/.*",
+            ".*\\.survey\\.fm/.*"
         ],
         "endpoint": "https://polldaddy.com/oembed/"
     },
