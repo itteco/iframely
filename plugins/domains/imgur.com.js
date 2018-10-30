@@ -74,6 +74,7 @@ module.exports = {
         skipMixins: [
             "twitter-image",
             "twitter-stream",       // works for GIFvs only
+            "twitter-description",
             "oembed-author"         // Available for Galleries only
         ]
     },    
