@@ -13,9 +13,11 @@ module.exports = {
         "*"
     ],
 
-    getData: function (urlMatch, twitter) {
+    getData: function (urlMatch, meta) {
 
-        if (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(twitter.image) || /^https?:\/\/videos\.usatoday\.net\//i.test(twitter.image) || /brightcove/i.test(twitter.image)) {
+        var img_src = meta.twitter && meta.twitter.image || meta.ld && meta.ld.videoobject && meta.ld.videoobject.thumbnailurl || meta.og && meta.og.image;
+
+        if (img_src && (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(img_src) || /^https?:\/\/videos\.usatoday\.net\//i.test(img_src) || /brightcove/i.test(img_src))) {
             return {
                 gannettVideo: {
                     id: urlMatch[2],
