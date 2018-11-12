@@ -9,26 +9,17 @@ module.exports = {
     ],
 
     getLinks: function(urlMatch) {
-        var bits = [
-            'flashcards',
-            'learn',
-            'scatter',
-            'speller',
-            'test',
-            'spacerace'
-        ];
 
         var bit ='flashcards';
-        if (/^flashcards|learn|scatter|speller|test|spacerace|gravity$/i.test(urlMatch[2])) {
+        if (/^flashcards|match|learn|scatter|speller|spell|test|spacerace|gravity$/i.test(urlMatch[2])) {
             bit = urlMatch[2];
         }
 
         return {
-            href: 'https://quizlet.com/' + urlMatch[1]+ '/' + bit + '/embedv2',
+            href: 'https://quizlet.com/' + urlMatch[1]+ '/' + bit + '/embed',
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.survey,
-            'min-width': 100,
-            'min-height': 100
+            rel: [CONFIG.R.survey, CONFIG.R.html5],
+            height: 500            
         }
 
     },
