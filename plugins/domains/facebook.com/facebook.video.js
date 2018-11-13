@@ -42,6 +42,10 @@ module.exports = {
 
         }
 
+        if (oembed.width && oembed.height) {
+            link['aspect-ratio'] = oembed.width / oembed.height;
+        }
+
         link.html = html;
 
         return link;
