@@ -81,19 +81,23 @@ module.exports = {
                         }
 
                         rel.push(CONFIG.R.html5);
-                        
+
+                    /* disable player.swf - we can not reliably detect if the video is valid or not */
                     } else {
-                        href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
-                        type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
+                        href = null; // href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
+                        // type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
                     }
 
-                    var player = {
-                        href: href,
-                        rel: rel,
-                        type: type,
-                        'aspect-ratio': aspect,
-                        autoplay: type === CONFIG.T.text_html ? 'options[autoplay]=true' : 'autoplay=1'
-                    };
+                    var player = null;
+                    if (href) { // exclude player.swf
+                        var player = {
+                            href: href,
+                            rel: rel,
+                            type: type,
+                            'aspect-ratio': aspect,
+                            autoplay: type === CONFIG.T.text_html ? 'options[autoplay]=true' : 'autoplay=1'
+                        };
+                    }
 
                     return cb(null, player);
                 }
