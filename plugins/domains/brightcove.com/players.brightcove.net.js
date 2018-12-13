@@ -17,7 +17,7 @@ module.exports = {
 
         var player = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5]
+            rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.playerjs, CONFIG.R.html5]
         };
 
         // autoplay=true comes from `brightcove-in-page-promo` only and follows whitelistRecord
