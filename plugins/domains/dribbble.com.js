@@ -19,17 +19,32 @@ module.exports = {
         }
     },
 
-    getLink: function(meta, urlMatch, cb) {
+    getLink: function(meta, url, urlMatch, cb) {
 
         if (meta.og && meta.og.image) {
 
-            cb(null, {
+            var links = [{
                 href: meta.og.image.url || meta.og.image,
                 type: CONFIG.T.image,
                 rel: meta.og.type === 'profile'? [CONFIG.R.image, CONFIG.R.promo] : CONFIG.R.image,
                 width: meta.twitter.image.width,
                 height: meta.twitter.image.height
-            });
+            }];
+
+            if (meta.twitter && meta.twitter.player && /^https?:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i.test(url)) {
+                links.push({
+                    href: meta.twitter.player.value,
+                    media: {
+                        width: meta.twitter.player.width,
+                        height: meta.twitter.player.height,
+                        'max-width': 800
+                    }, 
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.gifv, CONFIG.R.html5, CONFIG.R.twitter, 'responsive']
+                });
+            }
+
+            cb(null, links);
 
         } else {
             // Attachments pages doesn't have any meta at the moment :\
