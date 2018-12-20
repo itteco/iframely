@@ -5,15 +5,19 @@ module.exports = {
         /^https?:\/\/dribbble\.com\/([a-zA-Z0-9\-]+)(?:\?[^\/]+)?$/i
     ],
 
-    // required to bypass canonical=gif for gif shots
     mixins: [
-        "favicon",
-        "og-description",
-        "twitter-labels",
-        "og-site",
-        "theme-color",
-        "og-title"
+        "*"
     ],
+
+    getMeta: function(url, og) {
+
+        // avoid canonical=gif for gif shots that invalidate thumbmails
+        if (/\.gif/.test(og.url)) {
+            return {
+                canonical: url
+            }
+        }
+    },
 
     getLink: function(meta, urlMatch, cb) {
 
