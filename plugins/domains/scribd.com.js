@@ -11,7 +11,8 @@ module.exports = {
         "oembed-thumbnail",
         "oembed-site",
         "oembed-author",
-        'domain-icon'
+        "domain-icon",
+        "og-description"
     ],
 
     getLink: function(oembed) {
@@ -37,7 +38,9 @@ module.exports = {
         page: "https://www.scribd.com/books/scribd-selects",
         selector: "a.doc_link.book_link"
     },
-        "https://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013"
+        "https://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013",
+        "https://www.scribd.com/article/395940014/Did-Free-Pens-Cause-The-Opioid-Crisis",
+        "https://www.scribd.com/audiobook/390624136/Becoming"
     ]
 
 
