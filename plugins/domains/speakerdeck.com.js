@@ -6,7 +6,8 @@ module.exports = {
         "oembed-title",
         "oembed-site",
         "oembed-author",
-        "domain-icon"        
+        "domain-icon",
+        "og-description"     
     ],
 
     getLink: function (url, oembed) {
@@ -51,6 +52,7 @@ module.exports = {
 
 
     tests: [
-        "https://speakerdeck.com/gr2m/rails-girls-zurich-keynote?slide=3"
+        "https://speakerdeck.com/gr2m/rails-girls-zurich-keynote?slide=3",
+        "https://speakerdeck.com/lynnandtonic/art-the-web-and-tiny-ux"
     ]
 };

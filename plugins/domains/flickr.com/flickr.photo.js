@@ -9,7 +9,8 @@ module.exports = {
         "oembed-author",
         "oembed-license",
         "oembed-site",
-        "domain-icon"
+        "domain-icon",
+        "og-description"
     ],
 
     getLink: function(oembed) {
