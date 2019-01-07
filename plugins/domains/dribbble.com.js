@@ -59,9 +59,8 @@ module.exports = {
         page: "http://dribbble.com/",
         selector: ".dribbble-link"
     }, {
-        skipMixins: [
-            "twitter-author",
-            "og-description"
+        skipMethods: [
+            "getMeta"
         ]
     },
         "http://dribbble.com/shots/1311850-Winter-Is-Coming",
