@@ -17,7 +17,7 @@ module.exports = {
 
         var result =  [{
             html: oembed.html.replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
-            rel: [oembed.type === 'photo' ? CONFIG.R.image : CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+            rel: [oembed.type === 'photo' ? CONFIG.R.image : CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width / oembed.height
         } , {
