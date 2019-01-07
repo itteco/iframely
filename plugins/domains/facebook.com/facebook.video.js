@@ -60,7 +60,6 @@ module.exports = {
         "https://www.facebook.com/tv2nyhederne/videos/1657445024271131/?comment_id=1657463030935997",
         "https://www.facebook.com/MeanwhileinCanada1/videos/1302492646464430/",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
-        "https://www.facebook.com/7elephantsdubai/videos/778709522285070/",
         {
             noFeeds: true
         }
