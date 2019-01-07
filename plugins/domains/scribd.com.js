@@ -11,7 +11,8 @@ module.exports = {
         "oembed-thumbnail",
         "oembed-site",
         "oembed-author",
-        'domain-icon'
+        "domain-icon",
+        "og-description"
     ],
 
     getLink: function(oembed) {
