@@ -145,8 +145,12 @@
 
         // Option names   
         O: {
+            // compact & full - deprecated
             compact: "iframely.less",
-            full: "iframely.more"
+            full: "iframely.more",
+            // use O.more & O.less instead
+            more: "iframely.more",
+            less: "iframely.less"
         },        
 
         // Whitelist settings.
