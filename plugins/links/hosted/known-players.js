@@ -97,7 +97,8 @@ module.exports = {
 
 
         // or simplecast
-        urlMatch = video_src.match(/(?:https?:)?\/\/simplecast\.com\/card\/[a-zA-Z0-9\-]+/i);
+        urlMatch = video_src.match(/(?:https?:)?\/\/simplecast\.com\/card\/[a-zA-Z0-9\-]+/i)
+                || video_src.match(/(?:https?:)?\/\/embed\.simplecast\.com\/[a-zA-Z0-9\-]+/i);        
 
         if (urlMatch) {
             return {

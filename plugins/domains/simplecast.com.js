@@ -19,12 +19,9 @@ module.exports = {
         "https://simplecast.com/card/6e203f4f"
         /*
         http://bikeshed.fm/54
-        http://www.laravelpodcast.com/episodes/27610-episode-42-activerecord-the-school-of-zonda
-        http://www.laravelpodcast.com/episodes/32762-episode-43-open-source-money-rocket-league
         http://bikeshed.fm/57
-        http://www.laravelpodcast.com/episodes/55797-episode-51-dusky-christmas
-        http://www.travandlos.com/47
         http://podcast.emojiwrap.com/episodes/53140-4-but-some-people-hated-the-blob
+        https://objectsharp.com/podcast/cosmos-db-everything-you-wanted-to-know-about-microsoft-azures-nosql-offering-in-about-30-minutes/
         */        
     ]
 };
