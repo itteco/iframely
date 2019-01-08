@@ -148,9 +148,14 @@
             // compact & full - deprecated
             compact: "iframely.less",
             full: "iframely.more",
+            
             // use O.more & O.less instead
             more: "iframely.more",
-            less: "iframely.less"
+            less: "iframely.less",
+
+            // message prefixes
+            more_message: "?iframely=more: ",
+            less_message: "?iframely=less: ",
         },        
 
         // Whitelist settings.
