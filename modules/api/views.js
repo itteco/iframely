@@ -136,6 +136,8 @@ module.exports = function(app) {
                 delete result.safe_html;
             }
 
+            delete result.options;
+
             if (!CONFIG.SKIP_IFRAMELY_RENDERS) {
                 var render_link = _.find(result.links, function(link) {
                     return link.html
