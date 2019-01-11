@@ -84,16 +84,25 @@ module.exports = {
         if (oembed.type === 'rich' && !media_only) {
 
             var html = oembed.html;
+            var more = options.getProviderOptions(CONFIG.O.more, false);
+            var less = options.getProviderOptions(CONFIG.O.less, false);
 
-            var showinfo = options.getProviderOptions(CONFIG.O.full, false) || options.getProviderOptions('instagram.showcaption', false); 
-            if (showinfo && !/data\-instgrm\-captioned/i.test(html)) {
-                html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");            
+            if ((more || options.getProviderOptions('instagram.showcaption', false)) && !/data\-instgrm\-captioned/i.test(html)) {                
+                html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
-            var hideinfo = options.getProviderOptions(CONFIG.O.compact, false);
-            if (hideinfo && /data\-instgrm\-captioned/i.test(html)) {
+            if (less && /data\-instgrm\-captioned/i.test(html)) {
                 html = html.replace("data-instgrm-captioned ", "");
             }
+
+            var captioned = /data\-instgrm\-captioned/i.test(html);
+            var vary = {};
+            if ((captioned && more) || (!captioned && !less)) {
+                vary[CONFIG.O.more] = "Add user's text caption";
+            } else {
+                vary[CONFIG.O.less] = "Hide user's text caption";
+            }
+
 
             if (/src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
                 html = html.replace ('src="//www.instagram.com/embed.js"', 'src="//platform.instagram.com/en_US/embeds.js"');
@@ -112,7 +121,8 @@ module.exports = {
                 html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
-                'max-width': 660
+                'max-width': 660,
+                options: vary 
             };
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
