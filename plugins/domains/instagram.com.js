@@ -96,13 +96,6 @@ module.exports = {
             }
 
             var captioned = /data\-instgrm\-captioned/i.test(html);
-            var vary = {};
-            if ((captioned && more) || (!captioned && !less)) {
-                vary[CONFIG.O.more] = "Add user's text caption";
-            } else {
-                vary[CONFIG.O.less] = "Hide user's text caption";
-            }
-
 
             if (/src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
                 html = html.replace ('src="//www.instagram.com/embed.js"', 'src="//platform.instagram.com/en_US/embeds.js"');
@@ -122,7 +115,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 'max-width': 660,
-                options: vary 
+                message: ((captioned && more) || (!captioned && !less) ? 'iframely.more: Add' : 'iframely.less: Hide') + ' user\'s text caption' 
             };
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
