@@ -25,32 +25,47 @@ module.exports = {
             html = '<div align="center">' + html + '</div>';
         }
 
-        if (!/like/.test(url) && (options.getProviderOptions(CONFIG.O.full, false) || options.getProviderOptions(CONFIG.O.compact, false))) {
+        var vary;
 
-            var limit = 20;
+        // data-tweet-limit works only for users as of 2019/01/24
+        if (!/\/(timeline|moment|like|list)/.test(url)) {
 
-            if (/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(html)) {
-                limit = parseInt(html.match(/data\-(?:tweet\-)?limit=\"(\d+)\"/)[1]);
-                html = html.replace(/data\-(?:tweet\-)?limit=\"\d+\"/, '');
+            var more = options.getProviderOptions(CONFIG.O.more, false);
+            var less = options.getProviderOptions(CONFIG.O.less, false);
+
+            if (/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(html) && (more || less)) {
+                html = html.replace(/data\-(?:tweet\-)?limit=\"\d+\"/, '');                
             }
 
-            if (options.getProviderOptions(CONFIG.O.full, false)) {
-                limit = Math.min(20, limit * 2);
-            } else if (options.getProviderOptions(CONFIG.O.compact, false)) {
-                limit = Math.max(url.indexOf('moment') > -1 ? 4: 1, parseInt (limit / 2)); 
+            if (less) {
+                html = html.replace(/href="/, 'data-tweet-limit="1" href="');
+            }            
+
+            vary = {
+                'iframely.more': 'Include up to 20 tweets',
+                'iframely.less': 'Include just the latest tweet'
+            };
+
+            if (more) {
+                delete vary['iframely.less'];
+            } else if (less || !/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(oembed.html)) {
+                delete vary['iframely.more'];
             }
 
-            html = html.replace(/href="/, 'data-' 
-                + (url.indexOf('moment') > -1 ? '' : 'tweet-')
-                + 'limit="' + limit + '" href="');
         }
 
-        return {
+        var result = {
             html: html,
             rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
             type: CONFIG.T.text_html,
             'max-width': oembed.width
         }
+
+        if (vary) {
+            result.options = vary;
+        }
+
+        return result;
     },
 
     tests: [
