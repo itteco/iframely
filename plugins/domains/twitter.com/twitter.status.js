@@ -219,9 +219,9 @@ module.exports = {
         var less = options.getProviderOptions(CONFIG.O.less, false);
         var more = options.getProviderOptions(CONFIG.O.more, false);
         var has_thread = /\s?data-conversation=\"none\"/.test(html) || /^.?@/i.test(twitter_og.description);
-        var has_media = (twitter_og && (twitter_og.video != undefined)) 
+        var has_media = ((twitter_og !== undefined) && (twitter_og.video !== undefined)) 
                         || /https:\/\/t\.co\//i.test(html) || /pic\.twitter\.com\//i.test(html) 
-                        || (twitter_og.image && (twitter_og.image.user_generated || !/\/profile_images\//i.test(twitter_og.image)));
+                        || ((twitter_og.image !== undefined) && (twitter_og.image.user_generated !== undefined || !/\/profile_images\//i.test(twitter_og.image)));
 
 
         var hides_thread = /\s?data-conversation=\"none\"/.test(html); // twitter adds it to oembed only if tweet has parent
@@ -249,9 +249,9 @@ module.exports = {
         }
 
         if (!less && has_media && hides_media) {
-            vary[CONFIG.O.more] = "show media";
+            vary[CONFIG.O.more] = "Show media";
         } else if (!less && has_thread && hides_thread) {
-            vary[CONFIG.O.more] = "show thread";
+            vary[CONFIG.O.more] = "Show thread";
         }
 
         var app = {
