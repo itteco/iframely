@@ -26,21 +26,27 @@ module.exports = {
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
 
-        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions(CONFIG.O.full, false)) {
+        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions(CONFIG.O.more, false)) {
             params.title = 1;
             params.byline = 1;
         }
 
         var qs = querystring.stringify(params);
-        if (qs !== '') {qs = '?' + qs}        
+        if (qs !== '') {qs = '?' + qs}
 
-        var links = [{
+        var player = {
             href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
             autoplay: "autoplay=1"
-        }];
+        };
+
+        if (( (params.title == 0 && params.byline == 0) || options.getProviderOptions(CONFIG.O.more, false)) && oembed.thumbnail_url) {
+            player.message = 'iframely.more: Add video\'s title and byline to the player';
+        }
+
+        var links = [player];
 
         // let's try and add bigger image if needed, but check that it's value
         // no need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214
