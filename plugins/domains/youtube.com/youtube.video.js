@@ -160,10 +160,6 @@ module.exports = {
             params.enablejsapi = 1;
         }
 
-        if (options.getProviderOptions('players.showinfo', false) || options.getProviderOptions(CONFIG.O.full, false)) {
-            params.showinfo = 1;
-        }
-
         if (options.getProviderOptions('locale', false)) {
             params.hl = options.getProviderOptions('locale', 'en-US').replace('_', '-');
         }
