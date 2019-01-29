@@ -31,7 +31,7 @@ module.exports = {
 
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1) {
+        if ($iframe.length == 1 && $iframe.attr('src')) {
             player.href = $iframe.attr('src');
 
             if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
