@@ -21,7 +21,7 @@ module.exports = {
 
         var links = [];
 
-        if (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1 && !twitter.player) {
+        if (options.isImgurImage || (twitter.image && twitter.image.indexOf && twitter.image.indexOf(urlMatch[1]) > -1 && !twitter.player)) {
             links.push({
                 href: twitter.image,
                 type: CONFIG.T.image_jpeg,
