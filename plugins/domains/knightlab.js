@@ -8,6 +8,18 @@ module.exports = {
 
     mixins: ["*"],
 
+    getMeta: function(meta, url, urlMatch) {
+        if (!meta.og || !meta.og.site_name) {
+            var s = urlMatch[1];
+            s = s[0].toUpperCase() + s.slice(1);
+            s = /js$/i.test(s) ? s.replace(/js$/i, 'JS') : s + 'JS';
+
+            return {
+                site: s
+            }
+        }
+    },
+
     getLink: function(url, urlMatch) {
 
         return {
