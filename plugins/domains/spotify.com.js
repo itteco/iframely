@@ -48,12 +48,14 @@ module.exports = {
             var player = {
                 href: src,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.ssl, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 height: horizontal_player ? 80 : (oembed.height || 300)
             };
 
             if (/album|playlist|show/.test(src)) {
                 player.rel.push(CONFIG.R.playlist);
+            } else {
+                player.rel.push(CONFIG.R.audio);,
             }
 
             return [player, {
