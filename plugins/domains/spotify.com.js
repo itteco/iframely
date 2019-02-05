@@ -3,7 +3,7 @@ var cheerio = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode)/i
     ],
 
     mixins: [
@@ -18,7 +18,7 @@ module.exports = {
             date: meta.music && meta.music.release_date,
             author: meta.twitter && meta.twitter.audio && meta.twitter.audio.artist_name,
             author_url: meta.music && meta.music.musician,
-            duration: music.duration
+            duration: meta.music && meta.music.duration
         }
     },
 
@@ -43,7 +43,7 @@ module.exports = {
                 src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
             }
 
-            var horizontal_player = options.getProviderOptions(CONFIG.O.compact, false) || (/\/track/i.test(src) && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('bandcamp.small_player', false)));
+            var horizontal_player = options.getProviderOptions(CONFIG.O.compact, false) || (/\/track|episode/i.test(src) && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('bandcamp.small_player', false)));
 
             var player = {
                 href: src,
@@ -89,6 +89,7 @@ module.exports = {
         "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg",
         "https://play.spotify.com/track/2vN0b6d2ogn72kL75EmN3v",
         "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
-        "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA"
+        "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
+        "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW"
     ]
 };
