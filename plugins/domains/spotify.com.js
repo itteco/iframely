@@ -55,7 +55,7 @@ module.exports = {
             if (/album|playlist|show/.test(src)) {
                 player.rel.push(CONFIG.R.playlist);
             } else {
-                player.rel.push(CONFIG.R.audio);,
+                player.rel.push(CONFIG.R.audio);
             }
 
             return [player, {
