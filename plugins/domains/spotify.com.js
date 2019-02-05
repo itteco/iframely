@@ -3,18 +3,24 @@ var cheerio = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show)/i
     ],
 
     mixins: [
         "oembed-title",
         "oembed-thumbnail",
-        "oembed-site"
-        //"domain-icon"
+        "oembed-site",
+        "domain-icon"
     ],
 
-    // keep dependency on oEmbed only. Otherwise, there's redirect to relative path for "play.*" and no embeds as a result
-    // -- plugin redirect (by "htmlparser") /error/browser-not-supported.php
+    getMeta: function(meta) {
+        return {
+            date: meta.music && meta.music.release_date,
+            author: meta.twitter && meta.twitter.audio && meta.twitter.audio.artist_name,
+            author_url: meta.music && meta.music.musician,
+            duration: music.duration
+        }
+    },
 
     getLink: function(oembed, options) {
 
@@ -46,7 +52,7 @@ module.exports = {
                 height: horizontal_player ? 80 : (oembed.height || 300)
             };
 
-            if (/album|playlist/.test(src)) {
+            if (/album|playlist|show/.test(src)) {
                 player.rel.push(CONFIG.R.playlist);
             }
 
@@ -60,13 +66,18 @@ module.exports = {
 
     },
 
-    tests: [{
-        noFeeds: true
-    }, {
-            skipMixins: [
-                "oembed-site", "oembed-title" // these are here as a fallback only: priority values provided by spotify.album .artist or .track
-            ]
-    },
+    getData: function (url, options, cb) {
+
+        if (!options.redirectsHistory && /^https?:\/\/play\./i.test(url)) {
+            return cb ({
+                redirect: url.replace(/^https?:\/\/play\./i, 'https://open.')
+            })
+        } else {
+            cb(null);
+        }
+    },    
+
+    tests: [{noFeeds: true}, {skipMethods: 'getData'},
         "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
@@ -77,6 +88,7 @@ module.exports = {
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
         "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg",
         "https://play.spotify.com/track/2vN0b6d2ogn72kL75EmN3v",
-        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4"
+        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
+        "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA"
     ]
 };
