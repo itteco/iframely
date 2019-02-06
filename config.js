@@ -161,6 +161,7 @@
                 "player",
                 "survey",
                 "image",
+                "summary",
                 "thumbnail",
                 "logo"
             ],
