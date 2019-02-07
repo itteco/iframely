@@ -1,4 +1,7 @@
+const utils = require('../../../lib/utils');
+
 module.exports = {
+
     re: [
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([a-zA-Z0-9\.\-]+)\/?(?:about|photos|videos|events)?\/?(?:\?[a-zA-Z0-9\-_]+=[a-zA-Z0-9\-_]+)?$/i
     ],
@@ -45,22 +48,32 @@ module.exports = {
                 html = html.replace(/data\-show\-posts=\"(?:true|1|0)?\"/i, 'data-show-posts="0" data-tabs="' + url.match(/^https?:\/\/(?:www|m)\.facebook\.com\/(?:pg\/)?[a-zA-Z0-9\.\-]+\/?(events)\/?(?:\?f?ref=\w+)?$/i)[1]+ '"');
             }
 
-            if (options.getProviderOptions(CONFIG.O.full, false)) {
+            if (options.getProviderOptions(CONFIG.O.more, false)) {
 
                 html = html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="1"');
                 html = html.replace(/data\-show\-facepile=\"(?:false|0)?\"/i, 'data-show-facepile="1"');
 
-            } else if (options.getProviderOptions(CONFIG.O.compact, false)) {
+            } else if (options.getProviderOptions(CONFIG.O.less, false)) {
 
-                html = html.replace(/data\-show\-posts=\"(?:true|1)?\"/i, 'data-show-posts="0"');
-                html = html.replace(/data\-show\-facepile=\"(?:true|1)?\"/i, 'data-show-facepile="0"');
+                html = html.replace(/data\-show\-posts=\"(?:true|1)?\"/i, 'data-show-posts=""');
+                html = html.replace(/data\-show\-facepile=\"(?:true|1)?\"/i, 'data-show-facepile=""');
                 
             }
+
+            var vary = utils.getVary(options, 
+                html.indexOf('data-show-posts="1"') > -1 && html.indexOf('data-show-facepile="1"') > -1, //isMax
+                html.indexOf('data-show-posts=""') > -1 && html.indexOf('data-show-facepile=""') > -1, //isMin
+                { // Min/max messages, null if not supported for particular URL
+                    min: "Hide posts and friends' faces",
+                    max: "Show posts and friends' faces"
+                }
+            );
 
             links.push ({
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
                 html: html,
+                options: vary,
                 "max-width": oembed.width
             });
         } else {
