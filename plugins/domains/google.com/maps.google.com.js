@@ -18,12 +18,11 @@ module.exports = {
 
     re: [
         /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms|\/preview)?)?[\?\#].+/i,
-        /^https?:\/\/(?:www\.)?google\.com\/maps(?:\/preview)?[\?\#].+/i
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps(?:\/preview)?[\?\#].+&.+/i
     ],
 
     mixins: [
-        'html-title',
-        'favicon'
+        '*'
     ],
 
     getLink: function(url, options) {
@@ -153,7 +152,6 @@ module.exports = {
         // This plugin is now obsolete. HTMLParser re-directs old URLs to the new plugin.        
         /* 
         "https://maps.google.com/maps?saddr=Linz,+Austria&daddr=48.8674527,2.3531961+to:London,+United+Kingdom&hl=en&sll=49.843352,7.08885&sspn=5.930447,16.907959&geocode=Ffwa4QIdBvzZAClNhZn6lZVzRzHEdXlXLClTfA%3BFXyo6QIdLOgjACmptoaSEG7mRzHRA-RB5kIhIA%3BFa7_EQMd8Cv-_yl13iGvC6DYRzGZKtXdWjqWUg&oq=London&t=h&mra=dpe&mrsp=1&sz=7&via=1&z=7",
-        "https://maps.google.com/maps/ms?msid=200639360345265791507.0004e066058111401f6e7&msa=0&ll=50.522158,15.943909&spn=1.066929,4.22699",
         "https://maps.google.com.ua/maps?q=%D1%87%D0%BE%D1%80%D0%BD%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D1%81%D0%BA%D0%B0+%D0%B0%D0%B5%D1%81&hl=uk&ie=UTF8&ll=51.376442,30.132086&spn=0.01539,0.022144&sll=48.33599,31.18287&sspn=16.793485,22.675781&t=h&hq=%D1%87%D0%BE%D1%80%D0%BD%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D1%81%D0%BA%D0%B0+%D0%B0%D0%B5%D1%81&z=16",
         "http://goo.gl/maps/WmfmA",
         "https://www.google.com/maps/preview#!q=hotel&data=!1m4!1m3!1d849587!2d29.1797946!3d47.0152013!2m1!1e3!4m10!1m9!4m8!1m3!1d849633!2d19.1797946!3d47.0152013!3m2!1i1920!2i937!4f13.1&fid=7"
