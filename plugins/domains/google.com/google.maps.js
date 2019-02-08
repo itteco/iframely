@@ -65,10 +65,6 @@ module.exports = {
             return;
         }
 
-        if (gmap.mode == "directions" && !gmap.zoom ) {
-            gmap.zoom = 12; // as a fallback only, to make sure directions never return an error
-        }
-
         var map = "https://www.google.com/maps/embed/v1/" + gmap.mode + "?key=" + api_key;
 
         if (gmap.q && gmap.mode != 'streetview') {
@@ -95,6 +91,10 @@ module.exports = {
             }            
 
         }
+
+        if ((gmap.mode == "directions" || gmap.mode =='place') && !gmap.zoom ) {
+            gmap.zoom = gmap.mode =='place' ? 17: 12; // as a fallback only, to make sure directions never return an error
+        }        
 
         var zoom = Math.floor(gmap.zoom);
 
