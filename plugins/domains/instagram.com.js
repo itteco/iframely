@@ -1,3 +1,5 @@
+const utils = require('../../lib/utils');
+
 module.exports = {
 
     re: [
@@ -84,18 +86,25 @@ module.exports = {
         if (oembed.type === 'rich' && !media_only) {
 
             var html = oembed.html;
-            var more = options.getProviderOptions(CONFIG.O.more, false);
-            var less = options.getProviderOptions(CONFIG.O.less, false);
+            var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if ((more || options.getProviderOptions('instagram.showcaption', false)) && !/data\-instgrm\-captioned/i.test(html)) {                
+            if (!captioned && (options.getProviderOptions(CONFIG.O.more, false) || options.getProviderOptions('instagram.showcaption', false))) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
-            if (less && /data\-instgrm\-captioned/i.test(html)) {
+            if (captioned && options.getProviderOptions(CONFIG.O.less, false)) {
                 html = html.replace("data-instgrm-captioned ", "");
             }
 
-            var captioned = /data\-instgrm\-captioned/i.test(html);
+            captioned = /data\-instgrm\-captioned/i.test(html);
+            var vary = utils.getVary(options, 
+                captioned, //isMax
+                !captioned, //isMin
+                { // Min/max messages, null if not supported for particular URL
+                    min: "Hide author's text message",
+                    max: "Show author's text message"
+                }
+            );            
 
             if (/src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
                 html = html.replace ('src="//www.instagram.com/embed.js"', 'src="//platform.instagram.com/en_US/embeds.js"');
@@ -115,7 +124,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 'max-width': 660,
-                message: ((captioned && more) || (!captioned && !less) ? 'iframely.more: Add' : 'iframely.less: Hide') + ' user\'s text caption' 
+                options: vary 
             };
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
