@@ -1,4 +1,5 @@
-var $ = require('cheerio');
+const $ = require('cheerio');
+const utils = require('../../../lib/utils');
 
 module.exports = {
 
@@ -25,29 +26,32 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false);
+            var old_player = options.getProviderOptions(CONFIG.O.less, false) || options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false);
 
             var href = $iframe.attr('src');
             if (old_player) {
                 href = href.replace('visual=true', 'visual=false');
-            } 
-
-            if (options.getProviderOptions(CONFIG.O.full, false)) {
+            } else if (options.getProviderOptions(CONFIG.O.more, false)) {
                 href = href.replace('visual=false', 'visual=true');
             }
 
             var player = {
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],                
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                autoplay: "auto_play=true",
                 height: /visual=false/.test(href) ? 114 : oembed.height,
                 "min-width": oembed.width
             };
 
-            // skip click-to-play card with ?iframely=less
-            if (!options.getProviderOptions(CONFIG.O.compact, false) || (options.getProviderOptions(CONFIG.O.compact, false) && options.getProviderOptions('soundcloud.old_player', false))) {
-                player.autoplay = "auto_play=true";
-            }
+            player.options = utils.getVary(options,
+                /visual=true/.test(href), //isMax
+                /visual=false/.test(href), //isMin
+                { // Min/max messages, null if not supported for particular URL
+                    min: "Classic embed",
+                    max: "Visual embed"
+                }
+            );
 
             links.push(player);
         }
