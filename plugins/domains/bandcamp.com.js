@@ -1,3 +1,5 @@
+const utils = require('../../lib/utils');
+
 module.exports = {
 
     re: [
@@ -48,7 +50,7 @@ module.exports = {
                         options.getProviderOptions('bandcamp.get_params') 
                         : ('/size=large/bgcol=ffffff/linkcol=0687f5'
                             + (
-                            options.getProviderOptions('bandcamp.small_player', false) || options.getProviderOptions(CONFIG.O.compact, false) ? 
+                            options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('bandcamp.small_player', false) || options.getProviderOptions(CONFIG.O.less, false) ? 
                             '/artwork=small/tracklist=false' : '/minimal=true'
                             )
                             + '/transparent=true'
@@ -57,32 +59,41 @@ module.exports = {
                     + (track ? '/track=' + track : '')
                     + '/';
 
-            if (!options.getProviderOptions('bandcamp.get_params') && options.getProviderOptions('bandcamp.small_player', false) && options.getProviderOptions(CONFIG.O.full, false)) {
+            if (!options.getProviderOptions('bandcamp.get_params') && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('bandcamp.small_player', false)) && options.getProviderOptions(CONFIG.O.more, false)) {
                 href = href.replace("/artwork=small/tracklist=false/", "/minimal=true/")
             }
 
-            var media;
+            var player = {
+                href: href,
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                type: CONFIG.T.text_html
+            };
 
             if (options.getProviderOptions('bandcamp.get_params') && options.getProviderOptions('bandcamp.media')) {
-                media = (album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track);
+                player.media = (album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track);
             } else {
 
-                media = {'max-width' : 700};
+                player.media = {'max-width' : 700};
                 if (/\/minimal=true\//i.test(href)) {
-                    media['aspect-ratio'] = 1;                    
+                    player.media['aspect-ratio'] = 1;                    
                 } else {
-                    media.height = 120;
+                    player.media.height = 120;
+                }
+
+                if (!options.getProviderOptions('bandcamp.get_params')) {
+                    player.options = utils.getVary(options,
+                        /\/minimal=true\//i.test(href), //isMax
+                        !/\/minimal=true\//i.test(href), //isMin
+                        { // Min/max messages, null if not supported for particular URL
+                            min: "Standard player with small artwork",
+                            max: "Artwork-only player"
+                        }
+                    )
                 }
 
             }
 
-            return {
-                href: href,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
-                type: CONFIG.T.text_html,
-                media: media
-            };
-
+            return player;
         }
     },
 
