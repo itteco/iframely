@@ -1,4 +1,5 @@
-var cheerio = require('cheerio');
+const cheerio = require('cheerio');
+const utils = require('../../lib/utils');
 
 module.exports = {
 
@@ -43,13 +44,23 @@ module.exports = {
                 src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
             }
 
-            var horizontal_player = options.getProviderOptions(CONFIG.O.compact, false) || (/\/track|episode/i.test(src) && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('bandcamp.small_player', false)));
+            var horizontal_player = options.getProviderOptions(CONFIG.O.less, false) 
+                || (/\/track|episode/i.test(src) && !options.getProviderOptions(CONFIG.O.more, false) 
+                    && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false)));
 
             var player = {
                 href: src,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-                height: horizontal_player ? 80 : (oembed.height || 300)
+                height: horizontal_player ? 80 : (oembed.height || 300),
+                options: utils.getVary(options,
+                        !horizontal_player, //isMax
+                        horizontal_player, //isMin
+                        { // Min/max messages, null if not supported for particular URL
+                            min: "Classic embed",
+                            max: "Visual embed"
+                        }
+                    )
             };
 
             if (/album|playlist|show/.test(src)) {
