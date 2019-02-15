@@ -86,7 +86,7 @@ module.exports = {
 
 
         // or wistia canonical
-        urlMatch = video_src.match(/^(?:https?:)?\/\/\w+\.wistia\.(?:net|com)\/medias?\/([_a-zA-Z0-9\-]+)/i);
+        urlMatch = video_src.match(/^(?:https?:)?\/\/[a-zA-Z0-9\-]+\.wistia\.(?:net|com)\/medias?\/([_a-zA-Z0-9\-]+)/i);
 
         if (urlMatch) {
             return {
