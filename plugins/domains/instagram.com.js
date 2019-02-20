@@ -81,30 +81,21 @@ module.exports = {
             });
         }
 
-        var media_only = options.getProviderOptions('instagram.media_only', false);
-
-        if (oembed.type === 'rich' && !media_only) {
+        if (oembed.type === 'rich') {
 
             var html = oembed.html;
             var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if (!captioned && (options.getProviderOptions(CONFIG.O.more, false) || options.getProviderOptions('instagram.showcaption', false))) {
+            if (!captioned && (options.getRequestOptions('instagram.showcaption', false) || options.getProviderOptions(CONFIG.O.more, false))) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
-            if (captioned && options.getProviderOptions(CONFIG.O.less, false)) {
+            if (captioned && (!options.getRequestOptions('instagram.showcaption', true) || options.getProviderOptions(CONFIG.O.less, false))) {
                 html = html.replace("data-instgrm-captioned ", "");
             }
 
             captioned = /data\-instgrm\-captioned/i.test(html);
-            var vary = utils.getVary(options, 
-                captioned, //isMax
-                !captioned, //isMin
-                { // Min/max messages, null if not supported for particular URL
-                    min: "Hide author's text message",
-                    max: "Show author's text message"
-                }
-            );            
+
 
             if (/src=\"\/\/www\.instagram.com\/embed\.js\"/i.test(html)) {
                 html = html.replace ('src="//www.instagram.com/embed.js"', 'src="//platform.instagram.com/en_US/embeds.js"');
@@ -124,7 +115,12 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 'max-width': 660,
-                options: vary 
+                options: {
+                    showcaption: {
+                        label: 'Show author\'s text caption',
+                        value: captioned
+                    }
+                }
             };
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
