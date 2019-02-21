@@ -1,8 +1,6 @@
-const utils = require('../../../lib/utils');
 const DEFAULT_WIDTH = 640;
 
 module.exports = {
-
 
     re: [
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/(permalink|story)\.php\?[^\/]+(\d{10,})/i,
@@ -16,45 +14,44 @@ module.exports = {
     getLink: function(url, oembed, options) {
 
         var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
-        var vary;
 
         var html = oembed.html.replace(/data-width=\"\d+\"/, 'data-width="' + width + '"');
-            html = html.replace(/class=\"fb\-video\"/, 'class="fb-post"'); // thank you FB for not working well with photo.php
+            html = html.replace(/class=\"fb\-video\"/i, 'class="fb-post"'); // thank you FB for not working well with photo.php
             html = html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
                 'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); // FB gives it based on server IP, and it has inaccurate IP2Location 
 
 
-        if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
+        if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/i.test(html)) {
             // thank you FB for not working with comments
             // https://developers.facebook.com/docs/plugins/embedded-comments
-            html = html.replace(/class=\"fb\-post\"/, 'class="fb-comment-embed" data-include-parent="' 
-                + (options.getProviderOptions('facebook.include_comment_parent') || options.getProviderOptions(CONFIG.O.more) ? 'true' : 'false') + '"');
+            html = html.replace(/data\-include\-parent=\"(true|false)\"/i, ''); // never is retured from API, but just to future-proof
+            html = html.replace(/class=\"fb\-post\"/i, 'class="fb-comment-embed" data-include-parent="' 
+                + (options.getRequestOptions('facebook.include_comment_parent', false) || options.getProviderOptions(CONFIG.O.more, false)) + '"');
 
-            if (/&reply_comment_id=/i.test(url)) {
-                vary = utils.getVary(options, 
-                    html.indexOf('data-include-parent="true"') > -1, //isMax
-                    html.indexOf('data-include-parent="false"') > -1, //isMin
-                    { // Min/max messages, null if not supported for particular URL
-                        min: "Exclude parent",
-                        max: "Include parent"
-                    }
-                );
-            }
-
-        } else if (/photos?/.test(url) && options.getProviderOptions (CONFIG.O.less) && !/data-show-text="false"/.test(html)) {
+        } else if (/photos?/i.test(url) 
+            && (options.getRequestOptions('facebook.hide_text') || options.getProviderOptions(CONFIG.O.less))
+            && !/data-show-text="false"/.test(html)) {
+            html = html.replace(/data\-show\-text=\"true\"/i, ''); // never is retured from API, but just to future-proof
             html = html.replace(/class=\"fb\-post\"/, 'class="fb-post" data-show-text="false"' )
         }
 
-        if (!/comment_id=\d+/i.test(url) && /photos?/.test(url)) {
-            vary = utils.getVary(options, 
-                html.indexOf('data-show-text="false"') == -1, //isMax
-                html.indexOf('data-show-text="false"') > -1, //isMin
-                { // Min/max messages, null if not supported for particular URL
-                    min: "Do not include user's post",
-                    max: "Include user's post"
-                }
-            );
+
+        var vary = {};
+
+        if (!/comment_id=\d+/i.test(url) && /photos?/i.test(url)) {
+            vary.hide_text = {
+                label: 'Show author\'s text caption',
+                value: /data-show-text=\"false\"/i.test(html)
+            }
         }
+
+        if (/&reply_comment_id=/i.test(url) && /class=\"fb\-comment\-embed\"/i.test(html)) {
+            vary.include_comment_parent = {
+                label: "Include parent comment (if url is a reply)",
+                value: /data\-include\-parent=\"true\"/i.test(html)
+            }
+        }
+
 
         return {
             type: CONFIG.T.text_html,

@@ -1,4 +1,3 @@
-const utils = require('../../../lib/utils');
 const DEFAULT_WIDTH = 640;
 
 module.exports = {
@@ -22,47 +21,48 @@ module.exports = {
             rel: [CONFIG.R.ssl, CONFIG.R.html5],
         }; 
 
-        if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
-            // thank you FB for not working with comments
-            // https://developers.facebook.com/docs/plugins/embedded-comments
-
-            var width = options.maxWidth || options.getProviderOptions('facebook.width', 640);
-            html = html.replace(/class=\"fb\-video\"/, 
-                'class="fb-comment-embed" data-include-parent="'
-                + (options.getProviderOptions('facebook.include_comment_parent') || options.getProviderOptions(CONFIG.O.more) ? 'true' : 'false') + '"'
-                + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"')
-                );
+        if (/comment_id=\d+/i.test(url)) {
+            var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
             link.rel.push (CONFIG.R.app);
 
+            if (!/class=\"fb\-comment\-embed\"/i.test(html)) {
+                // thank you FB for not working with comments
+                // https://developers.facebook.com/docs/plugins/embedded-comments
+                html = html.replace(/class=\"fb\-video\"/i, 'class="fb-comment-embed"' + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"'));
+            }
+
             if (/&reply_comment_id=/i.test(url)) {
-                link.options = utils.getVary(options, 
-                    html.indexOf('data-include-parent="true"') > -1, //isMax
-                    html.indexOf('data-include-parent="false"') > -1, //isMin
-                    { // Min/max messages, null if not supported for particular URL
-                        min: "Exclude parent",
-                        max: "Include parent"
+                html = html.replace(/data\-include\-parent=\"(true|false)\"/i, ''); // future-proof
+                html = html.replace(/class=\"fb\-comment\-embed\"/i, 
+                    'class="fb-comment-embed" data-include-parent="' 
+                    + (options.getRequestOptions('facebook.include_comment_parent', false) || options.getProviderOptions(CONFIG.O.more, false)) + '"');
+                
+                link.options = {
+                    include_comment_parent: {
+                        label: "Include parent comment (if url is a reply)",
+                        value: /data\-include\-parent=\"true\"/i.test(html)
                     }
-                );
+                };
             } else {
-                link['max-width'] = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
+                link['max-width'] = width;
             }
 
-        } else {
+        } else {            
 
-            link.rel.push (CONFIG.R.player);
-
-            if (options.getProviderOptions(CONFIG.O.more) && !/data\-show\-text/.test(html)) {
-                html = html.replace(/class=\"fb\-video\"/, 'class="fb-video" data-show-text="true"');
+            if (options.getRequestOptions('facebook.show_text', false) || options.getProviderOptions(CONFIG.O.more, false)) {
+                html = html.replace(/data\-show\-text=\"(true|false)\"/i, ''); // future-proof
+                html = html.replace(/class=\"fb\-video\"/i, 'class="fb-video" data-show-text="true"');
+                link.rel.push (CONFIG.R.app);
+            } else {
+                link.rel.push (CONFIG.R.player);
             }
 
-            link.options = utils.getVary(options, 
-                html.indexOf('data-show-text="true"') > -1, //isMax
-                html.indexOf('ata-show-text="true"') == -1, //isMin
-                { // Min/max messages, null if not supported for particular URL
-                    min: "Do not include user's post",
-                    max: "Include user's post"
+            link.options = {
+                show_text: { // different name from posts to allow separate config and defaults
+                    label: 'Show author\'s text caption',
+                    value: /data-show-text=\"true\"/i.test(html)
                 }
-            );
+            }
 
             if (oembed.width && oembed.height) {
                 link['aspect-ratio'] = oembed.width / oembed.height;
