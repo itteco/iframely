@@ -40,7 +40,7 @@ module.exports = {
 
         if (!/comment_id=\d+/i.test(url) && /photos?/i.test(url)) {
             vary.hide_text = {
-                label: 'Show author\'s text caption',
+                label: 'Hide author\'s text caption',
                 value: /data-show-text=\"false\"/i.test(html)
             }
         }
