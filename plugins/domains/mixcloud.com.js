@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
-const utils = require('../../lib/utils');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -33,25 +34,42 @@ module.exports = {
 
             if ($iframe.length == 1) {
 
-                widget.href = $iframe.attr('src');
-                widget.autoplay = 'autoplay=1';
+                var href = $iframe.attr('src');
 
-                if (/\/widget\/follow\//.test(widget.href)) {
+                if (/\/widget\/follow\//.test(href)) {
+                    widget.href = href;
                     widget.rel.push(CONFIG.R.summary);
                     widget.width = oembed.width;
                     widget.height = oembed.height;
 
                 } else {
 
-                    if (options.getProviderOptions(CONFIG.O.less, false)) {                        
-                        widget.href += !/&?hide_cover=1/i.test(widget.href) ? '&hide_cover=1' : (/&?mini=1/i.test(widget.href) ? '' : '&mini=1');
-                    } else if (options.getProviderOptions(CONFIG.O.more, false)) {
-                        if (!/&?mini=1/i.test(widget.href)) {
-                            widget.href = widget.href.replace(/&?hide_cover=1/i, ''); // will skip if it's biggest player already
-                        } else {
-                            widget.href = widget.href.replace(/&?mini=1/i, ''); // will up the player from mini do default
-                        }
+                    var params = URL.parse(href, true).query;
+                    var style = options.getRequestOptions('mixcloud.style', params.mini == 1 ? 'mini' : (params.hide_cover == 1 ? 'classic' : 'cover'));
+
+                    if (options.getRequestOptions('mixcloud.light', params.light)) {
+                        params.light = 1;
                     }
+
+                    if (options.getRequestOptions('mixcloud.hide_artwork', params.hide_artwork)) {
+                        params.hide_artwork = 1;
+                    }                    
+
+                    if (style === 'mini') {
+                        params.mini = 1;
+                        params.hide_cover = 1;
+                    } else if (style === 'classic') {
+                        delete params.mini;
+                        params.hide_cover = 1;
+                    } else if (style === 'cover') {
+                        delete params.mini;
+                        delete params.hide_cover;
+                        delete params.light;
+                        delete params.hide_artwork;
+                    }
+
+                    widget.href = href.replace(/\?.+/, '?') + querystring.stringify(params);
+                    widget.autoplay = 'autoplay=1';                    
 
                     // mixcloud ignores &mini=1 if there's no &hide_cover=1.
                     widget.height = !/&?hide_cover=1/i.test(widget.href) ? 400 : (/&?mini=1/i.test(widget.href) ? 60 : 120);
@@ -59,16 +77,29 @@ module.exports = {
                     widget.rel.push(CONFIG.R.player);
                     widget.rel.push(CONFIG.R.auido);
 
-                    widget.options = utils.getVary(options,
-                        widget.height === 400, //isMax
-                        widget.height === 60, //isMin
-                        { // Min/max messages, null if not supported for particular URL
-                            min: "Mini widget",
-                            max: "Picture widget",
-                            default: "Classic widget"
+                    widget.options = {
+                        style: {
+                            label: 'Size & style',
+                            value: style,
+                            values: {
+                                'mini': 'Mini widget',
+                                'classic': 'Classic widget',
+                                'cover': 'Picture widget'
+                            }
                         }
-                    );
+                    };
 
+                    if (style !== 'cover') {
+                        widget.options.light = {
+                            label: 'Light theme',
+                            value: params.light === 1
+                        };
+                        widget.options.hide_artwork = {
+                            label: 'Hide artwork',
+                            value: params.hide_artwork === 1
+                        };
+
+                    }
                 }                
 
                 return [widget, {
