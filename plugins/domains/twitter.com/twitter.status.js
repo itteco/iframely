@@ -216,16 +216,16 @@ module.exports = {
         }
 
         // Declare options
-        var options = {};
+        var opts = {};
 
         if (has_thread) {
-            options.hide_thread = {
-                label: 'Don\'t show previous Tweet in conversation thread',
+            opts.hide_thread = {
+                label: 'Hide previous Tweet in conversation thread',
                 value: /\s?data-conversation=\"none\"/.test(html)
             }
         }
         if (has_media) {
-            options.hide_media = {
+            opts.hide_media = {
                 label: 'Hide photos, videos, and cards',
                 value: /\s?data-cards=\"hidden\"/.test(html)
             }
@@ -236,7 +236,7 @@ module.exports = {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
             "max-width": twitter_oembed["width"] || 550,
-            options: options
+            options: opts
         };
 
         if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet
