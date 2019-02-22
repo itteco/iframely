@@ -70,7 +70,9 @@ module.exports = {
                     }
                 }
             };
-            opts.height.values[height] = height + 'px';
+            if (height !== 'auto') {
+                opts.height.values[height] = height + 'px';
+            }
 
             if (/visual=true/.test(href)) {
                 delete opts.hide_artwork;
