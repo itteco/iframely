@@ -29,7 +29,7 @@ module.exports = {
             if ($iframe.length == 1) {
 
                 var player = $iframe.attr('src');
-                var theme = options.getRequesOptions('players.theme', 'light');
+                var theme = options.getRequestOptions('players.theme', 'light');
 
                 if (/theme=\w+/.test(player)) {
                     player.replace (/theme=\w+/, theme == 'light' ? 'light-gray-blue' : 'dark-blue'); 
