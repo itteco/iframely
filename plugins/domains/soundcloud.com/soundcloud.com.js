@@ -1,5 +1,6 @@
 const $ = require('cheerio');
-const utils = require('../../../lib/utils');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -26,34 +27,70 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions(CONFIG.O.less, false) || options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false);
-
             var href = $iframe.attr('src');
-            if (old_player) {
-                href = href.replace('visual=true', 'visual=false');
-            } else if (options.getProviderOptions(CONFIG.O.more, false)) {
-                href = href.replace('visual=false', 'visual=true');
+            var params = URL.parse(href, true).query;
+
+            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
+                params.visual = false;
+            }
+            if (options.getRequestOptions('soundcloud.hide_comments') !== undefined) {
+                params.show_comments = !options.getRequestOptions('soundcloud.hide_comments');
+            }
+            if (options.getRequestOptions('soundcloud.hide_artwork') !== undefined) {
+                params.show_artwork = !options.getRequestOptions('soundcloud.hide_artwork');
+            }            
+            if (options.getProviderOptions('soundcloud.color')) {
+                params.color = options.getProviderOptions('soundcloud.color');
             }
 
-            var player = {
+            href = href.replace(/\?.+/, '?') + querystring.stringify(params);
+            var height = options.getRequestOptions('soundcloud.height', /visual=false/.test(href) ? 166 : oembed.height);
+
+            var opts = {
+                horizontal: {
+                    label: 'Classic compact player instead',
+                    value: /visual=false/.test(href)
+                },
+                hide_comments: {
+                    label: 'Hide timed comments',
+                    value: /show_comments=false/.test(href)
+                },
+                hide_artwork : {
+                    label: 'Hide artwork',
+                    value: /show_artwork=false/.test(href)                        
+                },
+                height: {
+                    label: 'Adjust height',
+                    value: height,
+                    values: {
+                        300: '300px',
+                        400: '400px',
+                        600: '600px',
+                        auto: 'Let Iframely optimize player for the artwork'
+                    }
+                }
+            };
+            opts.height.values[height] = height + 'px';
+
+            if (/visual=true/.test(href)) {
+                delete opts.hide_artwork;
+            } else {
+                delete opts.height;
+            }
+
+            links.push({
                 href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
                 autoplay: "auto_play=true",
-                height: /visual=false/.test(href) ? 114 : oembed.height,
-                "min-width": oembed.width
-            };
-
-            player.options = utils.getVary(options,
-                /visual=true/.test(href), //isMax
-                /visual=false/.test(href), //isMin
-                { // Min/max messages, null if not supported for particular URL
-                    min: "Classic embed",
-                    max: "Visual embed"
-                }
-            );
-
-            links.push(player);
+                media: height === 'auto' ? {
+                    'aspect-ratio': 1, // the artwork is always 500x500
+                    'max-width': 600, 
+                } : {
+                    height: height
+                },
+                options: opts
+            });
         }
 
         if (oembed.thumbnail_url && !/\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {
