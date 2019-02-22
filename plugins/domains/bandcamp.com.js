@@ -1,5 +1,3 @@
-const utils = require('../../lib/utils');
-
 module.exports = {
 
     re: [
@@ -78,17 +76,6 @@ module.exports = {
                     player.media['aspect-ratio'] = 1;                    
                 } else {
                     player.media.height = 120;
-                }
-
-                if (!options.getProviderOptions('bandcamp.get_params')) {
-                    player.options = utils.getVary(options,
-                        /\/minimal=true\//i.test(href), //isMax
-                        !/\/minimal=true\//i.test(href), //isMin
-                        { // Min/max messages, null if not supported for particular URL
-                            min: "Standard player with small artwork",
-                            max: "Artwork-only player"
-                        }
-                    )
                 }
 
             }
