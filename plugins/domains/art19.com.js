@@ -1,4 +1,6 @@
 var $ = require('cheerio');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -29,30 +31,48 @@ module.exports = {
             if ($iframe.length == 1) {
 
                 var player = $iframe.attr('src');
-                var theme = options.getRequestOptions('players.theme', 'light');
+                var params = URL.parse(player, true).query;
 
-                if (/theme=\w+/.test(player)) {
-                    player.replace (/theme=\w+/, theme == 'light' ? 'light-gray-blue' : 'dark-blue'); 
+                var theme = options.getRequestOptions('players.theme', 'light');
+                params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
+
+                var opts = {};
+
+                var horizontal = options.getRequestOptions('players.horizontal', true);
+
+                if (horizontal) {
+                    delete params.type;
+                    delete params.stretch;
+
+                    var theme = options.getRequestOptions('players.theme', 'light');                    
+                    params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
+
+                    opts.theme = {
+                        label: 'Theme color',
+                        value: theme,
+                        values: {
+                            light: 'Light',
+                            dark: 'Dark'
+                        }
+                    };
                 } else {
-                    player += '?theme=' + (theme == 'light' ? 'light-gray-blue' : 'dark-blue');
+                    params.type = 'artwork';
+                    params.stretch = true;
+                    delete params.theme;
+                }
+
+                opts.horizontal = {
+                    label: 'Compact player with smaller artwork',
+                    value: horizontal
                 }
 
                 return {
-                    href: player,
+                    href: (/\?/.test(player) ? player.replace(/\?.+/, '?') : player + '?') + querystring.stringify(params),
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed], // keep rel oembed here - it prevents validators from removing embed srcz
-                    height: oembed.height,
+                    media: horizontal ? {height: oembed.height} : {'aspect-ratio': 1},
                     scrolling: 'no',
-                    options: {
-                        theme: {
-                            label: 'Theme color',
-                            value: theme,
-                            values: {
-                                light: 'Light',
-                                dark: 'Dark'
-                            }
-                        }
-                    }
+                    options: opts
                 };
             }
         }
