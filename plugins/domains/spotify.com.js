@@ -44,23 +44,25 @@ module.exports = {
                 src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
             }
 
-            var horizontal_player = options.getProviderOptions(CONFIG.O.less, false) 
-                || (/\/track|episode/i.test(src) && !options.getProviderOptions(CONFIG.O.more, false) 
-                    && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false)));
+            var horizontal_player = options.getRequestOptions('players.horizontal', false) || options.getProviderOptions(CONFIG.O.less, false);
 
             var player = {
                 href: src,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-                height: horizontal_player ? 80 : (oembed.height || 300),
-                options: utils.getVary(options,
-                        !horizontal_player, //isMax
-                        horizontal_player, //isMin
-                        { // Min/max messages, null if not supported for particular URL
-                            min: "Classic embed",
-                            max: "Visual embed"
-                        }
-                    )
+                media: horizontal_player ? {
+                    height: 80
+                } : {
+                    'aspect-ratio': 1,
+                    'padding-bottom': 80,
+                    'max-width': 500
+                },
+                options: {
+                    horizontal: {
+                        label: 'Compact player with smaller artwork',
+                        value: horizontal_player
+                    }
+                }
             };
 
             if (/album|playlist|show/.test(src)) {
