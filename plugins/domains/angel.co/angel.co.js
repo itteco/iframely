@@ -23,7 +23,7 @@ module.exports = {
                     slug: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
+                rel: [CONFIG.R.summary, CONFIG.R.inline, CONFIG.R.ssl],
                 "max-width": 560 + 40 + 10,
                 "min-height": 300 + 40 + 10
             };
