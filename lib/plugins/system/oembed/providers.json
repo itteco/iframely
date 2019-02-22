@@ -404,9 +404,10 @@
     {
         "name": "Widgetic",
         "templates": [
-            "widgetic.com/widgets/.*"
+            "widgetic.com/widgets/.*",
+            "app.widgetic.com/.*"
         ],
-        "endpoint": "https://widgetic.com/services/oembed/"
+        "endpoint": "https://app.widgetic.com/services/oembed/"
     },
     {
         "name": "Adobe Stock",
