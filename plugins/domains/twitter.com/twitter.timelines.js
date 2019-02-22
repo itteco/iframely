@@ -62,7 +62,7 @@ module.exports = {
         }
 
         if (vary) {
-            result.options = vary;
+            // result.options = vary;
         }
 
         return result;
