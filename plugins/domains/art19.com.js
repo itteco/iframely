@@ -44,12 +44,14 @@ module.exports = {
                     height: oembed.height,
                     scrolling: 'no',
                     options: {
-                        label: 'Theme color',
-                        value: theme,
-                        values: {
-                            light: 'Light',
-                            dark: 'Dark'
-                        }                        
+                        theme: {
+                            label: 'Theme color',
+                            value: theme,
+                            values: {
+                                light: 'Light',
+                                dark: 'Dark'
+                            }
+                        }
                     }
                 };
             }
