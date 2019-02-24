@@ -5,7 +5,7 @@ module.exports = {
     provides: "schemaFileObject",
 
     re: [
-        /https:\/\/(?:docs|drive)\.google\.com\/(?:a\/[a-zA-Z0-9\-\_\.]+\/)?(forms|document|presentation|spreadsheets|file)\/d\/([a-zA-Z0-9_-]+)/i
+        /^https:\/\/(?:docs|drive)\.google\.com\/(?:a\/[a-zA-Z0-9\-\_\.]+\/)?(forms|document|presentation|spreadsheets|file)\/(?:u\/\d\/)?d(?:\/e)?\/([a-zA-Z0-9_-]+)/i
     ],
 
     mixins: [
@@ -30,14 +30,14 @@ module.exports = {
 
     },
 
-    getLink: function(urlMatch, schemaFileObject) {
+    getLink: function(url, urlMatch, schemaFileObject) {
 
         if (schemaFileObject.embedURL || schemaFileObject.embedUrl) {
 
             var file = {
                 rel: [CONFIG.R.file, CONFIG.R.html5],
                 href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
-                type: CONFIG.T.text_html
+                accept: CONFIG.T.text_html
             };
 
             if (schemaFileObject.playerType) {
@@ -72,7 +72,7 @@ module.exports = {
 
     },
 
-    getData: function(cheerio, decode) {
+    getData: function(url, urlMatch, cheerio, decode) {
 
         var $scope = cheerio('[itemscope]');
 
@@ -100,6 +100,12 @@ module.exports = {
             return {
                 schemaFileObject: result
             };
+        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?$/i.test(url)) {
+            return {
+                schemaFileObject: {
+                    embedUrl: url
+                }  
+            }
         }
     },
 
@@ -111,6 +117,9 @@ module.exports = {
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
         "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
         "https://docs.google.com/spreadsheets/d/10JLM1UniyGNuLaYTfs2fnki-U1iYFsQl4XNHPZTYunw/edit?pli=1#gid=0",
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKtFs55r6ow0rVvoGJLlDyqxD_455wR6_eZ42z8izYGT_UM6hNW0ruFhn26m_SzsoT4AQxZZA968Lp/pubhtml?gid=1443541234&single=true&widget=true&headers=false",
+        "https://docs.google.com/spreadsheets/u/1/d/1_tsspyfiH8ZVAOmoCbGJ3gvzGU5zLUb-PEG0-RyjP5E/edit#gid=1926296709",
+        "https://docs.google.com/document/d/e/2PACX-1vSeGAfeYcpPAGLX4h0krdMR8HBuCxf3M0H0MlyeQ9GYQzJsJ2KTfZ_iSopp5dUwX3JVOfCpAoEyoXdh/pub",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description", "twitter-player-responsive"
