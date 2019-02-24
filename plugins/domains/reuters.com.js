@@ -9,9 +9,9 @@ module.exports = {
     getLink: function (urlMatch) {
 
         return {
-            href: "//www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],
+            href: "https://www.reuters.com/assets/iframe/yovideo?videoId=" + urlMatch[1],
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             'aspect-ratio': 512 / 288
         }
     },

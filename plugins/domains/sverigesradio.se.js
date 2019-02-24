@@ -24,7 +24,7 @@ module.exports = {
 
                     cb(null, {
                         href: 'https://sverigesradio.se/embed/publication/' + urlMatch[1],            
-                        type: CONFIG.T.text_html,
+                        accept: CONFIG.T.text_html,
                         rel: [CONFIG.R.player, CONFIG.R.html5],
                         'min-width': 210,
                         height: 150

@@ -17,7 +17,7 @@ module.exports = {
 
         return {
             href: 'https://quizlet.com/' + urlMatch[1]+ '/' + bit + '/embed',
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.html5],
             height: 500            
         }

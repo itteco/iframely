@@ -12,7 +12,7 @@ module.exports = {
 
         return {
             href: "//player.youku.com/embed/"+ urlMatch[1],
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 16/10, //As stated it in docs
             autoplay: "autoplay=true"

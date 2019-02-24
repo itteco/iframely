@@ -18,7 +18,7 @@ module.exports = {
 
             return {
                 href:  isTrack ? href.replace(/height=\d+/i, 'height=92').replace(/&width=\d+/i, '') : href,
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 height: isTrack ? 92 : twitter.player.height,
                 autoplay: 'autoplay=1'
@@ -31,7 +31,6 @@ module.exports = {
     tests: [{
         noFeeds: true
     },
-        "http://www.deezer.com/track/11523496",
         "http://www.deezer.com/track/61423083",
         "http://www.deezer.com/album/11417888",
         "http://www.deezer.com/album/1215117"

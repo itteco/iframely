@@ -17,8 +17,8 @@ module.exports = {
 
             if (guid) {
                 return {
-                    href: '//assets.nationalgeographic.com/modules-video/assets/ngsEmbeddedVideo.html?guid=' + guid,                
-                    type: CONFIG.T.text_html,
+                    href: 'https://assets.nationalgeographic.com/modules-video/assets/ngsEmbeddedVideo.html?guid=' + guid,                
+                    accept: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     'aspect-ratio': 640/365
                 };

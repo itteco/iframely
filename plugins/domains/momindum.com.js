@@ -8,7 +8,7 @@ module.exports = {
         if (twitter.player && twitter.player.value && twitter.player.width && twitter.player.height) {
             return {
                 href: twitter.player.value + (twitter.player.value.indexOf('?') > -1 ? '&': '?') + 'format=embed&autoplay=false',
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 autoplay: 'autoplay=true',
                 "aspect-ratio": twitter.player.width / twitter.player.height

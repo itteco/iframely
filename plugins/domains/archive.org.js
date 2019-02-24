@@ -27,7 +27,7 @@ module.exports = {
 
                 var player = {
                     href: 'https://archive.org/embed/' + hrefMatch[1],
-                    type: CONFIG.T.text_html,
+                    accept: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5]
                 };
 

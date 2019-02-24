@@ -21,7 +21,7 @@ module.exports = {
 
             return {
                     href: "https://my.mail.ru/video/embed/" + video_id[1],
-                    type: CONFIG.T.text_html,
+                    accept: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                     "aspect-ratio": 626 / 367,
                     autoplay: "autoplay=1"

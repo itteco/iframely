@@ -30,7 +30,7 @@ module.exports = {
         if (event_id && account_id) {
             return {
                 href: "https://livestream.com/accounts/" + account_id + "/events/" + event_id + video_id + "/player?autoPlay=false",
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16/9,
                 autoplay: "autoPlay=true"
