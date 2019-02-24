@@ -9,7 +9,7 @@ module.exports = {
     getLink: function(urlMatch) {
         return {
             href: urlMatch[1].replace(/^http:\/\//i, '//') + "embedded/",
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: CONFIG.R.app
         };
     },

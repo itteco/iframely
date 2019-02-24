@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.cbc\.ca\/player\//i,        
+        /^https?:\/\/www\.cbc\.ca\/player\//i,
     ],
 
     mixins: [
@@ -14,18 +14,18 @@ module.exports = {
             return;
         }
 
-        var href = twitter.player.value.replace(/^https:\/\//, 'http://'); // autoPlay = true will be removed by generic validators        
         var player = {
-                href: href,
+                href: twitter.player.value,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5]                
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                autoplay: 'autoPlay=true'
             };
 
-        if (twitter.image && /^https?:\/\/[^\/]+\/[^\/]+\/[^\/]+\/[^\/]+$/i.test(twitter.image)) {
-            player.height = 180;            
+        if (/\-\d{2,3}x\d{2,3}\.jpg$/i.test(twitter.image)) { // podcast
+            player.height = 180;
+            player.rel.push(CONFIG.R.audio);
         }  else {
             player["aspect-ratio"] = twitter.player.width / twitter.player.height;
-            player.autoplay = 'autoPlay=true';
         }
 
         return player;
@@ -37,6 +37,7 @@ module.exports = {
     },
         "http://www.cbc.ca/player/play/2558388650",
         "http://www.cbc.ca/player/play/2695081582",
-        "http://www.cbc.ca/player/play/2695940101"
+        "http://www.cbc.ca/player/play/2695940101",
+        "http://www.cbc.ca/player/play/1218762307729/"
     ]
 };

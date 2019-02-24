@@ -73,5 +73,7 @@ module.exports = {
 
     tests: [
         "https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001"
+        // But sometimes thumbnail aspect is actually incorrect while oembed default is correct:
+        // https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001
     ]
 };    

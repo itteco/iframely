@@ -14,7 +14,7 @@ module.exports = {
 
         return {
             href: 'http://www.espn.com/core/video/iframe?id=' + urlMatch[1] + '&endcard=false',
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 16/9
         };

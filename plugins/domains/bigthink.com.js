@@ -6,13 +6,23 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(urlMatch) {
-        return {
-            href: "https://bigthink.com/embeds/video_idea/" + urlMatch[1],
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.text_html,
-            'aspect-ratio': 16 / 9
-        };
+    getData: function(cheerio, cb) {
+        var $el = cheerio('.widget__video script');
+
+        var $container = cheerio('<div>');
+        try {
+            $container.html($el.text());
+        } catch (ex) {}
+
+        var $iframe = $container.find('iframe');
+
+        if ($iframe.length == 1 && /jwplayer_video_url=/.test($iframe.attr('src'))) {
+            cb (null, {
+                __promoUri: {url: decodeURIComponent($iframe.attr('src').match(/jwplayer_video_url=([^&]+)/i)[1]).replace(/\.js$/, '.html')}
+            });
+        } else {
+            cb(null);
+        }
     },
 
     tests: [{

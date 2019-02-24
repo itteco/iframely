@@ -31,7 +31,7 @@ module.exports = {
             };
     },
 
-    tests: [
+    tests: [{skipMethods: ["getMeta"]},
         "https://s3.amazonaws.com/uploads.knightlab.com/storymapjs/86a5b5c6facef8e74eb685573b846f6b/civilian-deaths-evidence-of-war-crimes-in-yemen/index.html",
         "https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=f9031656-dcc3-11e5-a524-0e7075bba956",
         "http://cdn.knightlab.com/libs/juxtapose/dev/embed/index.html?uid=75ec66e0-204a-11e5-91b9-0e7075bba956",

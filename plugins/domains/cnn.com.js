@@ -18,7 +18,7 @@ module.exports = {
 
         return {
                 href: "//fave.api.cnn.io/v1/fav/?customer=cnn&env=prod&video=" + path,
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 416 / 234
             };

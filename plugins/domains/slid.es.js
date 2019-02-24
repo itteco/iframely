@@ -19,7 +19,7 @@ module.exports = {
 
         return {
             href: urlMatch[0].replace('http://', '//') + "/embed",
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 640 / 360
         };
