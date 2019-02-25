@@ -16,7 +16,7 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-        if ($iframe.length == 1 && /jwplayer_video_url=/.test($iframe.attr('src'))) {
+        if (/jwplayer_video_url=/.test($iframe.attr('src'))) {
             cb (null, {
                 __promoUri: {url: decodeURIComponent($iframe.attr('src').match(/jwplayer_video_url=([^&]+)/i)[1]).replace(/\.js$/, '.html')}
             });
