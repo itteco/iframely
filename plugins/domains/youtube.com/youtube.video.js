@@ -190,6 +190,22 @@ module.exports = {
         }];
 
         if (youtube_video_gdata.embeddable) {
+
+            var time = options.getRequestOptions('players.start', null);
+            if (time) {
+                params.start = time;
+            }
+            var opts = {
+                start: {
+                    label: 'Start video from, seconds',
+                    value: params.start || 0,
+                    range: {
+                        min: 0,
+                        max: youtube_video_gdata.duration
+                    }
+                }
+            };
+
             var qs = querystring.stringify(params);
             if (qs !== '') {qs = '?' + qs}
 
@@ -200,7 +216,8 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
-                autoplay: "autoplay=1"
+                autoplay: "autoplay=1",
+                options: opts
             }); 
         } else {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
