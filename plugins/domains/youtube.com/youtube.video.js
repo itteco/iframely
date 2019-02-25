@@ -135,23 +135,29 @@ module.exports = {
             var start = options.getRequestOptions('players.start', url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i));
             var end = options.getRequestOptions('players.end', url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i));
 
-            if (start) {
+            var parseTime = function (t) {
+                if (t instanceof Array) {
+                    var m = start[1].match(/(\d+)m/);
+                    var s = start[1].match(/(\d+)s/);
+                    var time = 0;
+                    if (m) {
+                        time = 60 * m[1];
+                    }
+                    if (s) {
+                        time += 1 * s[1];
+                    }
+                    return time ? time : start[1];
+                } else {
+                    return parseInt(t);
+                }
+            };
 
-                var m = start[1].match(/(\d+)m/);
-                var s = start[1].match(/(\d+)s/);
-                var time = 0;
-                if (m) {
-                    time = 60 * m[1];
-                }
-                if (s) {
-                    time += 1 * s[1];
-                }
-                
-                params.start = time ? time : start[1];
+            if (start) {                
+                params.start = parseTime(start);
             }
 
             if (end) {
-                params.end = end[1];
+                params.end = parseTime(end);
             }
         } catch (ex) {/* and ignore */}
         // End of time extractions
