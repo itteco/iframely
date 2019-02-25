@@ -132,8 +132,8 @@ module.exports = {
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
         try {
-            var start = url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i);
-            var end = url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i);
+            var start = options.getRequestOptions('players.start', url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i));
+            var end = options.getRequestOptions('players.end', url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i));
 
             if (start) {
 
@@ -195,16 +195,6 @@ module.exports = {
             if (time) {
                 params.start = time;
             }
-            var opts = {
-                start: {
-                    label: 'Start video from, seconds',
-                    value: params.start || 0,
-                    range: {
-                        min: 0,
-                        max: youtube_video_gdata.duration
-                    }
-                }
-            };
 
             var qs = querystring.stringify(params);
             if (qs !== '') {qs = '?' + qs}
@@ -217,7 +207,17 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
                 autoplay: "autoplay=1",
-                options: opts
+                options: {
+                    start: {
+                        label: 'Start from (seconds)',
+                        value: params.start || 0
+                    },
+                    end: {
+                        label: 'End on (second)',
+                        value: params.end || youtube_video_gdata.duration                       
+                    }
+                }
+
             }); 
         } else {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
