@@ -137,8 +137,8 @@ module.exports = {
 
             var parseTime = function (t) {
                 if (t instanceof Array) {
-                    var m = start[1].match(/(\d+)m/);
-                    var s = start[1].match(/(\d+)s/);
+                    var m = t[1].match(/(\d+)m/);
+                    var s = t[1].match(/(\d+)s/);
                     var time = 0;
                     if (m) {
                         time = 60 * m[1];
@@ -146,17 +146,17 @@ module.exports = {
                     if (s) {
                         time += 1 * s[1];
                     }
-                    return time ? time : start[1];
+                    return time ? time : t[1];
                 } else {
                     return parseInt(t);
                 }
             };
 
-            if (start) {                
+            if (start && start !== '') {
                 params.start = parseTime(start);
             }
 
-            if (end) {
+            if (end && end !== '') {
                 params.end = parseTime(end);
             }
         } catch (ex) {/* and ignore */}
@@ -215,12 +215,12 @@ module.exports = {
                 autoplay: "autoplay=1",
                 options: {
                     start: {
-                        label: 'Start from (seconds)',
-                        value: params.start || 0
+                        label: 'Start from (ex. "11" or "1m10s")',
+                        value: params.start || ''
                     },
                     end: {
-                        label: 'End on (second)',
-                        value: params.end || youtube_video_gdata.duration                       
+                        label: 'End on (ex. "11" or "1m10s")',
+                        value: params.end || ''                     
                     }
                 }
 
