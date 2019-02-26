@@ -1,5 +1,4 @@
 const cheerio = require('cheerio');
-const utils = require('../../lib/utils');
 
 module.exports = {
 
