@@ -136,9 +136,12 @@ module.exports = {
             var end = options.getRequestOptions('players.end', url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i));
 
             var parseTime = function (t) {
-                if (t instanceof Array) {
-                    var m = t[1].match(/(\d+)m/);
-                    var s = t[1].match(/(\d+)s/);
+                if (typeof t === 'array') {
+                    t = t[1];
+                }
+                if (typeof t === "string") {
+                    var m = t.match(/(\d+)m/);
+                    var s = t.match(/(\d+)s/);
                     var time = 0;
                     if (m) {
                         time = 60 * m[1];
@@ -146,7 +149,7 @@ module.exports = {
                     if (s) {
                         time += 1 * s[1];
                     }
-                    return time ? time : t[1];
+                    return time;
                 } else {
                     return parseInt(t);
                 }
@@ -196,11 +199,6 @@ module.exports = {
         }];
 
         if (youtube_video_gdata.embeddable) {
-
-            var time = options.getRequestOptions('players.start', null);
-            if (time) {
-                params.start = time;
-            }
 
             var qs = querystring.stringify(params);
             if (qs !== '') {qs = '?' + qs}
