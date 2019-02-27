@@ -25,53 +25,41 @@ module.exports = {
             html = '<div align="center">' + html + '</div>';
         }
 
-        var vary;
+        var limit = options.getRequestOptions('twitter.limit', 
+            (/data\-(?:tweet\-)?limit=\"(\d+)\"/i.test(html) && html.match(/data\-(?:tweet\-)?limit=\"(\d+)\"/i)[1])
+            || 20);
 
-        // data-tweet-limit works only for users as of 2019/01/24
-        if (!/\/(timeline|moment|like|list)/.test(url)) {
-
-            var more = options.getProviderOptions(CONFIG.O.more, false);
-            var less = options.getProviderOptions(CONFIG.O.less, false);
-
-            if (/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(html) && (more || less)) {
-                html = html.replace(/data\-(?:tweet\-)?limit=\"\d+\"/, '');                
-            }
-
-            if (less) {
-                html = html.replace(/href="/, 'data-tweet-limit="1" href="');
-            }            
-
-            vary = {
-                'iframely.more': 'Include up to 20 tweets',
-                'iframely.less': 'Include just the latest tweet'
-            };
-
-            if (more) {
-                delete vary['iframely.less'];
-            } else if (less || !/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(oembed.html)) {
-                delete vary['iframely.more'];
-            }
-
+        if (/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(html)) {
+            html = html.replace(/data\-(?:tweet\-)?limit=\"\d+\"/, '');
         }
 
-        var result = {
+        if (limit !== 20) {
+            html = html.replace(/href="/, 'data-tweet-limit="' + limit + '" href="');
+        }            
+
+        return {
             html: html,
             rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
             type: CONFIG.T.text_html,
-            'max-width': oembed.width
+            'max-width': oembed.width,
+            options: {
+                limit: {
+                    label: 'Include up to 20 tweets',
+                    value: limit,
+                    values: {
+                        max: 20,
+                        min: 1
+                    }
+                }
+            }
         }
-
-        if (vary) {
-            // result.options = vary;
-        }
-
-        return result;
     },
 
     tests: [
         "https://twitter.com/potus",
         "https://twitter.com/i/moments/737260069209972736",
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
+        "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
         { skipMixins: ["og-image"]}
     ]
