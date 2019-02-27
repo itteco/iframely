@@ -31,7 +31,6 @@ module.exports = {
 
     getLink: function(oembed, options, cb) {
 
-
         if (oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
             var links = [];
 
@@ -84,6 +83,8 @@ module.exports = {
                 cb(null, links);
 
             });
+        } else {
+            cb (null, null);
         }
 
 
