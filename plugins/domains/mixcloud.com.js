@@ -68,7 +68,7 @@ module.exports = {
                         delete params.hide_artwork;
                     }
 
-                    widget.href = href.replace(/\?.+/, '?') + querystring.stringify(params);
+                    widget.href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
                     widget.autoplay = 'autoplay=1';                    
 
                     // mixcloud ignores &mini=1 if there's no &hide_cover=1.

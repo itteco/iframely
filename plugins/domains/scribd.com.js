@@ -1,5 +1,7 @@
 const $ = require('cheerio');
 const utils = require('../../lib/utils');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -19,7 +21,7 @@ module.exports = {
         "og-description"
     ],
 
-    getLink: function(oembed, scribdAspect) {
+    getLink: function(url, oembed, scribdAspect, options) {
 
         var $container = $('<div>');
         try {
@@ -28,15 +30,45 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-        console.log($iframe.attr('src'));
-
         if ($iframe.length == 1) {
+
+            var href = $iframe.attr('src');
+            var params = URL.parse(href, true).query;
+            var hash = URL.parse(url, true).hash;
+
+            var slideshow = options.getRequestOptions('scribd.slideshow', params.view_mode === 'slideshow');
+            if (slideshow) {
+                params.view_mode = 'slideshow';
+            } else {
+                delete params.view_mode;
+            }
+
+            var page = options.getRequestOptions('scribe.start_page', params.start_page || (hash && /page=(\d+)/i.test(hash) && hash.match(/page=(\d+)/)[1]) || 1);
+            page = parseInt(page);
+
+            if (page && typeof page === 'number' && page !== 1) {
+                params.start_page = page;
+            } else {
+                page = 1; // re-write broken input
+                delete params.start_page;
+            }
+
             return {
-                href: $iframe.attr('src').replace("http://", "//"),
+                href: href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1'),
                 accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
                 'aspect-ratio': scribdAspect,
-                'padding-bottom': 71 // toolbar
+                'padding-bottom': 45, // toolbar
+                options: {
+                    slideshow: {
+                        label: 'Show as slideshow',
+                        value: slideshow
+                    },
+                    start_page: {
+                        label: 'Start from page',
+                        value: page
+                    }
+                }
             }
         }
     },

@@ -43,7 +43,7 @@ module.exports = {
                 params.color = options.getProviderOptions('soundcloud.color');
             }
 
-            href = href.replace(/\?.+/, '?') + querystring.stringify(params);
+            href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
             var height = options.getRequestOptions('soundcloud.height', /visual=false/.test(href) ? 166 : oembed.height);
 
             var opts = {

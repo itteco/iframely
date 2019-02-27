@@ -52,7 +52,7 @@ module.exports = {
             }
 
             return {
-                href: href.replace(/\?.+/, '?') + querystring.stringify(params),
+                href: href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
                 height: params.height,
