@@ -46,7 +46,7 @@ module.exports = {
                 limit: {
                     label: 'Include up to 20 tweets',
                     value: limit,
-                    values: {
+                    range: {
                         max: 20,
                         min: 1
                     }
