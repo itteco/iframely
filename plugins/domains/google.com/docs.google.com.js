@@ -48,6 +48,11 @@ module.exports = {
                 file.rel.push(CONFIG.R.player);
                 // use default aspect
 
+            } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
+                file.height = schemaFileObject.height;
+                // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
+                file.rel.push (CONFIG.R.app);
+
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
@@ -72,7 +77,15 @@ module.exports = {
 
     },
 
-    getData: function(url, urlMatch, cheerio, decode) {
+    getData: function(meta, url, urlMatch, cheerio, decode, options, cb) {
+
+        var embedded_url = url + (/\?/.test(url) ? '&' : '?') + 'embedded=true';
+
+        if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
+            return cb ({
+                redirect: embedded_url
+            })
+        }
 
         var $scope = cheerio('[itemscope]');
 
@@ -97,15 +110,22 @@ module.exports = {
                 }
             });
 
-            return {
+            if (meta.og && meta.og.embed && meta.og.embed.height) {
+                result.height = meta.og.embed.height;
+                result.width = meta.og.embed.width;
+            }
+
+            return cb(null, {
                 schemaFileObject: result
-            };
+            });
         } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?$/i.test(url)) {
-            return {
+            return cb(null, {
                 schemaFileObject: {
                     embedUrl: url
                 }  
-            }
+            });
+        } else {
+            return cb(null, null);
         }
     },
 

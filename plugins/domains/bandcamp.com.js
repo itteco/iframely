@@ -94,9 +94,6 @@ module.exports = {
         "http://mad-hop.bandcamp.com/track/fracture",
         "http://music.zackhemsey.com/album/ronin",
         "http://music.zackhemsey.com/track/dont-get-in-my-way",
-        "http://yancyderon.com/album/the-difference-sp",
-        "http://music.freddiejoachim.com/album/begonia",
-        "http://music.freddiejoachim.com/album/patiently",
         "https://decembersongs.bandcamp.com/",
         "http://sonsofoflaherty.bandcamp.com/album/misc-songs",
         "http://badsheeps.bandcamp.com/album/bad-sheeps" // doesn't have twitter player when not published
