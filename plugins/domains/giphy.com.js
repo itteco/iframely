@@ -16,7 +16,7 @@ module.exports = {
 
     getLinks: function(oembed, twitter, og, options) {
 
-        var media_only = options.getRequestOptions('giphy.media_only');
+        var media_only = options.getRequestOptions('giphy.media_only', false);
 
         var opts = {
             _media_only: {
