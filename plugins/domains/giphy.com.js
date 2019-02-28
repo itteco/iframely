@@ -16,27 +16,37 @@ module.exports = {
 
     getLinks: function(oembed, twitter, og, options) {
 
+        var media_only = options.getRequestOptions('giphy.media_only', false);
+
+        var opts = {
+            _media_only: {
+                label: 'Just the GIFv',
+                value: media_only
+            }
+        };
+
         var links = [];
 
-        if (twitter.player) {
+        if (!media_only && twitter.player) {
             links.push({
                 href: (twitter.player.value || twitter.player).replace(/\/twitter\/iframe$/, ''),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
-                "aspect-ratio": twitter.player.width / twitter.player.height
+                "aspect-ratio": twitter.player.width / twitter.player.height,
+                options: opts
             });
-        }
-
-        if (og.video && (/\.mp4/.test(og.video.url) || og.video.type === CONFIG.T.video_mp4)) {
+        } else if (og.video && (/\.mp4/.test(og.video.url) || og.video.type === CONFIG.T.video_mp4)) {
             links.push({
                 href: og.video.url,
                 type: CONFIG.T.video_mp4,
                 rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5, CONFIG.R.gifv],
-                "aspect-ratio": og.video.width / og.video.height
+                "aspect-ratio": og.video.width / og.video.height,
+                options: opts
             });
         }
 
         if (oembed.type == 'photo') {
+
             links.push({
                 href: oembed.image || oembed.url,
                 type: CONFIG.T.image_gif,
