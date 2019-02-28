@@ -58,8 +58,9 @@ module.exports = {
                 height: params.height,
                 options: {
                     height: {
-                        label: 'Adjust height, px',
-                        value: params.height
+                        label: 'Adjust height',
+                        value: params.height,
+                        placeholder: 'ex.: 600, in px'
                     },
                     click_to_load: {
                         label: 'Use click-to-load',
