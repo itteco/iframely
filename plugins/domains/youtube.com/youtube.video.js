@@ -213,12 +213,14 @@ module.exports = {
                 autoplay: "autoplay=1",
                 options: {
                     start: {
-                        label: 'Start from (ex. "11" or "1m10s")',
-                        value: params.start || ''
+                        label: 'Start from',
+                        value: params.start || '',
+                        placeholder: 'ex.: 11, 1m10s'
                     },
                     end: {
-                        label: 'End on (ex. "11" or "1m10s")',
-                        value: params.end || ''                     
+                        label: 'End on',
+                        value: params.end || '',
+                        placeholder: 'ex.: 11, 1m10s'
                     }
                 }
 
