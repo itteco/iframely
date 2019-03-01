@@ -124,8 +124,8 @@ module.exports = {
                     label: 'Map orientation',
                     value: gmap.aspect,
                     values: {
-                        '600x450': 'Portrait',
-                        '450x600': 'Album',
+                        '600x450': 'Album',
+                        '450x600': 'Portrait',
                         '600x600': 'Square'
                     }
                 }
