@@ -113,12 +113,28 @@ module.exports = {
             href: map,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
-            "aspect-ratio": 600 / 450
+            "aspect-ratio": eval(gmap.aspect.replace('x', '/')),
+            options: {
+                zoom: {
+                    label: 'Zoom',
+                    value: gmap.zoom,
+                    range: {min: 3, max: 21} // avoid zoom < 3 for portrait to avoid grey areas
+                },
+                aspect: {
+                    label: 'Map orientation',
+                    value: gmap.aspect,
+                    values: {
+                        '600x450': 'Portrait',
+                        '450x600': 'Album',
+                        '600x600': 'Square'
+                    }
+                }
+            }
         }] 
 
         if (!/^place_id:/.test(gmap.q)) {
             links.push({
-                href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=600x450' + '&key=' + api_key,
+                href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=' + gmap.aspect + '&key=' + api_key,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
                 // width: 600, // make sure API is authorized to use static maps
@@ -211,6 +227,10 @@ module.exports = {
                 gmap.location = gmap.center;
             }
         }
+
+        gmap.aspect = options.getRequestOptions('gmap.aspect', '600x450');
+        if (!/^\d+x\d+$/.test(gmap.aspect)) {gmap.aspect = '600x450';}
+        gmap.zoom = parseInt(options.getRequestOptions('gmap.zoom', gmap.zoom));
 
 
         cb(null, {
