@@ -600,5 +600,11 @@
             "editor.archilogic.com/.*"
         ],
         "endpoint": "https://spaces.archilogic.com/oembed"
+    }, {
+        "name": "Deezer",
+        "templates": [        
+            "(?:www\\.)?deezer.com/(?:\\w+/)?(track|playlist|album)/(\\d+)"
+        ],
+        "endpoint": "http://api.deezer.com/oembed?url=https://www.deezer.com/{1}/{2}"
     }
 ]
