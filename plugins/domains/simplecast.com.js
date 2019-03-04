@@ -20,9 +20,11 @@ module.exports = {
             height: 200,
             options: {
                 theme: {
+                    label: 'Theme color',
                     value: theme,
                     values: {
-                        dark: "Dark theme"
+                        dark: "Dark theme",
+                        light: 'Light'
                     }
                 }
             }
