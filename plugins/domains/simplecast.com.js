@@ -23,7 +23,7 @@ module.exports = {
                     label: 'Theme color',
                     value: theme,
                     values: {
-                        dark: "Dark theme",
+                        dark: "Dark",
                         light: 'Light'
                     }
                 }

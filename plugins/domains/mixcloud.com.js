@@ -46,8 +46,9 @@ module.exports = {
 
                     var params = URL.parse(href, true).query;
                     var style = options.getRequestOptions('mixcloud.style', params.mini == 1 ? 'mini' : (params.hide_cover == 1 ? 'classic' : 'cover'));
+                    var theme = options.getRequestOptions('players.theme', params.light == 1 ? 'light' : 'dark');
 
-                    if (options.getRequestOptions('mixcloud.light', params.light)) {
+                    if (theme === 'light') {
                         params.light = 1;
                     }
 
@@ -79,20 +80,24 @@ module.exports = {
 
                     widget.options = {
                         style: {
-                            label: 'Size & style',
+                            label: 'Widget style',
                             value: style,
                             values: {
-                                'mini': 'Mini widget',
-                                'classic': 'Classic widget',
-                                'cover': 'Picture widget'
+                                'mini': 'Mini',
+                                'classic': 'Classic',
+                                'cover': 'Picture'
                             }
                         }
                     };
 
                     if (style !== 'cover') {
-                        widget.options.light = {
-                            label: 'Light theme',
-                            value: params.light === 1
+                        widget.options.theme = {
+                            label: 'Theme color',
+                            value: theme,
+                            values: {
+                                light: 'Light',
+                                dark: 'Dark'
+                            }
                         };
                         widget.options.hide_artwork = {
                             label: 'Hide artwork',
