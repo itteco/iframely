@@ -32,16 +32,9 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-
-        // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
 
             var src = $iframe.attr('src');
-
-            // configure as `theme: 'white'`
-            if (options.getProviderOptions('spotify.theme')) {
-                src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
-            }
 
             var horizontal_player = options.getRequestOptions('players.horizontal', false) || options.getProviderOptions(CONFIG.O.less, false);
 

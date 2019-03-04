@@ -121,6 +121,7 @@ module.exports = {
     },
 
     tests: [{noFeeds: true}, {skipMixins: ["oembed-description"]},
-        "https://www.mixcloud.com/djtraviesa/"
+        "https://www.mixcloud.com/djtraviesa/",
+        "https://www.mixcloud.com/sohoradio/dub-on-air-with-dennis-bovell-03032019/"
     ]
 };
