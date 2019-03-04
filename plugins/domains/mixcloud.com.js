@@ -45,6 +45,9 @@ module.exports = {
                 } else {
 
                     var params = URL.parse(href, true).query;
+                    if (options.getProviderOptions('players.horizontal') === false) {
+                        delete params.hide_cover;
+                    }
                     var style = options.getRequestOptions('mixcloud.style', params.mini == 1 ? 'mini' : (params.hide_cover == 1 ? 'classic' : 'cover'));
                     var theme = options.getRequestOptions('players.theme', params.light == 1 ? 'light' : 'dark');
 
