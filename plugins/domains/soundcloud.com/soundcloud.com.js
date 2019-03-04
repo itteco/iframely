@@ -44,7 +44,7 @@ module.exports = {
             }
 
             href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
-            var height = options.getRequestOptions('soundcloud.height', /visual=false/.test(href) ? 166 : oembed.height);
+            var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 'auto' : (/visual=false/.test(href) ? 166 : oembed.height));
 
             var opts = {
                 horizontal: {

@@ -7,17 +7,29 @@ module.exports = {
         "*"
     ],
 
-    getLinks: function(urlMatch, meta) {
+    getLinks: function(urlMatch, meta, options) {
 
         if (/\d+/.test(meta['newrelic-resource-path'])) {
 
             var id = meta['newrelic-resource-path'].match(/\d+/)[0];
+            var theme = options.getRequestOptions('players.theme', 'light');
 
             return {
-                html: '<div id="rg_embed_link_' + id + '" class="rg_embed_link" data-song-id="' + id + '"></div><script src="//genius.com/songs/' + id + '/embed.js?dark=1"></script>',
+                html: '<div id="rg_embed_link_' + id + '" class="rg_embed_link" data-song-id="' + id + '"></div><script src="//genius.com/songs/' + id + '/embed.js' + 
+                (theme === 'dark' ? '?dark=1' : '') +'"></script>',
 
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl]
+                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
+                options: {
+                    theme: {
+                        label: 'Theme color',
+                        value: theme,
+                        values: {
+                            light: 'Light',
+                            dark: 'Dark'
+                        }
+                    }                    
+                }
             };
         }
     },
