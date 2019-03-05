@@ -48,7 +48,7 @@ module.exports = {
                         value: /\/thumbnail\/no/.test(href)
                     },
                     render_playlist: {
-                        label: 'Add show playlist',
+                        label: 'Add playlist',
                         value: /\/render\-playlist\/yes/.test(href)
                     }                    
                 };
