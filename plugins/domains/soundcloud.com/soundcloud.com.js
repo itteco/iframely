@@ -57,7 +57,7 @@ module.exports = {
                 },
                 hide_artwork : {
                     label: 'Hide artwork',
-                    value: /show_artwork=false/.test(href)                        
+                    value: /show_artwork=false/.test(href)
                 },
                 height: {
                     label: 'Adjust height',

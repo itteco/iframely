@@ -4,24 +4,56 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(twitter) {
+    getLink: function(twitter, options) {
 
         if (twitter.player && twitter.player.value && /^https?:\/\/html5\-player\.libsyn\.com\/embed\/episode\/id\/\d+/i.test(twitter.player.value)) {
 
+            var is_video = twitter.stream && twitter.stream.value && /\.mp4$/i.test(twitter.stream.value);
+
             var href = twitter.player.value.match(/^https?:\/\/html5\-player\.libsyn\.com\/embed\/episode\/id\/\d+/i)[0];
-            href += '/theme/custom/';
+            href += '/theme/custom';
+
+            if (!is_video) {
+
+                if (options.getRequestOptions('libsyn.render_playlist', false)) {
+                    href += '/height/400';
+                    href += '/direction/backward/render-playlist/yes';
+                } else {
+                    href += '/height/90';
+                }
+
+                if (options.getRequestOptions('libsyn.hide_artwork', false)) {
+                    href += '/thumbnail/no';
+                }
+
+                href += '/custom-color/' + options.getProviderOptions('libsyn.color', '87A93A');
+            }
 
             var player = {
                 href: href,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html, 
+                type: CONFIG.T.text_html
             };
 
-            if (twitter.stream && twitter.stream.value && /\.mp4$/i.test(twitter.stream.value)) {
+            if (is_video) {
                 player['aspect-ratio'] = 16/9;
                 player['padding-bottom'] = 90;
             } else {
-                player.height = 90;
+
+                player.rel.push(CONFIG.R.audio);
+
+                player.options = {
+                    hide_artwork : {
+                        label: 'Hide artwork',
+                        value: /\/thumbnail\/no/.test(href)
+                    },
+                    render_playlist: {
+                        label: 'Add show playlist',
+                        value: /\/render\-playlist\/yes/.test(href)
+                    }                    
+                };
+
+                player.height = player.href.match(/height\/(\d+)/)[1];
                 player.scrolling = 'no';
             }
                 
