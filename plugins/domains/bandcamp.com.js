@@ -104,7 +104,8 @@ module.exports = {
                 var player = {
                     href: href,
                     rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
-                    type: CONFIG.T.text_html
+                    type: CONFIG.T.text_html,
+                    options: opts
                 };
 
                 player.media = {'max-width' : 700};
