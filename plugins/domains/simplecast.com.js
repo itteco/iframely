@@ -2,7 +2,8 @@ module.exports = {
 
     // used for hosted simplecasts
     re: [
-        /^https?:\/\/simplecast\.com\/(?:card|s)\/([a-zA-Z0-9\-]+)/i,
+        /^https?:\/\/simplecast\.com\/(?:card|s|e)\/([a-zA-Z0-9\-]+)/i,
+        /^https?:\/\/[a-zA-Z0-9\-_]+\.simplecast\.com\/episodes\/[a-zA-Z0-9\-]+\-([a-zA-Z0-9]+)\/?(?:\?[^\?]+)?$/i,        
         /^https?:\/\/embed\.simplecast\.com\/([a-zA-Z0-9\-]+)/i        
     ],
 
@@ -49,7 +50,9 @@ module.exports = {
 
     tests: [
         "https://simplecast.com/card/6e203f4f?color=3d3d3d",
-        "https://embed.simplecast.com/c68f4e5d"
+        "https://embed.simplecast.com/c68f4e5d",
+        "https://simplecast.com/e/bf974d38?style=medium-dark",
+        "https://emitblackwell.simplecast.com/episodes/s3e14-the-rattlesnake-lawyer-johnathan-07ffb945"
         /*
         http://bikeshed.fm/54
         http://bikeshed.fm/57
