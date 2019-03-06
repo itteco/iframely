@@ -11,23 +11,39 @@ module.exports = {
     getLink: function(urlMatch, options) {
 
         // https://help.simplecast.com/getting-started/how-to-share-your-episodes-on-social-media-and-your-website
+        // old: https://medium.com/@simplecast/new-embed-players-f0e07d685898
         var theme = options.getRequestOptions('players.theme', 'light');
+        var horizontal = options.getRequestOptions('players.horizontal', false);
+
+        var href = horizontal && theme !== 'dark'
+            ? "https://simplecast.com/card/" + urlMatch[1]
+            : "https://embed.simplecast.com/" + urlMatch[1] + (theme === 'dark' ? '?color=3d3d3d' : '');
+
+        var opts = {
+            theme: {
+                label: 'Theme color',
+                value: theme,
+                values: {
+                    dark: "Dark",
+                    light: 'Light'
+                }
+            },
+            horizontal: {
+                label: 'Slimmer legacy player',
+                value: horizontal
+            }
+        }
+
+        if (theme === 'dark') {
+            delete opts.horizontal; // not reliable :(
+        }
 
         return {
-            href: "https://embed.simplecast.com/" + urlMatch[1] + '?color=' + (theme === 'dark' ? '3d3d3d' : 'F5F5F5'),
+            href: href,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            height: 200,
-            options: {
-                theme: {
-                    label: 'Theme color',
-                    value: theme,
-                    values: {
-                        dark: "Dark",
-                        light: 'Light'
-                    }
-                }
-            }
+            height: horizontal && theme !== 'dark' ? 94 : 200,
+            options: opts
         };
     },
 
