@@ -85,7 +85,7 @@ module.exports = {
 
                 opts.theme = {
                     label: 'Theme color',
-                    value: options.getRequestOptions('bandcamp.theme', 'light'),
+                    value: options.getRequestOptions('players.theme', 'light'),
                     values: {
                         light: 'Light',
                         dark: 'Dark'
