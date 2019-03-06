@@ -41,46 +41,91 @@ module.exports = {
             var album = /album=\d+/i.test(video_src) && video_src.match(/album=(\d+)/i)[1];
             var track = /track=\d+/i.test(video_src) && video_src.match(/track=(\d+)/i)[1];
 
-            var href = 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '')
+            var href = 'https://bandcamp.com/EmbeddedPlayer' + (album ? '/album=' + album : '');
 
-                    + (options.getProviderOptions('bandcamp.get_params') ? 
-                        
-                        options.getProviderOptions('bandcamp.get_params') 
-                        : ('/size=large/bgcol=ffffff/linkcol=0687f5'
-                            + (
-                            options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('bandcamp.small_player', false) || options.getProviderOptions(CONFIG.O.less, false) ? 
-                            '/artwork=small/tracklist=false' : '/minimal=true'
-                            )
-                            + '/transparent=true'
-                        )
-                    )
-                    + (track ? '/track=' + track : '')
-                    + '/';
-
-            if (!options.getProviderOptions('bandcamp.get_params') && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('bandcamp.small_player', false)) && options.getProviderOptions(CONFIG.O.more, false)) {
-                href = href.replace("/artwork=small/tracklist=false/", "/minimal=true/")
-            }
-
-            var player = {
-                href: href,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
-                type: CONFIG.T.text_html
-            };
-
-            if (options.getProviderOptions('bandcamp.get_params') && options.getProviderOptions('bandcamp.media')) {
-                player.media = (album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track);
+            if (options.getProviderOptions('bandcamp.get_params')) {
+                return {
+                    href: href + options.getProviderOptions('bandcamp.get_params') + (track ? '/track=' + track : '') + '/',
+                    rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                    type: CONFIG.T.text_html,
+                    media: album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track
+                }
             } else {
+                var horizontal = options.getProviderOptions('players.horizontal', options.getProviderOptions('bandcamp.small_player', options.getProviderOptions(CONFIG.O.less)));
+                var opts = {
+                    layout: {
+                        label: 'Layout',
+                        value: options.getRequestOptions('bandcamp.layout', horizontal === false ? 'artwork' : 'standard'),
+                        values: {
+                            slim: 'Slim',
+                            artwork: 'Artwork-only',
+                            standard: 'Standard',
+                        }
+                    }
+                };
+
+                if (opts.layout.value !== 'artwork') {
+                    // for slim and standard players
+                    opts.artwork = {
+                        label: 'Artwork',
+                        value: options.getRequestOptions('bandcamp.artwork', 'small'),
+                        values: {
+                            small: 'Small',
+                            big: 'Big',
+                            none: 'None'
+                        }
+                    };
+                    if (opts.layout.value !== 'slim') {
+                        opts.tracklist = {
+                            label: 'Include tracklist',
+                            value: options.getRequestOptions('bandcamp.tracklist', false)
+                        };
+                    }
+                }
+
+                opts.theme = {
+                    label: 'Theme color',
+                    value: options.getRequestOptions('bandcamp.theme', 'light'),
+                    values: {
+                        light: 'Light',
+                        dark: 'Dark'
+                    }
+                };
+
+                href += (opts.layout.value === 'slim' ? '/size=small' : '/size=large')
+                    + (opts.theme.value === 'light' ? '/bgcol=ffffff/linkcol=333333' : '/bgcol=333333/linkcol=ffffff')
+                    + (opts.tracklist && !opts.tracklist.value ? '/tracklist=false' : '')
+                    + (opts.layout.value === 'artwork' 
+                        ? '/minimal=true' 
+                        : (opts.artwork && opts.artwork.value === 'big' ? '' : '/artwork=' + opts.artwork.value))
+                    + (track ? '/track=' + track : '')
+                    + '/transparent=true/';
+
+                var player = {
+                    href: href,
+                    rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                    type: CONFIG.T.text_html
+                };
 
                 player.media = {'max-width' : 700};
                 if (/\/minimal=true\//i.test(href)) {
-                    player.media['aspect-ratio'] = 1;                    
-                } else {
+                    player.media['aspect-ratio'] = 1;
+                } else if (/\/size=small/.test(href)) {
+                    player.media.height = 42;
+                } else if (/\/tracklist=false/.test(href) && /\/artwork=small/.test(href)) {
                     player.media.height = 120;
+                } else if (/\/tracklist=false/.test(href) && !/\/artwork=/.test(href)) {
+                    player.media['aspect-ratio'] = 1;
+                    player.media['padding-bottom'] = 120;
+                } else if (!/\/artwork=/.test(href)) { // tracklist = true
+                    player.media['aspect-ratio'] = 1;
+                    player.media['padding-bottom'] = 205;
+                } else { // finally, standard player with a tracklist and with or without an artwork
+                    player.media.height = 241;
                 }
 
+                return player;
             }
-
-            return player;
         }
     },
 
