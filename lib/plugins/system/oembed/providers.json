@@ -42,8 +42,8 @@
     {
         "name": "Instagram user page",
         "templates": [
-            "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
-            "(instagr\\.am/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)"
+            "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)",
+            "(instagr\\.am/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)"
         ],
         "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://www.{1}{2}"
     },
