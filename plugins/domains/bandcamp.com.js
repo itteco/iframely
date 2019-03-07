@@ -97,7 +97,9 @@ module.exports = {
                     + (opts.tracklist && !opts.tracklist.value ? '/tracklist=false' : '')
                     + (opts.layout.value === 'artwork' 
                         ? '/minimal=true' 
-                        : ((opts.artwork && opts.artwork.value === 'big' || opts.layout.value === 'slim') ? '' : '/artwork=' + opts.artwork.value))
+                        : (opts.artwork && opts.artwork.value === 'big' 
+                            ? '' : (opts.layout.value !== 'slim' || opts.artwork.value === 'none' 
+                                ? '/artwork=' + opts.artwork.value : '')))
                     + (track ? '/track=' + track : '')
                     + '/transparent=true/';
 
