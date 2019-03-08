@@ -49,12 +49,12 @@ module.exports = {
                 var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
                 player.options.playlist = {
-                    label: 'Include tracklist',
+                    label: 'Show playlist',
                     value: include_playlist
                 };
                 player.media = horizontal_player === false && include_playlist 
                     ? {
-                        'aspect-ratio': 1,
+                        'aspect-ratio': 4/3,
                         'padding-bottom': 80,
                     } : {
                         height: !include_playlist ? 80 : oembed.height || 400
