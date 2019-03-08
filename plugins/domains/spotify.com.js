@@ -36,31 +36,41 @@ module.exports = {
 
             var src = $iframe.attr('src');
 
-            var horizontal_player = options.getRequestOptions('players.horizontal', false) || options.getProviderOptions(CONFIG.O.less, false);
+            var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
 
             var player = {
                 href: src,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
-                media: horizontal_player ? {
-                    height: 80
-                } : {
-                    'aspect-ratio': 1,
-                    'padding-bottom': 80,
-                    'max-width': 500
-                },
-                options: {
-                    horizontal: {
-                        label: 'Compact player with smaller artwork',
-                        value: horizontal_player
-                    }
-                }
+                options: {}
             };
 
             if (/album|playlist|show/.test(src)) {
+                var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
+                player.options.playlist = {
+                    label: 'Include tracklist',
+                    value: include_playlist
+                };
+                player.media = horizontal_player === false && include_playlist 
+                    ? {
+                        'aspect-ratio': 1,
+                        'padding-bottom': 80,
+                    } : {
+                        height: !include_playlist ? 80 : oembed.height || 400
+                    };
             } else {
                 player.rel.push(CONFIG.R.audio);
+                player.options.horizontal_player = {
+                    label: 'Compact player with smaller artwork',
+                    value: horizontal_player
+                };
+
+                player.media = horizontal_player ? {height: 80} : {
+                    'aspect-ratio': 1,
+                    'padding-bottom': 80,
+                    'max-width': 500
+                };
             }
 
             return [player, {
