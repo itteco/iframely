@@ -63,7 +63,7 @@ module.exports = {
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
                     label: 'Compact player with smaller artwork',
-                    value: horizontal_player
+                    value: horizontal_player === true
                 };
 
                 player.media = horizontal_player ? {height: 80} : {
