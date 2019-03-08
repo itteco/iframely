@@ -61,7 +61,7 @@ module.exports = {
                     };
             } else {
                 player.rel.push(CONFIG.R.audio);
-                player.options.horizontal_player = {
+                player.options.player = {
                     label: 'Compact player with smaller artwork',
                     value: horizontal_player
                 };
