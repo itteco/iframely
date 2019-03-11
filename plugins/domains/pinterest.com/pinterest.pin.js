@@ -7,11 +7,14 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(url, og) {
+    getLink: function(url, og, options) {
 
-        if (og.type !== 'pinterestapp:pin') {
+        if (!(og.type === 'pinterestapp:pin' || og.type === 'website')) {
             return;
         }
+
+        // https://developers.pinterest.com/tools/widget-builder/?type=pin
+        var hide_description = options.getRequestOptions('pinterest.hide_description', false);
 
         return {
             type: CONFIG.T.text_html,
@@ -23,7 +26,14 @@ module.exports = {
                 type: "embedPin",
                 width: null,
                 height: null,
-                pinWidth: null
+                pinWidth: null,
+                hideDescription: hide_description
+            },
+            options: {
+                hide_description: {
+                    label: 'Hide description',
+                    value: hide_description
+                }
             },
             'max-width': 600
         };
