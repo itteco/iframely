@@ -51,8 +51,8 @@ module.exports = {
 
                     player.options = {
                         horizontal: {
-                            label: 'Artwork-only player',
-                            value: true
+                            label: 'Compact audio player',
+                            value: false
                         }
                     };
                     player['aspect-ratio'] = 1;
@@ -70,8 +70,8 @@ module.exports = {
                             value: /\/render\-playlist\/yes/.test(href)
                         },
                         horizontal: {
-                            label: 'Artwork-only player',
-                            value: false
+                            label: 'Compact audio player',
+                            value: true
                         }
                     };
 
