@@ -5,7 +5,7 @@ module.exports = {
         if (/^https?:\/\/(?:www\.)?podbean\.com\/media\/player\/[^?]+/i.test(video_src)) {            
             
             return {
-                __promoUri: {url: video_src.replace(/\/media\/player\//i, '/media/share/pb-').replace(/\-pb(?:\?.+?)?$/, '')} // no 'promo' rel required
+                __promoUri: {url: video_src.replace(/\/media\/player\//i, '/media/share/pb-').replace(/(?:\-pb)?(?:\?.+)?$/, '')} // no 'promo' rel required
             }
 
         } 
