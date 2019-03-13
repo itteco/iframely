@@ -31,7 +31,7 @@ module.exports = {
                 var page = options.getRequestOptions('documentcloud.page', '1');
                 try {
                     if (page && page !== '1') {
-                        html = html.replace ('" title="', 'document/p' + page + '" title="');                    
+                        html = html.replace ('" title="', '#document/p' + page + '" title="');                    
                     }
                     link.options = {
                         page: {
