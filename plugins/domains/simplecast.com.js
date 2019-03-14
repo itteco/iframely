@@ -42,7 +42,7 @@ module.exports = {
         return {
             href: href,
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
             height: horizontal && theme !== 'dark' ? 94 : 200,
             options: opts
         };
