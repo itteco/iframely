@@ -61,12 +61,12 @@ module.exports = {
                 } else {
 
                     player.options = {
-                        hide_artwork : {
+                        hide_artwork: {
                             label: 'Hide artwork',
                             value: /\/thumbnail\/no/.test(href)
                         },
-                        render_playlist: {
-                            label: 'Add playlist',
+                        playlist: {
+                            label: 'Include playlist',
                             value: /\/render\-playlist\/yes/.test(href)
                         },
                         horizontal: {

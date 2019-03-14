@@ -76,9 +76,9 @@ module.exports = {
                         }
                     };
                     if (opts.layout.value !== 'slim') {
-                        opts.tracklist = {
-                            label: 'Include tracklist',
-                            value: options.getRequestOptions('bandcamp.tracklist', false)
+                        opts.playlist = {
+                            label: 'Include playlist',
+                            value: options.getRequestOptions('bandcamp.playlist', false)
                         };
                     }
                 }
@@ -94,7 +94,7 @@ module.exports = {
 
                 href += (opts.layout.value === 'slim' ? '/size=small' : '/size=large')
                     + (opts.theme.value === 'light' ? '/bgcol=ffffff/linkcol=333333' : '/bgcol=333333/linkcol=ffffff')
-                    + (opts.tracklist && !opts.tracklist.value ? '/tracklist=false' : '')
+                    + (opts.playlist && !opts.playlist.value ? '/tracklist=false' : '')
                     + (opts.layout.value === 'artwork' 
                         ? '/minimal=true' 
                         : (opts.artwork && opts.artwork.value === 'big' 
