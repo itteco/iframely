@@ -19,7 +19,7 @@ module.exports = {
                 } else {
                     href += '/theme/custom';
 
-                    if (options.getRequestOptions('libsyn.render_playlist', false)) {
+                    if (options.getRequestOptions('libsyn.playlist', false)) {
                         href += '/height/400';
                         href += '/direction/backward/render-playlist/yes';
                     } else {
@@ -89,6 +89,7 @@ module.exports = {
         "http://directory.libsyn.com/episode/index/id/3252958",
         // "http://mohrstories.libsyn.com/podcast/mor-stories-267-john-dimaggio", // broken
         "http://mumiapodcast.libsyn.com/message-for-red-emmas-book-fair-saturday-9-26-2015-baltimore",
-        "http://3manbreak.libsyn.com/10-build-a-bear-for-bradley-beal-december-1-of-3"
+        "http://3manbreak.libsyn.com/10-build-a-bear-for-bradley-beal-december-1-of-3",
+        "http://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs"
     ]
 };
