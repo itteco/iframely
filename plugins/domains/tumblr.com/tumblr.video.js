@@ -13,7 +13,7 @@ module.exports = {
 
             return {
                 href: tumblr_post.video_url,
-                type: CONFIG.T.video_mp4,
+                accept: CONFIG.T.video_mp4,
                 rel: CONFIG.R.player,
                 "aspect-ratio": tumblr_post.thumbnail_height ? tumblr_post.thumbnail_width / tumblr_post.thumbnail_height : null
             };

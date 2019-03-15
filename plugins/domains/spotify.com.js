@@ -49,7 +49,7 @@ module.exports = {
                 var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
                 player.options.playlist = {
-                    label: 'Show playlist',
+                    label: 'Include playlist',
                     value: include_playlist
                 };
                 player.media = horizontal_player === false && include_playlist 
