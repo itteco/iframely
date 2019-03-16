@@ -55,9 +55,16 @@ module.exports = {
                         ld = {};
                         ld[json['@type'].toLowerCase()] = json;
 
-                        return {
-                            ld: ld
+                        if (__allowEmbedURL !== 'skip_ld') {
+                            return {
+                                ld: ld
+                            }
+                        } else if (ld.videoobject || ld.mediaobject) {
+                            return {
+                                schemaVideoObject: ld.videoobject || ld.mediaobject
+                            }
                         }
+
                     }
 
                 } catch (ex) {

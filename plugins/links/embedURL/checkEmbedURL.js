@@ -9,7 +9,7 @@ module.exports = {
         if (whitelistRecord.isAllowed('html-meta.embedURL') && !(meta.ld && meta.ld.videoobject && whitelistRecord.date > new Date(1485530476990))
             && !(whitelistRecord.isAllowed('twitter.player') && meta.twitter && meta.twitter.card == "player")) {
             return {
-                __allowEmbedURL: true
+                __allowEmbedURL: meta.ld ? 'skip_ld' : true // 'skip_ld' is to skip ld-video, which can be called before __allowEmbedURL param is available
             };
         }
     }
