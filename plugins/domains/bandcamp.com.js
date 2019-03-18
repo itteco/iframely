@@ -115,7 +115,7 @@ module.exports = {
                     player.media['aspect-ratio'] = 1;
                 } else if (/\/size=small/.test(href)) {
                     player.media.height = 42;
-                } else if (/\/tracklist=false/.test(href) && /\/artwork=small/.test(href)) {
+                } else if (/\/tracklist=false/.test(href) && /\/artwork=(small|none)/.test(href)) {
                     player.media.height = 120;
                 } else if (/\/tracklist=false/.test(href) && !/\/artwork=/.test(href)) {
                     player.media['aspect-ratio'] = 1;
