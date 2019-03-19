@@ -89,7 +89,7 @@ module.exports = {
                     'aspect-ratio': 1, // the artwork is always 500x500
                     'max-width': 600, 
                 } : {
-                    height: height
+                    height: /visual=false/.test(href) ? 166 : height
                 },
                 options: opts
             });
