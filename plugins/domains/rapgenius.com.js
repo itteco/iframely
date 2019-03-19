@@ -22,11 +22,11 @@ module.exports = {
                 rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
                 options: {
                     theme: {
-                        label: 'Theme color',
+                        label: CONFIG.L.theme,
                         value: theme,
                         values: {
-                            light: 'Light',
-                            dark: 'Dark'
+                            light: CONFIG.L.light,
+                            dark: CONFIG.L.dark
                         }
                     }                    
                 }

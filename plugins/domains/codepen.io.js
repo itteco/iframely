@@ -58,7 +58,7 @@ module.exports = {
                 height: params.height,
                 options: {
                     height: {
-                        label: 'Adjust height',
+                        label: CONFIG.L.height,
                         value: params.height,
                         placeholder: 'ex.: 600, in px'
                     },
@@ -67,12 +67,12 @@ module.exports = {
                         value: click_to_load
                     },
                     theme: {
-                        label: 'Theme',
+                        label: CONFIG.L.theme,
                         value: theme,
                         values: {
-                            light: 'Light',
-                            dark: 'Dark',
-                            auto: 'Default'
+                            light: CONFIG.L.light,
+                            dark: CONFIG.L.dark,
+                            auto: CONFIG.L.default
                         }
                     }
                 }

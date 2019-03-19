@@ -22,15 +22,15 @@ module.exports = {
 
         var opts = {
             theme: {
-                label: 'Theme color',
+                label: CONFIG.L.theme,
                 value: theme,
                 values: {
-                    dark: "Dark",
-                    light: 'Light'
+                    dark: CONFIG.L.dark,
+                    light: CONFIG.L.light
                 }
             },
             horizontal: {
-                label: 'Slimmer legacy player',
+                label: CONFIG.L.horizontal,
                 value: horizontal
             }
         }

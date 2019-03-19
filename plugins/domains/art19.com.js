@@ -48,11 +48,11 @@ module.exports = {
                     params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
 
                     opts.theme = {
-                        label: 'Theme color',
+                        label: CONFIG.L.theme,
                         value: theme,
                         values: {
-                            light: 'Light',
-                            dark: 'Dark'
+                            light: CONFIG.L.light,
+                            dark: CONFIG.L.dark
                         }
                     };
                 } else {
@@ -62,7 +62,7 @@ module.exports = {
                 }
 
                 opts.horizontal = {
-                    label: 'Compact player with smaller artwork',
+                    label: CONFIG.L.horizontal,
                     value: horizontal
                 }
 

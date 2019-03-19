@@ -35,7 +35,7 @@ module.exports = {
                     }
                     link.options = {
                         page: {
-                            label: 'Active page',
+                            label: CONFIG.L.page,
                             value: parseInt (page)
                         }
                     }

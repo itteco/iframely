@@ -77,18 +77,18 @@ module.exports = {
                     };
                     if (opts.layout.value !== 'slim') {
                         opts.playlist = {
-                            label: 'Include playlist',
+                            label: CONFIG.L.playlist,
                             value: options.getRequestOptions('bandcamp.playlist', false)
                         };
                     }
                 }
 
                 opts.theme = {
-                    label: 'Theme color',
+                    label: CONFIG.L.theme,
                     value: options.getRequestOptions('players.theme', 'light'),
                     values: {
-                        light: 'Light',
-                        dark: 'Dark'
+                        light: CONFIG.L.light,
+                        dark: CONFIG.L.dark
                     }
                 };
 

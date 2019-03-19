@@ -48,7 +48,7 @@ module.exports = {
 
             var opts = {
                 horizontal: {
-                    label: 'Classic compact player instead',
+                    label: CONFIG.L.horizontal,
                     value: /visual=false/.test(href)
                 },
                 hide_comments: {
@@ -56,11 +56,11 @@ module.exports = {
                     value: /show_comments=false/.test(href)
                 },
                 hide_artwork : {
-                    label: 'Hide artwork',
+                    label: CONFIG.L.hide_artwork,
                     value: /show_artwork=false/.test(href)
                 },
                 height: {
-                    label: 'Adjust height',
+                    label: CONFIG.L.height,
                     value: height,
                     values: {
                         300: '300px',

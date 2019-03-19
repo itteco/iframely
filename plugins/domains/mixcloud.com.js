@@ -95,15 +95,15 @@ module.exports = {
 
                     if (style !== 'cover') {
                         widget.options.theme = {
-                            label: 'Theme color',
+                            label: CONFIG.L.theme,
                             value: theme,
                             values: {
-                                light: 'Light',
-                                dark: 'Dark'
+                                light: CONFIG.L.light,
+                                dark: CONFIG.L.dark
                             }
                         };
                         widget.options.hide_artwork = {
-                            label: 'Hide artwork',
+                            label: CONFIG.L.hide_artwork,
                             value: params.hide_artwork === 1
                         };
 

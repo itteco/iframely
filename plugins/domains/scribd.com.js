@@ -65,7 +65,7 @@ module.exports = {
                         value: slideshow
                     },
                     start_page: {
-                        label: 'Start from page',
+                        label: CONFIG.L.page,
                         value: page
                     }
                 }

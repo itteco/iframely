@@ -144,7 +144,7 @@
             playlist: 'playlist'            
         },
 
-        // Option names   
+        // Option names
         O: {
             // compact & full - deprecated
             compact: "iframely.less",
@@ -152,7 +152,21 @@
             // use O.more & O.less instead
             more: "iframely.more",
             less: "iframely.less"
-        },        
+        },
+
+        // Option labels:
+        L: {
+            horizontal: 'Slimmer horizontal player',
+            playlist: 'Include playlist',
+            hide_artwork: 'Hide artwork',
+            theme: 'Theme color',
+            light: 'Light',
+            dark: 'Dark',
+            auto: 'Auto',
+            default: 'Default',
+            height: 'Adjust height',
+            page: 'Active page'
+        },
 
         // Whitelist settings.
         REL: {

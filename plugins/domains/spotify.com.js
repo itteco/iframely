@@ -49,7 +49,7 @@ module.exports = {
                 var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
                 player.options.playlist = {
-                    label: 'Include playlist',
+                    label: CONFIG.L.playlist,
                     value: include_playlist
                 };
                 player.media = horizontal_player === false && include_playlist 
@@ -62,7 +62,7 @@ module.exports = {
             } else {
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
-                    label: 'Compact player with smaller artwork',
+                    label: CONFIG.L.horizontal,
                     value: horizontal_player === true
                 };
 

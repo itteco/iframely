@@ -51,7 +51,7 @@ module.exports = {
 
                     player.options = {
                         horizontal: {
-                            label: 'Compact audio player',
+                            label: CONFIG.L.horizontal,
                             value: false
                         }
                     };
@@ -62,15 +62,15 @@ module.exports = {
 
                     player.options = {
                         hide_artwork: {
-                            label: 'Hide artwork',
+                            label: CONFIG.L.hide_artwork,
                             value: /\/thumbnail\/no/.test(href)
                         },
                         playlist: {
-                            label: 'Include playlist',
+                            label: CONFIG.L.playlist,
                             value: /\/render\-playlist\/yes/.test(href)
                         },
                         horizontal: {
-                            label: 'Compact audio player',
+                            label: CONFIG.L.horizontal,
                             value: true
                         }
                     };
