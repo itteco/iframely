@@ -214,12 +214,12 @@ module.exports = {
                 options: {
                     start: {
                         label: 'Start from',
-                        value: params.start || '',
+                        value: '' + (params.start || ''),
                         placeholder: 'ex.: 11, 1m10s'
                     },
                     end: {
                         label: 'End on',
-                        value: params.end || '',
+                        value: '' + (params.end || ''),
                         placeholder: 'ex.: 11, 1m10s'
                     }
                 }
