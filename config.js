@@ -75,7 +75,8 @@
             video_ogg: "video/ogg",
             video_webm: "video/webm",
             stream_apple_mpegurl: "application/vnd.apple.mpegurl",
-            stream_x_mpegurl: "application/x-mpegURL"
+            stream_x_mpegurl: "application/x-mpegURL",
+            audio_mp3: "audio/mp3"
         },
 
         PROMO_RELS: [
