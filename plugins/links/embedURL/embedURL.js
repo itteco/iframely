@@ -75,9 +75,7 @@ module.exports = {
         }
     },
 
-    getLinks: function(schemaVideoObject, whitelistRecord) {
-
-        if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return;}
+    getLinks: function(schemaVideoObject, whitelistRecord) {        
 
         var links = [];
         
@@ -89,6 +87,8 @@ module.exports = {
                 type: CONFIG.T.image            
             });
         }
+
+        if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return links;}
 
         var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;     
 

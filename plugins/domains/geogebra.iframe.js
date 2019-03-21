@@ -33,6 +33,6 @@ module.exports = {
     },    
 
     tests: [
-        "https://www.geogebra.org/material/iframe/id/rgZVk8bJ`"
+        "https://www.geogebra.org/material/iframe/id/rgZVk8bJ"
     ]
 };
