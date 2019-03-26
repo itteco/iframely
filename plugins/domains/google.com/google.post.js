@@ -50,7 +50,6 @@ module.exports = {
     tests: [
         "https://plus.google.com/106601272932768187104/posts/iezWej2wQmw",
         "https://plus.google.com/+UmarHansa/posts/2m8yF7aFonn",
-        "https://plus.google.com/u/0/106507463771539639056/posts/1t7Ga54vkrw",
         "https://plus.google.com/110174288943220639247/posts/cfjDgZ7zK8o",
         {
             skipMixins: ["description"]
