@@ -7,22 +7,23 @@ module.exports = {
     ],
 
     mixins: [
-        "oembed-title",
-        "oembed-thumbnail",
         "oembed-site",
         "domain-icon"
     ],
 
     getMeta: function(meta) {
         return {
+            title: meta.og && meta.og.title,
             date: meta.music && meta.music.release_date,
             author: meta.twitter && meta.twitter.audio && meta.twitter.audio.artist_name,
             author_url: meta.music && meta.music.musician,
-            duration: meta.music && meta.music.duration
+            duration: meta.music && meta.music.duration,
+            description: meta.og && meta.og.description,
+            canonical: meta.og && meta.og.url
         }
     },
 
-    getLink: function(oembed, options) {
+    getLink: function(oembed, meta, options) {
 
         var $container = cheerio('<div>');
 
@@ -74,6 +75,11 @@ module.exports = {
             }
 
             return [player, {
+                href: (meta.og && meta.og.image) || oembed.thumbnail_url,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            }, 
+            {
                 href: 'https://open.scdn.co/static/images/touch-icon-114.png',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.icon

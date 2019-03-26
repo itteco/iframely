@@ -32,7 +32,7 @@ module.exports = {
 
     },    
 
-    tests: [
+    tests: [{skipMethods: ['getData']},
         "https://www.geogebra.org/material/iframe/id/rgZVk8bJ"
     ]
 };

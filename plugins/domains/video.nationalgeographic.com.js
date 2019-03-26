@@ -1,13 +1,7 @@
 module.exports = {
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "twitter-title",
-        "twitter-site"
+        "*"
     ],
 
     getLink: function(cheerio) {
@@ -29,8 +23,6 @@ module.exports = {
     tests: [{
         page: "http://video.nationalgeographic.com/",
         selector: 'a.video'
-    }, {
-        skipMixins: ['keywords']
     },
         "http://video.nationalgeographic.com/video/magazine/ngm-war-dogs-layka"
     ]
