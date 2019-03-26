@@ -84,18 +84,26 @@ function handleIframelyError(error, res, next) {
     }
 }
 
+function processInitialErrors(uri, next) {
+    if (!uri) {
+        next(new utils.HttpError(400, "'uri' get param expected"));
+        return true;
+    }
+
+    if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
+        next(new utils.HttpError(400, "local domains not supported"));
+        return true;
+    }
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
 
         var uri = prepareUri(req.query.uri || req.query.url);
 
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
-        }
-
-        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
-            return next(new Error("local domains not supported"));
+        if (processInitialErrors(uri, next)) {
+            return;
         }
 
         log(req, 'Loading /iframely for', uri);
@@ -227,12 +235,8 @@ module.exports = function(app) {
 
         var uri = prepareUri(req.query.uri);
 
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
-        }
-
-        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
-            return next(new Error("local domains not supported"));
+        if (processInitialErrors(uri, next)) {
+            return;
         }
 
         log(req, 'Loading /reader for', uri);
@@ -285,12 +289,8 @@ module.exports = function(app) {
 
         var uri = prepareUri(req.query.uri);
 
-        if (!uri) {
-            return next(new Error("'uri' get param expected"));
-        }
-
-        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
-            return next(new Error("local domains not supported"));
+        if (processInitialErrors(uri, next)) {
+            return;
         }
 
         log(req, 'Loading /render for', uri);
@@ -394,12 +394,8 @@ module.exports = function(app) {
 
         var uri = prepareUri(req.query.url);
 
-        if (!uri) {
-            return next(new Error("'url' get param expected"));
-        }
-
-        if (!CONFIG.DEBUG && uri.split('/')[2].indexOf('.') === -1) {
-            return next(new Error("local domains not supported"));
+        if (processInitialErrors(uri, next)) {
+            return;
         }
 
         log(req, 'Loading /oembed for', uri);
