@@ -6,7 +6,7 @@ module.exports = {
         if (meta.ld && meta.ld.mediaobject) {
             return {
                 author: meta.ld.mediaobject.author && meta.ld.mediaobject.author.name,
-                author_url: meta.prezi_for_facebook.author,
+                author_url: meta.prezi_for_facebook && meta.prezi_for_facebook.author,
                 date: meta.ld.mediaobject.datecreated
             }
         }
