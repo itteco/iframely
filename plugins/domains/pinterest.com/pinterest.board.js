@@ -8,27 +8,27 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(url, og, options) {
+    getLink: function(url, meta, options) {
+        var og = meta.og;
 
-        if (!og.type || og.type.indexOf('pinboard') == -1) {
-            return;
-        }
-
-        return {
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
-            template: "pinterest.widget",
-            template_context: {
-                url: og.url || url,
-                title: "Pinterest Board",
-                type: "embedBoard",
+        if (/pinboard/.test(og.type) || // this check sometimes when Pinterest misses cache hits: og.type is 'website' in those cases
+            (meta.twitter && meta.twitter.app && meta.twitter.app.url && /\/board\//i.test(meta.twitter.app.url.iphone))) {
+            return {
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                template: "pinterest.widget",
+                template_context: {
+                    url: og.url || url,
+                    title: "Pinterest Board",
+                    type: "embedBoard",
+                    width: options.maxWidth || DEFAULT_WIDTH,
+                    height: 600,
+                    pinWidth: 120
+                },
                 width: options.maxWidth || DEFAULT_WIDTH,
-                height: 600,
-                pinWidth: 120
-            },
-            width: options.maxWidth || DEFAULT_WIDTH,
-            height: 600 + 120
-        };
+                height: 600 + 120
+            };
+        }
     },
 
     tests: [{
