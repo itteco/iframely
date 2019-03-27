@@ -18,7 +18,6 @@ module.exports = {
     },
 
     tests: [
-        "https://create.piktochart.com/output/16331484-new-piktochart",
         "https://magic.piktochart.com/output/16505417-projet-immigration-copy"
     ]
 

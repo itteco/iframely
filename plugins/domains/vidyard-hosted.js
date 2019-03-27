@@ -46,7 +46,6 @@ module.exports = {
         "http://videos.zignallabs.com/watch/CJb9FicSup-0WgTQE_7RHQ",
         "http://videos.tenable.com/watch/vPyeFncWD-hDT9Yzt8H92g",
         "http://video.verint.com/watch/yeGzTrpJ6lIPGYyx-i4aYw",
-        "http://videos.h2o.ai/watch/o6377iJjjGr4V2UtBavA5M",
         "http://videos.microsoft.com/customer-stories/watch/Aa1Uy7CnbgjCSKBCk6cLQ4"
     ]
 };
