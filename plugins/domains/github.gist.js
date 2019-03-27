@@ -80,7 +80,7 @@ module.exports = {
 
     tests: [{
         page: "https://gist.github.com/discover",
-        selector: ".creator a:nth-child(3)"
+        selector: "a.link-overlay"
     }, {
         skipMixins: ["og-image", "og-site"]
     },

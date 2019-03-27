@@ -27,7 +27,7 @@ module.exports = {
 
     tests: [{
         page: "http://bigthink.com/videos",
-        selector: "#video_ideas_index .headline a"
+        selector: ".trending-posts a.custom-post-headline"
     },
         "http://bigthink.com/videos/bre-pettis-on-makerbot-3-d-printing",
         "http://bigthink.com/videos/vivek-wadhwa-every-industry-will-be-disrupted"

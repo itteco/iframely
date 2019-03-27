@@ -27,7 +27,7 @@ module.exports = {
     tests: [
         {
             page: 'https://theta360.com/en/gallery/',
-            selector: '.samples>li>a',
+            selector: '.library .item a',
             skipMixins: [
                 "og-description"
             ]

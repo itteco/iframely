@@ -91,8 +91,7 @@ module.exports = {
     },
 
     tests: [{
-        page: "https://www.scribd.com/books/scribd-selects",
-        selector: "a.doc_link.book_link"
+        noFeeds: true
     },
         "https://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013",
         "https://www.scribd.com/document/399637688/Prestons-Advert"
