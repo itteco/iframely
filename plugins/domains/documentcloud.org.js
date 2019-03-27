@@ -7,7 +7,7 @@ module.exports = {
         "oembed-site",
         "canonical",
         "author",
-        "html-title",
+        "og-title",
         "og-image",
         "og-description"
     ],
