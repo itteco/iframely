@@ -8,6 +8,7 @@ var oembedUtils = require('../../lib/oembed');
 var whitelist = require('../../lib/whitelist');
 var pluginLoader = require('../../lib/loader/pluginLoader');
 var jsonxml = require('jsontoxml');
+var url = require('url');
 
 function prepareUri(uri) {
 
@@ -31,6 +32,11 @@ function prepareUri(uri) {
 var log = utils.log;
 
 var version = require('../../package.json').version;
+
+function getRenderLinkCacheKey(uri, req) {
+    var query = getProviderOptionsQuery(req.query);
+    return 'render_link:' + version + ':' + uri + ':' + JSON.stringify(query);
+}
 
 function getBooleanParam(req, param) {
     var v = req.query[param];
@@ -96,6 +102,60 @@ function processInitialErrors(uri, next) {
     }
 }
 
+function getProviderOptionsQuery(query) {
+    var providerOptionsQuery = {};
+
+    for(var key in query) {
+        if (key.length > 1 && _RE.test(key)) {
+            providerOptionsQuery[key] = query[key];
+        }
+    }
+
+    return providerOptionsQuery;
+}
+
+function normalizeValue(value) {
+    if (value === 'true') {
+        return true;
+    }
+    if (value === 'false') {
+        return false;
+    }
+    if (value.match(/^\d+$/)) {
+        return parseInt(value);
+    }
+    if (value.match(/^(\d+)?\.\d+$/)) {
+        return parseFloat(value);
+    }
+    return value;
+}
+
+var _RE = /^_.+/;
+
+function getProviderOptionsFromQuery(query) {
+    /*
+    Convert '_option=value' to 
+    providerOptions = {
+        _: {
+            options: value
+        }
+    }
+    */
+
+    var providerOptions = {};
+
+    for(var key in query) {
+        if (key.length > 1 && _RE.test(key)) {
+            var value = normalizeValue(query[key]);
+            var realKey = key.substr(1);
+            providerOptions._ = providerOptions._ || {};
+            providerOptions._[realKey] = value;
+        }
+    }
+
+    return providerOptions;
+}
+
 module.exports = function(app) {
 
     app.get('/iframely', function(req, res, next) {
@@ -123,12 +183,12 @@ module.exports = function(app) {
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh')
+                    disableCache: getBooleanParam(req, 'refresh'),
+                    providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }
 
         ], function(error, result) {
-
 
             if (error) {
                 return handleIframelyError(error, res, next);
@@ -152,10 +212,16 @@ module.exports = function(app) {
                         && link.type === CONFIG.T.text_html;
                 });
                 if (render_link) {
-                    cache.set('render_link:' + version + ':' + uri, _.extend({
+                    cache.set(getRenderLinkCacheKey(uri, req), _.extend({
                         title: result.meta.title
                     }, render_link)); // Copy to keep removed fields.
-                    render_link.href = CONFIG.baseAppUrl + "/render?uri=" + encodeURIComponent(uri);
+
+                    var parsedUrl = url.parse(CONFIG.baseAppUrl + "/render", true);
+                    // Add _ options params.
+                    _.extend(parsedUrl.query, getProviderOptionsQuery(req.query));
+                    parsedUrl.query.uri = uri;
+
+                    render_link.href = url.format(parsedUrl);;
                     delete render_link.html;
                 } else {
                     // Cache non inline link to later render for older consumers.
@@ -165,7 +231,7 @@ module.exports = function(app) {
                             && link.type === CONFIG.T.text_html;
                     });
                     if (render_link) {
-                        cache.set('render_link:' + version + ':' + uri, _.extend({
+                        cache.set(getRenderLinkCacheKey(uri, req), _.extend({
                             title: result.meta.title
                         }, render_link)); // Copy to keep removed fields.
                     }
@@ -299,11 +365,12 @@ module.exports = function(app) {
 
             function(cb) {
 
-                cache.withCache('render_link:' + version + ':' + uri, function(cb) {
+                cache.withCache(getRenderLinkCacheKey(uri, req), function(cb) {
 
                     iframelyCore.run(uri, {
                         v: '1.3',
-                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                        providerOptions: getProviderOptionsFromQuery(req.query)
                     }, function(error, result) {
 
                         if (error) {
@@ -411,7 +478,8 @@ module.exports = function(app) {
                     filterNonHTML5: getBooleanParam(req, 'html5'),
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh')
+                    disableCache: getBooleanParam(req, 'refresh'),
+                    providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }
 
