@@ -23,7 +23,7 @@ module.exports = {
             links.push ({
                 href: meta.videourl,
                 rel: CONFIG.R.player,
-                type: CONFIG.T.maybe_text_html,
+                accept: CONFIG.T.video_mp4,
                 "aspect-ratio": aspect
             });
         }

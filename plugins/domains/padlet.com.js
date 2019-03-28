@@ -15,7 +15,7 @@ module.exports = {
 
             return {
                 href: 'https://padlet.com/embed/' + (meta.alternate[0].href.match(/^https:\/\/padlet\.com\/padlets\/([0-9a-zA-Z]+)\/exports\/feed\.xml$/)[1]), //https://padlet.com/embed/g44u46on3u5n
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.html5],
                 height: 608
             };

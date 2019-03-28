@@ -2,7 +2,13 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:\w+\.)?polldaddy\.com\/poll\/([0-9]+)/i,
-        /^https?:\/\/(?:\w+\.)?polldaddy\.com\/s\//i
+        /^https?:\/\/(?:\w+\.)?polldaddy\.com\/s\//i,
+        /^https?:\/\/poll\.fm\/(?:poll\/)?([0-9]+)\/?/i
+        /* 
+        // TODO: monitor when they actually post the surveys documentation
+        // https://crowdsignal.com/support/how-do-i-embed-my-survey-into-my-website/
+        /^https?:\/\/(?:\w+\.)?survey\.fm\/([0-9]+)\/?/i
+        */
     ],
 
     mixins: [

@@ -1,5 +1,3 @@
-var urlLib = require('url');
-
 module.exports = {
 
 	highestPriority: true,
@@ -8,9 +6,7 @@ module.exports = {
 
         var canonical = (meta.canonical && meta.canonical.href || meta.canonical) || (meta.og && meta.og.url) || (meta.twitter && meta.twitter.url);
 
-        if (canonical && typeof canonical === 'string') {
-
-            canonical = urlLib.resolve(url, canonical);
+        if (canonical && typeof canonical === 'string' && /^https?:\/\//i.test(canonical)) {
 
             return {
                 canonical: canonical

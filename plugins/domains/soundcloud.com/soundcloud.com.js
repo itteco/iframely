@@ -1,4 +1,6 @@
-var $ = require('cheerio');
+const $ = require('cheerio');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -25,31 +27,72 @@ module.exports = {
 
         if ($iframe.length == 1) {
 
-            var old_player = options.getProviderOptions(CONFIG.O.compact, false) || options.getProviderOptions('soundcloud.old_player', false);
-
             var href = $iframe.attr('src');
-            if (old_player) {
-                href = href.replace('visual=true', 'visual=false');
-            } 
+            var params = URL.parse(href, true).query;
 
-            if (options.getProviderOptions(CONFIG.O.full, false)) {
-                href = href.replace('visual=false', 'visual=true');
+            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
+                params.visual = false;
+            }
+            if (options.getRequestOptions('soundcloud.hide_comments') !== undefined) {
+                params.show_comments = !options.getRequestOptions('soundcloud.hide_comments');
+            }
+            if (options.getRequestOptions('soundcloud.hide_artwork') !== undefined) {
+                params.show_artwork = !options.getRequestOptions('soundcloud.hide_artwork');
+            }            
+            if (options.getProviderOptions('soundcloud.color')) {
+                params.color = options.getProviderOptions('soundcloud.color');
             }
 
-            var player = {
+            href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
+            var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 'auto' : (/visual=false/.test(href) ? 166 : oembed.height));
+
+            var opts = {
+                horizontal: {
+                    label: CONFIG.L.horizontal,
+                    value: /visual=false/.test(href)
+                },
+                hide_comments: {
+                    label: 'Hide timed comments',
+                    value: /show_comments=false/.test(href)
+                },
+                hide_artwork : {
+                    label: CONFIG.L.hide_artwork,
+                    value: /show_artwork=false/.test(href)
+                },
+                height: {
+                    label: CONFIG.L.height,
+                    value: height,
+                    values: {
+                        300: '300px',
+                        400: '400px',
+                        600: '600px',
+                        auto: 'Let Iframely optimize player for the artwork'
+                    }
+                }
+            };
+            if (height !== 'auto') {
+                opts.height.values[height] = height + 'px';
+            }
+
+            if (/visual=true/.test(href)) {
+                delete opts.hide_artwork;
+            } else {
+                delete opts.height;
+            }
+
+            links.push({
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],                
-                height: /visual=false/.test(href) ? 114 : oembed.height,
-                "min-width": oembed.width
-            };
-
-            // skip click-to-play card with ?iframely=less
-            if (!options.getProviderOptions(CONFIG.O.compact, false) || (options.getProviderOptions(CONFIG.O.compact, false) && options.getProviderOptions('soundcloud.old_player', false))) {
-                player.autoplay = "auto_play=true";
-            }
-
-            links.push(player);
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                autoplay: "auto_play=true",
+                media: height === 'auto' ? {
+                    'aspect-ratio': 1, // the artwork is always 500x500
+                    'max-width': 600, 
+                } : {
+                    height: /visual=false/.test(href) ? 166 : height
+                },
+                options: opts
+            });
         }
 
         if (oembed.thumbnail_url && !/\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {

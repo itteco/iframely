@@ -131,27 +131,36 @@ module.exports = {
 
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
-        try {     
-            var start = url.match(/(?:t|start|time_continue)=(\d+(?:m)?\d+(?:s)?)/i);
-            var end = url.match(/(?:stop|end)=(\d+(?:m)?\d+(?:s)?)/i);
+        try {
+            var start = options.getRequestOptions('players.start', url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i));
+            var end = options.getRequestOptions('players.end', url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i));
 
-            if (start) {
+            var parseTime = function (t) {
+                if (typeof t === 'array') {
+                    t = t[1];
+                }
+                if (typeof t === "string") {
+                    var m = t.match(/(\d+)m/);
+                    var s = t.match(/(\d+)s/);
+                    var time = 0;
+                    if (m) {
+                        time = 60 * m[1];
+                    }
+                    if (s) {
+                        time += 1 * s[1];
+                    }
+                    return time;
+                } else {
+                    return parseInt(t);
+                }
+            };
 
-                var m = start[1].match(/(\d+)m/);
-                var s = start[1].match(/(\d+)s/);
-                var time = 0;
-                if (m) {
-                    time = 60 * m[1];
-                }
-                if (s) {
-                    time += 1 * s[1];
-                }
-                
-                params.start = time ? time : start[1];
+            if (start && start !== '') {
+                params.start = parseTime(start);
             }
 
-            if (end) {
-                params.end = end[1];
+            if (end && end !== '') {
+                params.end = parseTime(end);
             }
         } catch (ex) {/* and ignore */}
         // End of time extractions
@@ -190,6 +199,7 @@ module.exports = {
         }];
 
         if (youtube_video_gdata.embeddable) {
+
             var qs = querystring.stringify(params);
             if (qs !== '') {qs = '?' + qs}
 
@@ -200,7 +210,20 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
-                autoplay: "autoplay=1"
+                autoplay: "autoplay=1",
+                options: {
+                    start: {
+                        label: 'Start from',
+                        value: '' + (params.start || ''),
+                        placeholder: 'ex.: 11, 1m10s'
+                    },
+                    end: {
+                        label: 'End on',
+                        value: '' + (params.end || ''),
+                        placeholder: 'ex.: 11, 1m10s'
+                    }
+                }
+
             }); 
         } else {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});

@@ -171,7 +171,7 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
             var urls = [];
             $links.each(function() {
                 if (urls.length < MAX_FEED_URLS) {
-                    var href = $(this).attr("href");
+                    var href = $(this).attr(options.urlAttribute || "href");
                     if (href) {
                         var href = url.resolve(page, href);
                         if (urls.indexOf(href) == -1) {

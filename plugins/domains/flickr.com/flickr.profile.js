@@ -11,7 +11,7 @@ module.exports = {
             var m = og.image.url.match(/\/(\d+)_\w+_\w\.jpg$/i);
             return {
                 href: 'https://www.flickr.com/photos/' + urlMatch[1] + '/' + m[1] + '/player',
-                rel: [CONFIG.R.image, CONFIG.R.player, CONFIG.R.html5],
+                rel: [CONFIG.R.promo, CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
                 "aspect-ratio": 4/3
             };

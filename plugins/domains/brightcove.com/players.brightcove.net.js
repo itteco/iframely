@@ -35,7 +35,7 @@ module.exports = {
         var $iframe = $container.find('iframe');
 
         if ($iframe.length == 1) {
-            player.href = $iframe.attr('src');
+            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record
         }
 
         if (oembed.thumbnail_url) {
@@ -72,7 +72,8 @@ module.exports = {
     },
 
     tests: [
-        "https://players.brightcove.net/5551096162001/BkdJs5SKW_default/index.html?videoId=5789087268001&autoplay=true",
         "https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001"
+        // But sometimes thumbnail aspect is actually incorrect while oembed default is correct:
+        // https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001
     ]
 };    

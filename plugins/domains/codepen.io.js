@@ -1,4 +1,6 @@
-var $ = require('cheerio');
+const $ = require('cheerio');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -13,7 +15,7 @@ module.exports = {
         "domain-icon"
     ],
 
-    getLink: function(oembed, urlMatch) {
+    getLink: function(oembed, options, urlMatch) {
 
         if (urlMatch[1] === 'anon') {
             return { // Anonymous Pens can't be embedded
@@ -32,11 +34,48 @@ module.exports = {
         var $iframe = $container.find('iframe');
 
         if ($iframe.length == 1) {
+
+            var href = $iframe.attr('src');
+            var params = URL.parse(href, true).query;
+
+            var click_to_load = options.getRequestOptions('codepen.click_to_load', /\/embed\/preview\//.test(href));
+            href = href.replace(/\/embed\/(?:preview\/)?/, '/embed/').replace(/\/embed\//, '/embed/' + (click_to_load ? 'preview/' : ''));
+
+            params.height = parseInt(options.getRequestOptions('codepen.height')) || oembed.height;
+
+            var theme = options.getRequestOptions('players.theme', params.theme || 'auto');
+
+            if (theme === 'auto') {
+                delete params['theme-id'];
+            } else {
+                params['theme-id'] = theme;
+            }
+
             return {
-                href: $iframe.attr('src'),
+                href: href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
-                height: oembed.height
+                height: params.height,
+                options: {
+                    height: {
+                        label: CONFIG.L.height,
+                        value: params.height,
+                        placeholder: 'ex.: 600, in px'
+                    },
+                    click_to_load: {
+                        label: 'Use click-to-load',
+                        value: click_to_load
+                    },
+                    theme: {
+                        label: CONFIG.L.theme,
+                        value: theme,
+                        values: {
+                            light: CONFIG.L.light,
+                            dark: CONFIG.L.dark,
+                            auto: CONFIG.L.default
+                        }
+                    }
+                }
             };
         }
     },

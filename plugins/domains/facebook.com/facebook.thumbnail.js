@@ -1,5 +1,3 @@
-var utils = require('../../../lib/utils');
-
 module.exports = {
 
     provides: "__allowFBThumbnail",

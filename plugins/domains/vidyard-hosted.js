@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/([a-z]+\.)?([a-z]+\.)?\w+(\/sharing)?\/watch\/[a-zA-Z0-9\-\_]+\/?(?:\?[^\/]+)?$/i
+        /^https?:\/\/([^.]+\.)?([^.]+\.)?\w+(\/[^\/]+)?\/watch\/[a-zA-Z0-9\-\_]+\/?(?:\?(?:[^\/\?]+)?)?$/i
     ],
 
     provides: "__isVidyard",
@@ -31,6 +31,7 @@ module.exports = {
     },
 
     getData: function(meta) {
+
         if (meta.generator === 'vidyard.com' && meta.twitter && meta.twitter.player) {
             return {
                 __isVidyard: true
@@ -45,6 +46,6 @@ module.exports = {
         "http://videos.zignallabs.com/watch/CJb9FicSup-0WgTQE_7RHQ",
         "http://videos.tenable.com/watch/vPyeFncWD-hDT9Yzt8H92g",
         "http://video.verint.com/watch/yeGzTrpJ6lIPGYyx-i4aYw",
-        "http://watch.ultimatesoftware.com/sharing/watch/Cc32kg1FgX3faGhW527Y8o"
+        "http://videos.microsoft.com/customer-stories/watch/Aa1Uy7CnbgjCSKBCk6cLQ4"
     ]
 };

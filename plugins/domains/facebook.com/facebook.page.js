@@ -1,6 +1,7 @@
 module.exports = {
+
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([a-zA-Z0-9\.\-]+)\/?(?:about|photos|videos|events)?\/?(?:\?p?n?f?ref=\w+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([a-zA-Z0-9\.\-]+)\/?(?:about|photos|videos|events)?\/?(?:\?[a-zA-Z0-9\-_]+=[a-zA-Z0-9\-_]+)?$/i
     ],
 
     getMeta: function(oembed, meta, urlMatch) {
@@ -40,27 +41,37 @@ module.exports = {
 
             var html = oembed.html;
 
-            if (/^https?:\/\/(?:www|m)\.facebook\.com\/(?:pg\/)?[a-zA-Z0-9\.\-]+\/?(events)\/?(?:\?f?ref=\w+)?$/i.test(url)) {
+            html = options.getRequestOptions('facebook.show_posts', false)
+                ? html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="true"')
+                : html.replace(/data\-show\-posts=\"(true|1)\"/i, 'data-show-posts="false"');
 
-                html = html.replace(/data\-show\-posts=\"(?:true|1|0)?\"/i, 'data-show-posts="0" data-tabs="' + url.match(/^https?:\/\/(?:www|m)\.facebook\.com\/(?:pg\/)?[a-zA-Z0-9\.\-]+\/?(events)\/?(?:\?f?ref=\w+)?$/i)[1]+ '"');
-            }
+            html = options.getRequestOptions('facebook.show_facepile', false)
+                ? html.replace(/data\-show\-facepile=\"(?:false|0)?\"/i, 'data-show-facepile="true"')
+                : html.replace(/data\-show\-facepile=\"(true|1)\"/i, 'data-show-facepile="false"');
 
-            if (options.getProviderOptions(CONFIG.O.full, false)) {
+            html = options.getRequestOptions('facebook.small_header', false)
+                ? html.replace(/data\-small\-header=\"(?:false|0)?\"/i, 'data-small-header="true"')
+                : html.replace(/data\-small\-header=\"(true|1)\"/i, 'data-small-header="false"');
 
-                html = html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="1"');
-                html = html.replace(/data\-show\-facepile=\"(?:false|0)?\"/i, 'data-show-facepile="1"');
-
-            } else if (options.getProviderOptions(CONFIG.O.compact, false)) {
-
-                html = html.replace(/data\-show\-posts=\"(?:true|1)?\"/i, 'data-show-posts="0"');
-                html = html.replace(/data\-show\-facepile=\"(?:true|1)?\"/i, 'data-show-facepile="0"');
-                
-            }
 
             links.push ({
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
                 html: html,
+                options: {
+                    show_posts: {
+                        label: 'Show recent posts',
+                        value: /data\-show\-posts="(true|1)"/i.test(html)
+                    },
+                    show_facepile: {
+                        label: 'Show profile photos when friends like this',
+                        value: /data\-show\-facepile="(true|1)"/i.test(html)
+                    },
+                    small_header: {
+                        label: 'Use the small header instead',
+                        value: /data\-small\-header="(true|1)"/i.test(html)
+                    }
+                },
                 "max-width": oembed.width
             });
         } else {
@@ -80,6 +91,7 @@ module.exports = {
     },
 
     tests: [
+        "https://www.facebook.com/facebook",
         "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
         "https://www.facebook.com/pg/RhulFencing/about/",
         {

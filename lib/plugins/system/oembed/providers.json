@@ -1,5 +1,17 @@
 [
     {
+        "name": "Facebook Video",
+        "templates": [          
+          "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
+          "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
+          "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
+          "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
+          "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})"
+        ],
+        "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
+    },
+    {
         "name": "Facebook Post",
         "templates": [
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
@@ -10,18 +22,7 @@
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"            
         ],
         "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
-    },
-    {
-        "name": "Facebook Video",
-        "templates": [          
-          "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
-          "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
-          "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
-          "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
-          "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+"
-        ],
-        "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
-    },
+    },    
     {
         "name": "Facebook Page",
         "templates": [
@@ -41,8 +42,8 @@
     {
         "name": "Instagram user page",
         "templates": [
-            "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)",
-            "(instagr\\.am/)[a-zA-Z0-9_-]+/(p/[a-zA-Z0-9_-]+)"
+            "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)",
+            "(instagr\\.am/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)"
         ],
         "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://www.{1}{2}"
     },
@@ -88,7 +89,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:www\\.)?scribd\\.com)/(?:doc|book|read|document|embeds)/(.*)"
+            "((?:\\w+\\.)?scribd\\.com)/(?:doc|book|read|document|embeds|presentation|fullscren)/(.*)"
         ],
         "endpoint": "https://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
@@ -302,10 +303,12 @@
         "endpoint": "https://ifttt.com/oembed?url=https://ifttt.com/recipes/{1}&format={format}"
     },
     {
-        "name": "Polldaddy",
+        "name": "Crowdsignal",
         "templates": [
             "polldaddy\\.com/(?:poll|s)/.*",
-            ".*\\.polldaddy.com/(?:poll|s)/.*"
+            ".*\\.polldaddy.com/(?:poll|s)/.*",
+            "poll\\.fm/.*",
+            ".*\\.survey\\.fm/.*"
         ],
         "endpoint": "https://polldaddy.com/oembed/"
     },
@@ -401,9 +404,10 @@
     {
         "name": "Widgetic",
         "templates": [
-            "widgetic.com/widgets/.*"
+            "widgetic.com/widgets/.*",
+            "app.widgetic.com/.*"
         ],
-        "endpoint": "https://widgetic.com/services/oembed/"
+        "endpoint": "https://app.widgetic.com/services/oembed/"
     },
     {
         "name": "Adobe Stock",
@@ -589,5 +593,31 @@
             "figma.com/.*"
         ],
         "endpoint": "https://www.figma.com/api/oembed"
+    }, {
+        "name": "Archilogic",
+        "templates": [        
+            "viewer.archilogic.com/.*",
+            "editor.archilogic.com/.*"
+        ],
+        "endpoint": "https://spaces.archilogic.com/oembed"
+    }, {
+        "name": "Deezer",
+        "templates": [
+            "(?:www\\.)?deezer.com/(?:\\w+/)?(track|playlist|album)/(\\d+)"
+        ],
+        "endpoint": "http://api.deezer.com/oembed?url=https://www.deezer.com/{1}/{2}"
+    }, {
+        "name": "Podigee",
+        "templates": [
+            ".*\\.podigee.io/.*"
+        ],
+        "endpoint": "https://embed.podigee.com/oembed?type=iframe&url={url}"
+    }, {
+        "name": "Podbean",
+        "templates": [
+            "(?:www\\.)podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
+            "(?:www\\.)podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
+        ],
+        "endpoint": "http://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
     }
 ]

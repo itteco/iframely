@@ -4,5 +4,6 @@
    <% if (pinWidth) { %>data-pin-scale-height="<%= height %>"<% } %>
    <% if (pinWidth) { %>data-pin-board-width="<%= width %>"<% } %>
    <% if (type === 'embedPin') { %> data-pin-width="large" <% } %>
+   <% if (type === 'embedPin' && hideDescription ) { %> data-pin-terse="true" <% } %>
 ></a>
-<script async type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script async type="text/javascript" src="https://assets.pinterest.com/js/pinit.js"></script>

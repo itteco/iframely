@@ -20,7 +20,9 @@ Requires Node version 0.10.22 and up.
 
 ## Not included as compared to Cloud API
 
-Hosted [cloud APIs](https://iframely.com) add optional iFrame renders and number of widgets such as cards, GIF support, AMP, and others. This open-source version provides the web parsers only, though hosted API uses data from parsers as-is. The API endpoints between the version should match format pretty closely, though there might be minor discrepancies.
+Hosted [cloud APIs](https://iframely.com) add optional iFrame renders and number of widgets such as cards, GIF support, player events, AMP, and others. Our [more/less](https://iframely.com/docs/more-less) toggle for per-URL customizations, predictive height mechanism for non-iFrame embeds, lazy-loading, type-based whitelist and fallbacks as well as number of other customizations is only available in the cloud. 
+
+This open-source version provides the web parsers only, though hosted API uses data from parsers as-is. The API endpoints between the version should match format pretty closely, though there might be minor discrepancies.
 
 There's also a bunch of domain parsers that are not included in self-hosted version. Those are the parsers that we consider vulnarable for changes on publisher's origin servers and so requiring quicker turnaround time for any updates and fixes.
 

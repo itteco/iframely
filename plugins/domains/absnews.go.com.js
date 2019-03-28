@@ -9,7 +9,7 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-                href: "//abcnews.go.com/video/embed?id=" + urlMatch[1],                
+                href: "https://abcnews.go.com/video/embed?id=" + urlMatch[1],                
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 640 / 360

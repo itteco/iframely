@@ -7,6 +7,7 @@ module.exports = {
         "oembed-author",
         "oembed-title",
         "oembed-site",
+        "oembed-description",
         // "og-video",
         'domain-icon'
     ],

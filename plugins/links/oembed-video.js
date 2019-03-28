@@ -11,9 +11,9 @@ module.exports = {
         }
 
         var player = {
-            type: CONFIG.T.text_html,  // Always an iframe, either native, or hosted
             rel:[CONFIG.R.oembed, CONFIG.R.player]
         };
+
 
         // allow encoded entities if they start from $lt;
         // ex.: http://www.nfb.ca/film/wild_life/
@@ -31,15 +31,21 @@ module.exports = {
 
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1) {
+        if ($iframe.length == 1 && $iframe.attr('src')) {
             player.href = $iframe.attr('src');
 
             if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
                 player.href = player.href.replace(/^http:\/\//i, '//');
             }
+            if (/\.mp4(\?[^\?\/]+)?$/i.test(player.href)) {
+                player.accept = [CONFIG.T.text_html, CONFIG.T.video_mp4]
+            } else {
+                player.type = CONFIG.T.text_html;
+            }
 
         } else { 
             player.html = html; // will render in an iframe
+            player.type = CONFIG.T.text_html;
         }
 
 

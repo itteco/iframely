@@ -1,6 +1,4 @@
-var iframelyCore = require('../../lib/core');
-var utils = require('../../utils');
-var async = require('async');
+var getProviderOptionsQuery = require('../api/utils').getProviderOptionsQuery;
 
 module.exports = function(app) {
 
@@ -16,7 +14,8 @@ module.exports = function(app) {
             uri: req.query.uri,
             mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin],
             disableCache: !!{"on":1, "true":1}[req.query.refresh],
-            DEBUG: DEBUG
+            DEBUG: DEBUG,
+            QUERY: getProviderOptionsQuery(req.query)
         });
     });
 };

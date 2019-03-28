@@ -31,7 +31,6 @@ module.exports = {
 
     getLink: function(oembed, options, cb) {
 
-
         if (oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
             var links = [];
 
@@ -67,7 +66,7 @@ module.exports = {
                     links.push({
                         href: $iframe.attr('src').replace('http:', ''),
                         type: CONFIG.T.text_html,
-                        rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.html5],
+                        rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
                         "aspect-ratio": aspect,
                         "padding-bottom": 38
                     });
@@ -84,6 +83,8 @@ module.exports = {
                 cb(null, links);
 
             });
+        } else {
+            cb (null, null);
         }
 
 

@@ -1,6 +1,9 @@
 module.exports = {
 
-	re: /https?:\/\/widgetic\.com\/widgets\//i,
+	re: [
+        /https?:\/\/widgetic\.com\/widgets\//i,
+        /https?:\/\/app\.widgetic\.com\//i
+    ],
 
 	// Use only mixins that depend on oembed, as otherwise htmlparser will 403
     mixins: [

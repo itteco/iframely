@@ -10,7 +10,7 @@ module.exports = {
 
         return {
             href: "https://vbox7.com/emb/external.php?vid=" + urlMatch[1],
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player,  CONFIG.R.html5],
             "aspect-ratio": 16 / 9
         }

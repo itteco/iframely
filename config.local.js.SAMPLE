@@ -58,7 +58,9 @@
         - memcached - https://github.com/3rd-Eden/node-memcached
         */
         CACHE_ENGINE: 'node-cache',
-        CACHE_TTL: 0, // In milliseconds. 0 for 'never expire' to let cache engine decide itself when to evict the record
+        CACHE_TTL: 0, // In milliseconds. 
+        // 0 = 'never expire' for memcached & node-cache to let cache engine decide itself when to evict the record
+        // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
         /*
         // Redis cache options.

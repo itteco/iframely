@@ -42,7 +42,7 @@ module.exports = {
             return;
         }
 
-        var img_src = 'https://maps.googleapis.com/maps/api/streetview?size=600x450&location=' + gmap.location + '&key=' + api_key + (signature ? '&signature=' + signature : '');
+        var img_src = 'https://maps.googleapis.com/maps/api/streetview?size=620x465&location=' + gmap.location + '&key=' + api_key + (signature ? '&signature=' + signature : '');
         
         if (gmap.heading ) { 
             img_src += "&heading=" + gmap.heading;
@@ -63,8 +63,8 @@ module.exports = {
             type: CONFIG.T.image,
             rel: CONFIG.R.thumbnail
             // let's validate that Maps key has street view enabled
-            // width: 600,
-            // height: 450
+            // width: 620,
+            // height: 465
         };
     }
 

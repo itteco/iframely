@@ -20,6 +20,18 @@ module.exports = {
                 player.width = twitter.player.width;
             }
 
+            if (!whitelistRecord.isAllowed('twitter.player', 'audio')) {
+                player.rel.push[CONFIG.R.audio];
+            }
+
+            if (!whitelistRecord.isAllowed('twitter.player', 'slideshow')) {
+                player.rel.push[CONFIG.R.slideshow];
+            }
+
+            if (!whitelistRecord.isAllowed('twitter.player', 'playlist')) {
+                player.rel.push[CONFIG.R.playlist];
+            }
+
             if (whitelistRecord.twitter && whitelistRecord.twitter['player-autoplay']) {
                 player.autoplay = whitelistRecord.twitter['player-autoplay'];
             }
