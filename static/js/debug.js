@@ -320,12 +320,14 @@ function processUrl() {
     $apiUri.text(APICall).attr('href', APICall);
 
     // 1) Fetch data.
-    $.iframely.getPageData(uri, {
+    var query = {
         debug: true,
         group: false,
         mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked"),
         refresh: $('[name="refresh"]').is(":checked")
-    }, function(error, data, jqXHR) {
+    };
+    $.extend(query, QUERY);
+    $.iframely.getPageData(uri, query, function(error, data, jqXHR) {
 
         $loader.hide();
 
