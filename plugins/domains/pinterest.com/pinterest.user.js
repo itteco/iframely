@@ -13,27 +13,29 @@ module.exports = {
         "og-title"
     ],    
 
-    getLink: function(url, og, options) {
+    getLink: function(url, meta, options) {
 
-        if (og.type !== 'profile') {
-            return;
-        }
+        var og = meta.og;
 
-        return {
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
-            template: "pinterest.widget",
-            template_context: {
-                url: og.url || url,
-                title: "Pinterest User",
-                type: "embedUser",
+        if (/profile/.test(og.type) || // this check sometimes when Pinterest misses cache hits: og.type is 'website' in those cases
+            (meta.twitter && meta.twitter.app && meta.twitter.app.url && /\/user\//i.test(meta.twitter.app.url.iphone))) {
+
+            return {
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                template: "pinterest.widget",
+                template_context: {
+                    url: og.url || url,
+                    title: "Pinterest User",
+                    type: "embedUser",
+                    width: options.maxWidth || DEFAULT_WIDTH,
+                    height: 600,
+                    pinWidth: 120
+                },
                 width: options.maxWidth || DEFAULT_WIDTH,
-                height: 600,
-                pinWidth: 120
-            },
-            width: options.maxWidth || DEFAULT_WIDTH,
-            height: 600+120
-        };
+                height: 600+120
+            };
+        }
     },
 
     tests: [{
