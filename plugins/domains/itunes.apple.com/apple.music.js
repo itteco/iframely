@@ -6,7 +6,7 @@ module.exports = {
     re: [
         /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
         /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/()(album)\/id(\d+)\??/i
+        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i          
     ],
 
     mixins: [
@@ -56,6 +56,7 @@ module.exports = {
         'https://itunes.apple.com/jp/playlist/2019-3-16-maison-book-girl-%25E7%25A6%258F%25E5%25B2%25A1drum-son/pl.u-6mo4lNLiBvm0AAx?app=music',
         'https://itunes.apple.com/th/album/icecream/1263324000?i=1263324326',
         'https://itunes.apple.com/jp/album/%25E6%2584%259B%25E3%2581%2597%25E3%2581%259F%25E6%2597%25A5-single/1455190412',
-        'https://itunes.apple.com/us/album/eartha/1450438412?i=1450438420'
+        'https://itunes.apple.com/us/album/eartha/1450438412?i=1450438420',
+        'https://itunes.apple.com/album/1457610711?app=itunes&ls=1'
     ]
 };
