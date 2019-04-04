@@ -425,22 +425,12 @@
         "endpoint": "https://www.reddit.com/oembed"
     },
     {
-        "name": "Academie de Nantes",
-        "templates": [
-            "([a-z0-9]+)\\.ac\\-nantes\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-nantes\\.fr/mediacad/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-nantes\\.fr/(m/\\d+)"            
-        ],
-        "endpoint": "https://{1}.ac-nantes.fr/default/media/display/{2}/d/j?format={format}"
-    },    
-    {
         "name": "Academie de Bordeaux etc",
         "templates": [
-            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/(m/\\d+)"            
+            "([a-z0-9]+\\.ac\\-\\w+\\.fr(?:/\\w+)?)/default/(?:[\\/a-z0-9]+)?/(m/\\d+)",
+            "([a-z0-9]+\\.ac\\-\\w+\\.fr(?:/\\w+)?)/(m/\\d+)"
         ],
-        "endpoint": "http://{1}.ac-{2}.fr/mediacad/default/media/display/{3}/d/j?format={format}"
+        "endpoint": "https://{1}/default/media/display/{2}/d/j?format={format}"
     },
     {
         "name": "RTL XL",
