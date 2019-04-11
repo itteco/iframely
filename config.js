@@ -263,5 +263,7 @@
 
     config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
 
+    config.TYPES = Object.values(config.T);
+
     module.exports = config;
 })();

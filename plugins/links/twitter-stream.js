@@ -4,7 +4,7 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
         href: stream.value || stream,
-        accept: Object.values(CONFIG.T).indexOf(stream.content_type) > -1
+        accept: CONFIG.TYPES.indexOf(stream.content_type) > -1
             ? stream.content_type 
             : ['video/*', 'audio/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl],
         rel: [CONFIG.R.player, CONFIG.R.twitter, "allow"],
