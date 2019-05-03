@@ -1,8 +1,9 @@
 CONTAINER	:= iframely
 HUB_USER	:= ${USER}
 IMAGE_NAME	:= ${HUB_USER}/${CONTAINER}
-VERSION		:= v1.2.7
-
+VERSION		:= v1.3.0
+EXPOSEPORT	:= 8061
+PUBLISHPORT := ${EXPOSEPORT}
 
 build:
 	git fetch upstream
@@ -12,7 +13,7 @@ build:
 	git checkout ${VERSION}
 	docker \
 		build \
-		--rm --tag=${VERSION}
+		--rm --tag=${CONTAINER} .
 	@echo Image tag: ${VERSION}
 
 start: run
@@ -25,8 +26,9 @@ run:
 		--tty \
 		--hostname=${CONTAINER} \
 		--name=${CONTAINER} \
-		-v config.local.js.SAMPLE:/iframely/config.local.js \
-		$(IMAGE_NAME)
+		-p ${PUBLISHPORT}:${EXPOSEPORT} \
+		-v $(PWD)/config.local.js.SAMPLE:/iframely/config.local.js \
+		$(CONTAINER)
 
 shell:
 	docker \
@@ -36,21 +38,25 @@ shell:
 		--tty \
 		--hostname=${CONTAINER} \
 		--name=${CONTAINER} \
-		-v config.local.js.SAMPLE:/iframely/config.local.js \
-		$(IMAGE_NAME) \
-		/bin/bash
+		-p ${PUBLISHPORT}:${EXPOSEPORT} \
+		--entrypoint "/bin/ash" \
+		-v $(PWD)/config.local.js.SAMPLE:/iframely/config.local.js \
+		$(CONTAINER) 
 
 exec:
 	docker exec \
 		--interactive \
 		--tty \
-		${IMAGE_NAME} \
-		- v 
-		/bin/bash
+		${CONTAINER} \
+		/bin/ash
 
 stop:
+	-docker kill ${CONTAINER}
+	-docker rm ${CONTAINER}
+
+rm:
 	docker \
-		kill ${CONTAINER}
+		rm ${CONTAINER}
 
 history:
 	docker \
@@ -60,7 +66,7 @@ clean:
 	-docker \
 		rm ${CONTAINER}
 	-docker \
-		rmi ${IMAGE_NAME}
+		rmi ${CONTAINER}
 	git checkout master
 	git branch -d ${VERSION}
 
