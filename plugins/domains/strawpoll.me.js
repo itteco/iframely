@@ -15,7 +15,7 @@ module.exports = {
         var width = parseInt(iframe.css('width').replace(/px$/, ''), 10) || 690;
 
         return {
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.html5],
             href: 'https://www.strawpoll.me/embed_1/' + urlMatch[1],
             height: height,

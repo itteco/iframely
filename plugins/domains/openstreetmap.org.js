@@ -55,7 +55,7 @@ function getBBox(lat, lon, zoom, width, height) {
 
 module.exports = {
 
-    re: /^https?:\/\/(?:www\.)?openstreetmap\.org\/(?:\?.+|\#.*map=.+|export\/embed\.html\?)/i,
+    re: /^https?:\/\/(?:www\.)?openstreetmap\.org\/(?:node\/\d+)?(?:\?.+|\#.*map=.+|export\/embed\.html\?)/i,
 
     mixins: [
         "*"

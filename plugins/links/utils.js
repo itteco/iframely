@@ -134,7 +134,7 @@ module.exports = {
             var media = v.media;
             if (media) {
                 CONFIG.MEDIA_ATTRS.forEach(function(ma) {
-                    var re = "\\b" + ma + "\\s*:\\s*([\\d./:]+)(?:px)?\\b";
+                    var re = "(?:^|[^-])\\b" + ma + "\\s*:\\s*([\\d./:]+)(?:px)?\\b";
                     var m = media.match(re);
                     if (m) {
                         link[ma] = m[1];

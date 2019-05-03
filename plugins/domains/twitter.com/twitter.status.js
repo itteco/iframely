@@ -60,7 +60,7 @@ module.exports = {
 
                 var qs = {
                     hide_media:  c.hide_media, 
-                    hide_thread: c.hide_thread,
+                    hide_thread: true, //  c.hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
                     omit_script: c.omit_script
                 };
 
@@ -157,7 +157,7 @@ module.exports = {
                 twitter_oembed: oembed
             };
 
-            if (c.enable_video || options.getProviderOptions(CONFIG.O.compact, false) || /pic\.twitter\.com/i.test(oembed.html)) {
+            if (/pic\.twitter\.com/i.test(oembed.html)) {
                 result.__allow_twitter_og = true;
                 options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
             } else {
@@ -181,54 +181,62 @@ module.exports = {
 
     getLink: function(twitter_oembed, twitter_og, options) {
 
-        var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
         var html = twitter_oembed.html;
 
+        // Apply config
         var locale = options.getProviderOptions('locale');
         if (locale && /^\w{2}(?:\_|\-)\w{2,3}$/.test(locale)) {
             html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+(?:\_|\-)\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale.replace('-', '_') + '"');
         }
         
-        if (options.getProviderOptions('twitter.center', true)) {
+        if (options.getProviderOptions('twitter.center', true) && !/\s?align=\"center\"/.test(html)) {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" align="center"');
         }
 
-        if (options.getProviderOptions('twitter.dnt')) {
+        if (options.getProviderOptions('twitter.dnt') && !/\s?data-dnt=/.test(html)) {
             html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-dnt="true"');
-        }        
+        }
 
         var links = [];
 
-        if (c.enable_video
-            && twitter_og && twitter_og.video && twitter_og.video.url && twitter_og.video.width && twitter_og.video.height && twitter_og.image 
-            && /^https?:\/\/pbs\.twimg\.com\/(?:media|amplify|ext_tw)/i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image) ) {            
-            // exclude not embedable videos with proxy images, ex:
-            // https://twitter.com/nfl/status/648185526034395137
+        // Handle tweet options
+        var has_thread = /\s?data-conversation=\"none\"/.test(html);
+        var has_media = ((twitter_og !== undefined) && (twitter_og.video !== undefined)) 
+                        || /https:\/\/t\.co\//i.test(html) || /pic\.twitter\.com\//i.test(html) 
+                        || ((twitter_og.image !== undefined) && (twitter_og.image.user_generated !== undefined || !/\/profile_images\//i.test(twitter_og.image)));
 
-            links.push({
-                href: twitter_og.video.url.replace('?embed_source=facebook', ''),
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                accept: CONFIG.T.text_html, // let's check it
-                'aspect-ratio': twitter_og.video.width / twitter_og.video.height
-            });
-
+        if (has_thread && (!options.getRequestOptions('twitter.hide_thread', true) || options.getProviderOptions(CONFIG.O.more, false) )) {
+            html = html.replace(/\s?data-conversation=\"none\"/i, '');
         }
 
-        if (options.getProviderOptions(CONFIG.O.compact, false)
-            && !/\s?data-conversation=\"none\"/.test(html)) {
-            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-conversation="none"');
+        if (has_media && options.getRequestOptions('twitter.hide_media', false) && !/\s?data-cards=\"hidden\"/.test(html)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-cards="hidden"');
+        } else if (!options.getRequestOptions('twitter.hide_media', true) && /\s?data-cards=\"hidden\"/.test(html)) {
+            html = html.replace(/\s?data-cards=\"hidden\"/i, '');
         }
 
-        if (options.getProviderOptions(CONFIG.O.full, false)
-            && /\s?data-conversation=\"none\"/.test(html)) {
-            html = html.replace('data-conversation="none"', '');
+        // Declare options
+        var opts = {};
+
+        if (has_thread) {
+            opts.hide_thread = {
+                label: 'Hide previous Tweet in conversation thread',
+                value: /\s?data-conversation=\"none\"/.test(html)
+            }
         }
+        if (has_media) {
+            opts.hide_media = {
+                label: 'Hide photos, videos, and cards',
+                value: /\s?data-cards=\"hidden\"/.test(html)
+            }
+        }     
 
         var app = {
             html: html,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-            "max-width": twitter_oembed["width"] || 550
+            "max-width": twitter_oembed["width"] || 550,
+            options: opts
         };
 
         if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet

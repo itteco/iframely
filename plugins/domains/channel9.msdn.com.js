@@ -8,7 +8,7 @@ module.exports = {
         return {
             href: 'https://channel9.msdn.com/Events/' + urlMatch[1] + '/player',
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             // Has issue with iframe size. Site always makes it bigger with scroller. But video fits.
             'aspect-ratio': 960/540
         };

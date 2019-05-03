@@ -4,14 +4,9 @@ module.exports = {
 
     provides: '__ooyalaPlayer',
 
-    getData: function(meta, whitelistRecord) {
+    getData: function(video_src, meta, whitelistRecord) {
 
-        // do not process if there is a whitelist record for this domain
-        if (!whitelistRecord.isDefault) {return;}
-        
-        var video_src = (meta.twitter && meta.twitter.player && meta.twitter.player.value) || (meta.og && meta.og.video && meta.og.video.url);
-
-        if (!video_src || video_src instanceof Array || !/^(?:https?:)?\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
+        if (!/^(?:https?:)?\/\/(?:www\.)?(?:player\.)?ooyala\.com\//i.test(video_src)) {
             return;
         }
 
@@ -86,19 +81,23 @@ module.exports = {
                         }
 
                         rel.push(CONFIG.R.html5);
-                        
+
+                    /* disable player.swf - we can not reliably detect if the video is valid or not */
                     } else {
-                        href = href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
-                        type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
+                        href = null; // href + 'player.swf?embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true';
+                        // type = CONFIG.T.flash; // there's a 302 re-direct at the moment so it returns as text/html
                     }
 
-                    var player = {
-                        href: href,
-                        rel: rel,
-                        type: type,
-                        'aspect-ratio': aspect,
-                        autoplay: type === CONFIG.T.text_html ? 'options[autoplay]=true' : 'autoplay=1'
-                    };
+                    var player = null;
+                    if (href) { // exclude player.swf
+                        var player = {
+                            href: href,
+                            rel: rel,
+                            type: type,
+                            'aspect-ratio': aspect,
+                            autoplay: type === CONFIG.T.text_html ? 'options[autoplay]=true' : 'autoplay=1'
+                        };
+                    }
 
                     return cb(null, player);
                 }
@@ -113,11 +112,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.theverge.com/2013/8/5/4588634/moto-x-hands-on-review-video",
-        "http://www.vox.com/explains/2014/4/23/5643382/how-bitcoin-is-like-the-internet-in-the-80s",
-        "http://www.polygon.com/2013/10/23/4947500/cooperatives-pokemon-x-and-y",
         "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/"
-        // "http://www.businessinsider.com/leonardo-dicaprio-attacks-big-oil-united-nations-2014-9",
-        // "http://uk.businessinsider.com/tony-hawk-pro-skater-5-trailer-2015-7?r=US&IR=T"
     ]
 };

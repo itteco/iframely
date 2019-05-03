@@ -1,13 +1,7 @@
 module.exports = {
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "twitter-description",
-        "keywords",
-        "twitter-title",
-        "twitter-site"
+        "*"
     ],
 
     getLink: function(cheerio) {
@@ -17,8 +11,8 @@ module.exports = {
 
             if (guid) {
                 return {
-                    href: '//assets.nationalgeographic.com/modules-video/assets/ngsEmbeddedVideo.html?guid=' + guid,                
-                    type: CONFIG.T.text_html,
+                    href: 'https://assets.nationalgeographic.com/modules-video/assets/ngsEmbeddedVideo.html?guid=' + guid,                
+                    accept: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     'aspect-ratio': 640/365
                 };
@@ -29,8 +23,6 @@ module.exports = {
     tests: [{
         page: "http://video.nationalgeographic.com/",
         selector: 'a.video'
-    }, {
-        skipMixins: ['keywords']
     },
         "http://video.nationalgeographic.com/video/magazine/ngm-war-dogs-layka"
     ]

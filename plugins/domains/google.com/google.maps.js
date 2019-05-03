@@ -21,6 +21,7 @@ module.exports = {
         // search
         // https://www.google.com/maps/search/Brick%20House%20Cafe,%20Brannan%20Street,%20San%20Francisco,%20CA/@37.7577,-122.4376,12z
         /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/(search)\/([^\/\?]+)\/?(@[^\/]+)?/i,
+        /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/?\?(q)=([^&@\/\?]+)$/i,
 
         // view
         // https://www.google.com.br/maps/@-23.5812118,-46.6308331,13z?hl=pt-BR
@@ -37,20 +38,22 @@ module.exports = {
         // https://www.google.com.br/maps/@-23.584904,-46.609612,3a,75y,200h,90t/data=!3m5!1e1!3m3!1sxlw3YNvRpz05D-1ayD8Z2g!2e0!3e5?hl=pt-BR
         
 
-        // https://www.google.co.kr/maps/place/132+Hawthorne+St,+San+Francisco,+CA+94107,+USA/@37.7841182,-122.3973147,15z/data=!4m2!3m1!1s0x8085807c23cc4ebb:0xd9372e1e753f6bc7        
+        // https://www.google.co.kr/maps/place/132+Hawthorne+St,+San+Francisco,+CA+94107,+USA/@37.7841182,-122.3973147,15z/data=!4m2!3m1!1s0x8085807c23cc4ebb:0xd9372e1e753f6bc7
 
     ],
 
     provides: 'gmap',
 
     mixins: [
-        "favicon" // Also used to make html parser verify that URL doesn't 404
+        "*",
     ],
 
     getMeta: function(gmap) {
-        return {
-            title: (gmap.q && decodeURIComponent(gmap.q).replace (/\+/g, ' ').replace (/%20/g, ' ')) || gmap.center || "Google Maps",
-            site: "Google Maps"
+        if (!/^place_id:/.test(gmap.q)) {
+            return {
+                title: (gmap.q && decodeURIComponent(gmap.q).replace (/\+/g, ' ').replace (/%20/g, ' ')) || gmap.center || "Google Maps",
+                site: "Google Maps"
+            }
         }
     },
 
@@ -63,10 +66,6 @@ module.exports = {
         var api_key = options.getProviderOptions('google.maps_key');
         if (!api_key) {
             return;
-        }
-
-        if (gmap.mode == "directions" && !gmap.zoom ) {
-            gmap.zoom = 12; // as a fallback only, to make sure directions never return an error
         }
 
         var map = "https://www.google.com/maps/embed/v1/" + gmap.mode + "?key=" + api_key;
@@ -96,6 +95,10 @@ module.exports = {
 
         }
 
+        if ((gmap.mode == "directions" || gmap.mode =='place') && !gmap.zoom ) {
+            gmap.zoom = gmap.mode =='place' ? 17: 12; // as a fallback only, to make sure directions never return an error
+        }        
+
         var zoom = Math.floor(gmap.zoom);
 
         if (gmap.zoom) {
@@ -106,18 +109,40 @@ module.exports = {
             map = map + "&location=" + gmap.location + "&heading=" + gmap.heading;
         }
 
-        return [{
+        var links = [{
             href: map,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
-            "aspect-ratio": 600 / 450
-        }, {
-            href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=600x450' + '&key=' + api_key,
-            type: CONFIG.T.image,
-            rel: CONFIG.R.thumbnail
-            // width: 600, // make sure API is authorized to use static maps
-            // height: 450
-        }];
+            "aspect-ratio": eval(gmap.aspect.replace('x', '/')),
+            options: {
+                zoom: {
+                    label: 'Zoom',
+                    value: gmap.zoom,
+                    range: {min: 3, max: 21} // avoid zoom < 3 for portrait to avoid grey areas
+                },
+                aspect: {
+                    label: 'Map orientation',
+                    value: gmap.aspect,
+                    values: {
+                        '600x450': 'Album',
+                        '450x600': 'Portrait',
+                        '600x600': 'Square'
+                    }
+                }
+            }
+        }] 
+
+        if (!/^place_id:/.test(gmap.q)) {
+            links.push({
+                href: "https://maps.googleapis.com/maps/api/staticmap?center=" + (gmap.center || gmap.q) + '&zoom=' + (zoom || 12) + '&size=' + gmap.aspect + '&key=' + api_key,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+                // width: 600, // make sure API is authorized to use static maps
+                // height: 450
+            });
+        }
+
+        return links;
     },
 
     getData: function(url, urlMatch, options, cb) {
@@ -136,7 +161,8 @@ module.exports = {
 
         var modeMap = {
             'place': 'place',
-            'search': 'search',            
+            'search': 'search',
+            'q': 'search',           
             'dir': 'directions',
             'maps': 'view'
         };
@@ -151,6 +177,10 @@ module.exports = {
 
         // Search query is always returned by urlMatch, even if empty
         gmap.q = urlMatch[2];
+
+        if (/^place_id:/.test(gmap.q)) {
+            gmap.mode = 'place';
+        }
 
         if (/\//i.test(gmap.q)) { // directions with waypoints, the last one is the destination
             var waypoints = gmap.q.split('/');
@@ -197,6 +227,10 @@ module.exports = {
                 gmap.location = gmap.center;
             }
         }
+
+        gmap.aspect = options.getRequestOptions('gmap.aspect', '600x450');
+        if (!/^\d+x\d+$/.test(gmap.aspect)) {gmap.aspect = '600x450';}
+        gmap.zoom = parseInt(options.getRequestOptions('gmap.zoom', gmap.zoom));
 
 
         cb(null, {

@@ -146,7 +146,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
             pluginTest.save(cb);
         },
 
-        function fixProgress(a, b, cb) {
+        function fixProgress(a, cb) {
             if (testOnePlugin) {
                 cb(null, a);
             } else {
@@ -203,7 +203,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         } else if (url.page && url.selector) {
                             // Find urls on page by jqeury selector.
                             utils.fetchUrlsByPageAndSelector(url.page, url.selector, {
-                                getUrl: url.getUrl
+                                getUrl: url.getUrl,
+                                urlAttribute: url.urlAttribute
                             }, getFetchTestUrlsCallback(url, cb));
 
                         } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
@@ -257,7 +258,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
             testUrlsSet.save(cb);
         },
 
-        function(testUrlsSet, count, cb) {
+        function(testUrlsSet, cb) {
 
             async.eachSeries(testUrlsSet.urls, function(url, cb) {
 

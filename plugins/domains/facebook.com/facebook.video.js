@@ -1,3 +1,5 @@
+const DEFAULT_WIDTH = 640;
+
 module.exports = {
 
     re: [
@@ -19,26 +21,52 @@ module.exports = {
             rel: [CONFIG.R.ssl, CONFIG.R.html5],
         }; 
 
-        if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/.test(html)) {
-            // thank you FB for not working with comments
-            // https://developers.facebook.com/docs/plugins/embedded-comments
-
-            var width = options.maxWidth || options.getProviderOptions('facebook.width', 640);            
-            html = html.replace(/class=\"fb\-video\"/, 
-                'class="fb-comment-embed" data-include-parent="'
-                + (options.getProviderOptions('facebook.include_comment_parent') || options.getProviderOptions(CONFIG.O.full) ? 'true' : 'false') + '"'
-                + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"')
-                ); 
+        if (/comment_id=\d+/i.test(url)) {
+            var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
             link.rel.push (CONFIG.R.app);
-        } else {
-            link.rel.push (CONFIG.R.player);
 
-            if (options.getProviderOptions(CONFIG.O.full) && !/data\-show\-text/.test(html)) {
-                html = html.replace(/class=\"fb\-video\"/, 'class="fb-video" data-show-text="true"');
+            if (!/class=\"fb\-comment\-embed\"/i.test(html)) {
+                // thank you FB for not working with comments
+                // https://developers.facebook.com/docs/plugins/embedded-comments
+                html = html.replace(/class=\"fb\-video\"/i, 'class="fb-comment-embed"' + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"'));
             }
-            // aspect-ratio is incorrect in oEmbed responses.
-            // Let's skip it and check og image instead, if any
-            // link['aspect-ratio'] = oembed.thumbnail_height && oembed.thumbnail_width ? oembed.thumbnail_width / oembed.thumbnail_height : 16/9
+
+            if (/&reply_comment_id=/i.test(url)) {
+                html = html.replace(/data\-include\-parent=\"(true|false)\"/i, ''); // future-proof
+                html = html.replace(/class=\"fb\-comment\-embed\"/i, 
+                    'class="fb-comment-embed" data-include-parent="' 
+                    + (options.getRequestOptions('facebook.include_comment_parent', false) || options.getProviderOptions(CONFIG.O.more, false)) + '"');
+                
+                link.options = {
+                    include_comment_parent: {
+                        label: "Include parent comment (if url is a reply)",
+                        value: /data\-include\-parent=\"true\"/i.test(html)
+                    }
+                };
+            } else {
+                link['max-width'] = width;
+            }
+
+        } else {            
+
+            if (options.getRequestOptions('facebook.show_text', false) || options.getProviderOptions(CONFIG.O.more, false)) {
+                html = html.replace(/data\-show\-text=\"(true|false)\"/i, ''); // future-proof
+                html = html.replace(/class=\"fb\-video\"/i, 'class="fb-video" data-show-text="true"');
+                link.rel.push (CONFIG.R.app);
+            } else {
+                link.rel.push (CONFIG.R.player);
+            }
+
+            link.options = {
+                show_text: { // different name from posts to allow separate config and defaults
+                    label: 'Show author\'s text caption',
+                    value: /data-show-text=\"true\"/i.test(html)
+                }
+            }
+
+            if (oembed.width && oembed.height) {
+                link['aspect-ratio'] = oembed.width / oembed.height;
+            }
 
         }
 
@@ -56,7 +84,6 @@ module.exports = {
         "https://www.facebook.com/tv2nyhederne/videos/1657445024271131/?comment_id=1657463030935997",
         "https://www.facebook.com/MeanwhileinCanada1/videos/1302492646464430/",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
-        "https://www.facebook.com/7elephantsdubai/videos/778709522285070/",
         {
             noFeeds: true
         }

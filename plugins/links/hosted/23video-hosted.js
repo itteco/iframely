@@ -7,7 +7,7 @@ module.exports = {
 
         if (whitelistRecord.isDefault
             && oembed.type == 'video' && oembed.width && oembed.height
-            && meta.em && meta.em.schema == '23video') {
+            && ((meta.em && meta.em.schema == '23video') || oembed.provider_name == 'TwentyThree')) {
 
             var players = [];
 

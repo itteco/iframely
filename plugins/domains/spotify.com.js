@@ -1,22 +1,29 @@
-var cheerio = require('cheerio');
+const cheerio = require('cheerio');
 
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode)/i
     ],
 
     mixins: [
-        "oembed-title",
-        "oembed-thumbnail",
-        "oembed-site"
-        //"domain-icon"
+        "oembed-site",
+        "domain-icon"
     ],
 
-    // keep dependency on oEmbed only. Otherwise, there's redirect to relative path for "play.*" and no embeds as a result
-    // -- plugin redirect (by "htmlparser") /error/browser-not-supported.php
+    getMeta: function(meta) {
+        return {
+            title: meta.og && meta.og.title,
+            date: meta.music && meta.music.release_date,
+            author: meta.twitter && meta.twitter.audio && meta.twitter.audio.artist_name,
+            author_url: meta.music && meta.music.musician,
+            duration: meta.music && meta.music.duration,
+            description: meta.og && meta.og.description,
+            canonical: meta.og && meta.og.url
+        }
+    },
 
-    getLink: function(oembed, options) {
+    getLink: function(oembed, meta, options) {
 
         var $container = cheerio('<div>');
 
@@ -26,31 +33,53 @@ module.exports = {
 
         var $iframe = $container.find('iframe');
 
-
-        // if embed code contains <iframe>, return src
         if ($iframe.length == 1) {
 
             var src = $iframe.attr('src');
 
-            // configure as `theme: 'white'`
-            if (options.getProviderOptions('spotify.theme')) {
-                src += (src.indexOf ('?') == -1 ? '?' : '&') + 'theme=' + options.getProviderOptions('spotify.theme');
-            }
-
-            var horizontal_player = options.getProviderOptions(CONFIG.O.compact, false) || (/\/track/i.test(src) && (options.getProviderOptions('players.horizontal', false) || options.getProviderOptions('soundcloud.old_player', false) || options.getProviderOptions('bandcamp.small_player', false)));
+            var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
 
             var player = {
                 href: src,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.ssl, CONFIG.R.html5],
-                height: horizontal_player ? 80 : (oembed.height || 300)
+                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
+                options: {}
             };
 
-            if (/album|playlist/.test(src)) {
+            if (/album|playlist|show/.test(src)) {
+                var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
+                player.options.playlist = {
+                    label: CONFIG.L.playlist,
+                    value: include_playlist
+                };
+                player.media = horizontal_player === false && include_playlist 
+                    ? {
+                        'aspect-ratio': 4/3,
+                        'padding-bottom': 80,
+                    } : {
+                        height: !include_playlist ? 80 : oembed.height || 400
+                    };
+            } else {
+                player.rel.push(CONFIG.R.audio);
+                player.options.horizontal = {
+                    label: CONFIG.L.horizontal,
+                    value: horizontal_player === true
+                };
+
+                player.media = horizontal_player ? {height: 80} : {
+                    'aspect-ratio': 1,
+                    'padding-bottom': 80,
+                    'max-width': 500
+                };
             }
 
             return [player, {
+                href: (meta.og && meta.og.image) || oembed.thumbnail_url,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            }, 
+            {
                 href: 'https://open.scdn.co/static/images/touch-icon-114.png',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.icon
@@ -60,13 +89,18 @@ module.exports = {
 
     },
 
-    tests: [{
-        noFeeds: true
-    }, {
-            skipMixins: [
-                "oembed-site", "oembed-title" // these are here as a fallback only: priority values provided by spotify.album .artist or .track
-            ]
-    },
+    getData: function (url, options, cb) {
+
+        if (!options.redirectsHistory && /^https?:\/\/play\./i.test(url)) {
+            return cb ({
+                redirect: url.replace(/^https?:\/\/play\./i, 'https://open.')
+            })
+        } else {
+            cb(null);
+        }
+    },    
+
+    tests: [{noFeeds: true}, {skipMethods: ["getData"]},
         "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
@@ -77,6 +111,8 @@ module.exports = {
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
         "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg",
         "https://play.spotify.com/track/2vN0b6d2ogn72kL75EmN3v",
-        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4"
+        "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
+        "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
+        "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW"
     ]
 };

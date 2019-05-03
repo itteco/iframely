@@ -7,26 +7,38 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(url, og) {
+    getLink: function(url, meta, options) {
 
-        if (og.type !== 'pinterestapp:pin') {
-            return;
+        var og = meta.og;
+
+        if (/pin/.test(og.type) || // this check sometimes when Pinterest misses cache hits: og.type is 'website' in those cases
+            (meta.twitter && meta.twitter.app && meta.twitter.app.url && /\/pin\//i.test(meta.twitter.app.url.iphone))) {
+
+            // https://developers.pinterest.com/tools/widget-builder/?type=pin
+            var hide_description = options.getRequestOptions('pinterest.hide_description', false);
+
+            return {
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                template: "pinterest.widget",
+                template_context: {
+                    url: og.url || url,
+                    title: "Pinterest Image",
+                    type: "embedPin",
+                    width: null,
+                    height: null,
+                    pinWidth: null,
+                    hideDescription: hide_description
+                },
+                options: {
+                    hide_description: {
+                        label: 'Hide description',
+                        value: hide_description
+                    }
+                },
+                'max-width': 600
+            };
         }
-
-        return {
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
-            template: "pinterest.widget",
-            template_context: {
-                url: og.url || url,
-                title: "Pinterest Image",
-                type: "embedPin",
-                width: null,
-                height: null,
-                pinWidth: null
-            },
-            'max-width': 600
-        };
     },
 
     getData: function (og, options) {

@@ -12,20 +12,13 @@ module.exports = {
 
     getLinks: function(urlMatch) {
 
-    	return [
-        // wait until they put a proper image placeholder for player that doesn't autoplay
-        /*{
+    	return {
     		href: "https://samsungvr.com/watch/" + urlMatch[1],
     		rel: [CONFIG.R.player, CONFIG.R.html5],
-    		type: CONFIG.T.text_html,
-    		"aspect-ratio": 16 / 9
-    	}, */
-        {
-            href: "https://samsungvr.com/watch/" + urlMatch[1] + '?autoplay=true',
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.autoplay],
-            type: CONFIG.T.text_html,
-            "aspect-ratio": 16 / 9
-        }];
+    		accept: CONFIG.T.text_html,
+    		"aspect-ratio": 16 / 9,
+            autoplay: 'autoplay=true'
+    	}
     },
 
     tests: [{

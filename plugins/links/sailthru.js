@@ -2,25 +2,35 @@ var utils = require('./utils');
 
 module.exports = {
 
-    getMeta: function(meta) {
+    provides: 'sailthru',
+
+    getMeta: function(sailthru) {
         return {
-            title: meta["sailthru.title"],
-            description: meta["sailthru.description"],
-            author: meta["sailthru.author"],
-            keywords: meta["sailthru.tags"],
-            date: meta["sailthru.date"]
+            title: sailthru.title,
+            description: sailthru.description,
+            author: sailthru.author,
+            keywords: sailthru.tags,
+            date: sailthru.date
         };
     },
 
-    getLinks: function(meta) {
+    getLinks: function(sailthru) {
 
         return [].concat(
-            utils.getImageLink('sailthru.thumb', meta) || [],
-            utils.getImageLink('sailthru.image.full', meta) || [],
-            utils.getImageLink('sailthru.image.thumb', meta) || [],
-            utils.getImageLink('sailthru.playimage', meta) || [],
-            utils.getImageLink('sailthru.author-avatar', meta) || [],
-            utils.getImageLink('sailthru.brandthumbimage', meta) || []
+            utils.getImageLink('thumb', sailthru) || [],
+            utils.getImageLink('image.full', sailthru) || [],
+            utils.getImageLink('image.thumb', sailthru) || [],
+            utils.getImageLink('playimage', sailthru) || [],
+            utils.getImageLink('author-avatar', sailthru) || [],
+            utils.getImageLink('brandthumbimage', sailthru) || []
         );
+    },
+
+    getData: function(meta) {
+        if (meta.sailthru) {
+            return {
+                sailthru: meta.sailthru
+            }
+        }
     }
 };

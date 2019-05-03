@@ -1,4 +1,6 @@
 var $ = require('cheerio');
+const querystring = require('querystring');
+const URL = require("url");
 
 module.exports = {
 
@@ -29,20 +31,48 @@ module.exports = {
             if ($iframe.length == 1) {
 
                 var player = $iframe.attr('src');
-                var theme = options.getProviderOptions('art19.theme') || 'light-gray-blue';
+                var params = URL.parse(player, true).query;
 
-                if (/theme=\w+/.test(player)) {
-                    player.replace (/theme=\w+/, theme); 
+                var theme = options.getRequestOptions('players.theme', 'light');
+                params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
+
+                var opts = {};
+
+                var horizontal = options.getRequestOptions('players.horizontal', true);
+
+                if (horizontal) {
+                    delete params.type;
+                    delete params.stretch;
+
+                    var theme = options.getRequestOptions('players.theme', 'light');                    
+                    params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
+
+                    opts.theme = {
+                        label: CONFIG.L.theme,
+                        value: theme,
+                        values: {
+                            light: CONFIG.L.light,
+                            dark: CONFIG.L.dark
+                        }
+                    };
                 } else {
-                    player += '?theme=' + theme;
+                    params.type = 'artwork';
+                    params.stretch = true;
+                    delete params.theme;
+                }
+
+                opts.horizontal = {
+                    label: CONFIG.L.horizontal,
+                    value: horizontal
                 }
 
                 return {
-                    href: player,
+                    href: (/\?/.test(player) ? player.replace(/\?.+/, '?') : player + '?') + querystring.stringify(params),
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed], // keep rel oembed here - it prevents validators from removing embed srcz
-                    height: oembed.height,
-                    scrolling: 'no'
+                    media: horizontal ? {height: oembed.height} : {'aspect-ratio': 1},
+                    scrolling: 'no',
+                    options: opts
                 };
             }
         }
@@ -55,8 +85,6 @@ module.exports = {
         ]
     },
         "https://art19.com/shows/fox-sports-live/episodes/4c924063-ca48-487c-ad93-b2b3485a267c",
-        "https://art19.com/shows/the-audible/episodes/6cfafe96-16e8-44bc-8d18-6a69ff807c63",
-        "https://art19.com/shows/the-audible/episodes/ba9724d3-8a79-4e8f-a5dd-0f816f217e50/embed?theme=light-gray-blue",
         "https://art19.com/shows/skip-and-shannon-undisputed/embed"
     ]
 };

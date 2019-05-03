@@ -6,11 +6,12 @@ module.exports = {
 
     getData: function(dailymailVideoID, cheerio) {
 
-        var $player = cheerio('#' + dailymailVideoID + ' video[data-opts]');
+        var $player = cheerio((dailymailVideoID !== '' ? '#' + dailymailVideoID + ' ' : '' )+ 'video[data-opts]');
+        // for galleries - it will be a single video on the page
         
-        if ($player.length) {
+        if ($player.length == 1) {
             return {
-                dailymailVideo: JSON.parse($player.attr('data-opts'))
+                dailymailVideo: JSON.parse(decodeHTML5($player.attr('data-opts')))
             }
         }
     },
@@ -42,6 +43,6 @@ module.exports = {
     tests: [{
         noFeeds: true
     },
-        "http://www.dailymail.co.uk/tvshowbiz/article-2885993/A-look-unconventional-13-year-relationship-Helena-Bonham-Carter-Tim-Burton-movies-made.html#v-1467332342001"
+        "https://www.dailymail.co.uk/tvshowbiz/article-2885993/A-look-unconventional-13-year-relationship-Helena-Bonham-Carter-Tim-Burton-movies-made.html#v-1467332342001"
     ]
 };

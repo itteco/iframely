@@ -1,10 +1,7 @@
-var utils = require('../../lib/utils');
-
 module.exports = {
 
     re: [
-    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/material\/\w+\/id\/([a-zA-Z0-9]+)/i,
-    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/m\/([a-zA-Z0-9]+)/i,
+    	/^https?:\/\/(?:tube|www)\.geogebra\.org\/(?:m|classic|graphing)\/([a-zA-Z0-9]+)/i,
     	/^https?:\/\/(?:tube|www)\.geogebra\.org\/student\/m([a-zA-Z0-9]+)/i,    	
     	/^https?:\/\/(?:tube|www)\.geogebra\.org\/m\/([a-zA-Z0-9]+)/i    	
     ],
@@ -13,52 +10,27 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(urlMatch, og, options, cb) {
+    // https://wiki.geogebra.org/en/Embedding_in_Webpages
+    getData: function(url, urlMatch, options, cb) {
 
+    	var m = /^https?:\/\/(?:tube|www)\.geogebra\.org\/(?:classic|graphing)\/([a-zA-Z0-9]+)/i.test(url) 
+    		&& url.match(/^https?:\/\/(?:tube|www)\.geogebra\.org\/(?:classic|graphing)\/([a-zA-Z0-9]+)/i)[1];
 
-    	if (!og.image) {
-    		cb('OG image not available');    		
+    	if (m && (!options.redirectsHistory || options.redirectsHistory.indexOf('https://www.geogebra.org/m/' + m) === -1)) {
+	        cb (null, {
+	        	__promoUri: {url: 'https://www.geogebra.org/m/' + m} // this is to avoid 401 errors on redirects to /m/..
+	        });
     	} else {
-
-    		if (og.image.width && og.image.height) {
-
-				cb (null, {
-					href: 'https://tube.geogebra.org/material/iframe/id/' + urlMatch[1], 
-					type: CONFIG.T.text_html,
-					rel: [CONFIG.R.app, CONFIG.R.html5],
-					"aspect-ratio": og.image.width / og.image.height
-				}); 
-
-    		} else {
-
-		        utils.getImageMetadata(og.image, options, function(error, data) {
-
-		            if (error || data.error) {
-		                cb('Image not available');
-		            } else {
-
-				        if (data.width && data.height) {
-				        	cb (null, {
-					        	href: 'https://tube.geogebra.org/material/iframe/id/' + urlMatch[1], 
-					        	type: CONFIG.T.text_html,
-					        	rel: [CONFIG.R.app, CONFIG.R.html5],
-					        	"aspect-ratio": data.width / data.height
-				        	}); 
-				        } else {
-				        	cb ('Could not detect aspect ratio')
-				        }
-		            }
-		        });
-    		}
-
+			cb (null, {__promoUri: {url: 'https://www.geogebra.org/material/iframe/id/' + urlMatch[1]} });
 		}
     },
 
-
     tests: [{
 		noFeeds: true
-	},
+	}, {skipMethods: ['getData']},
         "http://tube.geogebra.org/m/60391",
-        "http://www.geogebra.org/m/141300"
+        "http://www.geogebra.org/m/141300",
+        "https://www.geogebra.org/classic/hs52mgmq",
+        "https://www.geogebra.org/graphing/pse7krdf"
     ]
 };

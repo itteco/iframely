@@ -55,9 +55,16 @@ module.exports = {
                         ld = {};
                         ld[json['@type'].toLowerCase()] = json;
 
-                        return {
-                            ld: ld
+                        if (__allowEmbedURL !== 'skip_ld') {
+                            return {
+                                ld: ld
+                            }
+                        } else if (ld.videoobject || ld.mediaobject) {
+                            return {
+                                schemaVideoObject: ld.videoobject || ld.mediaobject
+                            }
                         }
+
                     }
 
                 } catch (ex) {
@@ -68,9 +75,7 @@ module.exports = {
         }
     },
 
-    getLinks: function(schemaVideoObject, whitelistRecord) {
-
-        if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return;}
+    getLinks: function(schemaVideoObject, whitelistRecord) {        
 
         var links = [];
         
@@ -82,6 +87,8 @@ module.exports = {
                 type: CONFIG.T.image            
             });
         }
+
+        if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return links;}
 
         var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;     
 

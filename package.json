@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "1.2.7",
+    "version": "1.3.0",
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": [
         "oembed",
@@ -48,7 +48,7 @@
         "feedparser": "2.2.0",
         "mocha": "^5.2.0",
         "mock-http-server": "^1.0.0",
-        "mongoose": "^4.13.14",
+        "mongoose": "^5.4.20",
         "supertest": "^3.1.0",
         "vows": "0.7.0"
     },
