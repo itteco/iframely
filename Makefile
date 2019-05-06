@@ -9,8 +9,8 @@ build:
 	git fetch upstream
 	git checkout master
 	git merge upstream/master
-	git branch -f ${VERSION}
-	git checkout ${VERSION}
+	git branch -f tag-${VERSION}
+	git checkout tag-${VERSION}
 	docker \
 		build \
 		--rm --tag=${CONTAINER} .
