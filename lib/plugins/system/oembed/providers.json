@@ -347,7 +347,8 @@
     {
         "name": "Codepen",
         "templates": [
-            "codepen\\.io/.*/pen/.*"
+            "codepen\\.io/.*/pen/.*",
+            "codepen\\.io/pen/.*"
         ],
         "endpoint": "https://codepen.io/api/oembed"
     },
