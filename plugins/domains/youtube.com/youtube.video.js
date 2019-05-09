@@ -170,6 +170,7 @@ module.exports = {
 
         if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
             params.enablejsapi = 1;
+            params.playsinline = 1;
         }
 
         if (options.getProviderOptions('locale', false)) {
