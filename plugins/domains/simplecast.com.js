@@ -33,7 +33,7 @@ module.exports = {
                 href: href,
                 accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
-                height: theme === 'dark' ? 200 : twitter.player.height || 200, // twitter.player.height is sometimes 180 as in oEmbed, but that's not enough in dark theme
+                height: /embed\.|player\./i.test(href) ? 200 : twitter.player.height || 200, // twitter.player.height is sometimes 180 as in oEmbed, but that's not enough
                 options: opts
             };
         }
@@ -46,7 +46,6 @@ module.exports = {
         http://bikeshed.fm/54
         http://bikeshed.fm/57
         https://podcast.emojiwrap.com/episodes/17-no-time-for-hands-openhands-with
-        https://objectsharp.com/podcast/cosmos-db-everything-you-wanted-to-know-about-microsoft-azures-nosql-offering-in-about-30-minutes/
         http://podcast.thegadgetflow.com/mark-campbell-inventurex
         */        
     ]
