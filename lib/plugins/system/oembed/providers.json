@@ -610,5 +610,11 @@
             "(?:www\\.)podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
         ],
         "endpoint": "http://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
+    }, {
+        "name": "Simplecast",
+        "templates": [
+            "(?:[a-z0-9-]+\\.)?simplecast.com/episodes/.*"
+        ],
+        "endpoint": "https://api.simplecast.com/oembed"
     }
 ]
