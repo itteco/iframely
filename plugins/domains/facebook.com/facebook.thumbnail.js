@@ -27,11 +27,13 @@ module.exports = {
 
     getLink: function(url, __allowFBThumbnail, meta) {
 
-        if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && meta.og && meta.og.image
-            && !/\/p200x200\//i.test(meta.og.image)) { // skip profile pictures
+        var thumbnail = meta.og && meta.og.image || meta.twitter && meta.twitter.image;
+
+        if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
+            && (!/\/p200x200\//i.test(thumbnail) || (meta.og && meta.og.video) )) { // skip profile pictures for posts
 
             return {
-                href: meta.og.image,
+                href: thumbnail,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
             }
