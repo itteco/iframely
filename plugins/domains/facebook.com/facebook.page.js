@@ -14,10 +14,6 @@ module.exports = {
             }
         } else if (oembed.html) {
 
-            if (/security check required/i.test(meta['html-title'])) {
-                console.log('FB security check on page: ' + url);
-            }
-
             var title = oembed.html.match(/>([^<>]+)<\/a><\/blockquote>/i);
             title = title ? title[1] : urlMatch[2];
 
