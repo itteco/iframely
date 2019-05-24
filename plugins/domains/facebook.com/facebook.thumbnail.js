@@ -30,7 +30,7 @@ module.exports = {
         var thumbnail = meta.og && meta.og.image || meta.twitter && meta.twitter.image;
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
-            && (!/\/p200x200\//i.test(thumbnail) || (meta.og && meta.og.video) )) { // skip profile pictures for posts
+            && (!/\/s?p?200x200\//i.test(thumbnail) || (meta.og && meta.og.video) )) { // skip profile pictures for posts
 
             return {
                 href: thumbnail,
