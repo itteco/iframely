@@ -7,7 +7,8 @@
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
-          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})"
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})",
+          "(?:www|m|business)\\.facebook\\.com/watch/?\\?v="
         ],
         "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
     },
@@ -26,8 +27,7 @@
     {
         "name": "Facebook Page",
         "templates": [
-            "(?:www|m)\\.facebook\\.com/([^/]+)/?(?:\\?f?ref=\\w+)?$",
-            "(?:www|m)\\.facebook\\.com/(?:pg/?)?([^/]+)/(about|events)/(?:\\?f?ref=\\w+)?$"
+            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/?"
         ],
         "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
     },

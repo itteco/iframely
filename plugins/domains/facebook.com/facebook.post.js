@@ -11,6 +11,8 @@ module.exports = {
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
     ],
 
+    mixins: ["oembed-error"],
+
     getLink: function(url, oembed, options) {
 
         var width = options.maxWidth || options.getProviderOptions('facebook.width', DEFAULT_WIDTH);
