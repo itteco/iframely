@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([a-zA-Z0-9\.\-]+)\/?(?:about|photos|videos|events)?\/?(?:\?[a-zA-Z0-9\-_]+=[a-zA-Z0-9\-_]+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([^\/]+)\/?(?:about|photos|videos|events)?\/?(?:\?[a-zA-Z0-9\-_]+=[a-zA-Z0-9\-_]+)?$/i
     ],
 
     getMeta: function(oembed, meta, urlMatch) {

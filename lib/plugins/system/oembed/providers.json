@@ -18,7 +18,7 @@
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/notes/([a-zA-Z0-9\\.\\-]+)/[^/]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/notes/([^/]+)/[^/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"            
         ],
         "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
@@ -26,8 +26,8 @@
     {
         "name": "Facebook Page",
         "templates": [
-            "(?:www|m)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/?(?:\\?f?ref=\\w+)?$",
-            "(?:www|m)\\.facebook\\.com/(?:pg/?)?([a-zA-Z0-9\\.\\-]+)/(about|events)/(?:\\?f?ref=\\w+)?$"
+            "(?:www|m)\\.facebook\\.com/([^/]+)/?(?:\\?f?ref=\\w+)?$",
+            "(?:www|m)\\.facebook\\.com/(?:pg/?)?([^/]+)/(about|events)/(?:\\?f?ref=\\w+)?$"
         ],
         "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
     },
