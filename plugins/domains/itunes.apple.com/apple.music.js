@@ -4,9 +4,10 @@ const _ = require('underscore');
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
-        /^https?:\/\/(?:geo\.)?itunes\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i          
+    /music\.apple/,
+        /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
+        /^https?:\/\/music\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
+        /^https?:\/\/music\.itunes\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i          
     ],
 
     mixins: [
@@ -27,14 +28,14 @@ module.exports = {
             at = query && query.at ? query.at : null;
         }
 
-        var src = canonical.replace(/^https?:\/\/(?:geo\.)?itunes\.apple\.com/, 'https://embed.music.apple.com');
+        var src = canonical.replace(/^https?:\/\/music\.apple\.com/, 'https://embed.music.apple.com');
         if (at) {
             src += (/\?/.test(src) ? '&' : '?') + 'at=' + at;
         }
 
         return {
             href: src,
-            type: CONFIG.T.text_html,
+            accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, CONFIG.R.html5],
             height: isTrack ? 150 : 450,
             'max-width': 700
@@ -57,6 +58,8 @@ module.exports = {
         'https://itunes.apple.com/th/album/icecream/1263324000?i=1263324326',
         'https://itunes.apple.com/jp/album/%25E6%2584%259B%25E3%2581%2597%25E3%2581%259F%25E6%2597%25A5-single/1455190412',
         'https://itunes.apple.com/us/album/eartha/1450438412?i=1450438420',
-        'https://itunes.apple.com/album/1457610711?app=itunes&ls=1'
+        'https://itunes.apple.com/album/1457610711?app=itunes&ls=1',
+        'https://music.apple.com/jp/album/back-to-the-80s/1458246986',
+        'https://music.apple.com/us/album/gypsy-woman-shes-homeless-basement-boy-strip-to-the-bone-mix/1434891258?i=1434891369'
     ]
 };
