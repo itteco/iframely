@@ -88,8 +88,6 @@ module.exports = {
         "https://www.facebook.com/MeanwhileinCanada1/videos/1302492646464430/",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
-        {
-            noFeeds: true
-        }
+        {noFeeds: true}, {skipMixins: ["oembed-error"]}
     ]
 };

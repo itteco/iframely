@@ -69,8 +69,6 @@ module.exports = {
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
         "https://www.facebook.com/zuck/posts/10102577175875681?comment_id=1193531464007751&reply_comment_id=654912701278942",
-        {
-            noFeeds: true
-        }
+        {noFeeds: true}, {skipMixins: ["oembed-error"]}
     ]
 };
