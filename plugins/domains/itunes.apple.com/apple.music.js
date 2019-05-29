@@ -4,7 +4,6 @@ const _ = require('underscore');
 module.exports = {
 
     re: [
-    /music\.apple/,
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
         /^https?:\/\/music\.itunes\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i          
@@ -35,7 +34,7 @@ module.exports = {
 
         return {
             href: src,
-            accept: CONFIG.T.text_html,
+            type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, CONFIG.R.html5],
             height: isTrack ? 150 : 450,
             'max-width': 700
