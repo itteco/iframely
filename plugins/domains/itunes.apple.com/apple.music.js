@@ -6,7 +6,7 @@ module.exports = {
     re: [
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
-        /^https?:\/\/music\.itunes\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i          
+        /^https?:\/\/music\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i
     ],
 
     mixins: [
