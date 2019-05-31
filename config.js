@@ -261,16 +261,20 @@
 
     _.extend(config, local);
 
-    config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
-
-    var baseAppUrlForAgent;
-    if (config.baseAppUrl && config.baseAppUrl.match(/^\/\//)) {
-        baseAppUrlForAgent = 'https:' + config.baseAppUrl;
-    } else {
-        baseAppUrlForAgent = config.baseAppUrl;
+    if (!config.USER_AGENT) {
+        config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
     }
 
-    config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)",
+    if (!config.USER_AGENT) {
+        var baseAppUrlForAgent;
+        if (config.baseAppUrl && config.baseAppUrl.match(/^\/\//)) {
+            baseAppUrlForAgent = 'https:' + config.baseAppUrl;
+        } else {
+            baseAppUrlForAgent = config.baseAppUrl;
+        }
+        
+        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)",
+    }
 
     config.TYPES = Object.values(config.T);
 
