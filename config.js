@@ -261,7 +261,7 @@
 
     _.extend(config, local);
 
-    if (!config.USER_AGENT) {
+    if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
     }
 
