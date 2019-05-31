@@ -132,8 +132,11 @@ module.exports = {
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
         try {
-            var start = options.getRequestOptions('players.start', url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i));
-            var end = options.getRequestOptions('players.end', url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i));
+            var start = url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i);
+            var end = url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i);
+
+            start = options.getRequestOptions('players.start', (start && start[1]) || '');
+            end = options.getRequestOptions('players.end', (end && end[1]) || '');
 
             var parseTime = function (t) {
                 if (typeof t === 'array') {
@@ -167,6 +170,7 @@ module.exports = {
 
         if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
             params.enablejsapi = 1;
+            params.playsinline = 1;
         }
 
         if (options.getProviderOptions('locale', false)) {

@@ -5,7 +5,7 @@ module.exports = {
     provides: "schemaFileObject",
 
     re: [
-        /^https:\/\/(?:docs|drive)\.google\.com\/(?:a\/[a-zA-Z0-9\-\_\.]+\/)?(forms|document|presentation|spreadsheets|file)\/(?:u\/\d\/)?d(?:\/e)?\/([a-zA-Z0-9_-]+)/i
+        /^https:\/\/(?:docs|drive)\.google\.com\/(?:a\/[a-zA-Z0-9\-\_\.]+\/)?(forms|document|presentation|spreadsheets|file|drawings)\/(?:u\/\d\/)?d(?:\/e)?\/([a-zA-Z0-9_-]+)/i
     ],
 
     mixins: [
@@ -63,6 +63,10 @@ module.exports = {
             } else if (urlMatch[1] === "spreadsheets" ) {
                 file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
                 file.rel.push (CONFIG.R.reader);
+
+            } else if (urlMatch[1] === "drawings" ) {
+                file["aspect-ratio"] = 4/3; // default aspect. Google resizes the embed to fit
+                file.rel.push (CONFIG.R.image);
 
             } else { // presentation
                 // file["aspect-ratio"] = 4/3; // use default aspect ratio
