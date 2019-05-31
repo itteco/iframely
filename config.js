@@ -43,7 +43,6 @@
 
         SHUTDOWN_TIMEOUT: 6 * 1000,
 
-        USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
         VERSION: version,
 
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
@@ -263,6 +262,7 @@
     _.extend(config, local);
 
     config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
+    config.USER_AGENT = "Iframely/" + version + " (+" + (config.baseAppUrl || 'https://github.com/itteco/iframely') + ";)",
 
     config.TYPES = Object.values(config.T);
 
