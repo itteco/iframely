@@ -262,7 +262,15 @@
     _.extend(config, local);
 
     config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
-    config.USER_AGENT = "Iframely/" + version + " (+" + (config.baseAppUrl || 'https://github.com/itteco/iframely') + ";)",
+
+    var baseAppUrlForAgent;
+    if (config.baseAppUrl && config.baseAppUrl.match(/^\/\//)) {
+        baseAppUrlForAgent = 'https:' + config.baseAppUrl;
+    } else {
+        baseAppUrlForAgent = config.baseAppUrl;
+    }
+
+    config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)",
 
     config.TYPES = Object.values(config.T);
 
