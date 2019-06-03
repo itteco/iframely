@@ -5,7 +5,7 @@ module.exports = {
 
     mixins: [
         "oembed-title",
-        "oembed-thumbnail",
+        //"oembed-thumbnail", // allowed in getLink - only for landscape videos due to size problem
         "oembed-author",
         "oembed-duration",
         "oembed-site",
@@ -14,7 +14,6 @@ module.exports = {
     ],
 
     getMeta: function(oembed) {
-
         return {
             canonical: "https://vimeo.com/" + oembed.video_id,
             date: oembed.upload_date
@@ -47,7 +46,6 @@ module.exports = {
         // let's try and add bigger image if needed, but check that it's value
         // no need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214
         if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}\.jpg$/.test(oembed.thumbnail_url)) {
-
             links.push({
                 href:oembed.thumbnail_url.replace(/_\d+x\d+\.jpg$/, '.jpg'),
                 type: CONFIG.T.image,
@@ -57,6 +55,15 @@ module.exports = {
 
         if (!oembed.thumbnail_url) {
             links.push({message: 'Password required for this video'});
+        } else if (oembed.width > oembed.height) { // oEmbed comes with the wrong thumbnail sizes for portrait videos
+            links.push({
+                href:oembed.thumbnail_url,
+                type: CONFIG.T.image,
+                rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+                width: oembed.thumbnail_width,
+                height: oembed.thubnail_height
+            });
+
         }
 
         return links;

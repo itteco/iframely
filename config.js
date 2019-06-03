@@ -43,7 +43,6 @@
 
         SHUTDOWN_TIMEOUT: 6 * 1000,
 
-        USER_AGENT: "Iframely/" + version + " (+http://iframely.com/;)",
         VERSION: version,
 
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
@@ -76,7 +75,9 @@
             video_webm: "video/webm",
             stream_apple_mpegurl: "application/vnd.apple.mpegurl",
             stream_x_mpegurl: "application/x-mpegURL",
-            audio_mp3: "audio/mp3"
+            audio_mp3: "audio/mp3",
+            audio_mpeg: "audio/mpeg",
+            audio_mp4: "audio/mp4"
         },
 
         PROMO_RELS: [
@@ -227,7 +228,7 @@
             "sm4"
         ],
 
-        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid)\./i,
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia)\./i,
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
@@ -260,7 +261,22 @@
 
     _.extend(config, local);
 
-    config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
+    if (!config.baseStaticUrl) {
+        config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
+    }
+
+    if (!config.USER_AGENT) {
+        var baseAppUrlForAgent;
+        if (config.baseAppUrl && config.baseAppUrl.match(/^\/\//)) {
+            baseAppUrlForAgent = 'https:' + config.baseAppUrl;
+        } else {
+            baseAppUrlForAgent = config.baseAppUrl;
+        }
+        
+        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)";
+    }
+
+    config.TYPES = Object.values(config.T);
 
     module.exports = config;
 })();

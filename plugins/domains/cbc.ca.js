@@ -37,7 +37,6 @@ module.exports = {
     },
         "http://www.cbc.ca/player/play/2558388650",
         "http://www.cbc.ca/player/play/2695081582",
-        "http://www.cbc.ca/player/play/2695940101",
-        "http://www.cbc.ca/player/play/1218762307729/"
+        "http://www.cbc.ca/player/play/2695940101"
     ]
 };

@@ -7,7 +7,8 @@
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
-          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})"
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})",
+          "(?:www|m|business)\\.facebook\\.com/watch/?\\?v="
         ],
         "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
     },
@@ -18,7 +19,7 @@
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/notes/([a-zA-Z0-9\\.\\-]+)/[^/]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/notes/([^/]+)/[^/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"            
         ],
         "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
@@ -26,8 +27,7 @@
     {
         "name": "Facebook Page",
         "templates": [
-            "(?:www|m)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/?(?:\\?f?ref=\\w+)?$",
-            "(?:www|m)\\.facebook\\.com/(?:pg/?)?([a-zA-Z0-9\\.\\-]+)/(about|events)/(?:\\?f?ref=\\w+)?$"
+            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/?"
         ],
         "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
     },
@@ -347,7 +347,8 @@
     {
         "name": "Codepen",
         "templates": [
-            "codepen\\.io/.*/pen/.*"
+            "codepen\\.io/.*/pen/.*",
+            "codepen\\.io/pen/.*"
         ],
         "endpoint": "https://codepen.io/api/oembed"
     },
@@ -425,22 +426,12 @@
         "endpoint": "https://www.reddit.com/oembed"
     },
     {
-        "name": "Academie de Nantes",
-        "templates": [
-            "([a-z0-9]+)\\.ac\\-nantes\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-nantes\\.fr/mediacad/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-nantes\\.fr/(m/\\d+)"            
-        ],
-        "endpoint": "https://{1}.ac-nantes.fr/default/media/display/{2}/d/j?format={format}"
-    },    
-    {
         "name": "Academie de Bordeaux etc",
         "templates": [
-            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/default/media/display(?:[\\/a-z0-9]+)?/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/mediacad/(m/\\d+)",
-            "([a-z0-9]+)\\.ac\\-(\\w+)\\.fr/(m/\\d+)"            
+            "([a-z0-9]+\\.ac\\-\\w+\\.fr(?:/\\w+)?)/default/(?:[\\/a-z0-9]+)?/(m/\\d+)",
+            "([a-z0-9]+\\.ac\\-\\w+\\.fr(?:/\\w+)?)/(m/\\d+)"
         ],
-        "endpoint": "http://{1}.ac-{2}.fr/mediacad/default/media/display/{3}/d/j?format={format}"
+        "endpoint": "https://{1}/default/media/display/{2}/d/j?format={format}"
     },
     {
         "name": "RTL XL",
@@ -619,5 +610,11 @@
             "(?:www\\.)podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
         ],
         "endpoint": "http://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
+    }, {
+        "name": "Simplecast",
+        "templates": [
+            "(?:[a-z0-9-]+\\.)?simplecast.com/episodes/.*"
+        ],
+        "endpoint": "https://api.simplecast.com/oembed"
     }
 ]

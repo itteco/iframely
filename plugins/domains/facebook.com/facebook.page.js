@@ -1,29 +1,31 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg\/)?([a-zA-Z0-9\.\-]+)\/?(?:about|photos|videos|events)?\/?(?:\?[a-zA-Z0-9\-_]+=[a-zA-Z0-9\-_]+)?$/i
+        /^https?:\/\/(www|m)\.facebook\.com\/[^\/]+\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
-    getMeta: function(oembed, meta, urlMatch) {
+    provides: '__isFBPage',
+
+    getMeta: function(__isFBPage, oembed, meta) {
 
         if (meta.og && meta.og.title && meta['html-title'] && !/security check required/i.test(meta['html-title'])) {
-
             return {
                 title: meta.og.title,
                 description: meta.og.description
             }
         } else if (oembed.html) {
-
             var title = oembed.html.match(/>([^<>]+)<\/a><\/blockquote>/i);
-            title = title ? title[1] : urlMatch[2];
 
-            return {
-                title: title
-            };
+            if (title) {
+                return {
+                    title: title[1]
+                };
+            }
         }
     },    
 
-    getLinks: function(oembed, meta, url, options) {
+    getLinks: function(__isFBPage, oembed, meta, url, options) {
 
         var links = [];
 
@@ -84,10 +86,17 @@ module.exports = {
     },
 
     getData: function(oembed, options) {
-        
-        if (oembed.html && /blockquote/.test(oembed.html)) {
+
+        if (oembed.html && /class=\"fb\-page\"/i.test(oembed.html)) {
+
             options.followHTTPRedirect = true; // avoid security re-directs of URLs if any
+
+            return {
+                __isFBPage: true
+            };
         }
+
+
     },
 
     tests: [
