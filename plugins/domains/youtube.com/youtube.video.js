@@ -95,13 +95,10 @@ module.exports = {
                         });
                     }
 
-                } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
-
-                    cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
-
-                } else {
-
+                } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
+                } else {
+                    cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
         }, cb);
