@@ -36,11 +36,13 @@
         "moment": "2.19.3",
         "node-cache": "1.*",
         "parse-iso-duration": "1.0.0",
+        "patch-package": "^6.1.2",
         "readabilitySAX": "1.6.1",
         "redis": "2.7.1",
         "request": "^2.88.0",
         "sax": "1.2.2",
         "send": "0.16.1",
+        "spdy": "^4.0.0",
         "underscore": "1.8.3"
     },
     "devDependencies": {
@@ -55,6 +57,7 @@
     "iframely-proxy-plugins": true,
     "main": "./lib/core",
     "scripts": {
+        "prepare": "patch-package",
         "test": "vows test/main.js --isolate --spec && npm run test-e2e",
         "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
     },

@@ -1,3 +1,4 @@
+var spdy = require('spdy');
 var sysUtils = require('./utils');
 var app = require('./app');
 
@@ -7,7 +8,7 @@ var server = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || CON
 });
 
 if (CONFIG.ssl) {
-    require('https').createServer(CONFIG.ssl, app).listen(CONFIG.ssl.port);
+    spdy.createServer(CONFIG.ssl, app).listen(CONFIG.ssl.port);
 }
 
 console.log('');
