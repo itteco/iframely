@@ -139,7 +139,7 @@ module.exports = {
                 if (typeof t === 'array') {
                     t = t[1];
                 }
-                if (typeof t === "string") {
+                if (typeof t === "string" && !/^\d+$/.test(t)) {
                     var m = t.match(/(\d+)m/);
                     var s = t.match(/(\d+)s/);
                     var time = 0;
