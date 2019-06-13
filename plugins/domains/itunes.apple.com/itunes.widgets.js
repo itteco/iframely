@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/itunes\.apple\.com(?:\/)?(\w+)?\/(app|movie|tv-season)(?:\/[^\/]+)?\/id(\d+)/i
+        /^https?:\/\/(?:itunes|apps)\.apple\.com(?:\/)?(\w+)?\/(app|movie|tv-season)(?:\/[^\/]+)?\/id(\d+)/i
     ],
 
     mixins: [
@@ -54,6 +54,7 @@ module.exports = {
         "https://itunes.apple.com/app/2048/id840919914",
         'https://itunes.apple.com/us/movie/the-matrix/id271469518?ign-mpt=uo%3D4',
         'https://itunes.apple.com/us/tv-season/abc-news-specials/id183240032?uo=4',
-        'https://itunes.apple.com/PT/app/hd-wallpapers-backgrounds-themes-for-lock-screen/id1214710121?ls=1&mt=8'
+        'https://itunes.apple.com/PT/app/hd-wallpapers-backgrounds-themes-for-lock-screen/id1214710121?ls=1&mt=8',
+        'https://apps.apple.com/us/app/google-maps/id585027354'
     ]
 };
