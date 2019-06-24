@@ -1,4 +1,5 @@
 const decodeHTML5 = require('entities').decodeHTML5;
+const utils = require('../../../lib/utils');
 
 module.exports = {
 
@@ -43,13 +44,13 @@ module.exports = {
         } else {
 
             // let's try to find ld+json in the body
-            var $script = cheerio('script[type="application/ld+json"]:contains("embed")'); // embedURL can be embedurl, embedUrl, etc.
+            var $script = cheerio('script[type="application/ld+json"]:contains("embed")').first(); // embedURL can be embedurl, embedUrl, etc.
 
             if ($script.length === 1) {
 
                 try {
 
-                    var json = JSON.parse($script.text());
+                    var json = utils.parseJSONSource($script.text());
 
                     if (json['@type']) {
                         ld = {};
