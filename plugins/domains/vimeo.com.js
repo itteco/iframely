@@ -33,15 +33,17 @@ module.exports = {
         var qs = querystring.stringify(params);
         if (qs !== '') {qs = '?' + qs}
 
-        var player = {
-            href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
-            autoplay: "autoplay=1"
-        };
+        var links = [];
 
-        var links = [player];
+        if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
+            links.push({
+                href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
+                autoplay: "autoplay=1"
+            });
+        }
 
         // let's try and add bigger image if needed, but check that it's value
         // no need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214
@@ -54,7 +56,7 @@ module.exports = {
         }
 
         if (!oembed.thumbnail_url) {
-            links.push({message: 'Password required for this video'});
+            links.push({message: 'Contact support to ' + (options.getProviderOptions('vimeo.disable_private', false) ? 'enable' : 'disable')+ ' password-protected Vimeos'});
         } else if (oembed.width > oembed.height) { // oEmbed comes with the wrong thumbnail sizes for portrait videos
             links.push({
                 href:oembed.thumbnail_url,
