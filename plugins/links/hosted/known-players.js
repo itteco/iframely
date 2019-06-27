@@ -6,9 +6,9 @@ module.exports = {
 
         // Allow YouTube
         var urlMatch = video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/(?:https?:)?\/\/www\.youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/(?:https?:)?\/\/www\.youtube-nocookie\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/(?:https?:)?\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube-nocookie\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
                     || video_src.match(/(?:https?:)?\/\/youtube\.googleapis\.com\/v\/([\-_a-zA-Z0-9]+)/i) //youtube.googleapis.com/v/k3Cd2lvQlN4?rel=0
                     || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)/i)
                     || video_src.match(/(?:https?:)?\/\/youtu\.be\/([\-_a-zA-Z0-9]+)/i);
