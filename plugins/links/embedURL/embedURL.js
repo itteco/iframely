@@ -109,6 +109,7 @@ module.exports = {
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', 'responsive') || !schemaVideoObject.height) {
                 player["aspect-ratio"] = schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO;
+                player.scrolling = 'no';
             } else {
                 player.width = schemaVideoObject.width;
                 player.height = schemaVideoObject.height;
