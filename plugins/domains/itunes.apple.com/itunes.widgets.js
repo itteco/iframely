@@ -10,7 +10,7 @@ module.exports = {
         "og-site",
         "og-description",       
         "og-image",
-        "favicon"
+        "domain-icon"
     ],
 
     getLink: function(urlMatch, options) {
@@ -45,7 +45,7 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{skipMixins: ["domain-icon"]},
 
         // Not supported.
         //'https://itunes.apple.com/us/music-video/gangnam-style/id564322420?v0=WWW-NAUS-ITSTOP100-MUSICVIDEOS&ign-mpt=uo%3D4',
