@@ -1,7 +1,6 @@
 var _ = require('underscore');
 var FeedParser = require('feedparser');
 var request = require('request');
-var spdy = require('spdy');
 var async = require('async');
 var url = require('url');
 
@@ -75,13 +74,7 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
         cb(error, urls);
     };
 
-    var agent = spdy.createAgent({
-        host: url.parse(feedUrl, true).hostname,
-        port: CONFIG.SPDY_AGENT_DEFAULT_PORT,
-        rejectUnauthorized: false
-    });
-
-    request(feedUrl, {agent: agent})
+    request(feedUrl)
         .pipe(new FeedParser({addmeta: false}))
         .on('error', function(error) {
             _cb(error);
