@@ -106,6 +106,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
                 'max-width': 660,
+                'min-width': 326,
                 options: {
                     showcaption: {
                         label: 'Show author\'s text caption',
@@ -115,8 +116,9 @@ module.exports = {
             };
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
-                app['aspect-ratio'] = oembed.thumbnail_width / oembed.thumbnail_height;
-                app['padding-bottom'] = 206;
+                // sizes for placeholder are hardcoded anyway, no need to link them to the image sizes
+                app['aspect-ratio'] = 100 / (2 *(19 + 12.5)); // was: oembed.thumbnail_width / oembed.thumbnail_height;
+                app['padding-bottom'] = 284;//  was: 206;
 
             }
 
