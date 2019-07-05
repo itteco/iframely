@@ -5,7 +5,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,13})(?:\/[a-z0-9-]+)?/i
+        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,14})(?:\/[a-z0-9-]+)?/i
     ],
 
     provides: 'tumblr_post',
@@ -52,7 +52,14 @@ module.exports = {
         }];
     },
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(oembedLinks, urlMatch, request, options, cb) {
+
+        // oEmbed will be in known providers for *.tumblr.com and require HTML parser discovery for custom domains
+        var oembedLink = oembedLinks['0'];
+
+        if (!(oembedLink && /^https?:\/\/(?:www\.)?tumblr\.com/.test(oembedLink.href))) {
+            return cb(null); // not Tumblr domain, skip API calls
+        }
 
         var consumer_key = options.getProviderOptions('tumblr.consumer_key');
 
