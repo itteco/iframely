@@ -76,6 +76,10 @@ module.exports = {
                     return cb(error);
                 }
 
+                if (!body.meta) {
+                    return cb({responseStatusCode: 415, message: 'This Tumblr may contain sensitive media and is not supported'});
+                }
+
                 if (body.meta.status != 200) {
                     return cb(body.meta.msg);
                 }
