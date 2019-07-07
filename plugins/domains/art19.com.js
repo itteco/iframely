@@ -70,7 +70,7 @@ module.exports = {
                     href: (/\?/.test(player) ? player.replace(/\?.+/, '?') : player + '?') + querystring.stringify(params),
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed], // keep rel oembed here - it prevents validators from removing embed srcz
-                    media: horizontal ? {height: oembed.height} : {'aspect-ratio': 1},
+                    media: horizontal ? {height: oembed.height, scrolling: 'no'} : {'aspect-ratio': 1},
                     scrolling: 'no',
                     options: opts
                 };
