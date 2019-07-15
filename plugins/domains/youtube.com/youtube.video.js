@@ -70,14 +70,14 @@ module.exports = {
                         dislikeCount: entry.statistics && entry.statistics.dislikeCount,
                         viewCount: entry.statistics && entry.statistics.viewCount,
 
-                        hd: entry.contentDetails && entry.contentDetails.definition == "hd",
+                        hd: entry.contentDetails && entry.contentDetails.definition === "hd",
                         playerHtml: entry.player && entry.player.embedHtml,
-                        embeddable: entry.status ? entry.status.embeddable: true,
+                        embeddable: entry.status ? entry.status.embeddable : true,
                         uploadStatus: entry.status && entry.status.uploadStatus
                     };
 
-                    if (entry.snippet && entry.snippet.thumbnails ) {
-                        gdata.thumbnails =  {mq: entry.snippet.thumbnails.medium, hq: entry.snippet.thumbnails.high, maxres: entry.snippet.thumbnails.maxres};
+                    if (entry.snippet && entry.snippet.thumbnails) {
+                        gdata.thumbnails = entry.snippet.thumbnails;
                     }
 
                     if (duration) {
@@ -191,13 +191,8 @@ module.exports = {
         }
         // End of widescreen check
 
-        var links = [{
-            href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image_jpeg,
-            width: 320,
-            height: 180
-        }];
+        var links = [];
+        var aspect = widescreen ? 16 / 9 : 4 / 3;
 
         if (youtube_video_gdata.embeddable) {
 
@@ -210,7 +205,7 @@ module.exports = {
                 href: 'https://www.' + domain + '.com/embed/' + youtube_video_gdata.id + qs,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 type: CONFIG.T.text_html,
-                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
+                "aspect-ratio": aspect,
                 autoplay: "autoplay=1",
                 options: {
                     start: {
@@ -230,23 +225,30 @@ module.exports = {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
         }
 
-        if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {
-            links.push({
-                href: youtube_video_gdata.thumbnails.maxres.url,
-                rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image_jpeg,
-                width: youtube_video_gdata.thumbnails.maxres.width, 
-                height: youtube_video_gdata.thumbnails.maxres.height
-            });
-        } 
+        // thumbnails. Avoid black stripes
+        Object.keys(youtube_video_gdata.thumbnails).forEach(function(def) {
+            if ( youtube_video_gdata.thumbnails[def] 
+                && youtube_video_gdata.thumbnails[def].width
+                && youtube_video_gdata.thumbnails[def].height
+                && Math.round(10 * youtube_video_gdata.thumbnails[def].width / youtube_video_gdata.thumbnails[def].height) == Math.round(10 * aspect)) {
+                links.push({
+                    href: youtube_video_gdata.thumbnails[def].url,
+                    rel: CONFIG.R.thumbnail,
+                    type: CONFIG.T.image_jpeg,
+                    width: youtube_video_gdata.thumbnails[def].width, 
+                    height: youtube_video_gdata.thumbnails[def].height
+                });
+            }            
+        });
 
-        if (!widescreen) {
+        // But allow bigger image (with black stripes, sigh) for HD w/o maxresdefault to avoid 'tiny-only' thumbnail
+        if (widescreen && youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.standard && !youtube_video_gdata.thumbnails.maxres) {
             links.push({
-                href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
+                href: youtube_video_gdata.thumbnails.standard.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
-                width: 480,
-                height: 360
+                width: youtube_video_gdata.thumbnails.standard.width, 
+                height: youtube_video_gdata.thumbnails.standard.height
             });
         }
 
