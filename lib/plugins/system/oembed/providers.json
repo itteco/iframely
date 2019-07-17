@@ -89,7 +89,7 @@
     {
         "name": "Scribd",
         "templates": [
-            "((?:\\w+\\.)?scribd\\.com)/(?:doc|book|read|document|embeds|presentation|fullscren)/(.*)"
+            "((?:\\w+\\.)?scribd\\.com)/(?:doc|document|embeds|presentation|fullscren)/(.*)"
         ],
         "endpoint": "https://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
     },
