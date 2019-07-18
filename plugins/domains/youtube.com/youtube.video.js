@@ -242,13 +242,14 @@ module.exports = {
         });
 
         // But allow bigger image (with black stripes, sigh) for HD w/o maxresdefault to avoid 'tiny-only' thumbnail
-        if (widescreen && youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.standard && !youtube_video_gdata.thumbnails.maxres) {
+        if (widescreen && youtube_video_gdata.thumbnails && !youtube_video_gdata.thumbnails.maxres && (youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high)) {
+            var thumbnail = youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high;
             links.push({
-                href: youtube_video_gdata.thumbnails.standard.url,
+                href: thumbnail.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
-                width: youtube_video_gdata.thumbnails.standard.width, 
-                height: youtube_video_gdata.thumbnails.standard.height
+                width: thumbnail.width, 
+                height: thumbnail.height
             });
         }
 
