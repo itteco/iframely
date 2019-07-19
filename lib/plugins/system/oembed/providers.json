@@ -606,8 +606,8 @@
     }, {
         "name": "Podbean",
         "templates": [
-            "(?:www\\.)podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
-            "(?:www\\.)podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
+            "(?:www\\.)?podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
+            "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
         ],
         "endpoint": "http://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
     }, {
@@ -616,5 +616,11 @@
             "(?:[a-z0-9-]+\\.)?simplecast.com/episodes/.*"
         ],
         "endpoint": "https://api.simplecast.com/oembed"
+    }, {
+        "name": "Arte",
+        "templates": [
+            "(?:www\\.)?arte.tv/(\\w{2})/videos/([a-zA-Z0-9\\-]+)/.*?"
+        ],
+        "endpoint": "https://api.arte.tv/api/player/v1/oembed/{1}/{2}?platform=ARTE_NEXT"
     }
 ]
