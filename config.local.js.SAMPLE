@@ -7,6 +7,9 @@
         DEBUG: false,
         RICH_LOG_ENABLED: false,
 
+        // add custom whitelist to Iframely whitelist instead of replacing it
+        WHITELIST_EXTEND: false,
+
         // For embeds that require render, baseAppUrl will be used as the host.
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",
