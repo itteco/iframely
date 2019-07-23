@@ -137,6 +137,7 @@
 
             autoplay: "autoplay",
             html5: "html5",
+            amp: "amp",
             gifv: "gifv",
 
             promo: "promo",
