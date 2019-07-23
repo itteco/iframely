@@ -1,5 +1,6 @@
 FROM node:17.8-alpine3.15
 
+EXPOSE 9229-9300
 EXPOSE 8061
 
 WORKDIR /iframely

@@ -19,6 +19,7 @@
         relativeStaticUrl: "/s",
         use_http2: true,
         DEBUG: false,
+        WORKERS_COUNT: require('os').cpus().length,
 
         SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
