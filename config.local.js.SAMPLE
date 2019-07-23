@@ -10,6 +10,9 @@
         // Limit workers count. If not specified, os.cpus().length is used
         WORKERS_COUNT: 1
 
+        // add custom whitelist to Iframely whitelist instead of replacing it
+        WHITELIST_EXTEND: false,
+
         // For embeds that require render, baseAppUrl will be used as the host.
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",
