@@ -7,6 +7,9 @@
         DEBUG: false,
         RICH_LOG_ENABLED: false,
 
+        // Limit workers count. If not specified, os.cpus().length is used
+        WORKERS_COUNT: 1
+
         // For embeds that require render, baseAppUrl will be used as the host.
         baseAppUrl: "http://yourdomain.com",
         relativeStaticUrl: "/r",

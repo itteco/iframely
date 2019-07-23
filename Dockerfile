@@ -1,5 +1,6 @@
-FROM node:5.8
+FROM node:10.16
 
+EXPOSE 9229-9300
 EXPOSE 8061
 
 COPY . /iframely
