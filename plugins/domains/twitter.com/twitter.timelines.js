@@ -1,11 +1,9 @@
 module.exports = {
 
-    // remove this plugin when Twitter fixes centering
-
     re: [
         /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?)\/(\d+)/i,
         /^https?:\/\/twitter\.com\/\w+$/i,
-        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?|lists?)\//i,
+        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?|lists?)\/?/i
     ],
 
     mixins: [
@@ -55,12 +53,17 @@ module.exports = {
         }
     },
 
+    getData: function (options) {
+        options.followHTTPRedirect = true; // avoids login re-directs on /likes that blocked oEmbed discovery
+    },
+
     tests: [
         "https://twitter.com/potus",
+        "https://twitter.com/potus/likes",
         "https://twitter.com/i/moments/737260069209972736",
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
         "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
-        { skipMixins: ["og-image"]}
+        {skipMixins: ["og-image"]}, {skipMethods: ["getData"]}
     ]
 };
