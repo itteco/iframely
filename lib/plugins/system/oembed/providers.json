@@ -398,7 +398,7 @@
     {
         "name": "carto.com",
         "templates": [
-            "\\w+.carto(?:db)?\\.com/(?:u\/[a-zA-Z0-9-]+/)?viz/[a-z0-9-]+"
+            "[\\w-]+.carto(?:db)?\\.com/(?:u\/[a-zA-Z0-9-]+/)?(?:viz|builder)/[a-z0-9-]+(?:/\\w+)?"
         ],
         "endpoint": "http://services.carto.com/oembed"
     },
