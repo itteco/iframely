@@ -59,7 +59,7 @@
         "name": "SoundCloud",
         "templates": [
             "soundcloud\\.com/.+",
-            "api\\.soundcloud\\.com\/tracks\\/\\d+"
+            "api\\.soundcloud\\.com\/(?:users|playlists|tracks)\\/\\d+"
         ],
         "endpoint": "http://soundcloud.com/oembed"
     },
