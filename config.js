@@ -143,8 +143,14 @@
 
             audio: 'audio',
             slideshow: 'slideshow',
-            playlist: 'playlist'            
+            playlist: 'playlist'
         },
+
+        FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
+            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
+            'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
+            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr'
+        ],
 
         // Option names
         O: {
@@ -198,7 +204,7 @@
                 "video",
                 "photo"
             ],
-            "html-meta": [  // TODO: Need change to 'fb'.
+            "html-meta": [
                 "video",
                 "embedURL"
             ]

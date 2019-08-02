@@ -68,6 +68,10 @@ module.exports = {
             player.rel.push(CONFIG.R.html5);
         }
 
+        if ($iframe.length == 1 && $iframe.attr('allow')) {
+            player.rel = player.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+        }        
+
         return player;
 
     },

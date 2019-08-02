@@ -176,8 +176,9 @@ module.exports = {
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
+        var rels = [CONFIG.R.player, CONFIG.R.html5];
 
-        if (!widescreen && youtube_video_gdata.playerHtml) { // maybe still widescreen
+        if (youtube_video_gdata.playerHtml) { // maybe still widescreen. plus detect 'allow' from html
             var $container = cheerio('<div>');
             try {
                 $container.html(youtube_video_gdata.playerHtml);
@@ -185,11 +186,14 @@ module.exports = {
 
             var $iframe = $container.find('iframe');
 
-            if ($iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
+            if (!widescreen && $iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
                 widescreen =  $iframe.attr('width') /  $iframe.attr('height') > 1.35;
             }
+            if ($iframe.attr('allow')) {
+                rels = rels.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+            }
         }
-        // End of widescreen check
+        // End of widescreen & allow check
 
         var links = [];
         var aspect = widescreen ? 16 / 9 : 4 / 3;
@@ -203,7 +207,7 @@ module.exports = {
 
             links.push({
                 href: 'https://www.' + domain + '.com/embed/' + youtube_video_gdata.id + qs,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: rels,
                 type: CONFIG.T.text_html,
                 "aspect-ratio": aspect,
                 autoplay: "autoplay=1",
@@ -219,7 +223,6 @@ module.exports = {
                         placeholder: 'ex.: 11, 1m10s'
                     }
                 }
-
             }); 
         } else {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
