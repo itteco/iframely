@@ -6,33 +6,23 @@ module.exports = {
         "*"
     ],
 
-    getLinks: function(meta) {
+    getLinks: function(schemaVideoObject) {
 
-        var links = [];
-        var aspect = 16 / 9;
+        var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
 
-        if (meta.stillurl || meta.thumburl) {
-            links.push ({
-                href: meta.stillurl || meta.thumburl,
-                rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image
-            });
+        if (href) {
+            return {
+                href: href,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                type: CONFIG.T.text_html,
+                "aspect-ratio": 16/9,
+                "padding-bottom": 10
+            };
         }
-
-        if (meta.videourl) {
-            links.push ({
-                href: meta.videourl,
-                rel: CONFIG.R.player,
-                accept: CONFIG.T.video_mp4,
-                "aspect-ratio": aspect
-            });
-        }
-
-        return links;
     },
 
     tests: [
-        "http://www.tmz.com/videos/0_nh3ix08r",
-        "http://www.tmz.com/videos/0_qmzt0e8s/"
+        "https://www.tmz.com/videos/0-nh3ix08r/",
+        "https://www.tmz.com/videos/0-qmzt0e8s/"
     ]
 };

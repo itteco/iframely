@@ -12,8 +12,7 @@ module.exports = {
         "favicon",
         "og-title",
         "og-image",
-        "og-description",
-        "twitter-player-responsive" // fallback mixin
+        "og-description"
     ],
 
     getMeta: function (schemaFileObject) {
@@ -83,7 +82,7 @@ module.exports = {
 
     getData: function(meta, url, urlMatch, cheerio, decode, options, cb) {
 
-        var embedded_url = url + (/\?/.test(url) ? '&' : '?') + 'embedded=true';
+        var embedded_url = (url + (/\?/.test(url) ? '&' : '?') + 'embedded=true').replace(/\/edit/, '/viewform');
 
         if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
@@ -146,7 +145,7 @@ module.exports = {
         "https://docs.google.com/document/d/e/2PACX-1vSeGAfeYcpPAGLX4h0krdMR8HBuCxf3M0H0MlyeQ9GYQzJsJ2KTfZ_iSopp5dUwX3JVOfCpAoEyoXdh/pub",
         {
             skipMixins: [
-                "og-image", "og-title", "og-description", "twitter-player-responsive"
+                "og-image", "og-title", "og-description"
             ],
             skipMethods: [
                 "getLink",

@@ -4,7 +4,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/(permalink|story)\.php\?[^\/]+(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?fbid=(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[^\/]+\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/([^\/\?]+)\/[^\/]+\/(\d{10,})/i,
