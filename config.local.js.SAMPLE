@@ -259,6 +259,17 @@
               }
         }
         */
+
+        // Black-list any of the inappropriate domains. Iframely will return 417
+        // At minimum, keep your localhosts blacklisted to avoid SSRF
+        BLACKLIST_DOMAINS_RE: [
+            /^https?:\/\/127\.0\.0\.1/i,
+            /^https?:\/\/localhost/i,
+
+            // And this is AWS metadata service
+            // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+            /^https?:\/\/169\.254\.169\.254/
+        ]
     };
 
     module.exports = config;
