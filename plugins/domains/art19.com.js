@@ -84,7 +84,6 @@ module.exports = {
             "twitter-image"
         ]
     },
-        "https://art19.com/shows/fox-sports-live/episodes/4c924063-ca48-487c-ad93-b2b3485a267c",
-        "https://art19.com/shows/skip-and-shannon-undisputed/embed"
+        "https://art19.com/shows/fox-sports-live/episodes/4c924063-ca48-487c-ad93-b2b3485a267c"
     ]
 };

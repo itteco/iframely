@@ -31,7 +31,7 @@ module.exports = {
     tests: [{
         feed: 'https://me.ign.com/en/feed.xml',
         getUrl: function(url) {
-            return url.match(/videos?/i) && url;
+            return url.match(/\/videos?\//i) && url;
         }
     },
         "https://me.ign.com/en/videos/112217/video/our-favorite-games-of-new-york-comic-con",

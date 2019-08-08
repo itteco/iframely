@@ -85,7 +85,6 @@ module.exports = {
         "https://www.facebook.com/joe.yu.94/videos/10206321173378788/",
         "https://business.facebook.com/KMPHFOX26/videos/10154356403004012/",
         "https://www.facebook.com/tv2nyhederne/videos/1657445024271131/?comment_id=1657463030935997",
-        "https://www.facebook.com/MeanwhileinCanada1/videos/1302492646464430/",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
         {noFeeds: true}, {skipMixins: ["oembed-error"]}
