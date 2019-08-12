@@ -260,7 +260,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
         function(testUrlsSet, cb) {
 
-            var disableHttp2 = false;
+            var disableHttp2 = true;
 
             function processTestUrl(url, cb) {
                 log('   Testing url ' + (disableHttp2 ? 'http1' : 'h2') + ':', url);
@@ -286,6 +286,14 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         log('       error!', error);
                     } else {
                         log('       done');
+                    }
+
+                    if (!disableHttp2 && !data.h2) {
+                        // No http2.
+                        // Next iteration.
+                        disableHttp2 = true;
+                        cb();
+                        return;
                     }
 
                     var logEntry = new PageTestLog({
@@ -380,13 +388,11 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                             return cb(error);
                         }
                         
-                        if (logEntry.h2 && !disableHttp2) {
-                            // http2 used. Now try without it.
-                            disableHttp2 = true;
+                        if (disableHttp2) {
+                            disableHttp2 = false;
                             processTestUrl(url, cb);
                         } else {
-                            // Reset disableHttp2 to make next test with http2.
-                            disableHttp2 = false;
+                            disableHttp2 = true;
                             cb();
                         }
                     });
