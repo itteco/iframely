@@ -260,9 +260,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
         function(testUrlsSet, cb) {
 
-            async.eachSeries(testUrlsSet.urls, function(url, cb) {
+            var disableHttp2 = false;
 
-                log('   Testing url:', url);
+            function processTestUrl(url, cb) {
+                log('   Testing url ' + (disableHttp2 ? 'http1' : 'h2') + ':', url);
 
                 var startTime = new Date().getTime();
                 var timeout;
@@ -307,6 +308,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     }
 
                     if (data) {
+
+                        logEntry.h2 = data.h2;
 
                         var rels = [];
                         data.links.forEach(function(link) {
@@ -370,7 +373,23 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         }
                     }
 
-                    logEntry.save(cb);
+                    logEntry.save(function(error) {
+
+                        if (error) {
+                            console.log('errork', error)
+                            return cb(error);
+                        }
+                        
+                        if (logEntry.h2 && !disableHttp2) {
+                            // http2 used. Now try without it.
+                            disableHttp2 = true;
+                            processTestUrl(url, cb);
+                        } else {
+                            // Reset disableHttp2 to make next test with http2.
+                            disableHttp2 = false;
+                            cb();
+                        }
+                    });
                 }
 
                 timeout = setTimeout(function() {
@@ -383,11 +402,13 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         debug: true,
                         refresh: true,
                         readability: true,
+                        disableHttp2: disableHttp2,
                         getWhitelistRecord: whitelist.findWhitelistRecordFor
                     }, callback);
                 }, CONFIG.tests.pause_between_tests || 0);
+            }
 
-            }, cb);
+            async.eachSeries(testUrlsSet.urls, processTestUrl, cb);
         },
 
         function removeOldSets(cb) {

@@ -141,7 +141,9 @@
         rel: [String],
 
         errors_list: [String],
-        warnings: [String]
+        warnings: [String],
+
+        h2: Boolean
     });
 
     PageTestLogSchema.methods.hasError = function() {

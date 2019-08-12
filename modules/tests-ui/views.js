@@ -96,34 +96,47 @@
                         pluginTest.last_urls_set = s;
                         pluginTest.last_page_logs_dict = {};
 
-                        s.urls = s.urls || [];
+                        s.urls = s.urls || [];  
+                        
+                        async.eachSeries([true, false], function(h2, cb) {
+                            async.eachSeries(s.urls, function(url, cb) {
 
-                        async.eachSeries(s.urls, function(url, cb) {
+                                async.waterfall([
 
-                            async.waterfall([
+                                    function(cb) {
+                                        var query = {
+                                            url: url,
+                                            plugin: s.plugin
+                                        };
 
-                                function(cb) {
-                                    PageTestLog.findOne({
-                                        url: url,
-                                        plugin: s.plugin
-                                    }, {}, {
-                                        sort: {
-                                            created_at: -1
+                                        if (h2) {
+                                            query.h2 = true;
+                                        } else {
+                                            query.h2 = {$ne: true};
                                         }
-                                    }, cb);
-                                },
-
-                                function(log, cb) {
-
-                                    if (log) {
-                                        pluginTest.last_page_logs_dict[log.url] = log;
+                                            
+                                        PageTestLog.findOne(query, {}, {
+                                            sort: {
+                                                created_at: -1
+                                            }
+                                        }, cb);
+                                    },
+    
+                                    function(log, cb) {
+    
+                                        if (log) {
+                                            var key = log.url;
+                                            if (h2) {
+                                                key += ':h2';
+                                            } 
+                                            pluginTest.last_page_logs_dict[key] = log;
+                                        }
+    
+                                        cb();
                                     }
-
-                                    cb();
-                                }
-
-                            ], cb);
-
+    
+                                ], cb);
+                            }, cb);
                         }, cb);
 
                     }, cb);
