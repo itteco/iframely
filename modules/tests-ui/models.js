@@ -143,7 +143,10 @@
         errors_list: [String],
         warnings: [String],
 
-        h2: Boolean
+        h2: {
+            type: Boolean,
+            index: true
+        }
     });
 
     PageTestLogSchema.methods.hasError = function() {
