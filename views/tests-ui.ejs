@@ -24,38 +24,58 @@
     <p>Rendered at: <%= time %></p>
 
     <% if (progress) { %>
-        <% if (!progress.tests_finished_at) { %>
-            <p>Current test batch progress:</p>
-        <% } else { %>
-            <p>Last test batch:</p>
-        <% } %>
-        <ul>
-            <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
-            <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
-            <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
 
-            <% if (progress.last_uncaught_exception) { %>
-                <li>Last uncaught exception: <strong><%= progress.last_uncaught_exception %></strong></li>
-            <% } %>
-        </ul>
+        <div class="row-fluid">
+            <div class="span6">
 
-        <% if (progress.current_testing_plugin) { %>
-            <p>Current test:</p>
-            <ul>
-                <li>plugin: <strong><%= progress.current_testing_plugin %></strong></li>
-                <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
-            </ul>
-        <% } %>
+                <% if (!progress.tests_finished_at) { %>
+                    <p>Current test batch progress:</p>
+                <% } else { %>
+                    <p>Last test batch:</p>
+                <% } %>
+                <ul>
+                    <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
+                    <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
+                    <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
 
-        <% if (totalCount) { %>
-            <p>Speed:</p>
-            <ul>
-                <li>average request time (with timeouts): <strong><%= averageTime %></strong></li>
-                <li>total requests count (with timeouts): <strong><%= totalCount %></strong></li>
-                <li>average good request time (without timeouts): <strong><%= averageOkTime %></strong></li>
-                <li>good requests count (without timeouts): <strong><%= totalOkCount %></strong></li>
-            </ul>
-        <% } %>
+                    <% if (progress.last_uncaught_exception) { %>
+                        <li>Last uncaught exception: <strong><%= progress.last_uncaught_exception %></strong></li>
+                    <% } %>
+                </ul>
+
+            </div>
+            <div class="span6">
+
+                <% if (progress.current_testing_plugin) { %>
+                    <p>Current test:</p>
+                    <ul>
+                        <li>plugin: <strong><%= progress.current_testing_plugin %></strong></li>
+                        <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
+                    </ul>
+                <% } %>
+
+            </div>
+        </div>
+
+        <% statsKeys.forEach(function(key) { %>
+            <div class="row-fluid">
+                <div class="span6">
+                    <p>Speed <strong><%= key %> without timeouts:</strong></p>
+                    <ul>
+                        <li>average good request time: <strong><%= averageOkTime[key] %></strong></li>
+                        <li>good requests count: <strong><%= totalOkCount[key] %></strong></li>
+                    </ul>
+                </div>
+                <div class="span6">
+                    <p>Speed <%= key %> with timeouts:</p>
+                    <ul>
+                        <li>average request time: <strong><%= averageTime[key] %></strong></li>
+                        <li>total requests count: <strong><%= totalCount[key] %></strong></li>
+                    </ul>
+                </div>
+            </div>
+        <% }); %>
+
     <% } %>
 
     <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">Mark all to test</a> (test will run in background after <%= CONFIG.tests.relaunch_script_period / (60 * 1000) %> mins if properly configured)</p>
@@ -188,7 +208,7 @@
                                             <%= logH2 && (logH2.created_at_format() + ' (h2)') || '' %>
 
                                             <% if (logH2 && logNoH2) { %><br><% } %>
-                                            
+
                                             <%= logNoH2 && (logNoH2.created_at_format() + ' (http1)') || '' %>
                                         </td>
 
