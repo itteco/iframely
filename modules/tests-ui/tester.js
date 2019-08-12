@@ -288,7 +288,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         log('       done');
                     }
 
-                    if (!disableHttp2 && !data.h2) {
+                    if (!disableHttp2 && (!data || !data.h2)) {
                         // No http2.
                         // Next iteration.
                         disableHttp2 = true;
