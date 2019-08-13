@@ -143,15 +143,25 @@ If you fork, make sure to merge from the upstream for the newer versions.
 
 The Docker container will:
 
+ * Run locally on your machine
  * Run forever start cluster.js by default
  * Run forever start <args> if command line arguments are supplied
  * Gracefully shutdown when receiving SIGTERM from docker stop
-
-A brief documentation:
 
     docker build -t iframely:latest .
     docker run -it -p 8061:8061 -v $PWD/config.local.js:/iframely/config.local.js --name iframely iframely:latest
     docker stop iframely
 
+Ignore any build warnings from NPM on OSX (Darwin).
+
+A longer documentation with docker build instructions (tags/forked repo) for upload to docker hub is available here: [DOCKER-BUILD-INSTRUCTION.md](DOCKER-BUILD-INSTRUCTION.md).
+
+# Ansible + Vagrant
+
+If you use Ansible for deployments a role + playbook is available in [ansible-docker-iframely](ansible-docker-iframely/). This role utilizes docker hub for image retrival. Feel free to modify it to your like.
++
+You can run tests and setups yourself with the vagrant file in the dir and run
+    
+    vagrant up
 
 (c) 2013-2018 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
