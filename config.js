@@ -279,7 +279,7 @@
             baseAppUrlForAgent = config.baseAppUrl;
         }
         
-        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)";
+        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ")";
     }
 
     config.TYPES = Object.values(config.T);
