@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/ash
 
 export ARGV="$@"
 export ARGC="$#"
