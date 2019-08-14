@@ -145,7 +145,8 @@
             request_options: {
                 // Refer to: https://github.com/request/request
                 // Overrides previous params if overlapped.
-            }
+            },
+            disable_http2: true
         }],
         */
 
