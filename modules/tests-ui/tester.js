@@ -260,7 +260,12 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
         function(testUrlsSet, cb) {
 
-            var disableHttp2 = true;
+            var testMode = 'default'; //'http1-first', 'h2-first'
+
+            var disableHttp2 = false;
+            if (testMode === 'http1-first') {
+                disableHttp2 = true;
+            }
 
             function processTestUrl(url, cb) {
                 log('   Testing url ' + (disableHttp2 ? 'http1' : 'h2') + ':', url);
@@ -288,12 +293,14 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         log('       done');
                     }
 
-                    if (!disableHttp2 && (!data || !data.h2)) {
-                        // No http2.
-                        // Next iteration.
-                        disableHttp2 = true;
-                        cb();
-                        return;
+                    if (testMode === 'http1-first') {
+                        if (!disableHttp2 && (!data || !data.h2)) {
+                            // No http2.
+                            // Next iteration.
+                            disableHttp2 = true;
+                            cb();
+                            return;
+                        }
                     }
 
                     var logEntry = new PageTestLog({
@@ -387,14 +394,33 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                             console.log('errork', error)
                             return cb(error);
                         }
-                        
-                        if (disableHttp2) {
-                            disableHttp2 = false;
-                            processTestUrl(url, cb);
+
+                        if (testMode === 'http1-first') {
+
+                            if (disableHttp2) {
+                                disableHttp2 = false;
+                                processTestUrl(url, cb);
+                            } else {
+                                disableHttp2 = true;
+                                cb();
+                            }
+
+                        } else if (testMode === 'h2-first') {
+
+                            if (logEntry.h2 && !disableHttp2) {
+                                // http2 used. Now try without it.
+                                disableHttp2 = true;
+                                processTestUrl(url, cb);
+                            } else {
+                                // Reset disableHttp2 to make next test with http2.
+                                disableHttp2 = false;
+                                cb();
+                            }
+
                         } else {
-                            disableHttp2 = true;
                             cb();
                         }
+                        
                     });
                 }
 
