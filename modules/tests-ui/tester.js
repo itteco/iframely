@@ -268,7 +268,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
             }
 
             function processTestUrl(url, cb) {
-                log('   Testing url ' + (disableHttp2 ? 'http1' : 'h2') + ':', url);
+                log('   Testing url ' + (disableHttp2 ? 'http1 only' : '') + ':', url);
 
                 var startTime = new Date().getTime();
                 var timeout;
