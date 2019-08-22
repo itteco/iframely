@@ -124,7 +124,8 @@
         test_set: {
             type: Schema.ObjectId,
             required: true,
-            ref: 'TestUrlsSet'
+            ref: 'TestUrlsSet',
+            index: true
         },
 
         plugin: {
