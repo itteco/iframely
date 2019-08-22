@@ -75,13 +75,38 @@
                     pluginTests = _pluginTests;
 
                     async.mapSeries(pluginTests, function(p, cb) {
-                        TestUrlsSet.findOne({
-                            plugin: p._id
-                        }, {}, {
-                            sort: {
-                                created_at: -1
+
+                        var testUrlSet;
+
+                        async.waterfall([
+
+                            function(cb) {
+                                TestUrlsSet.findOne({
+                                    plugin: p._id
+                                }, {}, {
+                                    sort: {
+                                        created_at: -1
+                                    }
+                                }, cb);
+                            },
+
+                            function(_testUrlSet, cb) {
+                                testUrlSet = _testUrlSet;
+                                if (testUrlSet) {
+                                    PageTestLog.find({
+                                        test_set: testUrlSet._id
+                                    }, cb)
+                                } else {
+                                    cb(null, null);
+                                }
+                            },
+
+                            function(pageTestLogs, cb) {
+                                testUrlSet.pageTestLogs = pageTestLogs || [];
+                                cb(null, testUrlSet);
                             }
-                        }, cb);
+                        ], cb);
+                        
                     }, cb);
                 },
 
@@ -96,48 +121,16 @@
                         pluginTest.last_urls_set = s;
                         pluginTest.last_page_logs_dict = {};
 
-                        s.urls = s.urls || [];  
-                        
-                        async.eachSeries([true, false], function(h2, cb) {
-                            async.eachSeries(s.urls, function(url, cb) {
+                        s.urls = s.urls || [];
+                        s.pageTestLogs.forEach(function(pageTestLog) {
+                            var key = pageTestLog.url;
+                            if (pageTestLog.h2) {
+                                key += ':h2';
+                            }
+                            pluginTest.last_page_logs_dict[key] = pageTestLog;
+                        });
 
-                                async.waterfall([
-
-                                    function(cb) {
-                                        var query = {
-                                            url: url,
-                                            plugin: s.plugin
-                                        };
-
-                                        if (h2) {
-                                            query.h2 = true;
-                                        } else {
-                                            query.h2 = {$ne: true};
-                                        }
-                                            
-                                        PageTestLog.findOne(query, {}, {
-                                            sort: {
-                                                created_at: -1
-                                            }
-                                        }, cb);
-                                    },
-    
-                                    function(log, cb) {
-    
-                                        if (log) {
-                                            var key = log.url;
-                                            if (h2) {
-                                                key += ':h2';
-                                            } 
-                                            pluginTest.last_page_logs_dict[key] = log;
-                                        }
-    
-                                        cb();
-                                    }
-    
-                                ], cb);
-                            }, cb);
-                        }, cb);
+                        cb();
 
                     }, cb);
                 }
