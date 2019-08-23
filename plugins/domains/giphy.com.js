@@ -18,7 +18,7 @@ module.exports = {
 
         var links = [];
 
-        if (twitter.player) {
+        if (twitter.player && twitter.image && !/^http:\/\//i.test(twitter.image.url)) { // some players are broken at the moment, ex: https://giphy.com/embed/BlVnrxJgTGsUw
             links.push({
                 href: (twitter.player.value || twitter.player).replace(/\/twitter\/iframe$/, ''),
                 type: CONFIG.T.text_html,
@@ -29,7 +29,7 @@ module.exports = {
 
         if (og.video && (/\.mp4/.test(og.video.url) || og.video.type === CONFIG.T.video_mp4)) {
             links.push({
-                href: og.video.url,
+                href: og.video.url.replace(/^http:\/\//i, 'https://'),
                 type: CONFIG.T.video_mp4,
                 rel: [CONFIG.R.player, CONFIG.R.og, CONFIG.R.html5, CONFIG.R.gifv],
                 "aspect-ratio": og.video.width / og.video.height
