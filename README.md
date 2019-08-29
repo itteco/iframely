@@ -15,7 +15,7 @@ In response to `url` request, APIs returns you the embeds and meta for a request
 
 Iframely can also be used as Node.js library (that's how it is used in our [cloud API](https://iframely.com)). 
 
-Requires Node version 0.10.22 and up. 
+Requires Node version 7 and up. 
 
 
 ## Not included as compared to Cloud API
