@@ -24,38 +24,58 @@
     <p>Rendered at: <%= time %></p>
 
     <% if (progress) { %>
-        <% if (!progress.tests_finished_at) { %>
-            <p>Current test batch progress:</p>
-        <% } else { %>
-            <p>Last test batch:</p>
-        <% } %>
-        <ul>
-            <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
-            <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
-            <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
 
-            <% if (progress.last_uncaught_exception) { %>
-                <li>Last uncaught exception: <strong><%= progress.last_uncaught_exception %></strong></li>
-            <% } %>
-        </ul>
+        <div class="row-fluid">
+            <div class="span6">
 
-        <% if (progress.current_testing_plugin) { %>
-            <p>Current test:</p>
-            <ul>
-                <li>plugin: <strong><%= progress.current_testing_plugin %></strong></li>
-                <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
-            </ul>
-        <% } %>
+                <% if (!progress.tests_finished_at) { %>
+                    <p>Current test batch progress:</p>
+                <% } else { %>
+                    <p>Last test batch:</p>
+                <% } %>
+                <ul>
+                    <li><strong><%= progress.getPercent() %>%</strong> (<%= progress.tested_plugins_count %>/<%= progress.total_plugins_count %>)</li>
+                    <li>Test started at: <strong><%= format(progress.tests_started_at) %></strong></li>
+                    <li>Test finished at: <strong><%= format(progress.tests_finished_at) %></strong></li>
 
-        <% if (totalCount) { %>
-            <p>Speed:</p>
-            <ul>
-                <li>average request time (with timeouts): <strong><%= averageTime %></strong></li>
-                <li>total requests count (with timeouts): <strong><%= totalCount %></strong></li>
-                <li>average good request time (without timeouts): <strong><%= averageOkTime %></strong></li>
-                <li>good requests count (without timeouts): <strong><%= totalOkCount %></strong></li>
-            </ul>
-        <% } %>
+                    <% if (progress.last_uncaught_exception) { %>
+                        <li>Last uncaught exception: <strong><%= progress.last_uncaught_exception %></strong></li>
+                    <% } %>
+                </ul>
+
+            </div>
+            <div class="span6">
+
+                <% if (progress.current_testing_plugin) { %>
+                    <p>Current test:</p>
+                    <ul>
+                        <li>plugin: <strong><%= progress.current_testing_plugin %></strong></li>
+                        <li>started at: <strong><%= format(progress.last_plugin_test_started_at) %></strong></li>
+                    </ul>
+                <% } %>
+
+            </div>
+        </div>
+
+        <% statsKeys.forEach(function(key) { %>
+            <div class="row-fluid">
+                <div class="span6">
+                    <p>Speed <strong><%= key %> without timeouts:</strong></p>
+                    <ul>
+                        <li>average good request time: <strong><%= averageOkTime[key] %></strong></li>
+                        <li>good requests count: <strong><%= totalOkCount[key] %></strong></li>
+                    </ul>
+                </div>
+                <div class="span6">
+                    <p>Speed <%= key %> with timeouts:</p>
+                    <ul>
+                        <li>average request time: <strong><%= averageTime[key] %></strong></li>
+                        <li>total requests count: <strong><%= totalCount[key] %></strong></li>
+                    </ul>
+                </div>
+            </div>
+        <% }); %>
+
     <% } %>
 
     <p><a href="/tests/run/all" onclick="$.get('/tests/run/all'); $(this).remove(); return false;">Mark all to test</a> (test will run in background after <%= CONFIG.tests.relaunch_script_period / (60 * 1000) %> mins if properly configured)</p>
@@ -117,68 +137,82 @@
 
                                 <% pluginTest.last_urls_set.urls.forEach(function(url) { %>
 
-                                <% var log = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url]; %>
+                                    <% var logH2 = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url + ':h2']; %>
+                                    <% var logNoH2 = pluginTest.last_page_logs_dict && pluginTest.last_page_logs_dict[url]; %>
+                                    <% var log = logH2 || logNoH2; %>
+                                    
+                                    <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError() && !log.hasWarning()) { %>success<% } %> <% if (!log || (log.hasWarning() && !log.hasError())) { %>warning<% } %>">
 
-                                <tr class="<% if (log && log.hasError()) { %>error<% } %> <% if (log && !log.hasError() && !log.hasWarning()) { %>success<% } %> <% if (!log || (log.hasWarning() && !log.hasError())) { %>warning<% } %>">
+                                        <td>
 
-                                    <td>
+                                            <% if (log) { %>
+                                                <p>
+                                                    <% if (log.hasTimeout()) {%>
+                                                        test timeout
+                                                    <% } else { %>
+                                                        <%= log.hasError() ? "error" : "ok" %>
+                                                    <% } %>
 
-                                        <% if (log) { %>
-                                            <p>
-                                                <% if (log.hasTimeout()) {%>
-                                                    test timeout
-                                                <% } else { %>
-                                                    <%= log.hasError() ? "error" : "ok" %>
-                                                <% } %>
+                                                    -
 
-                                                -
+                                                    <%= log.response_time/1000 %> sec
+                                                    (<%= (log.h2 ? 'h2' : 'http1') %>)
 
-                                                <%= log.response_time/1000 %> sec
-                                            </p>
-                                        <% } %>
+                                                    <% if (logH2 && logNoH2) { %>
+                                                        -
 
-                                        <% if (log && log.hasError()) { %>
-                                            <ul>
-                                                <% log.errors_list.forEach(function(e) { %>
-                                                    <li><%= e %></li>
-                                                <% }); %>
-                                            </ul>
-                                        <% } else if (!log) { %>
-                                            <p>
-                                                pending...
-                                            </p>
-                                        <% } %>
+                                                        <%= logNoH2.response_time/1000 %> sec
+                                                        (http1)
+                                                    <% } %>
+                                                </p>
+                                            <% } %>
 
-                                        <% if (log && log.hasWarning() && !log.hasTimeout()) { %>
-                                            <p><strong>soft warnings:</strong></p>
-                                            <ul>
-                                                <% log.warnings.forEach(function(e) { %>
-                                                    <li><%= e %></li>
-                                                <% }); %>
-                                            </ul>
-                                        <% } %>
+                                            <% if (log && log.hasError()) { %>
+                                                <ul>
+                                                    <% log.errors_list.forEach(function(e) { %>
+                                                        <li><%= e %></li>
+                                                    <% }); %>
+                                                </ul>
+                                            <% } else if (!log) { %>
+                                                <p>
+                                                    pending...
+                                                </p>
+                                            <% } %>
 
-                                    </td>
+                                            <% if (log && log.hasWarning() && !log.hasTimeout()) { %>
+                                                <p><strong>soft warnings:</strong></p>
+                                                <ul>
+                                                    <% log.warnings.forEach(function(e) { %>
+                                                        <li><%= e %></li>
+                                                    <% }); %>
+                                                </ul>
+                                            <% } %>
 
-                                    <td>
-                                        <% if (log && log.rel && log.rel.length > 0) { %>
-                                                <%= log.rel.join(', ') %>
-                                        <% } %>
-                                    </td>
+                                        </td>
 
-                                    <td>
-                                        <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>&debug=true">debug</a>
-                                    </td>
+                                        <td>
+                                            <% if (log && log.rel && log.rel.length > 0) { %>
+                                                    <%= log.rel.join(', ') %>
+                                            <% } %>
+                                        </td>
 
-                                    <td>
-                                        <a target="_blank" href="<%= url %>"><%= url %></a>
-                                    </td>
+                                        <td>
+                                            <a target="_blank" href="/debug?uri=<%= encodeURIComponent(url) %>&debug=true">debug</a>
+                                        </td>
 
-                                    <td>
-                                        <%= log && log.created_at_format() || '' %>
-                                    </td>
+                                        <td>
+                                            <a target="_blank" href="<%= url %>"><%= url %></a>
+                                        </td>
 
-                                </tr>
+                                        <td>
+                                            <%= logH2 && (logH2.created_at_format() + ' (h2)') || '' %>
+
+                                            <% if (logH2 && logNoH2) { %><br><% } %>
+
+                                            <%= logNoH2 && (logNoH2.created_at_format() + ' (http1)') || '' %>
+                                        </td>
+
+                                    </tr>
 
                                 <% }); %>
 

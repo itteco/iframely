@@ -18,8 +18,10 @@
         baseAppUrl: "",
         port: 8061,
         relativeStaticUrl: "/s",
+        use_http2: true,
         DEBUG: false,
 
+        SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
