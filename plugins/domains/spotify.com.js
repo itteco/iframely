@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode|playlist)/i
     ],
 
     mixins: [
