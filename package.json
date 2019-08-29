@@ -61,6 +61,6 @@
         "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
     },
     "engines": {
-        "node": ">=0.10.21"
+        "node": ">=7.0.0"
     }
 }
