@@ -164,4 +164,4 @@ You can run tests and setups yourself with the vagrant file in the dir and run
     
     vagrant up
 
-(c) 2013-2018 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
+(c) 2013-2019 [Itteco Software Corp](http://itteco.com). Licensed under MIT. [Get it on Github](https://github.com/itteco/iframely)
