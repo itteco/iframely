@@ -46,7 +46,6 @@ module.exports = {
         "http://www.usatoday.com/media/cinematic/video/87694100/abdul-jabbar-mocks-trump-says-im-jordan/",
         "http://www.usatoday.com/videos/news/nation/2016/07/29/87694100/",
         "http://www.usatoday.com/videos/life/people/2016/11/03/93261598/",
-        "http://www.usatoday.com/videos/news/humankind/2016/09/20/90730062/",
         "https://www.usatoday.com/videos/news/2018/07/03/white-house-twitter-account-attacks-senators-critical-ice/36581999/",
         "http://www.desertsun.com/media/cinematic/video/92390930/police-chief-quit-ignoring-red-flags/",
         "http://www.usatoday.com/videos/life/2016/11/09/93525560/",

@@ -18,8 +18,10 @@
         baseAppUrl: "",
         port: 8061,
         relativeStaticUrl: "/s",
+        use_http2: true,
         DEBUG: false,
 
+        SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
@@ -143,8 +145,14 @@
 
             audio: 'audio',
             slideshow: 'slideshow',
-            playlist: 'playlist'            
+            playlist: 'playlist'
         },
+
+        FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
+            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
+            'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
+            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr'
+        ],
 
         // Option names
         O: {
@@ -198,7 +206,7 @@
                 "video",
                 "photo"
             ],
-            "html-meta": [  // TODO: Need change to 'fb'.
+            "html-meta": [
                 "video",
                 "embedURL"
             ]
@@ -228,7 +236,7 @@
             "sm4"
         ],
 
-        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia)\./i,
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard)\./i,
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
@@ -273,7 +281,7 @@
             baseAppUrlForAgent = config.baseAppUrl;
         }
         
-        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)";
+        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ")";
     }
 
     config.TYPES = Object.values(config.T);

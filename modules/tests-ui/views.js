@@ -75,13 +75,38 @@
                     pluginTests = _pluginTests;
 
                     async.mapSeries(pluginTests, function(p, cb) {
-                        TestUrlsSet.findOne({
-                            plugin: p._id
-                        }, {}, {
-                            sort: {
-                                created_at: -1
+
+                        var testUrlSet;
+
+                        async.waterfall([
+
+                            function(cb) {
+                                TestUrlsSet.findOne({
+                                    plugin: p._id
+                                }, {}, {
+                                    sort: {
+                                        created_at: -1
+                                    }
+                                }, cb);
+                            },
+
+                            function(_testUrlSet, cb) {
+                                testUrlSet = _testUrlSet;
+                                if (testUrlSet) {
+                                    PageTestLog.find({
+                                        test_set: testUrlSet._id
+                                    }, cb)
+                                } else {
+                                    cb(null, null);
+                                }
+                            },
+
+                            function(pageTestLogs, cb) {
+                                testUrlSet.pageTestLogs = pageTestLogs || [];
+                                cb(null, testUrlSet);
                             }
-                        }, cb);
+                        ], cb);
+                        
                     }, cb);
                 },
 
@@ -97,34 +122,15 @@
                         pluginTest.last_page_logs_dict = {};
 
                         s.urls = s.urls || [];
+                        s.pageTestLogs.forEach(function(pageTestLog) {
+                            var key = pageTestLog.url;
+                            if (pageTestLog.h2) {
+                                key += ':h2';
+                            }
+                            pluginTest.last_page_logs_dict[key] = pageTestLog;
+                        });
 
-                        async.eachSeries(s.urls, function(url, cb) {
-
-                            async.waterfall([
-
-                                function(cb) {
-                                    PageTestLog.findOne({
-                                        url: url,
-                                        plugin: s.plugin
-                                    }, {}, {
-                                        sort: {
-                                            created_at: -1
-                                        }
-                                    }, cb);
-                                },
-
-                                function(log, cb) {
-
-                                    if (log) {
-                                        pluginTest.last_page_logs_dict[log.url] = log;
-                                    }
-
-                                    cb();
-                                }
-
-                            ], cb);
-
-                        }, cb);
+                        cb();
 
                     }, cb);
                 }
@@ -134,10 +140,17 @@
                     return next(new Error(error));
                 }
 
-                var totalTime = 0,
-                    totalCount = 0,
-                    totalOkTime = 0,
-                    totalOkCount = 0;
+                var stats = {
+                    http1: 0,
+                    h2: 0
+                }
+
+                var totalTime = Object.assign({}, stats),
+                    totalCount = Object.assign({}, stats),
+                    totalOkTime = Object.assign({}, stats),
+                    totalOkCount = Object.assign({}, stats),
+                    averageTime = Object.assign({}, stats),
+                    averageOkTime = Object.assign({}, stats);
 
                 pluginTests.forEach(function(pluginTest) {
 
@@ -147,11 +160,12 @@
 
                     for(var id in pluginTest.last_page_logs_dict) {
                         var log = pluginTest.last_page_logs_dict[id];
-                        totalTime += log.response_time;
-                        totalCount++;
+                        var key = log.h2 ? 'h2' : 'http1';
+                        totalTime[key] += log.response_time;
+                        totalCount[key]++;
                         if (!log.hasTimeout()) {
-                            totalOkTime += log.response_time;
-                            totalOkCount++;
+                            totalOkTime[key] += log.response_time;
+                            totalOkCount[key]++;
                         }
                     }
 
@@ -192,8 +206,10 @@
                 good.items = pluginTests.filter(function(p) { return !p.hasError; });
                 bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
-                var averageTime = Math.round(totalTime / (totalCount || 1));
-                var averageOkTime = Math.round(totalOkTime / (totalOkCount || 1));
+                _.keys(stats).forEach(function(key) {
+                    averageTime[key] = Math.round(totalTime[key] / (totalCount[key] || 1));
+                    averageOkTime[key] = Math.round(totalOkTime[key] / (totalOkCount[key] || 1));
+                });
 
                 res.render('tests-ui',{
                     groups: groups,
@@ -203,6 +219,7 @@
                     totalCount: totalCount,
                     averageOkTime: averageOkTime,
                     totalOkCount: totalOkCount,
+                    statsKeys: _.keys(stats),
                     format: function(d) {
                         if (!d) {
                             return "–";

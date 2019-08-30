@@ -32,7 +32,7 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{skipMethods: ["getMeta"]},
         "http://prezi.com/hvsanqexuoza/designthinking-vs-leanstartup/",
         "https://prezi.com/penxp_esmqzu/e-learning-mooc-spoc-et-compagnie/"
     ]

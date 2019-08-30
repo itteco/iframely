@@ -12,18 +12,14 @@ module.exports = {
     ],
 
     getLink: function(urlMatch, oembed) {
-        return [{
-            href: 'https://www.flickr.com/apps/slideshow/show.swf?v=143270&offsite=true&lang=en-us&page_show_url=' + encodeURIComponent(urlMatch[1] + '/show/') + '&page_show_back_url=' + encodeURIComponent(urlMatch[1] + '/') + '&set_id=' + encodeURIComponent(urlMatch[2]) + '&jump_to=',
-            type: CONFIG.T.flash,
-            rel: CONFIG.R.player
-        }, {
+        return {
             html: oembed.html
                 .replace(/\@n/g, "@N")
                 .replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
             rel: [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width / oembed.height            
-        }];
+        };
     },
 
     tests: [

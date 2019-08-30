@@ -5,6 +5,12 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
+    mixins: [
+        "domain-icon",
+        "oembed-canonical",
+        "oembed-site"
+    ],
+
     provides: '__isFBPage',
 
     getMeta: function(__isFBPage, oembed, meta) {

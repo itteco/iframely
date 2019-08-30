@@ -46,7 +46,6 @@ module.exports = {
         }
         rels.push ("allow"); // otherwise, rich->players get denied by oembed:video whitelist record
 
-
         var widget = {
             rel: rels,
             type: CONFIG.T.text_html
@@ -110,6 +109,10 @@ module.exports = {
             widget.width = oembed.width;
             widget.height = oembed.height
         }
+
+        if ($iframe.length == 1 && $iframe.attr('allow')) {
+            widget.rel = widget.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+        }        
 
         return widget;
 

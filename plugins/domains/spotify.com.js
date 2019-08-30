@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode|playlist)/i
     ],
 
     mixins: [
@@ -46,7 +46,7 @@ module.exports = {
                 options: {}
             };
 
-            if (/album|playlist|show/.test(src)) {
+            if (/album|playlist/.test(src)) {
                 var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
                 player.options.playlist = {
@@ -58,8 +58,11 @@ module.exports = {
                         'aspect-ratio': 4/3,
                         'padding-bottom': 80,
                     } : {
-                        height: !include_playlist ? 80 : oembed.height || 400
+                        height: !include_playlist ? 80 : (oembed.height || 400)
                     };
+            } else if (/episode|show/.test(src)) {
+                player.rel.push(CONFIG.R.audio);
+                player.height = oembed.height || 232;
             } else {
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
@@ -113,6 +116,7 @@ module.exports = {
         "https://play.spotify.com/track/2vN0b6d2ogn72kL75EmN3v",
         "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
         "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
-        "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW"
+        "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW",
+        "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68"
     ]
 };

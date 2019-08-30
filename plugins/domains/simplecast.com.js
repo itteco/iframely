@@ -41,7 +41,7 @@ module.exports = {
 
     tests: [
         "https://embed.simplecast.com/c0e95371",        
-        "https://emitblackwell.simplecast.com/episodes/s3e14-the-rattlesnake-lawyer-johnathan-07ffb945"
+        "https://tgd.simplecast.com/episodes/dan-blackman-and-robyn-kanner-the-power-7fe152f4"
         /*
         http://bikeshed.fm/54
         http://bikeshed.fm/57

@@ -6,7 +6,7 @@ const URL = require("url");
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|document|book|read|embeds|presentation|fullscreen)\//i,
+        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|document|embeds|presentation|fullscreen)\//i
     ],
 
     provides: ['scribdAspect'],
@@ -56,7 +56,7 @@ module.exports = {
             return {
                 href: href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1'),
                 accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: slideshow ? [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.html5, CONFIG.R.oembed] : [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
                 'aspect-ratio': scribdAspect,
                 'padding-bottom': 45, // toolbar
                 options: {
