@@ -156,9 +156,9 @@ Ignore any build warnings from NPM on OSX (Darwin).
 
 A longer documentation with docker build instructions (tags/forked repo) for upload to docker hub is available here: [DOCKER-BUILD-INSTRUCTION.md](DOCKER-BUILD-INSTRUCTION.md).
 
-# Ansible + Vagrant
+## Ansible + Vagrant
 
-If you use Ansible for deployments a role + playbook is available in [ansible-docker-iframely](ansible-docker-iframely/). This role utilizes docker hub for image retrival. Feel free to modify it to your like.
+If you use Ansible for deployments a role + playbook is available in [ansible-docker-iframely](https://github.com/itteco/iframely/tree/master/ansible-docker-iframely). This role utilizes docker hub for image retrival. Feel free to modify it to your like.
 +
 You can run tests and setups yourself with the vagrant file in the dir and run
     
