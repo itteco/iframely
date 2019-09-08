@@ -6,7 +6,7 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(twitter, og) {
+    getData: function(twitter, og) {
 
         var video_src = (twitter.player && twitter.player.value);
 
@@ -19,16 +19,14 @@ module.exports = {
         if (video_src && !/\/onsite_universal\//i.test(video_src)) { // avoid "this video is not allowed on this domain"        
 
             return {
-                href: video_src,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": 16/9
+                __promoUri: {url: video_src.replace(/^\/\//, 'https://')}
             }
         }
     },
 
     tests: [
-        "https://www.nbc.com/the-tonight-show/video/alex-rodriguez-clears-up-his-animosity-toward-jimmy/2928739"
-        // "http://www.nbc.com/saturday-night-live/video/hotline-bling-parody/2933534", // not allowed
+        "https://www.nbc.com/the-tonight-show/video/alex-rodriguez-clears-up-his-animosity-toward-jimmy/2928739",
+        "https://www.nbc.com/today/video/sunday-today-august-25-2019/4018561", // no longer available, but embeddable
+        "http://www.nbc.com/saturday-night-live/video/hotline-bling-parody/2933534", // geo resrticted
     ]
 };
