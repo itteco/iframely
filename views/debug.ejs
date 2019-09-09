@@ -54,7 +54,7 @@
                                 <input type="checkbox" name="mixAllWithDomainPlugin" <% if (mixAllWithDomainPlugin) { %>checked="checked"<% } %>> Debug with all plugins (disable specific mixins and mixin all available plugins) <a href="/debug?uri=<%= encodeURIComponent(uri) || '' %>&mixAllWithDomainPlugin=<%= !!!mixAllWithDomainPlugin %>" target="_blank">or open in new window with opposite value</a>
                             </label>
                             <label class="checkbox">
-                                <input type="checkbox" name="refresh" <% if (disableCache) { %>checked="checked"<% } %>> Refresh</a>
+                                <input type="checkbox" name="refresh" <% if (refresh) { %>checked="checked"<% } %>> Refresh</a>
                             </label>
                         </div>
                     </div>
