@@ -40,8 +40,6 @@
 
         // Do not cache response in htmlparser with these status codes.
         TEMP_HTTP_ERROR_CODES: [
-            401, 
-            403, 
             408, 
             418, 
             429
