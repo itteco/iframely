@@ -6,15 +6,10 @@ module.exports = {
 
             var player = {
                 href: twitter.player.value || twitter.player,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.twitter],
                 height: twitter.player.height
             };
-
-            if (whitelistRecord.isAllowed('twitter.player', 'html5')) {
-                player.type = CONFIG.T.text_html;
-            } else {
-                player.accept = CONFIG.T.text_html;
-            }
 
             if (!whitelistRecord.isAllowed('twitter.player', 'horizontal')) {
                 player.width = twitter.player.width;
