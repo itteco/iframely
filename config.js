@@ -153,7 +153,9 @@
 
             audio: 'audio',
             slideshow: 'slideshow',
-            playlist: 'playlist'
+            playlist: 'playlist',
+
+            amp: 'amp'
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives

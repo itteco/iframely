@@ -133,7 +133,8 @@ module.exports = function(app) {
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
                     refresh: getBooleanParam(req, 'refresh'),
-                    providerOptions: getProviderOptionsFromQuery(req.query)
+                    providerOptions: getProviderOptionsFromQuery(req.query),
+                    keepRawTemplates: true
                 }, cb);
             }
 
@@ -152,6 +153,14 @@ module.exports = function(app) {
                 });
                 delete result.safe_html;
             }
+
+            result.links.forEach(function(link) {
+                if (link.template_id && link.template_context) {
+                    link.html = iframelyCore.renderLinkTemplate(link);
+                    delete link.template_id;
+                    delete link.template_context;
+                }
+            });
 
             if (!CONFIG.SKIP_IFRAMELY_RENDERS) {
                 var render_link = _.find(result.links, function(link) {
