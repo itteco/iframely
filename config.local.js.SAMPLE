@@ -137,9 +137,9 @@
         */
          }],
 
-        /* Configure use of HTTP proxies as needed. 
-           You don't have to specify all options per regex - just what you need to override
-        */
+        /*
+        // Configure use of HTTP proxies as needed.
+        // You don't have to specify all options per regex - just what you need to override
         PROXY: [{
             re: [/^https?:\/\/www\.domain\.com/],
             proxy_server: 'http://1.2.3.4:8080',
