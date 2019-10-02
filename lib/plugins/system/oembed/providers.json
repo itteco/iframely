@@ -622,5 +622,11 @@
             "(?:www\\.)?arte.tv/(\\w{2})/videos/([a-zA-Z0-9\\-]+)/.*?"
         ],
         "endpoint": "https://api.arte.tv/api/player/v1/oembed/{1}/{2}?platform=ARTE_NEXT"
+    }, {
+        "name": "Codesanbox",
+        "templates": [
+            "codesandbox.io/.*"
+        ],
+        "endpoint": "https://codesandbox.io/oembed"
     }
 ]
