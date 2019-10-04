@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/500px\.com\/photo.+/,
+    re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/(\d+)/i,
 
     mixins: [
         "*",
@@ -8,6 +8,10 @@ module.exports = {
     ],
 
     getMeta: function(meta) {
+
+        if (!meta.five_hundred_pixels) {
+            return;
+        }
 
         var keywords = meta.five_hundred_pixels.tags;
         if (keywords instanceof Array) {
@@ -23,13 +27,13 @@ module.exports = {
         };
     },
 
-    getLinks: function(url, oembed) {
+    getLinks: function(url, urlMatch, oembed) {
         if (oembed.type === 'photo') {
             return {
                 template_context: {
                     title: oembed.title + ' | ' + oembed.provider_name,
                     img_src: oembed.url,
-                    canonical: url
+                    id: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
@@ -41,7 +45,7 @@ module.exports = {
 
     tests: [{
         feed: "https://500px.com/upcoming.rss"
-    },
+    }, {skipMethods: ['getMeta']},
         "http://500px.com/photo/13541787?from=upcoming",
         "https://500px.com/photo/56891080/frozen-by-ryan-pendleton?ctx_page=1&from=user&user_id=116369"
     ]
