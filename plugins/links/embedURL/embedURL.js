@@ -6,72 +6,68 @@ module.exports = {
     provides: 'schemaVideoObject',
 
     getData: function(cheerio, decode, __allowEmbedURL) {
+        // let's try to find ld+json in the body
+        var $script = cheerio('script[type="application/ld+json"]:contains("embed")').first(); // embedURL can be embedurl, embedUrl, etc.
 
-        var videoObjectSchema = 'Object';
+        if ($script.length === 1) {
+            try {
+                var json = utils.parseJSONSource($script.text());
 
-        var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
+                if (json['@type']) {
+                    ld = {};
+                    ld[json['@type'].toLowerCase()] = json;
 
-        if ($scope.length) {
-
-            var $aScope = cheerio($scope);
-
-            var result = {};
-
-            $aScope.find('[itemprop]').each(function() {
-                var $el = cheerio(this);
-
-                var scope = $el.attr('itemscope');
-                if (typeof scope !== 'undefined') {
-                    return;
+                    if (__allowEmbedURL !== 'skip_ld') {
+                        return {
+                            ld: ld
+                        }
+                    } else if (ld.videoobject || ld.mediaobject) {
+                        return {
+                            schemaVideoObject: ld.videoobject || ld.mediaobject
+                        }
+                    }
                 }
 
-                var $parentScope = $el.parents('[itemscope]');
-                if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
-                    return;
-                }
-
-                var key = $el.attr('itemprop');
-                if (key) {
-                    var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
-                    result[key] = value;
-                }
-            });
-
-            return {
-                schemaVideoObject: result
-            };
-
+            } catch (ex) {
+                // broken json, c'est la vie
+            }
         } else {
 
-            // let's try to find ld+json in the body
-            var $script = cheerio('script[type="application/ld+json"]:contains("embed")').first(); // embedURL can be embedurl, embedUrl, etc.
+            var videoObjectSchema = 'Object';
 
-            if ($script.length === 1) {
+            var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
 
-                try {
+            if ($scope.length) {
 
-                    var json = utils.parseJSONSource($script.text());
+                var $aScope = cheerio($scope);
 
-                    if (json['@type']) {
-                        ld = {};
-                        ld[json['@type'].toLowerCase()] = json;
+                var result = {};
 
-                        if (__allowEmbedURL !== 'skip_ld') {
-                            return {
-                                ld: ld
-                            }
-                        } else if (ld.videoobject || ld.mediaobject) {
-                            return {
-                                schemaVideoObject: ld.videoobject || ld.mediaobject
-                            }
-                        }
+                $aScope.find('[itemprop]').each(function() {
+                    var $el = cheerio(this);
 
+                    var scope = $el.attr('itemscope');
+                    if (typeof scope !== 'undefined') {
+                        return;
                     }
 
-                } catch (ex) {
-                    // broken json, c'est la vie
-                }
-            }
+                    var $parentScope = $el.parents('[itemscope]');
+                    if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
+                        return;
+                    }
+
+                    var key = $el.attr('itemprop');
+                    if (key) {
+                        var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
+                        result[key] = value;
+                    }
+                });
+
+                return {
+                    schemaVideoObject: result
+                };
+
+            }            
 
         }
     },
