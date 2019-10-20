@@ -123,7 +123,7 @@
 
         $iframe.attr('iframely-registered', true);
 
-        $iframe.load(function() {
+        $iframe.on( "load", function() {
 
             var iframesCounter = $.iframely.iframesCounter = ($.iframely.iframesCounter || 0) + 1,
                 windowId = id || iframesCounter;
