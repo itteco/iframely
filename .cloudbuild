@@ -1,0 +1,13 @@
+steps:
+- name: gcr.io/cloud-builders/docker
+  args: ['build',
+         '--build-arg', 'PROJECT_ID=$PROJECT_ID',
+         '-t', 'gcr.io/$PROJECT_ID/iframely:$TAG_NAME',
+         '.', '-f', 'Dockerfile']
+  timeout: 600s
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/iframely:$TAG_NAME']
+  timeout: 60s
+timeout: 900s
+tags: ['cloudbuild', 'iframely']
+images: ['gcr.io/$PROJECT_ID/iframely:$TAG_NAME']
