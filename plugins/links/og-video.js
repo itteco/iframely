@@ -53,7 +53,7 @@ module.exports = {
 
     getLinks: function(og, whitelistRecord) {
 
-        if (og.video && whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video')) {
+        if (og.video && (whitelistRecord.isAllowed && whitelistRecord.isAllowed('og.video') || !whitelistRecord.og && /\.(mp4|m3u8|mp3)/i.test(og.video.url || og.video)) ) {
 
             if (og.video instanceof Array) {
 
