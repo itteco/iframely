@@ -628,5 +628,17 @@
             "codesandbox.io/.*"
         ],
         "endpoint": "https://codesandbox.io/oembed"
+    }, {
+        "name": "NAVERTV",
+        "templates": [
+            "tv.naver.com/.*"
+        ],
+        "endpoint": "https://tv.naver.com/oembed"
+    }, {
+        "name": "Verse",
+        "templates": [
+            "verse.com/.*"
+        ],
+        "endpoint": "https://www.verse.com/services/oembed/"
     }
 ]
