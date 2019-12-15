@@ -12,7 +12,7 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: 'http://www.espn.com/core/video/iframe?id=' + urlMatch[1] + '&endcard=false',
+            href: 'https://www.espn.com/core/video/iframe?id=' + urlMatch[1] + '&endcard=false',
             accept: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             "aspect-ratio": 16/9
