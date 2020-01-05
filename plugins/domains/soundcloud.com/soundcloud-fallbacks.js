@@ -1,6 +1,8 @@
 module.exports = {
 
-    getLink: function(__allow_soundcloud_meta, og) {        
+    provides: ['sound_count'],
+
+    getLink: function(__allow_soundcloud_meta, og) {
         if (og.image && og.image.url) {
             return {
                 href: og.image.url,
@@ -9,6 +11,12 @@ module.exports = {
                 width: og.image.width,
                 height: og.image.height
             }
+        }
+    },
+
+    getData: function(__allow_soundcloud_meta, meta) {
+        return {
+            sound_count: meta.soundcloud && meta.soundcloud !== undefined ? meta.soundcloud.sound_count : 1
         }
     }
 

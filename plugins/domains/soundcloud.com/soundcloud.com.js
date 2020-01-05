@@ -4,7 +4,7 @@ const URL = require("url");
 
 module.exports = {
 
-    provides: '__allow_soundcloud_meta',
+    provides: ['__allow_soundcloud_meta', 'sound_count'],
 
     mixins: [
         "oembed-title",
@@ -15,17 +15,17 @@ module.exports = {
         "domain-icon"
     ],
 
-    getLink: function(oembed, options) {
+    getLink: function(oembed, sound_count, options) {
 
         var $container = $('<div>');
         try {
             $container.html(oembed.html);
-        } catch(ex) {}
+        } catch (ex) {}
 
         var $iframe = $container.find('iframe');
         var links = [];
 
-        if ($iframe.length == 1) {
+        if ($iframe.length == 1 && sound_count !== 0) {
 
             var href = $iframe.attr('src');
             var params = URL.parse(href, true).query;
@@ -97,7 +97,7 @@ module.exports = {
 
         if (oembed.thumbnail_url && !/\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {
             links.push({
-                href: oembed.thumbnail_url.replace('http:',''),
+                href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
                 width: oembed.thumbnail_width,
@@ -109,20 +109,32 @@ module.exports = {
     },
 
     getData: function (url, oembed) {
-
-        if (!/w\.soundcloud\.com/i.test(url) && (!oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url))) {
+        if (
+            /* Don't request meta for w.soundcloud.com widget redirects, html parser gets 401 there. */
+            !/w\.soundcloud\.com/i.test(url)
+            && (
+                /* Skip the placeholder thumbnail in oEmbed - use user picture in og image instead. */
+                !oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)
+                
+                /* Also, check meta and try to exclude user profiles with 0 tracks. */
+                || /api\.soundcloud\.com(%2F|\/)users(%2F|\/)/i.test(oembed.html)
+            )
+        ) {
             return {
                 __allow_soundcloud_meta: true
+            }
+            
+        } else {
+            /* Ignore fallbacks, go directly to regular flow */
+            return {
+                sound_count: 1
             }
         }
     },
 
-    tests: [{skipMethods: ["getData"]},
+    tests: [{skipMethods: ["getData"]}, {skipMixins: ["oembed-description"]},
         "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
-        {
-            skipMixins: [
-                "oembed-description"
-            ]
-        }
+        "https://soundcloud.com/user-847444"
+        // user profile with no tracks: https://soundcloud.com/mata-klol        
     ]
 };
