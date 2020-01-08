@@ -26,7 +26,6 @@ module.exports = {
 
     tests: [
         "https://www.nbc.com/the-tonight-show/video/alex-rodriguez-clears-up-his-animosity-toward-jimmy/2928739",
-        "https://www.nbc.com/today/video/sunday-today-august-25-2019/4018561", // no longer available, but embeddable
         "http://www.nbc.com/saturday-night-live/video/hotline-bling-parody/2933534", // geo resrticted
     ]
 };
