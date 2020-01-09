@@ -13,9 +13,9 @@ module.exports = {
         "*"
     ],
 
-    getData: function (urlMatch, meta) {
+    getData: function (urlMatch, schemaVideoObject, meta) {
 
-        var img_src = meta.twitter && meta.twitter.image || meta.ld && meta.ld.videoobject && meta.ld.videoobject.thumbnailurl || meta.og && meta.og.image;
+        var img_src = schemaVideoObject.thumbnailurl || meta.twitter && meta.twitter.image || meta.og && meta.og.image;
 
         if (img_src && (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(img_src) || /^https?:\/\/videos\.usatoday\.net\//i.test(img_src) || /brightcove/i.test(img_src))) {
             return {
