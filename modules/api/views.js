@@ -446,7 +446,7 @@ export default function(app) {
             iframelyUtils.filterLinks(result, {
                 filterNonSSL: getBooleanParam(req, 'ssl'),
                 filterNonHTML5: getBooleanParam(req, 'html5'),
-                filterNonAMP: getBooleanParam(req, 'amp'),
+                amp: getBooleanParam(req, 'amp'),
                 maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
