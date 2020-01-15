@@ -245,7 +245,7 @@ module.exports = {
         });
 
         // But allow bigger image (with black stripes, sigh) for HD w/o maxresdefault to avoid 'tiny-only' thumbnail
-        if (widescreen && youtube_video_gdata.thumbnails && !youtube_video_gdata.thumbnails.maxres && (youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high)) {
+        if (youtube_video_gdata.embeddable && widescreen && youtube_video_gdata.thumbnails && !youtube_video_gdata.thumbnails.maxres && (youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high)) {
             var thumbnail = youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high;
             links.push({
                 href: thumbnail.url,
