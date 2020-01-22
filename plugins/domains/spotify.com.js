@@ -94,10 +94,18 @@ module.exports = {
 
     getData: function (url, options, cb) {
 
+        const trackInAlbumRegex = /^https?:\/\/open\.spotify\.com\/album\/[a-zA-Z0-9]+\?highlight=spotify:track:([a-zA-Z0-9]+)/i;
+
         if (!options.redirectsHistory && /^https?:\/\/play\./i.test(url)) {
             return cb ({
                 redirect: url.replace(/^https?:\/\/play\./i, 'https://open.')
             })
+        } else if (!options.redirectsHistory 
+            && trackInAlbumRegex.test(url)) {
+            return cb ({
+                redirect: 'https://open.spotify.com/track/' + url.match(trackInAlbumRegex)[1]
+            })            
+
         } else {
             cb(null);
         }
@@ -117,6 +125,7 @@ module.exports = {
         "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
         "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
         "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW",
-        "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68"
+        "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68",
+        "https://open.spotify.com/album/3obcdB2QRQMfUBHzjOto4K?highlight=spotify:track:2qZ36jzyP1u29KaeuMmRZx"
     ]
 };
