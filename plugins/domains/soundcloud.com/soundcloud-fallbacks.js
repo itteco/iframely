@@ -16,7 +16,7 @@ module.exports = {
 
     getData: function(__allow_soundcloud_meta, meta) {
         return {
-            sound_count: meta.soundcloud && meta.soundcloud !== undefined ? meta.soundcloud.sound_count : 1
+            sound_count: meta.soundcloud && meta.soundcloud.sound_count !== undefined ? meta.soundcloud.sound_count : 1
         }
     }
 
