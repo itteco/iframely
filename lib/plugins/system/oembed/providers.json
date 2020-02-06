@@ -640,5 +640,12 @@
             "verse.com/.*"
         ],
         "endpoint": "https://www.verse.com/services/oembed/"
+    },
+    {
+        "name": "codeply.com",
+        "templates": [
+            "(?:www\\.)?codeply.com/[vp]/([a-zA-Z0-9]+)"
+        ],
+        "endpoint": "https://www.codeply.com/api/oembed/?v=2&url={url}"
     }
 ]

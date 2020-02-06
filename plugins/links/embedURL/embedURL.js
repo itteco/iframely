@@ -6,7 +6,8 @@ module.exports = {
     provides: 'schemaVideoObject',
 
     getData: function(cheerio, decode, __allowEmbedURL) {
-        // let's try to find ld+json in the body
+
+        /* Let's try to find ld+json in the body first. */
         var $script = cheerio('script[type="application/ld+json"]:contains("embed")').first(); // embedURL can be embedurl, embedUrl, etc.
 
         if ($script.length === 1) {
@@ -22,16 +23,24 @@ module.exports = {
                             ld: ld
                         }
                     } else if (ld.videoobject || ld.mediaobject) {
-                        return {
-                            schemaVideoObject: ld.videoobject || ld.mediaobject
-                        }
+                        var videoObject = ld.videoobject || ld.mediaobject,
+                            href = videoObject.embedURL || videoObject.embedUrl || videoObject.embedurl;
+
+                        if (href) {
+                            return {
+                                schemaVideoObject: ld.videoobject || ld.mediaobject
+                            }
+                        } // else check microformats, ex.: cbssports
                     }
                 }
 
             } catch (ex) {
                 // broken json, c'est la vie
+                // let's try microformats instead
             }
-        } else {
+        } 
+
+        /* Else, the ld above didn't return any results. Let's try microformats. */
 
             var videoObjectSchema = 'Object';
 
@@ -66,10 +75,8 @@ module.exports = {
                 return {
                     schemaVideoObject: result
                 };
-
-            }            
-
-        }
+            }
+        /* End of microformats. */
     },
 
     getLinks: function(schemaVideoObject, whitelistRecord) {        
@@ -87,7 +94,7 @@ module.exports = {
 
         if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return links;}
 
-        var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;     
+        var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
 
         if (href) {
             var player = {

@@ -18,7 +18,7 @@ module.exports = {
 
         var links = [];
 
-        if (twitter.player && twitter.image && !/^http:\/\//i.test(twitter.image.url)) { // some players are broken at the moment, ex: https://giphy.com/embed/BlVnrxJgTGsUw
+        if (twitter.player) {
             links.push({
                 href: (twitter.player.value || twitter.player).replace(/\/twitter\/iframe$/, ''),
                 type: CONFIG.T.text_html,
@@ -48,7 +48,7 @@ module.exports = {
 
         var thumbnail = twitter.image && (twitter.image.src || twitter.image.url); 
 
-        if (oembed.width && oembed.height && (oembed.width / oembed.height < 1.7 || oembed.width / oembed.height > 1.9)) {
+        if (thumbnail && oembed.width && oembed.height && (oembed.width / oembed.height < 1.7 || oembed.width / oembed.height > 1.9)) {
             // fix resized thumbnail 
             // from https://media.giphy.com/media/.../giphy-facebook_s.jpg?t=1
             // to https://media3.giphy.com/media/.../giphy_s.gif
@@ -72,6 +72,8 @@ module.exports = {
     },
         "http://giphy.com/gifs/emma-stone-kiss-oHBlKX1wbIye4",
         "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
-        "http://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E"
+        "http://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E",
+        "https://giphy.com/gifs/nfl-super-bowl-nfl-sb-U7zS2FJTC8xclBzGVu",
+        "https://giphy.com/gifs/dancing-happy-seinfeld-BlVnrxJgTGsUw" // this one was broken and excluded via `!twitter.image.url`
     ]
 };
