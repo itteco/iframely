@@ -29,19 +29,13 @@ module.exports = {
             return;
         }
 
-        var $container = $('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
+        var iframe = oembed.getIframe();
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length === 1) {
+        if (iframe && iframe.src) {
 
             return {
-                href: $iframe.attr('src').replace("http://", "https://"),
+                href: iframe.src.replace("http://", "https://"),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.oembed, CONFIG.R.html5],
                 //"min-width": oembed.thumbnail_width,
