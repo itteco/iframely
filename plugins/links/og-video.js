@@ -16,7 +16,7 @@ function getVideoLinks(video, whitelistRecord) {
 
     var players = [];
 
-    if (!whitelistRecord.isDefault || /\.(mp4|m3u8|mp3)/i.test(video.url || video)) {
+    if (!whitelistRecord.isDefault || /\.(mp4|m4v|m3u8|mp3)/i.test(video.url || video)) {
         players.push({
             href: video.url || video,
             accept: accept,
