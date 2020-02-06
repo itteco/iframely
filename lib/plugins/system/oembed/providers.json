@@ -646,6 +646,6 @@
         "templates": [
             "(?:www\\.)?codeply.com/[vp]/([a-zA-Z0-9]+)"
         ],
-        "endpoint": "https://www.codeply.com/api/oembed/?v=2&format=xml&url={url}"
+        "endpoint": "https://www.codeply.com/api/oembed/?v=2&url={url}"
     }
 ]
