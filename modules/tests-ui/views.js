@@ -102,7 +102,9 @@
                             },
 
                             function(pageTestLogs, cb) {
-                                testUrlSet.pageTestLogs = pageTestLogs || [];
+                                if (testUrlSet) {
+                                    testUrlSet.pageTestLogs = pageTestLogs || [];
+                                }
                                 cb(null, testUrlSet);
                             }
                         ], cb);
