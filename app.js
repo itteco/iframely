@@ -30,14 +30,14 @@ if (CONFIG.allowedOrigins) {
                     res.setHeader('Access-Control-Allow-Origin', origin);
                 }
             }
-            if (CONFIG.allowedHeaders) {
-                if (CONFIG.allowedHeaders.indexOf('*') > -1) {
-                    res.setHeader('Access-Control-Allow-Headers', '*');
-                } else {
-                    if (CONFIG.allowedHeaders.indexOf(requestHeader) > -1) {
-                        res.setHeader('Access-Control-Allow-Headers', requestHeader);
-                    }
-                }
+        }
+        if (requestHeader) {
+            if (CONFIG.allowedHeaders.indexOf('*') > -1) {
+                res.setHeader('Access-Control-Allow-Headers', '*');
+            } else {
+                if (CONFIG.allowedHeaders.indexOf(requestHeader) > -1) {
+                    res.setHeader('Access-Control-Allow-Headers', requestHeader);
+                 }
             }
         }
         next();
