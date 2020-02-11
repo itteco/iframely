@@ -86,6 +86,14 @@
         */
 
         /*
+        // Access-Control-Allow-Headers list.
+        allowedHeaders: [
+            "*",
+            "content-type"
+        ],
+        */
+
+        /*
         // Uncomment to enable plugin testing framework.
         tests: {
             mongodb: 'mongodb://localhost:27017/iframely-tests',

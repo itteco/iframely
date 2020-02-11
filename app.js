@@ -19,21 +19,30 @@ var app = express();
 app.set('view engine', 'ejs');
 
 if (CONFIG.allowedOrigins) {
-  app.use(function(req, res, next) {
-    var origin = req.headers["origin"];
-
-    if (origin) {
-      if (CONFIG.allowedOrigins.indexOf('*') > -1) {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-      } else {
-        if (CONFIG.allowedOrigins.indexOf(origin) > -1) {
-          res.setHeader('Access-Control-Allow-Origin', origin);
+    app.use(function(req, res, next) {
+        var origin = req.headers["origin"];
+        var requestHeader = req.headers["access-control-request-headers"];
+        if (origin) {
+            if (CONFIG.allowedOrigins.indexOf('*') > -1) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+            } else {
+                if (CONFIG.allowedOrigins.indexOf(origin) > -1) {
+                    res.setHeader('Access-Control-Allow-Origin', origin);
+                }
+            }
+            if (CONFIG.allowedHeaders) {
+                if (CONFIG.allowedHeaders.indexOf('*') > -1) {
+                    res.setHeader('Access-Control-Allow-Headers', '*');
+                } else {
+                    if (CONFIG.allowedHeaders.indexOf(requestHeader) > -1) {
+                        res.setHeader('Access-Control-Allow-Headers', requestHeader);
+                    }
+                }
+            }
         }
-      }
-    }
-    next();
-  });
-}
+        next();
+    })
+};
 app.disable( 'x-powered-by' );
 app.use(function(req, res, next) {
   res.setHeader('X-Powered-By', 'Iframely');
