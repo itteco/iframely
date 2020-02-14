@@ -29,8 +29,6 @@ module.exports = {
 
         var links = [
             // Images.
-            // /p/shortcode/media is currently not available as of Sept 17, 2018
-            /*
             {
                 href: src + 't',
                 type: CONFIG.T.image,
@@ -49,20 +47,21 @@ module.exports = {
                 rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
                 width: Math.round(aspect * 612),
                 height: 612
-            } */
+            } 
+            /*
+            // return expanded image thumbnails if /p/shortcode/media stops working again
+            // it works as of Nov 20, 2019
             {
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
-                width: oembed.thumbnail_width,
-                height: oembed.thumbnail_height
+                rel: CONFIG.R.thumbnail
+                // validate image as it may be expired
             }, {
                 href: meta.og && meta.og.image,
                 type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: Math.round(aspect * 612),
-                height: 612
-            }];
+                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
+                // validate image as it may be expired
+            }*/];
 
         if (meta.og && meta.og.video) {
             links.push({

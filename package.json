@@ -31,7 +31,7 @@
         "iconv-lite": "0.4.17",
         "iltorb": "^2.4.3",
         "imagesize": "1.0.0",
-        "jslint": "^0.12.0",
+        "jslint": "^0.12.1",
         "jsontoxml": "0.0.11",
         "memcached": "2.2.2",
         "moment": "2.19.3",

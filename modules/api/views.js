@@ -133,7 +133,6 @@ module.exports = function(app) {
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh'),
                     providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }
@@ -428,7 +427,6 @@ module.exports = function(app) {
                     filterNonHTML5: getBooleanParam(req, 'html5'),
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh'),
                     providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }

@@ -1,5 +1,3 @@
-var $ = require('cheerio');
-
 module.exports = {
 
     re: [
@@ -18,10 +16,11 @@ module.exports = {
         "og-description",
         "keywords",
         "oembed-site",
-        "oembed-title"
+        "oembed-title",
+        "oembed-iframe"
     ],    
 
-    getLink: function(oembed, meta) {
+    getLink: function(oembed, iframe, meta) {
 
         var site = (meta.og && meta.og.site_name) || (meta.twitter && meta.twitter.site) || oembed.provider_name;
 
@@ -29,19 +28,11 @@ module.exports = {
             return;
         }
 
-        var $container = $('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-
         // if embed code contains <iframe>, return src
-        if ($iframe.length === 1) {
+        if (iframe.src) {
 
             return {
-                href: $iframe.attr('src').replace("http://", "https://"),
+                href: iframe.src.replace("http://", "https://"),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.oembed, CONFIG.R.html5],
                 //"min-width": oembed.thumbnail_width,
