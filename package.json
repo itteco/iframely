@@ -52,7 +52,7 @@
         "mock-http-server": "^1.0.0",
         "mongoose": "^5.4.20",
         "supertest": "^4.0.2",
-        "vows": "^0.8.0"
+        "vows": "0.7.0"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core",
