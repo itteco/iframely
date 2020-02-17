@@ -3,8 +3,8 @@ module.exports = {
     re: [
         /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,12})\/[a-zA-Z0-9\-\_:\.]+\/?(?:[^\/]+)?$/i,
         /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,12})\/?(?:[^\/]+)?$/i,
-        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\/]+)?\d{4}\/\d{2}\/\d{2}\/(\d{7,12})\/?(?:[^\/]+)?$/i,
-        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\/]+)?\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-\_\.:]+\/(\d{7,12})\/?(?:[^\/]+)?$/i
+        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\_\/]+)?\d{4}\/\d{2}\/\d{2}\/(\d{7,12})\/?(?:[^\/]+)?$/i,
+        /^https?:\/\/www\.([a-z\-]+)\.com\/videos\/\w+\/(?:[a-z0-9\-\_\/]+)?\d{4}\/\d{2}\/\d{2}\/[a-zA-Z0-9\-\_\.:]+\/(\d{7,12})\/?(?:[^\/]+)?$/i
     ],
 
     provides: "gannettVideo",
@@ -13,9 +13,9 @@ module.exports = {
         "*"
     ],
 
-    getData: function (urlMatch, meta) {
+    getData: function (urlMatch, schemaVideoObject, meta) {
 
-        var img_src = meta.twitter && meta.twitter.image || meta.ld && meta.ld.videoobject && meta.ld.videoobject.thumbnailurl || meta.og && meta.og.image;
+        var img_src = schemaVideoObject.thumbnailurl || meta.twitter && meta.twitter.image || meta.og && meta.og.image;
 
         if (img_src && (/^https?:\/\/\w+\.gannett\-cdn\.com\//i.test(img_src) || /^https?:\/\/videos\.usatoday\.net\//i.test(img_src) || /brightcove/i.test(img_src))) {
             return {

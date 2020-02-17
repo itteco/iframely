@@ -77,7 +77,6 @@ module.exports = {
                     qs: qs,
                     json: true,
                     cache_key: 'twitter:oembed:' + id,
-                    ttl: c.cache_ttl,
                     prepareResult: function(error, response, data, cb) {
 
                         if (error) {

@@ -1,5 +1,7 @@
 module.exports = {
 
+    re: /^https?:\/\/[a-zA-Z0-9\.]+\.libsyn(?:pro)?\.com\//,
+
     mixins: [
         "*"
     ],
@@ -90,6 +92,7 @@ module.exports = {
         // "http://mohrstories.libsyn.com/podcast/mor-stories-267-john-dimaggio", // broken
         "http://mumiapodcast.libsyn.com/message-for-red-emmas-book-fair-saturday-9-26-2015-baltimore",
         "http://3manbreak.libsyn.com/10-build-a-bear-for-bradley-beal-december-1-of-3",
-        "http://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs"
+        "http://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs",
+        "http://bitcoinmagazine.btc.libsynpro.com/weekly-bits-7-the-gift-of-bitcoin-giving"
     ]
 };

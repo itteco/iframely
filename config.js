@@ -38,6 +38,14 @@
         CACHE_TTL_PAGE_404: 10 * 60,
         CACHE_TTL_PAGE_OTHER_ERROR: 1 * 60,
 
+        // Do not cache response in htmlparser with these status codes.
+        TEMP_HTTP_ERROR_CODES: [
+            408, 
+            418, 
+            429
+            // 5xx included in logic.
+        ],
+
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
 

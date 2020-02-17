@@ -1,3 +1,5 @@
+/* Tumblr embed codes are broken as of Feb 13, 2020 */
+
 module.exports = {
 
     re: [
@@ -6,6 +8,10 @@ module.exports = {
     ],
 
     getLink: function(tumblr_post, oembed, options) {
+
+        return {
+            message: 'Tumblr native embed codes are broken as of Feb 13, 2020. Sorry.'
+        }; // and do not fallback to generic providers
 
         if (!oembed.html) {
             return;

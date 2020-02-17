@@ -4,7 +4,7 @@
 
      Iframely consumer client lib.
 
-     Version 1.3.0
+     Version 1.4.1
 
      Fetches and renders iframely oebmed/2 widgets.
 
@@ -123,7 +123,7 @@
 
         $iframe.attr('iframely-registered', true);
 
-        $iframe.load(function() {
+        $iframe.on( "load", function() {
 
             var iframesCounter = $.iframely.iframesCounter = ($.iframely.iframesCounter || 0) + 1,
                 windowId = id || iframesCounter;

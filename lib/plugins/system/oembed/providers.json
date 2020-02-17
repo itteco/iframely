@@ -225,7 +225,7 @@
     {
         "name": "500px",
         "templates": [
-            "500px\\.com/photo/(\\d+)/.*"
+            "(?:web\\.)?500px\\.com/photo/(\\d+)"
         ],
         "endpoint": "https://500px.com/oembed?url=https://500px.com/photo/{1}&format={format}"
     },
@@ -622,5 +622,30 @@
             "(?:www\\.)?arte.tv/(\\w{2})/videos/([a-zA-Z0-9\\-]+)/.*?"
         ],
         "endpoint": "https://api.arte.tv/api/player/v1/oembed/{1}/{2}?platform=ARTE_NEXT"
+    }, {
+        "name": "Codesanbox",
+        "templates": [
+            "codesandbox.io/.*"
+        ],
+        "endpoint": "https://codesandbox.io/oembed"
+    }, {
+        "name": "NAVERTV",
+        "templates": [
+            "tv.naver.com/.*"
+        ],
+        "endpoint": "https://tv.naver.com/oembed"
+    }, {
+        "name": "Verse",
+        "templates": [
+            "verse.com/.*"
+        ],
+        "endpoint": "https://www.verse.com/services/oembed/"
+    },
+    {
+        "name": "codeply.com",
+        "templates": [
+            "(?:www\\.)?codeply.com/[vp]/([a-zA-Z0-9]+)"
+        ],
+        "endpoint": "https://www.codeply.com/api/oembed/?v=2&url={url}"
     }
 ]
