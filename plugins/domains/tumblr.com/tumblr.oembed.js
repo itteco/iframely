@@ -9,10 +9,6 @@ module.exports = {
 
     getLink: function(tumblr_post, oembed, options) {
 
-        return {
-            message: 'Tumblr native embed codes are broken as of Feb 13, 2020. Sorry.'
-        }; // and do not fallback to generic providers
-
         if (!oembed.html) {
             return;
         }
@@ -43,6 +39,7 @@ module.exports = {
     },
 
     tests: [
-        "http://fewthistle.tumblr.com/post/58045916432"
+        "http://fewthistle.tumblr.com/post/58045916432",
+        "https://nasa.tumblr.com/post/186150527809/pew-pew-pew-imagine-slow-motion-fireworks-that"
     ]
 };
