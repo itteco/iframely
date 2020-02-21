@@ -51,8 +51,7 @@
         "mocha": "^5.2.0",
         "mock-http-server": "^1.0.0",
         "mongoose": "^5.4.20",
-        "supertest": "^4.0.2",
-        "vows": "0.7.0"
+        "supertest": "^4.0.2"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core",
