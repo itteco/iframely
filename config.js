@@ -183,6 +183,7 @@
             auto: 'Auto',
             default: 'Default',
             height: 'Adjust height',
+            width: 'Adjust width',
             page: 'Active page'
         },
 
