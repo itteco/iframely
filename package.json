@@ -57,7 +57,8 @@
     "iframely-proxy-plugins": true,
     "main": "./lib/core",
     "scripts": {
-        "test": "vows test/main.js --isolate --spec && npm run test-e2e",
+        "test": "npm run test-core-plugins && npm run test-e2e",
+        "test-core-plugins": "mocha --exit test/core-plugins.js",
         "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
     },
     "engines": {
