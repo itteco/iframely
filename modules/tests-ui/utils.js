@@ -104,7 +104,7 @@ exports.testBatchFinisedhNotification = function(batchSize) {
                     "type": "context",
                     "elements": [{
                         "type": "mrkdwn",
-                        "text": "Test batch with *" + batchSize + "* plugins finished"
+                        "text": "Test batch with *" + batchSize + "* plugin" + (batchSize !== 1 ? "s" : "") + " finished"
                     }]
                 },
                 {
