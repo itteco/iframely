@@ -674,9 +674,12 @@ function testAll(cb) {
 
         function(cb) {
             if (testOnePlugin || count == 0) {
-                cb()
+                cb();
             } else {
                 console.log('finish');
+
+                utils.testBatchFinisedhNotification(count);
+
                 TestingProgress.update({
                     _id: 1
                 }, {
