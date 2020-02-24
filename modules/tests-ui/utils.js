@@ -24,6 +24,70 @@ pluginsList.forEach(function(p) {
     }
 });
 
+const COLORS = {
+    green:  "#008000",
+    red:    "#FF0000",
+    yellow: "#FFFF00"
+}
+
+exports.sendQANotification = function(logEntry, data) {
+
+    if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
+
+        var blocks = [
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": (data.icon || '') + " *" + data.message + "*"  // Message: Test failed.
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": logEntry.url    // Url link.
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "<" + CONFIG.baseAppUrl + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|[Debug]> <" + CONFIG.baseAppUrl + "/tests#" + logEntry.plugin + "|[See all tests]> "    // Debug link.
+                }
+            }
+        ];
+
+        var errors = logEntry.errors_list.join("\n - ");
+        if (errors) {
+            blocks.push({
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": " - " + errors    // Errors list
+                }
+            });
+        }
+
+        request({
+            uri: CONFIG.SLACK_WEBHOOK_FOR_QA,
+            method: 'POST',
+            json: true,
+            body: {
+                "parse": "none",
+                "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
+                "username": logEntry.plugin, // domain.com
+                "attachments": [
+                    {
+                        "blocks": blocks,
+                        "color": COLORS[data.color]
+                    }
+                ]
+            }
+        });
+    }
+}
+
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 
     var usedMethods = getAllUsedMethods(debugData);

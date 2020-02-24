@@ -115,6 +115,83 @@ function createNewPluginTests(providersIds, cb) {
     ], cb);
 }
 
+function checkPageTestLogChangeNotification(logEntry) {
+
+    PageTestLog
+        .find({
+            url: logEntry.url,
+            plugin: logEntry.plugin,    
+            created_at: {
+                $lt: logEntry.created_at
+            }
+        })
+        .sort({created_at: -1})
+        .limit(1)
+        .exec(function(error, previousLogEntry) {
+
+            previousLogEntry = previousLogEntry && previousLogEntry.length && previousLogEntry[0];
+
+            /*
+
+            Case 1.
+
+            Was not error OR was no record.
+            Become error.
+            -- Notify error.
+
+            Case 2.
+
+            Was error.
+            Become good.
+            -- Notify fix.
+
+            Case 3.
+
+            Was error.
+            Become error.
+            -- Notify: still failing.
+
+            */
+
+            var wasError = previousLogEntry && previousLogEntry.hasError();
+            var hasError = logEntry.hasError();
+
+            if (!wasError && hasError) {
+
+                // Case 1.
+                // -- Notify error.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Test failed",
+                    icon: ":x:",
+                    color: "red"
+                });
+
+            } else if (wasError && !hasError) {
+
+                // Case 2.
+                // -- Notify fix.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Test fixed",
+                    icon: ":ok:",
+                    color: "green"
+                });
+
+            } else if (wasError && hasError) {
+
+                // Case 3.
+                // -- Notify: still failing.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Test still failing",
+                    icon: ":warning:",
+                    color: "yellow"
+                });
+            }
+        });
+}
+
 function processPluginTests(pluginTest, plugin, count, cb) {
 
     var testUrlsSet, reachTestObjectFound = false;;
@@ -391,9 +468,11 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     logEntry.save(function(error) {
 
                         if (error) {
-                            console.log('errork', error)
+                            console.log('error', error)
                             return cb(error);
                         }
+
+                        checkPageTestLogChangeNotification(logEntry);
 
                         if (testMode === 'http1-first') {
 
