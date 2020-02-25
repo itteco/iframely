@@ -58,7 +58,7 @@ exports.sendQANotification = function(logEntry, data) {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "<" + CONFIG.baseAppUrl + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|[Debug]> <" + CONFIG.baseAppUrl + "/tests#" + logEntry.plugin + "|[See all tests]> "    // Debug link.
+                    "text": "<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|[Debug]> <" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/tests#" + logEntry.plugin + "|[See all tests]> "    // Debug link.
                 }
             }
         ];
