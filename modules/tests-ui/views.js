@@ -11,10 +11,9 @@
     var exec = require('child_process').exec;
 
     var models = require('./models');
+    var utils = require('./utils');
 
     var PluginTest = models.PluginTest;
-    var PageTestLog = models.PageTestLog;
-    var TestUrlsSet = models.TestUrlsSet;
     var TestingProgress = models.TestingProgress;
 
     module.exports = function(app){
@@ -49,7 +48,7 @@
                 return next(new Error("mongodb not initialized to store db logs"));
             }
 
-            var progress, pluginTests, groups = [];
+            var progress, groups = [];
 
             async.waterfall([
 
@@ -61,82 +60,10 @@
 
                     progress = _progress;
 
-                    PluginTest.find({
-                        obsolete: false
-                    }, {}, {
-                        sort:{
-                            _id: 1
-                        }
-                    }, cb);
-                },
-
-                function loadTestSets(_pluginTests, cb) {
-
-                    pluginTests = _pluginTests;
-
-                    async.mapSeries(pluginTests, function(p, cb) {
-
-                        var testUrlSet;
-
-                        async.waterfall([
-
-                            function(cb) {
-                                TestUrlsSet.findOne({
-                                    plugin: p._id
-                                }, {}, {
-                                    sort: {
-                                        created_at: -1
-                                    }
-                                }, cb);
-                            },
-
-                            function(_testUrlSet, cb) {
-                                testUrlSet = _testUrlSet;
-                                if (testUrlSet) {
-                                    PageTestLog.find({
-                                        test_set: testUrlSet._id
-                                    }, cb)
-                                } else {
-                                    cb(null, null);
-                                }
-                            },
-
-                            function(pageTestLogs, cb) {
-                                if (testUrlSet) {
-                                    testUrlSet.pageTestLogs = pageTestLogs || [];
-                                }
-                                cb(null, testUrlSet);
-                            }
-                        ], cb);
-                        
-                    }, cb);
-                },
-
-
-                function loadLogs(sets, cb) {
-
-                    var pluginTestsDict = _.object(pluginTests.map(function(p) { return [p._id, p]; }));
-
-                    async.eachSeries(sets.filter(function(s) {return s;}), function(s, cb) {
-
-                        var pluginTest = pluginTestsDict[s.plugin];
-                        pluginTest.last_urls_set = s;
-                        pluginTest.last_page_logs_dict = {};
-
-                        s.urls = s.urls || [];
-                        s.pageTestLogs.forEach(function(pageTestLog) {
-                            var key = pageTestLog.url;
-                            if (pageTestLog.h2) {
-                                key += ':h2';
-                            }
-                            pluginTest.last_page_logs_dict[key] = pageTestLog;
-                        });
-
-                        cb();
-
-                    }, cb);
+                    utils.loadPluginTests(cb);
                 }
-            ], function(error) {
+
+            ], function(error, pluginTests) {
 
                 if (error) {
                     return next(new Error(error));
