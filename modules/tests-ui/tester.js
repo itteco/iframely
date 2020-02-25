@@ -163,7 +163,6 @@ function checkPageTestLogChangeNotification(logEntry) {
 
                 utils.sendQANotification(logEntry, {
                     message: "Test failed",
-                    icon: ":x:",
                     color: "red"
                 });
 
@@ -174,7 +173,6 @@ function checkPageTestLogChangeNotification(logEntry) {
 
                 utils.sendQANotification(logEntry, {
                     message: "Test fixed",
-                    icon: ":ok:",
                     color: "green"
                 });
 
@@ -185,7 +183,6 @@ function checkPageTestLogChangeNotification(logEntry) {
 
                 utils.sendQANotification(logEntry, {
                     message: "Test still failing",
-                    icon: ":warning:",
                     color: "yellow"
                 });
             }

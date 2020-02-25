@@ -44,7 +44,7 @@ exports.sendQANotification = function(logEntry, data) {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": (data.icon || '') + " *" + data.message + "*"  // Message: Test failed.
+                    "text": "*" + data.message + "*"  // Message: Test failed.
                 }
             },
             {
@@ -111,21 +111,21 @@ exports.testBatchFinisedhNotification = function(batchSize) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "*All tests summary:*"
+                        "text": "*Current tests status:*"
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": ":ok: Passed plugins: *" + data.passed + "*"
+                        "text": "+ Passed plugins: *" + data.passed + "*"
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": ":x: Failed plugins: *" + data.failed + "*"
+                        "text": "— Failed plugins: *" + data.failed + "*"
                     }
                 }
             ];
