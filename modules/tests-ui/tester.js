@@ -162,7 +162,7 @@ function checkPageTestLogChangeNotification(logEntry) {
                 // -- Notify error.
 
                 utils.sendQANotification(logEntry, {
-                    message: "Test failed",
+                    message: "Failed",
                     color: "red"
                 });
 
@@ -172,7 +172,7 @@ function checkPageTestLogChangeNotification(logEntry) {
                 // -- Notify fix.
 
                 utils.sendQANotification(logEntry, {
-                    message: "Test fixed",
+                    message: "Fixed",
                     color: "green"
                 });
 
@@ -182,7 +182,7 @@ function checkPageTestLogChangeNotification(logEntry) {
                 // -- Notify: still failing.
 
                 utils.sendQANotification(logEntry, {
-                    message: "Test still failing",
+                    message: "Still failing",
                     color: "yellow"
                 });
             }

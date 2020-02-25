@@ -39,39 +39,13 @@ exports.sendQANotification = function(logEntry, data) {
 
     if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
-        var blocks = [
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "*" + data.message + "*"  // Message: Test failed.
-                }
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": logEntry.url    // Url link.
-                }
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|[Debug]> <" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/tests#" + logEntry.plugin + "|[See all tests]> "    // Debug link.
-                }
-            }
-        ];
+        var message = data.message;
 
-        var errors = logEntry.errors_list.join("\n - ");
+        var errors = logEntry.errors_list.map(function(info) {
+            return info.replace(logEntry.plugin + ' - ', '');
+        }).join(" - ");
         if (errors) {
-            blocks.push({
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": " - " + errors    // Errors list
-                }
-            });
+            message += " - " + errors;
         }
 
         request({
@@ -82,9 +56,24 @@ exports.sendQANotification = function(logEntry, data) {
                 "parse": "none",
                 "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
                 "username": logEntry.plugin, // domain.com
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": message  // Message: Failed + errors.
+                        }
+                    }
+                ],
                 "attachments": [
                     {
-                        "blocks": blocks,
+                        "blocks": [{
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|" + logEntry.url + ">"    // Debug link.
+                            }
+                        }],
                         "color": COLORS[data.color]
                     }
                 ]
