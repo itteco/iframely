@@ -144,16 +144,9 @@
     {
         "name": "SmugMug",
         "templates": [
-            "(.*\\.smugmug\\.com/[^#]*)#!i=(\\d+)&k=(\\w+)"
+            "^(?!www)\\w+\\.smugmug\\.com/"
         ],
-        "endpoint": "https://api.smugmug.com/services/oembed/?format={format}&url=http://{1}%23{2}_{3}"
-    },
-    {
-        "name": "SmugMug new",
-        "templates": [
-            ".*\\.smugmug\\.com/[^#]+$"
-        ],
-        "endpoint": "http://api.smugmug.com/services/oembed/?format={format}&url={url}"
+        "endpoint": "https://api.smugmug.com/services/oembed/?format={format}&url={url}"
     },
     {
         "name": "SlideShare",
