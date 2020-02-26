@@ -35,9 +35,7 @@ const COLORS = {
     yellow: "#FFFF00"
 };
 
-const SLACK_USERNAME = "Testy APP";
-
-
+const SLACK_USERNAME = "Testy";
 
 exports.sendQANotification = function(logEntry, data) {
 
@@ -89,32 +87,41 @@ exports.sendQANotification = function(logEntry, data) {
     }
 }
 
-exports.testBatchFinisedhNotification = function(batchSize) {
+exports.testBatchFinisedhNotification = function(testedPlugins) {
 
-    if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
+    if (testedPlugins && testedPlugins.length && CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
         getTestsSummary(function(error, data) {
 
-            var message = "Test batch with " + batchSize + " plugin" + (batchSize !== 1 ? "s" : "") + " finished";
-            var previewMessage = message;
+            var batchSize = testedPlugins.length;
 
-            if (data.failed_list.length > 0) {
-                message += ". Still failing:";
-                previewMessage = message + data.failed_list.length;
-            }
-
+            var previewMessage = "Batch with " + batchSize + " plugin" + (batchSize !== 1 ? "s" : "") + " finished";
+            
             var blocks = [
                 {
                     "type": "section",
                     "text": {
                         "type": "plain_text",
-                        "text": message
+                        "text": "Batch with " + batchSize + " plugin" + (batchSize !== 1 ? "s" : "") + " finished:"
                     }
+                },
+                {
+                    "type": "context",
+                    "elements": [{
+                        "type": "plain_text",
+                        "text": testedPlugins.join(', ')
+                    }]
                 }
             ];
 
             if (data.failed_list.length > 0) {
                 blocks.push({
+                    "type": "section",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Still failing:"
+                    }
+                },{
                     "type": "context",
                     "elements": [{
                         "type": "plain_text",
