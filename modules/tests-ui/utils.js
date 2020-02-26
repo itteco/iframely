@@ -40,6 +40,7 @@ exports.sendQANotification = function(logEntry, data) {
     if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
         var message = data.message;
+        var previewMessage = logEntry.plugin + ": " + message;
 
         var errors = logEntry.errors_list.map(function(info) {
             return info.replace(logEntry.plugin + ' - ', '');
@@ -56,6 +57,7 @@ exports.sendQANotification = function(logEntry, data) {
                 "parse": "none",
                 "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
                 "username": logEntry.plugin, // domain.com
+                "text": previewMessage,
                 "blocks": [
                     {
                         "type": "section",
@@ -88,33 +90,20 @@ exports.testBatchFinisedhNotification = function(batchSize) {
 
         getTestsSummary(function(error, data) {
 
+            var message = "Test batch with " + batchSize + " plugin" + (batchSize !== 1 ? "s" : "") + " finished";
+            var previewMessage = message;
+
+            if (data.failed_list.length > 0) {
+                message += ". Still failing:";
+                previewMessage = message + data.failed_list.length;
+            }
+
             var blocks = [
                 {
-                    "type": "context",
-                    "elements": [{
-                        "type": "mrkdwn",
-                        "text": "Test batch with *" + batchSize + "* plugin" + (batchSize !== 1 ? "s" : "") + " finished"
-                    }]
-                },
-                {
                     "type": "section",
                     "text": {
-                        "type": "mrkdwn",
-                        "text": "*Current tests status:*"
-                    }
-                },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "+ Passed plugins: *" + data.passed + "*"
-                    }
-                },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": "— Failed plugins: *" + data.failed + "*"
+                        "type": "plain_text",
+                        "text": message
                     }
                 }
             ];
@@ -137,6 +126,7 @@ exports.testBatchFinisedhNotification = function(batchSize) {
                     "parse": "none",
                     "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
                     "username": "Plugins tester",
+                    "text": previewMessage,
                     "blocks": blocks,
                 }
             });
