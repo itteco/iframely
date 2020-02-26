@@ -33,14 +33,18 @@ const COLORS = {
     green:  "#008000",
     red:    "#FF0000",
     yellow: "#FFFF00"
-}
+};
+
+const SLACK_USERNAME = "Testy APP";
+
+
 
 exports.sendQANotification = function(logEntry, data) {
 
     if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
-        var message = data.message;
-        var previewMessage = logEntry.plugin + ": " + message;
+        var previewMessage = "[" + logEntry.plugin + "] " + data.message;
+        var message = "<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/tests#" + encodeURIComponent(logEntry.plugin) + "|[" + logEntry.plugin + "]> " + data.message;
 
         var errors = logEntry.errors_list.map(function(info) {
             return info.replace(logEntry.plugin + ' - ', '');
@@ -56,14 +60,14 @@ exports.sendQANotification = function(logEntry, data) {
             body: {
                 "parse": "none",
                 "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
-                "username": logEntry.plugin, // domain.com
+                "username": SLACK_USERNAME,
                 "text": previewMessage,
                 "blocks": [
                     {
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": message  // Message: Failed + errors.
+                            "text": message  // Message: [domain.com] Failed - errors.
                         }
                     }
                 ],
@@ -73,7 +77,8 @@ exports.sendQANotification = function(logEntry, data) {
                             "type": "section",
                             "text": {
                                 "type": "mrkdwn",
-                                "text": "<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|" + logEntry.url + ">"    // Debug link.
+                                "verbatim": true,
+                                "text": "`<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|debug>` " + logEntry.url.replace(/^https?:\/\//, '')    // Debug link.
                             }
                         }],
                         "color": COLORS[data.color]
@@ -125,7 +130,7 @@ exports.testBatchFinisedhNotification = function(batchSize) {
                 body: {
                     "parse": "none",
                     "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
-                    "username": "Plugins tester",
+                    "username": SLACK_USERNAME,
                     "text": previewMessage,
                     "blocks": blocks,
                 }
