@@ -44,7 +44,7 @@ exports.sendQANotification = function(logEntry, data) {
     if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
         var previewMessage = "[" + logEntry.plugin + "] " + data.message;
-        var message = "<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/tests#" + encodeURIComponent(logEntry.plugin) + "|[" + logEntry.plugin + "]> " + data.message;
+        var message = "<" + CONFIG.baseAppUrl + "/tests#" + encodeURIComponent(logEntry.plugin) + "|[" + logEntry.plugin + "]> " + data.message;
 
         var errors = logEntry.errors_list.map(function(info) {
             return info.replace(logEntry.plugin + ' - ', '');
