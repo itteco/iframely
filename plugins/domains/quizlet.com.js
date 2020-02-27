@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/([\w-]+)\/?/i
+        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/([^\/]+)\/?/i
     ],
 
     mixins: [
