@@ -548,7 +548,7 @@ function testAll(cb) {
 
     console.log('Start tests with', pluginsList.length, 'plugins to test.');
 
-    var count = 0, testedPlugins;
+    var count = 0;
 
     async.waterfall([
 
@@ -651,8 +651,6 @@ function testAll(cb) {
 
             log("Loaded PluginTest's from db", pluginTests.length);
 
-            testedPlugins = pluginTests.map(function(p) { return p._id; });
-
             async.eachSeries(pluginTests, function(pluginTest, cb) {
 
                 processPluginTests(pluginTest, plugins[pluginTest._id], count, function(error) {
@@ -676,8 +674,6 @@ function testAll(cb) {
                 cb();
             } else {
                 console.log('finish');
-
-                utils.testBatchFinisedhNotification(testedPlugins);
 
                 TestingProgress.update({
                     _id: 1

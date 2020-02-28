@@ -87,66 +87,6 @@ exports.sendQANotification = function(logEntry, data) {
     }
 }
 
-exports.testBatchFinisedhNotification = function(testedPlugins) {
-
-    if (testedPlugins && testedPlugins.length && CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
-
-        getTestsSummary(function(error, data) {
-
-            var batchSize = testedPlugins.length;
-
-            var previewMessage = "Batch with " + batchSize + " plugin" + (batchSize !== 1 ? "s" : "") + " finished";
-            
-            var blocks = [
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Batch with " + batchSize + " plugin" + (batchSize !== 1 ? "s" : "") + " finished:"
-                    }
-                },
-                {
-                    "type": "context",
-                    "elements": [{
-                        "type": "plain_text",
-                        "text": testedPlugins.join(', ')
-                    }]
-                }
-            ];
-
-            if (data.failed_list.length > 0) {
-                blocks.push({
-                    "type": "section",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "Still failing:"
-                    }
-                },{
-                    "type": "context",
-                    "elements": [{
-                        "type": "plain_text",
-                        "text": data.failed_list.join(', ')
-                    }]
-                })
-            }
-
-            request({
-                uri: CONFIG.SLACK_WEBHOOK_FOR_QA,
-                method: 'POST',
-                json: true,
-                body: {
-                    "parse": "none",
-                    "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
-                    "username": SLACK_USERNAME,
-                    "text": previewMessage,
-                    "blocks": blocks,
-                }
-            });
-        });
-    }
-};
-
-
 function getTestsSummary(cb) {
     exports.loadPluginTests(function(error, pluginTests) {
 
