@@ -387,7 +387,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     if (error) {
                         if (error.code === "timeout") {
                             logEntry.warnings = [error.code];
-                        } else if ((error.responseCode == 404)) {
+                        } else if ((error.responseCode === 404 || error.responseCode === 410)) {
                             logEntry.warnings = [error.responseCode];
                         } else if (error.stack) {
                             logEntry.errors_list = [error.stack];
