@@ -125,7 +125,18 @@ module.exports = {
                             }
                         }
 
-                        if (response.statusCode !== 200) {
+                        if (response.statusCode === 404) {
+                            return cb({
+                                responseStatusCode: 404,
+                                message: 'The tweet is no longer available.'
+                            })
+                        } else if (response.statusCode === 403) {
+                            return cb({
+                                responseStatusCode: 404,
+                                message: 'It looks this Twitter account has been suspended.'
+                            })
+
+                        } else if (response.statusCode !== 200) {
                             return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
                         }
 
