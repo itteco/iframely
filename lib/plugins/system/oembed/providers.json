@@ -194,6 +194,13 @@
         "endpoint": "https://publish.twitter.com/oembed"
     },
     {
+        "name": "TikTok",
+        "templates": [
+            "tiktok\\.com/@[^\\/]+\/video\/\\d+"
+        ],
+        "endpoint": "https://www.tiktok.com/oembed"
+    },
+    {
         "name": "GfyCat",
         "templates": [
             "gfycat\\.com/.+"
