@@ -143,6 +143,7 @@
 
             inline: "inline",
             ssl: "ssl",
+            resizable: "resizable",
 
             autoplay: "autoplay",
             html5: "html5",
