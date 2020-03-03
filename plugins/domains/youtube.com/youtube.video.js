@@ -18,7 +18,7 @@ module.exports = {
 
     provides: 'youtube_video_gdata',
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(uri, urlMatch, request, options, cb) {
 
         var api_key = options.getProviderOptions('youtube.api_key');
 
@@ -33,6 +33,12 @@ module.exports = {
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
             prepareResult: function(error, b, data, cb) {
+
+                console.log('--- youtube log', JSON.stringify({
+                    uri: uri,
+                    error: error,
+                    data: data
+                }));
 
                 if (error) {
                     return cb(error);
