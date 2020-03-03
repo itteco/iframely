@@ -32,9 +32,9 @@ module.exports = {
             uri: statsUri,
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
-            prepareResult: function(error, b, data, cb) {
+            prepareResult: function(error, response, data, cb) {
 
-                console.log('--- youtube log', JSON.stringify({
+                console.log('--- youtube log', response && response.statusCode, JSON.stringify({
                     uri: url,
                     error: error,
                     data: data
