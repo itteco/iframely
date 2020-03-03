@@ -67,8 +67,19 @@ module.exports = {
         return links;
     },
 
+    getData: function (og, cb) {
+        return cb (/^Private GIF$/i.test(og.title) 
+            ? {
+                responseStatusCode: 403,
+                message: 'Sorry, the owner has set this GIF to private.'
+            } 
+            : null)
+    },
+
     tests: [{
         skipMixins: ["oembed-canonical"]
+    }, {
+        skipMethods: ["getData"]
     },
         "http://giphy.com/gifs/emma-stone-kiss-oHBlKX1wbIye4",
         "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
