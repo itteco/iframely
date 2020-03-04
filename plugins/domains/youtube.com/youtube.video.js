@@ -33,12 +33,15 @@ module.exports = {
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
             allowCache: function(error, response, data) {
-                var usageLimitsError = 
+                var errorDomain = 
                     data 
                     && data.error
                     && data.error.errors
                     && data.error.errors[0]
-                    && data.error.errors[0].domain === 'youtube.quota';
+                    && data.error.errors[0].domain;
+                var usageLimitsError = 
+                    errorDomain === 'youtube.quota'
+                    || errorDomain === 'usageLimits';
                 console.log('--- youtube allowCache', !usageLimitsError, data && data.error && data.error.errors);
                 return !usageLimitsError;
             },
