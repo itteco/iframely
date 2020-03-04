@@ -32,6 +32,15 @@ module.exports = {
             uri: statsUri,
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
+            allowCache: function(error, response, data) {
+                var usageLimitsError = 
+                    data 
+                    && data.error
+                    && data.error.errors
+                    && data.error.errors[0]
+                    && data.error.errors[0].domain === 'usageLimits';
+                return !usageLimitsError;
+            },
             prepareResult: function(error, response, data, cb) {
 
                 console.log('--- youtube log', response && response.statusCode, JSON.stringify({
@@ -104,15 +113,8 @@ module.exports = {
                 } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
-                    var usageLimitsError = 
-                        data 
-                        && data.error
-                        && data.error.errors
-                        && data.error.errors[0]
-                        && data.error.errors[0].domain === 'usageLimits';
-                    cb(null, null, {
-                        skipCache: usageLimitsError
-                    }); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
+                    
+                    cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
         }, cb);
