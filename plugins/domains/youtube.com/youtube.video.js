@@ -38,7 +38,7 @@ module.exports = {
                     && data.error
                     && data.error.errors
                     && data.error.errors[0]
-                    && data.error.errors[0].domain === 'usageLimits';
+                    && data.error.errors[0].domain === 'youtube.quota';
                 console.log('--- youtube allowCache', !usageLimitsError, data && data.error && data.error.errors);
                 return !usageLimitsError;
             },
