@@ -39,11 +39,12 @@ module.exports = {
                     && data.error.errors
                     && data.error.errors[0]
                     && data.error.errors[0].domain === 'usageLimits';
+                console.log('--- youtube allowCache', !usageLimitsError, data && data.error && data.error.errors);
                 return !usageLimitsError;
             },
             prepareResult: function(error, response, data, cb) {
 
-                console.log('--- youtube log', response && response.statusCode, JSON.stringify({
+                console.log('--- youtube prepareResult', response && response.statusCode, JSON.stringify({
                     uri: url,
                     error: error,
                     data: data
