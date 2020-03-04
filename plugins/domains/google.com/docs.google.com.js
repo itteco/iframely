@@ -51,6 +51,8 @@ module.exports = {
                 file.height = schemaFileObject.height;
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (CONFIG.R.app);
+                // Make forms resizeable
+                file.rel.push (CONFIG.R.resizable);
 
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
