@@ -33,17 +33,28 @@ module.exports = {
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
             allowCache: function(error, response, data) {
+
                 var errorDomain = 
                     data 
                     && data.error
                     && data.error.errors
                     && data.error.errors[0]
                     && data.error.errors[0].domain;
+
+                var errorCode = 
+                    data 
+                    && data.error
+                    && data.error.code;
+
                 var usageLimitsError = 
                     errorDomain === 'youtube.quota'
                     || errorDomain === 'usageLimits';
-                console.log('--- youtube allowCache', !usageLimitsError, data && data.error && data.error.errors);
-                return !usageLimitsError;
+
+                var serverError = errorCode && errorCode >= 500 && errorCode < 600;
+
+                console.log('--- youtube allowCache', !usageLimitsError && !serverError, data && data.error && data.error.errors);
+
+                return !usageLimitsError && !serverError;
             },
             prepareResult: function(error, response, data, cb) {
 
