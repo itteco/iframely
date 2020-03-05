@@ -50,7 +50,7 @@ describe('Core plugins', function() {
         var error, data;
         
         before(function(done) {
-            iframely("https://www.youtube.com/watch?v=u2Yk1CEgc4g", 'meta', findWhitelistRecordFor, function(_error, _data) {
+            iframely("http://www.bbc.com/news/science-environment-23767323", 'meta', findWhitelistRecordFor, function(_error, _data) {
                 error = _error;
                 data = _data;
                 done();
@@ -64,15 +64,12 @@ describe('Core plugins', function() {
         it('has meta', function(done) {
             // TODO: check deep keys and types?
             // TOOD: assert.hasAllKeys in newer mocha?
-            assert.property(data, 'title');
+            // console.log(data)
             assert.property(data, 'description');
-            assert.property(data, 'keywords');
             assert.property(data, 'og');
             assert.property(data, 'twitter');
             assert.property(data, 'canonical');
             assert.property(data, 'alternate');
-            assert.property(data, 'shortlink');
-            assert.property(data, 'icon');
             done();
         });
     });
