@@ -27,7 +27,8 @@
     {
         "name": "Facebook Page",
         "templates": [
-            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/?"
+            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/",
+            "(?:www|m)\\.facebook\\.com/[^/]+/?(?:about|photos|videos|events|timeline|photos_stream)?/?(?:\\?[^/\\?]+)?$"
         ],
         "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
     },

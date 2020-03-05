@@ -82,7 +82,7 @@ module.exports = {
                 },
                 "max-width": oembed.width
             });
-        } else {
+        } else if (meta.ld && meta.ld.person) {
             links.push ({
                 message: "Facebook profile pages of individual users are not embeddable."
             });
