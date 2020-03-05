@@ -18,7 +18,7 @@ module.exports = {
 
     provides: 'youtube_video_gdata',
 
-    getData: function(url, urlMatch, request, options, cb) {
+    getData: function(urlMatch, request, options, cb) {
 
         var api_key = options.getProviderOptions('youtube.api_key');
 
@@ -52,17 +52,9 @@ module.exports = {
 
                 var serverError = errorCode && errorCode >= 500 && errorCode < 600;
 
-                console.log('--- youtube allowCache', !usageLimitsError && !serverError, data && data.error && data.error.errors);
-
                 return !usageLimitsError && !serverError;
             },
             prepareResult: function(error, response, data, cb) {
-
-                console.log('--- youtube prepareResult', response && response.statusCode, JSON.stringify({
-                    uri: url,
-                    error: error,
-                    data: data
-                }));
 
                 if (error) {
                     return cb(error);
