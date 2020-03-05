@@ -42,7 +42,7 @@ module.exports = {
             var click_to_load = options.getRequestOptions('codepen.click_to_load', /\/embed\/preview\//.test(href));
             href = href.replace(/\/embed\/(?:preview\/)?/, '/embed/').replace(/\/embed\//, '/embed/' + (click_to_load ? 'preview/' : ''));
 
-            params.height = parseInt(options.getRequestOptions('codepen.height')) || oembed.height;
+            params.height = options.getRequestOptions('codepen.height', oembed.height);
 
             var theme = options.getRequestOptions('players.theme', params.theme || 'auto');
 
