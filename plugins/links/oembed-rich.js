@@ -110,7 +110,11 @@ module.exports = {
                 widget['aspect-ratio'] = oembed.width / oembed.height;
             }
         } else if (whitelistRecord.isAllowed('oembed.rich', 'horizontal')) {
-                widget.height = oembed.height || $iframe.attr('height');            
+                widget.height = oembed.height || $iframe.attr('height');
+
+                if (whitelistRecord.isAllowed('oembed.rich', "resizable")) {
+                    rels.push(CONFIG.R.resizable);
+                }
         } else {
             widget.width = oembed.width;
             widget.height = oembed.height
