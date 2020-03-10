@@ -46,6 +46,11 @@
             // 5xx included in logic.
         ],
 
+        HTTP2_RETRY_CODES_LIST: [
+            'ECONNRESET',
+            'ESOCKETTIMEDOUT'
+        ],
+
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
 
@@ -295,6 +300,11 @@
     }
 
     config.TYPES = Object.values(config.T);
+
+    config.HTTP2_RETRY_CODES = {};
+    config.HTTP2_RETRY_CODES_LIST.forEach(function(item) {
+        config.HTTP2_RETRY_CODES[item] = 1;
+    });
 
     module.exports = config;
 })();
