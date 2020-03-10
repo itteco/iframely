@@ -11,7 +11,8 @@ module.exports = {
         "oembed-title",
         "og-description",
         "canonical",
-        "domain-icon"
+        "domain-icon",
+        "oembed-error"
     ],    
 
     getLinks: function(urlMatch, oembed, options) {
@@ -30,7 +31,7 @@ module.exports = {
 
     tests: [{
         noFeeds: true,
-        skipMixins: ["og-description"]
+        skipMixins: ["og-description", "oembed-error"]
     },
         "https://www.youtube.com/playlist?list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh"
     ]
