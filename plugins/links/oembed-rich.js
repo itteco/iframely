@@ -3,8 +3,7 @@ var entities = require('entities');
 
 module.exports = {
 
-    getLink: function(oembed, whitelistRecord) {
-
+    getLink: function(oembed, whitelistRecord, url) {
 
         if (!(oembed.type === "rich" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.rich'))) {
             return;
@@ -73,6 +72,13 @@ module.exports = {
             if (whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
                 widget.href = widget.href.replace(/^http:\/\//i, '//');
             }
+            // If iFrame is not SSL, 
+            // But URL itself is same domain and IS ssl - fix the oEmbed ommission. 
+            else if (url && /^http:\/\/([^\/]+)\//i.test(widget.href)
+                && url.match('https://' + widget.href.match(/^http:\/\/([^\/]+)\//i[1]))
+                ) {
+                widget.href = widget.href.replace(/^http:\/\//i, '//');
+            }
 
             if ($iframe.attr('scrolling') === 'no') {
                 widget.scrolling = 'no';
@@ -104,7 +110,11 @@ module.exports = {
                 widget['aspect-ratio'] = oembed.width / oembed.height;
             }
         } else if (whitelistRecord.isAllowed('oembed.rich', 'horizontal')) {
-                widget.height = oembed.height || $iframe.attr('height');            
+                widget.height = oembed.height || $iframe.attr('height');
+
+                if (whitelistRecord.isAllowed('oembed.rich', "resizable")) {
+                    rels.push(CONFIG.R.resizable);
+                }
         } else {
             widget.width = oembed.width;
             widget.height = oembed.height
