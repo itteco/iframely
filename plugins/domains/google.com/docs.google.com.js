@@ -99,6 +99,10 @@ module.exports = {
 
             return file;
 
+        } else {
+            return {
+                message: 'No preview available for this file.'
+            }
         }
 
     },
