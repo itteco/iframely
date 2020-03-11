@@ -2,10 +2,7 @@
 
 module.exports = {
 
-    re: [
-        /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,14})(?:\/[a-z0-9-]+)?/i
-    ],
+    re: require('./tumblr.api').re,
 
     getLink: function(tumblr_post, oembed, options) {
 

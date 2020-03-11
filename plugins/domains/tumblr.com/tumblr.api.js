@@ -5,7 +5,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,14})(?:\/[a-z0-9-]+)?/i
+        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,14})(?:\/[a-z0-9-]+)?(?:\?.*)?$/i
     ],
 
     provides: 'tumblr_post',
@@ -21,7 +21,7 @@ module.exports = {
             title: tumblr_post.title || caption || tumblr_post.summary || tumblr_post.blog_name,
             site: 'Tumblr',
             author: tumblr_post.blog_name,
-            author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',
+            author_url: 'https://' + tumblr_post.blog_name + '.tumblr.com',
             canonical: tumblr_post.permalink_url || tumblr_post.post_url,
             tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
             shortlink: tumblr_post.short_url,
