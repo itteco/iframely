@@ -10,7 +10,8 @@ module.exports = {
         "oembed-site",
         "oembed-author",
         // "og-image", it's the same as size L
-        "domain-icon"
+        "domain-icon",
+        "oembed-error"
     ],
 
     getMeta: function (og, oembed) {
@@ -127,8 +128,16 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, options) {
-        options.followHTTPRedirect = true; // avoid any issues with possible redirects
+    getData: function (url, urlMatch, options) {
+
+        // Avoid any issues with possible redirects,
+        // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
+        options.followHTTPRedirect = true; 
+        if (urlMatch[1] && urlMatch[1].length > 30) {
+            return {
+                message: 'This Instagram account is private.' // IDs longer than 30 is for private posts as of March 11, 2020
+            }
+        }
 
         if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
             return {
@@ -145,10 +154,7 @@ module.exports = {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
-            skipMixins: [
-                "oembed-title"
-            ]
-        }, {
+            skipMixins: ["oembed-title", "oembed-error"],
             skipMethods: ['getData']
         }
     ]
