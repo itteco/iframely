@@ -74,7 +74,6 @@ module.exports = {
     },
 
     getData: function(oembed, cb) {
-        console.log(oembed);
         if (oembed.type==="link") {
             return cb({
                 responseStatusCode: 403,
