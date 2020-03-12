@@ -5,7 +5,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,14})(?:\/[a-z0-9-]+)?(?:\?.*)?(?:#.*)?$/i
+        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{11,14})(?:\/[a-z0-9-]+)?(?:\?.*)?(?:#.*)?$/i
     ],
 
     provides: 'tumblr_post',
@@ -54,11 +54,11 @@ module.exports = {
 
     getData: function(oembedLinks, urlMatch, request, options, cb) {
 
-        // oEmbed will be in known providers for *.tumblr.com and require HTML parser discovery for custom domains
+        // oEmbed will be in the known providers for *.tumblr.com; and it requires HTML parser discovery for custom domains.
         var oembedLink = oembedLinks['0'];
 
         if (!(oembedLink && /^https?:\/\/(?:www\.)?tumblr\.com/.test(oembedLink.href))) {
-            return cb(null); // not Tumblr domain, skip API calls
+            return cb(null); // Not a Tumblr domain, skip API calls and fall back to generic.
         }
 
         var consumer_key = options.getProviderOptions('tumblr.consumer_key');
@@ -69,7 +69,7 @@ module.exports = {
         }
 
         request({
-            uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
+            uri: "https://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
                 api_key: consumer_key,
                 id: urlMatch[3]
