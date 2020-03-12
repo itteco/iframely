@@ -74,11 +74,11 @@ module.exports = {
     },
 
     getData: function(oembed, cb) {
-        if (oembed.type==="link") {
-            return cb({
+        if (oembed.type === "link") {
+            return cb(oembed.type === "link" ? {
                 responseStatusCode: 403,
                 message: "This photo is private or unavailable."
-            });
+            } : null);
         }
     },
 
@@ -93,6 +93,9 @@ module.exports = {
                 "oembed-title",
                 "oembed-author",
                 "oembed-license"
+            ],
+            skipMethods: [
+                "getData"
             ]
         }
     ]
