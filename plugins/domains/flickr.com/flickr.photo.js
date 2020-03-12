@@ -38,7 +38,7 @@ module.exports = {
             return {
                 responseStatusCode: 403,
                 message: "This photo is private or unavailable."
-            }
+            };
         }
 
         var opts = {
