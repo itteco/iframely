@@ -34,13 +34,6 @@ module.exports = {
 
         var html = oembed.html;
 
-        if (!html) {
-            return {
-                responseStatusCode: 403,
-                message: "This photo is private or unavailable."
-            };
-        }
-
         var opts = {
             header: options.getRequestOptions('flickr.header', /data-header=\"true\"/i.test(html)),
             footer: options.getRequestOptions('flickr.footer', /data-footer=\"true\"/i.test(html)),
@@ -78,6 +71,16 @@ module.exports = {
         });
 
         return result;
+    },
+
+    getData: function(oembed, cb) {
+        console.log(oembed);
+        if (oembed.type==="link") {
+            return cb({
+                responseStatusCode: 403,
+                message: "This photo is private or unavailable."
+            });
+        }
     },
 
     tests: [{
