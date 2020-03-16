@@ -153,7 +153,7 @@ module.exports = {
             return cb(null, {
                 schemaFileObject: result
             });
-        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?$/i.test(url)) {
+        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
             return cb(null, {
                 schemaFileObject: {
                     embedUrl: url
