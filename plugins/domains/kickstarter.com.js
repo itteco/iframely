@@ -42,9 +42,10 @@ module.exports = {
             if ((meta.twitter && meta.twitter.card == 'player') || (meta.og && meta.og.type == 'video') || meta.video_src || (href && /video\.html$/.test(href))) {
 
                 var aspect = oembed.height ? oembed.width / oembed.height : 0;
+                var img = (meta.og && meta.og.image && meta.og.image.url) || oembed.thumbnail_url;
 
                 // This is to fix incorrect aspect for both iFrame and images :\
-                utils.getImageMetadata((meta.og.image && meta.og.image.url) || oembed.thumbnail_url, options, function(error, data) {
+                utils.getImageMetadata(img, options, function(error, data) {
 
                     var links = [];
 
@@ -55,7 +56,7 @@ module.exports = {
                     } else if (data.width && data.height) {
 
                         links.push({
-                            href: (meta.og.image && meta.og.image.url) || oembed.thumbnail_url,
+                            href: img,
                             type: CONFIG.T.image, 
                             rel: CONFIG.R.thumbnail,
                             width: data.width,
