@@ -102,6 +102,18 @@ module.exports = {
 
     },
 
+    getData: function(url,  cb) {
+
+        if (url.includes('widget/video.html')) {
+            return cb({
+                redirect: url.replace('widget/video.html', '')
+            });
+
+        } else {
+            return cb(null, null)
+        }
+    },
+
     tests: [{
         noFeeds: true,
         skipMixins: [
