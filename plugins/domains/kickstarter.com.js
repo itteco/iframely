@@ -3,6 +3,12 @@ var cheerio = require('cheerio');
 
 module.exports = {
 
+    re: [
+        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/(?!comments|description|faqs|posts|community)[a-zA-Z0-9-]+\/?(\?.*)?$/i,
+        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/(?!comments|description|faqs|posts|community)[a-zA-Z0-9-]+\/?(\?.*)?$/i,
+        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/widget\/video\.html$/i,
+    ],
+
     mixins: [
         "og-title",
         "og-description",
