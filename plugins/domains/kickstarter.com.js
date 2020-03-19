@@ -114,7 +114,7 @@ module.exports = {
 
     tests: [{
         noFeeds: true,
-        skipMethods: ["getData"]
+        skipMethods: ["getData", "getMeta"]
     },
         "https://www.kickstarter.com/projects/1104350651/taktik-premium-protection-system-for-the-iphone",
         "https://www.kickstarter.com/projects/1578116861/toejam-and-earl-back-in-the-groove",
