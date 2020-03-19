@@ -525,9 +525,9 @@
     }, {
         "name": "Kickstarter",
         "templates": [        
-            "kickstarter.com/projects/.*"            
+            "kickstarter.com/projects/[a-zA-Z0-9-]+/[a-zA-Z0-9-]+\\/?(?:\\?.*)?$"
         ],
-        "endpoint": "https://www.kickstarter.com/services/oembed"        
+        "endpoint": "https://www.kickstarter.com/services/oembed"
     }, {
         "name": "Producthunt Comments",
         "templates": [
