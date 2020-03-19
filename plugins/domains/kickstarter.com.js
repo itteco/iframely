@@ -1,12 +1,9 @@
 var utils = require('../../lib/utils');
-var cheerio = require('cheerio');
 
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/(?!comments|description|faqs|posts|community)[a-zA-Z0-9-]+\/?(\?.*)?$/i,
-        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/(?!comments|description|faqs|posts|community)[a-zA-Z0-9-]+\/?(\?.*)?$/i,
-        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/widget\/video\.html$/i,
+        /^https?:\/\/(?:www\.)?kickstarter\.com\/projects\/[a-zA-Z0-9-]+\/[a-zA-Z0-9-]+\/?(?:widget\/video\.html)?(?:\?.*)?$/i
     ],
 
     mixins: [
@@ -17,35 +14,30 @@ module.exports = {
         "oembed-author",
         "shortlink",
 
-        "twitter-player",
-        "og-video",
-        // "og-image", // Added in getLinks
+        // "og-image", // Added in getLinks.
         "favicon"
     ],
 
+    getMeta: function (meta, options) {
+        if (!options.redirectsHistory || !/video\.html$/.test(options.redirectsHistory[0])) {
+            return {
+                media: 'reader'
+            }
+        }
+    },
+
     getLinks: function (meta, oembed, options, cb) {
 
-        // When there is no project video, Kikstarter's oEmbed has diff output
-        // 'meta' param is there to determine if there's a video
-        // oembed thumbnail is returned as link and not as mixin to avoid empty results and fallback to generic parsers
+        // When there is no project video, Kikstarter's oEmbed contains a summary card. 
+        // Yet both go as oembed type "rich".
+        // We handle those types separately here.
+        // Oembed thumbnail is returned as link and not as mixin to avoid empty results and fallback to generic parsers.
 
-        // Also, unfortunatelly, Kickstarter oEmbed API doesn't accept all canonical addresses.
-        // We have to rely on auto-discovery as it seems to work. 
-        // Ex.: https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data/posts/1148266
+        var iframe = oembed.getIframe();
 
-        var $container = cheerio('<div>');
+        if (iframe && iframe.src) {
 
-        try {
-            $container.html(oembed.html);
-        } catch(ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
-            var href = $iframe.attr('src');
-
-            if ((meta.twitter && meta.twitter.card == 'player') || (meta.og && meta.og.type == 'video') || meta.video_src || (href && /video\.html$/.test(href))) {
+            if (/video\.html$/.test(iframe.src)) {
 
                 var aspect = oembed.height ? oembed.width / oembed.height : 0;
                 var img = (meta.og && meta.og.image && meta.og.image.url) || oembed.thumbnail_url;
@@ -74,7 +66,7 @@ module.exports = {
                     }
 
                     links.push({
-                        href: href,
+                        href: iframe.src,
                         type: CONFIG.T.text_html,
                         rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
                         "aspect-ratio": aspect
@@ -88,7 +80,7 @@ module.exports = {
             } else {
  
                 return cb(null, [{
-                    href: href,
+                    href: iframe.src,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
                     width: oembed.width,
@@ -122,15 +114,11 @@ module.exports = {
 
     tests: [{
         noFeeds: true,
-        skipMixins: [
-            "twitter-player",
-            "og-video",
-            "favicon"
-        ]
     },
-        "http://www.kickstarter.com/projects/1104350651/taktik-premium-protection-system-for-the-iphone",
+        "https://www.kickstarter.com/projects/1104350651/taktik-premium-protection-system-for-the-iphone",
         "https://www.kickstarter.com/projects/1578116861/toejam-and-earl-back-in-the-groove",
-        //"https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data/posts/1148266",
+        "https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data",
+        "https://www.kickstarter.com/projects/sparkdevices/spark-electron-cellular-dev-kit-with-a-simple-data/widget/video.html",
         "https://www.kickstarter.com/projects/1818505613/codeybot-new-robot-who-teaches-coding?ref=home_potd"
     ]
 };
