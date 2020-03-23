@@ -45,6 +45,9 @@ function assertOembed(oembed) {
 }
 
 describe('Core plugins', function() {
+
+    this.timeout(CONFIG.RESPONSE_TIMEOUT);
+
     describe('meta', function() {
 
         var error, data;
