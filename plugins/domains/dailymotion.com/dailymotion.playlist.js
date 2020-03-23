@@ -7,15 +7,19 @@ module.exports = {
         /^https?:\/\/www\.dailymotion\.com\/embed\/playlist\//i,
     ],
 
-    getLink: function (url) {
+    mixins: [
+        "*"
+    ],
 
+    getLink: function (url) {
+        var playlistUrl = url;
         if (url.includes('playlist') && !url.includes('embed/playlist')) {
-            url = url.replace('playlist', 'embed/playlist')
+            playlistUrl = url.replace('playlist', 'embed/playlist')
         }
         return {
-            href: url,
+            href: playlistUrl,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.iframely],
             "aspect-ratio": 16/9,
         };
     },
