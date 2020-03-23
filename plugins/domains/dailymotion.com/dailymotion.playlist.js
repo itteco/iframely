@@ -1,7 +1,9 @@
 module.exports = {
+    /**
+     * Endpoint `http://www.dailymotion.com/services/oembed`
+     * does not provide oembed results for playlist url currently
+     */
 
-    // Endpoint http://www.dailymotion.com/services/oembed
-    // does not provide oembed results for playlist url currently
     re: [
         /^https?:\/\/www\.dailymotion\.com\/playlist\//i,
         /^https?:\/\/www\.dailymotion\.com\/embed\/playlist\//i,
@@ -19,8 +21,7 @@ module.exports = {
         return {
             href: playlistUrl,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.iframely],
-            "aspect-ratio": 16/9,
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.iframely]
         };
     },
 
