@@ -42,7 +42,7 @@ module.exports = {
         },{
             href: href,
             type: CONFIG.T.text_html,
-            "rel": [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.autoplay, CONFIG.R.oembed],
+            "rel": [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.oembed],
             "aspect-ratio": oembed.width / oembed.height,
             scrolling: 'no'
         }]);
