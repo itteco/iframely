@@ -1,3 +1,5 @@
+var _ = require('underscore');
+
 module.exports = {
 
     mixins: [
@@ -19,13 +21,26 @@ module.exports = {
 
     ],
 
-    getLink: function (url, oembed, cb) {
+    getLink: function (url, oembed, options, cb) {
+
+        /** Enable transmission of GET parameters to embed */
+        var href = oembed.getIframeAttr('src');
+        if (options.redirectsHistory) {
+            var paramsUrl = _.find(options.redirectsHistory, function(item) {
+                return item.match(/^https?:\/\/(?:www\.)?dailymotion\.com\/.+\?/i);
+            });
+            if (paramsUrl) {
+                var getParams = paramsUrl.split('?');
+                href += '?' + getParams[1];
+            }
+        }
+
         cb(null, [{
             href: "http://static1.dmcdn.net/images/apple-touch-icon.png.vcbf86c6fe83fbbe11",
             type: CONFIG.T.image_icon,
             rel: CONFIG.R.icon
         },{
-            href: url,
+            href: href,
             type: CONFIG.T.text_html,
             "rel": [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.autoplay, CONFIG.R.oembed],
             "aspect-ratio": oembed.width / oembed.height,
