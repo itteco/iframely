@@ -648,5 +648,12 @@
             "(?:www\\.)?codeply.com/[vp]/([a-zA-Z0-9]+)"
         ],
         "endpoint": "https://www.codeply.com/api/oembed/?v=2&url={url}"
+    },
+    {
+        "name": "Canva",
+        "templates": [
+            "(?:www\\.)?canva.com/design/"
+        ],
+        "endpoint": "https://www.canva.com/_oembed"
     }
 ]
