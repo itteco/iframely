@@ -196,17 +196,17 @@ function processPluginTests(pluginTest, plugin, count, cb) {
     log('===========================================');
     console.log('Testing provider:', plugin.id);
 
-    function getFetchTestUrlsCallback(url, cb) {
+    function getFetchTestUrlsCallback(testInfo, cb) {
         return function(error, urls) {
             if (error) {
                 urls = {
                     error: error,
-                    test: url
+                    test: testInfo
                 };
             } else if (urls.length == 0) {
                 urls = {
                     error: "No test urls found",
-                    test: url
+                    test: testInfo
                 };
             }
             cb(null, urls);
@@ -280,6 +280,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                                 getUrl: url.getUrl,
                                 urlAttribute: url.urlAttribute
                             }, getFetchTestUrlsCallback(url, cb));
+
+                        } else if (url.getUrls) {
+
+                            url.getUrls(getFetchTestUrlsCallback('getUrls', cb));
 
                         } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
 
