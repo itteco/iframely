@@ -3,11 +3,6 @@ const querystring = require('querystring');
 module.exports = {
 
     mixins: [
-        /**
-         *  This mixin does not allow Dailymotion parameters to be transmitted
-         *
-         *     //"oembed-video"
-         */
         "oembed-title",
         "oembed-author",
         "oembed-site",
@@ -18,6 +13,11 @@ module.exports = {
         "video"
     ],
 
+    /**
+     *  Values for `get_params`: 
+     *   - queue-enable=false  - https://faq.dailymotion.com/hc/en-us/articles/360000713928-Disabling-the-Up-Next-Queue
+     *   - ui-start-screen-info=0 - hide title amontg other things - https://nextgenthemes.com/how-to-hide-titles-and-change-other-setting-for-youtube-vimeo-embeds-in-wordpress-with-arve/
+     */
     getLink: function (url, oembed, options) {
         var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', '').replace(/^\?/, ''));
         var qs = querystring.stringify(playlistParams);
@@ -35,8 +35,22 @@ module.exports = {
         }
     },
 
+    /**
+     * Age-restrictred videos have a redirect to age confirmation page. 
+     * To make it work, retrieved oembed first, 
+     * then disable core restart of processing when there's a HTTP redirect.
+     * Disable age-restricted, if `no_nsfw` is configured.
+     */
+    getData: function (oembed, options) {
+        if (!options.getProviderOptions('no_nsfw', false)) {
+            options.followHTTPRedirect = true;
+        }
+    },
+
     tests: [{
         noFeeds: true
+    }, {
+        skipMixins: ["video", "og-description"]
     },
         "http://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
         "http://www.dailymotion.com/swf/video/xcv6dv_pixels-by-patrick-jean_creation",
