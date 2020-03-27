@@ -25,7 +25,7 @@ module.exports = {
 
         if (href && oembed.height) {
             return {
-                href: href + (href.indexOf("?") > -1 ? "&" : "?") + qs,
+                href: href + (href.indexOf("?") > -1 ? "&" : (qs !== "" ? "?" : "")) + qs,
                 type: CONFIG.T.text_html,
                 "rel": [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height,
