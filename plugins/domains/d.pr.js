@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(\w+\.)?d\.pr\/(?:i|v|free)\//i
+        /^https?:\/\/(\w+\.)?d\.pr(?:\/free)?\/(?:i|v|)\//i
     ],
 
     mixins: [
@@ -37,8 +37,9 @@ module.exports = {
             cb (/\/free\//i.test(url)
                 ? {redirect: url.replace(/\/free\//i, '/')}
                 : null);
+        } else {
+            cb(null);
         }
-        cb(null);
     },
 
     tests: [{
