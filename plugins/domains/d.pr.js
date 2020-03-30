@@ -1,14 +1,14 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(\w+\.)?d\.pr\/(?:i\/)?([a-zA-Z0-9]+)/i
+        /^https?:\/\/(\w+\.)?d\.pr\/(?:i|v|free)\//i
     ],
 
     mixins: [
         "*"
     ],
 
-    getLink: function(oembed, cheerio) {
+    getLink: function(oembed, og) {
 
         if ( /image|photo/.test(oembed.type) || /image/i.test(oembed.drop_type)) {
             return {
@@ -20,22 +20,25 @@ module.exports = {
                 // height: oembed.height
             };
         }
-        if (/mp4/i.test(oembed.variant)) {
-            var url = cheerio('video source').attr('src');
-            if (url) {
-                return {
-                    href: url,
-                    type: CONFIG.T.video_mp4,
-                    rel: [CONFIG.R.player]
-                };
-            }
+        if (/mp4/i.test(oembed.variant) &&
+            og.video &&
+            og.video.url
+        ) {
+            return {
+                href: og.video.url,
+                accept: CONFIG.T.video_mp4,
+                rel: CONFIG.R.player
+            };
         }
     },
 
-    getData: function(url, cb) {
-        cb (/\/free\//i.test(url)
-            ? {redirect: `https://d.pr/v/${url.match(/^https?:\/\/(?:\w+\.)?d\.pr\/free\/v\/([a-zA-Z0-9]+)(?:\/\?)?/i)[1]}`}
-            : null);
+    getData: function(url, cb, options) {
+        if (!options.redirectsHistory || options.redirectsHistory.indexOf(url) === -1) {
+            cb (/\/free\//i.test(url)
+                ? {redirect: url.replace(/\/free\//i, '/')}
+                : null);
+        }
+        cb(null);
     },
 
     tests: [{
