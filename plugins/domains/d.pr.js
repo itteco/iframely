@@ -26,16 +26,24 @@ module.exports = {
                 return {
                     href: url,
                     type: CONFIG.T.video_mp4,
-                    rel: [CONFIG.R.player, CONFIG.R.html5]
+                    rel: [CONFIG.R.player]
                 };
             }
         }
     },
 
+    getData: function(url, cb) {
+        cb (/\/free\//i.test(url)
+            ? {redirect: `https://d.pr/v/${url.match(/^https?:\/\/(?:\w+\.)?d\.pr\/free\/v\/([a-zA-Z0-9]+)(?:\/\?)?/i)[1]}`}
+            : null);
+    },
+
     tests: [{
-        noFeeds: true
+        noFeeds: true,
+        skipMethods: ['getData']
     },
         "https://d.pr/i/9jB7",
-        "https://d.pr/i/vO1p"
+        "https://d.pr/i/vO1p",
+        "https://d.pr/free/v/MU6bHj"
     ]
 };
