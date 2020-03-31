@@ -33,7 +33,7 @@ module.exports = {
 
     getData: function(url, cb, options) {
         if (!options.redirectsHistory || options.redirectsHistory.indexOf(url) === -1) {
-            cb (/\/free\//i.test(url)
+            return cb (/\/free\//i.test(url)
                 ? {redirect: url.replace(/\/free\//i, '/')}
                 : null);
         } else {
