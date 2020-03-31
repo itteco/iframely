@@ -19,8 +19,7 @@ module.exports = {
                 // width: oembed.width,
                 // height: oembed.height
             };
-        }
-        if (/mp4/i.test(oembed.variant) &&
+        } else if (/mp4/i.test(oembed.variant) &&
             og.video &&
             og.video.url
         ) {
@@ -38,7 +37,7 @@ module.exports = {
                 ? {redirect: url.replace(/\/free\//i, '/')}
                 : null);
         } else {
-            cb(null);
+            return cb(null);
         }
     },
 
