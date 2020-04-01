@@ -1,3 +1,5 @@
+const querystring = require('querystring');
+
 module.exports = {
 
     re: [
@@ -16,12 +18,19 @@ module.exports = {
     ],    
 
     getLinks: function(urlMatch, oembed, options) {
-
-        var params = options.getProviderOptions('youtube.playlist_params', '');
+        
+        var params = querystring.parse(options.getProviderOptions('youtube.playlist_params', '').replace(/^\?/, ''));
         var domain = /^https?:\/\/www\.youtube-nocookie\.com\//i.test(urlMatch[0]) || options.getProviderOptions('youtube.nocookie', false) ? 'youtube-nocookie' : 'youtube';
 
+        if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
+            params.enablejsapi = 1;
+        }
+
+        var qs = querystring.stringify(params);
+        if (qs !== '') {qs = '&' + qs;}
+
         return {
-            href: 'https://www.' + domain + '.com/embed/videoseries?list=' + urlMatch[1] + params.replace(/^\?/, '&'),
+            href: 'https://www.' + domain + '.com/embed/videoseries?list=' + urlMatch[1] + qs,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width && oembed.height ? oembed.width / oembed.height : 16/9,
