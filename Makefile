@@ -1,7 +1,7 @@
 CONTAINER	:= iframely
 HUB_USER	:= ${USER}
 IMAGE_NAME	:= ${HUB_USER}/${CONTAINER}
-VERSION		:= v1.3.1
+VERSION		:= v1.4.2
 EXPOSEPORT	:= 8061
 PUBLISHPORT := ${EXPOSEPORT}
 
@@ -26,6 +26,7 @@ run:
 		--tty \
 		--hostname=${CONTAINER} \
 		--name=${CONTAINER} \
+		-e NODE_TLS_REJECT_UNAUTHORIZED=0 \
 		-p ${PUBLISHPORT}:${EXPOSEPORT} \
 		-v $(PWD)/config.local.js.SAMPLE:/iframely/config.local.js \
 		$(CONTAINER)
@@ -71,6 +72,8 @@ clean:
 	git branch -d ${VERSION}
 
 push:
-	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} && docker push ${IMAGE_NAME}
+	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} # && docker push ${IMAGE_NAME}
+	docker tag ${CONTAINER} ${IMAGE_NAME}:latest
+	docker push ${IMAGE_NAME}
 
 restart: stop clean run
