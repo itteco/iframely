@@ -21,8 +21,6 @@ module.exports = {
 
         var width = options.maxWidth || options.getProviderOptions('twitter.timeline_width');
 
-        console.log(options.getProviderOptions('twitter.timeline_width'));
-
         if (width) {
             html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
         } else if (width === '') {
