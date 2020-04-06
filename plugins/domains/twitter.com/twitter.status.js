@@ -225,6 +225,11 @@ module.exports = {
             html = html.replace(/\s?data-cards=\"hidden\"/i, '');
         }
 
+        var theme = options.getRequestOptions('players.theme', '');
+        if (theme === 'dark' && !/data\-theme=\"dark\"/.test(html)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-theme="dark"');
+        }
+
         // Declare options
         var opts = {};
 
@@ -239,7 +244,15 @@ module.exports = {
                 label: 'Hide photos, videos, and cards',
                 value: /\s?data-cards=\"hidden\"/.test(html)
             }
-        }     
+        }
+
+        opts.theme = {
+            value: theme,
+            values: {
+                dark: "Dark theme"
+            }
+        };
+
 
         var app = {
             html: html,
