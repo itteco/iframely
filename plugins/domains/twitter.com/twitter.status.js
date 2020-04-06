@@ -249,7 +249,7 @@ module.exports = {
         opts.theme = {
             value: theme,
             values: {
-                dark: "Dark theme"
+                dark: "Use dark theme"
             }
         };
 
