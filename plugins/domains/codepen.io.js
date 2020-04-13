@@ -18,11 +18,7 @@ module.exports = {
     getLink: function(oembed, options) {
 
         if (oembed.author_url ===  "https://codepen.io/anon/") {
-            return { // Anonymous Pens can't be embedded
-                    // return icon to avoid fallback to generic (whitelisted) parser
-                href: 'http://codepen.io/logo-pin.svg',
-                type: CONFIG.T.icon,
-                rel: CONFIG.R.icon,
+            return { // And no fallback to generics
                 message: "Anonymous Pens can't be embedded."
             }
         }
