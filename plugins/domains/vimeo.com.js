@@ -74,10 +74,9 @@ module.exports = {
     },
 
     getData: function(url, oembedError, cb, options, whitelistRecord) {
-        // Handle private videos, ex. https://vimeo.com/243312327, https://vimeo.com/channels/staffpicks/116307147
+        // Handle private videos, ex. https://vimeo.com/243312327
         cb (null,
             oembedError == 403 ? {
-                whitelistRecord: options.getWhitelistRecord(url, {exclusiveRel: 'oembed'}),
                 message: 'Because of its privacy settings, this video cannot be embedded.'
             } : null
         );
