@@ -32,21 +32,6 @@ module.exports = {
         }
     },
 
-    getData: function (tumblr_post, __readabilityEnabled) {
-
-        if (tumblr_post.type !== "text") {
-
-            var caption = $('<div>').html(tumblr_post.caption).text();
-            if (!caption || caption.length < 160) {
-                return;
-            }
-        }
-
-        return {
-            safe_html: tumblr_post.body || tumblr_post.caption
-        };
-    },
-
     tests: [{skipMethods: ["getData"]},
         "http://blog.path.com/post/76550009909/stickers-xoxo-and-valentines",
         "http://blog.slides.com/post/84828911898/slides-turns-one-year-old"
