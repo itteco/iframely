@@ -27,7 +27,8 @@
     {
         "name": "Facebook Page",
         "templates": [
-            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/?"
+            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/",
+            "(?:www|m)\\.facebook\\.com/[^/]+/?(?:about|photos|videos|events|timeline|photos_stream)?/?(?:\\?[^/\\?]+)?$"
         ],
         "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
     },
@@ -144,16 +145,9 @@
     {
         "name": "SmugMug",
         "templates": [
-            "(.*\\.smugmug\\.com/[^#]*)#!i=(\\d+)&k=(\\w+)"
+            "^(?!www)\\w+\\.smugmug\\.com/"
         ],
-        "endpoint": "https://api.smugmug.com/services/oembed/?format={format}&url=http://{1}%23{2}_{3}"
-    },
-    {
-        "name": "SmugMug new",
-        "templates": [
-            ".*\\.smugmug\\.com/[^#]+$"
-        ],
-        "endpoint": "http://api.smugmug.com/services/oembed/?format={format}&url={url}"
+        "endpoint": "https://api.smugmug.com/services/oembed/?format={format}&url={url}"
     },
     {
         "name": "SlideShare",
@@ -199,6 +193,13 @@
             "twitter\\.com/\\w+/status(?:es)?/\\d+"
         ],
         "endpoint": "https://publish.twitter.com/oembed"
+    },
+    {
+        "name": "TikTok",
+        "templates": [
+            "tiktok\\.com/@[^\\/]+\/video\/\\d+"
+        ],
+        "endpoint": "https://www.tiktok.com/oembed"
     },
     {
         "name": "GfyCat",
@@ -355,9 +356,9 @@
     {
         "name": "Spotify",
         "templates": [
-            "((?:open|embed|play)\\.spotify\\.com/)(?:embed/)?([^\\?]*)\\??.*"
+            "(?:open|embed|play)\\.spotify\\.com/(?:embed/)?([^\\?]*)\\??.*"
         ],
-        "endpoint": "https://embed.spotify.com/oembed/?url=https://{1}{2}&format={format}"
+        "endpoint": "https://open.spotify.com/oembed?url=https://open.spotify.com/{1}&format={format}"
     },
     {
         "name": "Issuu",
@@ -524,9 +525,9 @@
     }, {
         "name": "Kickstarter",
         "templates": [        
-            "kickstarter.com/projects/.*"            
+            "kickstarter.com/projects/[a-zA-Z0-9-]+/[a-zA-Z0-9-]+\\/?(?:\\?.*)?$"
         ],
-        "endpoint": "https://www.kickstarter.com/services/oembed"        
+        "endpoint": "https://www.kickstarter.com/services/oembed"
     }, {
         "name": "Producthunt Comments",
         "templates": [
@@ -647,5 +648,12 @@
             "(?:www\\.)?codeply.com/[vp]/([a-zA-Z0-9]+)"
         ],
         "endpoint": "https://www.codeply.com/api/oembed/?v=2&url={url}"
+    },
+    {
+        "name": "Canva",
+        "templates": [
+            "(?:www\\.)?canva.com/design/"
+        ],
+        "endpoint": "https://www.canva.com/_oembed"
     }
 ]

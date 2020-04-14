@@ -46,6 +46,11 @@
             // 5xx included in logic.
         ],
 
+        HTTP2_RETRY_CODES_LIST: [
+            'ECONNRESET',
+            'ESOCKETTIMEDOUT'
+        ],
+
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
 
@@ -143,6 +148,7 @@
 
             inline: "inline",
             ssl: "ssl",
+            resizable: "resizable",
 
             autoplay: "autoplay",
             html5: "html5",
@@ -183,6 +189,7 @@
             auto: 'Auto',
             default: 'Default',
             height: 'Adjust height',
+            width: 'Adjust width',
             page: 'Active page'
         },
 
@@ -244,7 +251,7 @@
             "sm4"
         ],
 
-        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard)\./i,
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay)\./i,
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
@@ -293,6 +300,11 @@
     }
 
     config.TYPES = Object.values(config.T);
+
+    config.HTTP2_RETRY_CODES = {};
+    config.HTTP2_RETRY_CODES_LIST.forEach(function(item) {
+        config.HTTP2_RETRY_CODES[item] = 1;
+    });
 
     module.exports = config;
 })();

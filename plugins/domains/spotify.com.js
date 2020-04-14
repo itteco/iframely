@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode|playlist)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|album|artist|show|episode|playlist)/i
     ],
 
     mixins: [
@@ -112,11 +112,11 @@ module.exports = {
     },    
 
     tests: [{noFeeds: true}, {skipMethods: ["getData"]},
-        "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
+        "https://open.spotify.com/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
-        "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
+        "https://open.spotify.com/playlist/4SsKyjaGlrHJbRCQwpeUsz",
         "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi",
-        "https://open.spotify.com/user/bradgarropy/playlist/0OV99Ep2d1DCENJRPuEtXV",
+        "https://open.spotify.com/playlist/0OV99Ep2d1DCENJRPuEtXV",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "https://open.spotify.com/track/4by34YzNiEFRESAnBXo7x4",
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",

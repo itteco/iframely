@@ -18,7 +18,7 @@ module.exports = {
                 href: twitter.player.value,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                autoplay: 'autoPlay=true'
+                'max-width': 1064
             };
 
         if (/\-\d{2,3}x\d{2,3}\.jpg$/i.test(twitter.image)) { // podcast

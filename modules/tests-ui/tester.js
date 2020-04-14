@@ -115,6 +115,80 @@ function createNewPluginTests(providersIds, cb) {
     ], cb);
 }
 
+function checkPageTestLogChangeNotification(logEntry) {
+
+    PageTestLog
+        .find({
+            url: logEntry.url,
+            plugin: logEntry.plugin,    
+            created_at: {
+                $lt: logEntry.created_at
+            }
+        })
+        .sort({created_at: -1})
+        .limit(1)
+        .exec(function(error, previousLogEntry) {
+
+            previousLogEntry = previousLogEntry && previousLogEntry.length && previousLogEntry[0];
+
+            /*
+
+            Case 1.
+
+            Was not error OR was no record.
+            Become error.
+            -- Notify error.
+
+            Case 2.
+
+            Was error.
+            Become good.
+            -- Notify fix.
+
+            Case 3.
+
+            Was error.
+            Become error.
+            -- Notify: still failing.
+
+            */
+
+            var wasError = previousLogEntry && previousLogEntry.hasError();
+            var hasError = logEntry.hasError();
+
+            if (!wasError && hasError) {
+
+                // Case 1.
+                // -- Notify error.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Failed",
+                    color: "red"
+                });
+
+            } else if (wasError && !hasError) {
+
+                // Case 2.
+                // -- Notify fix.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Fixed",
+                    color: "green"
+                });
+
+            } else if (wasError && hasError) {
+
+                // Case 3.
+                // -- Notify: still failing.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Still failing",
+                    color: "yellow"
+                });
+            }
+        });
+}
+
 function processPluginTests(pluginTest, plugin, count, cb) {
 
     var testUrlsSet, reachTestObjectFound = false;;
@@ -122,17 +196,17 @@ function processPluginTests(pluginTest, plugin, count, cb) {
     log('===========================================');
     console.log('Testing provider:', plugin.id);
 
-    function getFetchTestUrlsCallback(url, cb) {
+    function getFetchTestUrlsCallback(testInfo, cb) {
         return function(error, urls) {
             if (error) {
                 urls = {
                     error: error,
-                    test: url
+                    test: testInfo
                 };
             } else if (urls.length == 0) {
                 urls = {
                     error: "No test urls found",
-                    test: url
+                    test: testInfo
                 };
             }
             cb(null, urls);
@@ -206,6 +280,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                                 getUrl: url.getUrl,
                                 urlAttribute: url.urlAttribute
                             }, getFetchTestUrlsCallback(url, cb));
+
+                        } else if (url.getUrls) {
+
+                            url.getUrls(getFetchTestUrlsCallback('getUrls', cb));
 
                         } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
 
@@ -313,7 +391,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     if (error) {
                         if (error.code === "timeout") {
                             logEntry.warnings = [error.code];
-                        } else if ((error.responseCode == 404)) {
+                        } else if ((error.responseCode === 404 || error.responseCode === 410)) {
                             logEntry.warnings = [error.responseCode];
                         } else if (error.stack) {
                             logEntry.errors_list = [error.stack];
@@ -391,9 +469,11 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     logEntry.save(function(error) {
 
                         if (error) {
-                            console.log('errork', error)
+                            console.log('error', error)
                             return cb(error);
                         }
+
+                        checkPageTestLogChangeNotification(logEntry);
 
                         if (testMode === 'http1-first') {
 
@@ -595,9 +675,10 @@ function testAll(cb) {
 
         function(cb) {
             if (testOnePlugin || count == 0) {
-                cb()
+                cb();
             } else {
                 console.log('finish');
+
                 TestingProgress.update({
                     _id: 1
                 }, {

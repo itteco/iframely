@@ -3,8 +3,7 @@ var entities = require('entities');
 
 module.exports = {
 
-    getLink: function(oembed, whitelistRecord) {
-
+    getLink: function(oembed, whitelistRecord, url) {
 
         if (!(oembed.type === "video" && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video'))) {
             return;
@@ -37,6 +36,14 @@ module.exports = {
             if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
                 player.href = player.href.replace(/^http:\/\//i, '//');
             }
+            // If iFrame is not SSL, 
+            // But URL itself is same domain and IS ssl - fix the oEmbed ommission. 
+            else if (url && /^http:\/\/([^\/]+)\//i.test(player.href)
+                && url.match('https://' + player.href.match(/^http:\/\/([^\/]+)\//i[1]))
+                ) {
+                player.href = player.href.replace(/^http:\/\//i, '//');
+            }
+
             if (/\.mp4(\?[^\?\/]+)?$/i.test(player.href)) {
                 player.accept = [CONFIG.T.text_html, CONFIG.T.video_mp4]
             } else {

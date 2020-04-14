@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": [
         "oembed",
@@ -51,16 +51,16 @@
         "mocha": "^5.2.0",
         "mock-http-server": "^1.0.0",
         "mongoose": "^5.4.20",
-        "supertest": "^4.0.2",
-        "vows": "0.7.0"
+        "supertest": "^4.0.2"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core",
     "scripts": {
-        "test": "vows test/main.js --isolate --spec && npm run test-e2e",
+        "test": "npm run test-core-plugins && npm run test-e2e",
+        "test-core-plugins": "mocha --exit test/core-plugins.js",
         "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
     },
     "engines": {
-        "node": ">=7.0.0"
+        "node": ">=8.0.0"
     }
 }

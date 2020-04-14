@@ -2,10 +2,7 @@ var $ = require('cheerio');
 
 module.exports = {
 
-    re: [
-        /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,14})(?:\/[a-z0-9-]+)?/i
-    ],
+    re: require('./tumblr.api').re,
 
     getMeta: function (tumblr_post) {
         if (tumblr_post.type == "text") {
@@ -33,21 +30,6 @@ module.exports = {
                 rel: CONFIG.R.thumbnail
             };
         }
-    },
-
-    getData: function (tumblr_post, __readabilityEnabled) {
-
-        if (tumblr_post.type !== "text") {
-
-            var caption = $('<div>').html(tumblr_post.caption).text();
-            if (!caption || caption.length < 160) {
-                return;
-            }
-        }
-
-        return {
-            safe_html: tumblr_post.body || tumblr_post.caption
-        };
     },
 
     tests: [{skipMethods: ["getData"]},

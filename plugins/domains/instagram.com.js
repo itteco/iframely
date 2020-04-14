@@ -9,8 +9,9 @@ module.exports = {
     mixins: [
         "oembed-site",
         "oembed-author",
-        // "og-image", it's the same as size L
-        "domain-icon"
+        // "og-image", // it's the same as size L
+        "domain-icon",
+        "oembed-error"
     ],
 
     getMeta: function (og, oembed) {
@@ -22,7 +23,7 @@ module.exports = {
 
     },
 
-    getLinks: function(urlMatch, meta, oembed, options) {
+    getLinks: function(url, urlMatch, meta, oembed, options) {
         var src = 'https://instagram.com/p/' + urlMatch[1] + '/media/?size=';
 
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
@@ -33,20 +34,20 @@ module.exports = {
                 href: src + 't',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail,
-                width: Math.round(150 * aspect),
+                width: 150,
                 height: 150 
             }, {
                 href: src + 'm',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail,
-                width: Math.round(aspect * 306),
-                height: 306
+                width: 320,
+                height: Math.round(320 / aspect)
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
                 rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: Math.round(aspect * 612),
-                height: 612
+                width: 1080,                
+                height: Math.round(1080 / aspect)
             } 
             /*
             // return expanded image thumbnails if /p/shortcode/media stops working again
@@ -93,11 +94,16 @@ module.exports = {
 
             captioned = /data\-instgrm\-captioned/i.test(html);
 
-            html = html.replace (/src="\/\/www\.instagram\.com\/embed\.js"/, 'src="https://www.instagram.com/embed.js"');
+            html = html.replace(/src="\/\/www\.instagram\.com\/embed\.js"/, 'src="https://www.instagram.com/embed.js"');
 
             if (/instagram.com\/tv\//i.test(html)) {
                 // html has /tv/ links in it - but those actually don't work as of 8/27/2018
-                html = html.replace (/instagram.com\/tv\//g, 'instagram.com/p/');
+                html = html.replace(/instagram.com\/tv\//g, 'instagram.com/p/');
+            }
+
+            // Fix for private posts that later became public
+            if (urlMatch[1] && urlMatch[1].length > 30 && meta.canonical) {
+                html = html.replace(url, meta.canonical);
             }
 
             var app = {
@@ -127,8 +133,16 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, options) {
-        options.followHTTPRedirect = true; // avoid any issues with possible redirects
+    getData: function (url, urlMatch, options) {
+
+        // Avoid any issues with possible redirects,
+        // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
+        options.followHTTPRedirect = true; 
+        if (urlMatch[1] && urlMatch[1].length > 30) {
+            return {
+                message: 'This Instagram post is private.' // IDs longer than 30 is for private posts as of March 11, 2020
+            }
+        }
 
         if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
             return {
@@ -145,10 +159,7 @@ module.exports = {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
-            skipMixins: [
-                "oembed-title"
-            ]
-        }, {
+            skipMixins: ["oembed-title", "oembed-error"],
             skipMethods: ['getData']
         }
     ]
