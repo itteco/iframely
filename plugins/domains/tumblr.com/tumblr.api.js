@@ -34,7 +34,7 @@ module.exports = {
     getLink: function(tumblr_post) {
 
         var icon = {
-            href: "https://secure.assets.tumblr.com/images/apple-touch-icon-60x-60.png",
+            href: "https://assets.tumblr.com/images/apple-touch-icon-196x196.png",
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
         };
