@@ -167,8 +167,6 @@ module.exports = {
     tests: [
         "https://docs.google.com/document/d/17jg1RRL3RI969cLwbKBIcoGDsPwqaEdBxafGNYGwiY4/preview?sle=true",
         "https://docs.google.com/document/d/1KHLQiZkTFvMvBHmYgntEQtNxXswOQISjkbpnRO3jLrk/edit",
-        "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/edit#slide=id.p",
-        "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/preview",
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
         "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
         "https://docs.google.com/spreadsheets/d/10JLM1UniyGNuLaYTfs2fnki-U1iYFsQl4XNHPZTYunw/edit?pli=1#gid=0",
