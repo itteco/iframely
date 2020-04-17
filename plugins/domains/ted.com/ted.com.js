@@ -50,7 +50,7 @@ module.exports = {
         var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
 
         var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
-                return typeof link.indexOf === 'function' && link.indexOf('language='+lang) > -1;
+                return typeof link.indexOf === 'function' && link.indexOf('language='+lang.toLocaleLowerCase() > -1;
             });
 
         cb (null, {oembedLinks: [{
