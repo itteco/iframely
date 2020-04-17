@@ -81,7 +81,6 @@ module.exports = {
     }, {
         skipMethods: ["getData"]
     },
-        "http://giphy.com/gifs/emma-stone-kiss-oHBlKX1wbIye4",
         "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
         "http://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E",
         "https://giphy.com/gifs/nfl-super-bowl-nfl-sb-U7zS2FJTC8xclBzGVu",
