@@ -50,7 +50,7 @@ module.exports = {
         var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
 
         var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
-                return typeof link.indexOf === 'function' && link.indexOf('language='+lang) > -1;
+                return typeof link.indexOf === 'function' && link.indexOf('language='+lang.toLocaleLowerCase() > -1);
             });
 
         cb (null, {oembedLinks: [{
@@ -65,6 +65,7 @@ module.exports = {
         page: "http://www.ted.com/talks",
         selector: "#browse-results a"
     }, {skipMethods: ['getData']},
-        "http://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city"
+        "http://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
+        "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW"
     ]
 };
