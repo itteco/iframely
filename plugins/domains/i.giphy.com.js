@@ -15,7 +15,7 @@ module.exports = {
 
     tests: [{
         noFeeds: true,
-        skipMethods: ["getLink"]
+        skipMethods: ["getData"]
     },
         "http://i.giphy.com/10rNBP8yt1LUnm.gif",
         "https://media.giphy.com/media/3o6Zt09XtyqOJWVgRO/source.gif",
