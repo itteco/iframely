@@ -20,21 +20,14 @@ module.exports = {
         "oembed-title"
     ],
 
-    getLink: function(oembed, url) {
+    getLink: function(oembed) {
         var $iframe = oembed.getIframe();
 
-        if ($iframe) {
-            var query = URL.parse(url,true).query;
-            var lang = query.language || query.nolanguage;
-            var src = $iframe.src;
-            if (!/\/lang\//i.test($iframe.src) && lang) {
-                src = $iframe.src.replace(/\/talks\//i, '/talks/lang/' + lang.toLowerCase() + '\/')
-            }
-
+        if ($iframe && oembed.height) {
             return {
-                type: CONFIG.T.text_html, 
+                type: CONFIG.T.text_html,
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: src,
+                href: $iframe.src,
                 "aspect-ratio": oembed.width / oembed.height
             }
         }
@@ -44,7 +37,7 @@ module.exports = {
 
         var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
 
-        if (!/languge=/.test(meta.canonical)) {
+        if (!/language=/.test(meta.canonical)) {
             var query = URL.parse(url,true).query;
             var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
             lang = lang ? lang.toLowerCase() : lang;
