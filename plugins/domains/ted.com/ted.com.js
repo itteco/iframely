@@ -1,4 +1,3 @@
-const cheerio = require('cheerio');
 const URL = require("url");
 
 module.exports = {
@@ -21,24 +20,21 @@ module.exports = {
         "oembed-title"
     ],
 
-    getLink: function(oembed, url, options) {
+    getLink: function(oembed, url) {
+        var $iframe = oembed.getIframe();
 
-        var $container = cheerio('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
+        if ($iframe) {
             var query = URL.parse(url,true).query;
             var lang = query.language || query.nolanguage;
+            var src = $iframe.src;
+            if (!/\/lang\//i.test($iframe.src) && lang) {
+                src = $iframe.src.replace(/\/talks\//i, '/talks/lang/' + lang.toLowerCase() + '\/')
+            }
 
             return {
                 type: CONFIG.T.text_html, 
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: lang ? $iframe.attr('src').replace(/\/lang\/\w+\//i, '/').replace(/\/talks\//i, '/talks/lang/' + lang.toLowerCase() + '\/') : $iframe.attr('src'),
+                href: src,
                 "aspect-ratio": oembed.width / oembed.height
             }
         }
@@ -46,15 +42,20 @@ module.exports = {
 
     getData: function(url, meta, options, cb) {
 
-        var query = URL.parse(url,true).query;
-        var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
+        var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
 
-        var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
-                return typeof link.indexOf === 'function' && link.indexOf('language='+lang.toLocaleLowerCase() > -1);
+        if (!/languge=/.test(meta.canonical)) {
+            var query = URL.parse(url,true).query;
+            var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
+            lang = lang ? lang.toLowerCase() : lang;
+            var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
+                return typeof link.indexOf === 'function' && link.indexOf('language='+lang > -1);
             });
+            src += (is_valid_lang ? '&language=' + lang : '');
+        }
 
         cb (null, {oembedLinks: [{
-                href: 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical) + (is_valid_lang ? '&language=' + lang : ''),
+                href: src,
                 rel: 'alternate',
                 type: 'application/json+oembed'
             }]
