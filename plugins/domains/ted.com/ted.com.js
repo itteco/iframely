@@ -17,21 +17,22 @@ module.exports = {
         "oembed-description",
         "keywords",
         "oembed-site",
-        "oembed-title"
+        "oembed-title",
+        "oembed-video"
     ],
 
-    getLink: function(oembed) {
-        var $iframe = oembed.getIframe();
-
-        if ($iframe && oembed.height) {
-            return {
-                type: CONFIG.T.text_html,
-                rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: $iframe.src,
-                "aspect-ratio": oembed.width / oembed.height
-            }
-        }
-    },
+    // getLink: function(oembed) {
+    //     var $iframe = oembed.getIframe();
+    //
+    //     if ($iframe && oembed.height) {
+    //         return {
+    //             type: CONFIG.T.text_html,
+    //             rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
+    //             href: $iframe.src,
+    //             "aspect-ratio": oembed.width / oembed.height
+    //         }
+    //     }
+    // },
 
     getData: function(url, meta, options, cb) {
 
