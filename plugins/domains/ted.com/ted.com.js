@@ -1,4 +1,3 @@
-const cheerio = require('cheerio');
 const URL = require("url");
 
 module.exports = {
@@ -18,46 +17,30 @@ module.exports = {
         "oembed-description",
         "keywords",
         "oembed-site",
-        "oembed-title"
+        "oembed-title",
+        "oembed-video"
     ],
-
-    getLink: function(oembed, url, options) {
-
-        var $container = cheerio('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
-            var query = URL.parse(url,true).query;
-            var lang = query.language || query.nolanguage;
-
-            return {
-                type: CONFIG.T.text_html, 
-                rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: lang ? $iframe.attr('src').replace(/\/lang\/\w+\//i, '/').replace(/\/talks\//i, '/talks/lang/' + lang.toLowerCase() + '\/') : $iframe.attr('src'),
-                "aspect-ratio": oembed.width / oembed.height
-            }
-        }
-    },
 
     getData: function(url, meta, options, cb) {
 
-        var query = URL.parse(url,true).query;
-        var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
+        var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
 
-        var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
-                return typeof link.indexOf === 'function' && link.indexOf('language='+lang.toLocaleLowerCase() > -1);
+        if (!/language=/.test(meta.canonical)) {
+            var query = URL.parse(url,true).query;
+            var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
+            lang = lang ? lang.toLowerCase() : lang;
+            var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
+                return typeof link.indexOf === 'function' && link.indexOf('language='+lang > -1);
             });
+            src += (is_valid_lang ? '&language=' + lang : '');
+        }
 
         cb (null, {oembedLinks: [{
-                href: 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical) + (is_valid_lang ? '&language=' + lang : ''),
+                href: src,
                 rel: 'alternate',
                 type: 'application/json+oembed'
-            }]
+            }],
+            message: 'Add "?language=" into your URL for TED subtitles.' // This is here to prevent fallback to default parsers
         });
     },
 
