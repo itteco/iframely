@@ -21,19 +21,6 @@ module.exports = {
         "oembed-video"
     ],
 
-    // getLink: function(oembed) {
-    //     var $iframe = oembed.getIframe();
-    //
-    //     if ($iframe && oembed.height) {
-    //         return {
-    //             type: CONFIG.T.text_html,
-    //             rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-    //             href: $iframe.src,
-    //             "aspect-ratio": oembed.width / oembed.height
-    //         }
-    //     }
-    // },
-
     getData: function(url, meta, options, cb) {
 
         var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
@@ -52,7 +39,8 @@ module.exports = {
                 href: src,
                 rel: 'alternate',
                 type: 'application/json+oembed'
-            }]
+            }],
+            message: 'Add "?language=" into your URL for TED subtitles.' // This is here to prevent fallback to default parsers
         });
     },
 
