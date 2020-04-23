@@ -1,5 +1,3 @@
-const URL = require("url");
-
 module.exports = {
 
     re: /^https?:\/\/(?:www\.)?ted\.com\/talks\//i,
@@ -18,29 +16,48 @@ module.exports = {
         "keywords",
         "oembed-site",
         "oembed-title",
-        "oembed-video"
     ],
 
-    getData: function(url, meta, options, cb) {
+    getLink: function(oembed, meta, options) {
+        let languageLabels = options.getProviderOptions('languageLabels', {});
 
-        var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
-
-        if (!/language=/.test(meta.canonical)) {
-            var query = URL.parse(url,true).query;
-            var lang = (options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')) || query.language;
-            lang = lang ? lang.toLowerCase() : lang;
-            var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function(link) {
-                return typeof link.indexOf === 'function' && link.indexOf('language='+lang > -1);
-            });
-            src += (is_valid_lang ? '&language=' + lang : '');
+        let langs = {};
+        meta.alternate.forEach(function(alternative) {
+            if (typeof(alternative) === "string" && /\?/.test(alternative)) {
+                /** Expect `alternative` to be like:
+                 *  https://www.ted.com/talks/greta_thunberg_the_disarming_case_to_act_right_now_on_climate_change?language=hr
+                 */
+                const langCode = new URLSearchParams(alternative.split('?')[1]).get('language');
+                langs[langCode] = languageLabels[langCode] || langCode;
+            }
+        });
+        const locale = options.getRequestOptions('ted.locale', 'en');
+        const iframe = oembed.getIframe();
+        if (iframe && oembed.height) {
+            return {
+                type: CONFIG.T.text_html,
+                rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
+                href: `${iframe.src}?language=${locale}`,
+                "aspect-ratio": oembed.width / oembed.height,
+                options: {
+                    locale: {
+                        label: "Locale",
+                        value: locale,
+                        values: langs
+                    }
+                },
+            }
         }
 
+    },
+
+    getData: function(url, meta, options, cb) {
+        var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
         cb (null, {oembedLinks: [{
                 href: src,
                 rel: 'alternate',
                 type: 'application/json+oembed'
             }],
-            message: 'Add "?language=" into your URL for TED subtitles.' // This is here to prevent fallback to default parsers
         });
     },
 
