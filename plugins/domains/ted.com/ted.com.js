@@ -52,7 +52,7 @@ module.exports = {
     },
 
     getData: function(url, meta, options, cb) {
-        var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical);
+        var src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(meta.canonical.toLowerCase());
         cb (null, {oembedLinks: [{
                 href: src,
                 rel: 'alternate',
