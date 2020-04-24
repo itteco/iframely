@@ -29,7 +29,7 @@ module.exports = {
                 href: locale ? `${iframe.src}?language=${locale}` : iframe.src,
                 "aspect-ratio": oembed.width / oembed.height
             };
-            if (tedLangs) {
+            if (Object.entries(tedLangs).length !== 0) {
                 links.options = {
                     locale: {
                         label: "Locale",
@@ -74,18 +74,14 @@ module.exports = {
         }
 
         let src = 'https://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl);
-        let data = {
+        cb (null, {
             oembedLinks: [{
                 href: src,
                 rel: 'alternate',
                 type: 'application/json+oembed'
             }],
-        };
-        if (Object.entries(langs).length !== 0) {
-            data.tedLangs = langs
-        }
-
-        cb (null, data);
+            tedLangs: langs
+        });
     },
 
     tests: [{
