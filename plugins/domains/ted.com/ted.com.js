@@ -22,17 +22,17 @@ module.exports = {
     getLink: function(oembed, tedLangs, options) {
         const iframe = oembed.getIframe();
         if (iframe && oembed.height) {
-            const locale = options.getRequestOptions('ted.locale', false);
+            const locale = options.getRequestOptions('ted.locale', '');
             let links = {
                 type: CONFIG.T.text_html,
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
                 href: locale ? `${iframe.src}?language=${locale}` : iframe.src,
                 "aspect-ratio": oembed.width / oembed.height
             };
-            if (Object.entries(tedLangs).length !== 0) {
+            if (Object.keys(tedLangs)) {
                 links.options = {
                     locale: {
-                        label: "Locale",
+                        label: "Transcript",
                             value: locale,
                             values: tedLangs
                     }
@@ -56,7 +56,7 @@ module.exports = {
             }
         });
 
-        let lang = options.getRequestOptions('ted.locale', 'en');
+        let lang = options.getRequestOptions('ted.locale', '');
         lang = lang ? lang.toLowerCase() : lang;
         const is_valid_lang = lang && meta.alternate && langs[lang] !== undefined;
 
