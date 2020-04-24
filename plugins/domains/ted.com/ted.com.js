@@ -1,5 +1,3 @@
-const URL = require("url");
-
 module.exports = {
 
     re: /^https?:\/\/(?:www\.)?ted\.com\/talks\//i,
@@ -23,55 +21,71 @@ module.exports = {
 
     getLink: function(oembed, tedLangs, options) {
         const iframe = oembed.getIframe();
-        const locale = options.getRequestOptions('ted.locale', 'en');
         if (iframe && oembed.height) {
-            return {
+            const locale = options.getRequestOptions('ted.locale', false);
+            let links = {
                 type: CONFIG.T.text_html,
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: `${iframe.src}?language=${locale}`,
-                "aspect-ratio": oembed.width / oembed.height,
-                options: {
+                href: locale ? `${iframe.src}?language=${locale}` : iframe.src,
+                "aspect-ratio": oembed.width / oembed.height
+            };
+            if (tedLangs) {
+                links.options = {
                     locale: {
                         label: "Locale",
-                        value: locale,
-                        values: tedLangs
+                            value: locale,
+                            values: tedLangs
                     }
-                },
+                }
             }
+            return links
         }
 
     },
 
     getData: function(url, meta, options, cb) {
-        let languageLabels = options.getProviderOptions('languageLabels', {});
         let langs = {};
+        let oembedUrl = meta.canonical.toLowerCase();
         meta.alternate.forEach(function(alternative) {
             if (typeof(alternative) === "string" && /\?/.test(alternative)) {
                 /** Expect `alternative` to be like:
                  *  https://www.ted.com/talks/greta_thunberg_the_disarming_case_to_act_right_now_on_climate_change?language=hr
                  */
                 const langCode = new URLSearchParams(alternative.split('?')[1]).get('language');
-                langs[langCode] = languageLabels[langCode] || langCode;
+                langs[langCode] = CONFIG.LC[langCode] || langCode;
             }
         });
-        var query = URL.parse(url, true).query;
-        var lang = query.language || options.getRequestOptions('ted.locale');
+
+        let lang = options.getRequestOptions('ted.locale', 'en');
         lang = lang ? lang.toLowerCase() : lang;
-        var is_valid_lang = lang && meta.alternate && meta.alternate instanceof Array && meta.alternate.some(function (link) {
-            return typeof link.indexOf === 'function' && link.indexOf('language=' + lang > -1);
-        });
+        const is_valid_lang = lang && meta.alternate && langs[lang] !== undefined;
 
-        let oembedUrl = is_valid_lang ? `${meta.canonical.toLowerCase()}?language=${lang}` : meta.canonical.toLowerCase();
-        let src = 'http://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl);
-        src += (is_valid_lang ? '&language=' + lang : '');
+        if (is_valid_lang && !/language=/.test(meta.canonical)) {
+            /** Add desired language to oembed url */
+            oembedUrl = `${meta.canonical.toLowerCase()}?language=${lang}`;
+        } else if (!is_valid_lang && /language=/.test(meta.canonical)) {
+            /** Make sure we have no wrong language code in oembed request */
+            let params = new URLSearchParams(url.split('?')[1]);
+            oembedUrl = url.split('?')[0];
+            params.delete('language');
+            if (params.toString()) {
+                oembedUrl += `?${params.toString()}`;
+            }
+        }
 
-        cb (null, {oembedLinks: [{
+        let src = 'https://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl);
+        let data = {
+            oembedLinks: [{
                 href: src,
                 rel: 'alternate',
                 type: 'application/json+oembed'
             }],
-            tedLangs: langs
-        });
+        };
+        if (Object.entries(langs).length !== 0) {
+            data.tedLangs = langs
+        }
+
+        cb (null, data);
     },
 
     tests: [{
