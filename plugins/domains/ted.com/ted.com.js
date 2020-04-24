@@ -21,20 +21,24 @@ module.exports = {
 
     getLink: function(oembed, tedLangs, options) {
         const iframe = oembed.getIframe();
+
         if (iframe && oembed.height) {
             const locale = options.getRequestOptions('ted.locale', '');
+
             let links = {
                 type: CONFIG.T.text_html,
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
                 href: locale ? `${iframe.src}?language=${locale}` : iframe.src,
                 "aspect-ratio": oembed.width / oembed.height
             };
+
             if (Object.keys(tedLangs)) {
+                tedLangs[''] = 'No transcript';
                 links.options = {
                     locale: {
                         label: "Transcript",
-                            value: locale,
-                            values: tedLangs
+                        value: locale,
+                        values: tedLangs
                     }
                 }
             }
@@ -46,6 +50,9 @@ module.exports = {
     getData: function(url, meta, options, cb) {
         let langs = {};
         let oembedUrl = meta.canonical.toLowerCase();
+        let lang = options.getRequestOptions('ted.locale', '');
+        lang = lang ? lang.toLowerCase() : lang;
+
         meta.alternate.forEach(function(alternative) {
             if (typeof(alternative) === "string" && /\?/.test(alternative)) {
                 /** Expect `alternative` to be like:
@@ -56,14 +63,13 @@ module.exports = {
             }
         });
 
-        let lang = options.getRequestOptions('ted.locale', '');
-        lang = lang ? lang.toLowerCase() : lang;
         const is_valid_lang = lang && meta.alternate && langs[lang] !== undefined;
 
         if (is_valid_lang && !/language=/.test(meta.canonical)) {
             /** Add desired language to oembed url */
             oembedUrl = `${meta.canonical.toLowerCase()}?language=${lang}`;
-        } else if (!is_valid_lang && /language=/.test(meta.canonical)) {
+        }
+        else if (!is_valid_lang && /language=/.test(meta.canonical)) {
             /** Make sure we have no wrong language code in oembed request */
             let params = new URLSearchParams(url.split('?')[1]);
             oembedUrl = url.split('?')[0];
@@ -73,10 +79,9 @@ module.exports = {
             }
         }
 
-        let src = 'https://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl);
         cb (null, {
             oembedLinks: [{
-                href: src,
+                href: 'https://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl),
                 rel: 'alternate',
                 type: 'application/json+oembed'
             }],
