@@ -9,17 +9,19 @@ module.exports = {
         "*"
     ],
 
-    getMeta: function (oembed) {
-        return {
-            date: oembed.created_at,
-            category: oembed.game,
-            duration: oembed.video_length,
-            canonical: oembed.request_url,
-            views: oembed.view_count
+    getMeta: function (schemaVideoObject) {
+        if (schemaVideoObject.embedurl || schemaVideoObject.embedURL) {
+            return {
+                author: schemaVideoObject.author && schemaVideoObject.author.name,
+                author_url: schemaVideoObject.author && schemaVideoObject.author.url,
+                date: schemaVideoObject.uploaddate,
+                duration: schemaVideoObject.duration,
+                views: schemaVideoObject.interactionstatistic && schemaVideoObject.interactionstatistic.userinteractioncount
+            }
         }
     },
 
-    // plugin is here mostly for automated tests & meta
+    // Plugin is here mostly for automated tests & meta.
 
     tests: [{
         noFeeds: true
