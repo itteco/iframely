@@ -19,28 +19,22 @@ module.exports = {
         "oembed-title",
     ],
 
-    getLink: function(oembed, tedLangs, options) {
+    getLink: function(oembed, tedLangs) {
         const iframe = oembed.getIframe();
 
         if (iframe && oembed.height) {
-            const locale = options.getRequestOptions('ted.locale', '');
-
+            const src = tedLangs.locale && tedLangs.locale.value && tedLangs.locale.value !== ''
+                        ? `${iframe.src}?language=${tedLangs.locale.value}`
+                        : iframe.src;
             let links = {
                 type: CONFIG.T.text_html,
                 rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: locale ? `${iframe.src}?language=${locale}` : iframe.src,
+                href: src,
                 "aspect-ratio": oembed.width / oembed.height
             };
 
             if (Object.keys(tedLangs)) {
-                tedLangs[''] = 'No transcript';
-                links.options = {
-                    locale: {
-                        label: "Transcript",
-                        value: locale,
-                        values: tedLangs
-                    }
-                }
+                links.options = tedLangs
             }
             return links
         }
@@ -49,9 +43,16 @@ module.exports = {
 
     getData: function(url, meta, options, cb) {
         let langs = {};
+        const noLocale = '-';
         let oembedUrl = meta.canonical.toLowerCase();
-        let lang = options.getRequestOptions('ted.locale', '');
-        lang = lang ? lang.toLowerCase() : lang;
+        let optsLocale = options.getRequestOptions('ted.locale', noLocale);
+        let urlLocale = new URLSearchParams(url.split('?')[1]).get('language');
+        urlLocale = urlLocale ? urlLocale.toLowerCase() : urlLocale;
+        const configLocale = options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '');
+        if (configLocale && !urlLocale) {
+            urlLocale = configLocale
+        }
+        if (!urlLocale) urlLocale = '';
 
         meta.alternate.forEach(function(alternative) {
             if (typeof(alternative) === "string" && /\?/.test(alternative)) {
@@ -63,13 +64,9 @@ module.exports = {
             }
         });
 
-        const is_valid_lang = lang && meta.alternate && langs[lang] !== undefined;
+        const is_valid_lang = urlLocale && langs[urlLocale] !== undefined;
 
-        if (is_valid_lang && !/language=/.test(meta.canonical)) {
-            /** Add desired language to oembed url */
-            oembedUrl = `${meta.canonical.toLowerCase()}?language=${lang}`;
-        }
-        else if (!is_valid_lang && /language=/.test(meta.canonical)) {
+        if (/language=/.test(meta.canonical)) {
             /** Make sure we have no wrong language code in oembed request */
             let params = new URLSearchParams(url.split('?')[1]);
             oembedUrl = url.split('?')[0];
@@ -78,15 +75,34 @@ module.exports = {
                 oembedUrl += `?${params.toString()}`;
             }
         }
+        if (is_valid_lang && optsLocale !== noLocale) {
+            /** Add desired language to oembed url */
+            oembedUrl = `${meta.canonical.toLowerCase()}?language=${optsLocale}`;
+        }
 
-        cb (null, {
+        if (optsLocale === noLocale) optsLocale = '';
+
+        let data = {
             oembedLinks: [{
                 href: 'https://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl),
                 rel: 'alternate',
                 type: 'application/json+oembed'
-            }],
-            tedLangs: langs
-        });
+            }]
+        };
+
+        if (langs) {
+            langs[noLocale] = 'No transcript';
+            data.tedLangs = {
+                locale: {
+                    label: "Transcript",
+                        value: optsLocale || urlLocale,
+                        values: langs
+                }
+            }
+        } else {
+            data.tedLangs = {};
+        }
+        cb (null, data);
     },
 
     tests: [{
