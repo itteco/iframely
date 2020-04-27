@@ -23,7 +23,7 @@ module.exports = {
         const iframe = oembed.getIframe();
 
         if (iframe && oembed.height) {
-            const src = tedLangs.locale && tedLangs.locale.value && tedLangs.locale.value !== ''
+            const src = tedLangs.locale && tedLangs.locale.value && tedLangs.locale.value !== '-'
                         ? `${iframe.src}?language=${tedLangs.locale.value}`
                         : iframe.src;
             let links = {
@@ -48,7 +48,7 @@ module.exports = {
         let optsLocale = options.getRequestOptions('ted.locale', noLocale);
         let urlLocale = new URLSearchParams(url.split('?')[1]).get('language');
         urlLocale = urlLocale ? urlLocale.toLowerCase() : urlLocale;
-        const configLocale = options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '');
+        const configLocale = options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '');
         if (configLocale && !urlLocale) {
             urlLocale = configLocale
         }
@@ -60,7 +60,11 @@ module.exports = {
                  *  https://www.ted.com/talks/greta_thunberg_the_disarming_case_to_act_right_now_on_climate_change?language=hr
                  */
                 const langCode = new URLSearchParams(alternative.split('?')[1]).get('language');
-                langs[langCode] = CONFIG.LC[langCode] || langCode;
+                /** English does not change anything in transcription currently */
+                if (langCode !== 'en') {
+                    langs[langCode] = CONFIG.LC[langCode] || langCode;
+                }
+
             }
         });
 
@@ -75,12 +79,6 @@ module.exports = {
                 oembedUrl += `?${params.toString()}`;
             }
         }
-        if (is_valid_lang && optsLocale !== noLocale) {
-            /** Add desired language to oembed url */
-            oembedUrl = `${meta.canonical.toLowerCase()}?language=${optsLocale}`;
-        }
-
-        if (optsLocale === noLocale) optsLocale = '';
 
         let data = {
             oembedLinks: [{
@@ -90,8 +88,13 @@ module.exports = {
             }]
         };
 
+        if ((optsLocale && optsLocale !== noLocale) || (is_valid_lang && urlLocale)) {
+            /** Add desired language to oembed url to get title and description translation */
+            data.oembedLinks[0].href = `${data.oembedLinks[0].href}?language=${optsLocale || urlLocale}`;
+        }
+
         if (langs) {
-            langs[noLocale] = 'No transcript';
+            langs[noLocale] = '';
             data.tedLangs = {
                 locale: {
                     label: "Transcript",

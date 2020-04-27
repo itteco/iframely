@@ -288,6 +288,7 @@
             "sl": "Slovenian",
             "so": "Somali",
             "sp": "Spanish",
+            "es": "Spanish",
             "sw": "Swahili",
             "sv": "Swedish",
             "art-x-bork": "Swedish Chef",
