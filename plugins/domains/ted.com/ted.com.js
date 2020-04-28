@@ -73,6 +73,7 @@ module.exports = {
         if (!availableLanguages[language]) {
             /** oEmbed request fails with 404 if language isn't valid... */
             language = '';
+            meta.canonical = (meta.canonical || url).replace(/\??language=[\w_\-]+/, '');
         }
 
         let data = {
