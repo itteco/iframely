@@ -52,7 +52,7 @@ module.exports = {
         if (meta.alternate) {
             meta.alternate.forEach(function(alternative) {
                 if (typeof(alternative) === "string" && /\?/.test(alternative)) {
-                    const query = URL.parse(alternative, true).query;
+                    const query = URL.parse(alternative.toLowerCase(), true).query;
                     
                     if (query.language && query.language !== 'en') {
                         availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
@@ -62,7 +62,7 @@ module.exports = {
             });
         }
 
-        const query = URL.parse(url, true).query;
+        const query = URL.parse(url.toLowerCase(), true).query;
 
         let language = options.getRequestOptions(
                         'ted.language', 
