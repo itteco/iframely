@@ -1,3 +1,5 @@
+const URL = require('url');
+
 module.exports = {
 
     re: /^https?:\/\/(?:www\.)?ted\.com\/talks\//i,
@@ -23,96 +25,105 @@ module.exports = {
         const iframe = oembed.getIframe();
 
         if (iframe && oembed.height) {
-            const src = tedLangs.locale && tedLangs.locale.value && tedLangs.locale.value !== '-'
-                        ? `${iframe.src}?language=${tedLangs.locale.value}`
-                        : iframe.src;
-            let links = {
+
+            let link = {
+                href: iframe.src,
                 type: CONFIG.T.text_html,
-                rel:[CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl],
-                href: src,
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height
             };
 
-            if (Object.keys(tedLangs)) {
-                links.options = tedLangs
+            if (tedLangs.language) {
+                link.options = tedLangs;
             }
-            return links
+
+            return link;
         }
 
     },
 
     getData: function(url, meta, options, cb) {
-        let langs = {};
-        const noLocale = '-';
-        let oembedUrl = meta.canonical.toLowerCase();
-        let optsLocale = options.getRequestOptions('ted.locale', noLocale);
-        let urlLocale = new URLSearchParams(url.split('?')[1]).get('language');
-        urlLocale = urlLocale ? urlLocale.toLowerCase() : urlLocale;
-        const configLocale = options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '');
-        if (configLocale && !urlLocale) {
-            urlLocale = configLocale
-        }
-        if (!urlLocale) urlLocale = '';
+        let availableLanguages = {};
 
-        meta.alternate.forEach(function(alternative) {
-            if (typeof(alternative) === "string" && /\?/.test(alternative)) {
-                /** Expect `alternative` to be like:
-                 *  https://www.ted.com/talks/greta_thunberg_the_disarming_case_to_act_right_now_on_climate_change?language=hr
-                 */
-                const langCode = new URLSearchParams(alternative.split('?')[1]).get('language');
-                /** English does not change anything in transcription currently */
-                if (langCode !== 'en') {
-                    langs[langCode] = CONFIG.LC[langCode] || langCode;
+        /**
+         * Fill available languages from `<link rel="alternate" href="...?language=...",
+         * But skip English as it doesn't turn subtitles on.
+         */
+        if (meta.alternate) {
+            meta.alternate.forEach(function(alternative) {
+                if (typeof(alternative) === "string" && /\?/.test(alternative)) {
+                    const query = URL.parse(alternative, true).query;
+                    
+                    if (query.language && query.language !== 'en') {
+                        availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
+                    }
+
                 }
+            });
+        }
 
-            }
-        });
+        const query = URL.parse(url, true).query;
 
-        const is_valid_lang = urlLocale && langs[urlLocale] !== undefined;
+        let language = options.getRequestOptions(
+                        'ted.language', 
+                        query.language 
+                            || options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')
+                        ) || '';
 
-        if (/language=/.test(meta.canonical)) {
-            /** Make sure we have no wrong language code in oembed request */
-            let params = new URLSearchParams(url.split('?')[1]);
-            oembedUrl = url.split('?')[0];
-            params.delete('language');
-            if (params.toString()) {
-                oembedUrl += `?${params.toString()}`;
-            }
+        if (!availableLanguages[language]) {
+            /** oEmbed request fails with 404 if language isn't valid... */
+            language = '';
         }
 
         let data = {
             oembedLinks: [{
-                href: 'https://www.ted.com/services/v1/oembed.json?url=' + encodeURIComponent(oembedUrl),
+                href: 'https://www.ted.com/services/v1/oembed.json?url=' 
+                    + encodeURIComponent(meta.canonical || url)                    
+                    + (language !== '' ? '&language=' + language : ''),
                 rel: 'alternate',
                 type: 'application/json+oembed'
-            }]
+            }],
+            tedLangs: {}
         };
 
-        if ((optsLocale && optsLocale !== noLocale) || (is_valid_lang && urlLocale)) {
-            /** Add desired language to oembed url to get title and description translation */
-            data.oembedLinks[0].href = `${data.oembedLinks[0].href}?language=${optsLocale || urlLocale}`;
-        }
-
-        if (langs) {
-            langs[noLocale] = '';
+        if (Object.keys(availableLanguages).length > 0) {
+            /**
+             * Options form must be able to drop URL's language.
+             * The only way to do so is with any non-empty special value.
+             * It won't pass language validation and will be dropped to ''.
+             */
+            if (/* url. */ query.language && query.language !== 'en') {
+                availableLanguages['-'] = '';
+                if (language === '') {
+                    language = '-';
+                }
+            } else if (Object.keys(availableLanguages).length > 1) {
+                availableLanguages[''] = '';
+            } else {
+                /** 
+                 * For a single language, leave it alone and don't add an empty value
+                 * so the options form transforms into a checkbox. 
+                 * https://iframely.com/docs/options#an-exception-to-options-mapping
+                 */
+            }
+            
             data.tedLangs = {
-                locale: {
-                    label: "Transcript",
-                        value: optsLocale || urlLocale,
-                        values: langs
+                language: {
+                    label: "Subtitles",
+                    value: language,
+                    values: availableLanguages
                 }
             }
-        } else {
-            data.tedLangs = {};
         }
-        cb (null, data);
+        /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
+        return cb (null, data);
     },
 
     tests: [{
-        page: "http://www.ted.com/talks",
+        page: "https://www.ted.com/talks",
         selector: "#browse-results a"
     }, {skipMethods: ['getData']},
-        "http://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
+        "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW"
     ]
 };
