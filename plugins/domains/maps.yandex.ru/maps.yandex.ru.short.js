@@ -10,7 +10,7 @@ module.exports = {
         return {
             href: url.replace(/\/maps\/-\//, '/map-widget/v1/-/'),
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl],
+            rel: [CONFIG.R.app, CONFIG.R.html5],
             "aspect-ratio": 4/3
         };
     },
