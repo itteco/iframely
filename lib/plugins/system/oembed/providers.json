@@ -71,7 +71,7 @@
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/\\d+.*?$)",
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/(?:sets|albums)/(?:\\d+))"
         ],
-        "endpoint": "https://www.flickr.com/services/oembed/?format={format}&url=https://www.flickr.com/{1}"
+        "endpoint": "https://www.flickr.com/services/oembed/?format={format}&url={{https://www.flickr.com/{1}}}"
     },
     {
         "name": "Brightcove",
@@ -92,7 +92,7 @@
         "templates": [
             "((?:\\w+\\.)?scribd\\.com)/(?:doc|document|embeds|presentation|fullscren)/(.*)"
         ],
-        "endpoint": "https://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
+        "endpoint": "https://www.scribd.com/services/oembed?format={format}&url={{https://{1}/doc/{2}}}"
     },
     {
         "name": "Viddler",
@@ -119,7 +119,7 @@
             "www\\.youtube\\.com/user/[a-zA-Z0-9_-]+\\?v=([a-zA-Z0-9_-]+)",
             "www\\.youtube-nocookie\\.com/v/([a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "https://www.youtube.com/oembed?format={format}&url=https://www.youtube.com/watch?v={1}"
+        "endpoint": "https://www.youtube.com/oembed?format={format}&url={{https://www.youtube.com/watch?v={1}}}"
     },
     {
         "name": "YouTube Playlist",
@@ -358,7 +358,7 @@
         "templates": [
             "(?:open|embed|play)\\.spotify\\.com/(?:embed/)?([^\\?]*)\\??.*"
         ],
-        "endpoint": "https://open.spotify.com/oembed?url=https://open.spotify.com/{1}&format={format}"
+        "endpoint": "https://open.spotify.com/oembed?url={{https://open.spotify.com/{1}}}&format={format}"
     },
     {
         "name": "Issuu",
@@ -533,7 +533,7 @@
         "templates": [
             "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
         ],
-        "endpoint": "https://api.producthunt.com/widgets/oembed?url=https://www.producthunt.com/comments/{1}"
+        "endpoint": "https://api.producthunt.com/widgets/oembed?url={{https://www.producthunt.com/comments/{1}}}"
     }, {
         "name": "Office Forms",
         "templates": [        
