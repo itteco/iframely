@@ -22,17 +22,23 @@ module.exports = {
                     }
                 }
             } catch (ex) {} 
+        } else {
+            return {
+                message: 'Make sure you publish the media before sharing..'
+            }
         }
     },
 
-    getData: function(__statusCode, cb) {
-        cb({
-            message: 'Make sure you publish the media before'
-        });
-
-    },    
+    getData: function(__statusCode) {
+        if (__statusCode === 403 || __statusCode === 401) {
+            return {
+                message: 'Make sure you publish the media before sharing.'
+            }
+        }
+    },
 
     tests: [{skipMethods: ['getData']},
-        "https://www.geogebra.org/material/iframe/id/rgZVk8bJ"
+        "https://www.geogebra.org/material/iframe/id/rgZVk8bJ",
+        "https://www.geogebra.org/material/iframe/id/ECn5zx6m",
     ]
 };

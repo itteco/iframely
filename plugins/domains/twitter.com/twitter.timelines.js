@@ -19,7 +19,15 @@ module.exports = {
 
         var html = oembed.html;
 
-        if (options.getProviderOptions('twitter.center', true) && oembed.width) {
+        var width = options.maxWidth || options.getProviderOptions('twitter.timeline_width');
+
+        if (width) {
+            html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
+        } else if (width === '') {
+            html = html.replace(/data\-width=\"\d+\"\s?/i, '');
+        }
+
+        if (options.getProviderOptions('twitter.center', true) && /data\-width=\"\d+\"/i.test(html)) {
             html = '<div align="center">' + html + '</div>';
         }
 
@@ -33,13 +41,17 @@ module.exports = {
 
         if (limit !== 20) {
             html = html.replace(/href="/, 'data-tweet-limit="' + limit + '" href="');
-        }            
+        }
+
+        var theme = options.getRequestOptions('players.theme', '');
+        if (theme === 'dark' && !/data\-theme=\"dark\"/.test(html)) {
+            html = html.replace(/href="/, 'data-theme="dark" href="');
+        }
 
         return {
             html: html,
             rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
             type: CONFIG.T.text_html,
-            'max-width': oembed.width,
             options: {
                 limit: {
                     label: 'Include up to 20 tweets',
@@ -47,6 +59,12 @@ module.exports = {
                     range: {
                         max: 20,
                         min: 1
+                    }
+                },
+                theme: {
+                    value: theme,
+                    values: {
+                        dark: "Use dark theme"
                     }
                 }
             }

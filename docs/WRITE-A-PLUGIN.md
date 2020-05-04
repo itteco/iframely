@@ -189,6 +189,23 @@ Example:
             }
         },
         {
+            geturls: function(cb) {
+                var request = require('request');
+                request({
+                    url: 'https://api.domain.com/items',
+                    json: true
+                }, function(error, body, data) {
+                    if (error) {
+                        return cb(error);
+                    }
+                    if (!data || !data.urls) {
+                        return cb('No urls in API data');
+                    }
+                    cb(null, data.items.slice(0, 10));
+                });
+            }
+        }
+        {
             skipMixins: ["og-title"],
             skipMethods: ["getLink"]
         },
@@ -199,7 +216,8 @@ Feeds:
  * `feed` - rss/atom feed of links to test.
  * `pageWithFeed` - "home" page with rss/atom link in page header, feed will be looked for links to test.
  * `page` and `selector` - jquery selector on page to find `a` elements with `href` attribute with links to test.
- * `getUrl` - this function allows to change or mark feed url as not usable by returning `null`.
+ * `getUrl(url)` - this function allows to change or mark feed url as not usable by returning `null`.
+ * `getUrls(cb)` - this function allows to provide async method to load urls from any custom source. `cb(error, urls)` - waits for error or urls array.
 
 Testing directives:
  * `skipMethods` - array of non mandatory plugin methods. If method will not return data - it will be test warting, not error. Exceptions will raise error as usual.

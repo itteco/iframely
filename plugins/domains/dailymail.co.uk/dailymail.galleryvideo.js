@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [        
-        /https?:\/\/www\.dailymail\.co\.uk\/video\/\w+\/video\-(\d+)\//i
+        /^https?:\/\/www\.dailymail\.co\.uk\/video\/\w+\/video\-(\d+)\//i
     ],
 
     provides: 'dailymailVideoID',

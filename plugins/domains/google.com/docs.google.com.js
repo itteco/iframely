@@ -51,6 +51,8 @@ module.exports = {
                 file.height = schemaFileObject.height;
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (CONFIG.R.app);
+                // Make forms resizeable
+                file.rel.push (CONFIG.R.resizable);
 
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
@@ -97,6 +99,10 @@ module.exports = {
 
             return file;
 
+        } else {
+            return {
+                message: 'No preview available for this file.'
+            }
         }
 
     },
@@ -104,8 +110,13 @@ module.exports = {
     getData: function(meta, url, urlMatch, cheerio, decode, options, cb) {
 
         var embedded_url = (url + (/\?/.test(url) ? '&' : '?') + 'embedded=true').replace(/\/edit/, '/viewform');
-
-        if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
+        
+        if (urlMatch[1] === "forms" && /\/closedform(?:\?.*)?$/.test(url)) {
+            return cb ({
+                responseStatusCode: 410,
+                message: `The form ${meta['html-title'] || ''} is no longer accepting responses.`
+            });
+        } else if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
                 redirect: embedded_url
             })
@@ -142,7 +153,7 @@ module.exports = {
             return cb(null, {
                 schemaFileObject: result
             });
-        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?$/i.test(url)) {
+        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
             return cb(null, {
                 schemaFileObject: {
                     embedUrl: url

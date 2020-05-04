@@ -73,6 +73,13 @@ module.exports = {
         return result;
     },
 
+    getData: function(oembed, cb) {
+        return cb( oembed.type === "link" ? {
+            responseStatusCode: 403,
+            message: "This photo is private or unavailable."
+        } : null);
+    },
+
     tests: [{
         feed: "http://api.flickr.com/services/feeds/photos_public.gne"
     },
@@ -84,6 +91,9 @@ module.exports = {
                 "oembed-title",
                 "oembed-author",
                 "oembed-license"
+            ],
+            skipMethods: [
+                "getData"
             ]
         }
     ]
