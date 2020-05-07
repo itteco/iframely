@@ -1,5 +1,3 @@
-const cheerio = require('cheerio');
-
 module.exports = {
 
     re: [
@@ -8,6 +6,9 @@ module.exports = {
 
     mixins: [
         "oembed-site",
+        "oembed-iframe",
+        "og-image",
+        "oembed-thumbnail",
         "domain-icon"
     ],
 
@@ -23,19 +24,11 @@ module.exports = {
         }
     },
 
-    getLink: function(oembed, meta, options) {
+    getLink: function(iframe, meta, options) {
 
-        var $container = cheerio('<div>');
+        if (iframe.src) {
 
-        try {
-            $container.html(oembed.html5 || oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
-            var src = $iframe.attr('src');
+            var src = iframe.src;
 
             var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
 
@@ -58,11 +51,11 @@ module.exports = {
                         'aspect-ratio': 4/3,
                         'padding-bottom': 80,
                     } : {
-                        height: !include_playlist ? 80 : (oembed.height || 400)
+                        height: !include_playlist ? 80 : (iframe.height || 400)
                     };
             } else if (/episode|show/.test(src)) {
                 player.rel.push(CONFIG.R.audio);
-                player.height = oembed.height || 232;
+                player.height = iframe.height || 232;
             } else {
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
@@ -77,17 +70,7 @@ module.exports = {
                 };
             }
 
-            return [player, {
-                href: (meta.og && meta.og.image) || oembed.thumbnail_url,
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail
-            }, 
-            {
-                href: 'https://open.scdn.co/static/images/touch-icon-114.png',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.icon
-                // no sizes - let's validate it.
-            }]
+            return player;
         }
 
     },
@@ -111,7 +94,7 @@ module.exports = {
         }
     },    
 
-    tests: [{noFeeds: true}, {skipMethods: ["getData"]},
+    tests: [{noFeeds: true}, {skipMethods: ["getData"], skipMixins: ["oembed-iframe", "oembed-thumbnail", "og-image"]},
         "https://open.spotify.com/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "https://open.spotify.com/playlist/4SsKyjaGlrHJbRCQwpeUsz",
