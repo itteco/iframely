@@ -5,7 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "oembed-site",
+        "og-site",
         "oembed-iframe",
         "og-image",
         "oembed-thumbnail",
