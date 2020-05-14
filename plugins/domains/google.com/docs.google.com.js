@@ -44,7 +44,7 @@ module.exports = {
                 // HEADS UP:
                 // There is a problem with player as embedURL: x-frame-options is SAMEORIGIN
                 file.href = "https://drive.google.com/file/d/" + urlMatch[2] + "/preview";
-                file.rel.push(CONFIG.R.player);
+                file.rel.push(CONFIG.R.player, 'accelerometer', 'picture-in-picture', 'gyroscope'); // allow attributes are copied from YouTube.
                 // use default aspect
 
             } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
