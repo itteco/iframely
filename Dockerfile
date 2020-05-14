@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:12-alpine
 
 EXPOSE 8061
 
