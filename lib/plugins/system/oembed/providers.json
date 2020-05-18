@@ -660,5 +660,12 @@
             "(?:www\\.)?canva.com/design/"
         ],
         "endpoint": "https://www.canva.com/_oembed"
+    },
+    {
+        "name": "Microsoft Streams",
+        "templates": [
+            "[a-zA-Z0-9-]+.microsoftstream.com/.*"
+        ],
+        "endpoint": "https://web.microsoftstream.com/oembed"
     }
 ]
