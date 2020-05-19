@@ -342,9 +342,7 @@
     {
         "name": "Behance",
         "templates": [
-            "www\\.behance\\.net/gallery/.*",
-            "[^w]+\\.\\w+\\.\\w+/gallery/[\\w-]+/\\d+",
-            "[^w]+\\.\\w+\\.\\w+/gallery/\\d+/[\\w-]+"
+            "www\\.behance\\.net/gallery/.*"
         ],
         "endpoint": "https://www.behance.net/services/oembed"
     },
