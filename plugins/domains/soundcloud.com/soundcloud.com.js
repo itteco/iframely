@@ -73,16 +73,12 @@ module.exports = {
                 delete opts.height;
             }
 
-            if (height === 0) {
-                height = 'auto';
-            }
-            
             links.push({
                 href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
                 autoplay: "auto_play=true",
-                media: height === 'auto' ? {
+                media: height === 0 ? {
                     'aspect-ratio': 1, // the artwork is always 500x500
                     'max-width': 600, 
                 } : {
