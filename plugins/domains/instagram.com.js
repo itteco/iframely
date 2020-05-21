@@ -1,3 +1,6 @@
+const cheerio = require('cheerio');
+const decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     re: [
@@ -14,13 +17,26 @@ module.exports = {
         "oembed-error"
     ],
 
-    getMeta: function (og, oembed) {
-        
-        return {
-            title: og.title ? og.title.match(/([^•\"]+)/i)[0] : "Post on Instagram",
-            description: oembed.title
+    getMeta: function (oembed, meta) {
+        var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
+
+        if (!title || /login/i.test(title)) {
+            var $container = cheerio('<div>');
+            try {
+                $container.html(decodeHTML5(oembed.html));
+            } catch (ex) {console.log(ex);}
+
+            var $a = $container.find(`p a[href*="${oembed.author_name}"]`);
+
+            if ($a.length == 1) {
+                title = `${$a.text()} (@${oembed.author_name})`;
+            }
         }
 
+        return {
+            title: title,
+            description: oembed.title
+        }
     },
 
     getLinks: function(url, urlMatch, meta, oembed, options) {
@@ -45,7 +61,7 @@ module.exports = {
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
+                rel: (meta.og && meta.og.video || !meta.og) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
                 width: 1080,                
                 height: Math.round(1080 / aspect)
             } 
@@ -102,7 +118,8 @@ module.exports = {
             }
 
             // Fix for private posts that later became public
-            if (urlMatch[1] && urlMatch[1].length > 30 && meta.canonical) {
+            if (urlMatch[1] && urlMatch[1].length > 30 
+                && /^https?:\/\/www\.instagram\.com\/p\/([a-zA-Z0-9_-]+)\/?/i.test(meta.canonical)) {
                 html = html.replace(url, meta.canonical);
             }
 
@@ -133,7 +150,9 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, urlMatch, options) {
+    getData: function (url, urlMatch, options, oembed) {
+
+        oembed.html = oembed.html.replace('embed.js', 'embeddd.js');
 
         // Avoid any issues with possible redirects,
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
