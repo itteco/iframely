@@ -17,7 +17,7 @@ module.exports = {
         "oembed-error"
     ],
 
-    getMeta: function (oembed, meta) {
+    getMeta: function (oembed, urlMatch, meta) {
         var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
 
         if (!title || /login/i.test(title)) {
@@ -26,7 +26,7 @@ module.exports = {
                 $container.html(decodeHTML5(oembed.html));
             } catch (ex) {console.log(ex);}
 
-            var $a = $container.find(`p a[href*="${oembed.author_name}"]`);
+            var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
 
             if ($a.length == 1) {
                 title = `${$a.text()} (@${oembed.author_name})`;
