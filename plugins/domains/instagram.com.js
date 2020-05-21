@@ -30,6 +30,8 @@ module.exports = {
 
             if ($a.length == 1) {
                 title = `${$a.text()} (@${oembed.author_name})`;
+            } else {
+                title = `Instagram (@${oembed.author_name})`;
             }
         }
 
