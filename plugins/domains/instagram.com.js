@@ -29,7 +29,8 @@ module.exports = {
             var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
 
             if ($a.length == 1) {
-                title = `${$a.text()} (@${oembed.author_name})`;
+                title = a.text();
+                title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
             } else {
                 title = `Instagram (@${oembed.author_name})`;
             }
