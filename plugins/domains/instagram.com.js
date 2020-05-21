@@ -24,12 +24,12 @@ module.exports = {
             var $container = cheerio('<div>');
             try {
                 $container.html(decodeHTML5(oembed.html));
-            } catch (ex) {console.log(ex);}
+            } catch (ex) {}
 
             var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
 
             if ($a.length == 1) {
-                title = a.text();
+                title = $a.text();
                 title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
             } else {
                 title = `Instagram (@${oembed.author_name})`;
