@@ -150,9 +150,7 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, urlMatch, options, oembed) {
-
-        oembed.html = oembed.html.replace('embed.js', 'embeddd.js');
+    getData: function (url, urlMatch, options) {
 
         // Avoid any issues with possible redirects,
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
