@@ -38,17 +38,7 @@ module.exports = {
             }
 
             href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
-
-            /** defaultHeight typeof() can be different from 'soundcloud.height'
-             * so it fails core type mismatch check. */
-            var defaultHeight = options.getProviderOptions('players.horizontal') === false
-                ? 'auto' : (/visual=false/.test(href)
-                    ? 166 : oembed.height);
-            var height = options.getRequestOptions('soundcloud.height');
-            if (height !== 'auto' || !height) {
-                height = defaultHeight;
-            }
-            
+            var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 0 : (/visual=false/.test(href) ? 166 : iframe.height));
             var opts = {
                 horizontal: {
                     label: CONFIG.L.horizontal,
@@ -69,11 +59,11 @@ module.exports = {
                         300: '300px',
                         400: '400px',
                         600: '600px',
-                        auto: 'Let Iframely optimize player for the artwork'
+                        0: 'Let Iframely optimize player for the artwork'
                     }
                 }
             };
-            if (height !== 'auto') {
+            if (height !== 0) {
                 opts.height.values[height] = height + 'px';
             }
 
@@ -83,6 +73,10 @@ module.exports = {
                 delete opts.height;
             }
 
+            if (height === 0) {
+                height = 'auto';
+            }
+            
             links.push({
                 href: href,
                 type: CONFIG.T.text_html,
