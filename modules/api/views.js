@@ -248,7 +248,7 @@ module.exports = function(app) {
 
     app.get('/reader.js', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -302,7 +302,7 @@ module.exports = function(app) {
 
     app.get('/render', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -408,7 +408,7 @@ module.exports = function(app) {
 
     app.get('/oembed', function(req, res, next) {
 
-        var uri = prepareUri(req.query.url);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
