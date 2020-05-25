@@ -65,6 +65,14 @@
         "endpoint": "http://soundcloud.com/oembed"
     },
     {
+        "name": "Giphy",
+        "templates": [
+            "giphy\\.com/gifs/([^\\/\\?]+)"
+        ],
+        "url": "https://media.giphy.com/media/{1}/giphy.gif",
+        "endpoint": "https://giphy.com/services/oembed"
+    },
+    {
         "name": "Flickr",
         "templates": [
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/?(?:[?#].*)?$)",
