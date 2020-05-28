@@ -5,6 +5,7 @@ module.exports = {
     re: [
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/(permalink|story)\.php\?[^\/]+(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?(?:[^\?]+)?fbid=(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\/\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos\/[^\/]+\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/([^\/\?]+)\/[^\/]+\/(\d{10,})/i,
@@ -69,6 +70,7 @@ module.exports = {
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
         "https://www.facebook.com/zuck/posts/10102577175875681?comment_id=1193531464007751&reply_comment_id=654912701278942",
+        "https://www.facebook.com/photo/?fbid=3862605057144203&set=p.3862605057144203&comment_id=3864356460302396&__cft__[0]=AZXLT8sxNqaF8oPzbvZ1-ti8F0PJRolmnsKGtIfgri2tLSzCT_DswnBXCHXdJN8pGWimUW9qfU6Az7bdZ3Dlvk06HohyowNOMG0TJ1ibFZX8Qico3Z-DuZcl48ABz1jqiEEUNVF-9BShKzMEeSwwO6Lx&__tn__=R]-R",
         {noFeeds: true}, {skipMixins: ["oembed-error"]}
     ]
 };
