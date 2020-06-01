@@ -157,18 +157,22 @@ module.exports = {
 
         // Avoid any issues with possible redirects,
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
+        var result = {};
         options.followHTTPRedirect = true; 
+
+        if (!options.getRequestOptions('instagram.meta', true)) {
+            result.meta = {};
+        }
+
         if (urlMatch[1] && urlMatch[1].length > 30) {
-            return {
-                message: 'This Instagram post is private.' // IDs longer than 30 is for private posts as of March 11, 2020
-            }
+            result.message = 'This Instagram post is private.'; // IDs longer than 30 is for private posts as of March 11, 2020
         }
 
         if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
-            return {
-                redirect: url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com')
-            }
+            result.redirect = url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com');
         }
+
+        return result;
     },
 
     tests: [{
