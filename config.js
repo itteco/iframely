@@ -376,7 +376,8 @@
         providerOptions: {
             "readability": {},
             "twitter.status": {}
-        }
+        },
+        PRERENDER_URL: ""
     };
 
     var env_config_path = path.resolve(
