@@ -30,6 +30,9 @@ module.exports = {
                         responseStatusCode: 415
                     });
                 } else {
+                    if (data && data.meta && data.meta.canonical) {
+                        data.meta.canonical = url;
+                    }
                     return cb(error, {
                         appUriData: data
                     });
