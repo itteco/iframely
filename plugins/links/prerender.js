@@ -16,7 +16,7 @@ module.exports = {
             && (!title || /^{{.+}}/.test(title))
         ) {
 
-            var prerenderUrl = url + CONFIG.PRERENDER_URL;
+            var prerenderUrl = CONFIG.PRERENDER_URL + url;
             var options2 = _.extend({}, options, {
                 debug: false,
                 refresh: true
