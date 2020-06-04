@@ -13,12 +13,12 @@ module.exports = {
 
         if (CONFIG.PRERENDER_URL && (!title || /^{{.+}}/.test(title))) {
 
-            url = CONFIG.PRERENDER_URL += url;
+            var prerenderUrl = url + CONFIG.PRERENDER_URL;
             var options2 = _.extend({}, options, {
                 debug: false,
                 refresh: true
             });
-            core.run(url, options2, function(error, data) {
+            core.run(prerenderUrl, options2, function(error, data) {
 
                 var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
 
