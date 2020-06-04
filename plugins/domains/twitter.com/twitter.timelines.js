@@ -9,7 +9,7 @@ module.exports = {
     mixins: [
         'domain-icon',
         'oembed-site',
-        'html-title',
+        'oembed-title',
         'description',
         'og-image',
         'canonical'
@@ -82,6 +82,6 @@ module.exports = {
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
         "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
-        {skipMixins: ["og-image"]}, {skipMethods: ["getData"]}
+        {skipMixins: ["og-image", "description"]}, {skipMethods: ["getData"]}
     ]
 };
