@@ -11,7 +11,7 @@ module.exports = {
 
         var title = meta && ((meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title']);
 
-        if (!title ||  /^{{.+}}/.test(title)) {
+        if (CONFIG.PRERENDER_URL && (!title || /^{{.+}}/.test(title))) {
 
             url = CONFIG.PRERENDER_URL += url;
             var options2 = _.extend({}, options, {
