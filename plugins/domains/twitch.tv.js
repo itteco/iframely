@@ -9,7 +9,7 @@ module.exports = {
         "*"
     ],
 
-    getMeta: function (schemaVideoObject) {
+    getMeta: function(schemaVideoObject) {
         if (schemaVideoObject.embedurl || schemaVideoObject.embedURL) {
             return {
                 author: schemaVideoObject.author && schemaVideoObject.author.name,
@@ -21,7 +21,19 @@ module.exports = {
         }
     },
 
-    // Plugin is here mostly for automated tests & meta.
+    // Players return 404 errors on HEAD requests as of June 5, 2020. 
+    // So need to bypass a validation in a plugin.
+    getLink: function(schemaVideoObject) {
+        if (schemaVideoObject.embedurl || schemaVideoObject.embedURL) {
+            return {
+                href: schemaVideoObject.embedurl || schemaVideoObject.embedURL,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                'aspect-ratio': 16/9,
+                autoplay: 'autoplay=true'
+            }
+        }
+    },
 
     tests: [{
         noFeeds: true
