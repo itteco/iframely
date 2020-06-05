@@ -9,7 +9,7 @@ module.exports = {
 
     getData: function(url, __appFlag, options, cb) {
 
-        if (options.user_agent === CONFIG.FB_USER_AGENT) {
+        if (options.user_agent === CONFIG.FB_USER_AGENT || CONFIG.PRERENDER_URL) {
             return cb();
         }
 
