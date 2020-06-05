@@ -30,8 +30,10 @@ module.exports = {
                         responseStatusCode: 415
                     });
                 } else {
-                    if (data && data.meta && data.meta.canonical) {
-                        data.meta.canonical = url;
+                    if (data.meta.canonical
+                        && data.meta.canonical.startsWith(CONFIG.PRERENDER_URL)
+                    ) {
+                        delete data.meta.canonical;
                     }
                     return cb(error, {
                         appUriData: data
