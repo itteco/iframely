@@ -675,5 +675,12 @@
             "[a-zA-Z0-9-]+.microsoftstream.com/.*"
         ],
         "endpoint": "https://web.microsoftstream.com/oembed"
-    }
+    },
+    {
+        "name": "Powr.io",
+        "templates": [
+            "powr.io/plugins/.*"
+        ],
+        "endpoint": "https://www.powr.io/api/v1/oembed"
+    }    
 ]
