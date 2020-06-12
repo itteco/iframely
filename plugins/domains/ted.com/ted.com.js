@@ -44,6 +44,7 @@ module.exports = {
 
     getData: function(url, meta, options, cb) {
         let availableLanguages = {};
+        let isTranslatedToEnglish = false;
 
         /**
          * Fill available languages from `<link rel="alternate" href="...?language=...",
@@ -56,8 +57,9 @@ module.exports = {
                     
                     if (query.language && query.language !== 'en') {
                         availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
+                    } else if (query.language === 'en') {
+                        isTranslatedToEnglish = true;
                     }
-
                 }
             });
         }
@@ -74,6 +76,11 @@ module.exports = {
             /** oEmbed request fails with 404 if language isn't valid... */
             language = '';
             meta.canonical = (meta.canonical || url).replace(/\??language=[\w_\-]+/, '');
+        }
+
+        /** When English isn't supported, oEmbed failes without proper language */
+        if (language === '' && !isTranslatedToEnglish && Object.keys(availableLanguages).length === 1) {
+            language = Object.keys(availableLanguages)[0];
         }
 
         let data = {
@@ -115,6 +122,8 @@ module.exports = {
                     values: availableLanguages
                 }
             }
+
+            data.availableLangs = availableLanguages;
         }
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
@@ -125,6 +134,7 @@ module.exports = {
         selector: "#browse-results a"
     }, {skipMethods: ['getData']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
-        "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW"
+        "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
+        "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau"
     ]
 };
