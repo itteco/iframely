@@ -122,8 +122,6 @@ module.exports = {
                     values: availableLanguages
                 }
             }
-
-            data.availableLangs = availableLanguages;
         }
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
