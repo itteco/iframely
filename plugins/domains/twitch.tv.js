@@ -5,7 +5,7 @@ module.exports = {
     re: [
         /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/[a-zA-Z0-9_]+\/v\/(\d+)/i,
         /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/videos?\/(\d+)/i,
-        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i
+        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)(?:\?parent=.*)?$/i
     ],
 
     mixins: [
