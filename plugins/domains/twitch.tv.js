@@ -1,3 +1,5 @@
+const URL = require('url');
+
 module.exports = {
 
     re: [
@@ -25,7 +27,7 @@ module.exports = {
     // So need to bypass a validation in a plugin.
     // As of June 14, 2020 - &parent is now a required option.
     // Docs: https://dev.twitch.tv/docs/embed/video-and-clips
-    getLink: function(schemaVideoObject, options) {
+    getLink: function(url, schemaVideoObject, options) {
         if (schemaVideoObject.embedurl || schemaVideoObject.embedURL) {
 
             var _referrer = options.getRequestOptions('twitch.parent', '').split(/\s*(?:,|$)\s*/);
@@ -34,7 +36,12 @@ module.exports = {
                     options.getProviderOptions('iframely.cdn', '').split(/\s*(?:,|$)\s*/)
                 );
 
-            var message = "Twitch requires each domain your site uses. Please contact support or configure on your providers options."
+            var query = URL.parse(url, true).query;
+            if (query.parent) {
+                referrer.push(query.parent);
+            }
+
+            var message = "Twitch requires each domain your site uses. Please configure in your providers settings or add to URL itselsf as &parent=..."
 
             if (referrer.length === 0) {
                 return {
