@@ -53,7 +53,7 @@ module.exports = {
                     autoplay: 'autoplay=true',
                     options: {
                         parent: {
-                            value: _referrer,
+                            value: options.getRequestOptions('twitch.parent', ''),
                             label: 'Comma-separated list of all your domains',
                             placeholder: 'Ex.: iframe.ly, cdn.iframe.ly, iframely.net'
                         }
