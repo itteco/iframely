@@ -29,7 +29,11 @@ module.exports = {
                 __appFlag: true
             });
         } else {
-            cb();
+            cb(null, {
+                schemaVideoObject: {
+                    embedURL: meta.og && meta.og.video && meta.og.video.secure_url && meta.og.video.secure_url.replace('&player=facebook', '')
+                }
+            });
         }
     },
 
