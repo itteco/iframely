@@ -33,8 +33,7 @@ module.exports = {
 
             var _referrer = options.getRequestOptions('twitch.parent', '').split(/\s*(?:,|$)\s*/);
             var referrer = _referrer.concat(
-                    options.getProviderOptions('twitch.parent', '').split(/\s*(?:,|$)\s*/),
-                    options.getProviderOptions('iframely.cdn', '').split(/\s*(?:,|$)\s*/)
+                    options.getProviderOptions('twitch.parent', '').split(/\s*(?:,|$)\s*/)                    
                 );
 
             var query = URL.parse(url, true).query;
@@ -49,6 +48,8 @@ module.exports = {
                     message: message
                 }
             } else {
+                referrer = referrer.concat(options.getProviderOptions('iframely.cdn', '').split(/\s*(?:,|$)\s*/));
+
                 var embedURL = schemaVideoObject.embedurl || schemaVideoObject.embedURL;
                 embedURL = embedURL.replace('&parent=meta.tag', '');
                 embedURL += '&parent=' + Array.from(new Set(referrer)).join('&parent=');
