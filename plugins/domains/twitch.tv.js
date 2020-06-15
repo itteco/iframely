@@ -23,14 +23,42 @@ module.exports = {
 
     // Players return 404 errors on HEAD requests as of June 5, 2020. 
     // So need to bypass a validation in a plugin.
-    getLink: function(schemaVideoObject) {
+    // As of June 14, 2020 - &parent is now a required option.
+    // Docs: https://dev.twitch.tv/docs/embed/video-and-clips
+    getLink: function(schemaVideoObject, options) {
         if (schemaVideoObject.embedurl || schemaVideoObject.embedURL) {
-            return {
-                href: schemaVideoObject.embedurl || schemaVideoObject.embedURL,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                'aspect-ratio': 16/9,
-                autoplay: 'autoplay=true'
+
+            var _referrer = options.getRequestOptions('twitch.parent', '').split(/\s*(?:,|$)\s*/);
+            var referrer = _referrer.concat(
+                    options.getProviderOptions('twitch.parent', '').split(/\s*(?:,|$)\s*/),
+                    options.getProviderOptions('iframely.cdn', '').split(/\s*(?:,|$)\s*/)
+                );
+
+            var message = "Twitch requires each domain your site uses. Please contact support or configure on your providers options."
+
+            if (referrer.length === 0) {
+                return {
+                    message: message
+                }
+            } else {
+                var embedURL = schemaVideoObject.embedurl || schemaVideoObject.embedURL;
+                embedURL = embedURL.replace('&parent=meta.tag', '');
+                embedURL += '&parent=' + referrer.join('&parent=');
+
+                return {
+                    href: embedURL,
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    'aspect-ratio': 16/9,
+                    autoplay: 'autoplay=true',
+                    options: {
+                        parent: {
+                            value: _referrer,
+                            label: 'Comma-separated list of all your domains',
+                            placeholder: 'Ex.: iframe.ly, cdn.iframe.ly, iframely.net'
+                        }
+                    }
+                }
             }
         }
     },
