@@ -50,7 +50,7 @@ module.exports = {
             } else {
                 var embedURL = schemaVideoObject.embedurl || schemaVideoObject.embedURL;
                 embedURL = embedURL.replace('&parent=meta.tag', '');
-                embedURL += '&parent=' + referrer.join('&parent=');
+                embedURL += '&parent=' + Array.from(new Set(referrer)).join('&parent=');
 
                 return {
                     href: embedURL,
