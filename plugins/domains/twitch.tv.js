@@ -59,6 +59,7 @@ module.exports = {
                     rel: [CONFIG.R.player, CONFIG.R.html5],
                     'aspect-ratio': 16/9,
                     autoplay: 'autoplay=true',
+                    message: message,
                     options: {
                         parent: {
                             value: options.getRequestOptions('twitch.parent', ''),
