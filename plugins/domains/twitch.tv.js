@@ -41,7 +41,7 @@ module.exports = {
                 referrer.push(query.parent);
             }
 
-            var message = "Twitch requires each domain your site uses. Please configure in your providers settings or add to URL itselsf as &parent=..."
+            var message = "Twitch requires each domain your site uses. Please configure in your providers settings or add to URL itself as &parent=..."
 
             if (referrer.length === 0) {
                 return {
