@@ -75,6 +75,13 @@
         "endpoint": "https://giphy.com/services/oembed"
     },
     {
+        "name": "Giphy video",
+        "templates": [
+            "giphy\\.com/videos/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
+        ],
+        "endpoint": "https://giphy.com/services/oembed"
+    },    
+    {
         "name": "Flickr",
         "templates": [
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/?(?:[?#].*)?$)",
