@@ -26,7 +26,16 @@ module.exports = {
             return cb (new Error ("No youtube.api_key configured"));
         }
 
-        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer%2Cstatus&key=" + api_key + "&id=" + urlMatch[1];
+        var parts = options.getProviderOptions('youtube.parts') || [
+            "id",
+            "snippet",
+            "statistics",
+            "contentDetails",
+            "player",
+            "status"
+        ];
+
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=" + parts.join("%2C") + "&key=" + api_key + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
@@ -55,7 +64,6 @@ module.exports = {
                 return !usageLimitsError && !serverError;
             },
             prepareResult: function(error, response, data, cb) {
-
                 if (error) {
                     return cb(error);
                 }
@@ -120,7 +128,6 @@ module.exports = {
                 } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
-                    
                     cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
@@ -252,7 +259,7 @@ module.exports = {
         }
 
         // thumbnails. Avoid black stripes
-        Object.keys(youtube_video_gdata.thumbnails).forEach(function(def) {
+        youtube_video_gdata.thumbnails && Object.keys(youtube_video_gdata.thumbnails).forEach(function(def) {
             if ( youtube_video_gdata.thumbnails[def] 
                 && youtube_video_gdata.thumbnails[def].width
                 && youtube_video_gdata.thumbnails[def].height
