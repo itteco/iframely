@@ -615,7 +615,7 @@
             "(?:www\\.)?podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
             "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
         ],
-        "endpoint": "http://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
+        "endpoint": "https://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
     }, {
         "name": "Simplecast",
         "templates": [
