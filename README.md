@@ -47,6 +47,8 @@ We put our best effort to maintain Iframely and all its domain parsers. Please, 
 
 Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
+Please submit your PR against `develop` branch. This is where everything gets merged before being released into `master`.
+
 If you see an error in our domains whitelist (you can [debug URLs here](http://iframely.com/debug)), please ping us and we'll fix it in no time.
 
 
