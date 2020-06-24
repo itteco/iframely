@@ -48,7 +48,9 @@ module.exports = {
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [
-            // Images.
+            // https://developers.facebook.com/docs/instagram/embedding/
+            // Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
+            // However, there's still a valid oembed thumbnail as of June 24, 2020. Let's use it if we can.
             {
                 href: src + 't',
                 type: CONFIG.T.image,
@@ -65,23 +67,20 @@ module.exports = {
                 href: src + 'l',
                 type: CONFIG.T.image,
                 rel: (meta.og && meta.og.video || !meta.og) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: 1080,                
-                height: Math.round(1080 / aspect)
-            } 
-            /*
-            // return expanded image thumbnails if /p/shortcode/media stops working again
-            // it works as of Nov 20, 2019
-            {
+                width: oembed.thumbnail_width && (oembed.thumbnail_width - 1) || 1080, // It's actually 1080, but let's try and give oembed.thumbnail a higher priority
+                height: oembed.thumbnail_height && (oembed.thumbnail_height - 1) ||  Math.round(1080 / aspect)
+            }
+        ];
+
+        if (oembed.thumbnail_url) {
+            // Return expanded image thumbnails as /p/shortcode/media redirects cloud users to the login page.
+            links.push({
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-                // validate image as it may be expired
-            }, {
-                href: meta.og && meta.og.image,
-                type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
-                // validate image as it may be expired
-            }*/];
+                // No media - let's validate image as it may be expired.
+            });
+        }
 
         if (meta.og && meta.og.video) {
             links.push({
