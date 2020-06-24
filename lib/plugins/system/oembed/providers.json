@@ -17,10 +17,12 @@
         "templates": [
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/photo/?\\?",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/notes/([^/]+)/[^/]+/(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"            
+          "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/\\d+_\\d+"
         ],
         "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
     },    
@@ -65,13 +67,29 @@
         "endpoint": "http://soundcloud.com/oembed"
     },
     {
+        "name": "Giphy",
+        "templates": [
+            "giphy\\.com/gifs/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
+        ],
+        "url": "https://media.giphy.com/media/{1}/giphy.gif",
+        "endpoint": "https://giphy.com/services/oembed"
+    },
+    {
+        "name": "Giphy video",
+        "templates": [
+            "giphy\\.com/videos/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
+        ],
+        "endpoint": "https://giphy.com/services/oembed"
+    },    
+    {
         "name": "Flickr",
         "templates": [
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/?(?:[?#].*)?$)",
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/\\d+.*?$)",
             "(?:www\\.)?flickr\\.com/(photos/[@a-zA-Z0-9_\\.-]+/(?:sets|albums)/(?:\\d+))"
         ],
-        "endpoint": "https://www.flickr.com/services/oembed/?format={format}&url=https://www.flickr.com/{1}"
+        "url": "https://www.flickr.com/{1}",
+        "endpoint": "https://www.flickr.com/services/oembed/?format={format}&url={url}"
     },
     {
         "name": "Brightcove",
@@ -92,7 +110,8 @@
         "templates": [
             "((?:\\w+\\.)?scribd\\.com)/(?:doc|document|embeds|presentation|fullscren)/(.*)"
         ],
-        "endpoint": "https://www.scribd.com/services/oembed?format={format}&url=https://{1}/doc/{2}"
+        "url": "https://{1}/doc/{2}",
+        "endpoint": "https://www.scribd.com/services/oembed?format={format}&url={url}"
     },
     {
         "name": "Viddler",
@@ -119,7 +138,8 @@
             "www\\.youtube\\.com/user/[a-zA-Z0-9_-]+\\?v=([a-zA-Z0-9_-]+)",
             "www\\.youtube-nocookie\\.com/v/([a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "https://www.youtube.com/oembed?format={format}&url=https://www.youtube.com/watch?v={1}"
+        "url": "https://www.youtube.com/watch?v={1}",
+        "endpoint": "https://www.youtube.com/oembed?format={format}&url={url}"
     },
     {
         "name": "YouTube Playlist",
@@ -339,9 +359,7 @@
     {
         "name": "Behance",
         "templates": [
-            "www\\.behance\\.net/gallery/.*",
-            "[^w]+\\.\\w+\\.\\w+/gallery/[\\w-]+/\\d+",
-            "[^w]+\\.\\w+\\.\\w+/gallery/\\d+/[\\w-]+"
+            "www\\.behance\\.net/gallery/.*"
         ],
         "endpoint": "https://www.behance.net/services/oembed"
     },
@@ -358,7 +376,8 @@
         "templates": [
             "(?:open|embed|play)\\.spotify\\.com/(?:embed/)?([^\\?]*)\\??.*"
         ],
-        "endpoint": "https://open.spotify.com/oembed?url=https://open.spotify.com/{1}&format={format}"
+        "url": "https://open.spotify.com/{1}",
+        "endpoint": "https://open.spotify.com/oembed?url={url}&format={format}"
     },
     {
         "name": "Issuu",
@@ -421,8 +440,8 @@
     {
         "name": "Reddit",
         "templates": [
-            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)",
-            "(?:www\\.|m\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/?"            
+            "(?:www\\.|m\\.|new\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)",
+            "(?:www\\.|m\\.|new\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/?"            
         ],
         "endpoint": "https://www.reddit.com/oembed"
     },
@@ -494,21 +513,6 @@
         "endpoint": "https://www.reverbnation.com/oembed"
     },
     {
-        "name": "Twitch Beta",
-        "templates": [
-            "go.twitch\\.tv/([a-zA-Z0-9_\/]+)"
-        ],
-        "endpoint": "https://api.twitch.tv/v5/oembed?url=https://twitch.tv/{1}&format={format}"
-    },    
-    {
-        "name": "Twitch",
-        "templates": [
-            "twitch\\.tv/([a-zA-Z0-9_]+)/",
-            "clips.twitch.tv"
-        ],
-        "endpoint": "https://api.twitch.tv/v5/oembed"
-    },
-    {
         "name": "CNEvids",        
         "templates": [        
             "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+",
@@ -533,7 +537,8 @@
         "templates": [
             "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
         ],
-        "endpoint": "https://api.producthunt.com/widgets/oembed?url=https://www.producthunt.com/comments/{1}"
+        "url": "https://www.producthunt.com/comments/{1}",
+        "endpoint": "https://api.producthunt.com/widgets/oembed?url={url}"
     }, {
         "name": "Office Forms",
         "templates": [        
@@ -610,7 +615,7 @@
             "(?:www\\.)?podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
             "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
         ],
-        "endpoint": "http://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
+        "endpoint": "https://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
     }, {
         "name": "Simplecast",
         "templates": [
@@ -655,5 +660,19 @@
             "(?:www\\.)?canva.com/design/"
         ],
         "endpoint": "https://www.canva.com/_oembed"
-    }
+    },
+    {
+        "name": "Microsoft Streams",
+        "templates": [
+            "[a-zA-Z0-9-]+.microsoftstream.com/.*"
+        ],
+        "endpoint": "https://web.microsoftstream.com/oembed"
+    },
+    {
+        "name": "Powr.io",
+        "templates": [
+            "powr.io/plugins/.*"
+        ],
+        "endpoint": "https://www.powr.io/api/v1/oembed"
+    }    
 ]

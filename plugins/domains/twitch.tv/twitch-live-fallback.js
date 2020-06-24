@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)$/i
+        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)(?:\?parent=.*)?$/i
     ],
 
     mixins: [
@@ -15,7 +15,11 @@ module.exports = {
                 __appFlag: true
             });
         } else {
-            cb();
+            cb(null, {
+                schemaVideoObject: {
+                    embedURL: meta.og && meta.og.video && meta.og.video.secure_url && meta.og.video.secure_url.replace('&player=facebook', '')
+                }
+            });
         }
     },
 
