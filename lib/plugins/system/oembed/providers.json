@@ -674,5 +674,49 @@
             "powr.io/plugins/.*"
         ],
         "endpoint": "https://www.powr.io/api/v1/oembed"
-    }    
+    },
+    {
+        "name": "Adways",
+        "templates": [
+            "play.adpaths.com/experience/.*"
+        ],
+        "endpoint": "https://play.adpaths.com/oembed"
+    },
+    {
+        "name": "Avocode",
+        "templates": [
+            "app.avocode.com/view/.*"
+        ],
+        "endpoint": "https://stage-embed.avocode.com/api/oembed"
+    },
+    {
+        "name": "DTube",
+        "templates": [
+            "d.tube/v/.*"
+        ],
+        "endpoint": "https://api.d.tube/oembed"
+    },
+    {
+        "name": "Kidoju",
+        "templates": [
+            "(?:www\\.)?kidoju.com/en/x/.*",
+            "(?:www\\.)?kidoju.com/fr/x/.*"
+        ],
+        "endpoint": "https://www.kidoju.com/api/oembed"
+    },
+    {
+        "name": "VeeR VR",
+        "templates": [
+            "veer.tv/videos/.*"
+        ],
+        "endpoint": "https://api.veer.tv/oembed"
+    },
+    {
+        "name": "Screen9",
+        "templates": [
+            "\\w+\\.screen9\\.tv/.*",
+            "console.screen9.com/.*"
+        ],
+        "endpoint": "https://api.screen9.com/oembed"
+    }
 ]
