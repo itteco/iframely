@@ -718,5 +718,47 @@
             "console.screen9.com/.*"
         ],
         "endpoint": "https://api.screen9.com/oembed"
+    },
+    {
+        "name": "Omniscope",
+        "templates": [
+            "omniscope.me/.*"
+        ],
+        "endpoint": "https://omniscope.me/_global_/oembed/json"
+    },
+    {
+        "name": "Namchey",
+        "templates": [
+            "namchey.com/.*"
+        ],
+        "endpoint": "https://namchey.com/api/oembed"
+    },
+    {
+        "name": "FITE",
+        "templates": [
+            "(?:www\\.)?fite.tv/watch/.*"
+        ],
+        "endpoint": "https://www.fite.tv/oembed"
+    },
+    {
+        "name": "GloriaTV",
+        "templates": [
+            "gloria.tv/.*"
+        ],
+        "endpoint": "https://gloria.tv/oembed/"
+    },
+    {
+        "name": "Fontself",
+        "templates": [
+            "catapult.fontself.com/.*"
+        ],
+        "endpoint": "https://oembed.fontself.com/"
+    },
+    {
+        "name": "myBeweeg",
+        "templates": [
+            "mybeweeg.com/.*"
+        ],
+        "endpoint": "https://mybeweeg.com/services/oembed"
     }
 ]
