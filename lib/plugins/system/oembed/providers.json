@@ -56,7 +56,7 @@
             "dailymotion\\.com/video/.+",
             "dailymotion\\.com/embed/video/.+"
         ],
-        "endpoint": "http://www.dailymotion.com/services/oembed"
+        "endpoint": "https://www.dailymotion.com/services/oembed"
     },
     {
         "name": "SoundCloud",
@@ -64,7 +64,7 @@
             "soundcloud\\.com/.+",
             "api\\.soundcloud\\.com\/(?:users|playlists|tracks)\\/\\d+"
         ],
-        "endpoint": "http://soundcloud.com/oembed"
+        "endpoint": "https://soundcloud.com/oembed"
     },
     {
         "name": "Giphy",
@@ -103,7 +103,7 @@
         "templates": [
             "(www\\.)?hulu\\.com/watch/.*"
         ],
-        "endpoint": "http://www.hulu.com/api/oembed.{format}"
+        "endpoint": "https://www.hulu.com/api/oembed.{format}"
     },
     {
         "name": "Scribd",
@@ -118,7 +118,7 @@
         "templates": [
             ".*\\.viddler\\.com/v/.*"
         ],
-        "endpoint": "http://www.viddler.com/oembed"
+        "endpoint": "https://www.viddler.com/oembed"
     },
     {
         "name": "Vimeo",
@@ -147,13 +147,6 @@
             "www\\.youtube\\.com/playlist\\?list=([a-zA-Z0-9_-]+)"
         ],
         "endpoint": "https://www.youtube.com/oembed"
-    },
-    {
-        "name": "CollegeHumor",
-        "templates": [
-            "www\\.collegehumor\\.com/video/.*"
-        ],
-        "endpoint": "http://www.collegehumor.com/oembed.{format}"
     },
     {
         "name": "iFixit",
@@ -302,13 +295,6 @@
         "endpoint": "http://coub.com/api/oembed.{format}"
     },
     {
-        "name": "Funny or Die",
-        "templates": [
-            "www.funnyordie.com/videos/.+"
-        ],
-        "endpoint": "http://www.funnyordie.com/oembed.{format}"
-    },
-    {
         "name": "Wistia",
         "templates": [
             ".*\\.wistia.com/medias/.*"
@@ -384,7 +370,7 @@
         "templates": [
             "issuu\\.com/.*"
         ],
-        "endpoint": "http://issuu.com/oembed"
+        "endpoint": "https://issuu.com/oembed"
     },
     {
         "name": "Droplr",
@@ -571,20 +557,12 @@
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
     }, {
-        "name": "TeamCoco",
-        "templates": [            
-            "teamcoco.com/.*"
-        ],
-        "endpoint": "http://teamcoco.com/oembed.{format}"
-    },
-    {
         "name": "Storied",
         "templates": [        
             "(\\w+.storied\\.co/.*/)"
         ],
         "endpoint": "https://{1}oembed.json?format={format}"
-    },
-    {
+    }, {
         "name": "Figma",
         "templates": [        
             "figma.com/.*"
