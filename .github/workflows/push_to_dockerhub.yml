@@ -1,0 +1,26 @@
+name: Build and push to Docker Hub
+on:
+  create:
+    branches:
+      - release/*
+  push:
+    branches:
+      - feature/*
+      - develop
+      - release/*
+    tags:
+      - '*'
+env:
+  PUSH_BRANCH_TO_DOCKERHUB: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Dockerhub
+      uses: urbanmedia/Publish-Docker-Github-Action@master
+      with:
+        name: tagesspiegel/iframely
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tag_names: true

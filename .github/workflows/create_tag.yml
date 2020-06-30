@@ -1,0 +1,16 @@
+name: Create Tag
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          fetch-depth: '0'
+      - name: create release tag
+        uses: urbanmedia/github-tag-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOYMENT_USER_TOKEN }}
