@@ -71,8 +71,9 @@ module.exports = {
         }
     },
 
-    getData: function (options) {
+    getData: function(options) {
         options.followHTTPRedirect = true; // avoids login re-directs on /likes that blocked oEmbed discovery
+        options.exposeStatusCode = true;
     },
 
     tests: [
@@ -82,6 +83,6 @@ module.exports = {
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
         "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
-        {skipMixins: ["og-image", "oembed-title", "description"]}, {skipMethods: ["getData"]}
+        {skipMixins: ["og-image", "oembed-title", "description", "canonical", "domain-icon"]}, {skipMethods: ["getData"]}
     ]
 };
