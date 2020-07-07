@@ -4,9 +4,9 @@ module.exports = {
 
     getData: function(oembedError, options, cb) {
         if (oembedError === 401){
-            cb({
+            cb(null, {
                 message: "Scribd doesn't support embedding of private documents"
-            }, null)
+            })
         } else {
             cb(null, null)
         }
