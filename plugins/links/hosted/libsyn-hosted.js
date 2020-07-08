@@ -19,12 +19,13 @@ module.exports = {
             };
 
         } 
-    }
+    },
 
-    // http://trendfollowingradio.com/episode-1-the-trend-following-manifesto-with-michael-covel
-    // http://coloristpodcast.com/episode-005-terence-curren
-    // http://whos-he-podcast.co.uk/whos-he-podcast-274
-    // http://heartfeldt.spinninpodcasts.com/heartfeldt-radio-76
-    // http://podcast.wh1t3rabbit.net/dtsr-episode-254-lowdown-and-dirty-ics
-
+    tests: [
+        "http://trendfollowingradio.com/episode-1-the-trend-following-manifesto-with-michael-covel",
+        "http://coloristpodcast.com/episode-005-terence-curren",
+        "http://whos-he-podcast.co.uk/whos-he-podcast-274",
+        "http://heartfeldt.spinninpodcasts.com/heartfeldt-radio-76",
+        "http://podcast.wh1t3rabbit.net/dtsr-episode-254-lowdown-and-dirty-ics"
+    ]
 };

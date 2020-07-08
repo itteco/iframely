@@ -10,10 +10,11 @@ module.exports = {
                 }
             };            
         }
-    }
+    },
 
-    // http://video.self.com/watch/self-x-tone-it-up-challenge
-    // http://video.architecturaldigest.com/watch/the-simple-beauty-of-rafael-vinoly-s-architecture
-    // https://thescene.com/watch/pitchfork/pitchfork-live-watch-jessy-lanza-perform-never-enough?source=player_scene_logo
-
+    tests: [
+        "http://video.self.com/watch/self-x-tone-it-up-challenge",
+        "http://video.architecturaldigest.com/watch/the-simple-beauty-of-rafael-vinoly-s-architecture",
+        "https://thescene.com/watch/pitchfork/pitchfork-live-watch-jessy-lanza-perform-never-enough?source=player_scene_logo"
+    ]
 };
