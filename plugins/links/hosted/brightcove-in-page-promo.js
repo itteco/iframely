@@ -45,7 +45,7 @@ module.exports = {
 
             var uri = 'https://players.brightcove.net/' + account + '/' + player + '_' + embed + '/index.html?videoId=' + video_id;
             uri += __allowBrightcoveInPage === 'autoplay' ? '&autoplay=true' : '';
-            uri += iframeUrl ? '&iframe-url=' + encodeURIComponent(iframeUrl) : '';
+            uri += iframeUrl ? '&iframe-url=' + Buffer.from(iframeUrl).toString('base64') : '';
 
             return {
                 __promoUri: uri
