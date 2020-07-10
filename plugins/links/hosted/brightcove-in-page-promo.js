@@ -48,6 +48,7 @@ module.exports = {
             var account = $video.attr('data-account');
             var player = $video.attr('data-player');
             var video_id = $video.attr('data-video-id');
+            var iframeaUrl = $video.attr('data-iframe-url');
 
             // Let's validate
             if (!embed || !account || !player || !video_id) {
@@ -58,8 +59,12 @@ module.exports = {
                 return;
             }
 
+            var uri = 'https://players.brightcove.net/' + account + '/' + player + '_' + embed + '/index.html?videoId=' + video_id;
+            uri += __allowBrightcoveInPage === 'autoplay' ? '&autoplay=true' : '';
+            uri += iframeaUrl ? '&iframe-url=' + encodeURIComponent(iframeaUrl) : '';
+
             return {
-                __promoUri: 'https://players.brightcove.net/' + account + '/' + player + '_' + embed + '/index.html?videoId=' + video_id + (__allowBrightcoveInPage === 'autoplay' ? '&autoplay=true' : '')
+                __promoUri: uri
             }
         }
     },
