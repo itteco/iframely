@@ -48,7 +48,7 @@ module.exports = {
             uri += iframeUrl ? '&iframe-url=' + Buffer.from(iframeUrl).toString('base64') : '';
 
             return {
-                __promoUri: uri
+                __promoUri: { url: uri }
             }
         }
     },
