@@ -39,6 +39,11 @@ module.exports = {
             player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record
         }
 
+        if (/&iframe-url=/.test(url)) {
+            var src = url.match(/&iframe-url=([^&]+)/i);
+            player.href = Buffer.from(src[1], 'base64').toString()
+        }
+
         if (oembed.thumbnail_url) {
 
             utils.getImageMetadata(oembed.thumbnail_url, options, function(error, data) {
