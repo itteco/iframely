@@ -207,6 +207,9 @@
                 // https://developers.google.com/maps/documentation/embed/guide#api_key
                 maps_key: "INSERT YOUR VALUE"
             },
+            twitter: {
+                disabled: false
+            },
 
             /*
             // Optional Camo Proxy to wrap all images: https://github.com/atmos/camo
@@ -297,7 +300,7 @@
             // And this is AWS metadata service
             // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
             /^https?:\/\/169\.254\.169\.254/
-        ]
+        ],
 
         // Endpoint for prerender service, if you need it. Used to parse React apps. Very slow.
         // PRERENDER_URL: "https://domain/render?url="
