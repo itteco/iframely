@@ -56,7 +56,7 @@
             "dailymotion\\.com/video/.+",
             "dailymotion\\.com/embed/video/.+"
         ],
-        "endpoint": "http://www.dailymotion.com/services/oembed"
+        "endpoint": "https://www.dailymotion.com/services/oembed"
     },
     {
         "name": "SoundCloud",
@@ -64,7 +64,7 @@
             "soundcloud\\.com/.+",
             "api\\.soundcloud\\.com\/(?:users|playlists|tracks)\\/\\d+"
         ],
-        "endpoint": "http://soundcloud.com/oembed"
+        "endpoint": "https://soundcloud.com/oembed"
     },
     {
         "name": "Giphy",
@@ -103,7 +103,7 @@
         "templates": [
             "(www\\.)?hulu\\.com/watch/.*"
         ],
-        "endpoint": "http://www.hulu.com/api/oembed.{format}"
+        "endpoint": "https://www.hulu.com/api/oembed.{format}"
     },
     {
         "name": "Scribd",
@@ -118,7 +118,7 @@
         "templates": [
             ".*\\.viddler\\.com/v/.*"
         ],
-        "endpoint": "http://www.viddler.com/oembed"
+        "endpoint": "https://www.viddler.com/oembed"
     },
     {
         "name": "Vimeo",
@@ -147,13 +147,6 @@
             "www\\.youtube\\.com/playlist\\?list=([a-zA-Z0-9_-]+)"
         ],
         "endpoint": "https://www.youtube.com/oembed"
-    },
-    {
-        "name": "CollegeHumor",
-        "templates": [
-            "www\\.collegehumor\\.com/video/.*"
-        ],
-        "endpoint": "http://www.collegehumor.com/oembed.{format}"
     },
     {
         "name": "iFixit",
@@ -302,13 +295,6 @@
         "endpoint": "http://coub.com/api/oembed.{format}"
     },
     {
-        "name": "Funny or Die",
-        "templates": [
-            "www.funnyordie.com/videos/.+"
-        ],
-        "endpoint": "http://www.funnyordie.com/oembed.{format}"
-    },
-    {
         "name": "Wistia",
         "templates": [
             ".*\\.wistia.com/medias/.*"
@@ -384,7 +370,7 @@
         "templates": [
             "issuu\\.com/.*"
         ],
-        "endpoint": "http://issuu.com/oembed"
+        "endpoint": "https://issuu.com/oembed"
     },
     {
         "name": "Droplr",
@@ -571,20 +557,12 @@
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
     }, {
-        "name": "TeamCoco",
-        "templates": [            
-            "teamcoco.com/.*"
-        ],
-        "endpoint": "http://teamcoco.com/oembed.{format}"
-    },
-    {
         "name": "Storied",
         "templates": [        
             "(\\w+.storied\\.co/.*/)"
         ],
         "endpoint": "https://{1}oembed.json?format={format}"
-    },
-    {
+    }, {
         "name": "Figma",
         "templates": [        
             "figma.com/.*"
@@ -674,5 +652,91 @@
             "powr.io/plugins/.*"
         ],
         "endpoint": "https://www.powr.io/api/v1/oembed"
-    }    
+    },
+    {
+        "name": "Adways",
+        "templates": [
+            "play.adpaths.com/experience/.*"
+        ],
+        "endpoint": "https://play.adpaths.com/oembed"
+    },
+    {
+        "name": "Avocode",
+        "templates": [
+            "app.avocode.com/view/.*"
+        ],
+        "endpoint": "https://stage-embed.avocode.com/api/oembed"
+    },
+    {
+        "name": "DTube",
+        "templates": [
+            "d.tube/v/.*"
+        ],
+        "endpoint": "https://api.d.tube/oembed"
+    },
+    {
+        "name": "Kidoju",
+        "templates": [
+            "(?:www\\.)?kidoju.com/en/x/.*",
+            "(?:www\\.)?kidoju.com/fr/x/.*"
+        ],
+        "endpoint": "https://www.kidoju.com/api/oembed"
+    },
+    {
+        "name": "VeeR VR",
+        "templates": [
+            "veer.tv/videos/.*"
+        ],
+        "endpoint": "https://api.veer.tv/oembed"
+    },
+    {
+        "name": "Screen9",
+        "templates": [
+            "\\w+\\.screen9\\.tv/.*",
+            "console.screen9.com/.*"
+        ],
+        "endpoint": "https://api.screen9.com/oembed"
+    },
+    {
+        "name": "Omniscope",
+        "templates": [
+            "omniscope.me/.*"
+        ],
+        "endpoint": "https://omniscope.me/_global_/oembed/json"
+    },
+    {
+        "name": "Namchey",
+        "templates": [
+            "namchey.com/.*"
+        ],
+        "endpoint": "https://namchey.com/api/oembed"
+    },
+    {
+        "name": "FITE",
+        "templates": [
+            "(?:www\\.)?fite.tv/watch/.*"
+        ],
+        "endpoint": "https://www.fite.tv/oembed"
+    },
+    {
+        "name": "GloriaTV",
+        "templates": [
+            "gloria.tv/.*"
+        ],
+        "endpoint": "https://gloria.tv/oembed/"
+    },
+    {
+        "name": "Fontself",
+        "templates": [
+            "catapult.fontself.com/.*"
+        ],
+        "endpoint": "https://oembed.fontself.com/"
+    },
+    {
+        "name": "myBeweeg",
+        "templates": [
+            "mybeweeg.com/.*"
+        ],
+        "endpoint": "https://mybeweeg.com/services/oembed"
+    }
 ]

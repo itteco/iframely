@@ -198,6 +198,7 @@ module.exports = function(app) {
             var omit_css = getBooleanParam(req, 'omit_css');
 
             iframelyUtils.generateLinksHtml(result, {
+                mediaPriority: getBooleanParam(req, 'media'),
                 autoplayMode: getBooleanParam(req, 'autoplay'),
                 aspectWrapperClass:     omit_css ? CONFIG.DEFAULT_OMIT_CSS_WRAPPER_CLASS : false,
                 maxWidthWrapperClass:   omit_css ? CONFIG.DEFAULT_MAXWIDTH_WRAPPER_CLASS : false,
