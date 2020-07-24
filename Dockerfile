@@ -1,5 +1,8 @@
 FROM node:12-alpine
 
+MAINTAINER PRX <sysadmin@prx.org>
+LABEL org.prx.app="yes"
+
 EXPOSE 8061
 
 COPY . /iframely
