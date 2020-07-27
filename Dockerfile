@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:10-alpine
 
 MAINTAINER PRX <sysadmin@prx.org>
 LABEL org.prx.app="yes"
