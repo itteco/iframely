@@ -18,7 +18,7 @@
         baseAppUrl: "",
         port: 8061,
         relativeStaticUrl: "/s",
-        use_http2: true,
+        // use_http2: true,
         DEBUG: false,
 
         SPDY_AGENT_DEFAULT_PORT: 443,
