@@ -3,7 +3,6 @@
         "name": "Facebook Post no query string",
         "templates": [
           "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/\\d{10,})",
-          "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/photos/[^\\/]+/\\d{10,})",
           "(?:www|m|business)\\.(facebook\\.com/notes/[^/]+/[^/]+/\\d{10,})",
           "(?:www|m|business)\\.(facebook\\.com/\\d+_\\d+)"
         ],
