@@ -1,14 +1,32 @@
 [
     {
+        "name": "Facebook Post no query string",
+        "templates": [
+          "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/\\d{10,})",
+          "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/photos/[^\\/]+/\\d{10,})",
+          "(?:www|m|business)\\.(facebook\\.com/notes/[^/]+/[^/]+/\\d{10,})",
+          "(?:www|m|business)\\.(facebook\\.com/\\d+_\\d+)"
+        ],
+        "url": "https://www.{1}",
+        "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
+    },
+    {
+        "name": "Facebook Video no query string",
+        "templates": [
+            "(?:www|business)\\.(facebook\\.com/[a-zA-Z0-9.]+/videos/\\d+)",
+            "(?:www|m|business)\\.(facebook\\.com/watch/?\\?v=\\d+)"
+        ],
+        "url": "https://www.{1}",
+        "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
+    },
+    {
         "name": "Facebook Video",
         "templates": [          
           "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
           "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
-          "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
-          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})",
-          "(?:www|m|business)\\.facebook\\.com/watch/?\\?v="
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})"
         ],
         "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
     },
@@ -18,11 +36,8 @@
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo/?\\?",
-          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(posts|activity)/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/notes/([^/]+)/[^/]+/(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})",
-          "(?:www|m|business)\\.facebook\\.com/\\d+_\\d+"
+          "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
         "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
     },    
