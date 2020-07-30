@@ -25,7 +25,8 @@
           "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
-          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})"
+          "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})",
+          "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+"
         ],
         "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
     },
