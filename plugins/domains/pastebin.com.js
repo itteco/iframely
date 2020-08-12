@@ -5,11 +5,7 @@ module.exports = {
     ],
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-site",
-        "og-title"
+        "*"
     ],
 
     getLink: function (urlMatch, og) {
@@ -20,13 +16,13 @@ module.exports = {
         }
 
         return {
-            href: "//pastebin.com/embed_js/"+ urlMatch[1],
+            href: "https://pastebin.com/embed_js/"+ urlMatch[1],
             type: CONFIG.T.javascript,  
             rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl]  // not inline
         }
     },
 
     tests: [
-        "http://pastebin.com/ZjTA1Q4Z"
+        "https://pastebin.com/ZjTA1Q4Z"
     ]
 };
