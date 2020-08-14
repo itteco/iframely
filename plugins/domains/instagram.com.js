@@ -157,7 +157,8 @@ module.exports = {
         // Avoid any issues with possible redirects,
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
         var result = {};
-        options.followHTTPRedirect = true; 
+        options.followHTTPRedirect = true;
+        options.exposeStatusCode = true;
 
         if (!options.getRequestOptions('instagram.meta', true)) {
             result.meta = {};
