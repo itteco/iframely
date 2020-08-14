@@ -52,7 +52,7 @@
     {
         "name": "Instagram",
         "templates": [
-            "(?:www\\.)?(instagram\\.com/(?:p|tv)/([a-zA-Z0-9_-]+))",
+            "(?:www\\.)?(instagram\\.com/(?:p|tv|reel)/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
         "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://www.{1}"
