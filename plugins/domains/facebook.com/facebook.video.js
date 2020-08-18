@@ -9,7 +9,7 @@ module.exports = {
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d{5,})(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/.+/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?v=/i
+        /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=/i
     ],
 
     mixins: ["oembed-error"],    
@@ -86,6 +86,7 @@ module.exports = {
         "https://www.facebook.com/tv2nyhederne/videos/1657445024271131/?comment_id=1657463030935997",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
+        "https://www.facebook.com/watch/?ref=external&v=373114473595228",
         {noFeeds: true}, {skipMixins: ["oembed-error"]}
     ]
 };
