@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.imdb\.com\/video\/[\w]+\/vi(\d+)/i,
+        /^https?:\/\/www\.imdb\.com\/video\/(?:[\w]+\/)?vi(\d+)/i,
         /^https?:\/\/www\.imdb\.com(?:\/(?:title|list|name)\/\w{2}[\d]+)?\/videoplayer\/vi(\d+)/i,        
         /^https?:\/\/www\.imdb\.com\/title\/\w{2}[\d]+\/?[^\/#]+#\w{2}\-vi(\d+)$/i
     ],    
@@ -37,6 +37,6 @@ module.exports = {
         "https://www.imdb.com/videoplayer/vi2792795161?ref_=tt_pv_vi_aiv_2",
         "https://www.imdb.com/title/tt2177461/videoplayer/vi3236084505",
         "https://www.imdb.com/list/ls053181649/videoplayer/vi2588392217",
-        "https://www.imdb.com/name/nm6651026/videoplayer/vi3064772121"
+        "https://www.imdb.com/video/vi3064772121"
     ]
 };

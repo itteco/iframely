@@ -1,0 +1,5 @@
+---
+- name: Restart iframely
+  docker_container:
+    name: iframely
+    restart: yes

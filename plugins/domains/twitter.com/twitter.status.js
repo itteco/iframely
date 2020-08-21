@@ -77,7 +77,6 @@ module.exports = {
                     qs: qs,
                     json: true,
                     cache_key: 'twitter:oembed:' + id,
-                    ttl: c.cache_ttl,
                     prepareResult: function(error, response, data, cb) {
 
                         if (error) {
@@ -126,7 +125,18 @@ module.exports = {
                             }
                         }
 
-                        if (response.statusCode !== 200) {
+                        if (response.statusCode === 404) {
+                            return cb({
+                                responseStatusCode: 404,
+                                message: 'The tweet is no longer available.'
+                            })
+                        } else if (response.statusCode === 403) {
+                            return cb({
+                                responseStatusCode: 404,
+                                message: 'It looks this Twitter account has been suspended.'
+                            })
+
+                        } else if (response.statusCode !== 200) {
                             return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
                         }
 
@@ -215,6 +225,11 @@ module.exports = {
             html = html.replace(/\s?data-cards=\"hidden\"/i, '');
         }
 
+        var theme = options.getRequestOptions('players.theme', '');
+        if (theme === 'dark' && !/data\-theme=\"dark\"/.test(html)) {
+            html = html.replace('<blockquote class="twitter-tweet"', '<blockquote class="twitter-tweet" data-theme="dark"');
+        }
+
         // Declare options
         var opts = {};
 
@@ -229,7 +244,15 @@ module.exports = {
                 label: 'Hide photos, videos, and cards',
                 value: /\s?data-cards=\"hidden\"/.test(html)
             }
-        }     
+        }
+
+        opts.theme = {
+            value: theme,
+            values: {
+                dark: "Use dark theme"
+            }
+        };
+
 
         var app = {
             html: html,

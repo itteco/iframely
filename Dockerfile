@@ -1,19 +1,13 @@
-FROM node:10.16
+FROM node:12-alpine
 
-EXPOSE 9229-9300
 EXPOSE 8061
 
 COPY . /iframely
 
 WORKDIR /iframely
 
-RUN DEPS="libkrb5-dev" \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends $DEPS && \
+RUN apk add --no-cache git && \
     npm install -g forever && \
-    npm install && \
-    apt-get purge -y --auto-remove $DEPS && \
-    apt-get autoremove && \
-    apt-get clean
+    npm install
 
-ENTRYPOINT ["/iframely/docker/entrypoint.sh"]
+ENTRYPOINT [ "/iframely/docker/entrypoint.sh" ]

@@ -11,14 +11,40 @@ module.exports = {
         "og-description"
     ],
 
-    getLink: function(urlMatch, oembed) {
+    getLink: function(urlMatch, oembed, options) {
+
+        var html = oembed.html;
+
+        var opts = {
+            header: options.getRequestOptions('flickr.header', /data-header=\"true\"/i.test(html)),
+            footer: options.getRequestOptions('flickr.footer', /data-footer=\"true\"/i.test(html)),
+        };
+
+        var key; // thanks jslint
+        for (key in opts) {
+            html = html.replace(new RegExp('\\s?data\\-' + key + '="(true|false)"'), '');
+            if (opts[key]) {
+                html = html.replace('data-flickr-embed="true"', 'data-flickr-embed="true" data-' + key + '="true"');
+            }
+        }
+
         return {
-            html: oembed.html
+            html: html
                 .replace(/\@n/g, "@N")
                 .replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
             rel: [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": oembed.width / oembed.height            
+            "aspect-ratio": oembed.width / oembed.height,
+            options: {
+                header: {
+                    label: 'Show user header',
+                    value: opts.header
+                },
+                footer: {
+                    label: 'Show description footer',
+                    value: opts.footer
+                }
+            }
         };
     },
 

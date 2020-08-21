@@ -9,7 +9,7 @@ module.exports = {
 
     getData: function(url, __appFlag, options, cb) {
 
-        if (options.user_agent === CONFIG.FB_USER_AGENT) {
+        if (options.user_agent === CONFIG.FB_USER_AGENT || CONFIG.PRERENDER_URL) {
             return cb();
         }
 
@@ -23,7 +23,7 @@ module.exports = {
 
             var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
 
-            if (!title ||  /^{{.+}}$/.test(title)) {
+            if (!title ||  /^{{.+}}/.test(title)) {
                 return cb({
                     responseStatusCode: 415
                 });

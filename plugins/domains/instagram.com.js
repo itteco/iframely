@@ -1,3 +1,6 @@
+const cheerio = require('cheerio');
+const decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     re: [
@@ -9,60 +12,75 @@ module.exports = {
     mixins: [
         "oembed-site",
         "oembed-author",
-        // "og-image", it's the same as size L
-        "domain-icon"
+        // "og-image", // it's the same as size L
+        "domain-icon",
+        "oembed-error"
     ],
 
-    getMeta: function (og, oembed) {
-        
-        return {
-            title: og.title ? og.title.match(/([^•\"]+)/i)[0] : "Post on Instagram",
-            description: oembed.title
+    getMeta: function (oembed, urlMatch, meta) {
+        var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
+
+        if (!title || /login/i.test(title)) {
+            var $container = cheerio('<div>');
+            try {
+                $container.html(decodeHTML5(oembed.html));
+            } catch (ex) {}
+
+            var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
+
+            if ($a.length == 1) {
+                title = $a.text();
+                title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
+            } else {
+                title = `Instagram (@${oembed.author_name})`;
+            }
         }
 
+        return {
+            title: title,
+            description: oembed.title
+        }
     },
 
-    getLinks: function(urlMatch, meta, oembed, options) {
+    getLinks: function(url, urlMatch, meta, oembed, options) {
         var src = 'https://instagram.com/p/' + urlMatch[1] + '/media/?size=';
 
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [
-            // Images.
-            // /p/shortcode/media is currently not available as of Sept 17, 2018
-            /*
+            // https://developers.facebook.com/docs/instagram/embedding/
+            // Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
+            // However, there's still a valid oembed thumbnail as of June 24, 2020. Let's use it if we can.
             {
                 href: src + 't',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail,
-                width: Math.round(150 * aspect),
+                width: 150,
                 height: 150 
             }, {
                 href: src + 'm',
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail,
-                width: Math.round(aspect * 306),
-                height: 306
+                width: 320,
+                height: Math.round(320 / aspect)
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: Math.round(aspect * 612),
-                height: 612
-            } */
-            {
+                rel: (meta.og && meta.og.video || !meta.og) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
+                width: oembed.thumbnail_width && (oembed.thumbnail_width - 1) || 1080, // It's actually 1080, but let's try and give oembed.thumbnail a higher priority
+                height: oembed.thumbnail_height && (oembed.thumbnail_height - 1) ||  Math.round(1080 / aspect)
+            }
+        ];
+
+        if (oembed.thumbnail_url) {
+            // Return expanded image thumbnails as /p/shortcode/media redirects cloud users to the login page.
+            links.push({
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
-                width: oembed.thumbnail_width,
-                height: oembed.thumbnail_height
-            }, {
-                href: meta.og && meta.og.image,
-                type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: Math.round(aspect * 612),
-                height: 612
-            }];
+                rel: CONFIG.R.thumbnail
+                // No media - let's validate image as it may be expired.
+            });
+        }
 
         if (meta.og && meta.og.video) {
             links.push({
@@ -94,11 +112,17 @@ module.exports = {
 
             captioned = /data\-instgrm\-captioned/i.test(html);
 
-            html = html.replace (/src="\/\/www\.instagram\.com\/embed\.js"/, 'src="https://www.instagram.com/embed.js"');
+            html = html.replace(/src="\/\/www\.instagram\.com\/embed\.js"/, 'src="https://www.instagram.com/embed.js"');
 
             if (/instagram.com\/tv\//i.test(html)) {
                 // html has /tv/ links in it - but those actually don't work as of 8/27/2018
-                html = html.replace (/instagram.com\/tv\//g, 'instagram.com/p/');
+                html = html.replace(/instagram.com\/tv\//g, 'instagram.com/p/');
+            }
+
+            // Fix for private posts that later became public
+            if (urlMatch[1] && urlMatch[1].length > 30 
+                && /^https?:\/\/www\.instagram\.com\/p\/([a-zA-Z0-9_-]+)\/?/i.test(meta.canonical)) {
+                html = html.replace(url, meta.canonical);
             }
 
             var app = {
@@ -128,14 +152,26 @@ module.exports = {
         return links;
     },
 
-    getData: function (url, options) {
-        options.followHTTPRedirect = true; // avoid any issues with possible redirects
+    getData: function (url, urlMatch, options) {
+
+        // Avoid any issues with possible redirects,
+        // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
+        var result = {};
+        options.followHTTPRedirect = true; 
+
+        if (!options.getRequestOptions('instagram.meta', true)) {
+            result.meta = {};
+        }
+
+        if (urlMatch[1] && urlMatch[1].length > 30) {
+            result.message = 'This Instagram post is private.'; // IDs longer than 30 is for private posts as of March 11, 2020
+        }
 
         if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
-            return {
-                redirect: url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com')
-            }
+            result.redirect = url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com');
         }
+
+        return result;
     },
 
     tests: [{
@@ -146,10 +182,7 @@ module.exports = {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
-            skipMixins: [
-                "oembed-title"
-            ]
-        }, {
+            skipMixins: ["oembed-title", "oembed-error"],
             skipMethods: ['getData']
         }
     ]

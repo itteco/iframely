@@ -18,11 +18,7 @@ module.exports = {
     getLink: function(oembed, options) {
 
         if (oembed.author_url ===  "https://codepen.io/anon/") {
-            return { // Anonymous Pens can't be embedded
-                    // return icon to avoid fallback to generic (whitelisted) parser
-                href: 'http://codepen.io/logo-pin.svg',
-                type: CONFIG.T.icon,
-                rel: CONFIG.R.icon,
+            return { // And no fallback to generics
                 message: "Anonymous Pens can't be embedded."
             }
         }
@@ -42,7 +38,7 @@ module.exports = {
             var click_to_load = options.getRequestOptions('codepen.click_to_load', /\/embed\/preview\//.test(href));
             href = href.replace(/\/embed\/(?:preview\/)?/, '/embed/').replace(/\/embed\//, '/embed/' + (click_to_load ? 'preview/' : ''));
 
-            params.height = parseInt(options.getRequestOptions('codepen.height')) || oembed.height;
+            params.height = options.getRequestOptions('codepen.height', oembed.height);
 
             var theme = options.getRequestOptions('players.theme', params.theme || 'auto');
 

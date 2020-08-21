@@ -40,7 +40,6 @@ module.exports = {
     },    
 
     tests: [
-        "https://livestream.com/abeldanger/events/6926279",
         "https://livestream.com/accounts/242049/events/1978582",
         "https://livestream.com/ironman/events/7777204/videos/163920520",
         "https://livestream.com/sevierheights/maincampus?t=1486305168991",

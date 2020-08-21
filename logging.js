@@ -13,7 +13,7 @@ exports.log = function() {
         }
     }
 
-    args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]"));
+    args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]:") + process.pid);
 
     console.log.apply(console, args);
 };

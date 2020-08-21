@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/my\.mail\.ru\/\/?(inbox|mail|list|bk|corp)\/[a-zA-Z0-9\._\-]+\/video\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)\.html/i
+        /^https?:\/\/my\.mail\.ru\/\/?[a-z\.]+\/[a-zA-Z0-9\._\-]+\/video\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)\.html/i
     ],
 
     mixins: [
@@ -34,8 +34,9 @@ module.exports = {
     },
 
     tests: [
-        "http://my.mail.ru/mail/ee.vlz/video/22396/44907.html",
-        "http://my.mail.ru/mail/stryukova_lv/video/6177/1029.html",
+        "https://my.mail.ru/mail/ee.vlz/video/22396/44907.html",
+        "https://my.mail.ru/gmail.com/arisplafou73/video/_myvideo/3.html",
+        "https://my.mail.ru/mail/stryukova_lv/video/6177/1029.html",
         "https://my.mail.ru/inbox/wwf00/video/11/46.html",
         {
             skipMethods: ['getData']

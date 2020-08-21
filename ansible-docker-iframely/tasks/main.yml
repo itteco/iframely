@@ -1,0 +1,43 @@
+---
+- name: Create iframely dir
+  file:
+    path: "{{ docker_iframely_dir | default('/opt/iframely') }}"
+    state: directory
+  tags:
+    - setup
+
+- name: Create iframely config
+  template:
+    src: config.local.js.j2
+    dest: "{{ docker_iframely_dir | default('/opt/iframely') }}/config.local.js"
+  notify: Restart iframely
+  tags:
+    - config
+
+- name: Start memcached docker
+  docker_container:
+    name: memcached
+    image: memcached:alpine
+    hostname: "{{ inventory_hostname_short }}-memcached"
+    state: started
+    restart_policy: always
+    pull: yes
+    ports:
+      - "11211:11211"
+
+- name: Start iframely docker
+  docker_container:
+    name: iframely
+    image: jolt/iframely:{{ docker_iframely_version | default('latest') }}
+    hostname: "{{ inventory_hostname_short }}-iframely"
+    state: started
+    restart_policy: always
+    pull: yes
+    dns_servers: 1.1.1.1
+    ports:
+      - "8061:8061"
+    links:
+      - "memcached:memcached"
+    volumes:
+      - "{{ docker_iframely_dir | default('/opt/iframely') }}/config.local.js:/iframely/config.local.js"
+

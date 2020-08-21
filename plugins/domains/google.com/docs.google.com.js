@@ -44,13 +44,15 @@ module.exports = {
                 // HEADS UP:
                 // There is a problem with player as embedURL: x-frame-options is SAMEORIGIN
                 file.href = "https://drive.google.com/file/d/" + urlMatch[2] + "/preview";
-                file.rel.push(CONFIG.R.player);
+                file.rel.push(CONFIG.R.player, 'accelerometer', 'picture-in-picture', 'gyroscope'); // allow attributes are copied from YouTube.
                 // use default aspect
 
             } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
                 file.height = schemaFileObject.height;
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (CONFIG.R.app);
+                // Make forms resizeable
+                file.rel.push (CONFIG.R.resizable);
 
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
                 file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
@@ -76,6 +78,31 @@ module.exports = {
             }
 
             return file;
+        } else if (/usp=embed/.test(schemaFileObject.url) && /icon_\d+_(audio|image)_favicon\.ico$/.test(schemaFileObject.faviconUrl)) {
+
+            var file = {
+                rel: [CONFIG.R.file, CONFIG.R.html5],
+                href: schemaFileObject.url.replace(/\/view(?:\?.+)?$/i, '/preview'),
+                accept: CONFIG.T.text_html
+            };
+
+            var type = schemaFileObject.faviconUrl.match(/icon_\d+_(\w+)_favicon\.ico$/)[1]
+            
+            if (type === 'audio') {
+                file.rel.push(CONFIG.R.player);
+                file.rel.push(CONFIG.R.audio);
+                file.height = 60;
+            } else if (type === 'image') {
+                file.rel.push(CONFIG.R.image);
+                file['aspect-ratio'] = 640/480; // unfortunatelly, no way of known image size
+            }
+
+            return file;
+
+        } else {
+            return {
+                message: 'No preview available for this file.'
+            }
         }
 
     },
@@ -83,8 +110,13 @@ module.exports = {
     getData: function(meta, url, urlMatch, cheerio, decode, options, cb) {
 
         var embedded_url = (url + (/\?/.test(url) ? '&' : '?') + 'embedded=true').replace(/\/edit/, '/viewform');
-
-        if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
+        
+        if (urlMatch[1] === "forms" && /\/closedform(?:\?.*)?$/.test(url)) {
+            return cb ({
+                responseStatusCode: 410,
+                message: `The form ${meta['html-title'] || ''} is no longer accepting responses.`
+            });
+        } else if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
                 redirect: embedded_url
             })
@@ -121,7 +153,7 @@ module.exports = {
             return cb(null, {
                 schemaFileObject: result
             });
-        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?$/i.test(url)) {
+        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
             return cb(null, {
                 schemaFileObject: {
                     embedUrl: url
@@ -135,14 +167,16 @@ module.exports = {
     tests: [
         "https://docs.google.com/document/d/17jg1RRL3RI969cLwbKBIcoGDsPwqaEdBxafGNYGwiY4/preview?sle=true",
         "https://docs.google.com/document/d/1KHLQiZkTFvMvBHmYgntEQtNxXswOQISjkbpnRO3jLrk/edit",
-        "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/edit#slide=id.p",
-        "https://docs.google.com/presentation/d/1fE0PW1FMlYU9Xhig_QIGF8Yk1ApVfQQvntEEi4GbCm8/preview",
         "https://docs.google.com/file/d/0BzufrRo-waV_NlpOTlI0ZnB4eVE/preview",
         "https://drive.google.com/file/d/0BwGT3x6igRtkTWNtLWlhV3paZjA/view",
         "https://docs.google.com/spreadsheets/d/10JLM1UniyGNuLaYTfs2fnki-U1iYFsQl4XNHPZTYunw/edit?pli=1#gid=0",
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKtFs55r6ow0rVvoGJLlDyqxD_455wR6_eZ42z8izYGT_UM6hNW0ruFhn26m_SzsoT4AQxZZA968Lp/pubhtml?gid=1443541234&single=true&widget=true&headers=false",
         "https://docs.google.com/spreadsheets/u/1/d/1_tsspyfiH8ZVAOmoCbGJ3gvzGU5zLUb-PEG0-RyjP5E/edit#gid=1926296709",
         "https://docs.google.com/document/d/e/2PACX-1vSeGAfeYcpPAGLX4h0krdMR8HBuCxf3M0H0MlyeQ9GYQzJsJ2KTfZ_iSopp5dUwX3JVOfCpAoEyoXdh/pub",
+        "https://drive.google.com/file/d/1H4K6WkWjycH253U35VVUE8oaTJea_dmp/view",
+        "https://drive.google.com/open?id=1rKcaLuY0WzhPqQFCGy_4aIJblnEziy7-",
+        "https://drive.google.com/file/d/17cEEjFg-xJGnKfwQHDPF9mBNsBY8KTsc/preview",
+        "https://drive.google.com/file/d/15rfX_NentPMEgJQ_io6qhctScmpahU00/view",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description"

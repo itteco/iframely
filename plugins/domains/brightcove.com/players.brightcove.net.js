@@ -10,6 +10,7 @@ module.exports = {
     mixins: [
         "oembed-title",
         "oembed-site",
+        "oembed-error"
     ],
 
     //HTML parser will 404 if BC account or player does not exist.
@@ -36,6 +37,11 @@ module.exports = {
 
         if ($iframe.length == 1) {
             player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record
+        }
+
+        if (/&iframe-url=/.test(url)) {
+            var src = url.match(/&iframe-url=([^&]+)/i);
+            player.href = Buffer.from(src[1], 'base64').toString()
         }
 
         if (oembed.thumbnail_url) {
@@ -71,7 +77,7 @@ module.exports = {
 
     },
 
-    tests: [
+    tests: [{skipMixins:['oembed-error']},
         "https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001"
         // But sometimes thumbnail aspect is actually incorrect while oembed default is correct:
         // https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001

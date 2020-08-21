@@ -1,0 +1,33 @@
+diff --git a/node_modules/spdy-transport/lib/spdy-transport/protocol/base/utils.js b/node_modules/spdy-transport/lib/spdy-transport/protocol/base/utils.js
+index 72a380f..042199e 100644
+--- a/node_modules/spdy-transport/lib/spdy-transport/protocol/base/utils.js
++++ b/node_modules/spdy-transport/lib/spdy-transport/protocol/base/utils.js
+@@ -45,13 +45,13 @@ exports.addHeaderLine = function addHeaderLine (field, value, dest) {
+ 
+   switch (field) {
+     // Array headers:
+-    case 'set-cookie':
+-      if (dest[field] !== undefined) {
+-        dest[field].push(value)
+-      } else {
+-        dest[field] = [ value ]
+-      }
+-      break
++    // case 'set-cookie':
++    //   if (dest[field] !== undefined) {
++    //     dest[field].push(value)
++    //   } else {
++    //     dest[field] = [ value ]
++    //   }
++    //   break
+ 
+     /* eslint-disable max-len */
+     // list is taken from:
+@@ -74,6 +74,7 @@ exports.addHeaderLine = function addHeaderLine (field, value, dest) {
+       }
+       break
+ 
++    case 'set-cookie':
+     case 'cookie':
+       // make semicolon-separated list
+       if (dest[field] !== undefined) {

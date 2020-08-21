@@ -115,6 +115,80 @@ function createNewPluginTests(providersIds, cb) {
     ], cb);
 }
 
+function checkPageTestLogChangeNotification(logEntry) {
+
+    PageTestLog
+        .find({
+            url: logEntry.url,
+            plugin: logEntry.plugin,    
+            created_at: {
+                $lt: logEntry.created_at
+            }
+        })
+        .sort({created_at: -1})
+        .limit(1)
+        .exec(function(error, previousLogEntry) {
+
+            previousLogEntry = previousLogEntry && previousLogEntry.length && previousLogEntry[0];
+
+            /*
+
+            Case 1.
+
+            Was not error OR was no record.
+            Become error.
+            -- Notify error.
+
+            Case 2.
+
+            Was error.
+            Become good.
+            -- Notify fix.
+
+            Case 3.
+
+            Was error.
+            Become error.
+            -- Notify: still failing.
+
+            */
+
+            var wasError = previousLogEntry && previousLogEntry.hasError();
+            var hasError = logEntry.hasError();
+
+            if (!wasError && hasError) {
+
+                // Case 1.
+                // -- Notify error.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Failed",
+                    color: "red"
+                });
+
+            } else if (wasError && !hasError) {
+
+                // Case 2.
+                // -- Notify fix.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Fixed",
+                    color: "green"
+                });
+
+            } else if (wasError && hasError) {
+
+                // Case 3.
+                // -- Notify: still failing.
+
+                utils.sendQANotification(logEntry, {
+                    message: "Still failing",
+                    color: "yellow"
+                });
+            }
+        });
+}
+
 function processPluginTests(pluginTest, plugin, count, cb) {
 
     var testUrlsSet, reachTestObjectFound = false;;
@@ -122,17 +196,17 @@ function processPluginTests(pluginTest, plugin, count, cb) {
     log('===========================================');
     console.log('Testing provider:', plugin.id);
 
-    function getFetchTestUrlsCallback(url, cb) {
+    function getFetchTestUrlsCallback(testInfo, cb) {
         return function(error, urls) {
             if (error) {
                 urls = {
                     error: error,
-                    test: url
+                    test: testInfo
                 };
             } else if (urls.length == 0) {
                 urls = {
                     error: "No test urls found",
-                    test: url
+                    test: testInfo
                 };
             }
             cb(null, urls);
@@ -207,6 +281,10 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                                 urlAttribute: url.urlAttribute
                             }, getFetchTestUrlsCallback(url, cb));
 
+                        } else if (url.getUrls) {
+
+                            url.getUrls(getFetchTestUrlsCallback('getUrls', cb));
+
                         } else if (url.noFeeds || url.skipMethods || url.skipMixins) {
 
                             cb(null, null);
@@ -260,9 +338,15 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
         function(testUrlsSet, cb) {
 
-            async.eachSeries(testUrlsSet.urls, function(url, cb) {
+            var testMode = 'default'; //'http1-first', 'h2-first'
 
-                log('   Testing url:', url);
+            var disableHttp2 = false;
+            if (testMode === 'http1-first') {
+                disableHttp2 = true;
+            }
+
+            function processTestUrl(url, cb) {
+                log('   Testing url ' + (disableHttp2 ? 'http1 only' : '') + ':', url);
 
                 var startTime = new Date().getTime();
                 var timeout;
@@ -287,6 +371,16 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         log('       done');
                     }
 
+                    if (testMode === 'http1-first') {
+                        if (!disableHttp2 && (!data || !data.h2)) {
+                            // No http2.
+                            // Next iteration.
+                            disableHttp2 = true;
+                            cb();
+                            return;
+                        }
+                    }
+
                     var logEntry = new PageTestLog({
                         url: url,
                         test_set: testUrlsSet._id,
@@ -297,7 +391,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     if (error) {
                         if (error.code === "timeout") {
                             logEntry.warnings = [error.code];
-                        } else if ((error.responseCode == 404)) {
+                        } else if ((error.responseCode === 404 || error.responseCode === 410)) {
                             logEntry.warnings = [error.responseCode];
                         } else if (error.stack) {
                             logEntry.errors_list = [error.stack];
@@ -307,6 +401,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     }
 
                     if (data) {
+
+                        logEntry.h2 = data.h2;
 
                         var rels = [];
                         data.links.forEach(function(link) {
@@ -370,7 +466,42 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         }
                     }
 
-                    logEntry.save(cb);
+                    logEntry.save(function(error) {
+
+                        if (error) {
+                            console.log('error', error)
+                            return cb(error);
+                        }
+
+                        checkPageTestLogChangeNotification(logEntry);
+
+                        if (testMode === 'http1-first') {
+
+                            if (disableHttp2) {
+                                disableHttp2 = false;
+                                processTestUrl(url, cb);
+                            } else {
+                                disableHttp2 = true;
+                                cb();
+                            }
+
+                        } else if (testMode === 'h2-first') {
+
+                            if (logEntry.h2 && !disableHttp2) {
+                                // http2 used. Now try without it.
+                                disableHttp2 = true;
+                                processTestUrl(url, cb);
+                            } else {
+                                // Reset disableHttp2 to make next test with http2.
+                                disableHttp2 = false;
+                                cb();
+                            }
+
+                        } else {
+                            cb();
+                        }
+                        
+                    });
                 }
 
                 timeout = setTimeout(function() {
@@ -383,11 +514,13 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         debug: true,
                         refresh: true,
                         readability: true,
+                        disableHttp2: disableHttp2,
                         getWhitelistRecord: whitelist.findWhitelistRecordFor
                     }, callback);
                 }, CONFIG.tests.pause_between_tests || 0);
+            }
 
-            }, cb);
+            async.eachSeries(testUrlsSet.urls, processTestUrl, cb);
         },
 
         function removeOldSets(cb) {
@@ -542,9 +675,10 @@ function testAll(cb) {
 
         function(cb) {
             if (testOnePlugin || count == 0) {
-                cb()
+                cb();
             } else {
                 console.log('finish');
+
                 TestingProgress.update({
                     _id: 1
                 }, {

@@ -5,7 +5,7 @@ module.exports = {
     getMeta: function(url, twitter) {
 
     	var site = (twitter.site && twitter.site.value) || twitter.site;
-    	if (!site) {return;}
+    	if (!site || typeof site !== 'string') {return;}
 
     	site = site.replace(/^@/, '');
 

@@ -2,7 +2,6 @@ module.exports = {
 
     re: [
         /^https?:\/\/[a-z0-9-]+\.bandcamp\.com\/(album|track)\/(\w+)/i,
-        /^https?:\/\/[a-z0-9-]+\.bandcamp\.com/i,
         // hosted bandcamp with digits is now covered via og:url redirect in general plugins. Requires FB user agent
         /^https?:\/\/([a-z-\.]+)\/(album|track)\/([a-z-]+)\/?$/i // watch out for overlay with play.spotify.com which has digits
     ],
@@ -27,9 +26,9 @@ module.exports = {
         };
     },
 
-    getLinks: function(meta, options) {
+    getLinks: function(meta, urlMatch, options) {
 
-        if (!/bandcamp/i.test(meta.twitter && meta.twitter.site || meta.generator)) {
+        if (!/bandcamp/i.test(meta.twitter && meta.twitter.site || meta.generator || meta.og && meta.og.url)) {
             return;
         }
 
@@ -129,6 +128,10 @@ module.exports = {
 
                 return player;
             }
+        } else {
+            return {
+                message: `This Bandcamp ${urlMatch[1]} is not embeddable`
+            }
         }
     },
 
@@ -142,7 +145,7 @@ module.exports = {
         "http://mad-hop.bandcamp.com/track/fracture",
         "http://music.zackhemsey.com/album/ronin",
         "http://music.zackhemsey.com/track/dont-get-in-my-way",
-        "https://decembersongs.bandcamp.com/",
+        "https://decembersongs.bandcamp.com/album/an-east-nashville-christmas",
         "http://sonsofoflaherty.bandcamp.com/album/misc-songs",
         "http://badsheeps.bandcamp.com/album/bad-sheeps" // doesn't have twitter player when not published
     ]

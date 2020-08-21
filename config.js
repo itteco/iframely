@@ -18,9 +18,10 @@
         baseAppUrl: "",
         port: 8061,
         relativeStaticUrl: "/s",
+        use_http2: true,
         DEBUG: false,
-        WORKERS_COUNT: require('os').cpus().length,
 
+        SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
         WHITELIST_EXTEND: false,
@@ -37,6 +38,19 @@
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
         CACHE_TTL_PAGE_404: 10 * 60,
         CACHE_TTL_PAGE_OTHER_ERROR: 1 * 60,
+
+        // Do not cache response in htmlparser with these status codes.
+        TEMP_HTTP_ERROR_CODES: [
+            408,
+            418,
+            429
+            // 5xx included in logic.
+        ],
+
+        HTTP2_RETRY_CODES_LIST: [
+            'ECONNRESET',
+            'ESOCKETTIMEDOUT'
+        ],
 
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
@@ -61,7 +75,7 @@
 
         T: {
             text_html: "text/html",
-            maybe_text_html: "maybe_text_html",            
+            maybe_text_html: "maybe_text_html",
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
@@ -135,6 +149,7 @@
 
             inline: "inline",
             ssl: "ssl",
+            resizable: "resizable",
 
             autoplay: "autoplay",
             html5: "html5",
@@ -146,8 +161,15 @@
 
             audio: 'audio',
             slideshow: 'slideshow',
-            playlist: 'playlist'            
+            playlist: 'playlist',
+            '3d': '3d'
         },
+
+        FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
+            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media',
+            'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
+            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr'
+        ],
 
         // Option names
         O: {
@@ -170,7 +192,124 @@
             auto: 'Auto',
             default: 'Default',
             height: 'Adjust height',
+            width: 'Adjust width',
             page: 'Active page'
+        },
+
+        LC: {
+            "af": "Afrikaans",
+            "sq": "Albanian",
+            "arq": "Algerian Arabic",
+            "am": "Amharic",
+            "ar": "Arabic",
+            "hy": "Armenian",
+            "ast": "Asturian",
+            "az": "Azerbaijani",
+            "eu": "Basque",
+            "be": "Belarusian",
+            "bn": "Bengali",
+            "bi": "Bislama",
+            "bs": "Bosnian",
+            "bg": "Bulgarian",
+            "my": "Burmese",
+            "ca": "Catalan",
+            "ceb": "Cebuano",
+            "zh-cn": "Chinese, Simplified",
+            "zh-tw": "Chinese, Traditional",
+            "zh": "Chinese, Yue",
+            "ht": "Creole, Haitian",
+            "hr": "Croatian",
+            "cs": "Czech",
+            "da": "Danish",
+            "nl": "Dutch",
+            "dz": "Dzongkha",
+            "en": "English",
+            "eo": "Esperanto",
+            "et": "Estonian",
+            "fil": "Filipino",
+            "fi": "Finnish",
+            "fr": "French",
+            "fr-ca": "French (Canada)",
+            "gl": "Galician",
+            "ka": "Georgian",
+            "de": "German",
+            "el": "Greek",
+            "gu": "Gujarati",
+            "cnh": "Hakha Chin",
+            "ha": "Hausa",
+            "he": "Hebrew",
+            "hi": "Hindi",
+            "hu": "Hungarian",
+            "hup": "Hupa",
+            "is": "Icelandic",
+            "ig": "Igbo",
+            "id": "Indonesian",
+            "inh": "Ingush",
+            "ga": "Irish",
+            "it": "Italian",
+            "ja": "Japanese",
+            "kn": "Kannada",
+            "kk": "Kazakh",
+            "km": "Khmer",
+            "tlh": "Klingon",
+            "ko": "Korean",
+            "ku": "Kurdish",
+            "lo": "Lao",
+            "ltg": "Latgalian",
+            "la": "Latin",
+            "lv": "Latvian",
+            "lt": "Lithuanian",
+            "lb": "Luxembourgish",
+            "rup": "Macedo",
+            "mk": "Macedonian",
+            "mg": "Malagasy",
+            "ms": "Malay",
+            "ml": "Malayalam",
+            "mr": "Marathi",
+            "mfe": "Mauritian Creole",
+            "mn": "Mongolian",
+            "srp": "Montenegrin",
+            "ne": "Nepali",
+            "nb": "Norwegian Bokmal",
+            "nn": "Norwegian Nynorsk",
+            "oc": "Occitan",
+            "ps": "Pashto",
+            "fa": "Persian",
+            "pl": "Polish",
+            "pt": "Portuguese",
+            "pt-br": "Portuguese, Brazilian",
+            "pa": "Punjabi",
+            "ro": "Romanian",
+            "ru": "Russian",
+            "ry": "Rusyn",
+            "sc": "Sardinian",
+            "sr": "Serbian",
+            "sh": "Serbo-Croatian",
+            "szl": "Silesian",
+            "si": "Sinhala",
+            "sk": "Slovak",
+            "sl": "Slovenian",
+            "so": "Somali",
+            "sp": "Spanish",
+            "es": "Spanish",
+            "sw": "Swahili",
+            "sv": "Swedish",
+            "art-x-bork": "Swedish Chef",
+            "tl": "Tagalog",
+            "tg": "Tajik",
+            "ta": "Tamil",
+            "tt": "Tatar",
+            "te": "Telugu",
+            "th": "Thai",
+            "bo": "Tibetan",
+            "aeb": "Tunisian Arabic",
+            "tr": "Turkish",
+            "tk": "Turkmen",
+            "uk": "Ukrainian",
+            "ur": "Urdu",
+            "ug": "Uyghur",
+            "uz": "Uzbek",
+            "vi": "Vietnamese",
         },
 
         // Whitelist settings.
@@ -201,7 +340,7 @@
                 "video",
                 "photo"
             ],
-            "html-meta": [  // TODO: Need change to 'fb'.
+            "html-meta": [
                 "video",
                 "embedURL"
             ]
@@ -231,7 +370,7 @@
             "sm4"
         ],
 
-        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard)\./i,
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay)\.\w+\//i,
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
@@ -275,11 +414,16 @@
         } else {
             baseAppUrlForAgent = config.baseAppUrl;
         }
-        
-        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ";)";
+
+        config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ")";
     }
 
     config.TYPES = Object.values(config.T);
+
+    config.HTTP2_RETRY_CODES = {};
+    config.HTTP2_RETRY_CODES_LIST.forEach(function(item) {
+        config.HTTP2_RETRY_CODES[item] = 1;
+    });
 
     module.exports = config;
 })();

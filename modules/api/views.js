@@ -133,7 +133,6 @@ module.exports = function(app) {
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh'),
                     providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }
@@ -199,6 +198,7 @@ module.exports = function(app) {
             var omit_css = getBooleanParam(req, 'omit_css');
 
             iframelyUtils.generateLinksHtml(result, {
+                mediaPriority: getBooleanParam(req, 'media'),
                 autoplayMode: getBooleanParam(req, 'autoplay'),
                 aspectWrapperClass:     omit_css ? CONFIG.DEFAULT_OMIT_CSS_WRAPPER_CLASS : false,
                 maxWidthWrapperClass:   omit_css ? CONFIG.DEFAULT_MAXWIDTH_WRAPPER_CLASS : false,
@@ -250,7 +250,7 @@ module.exports = function(app) {
 
     app.get('/reader.js', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -304,7 +304,7 @@ module.exports = function(app) {
 
     app.get('/render', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -410,7 +410,7 @@ module.exports = function(app) {
 
     app.get('/oembed', function(req, res, next) {
 
-        var uri = prepareUri(req.query.url);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -429,7 +429,6 @@ module.exports = function(app) {
                     filterNonHTML5: getBooleanParam(req, 'html5'),
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh'),
                     providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }

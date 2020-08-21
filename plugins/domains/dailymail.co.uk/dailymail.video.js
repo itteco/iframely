@@ -2,6 +2,8 @@ const decodeHTML5 = require('entities').decodeHTML5;
 
 module.exports = {
 
+    re: [].concat(require('./dailymail.embeddedvideo').re, require('./dailymail.galleryvideo').re),
+
     provides: 'dailymailVideo',
 
     getData: function(dailymailVideoID, cheerio) {
