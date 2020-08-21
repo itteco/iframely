@@ -253,13 +253,6 @@
 
     },
     {
-        "name": "500px",
-        "templates": [
-            "(?:web\\.)?500px\\.com/photo/(\\d+)"
-        ],
-        "endpoint": "https://500px.com/oembed?url=https://500px.com/photo/{1}&format={format}"
-    },
-    {
         "name": "Dipdive",
         "templates": [
             "\\w+\\.dipdive\\.com/media/.*"

@@ -2,25 +2,19 @@ module.exports = {
 
     re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/(\d+)/i,
 
-    mixins: [
-        "oembed-photo",
-        "domain-icon",
-        "oembed-author",
-        "oembed-site",
-        "oembed-title"
-    ],
+    mixins: ["*"],
 
-    getLinks: function(urlMatch, oembed) {
-        if (oembed.type === 'photo') {
+    getLinks: function(urlMatch, twitter) {
+        if (twitter.card === 'photo' && twitter.image) {
             return {
                 template_context: {
-                    title: oembed.title + ' | ' + oembed.provider_name,
-                    img_src: oembed.url,
+                    title: twitter.title + ' | ' + twitter.site,
+                    img_src: twitter.image.src,
                     id: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
-                "aspect-ratio": oembed.width / oembed.height
+                "aspect-ratio": twitter.image.height ? twitter.image.width / twitter.image.height : null
             }
         }
     },
