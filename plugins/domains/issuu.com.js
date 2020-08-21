@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
+    re: /^https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
 
     mixins: [
         "oembed-thumbnail",

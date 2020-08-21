@@ -64,7 +64,7 @@
         - memcached - https://github.com/3rd-Eden/node-memcached
         */
         CACHE_ENGINE: 'node-cache',
-        CACHE_TTL: 0, // In milliseconds. 
+        CACHE_TTL: 0, // In seconds. 
         // 0 = 'never expire' for memcached & node-cache to let cache engine decide itself when to evict the record
         // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
@@ -104,6 +104,11 @@
         // If there's no response from remote server, the timeout will occur after
         RESPONSE_TIMEOUT: 5 * 1000, //ms
 
+        /* From v1.4.0, Iframely supports HTTP/2 by default. Disable it, if you'd rather not.
+           Alternatively, you can also disable per origin. See `proxy` option below.
+        */
+        // DISABLE_HTTP2: true,
+
         // Customize API calls to oembed endpoints.
         ADD_OEMBED_PARAMS: [{
             // Endpoint url regexp array.
@@ -138,8 +143,10 @@
         */
          }],
 
+        /* Configure use of HTTP proxies as needed. 
+           You don't have to specify all options per regex - just what you need to override
+        */
         /*
-        // Configure use of HTTP proxies as needed
         PROXY: [{
             re: [/^https?:\/\/www\.domain\.com/],
             proxy_server: 'http://1.2.3.4:8080',
@@ -151,7 +158,9 @@
             request_options: {
                 // Refer to: https://github.com/request/request
                 // Overrides previous params if overlapped.
-            }
+            },
+            cache_ttl: 3600, // in seconds, cache response for 1 hour.
+            disable_http2: true
         }],
         */
 
@@ -202,6 +211,7 @@
             // It is probably the same API key you use for Google Maps.
             youtube: {
                 // api_key: "INSERT YOUR VALUE",
+                // parts: [ "snippet", "player" ], // list of fields you want to use in the request, in most cases you only need those two
                 get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters
             },
             vimeo: {
@@ -265,6 +275,20 @@
               }
         }
         */
+
+        // Black-list any of the inappropriate domains. Iframely will return 417
+        // At minimum, keep your localhosts blacklisted to avoid SSRF
+        BLACKLIST_DOMAINS_RE: [
+            /^https?:\/\/127\.0\.0\.1/i,
+            /^https?:\/\/localhost/i,
+
+            // And this is AWS metadata service
+            // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+            /^https?:\/\/169\.254\.169\.254/
+        ]
+
+        /** url for prerender service */
+        PRERENDER_URL: "https://domain/render?url=",
     };
 
     module.exports = config;

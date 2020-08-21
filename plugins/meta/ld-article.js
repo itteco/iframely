@@ -1,12 +1,25 @@
+const cheerio = require('cheerio');
+
 module.exports = {
 
     getMeta: function(ld) {
-
+		function clean(field) {
+			if (field) {
+				var $container = cheerio('<div>');
+				try {
+					$container.html(field);
+				} catch (ex) {
+					return undefined;
+				}
+				return $container.text();
+			}
+		}
     	if (ld.newsarticle) {
+
 	        return {
-	        	title: ld.newsarticle.headline,
-	        	category: ld.newsarticle.articlesection,
-                description: ld.newsarticle.description
+	        	title: clean(ld.newsarticle.headline),
+	        	category: clean(ld.newsarticle.articlesection),
+                description: clean(ld.newsarticle.description)
 	        }
     	}
     },

@@ -1,35 +1,29 @@
 module.exports = {
 
-    re: [
-        /^https?:\/\/www\.nbcnews\.com\/(?:[a-z\-]+\/)?videos?\/[a-zA-Z0-9-]+\-(\d+)/i        
-    ],
+    re: /^https?:\/\/www\.nbcnews\.com\/(?:[a-z\-]+\/)?videos?\/[a-zA-Z0-9-]+\-(\d+)/i,
 
-    mixins: [
-        "*"
-    ],
+    mixins: ["*"],
 
     getMeta: function (urlMatch) {
-
         return {
             media: "player"
         }
-
     },
 
-    getLink: function(urlMatch) {
-
+    // It's the same as in whitelist.
+    // Plugin remains in place for media=player and also for the test URLs
+    getLink: function(schemaVideoObject) {
 
         return {
-            href: 'https://www.nbcnews.com/widget/video-embed/' + urlMatch[1],
+            href: schemaVideoObject.embedURL || schemaVideoObject.embedurl,
             rel: [CONFIG.R.player, CONFIG.R.html5],
-            accept: CONFIG.T.text_html, // make sure it doesn't 404 
-                                            // as in http://www.nbcnews.com/video/watch-live-obama-holds-final-press-conference-as-president-857386563735
-            "aspect-ratio": 16/9,
-            scrolling: 'no'
+            accept: CONFIG.T.text_html,
+            "aspect-ratio": 560/315
         };
     },
 
     tests: [
+        "https://www.nbcnews.com/nightly-news/video/nbc-news-lester-holt-goes-inside-lab-creating-potential-coronavirus-treatment-80433221758",
         "https://www.nbcnews.com/video/obama-america-is-not-as-divided-as-some-suggest-721895491854",
         "https://www.nbcnews.com/nightly-news/video/wife-s-video-shows-deadly-encounter-between-keith-scott-and-police-772184131883"
     ]

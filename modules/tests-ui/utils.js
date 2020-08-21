@@ -4,6 +4,11 @@ var request = require('request');
 var async = require('async');
 var url = require('url');
 
+var models = require('./models');
+var PageTestLog = models.PageTestLog;
+var TestUrlsSet = models.TestUrlsSet;
+var PluginTest = models.PluginTest;
+
 var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
 
 var iframelyGetPluginData = require('../../lib/core').getPluginData;
@@ -23,6 +28,188 @@ pluginsList.forEach(function(p) {
         globalSkipMixins.push(p.id);
     }
 });
+
+const COLORS = {
+    green:  "#008000",
+    red:    "#FF0000",
+    yellow: "#FFFF00"
+};
+
+const SLACK_USERNAME = "Testy";
+
+exports.sendQANotification = function(logEntry, data) {
+
+    if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
+
+        var previewMessage = "[" + logEntry.plugin + "] " + data.message;
+        var message = "<" + CONFIG.baseAppUrl + "/tests#" + encodeURIComponent(logEntry.plugin) + "|[" + logEntry.plugin + "]> " + data.message;
+
+        var errors = logEntry.errors_list.map(function(info) {
+            return info.replace(logEntry.plugin + ' - ', '');
+        }).join(" - ");
+        if (errors) {
+            message += " - " + errors;
+        }
+
+        request({
+            uri: CONFIG.SLACK_WEBHOOK_FOR_QA,
+            method: 'POST',
+            json: true,
+            body: {
+                "parse": "none",
+                "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
+                "username": SLACK_USERNAME,
+                "text": previewMessage,
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": message  // Message: [domain.com] Failed - errors.
+                        }
+                    }
+                ],
+                "attachments": [
+                    {
+                        "blocks": [{
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "verbatim": true,
+                                "text": "`<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|debug>` " + logEntry.url.replace(/^https?:\/\//, '')    // Debug link.
+                            }
+                        }],
+                        "color": COLORS[data.color]
+                    }
+                ]
+            }
+        });
+    }
+}
+
+function getTestsSummary(cb) {
+    exports.loadPluginTests(function(error, pluginTests) {
+
+        pluginTests.forEach(function(pluginTest) {
+
+            if (!pluginTest.last_page_logs_dict) {
+                return;
+            }
+
+            var logs = _.values(pluginTest.last_page_logs_dict);
+
+            var allTimeout = _.all(logs, function(log) {
+                return log.hasTimeout();
+            });
+            if (allTimeout) {
+                pluginTest.passedUrls = 0;
+            } else {
+                pluginTest.passedUrls = logs.filter(function(log) {
+                    return !log.hasError();
+                }).length;
+            }
+
+            pluginTest.failedUrls = logs.length - pluginTest.passedUrls;
+            pluginTest.hasError = pluginTest.failedUrls > 0;
+        });
+
+        var good_items = pluginTests.filter(function(p) { return !p.hasError; });
+        var bad_items = pluginTests.filter(function(p) { return p.hasError; });
+
+        cb(null, {
+            passed: good_items.length,
+            failed: bad_items.length,
+            failed_list: bad_items.map(function(p) {return p._id;})
+        });
+    });
+}
+
+exports.loadPluginTests = function(cb) {
+
+    var pluginTests;
+
+    async.waterfall([
+
+        function loadPluginTests(cb) {
+            PluginTest.find({
+                obsolete: false
+            }, {}, {
+                sort:{
+                    _id: 1
+                }
+            }, cb);
+        },
+
+        function loadTestSets(_pluginTests, cb) {
+
+            pluginTests = _pluginTests;
+
+            async.mapSeries(pluginTests, function(p, cb) {
+
+                var testUrlSet;
+
+                async.waterfall([
+
+                    function(cb) {
+                        TestUrlsSet.findOne({
+                            plugin: p._id
+                        }, {}, {
+                            sort: {
+                                created_at: -1
+                            }
+                        }, cb);
+                    },
+
+                    function(_testUrlSet, cb) {
+                        testUrlSet = _testUrlSet;
+                        if (testUrlSet) {
+                            PageTestLog.find({
+                                test_set: testUrlSet._id
+                            }, cb)
+                        } else {
+                            cb(null, null);
+                        }
+                    },
+
+                    function(pageTestLogs, cb) {
+                        if (testUrlSet) {
+                            testUrlSet.pageTestLogs = pageTestLogs || [];
+                        }
+                        cb(null, testUrlSet);
+                    }
+                ], cb);
+                
+            }, cb);
+        },
+
+        function loadLogs(sets, cb) {
+
+            var pluginTestsDict = _.object(pluginTests.map(function(p) { return [p._id, p]; }));
+
+            async.eachSeries(sets.filter(function(s) {return s;}), function(s, cb) {
+
+                var pluginTest = pluginTestsDict[s.plugin];
+                pluginTest.last_urls_set = s;
+                pluginTest.last_page_logs_dict = {};
+
+                s.urls = s.urls || [];
+                s.pageTestLogs.forEach(function(pageTestLog) {
+                    var key = pageTestLog.url;
+                    if (pageTestLog.h2) {
+                        key += ':h2';
+                    }
+                    pluginTest.last_page_logs_dict[key] = pageTestLog;
+                });
+
+                cb();
+
+            }, cb);
+        }
+            
+    ], function(error) {
+        cb(error, pluginTests);
+    });
+}
 
 exports.getPluginUnusedMethods = function(pluginId, debugData) {
 

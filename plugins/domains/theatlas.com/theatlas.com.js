@@ -3,11 +3,13 @@ var utils = require('../../../lib/utils');
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.theatlas\.com\/charts\/([a-zA-Z0-9]+)/i              
+        /^https?:\/\/(?:www\.)?theatlas\.com\/charts\/([a-zA-Z0-9]+)/i              
     ],    
 
     mixins: ["*"],
 
+    // Quartz is no longer developing or supporting Atlas.
+    // But the old content remains available.
     getLink: function(urlMatch, twitter, options, cb) {
 
         if (twitter.image) {

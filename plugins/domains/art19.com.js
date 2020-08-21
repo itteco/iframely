@@ -84,7 +84,6 @@ module.exports = {
             "twitter-image"
         ]
     },
-        "https://art19.com/shows/fox-sports-live/episodes/4c924063-ca48-487c-ad93-b2b3485a267c",
-        "https://art19.com/shows/skip-and-shannon-undisputed/embed"
+        "https://art19.com/shows/the-ringer-nba-show/episodes/350698d2-9b63-41ca-aca5-6b2d4c9fdf59"
     ]
 };

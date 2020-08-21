@@ -10,10 +10,11 @@ module.exports = {
                 }
             };            
         }
-    }
+    },
 
-    // http://video.self.com/watch/self-x-tone-it-up-challenge
-    // http://video.architecturaldigest.com/watch/the-simple-beauty-of-rafael-vinoly-s-architecture
-    // https://thescene.com/watch/pitchfork/pitchfork-live-watch-jessy-lanza-perform-never-enough?source=player_scene_logo
-
+    tests: [
+        "http://video.self.com/watch/self-x-tone-it-up-challenge",
+        "http://video.architecturaldigest.com/watch/the-simple-beauty-of-rafael-vinoly-s-architecture",
+        "https://www.wired.com/video/watch/teen-technorati-get-to-know-19-year-old-tech-whiz-2014-thiel-fellow-lucy-guo"
+    ]
 };

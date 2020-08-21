@@ -11,10 +11,10 @@ module.exports = {
 
     getLink: function(meta, urlMatch) {
 
-        if (meta.medium == "video") {
+        if (!meta.nyt_uri || /^nyt:\/\/video\//i.test(meta.nyt_uri)) {
             return {
                 href: "https://www.nytimes.com/video/players/offsite/index.html?videoId=" + urlMatch[1],
-                accept: CONFIG.T.text_html, // may return X-Frame-Options at the moment. Check it.                
+                accept: CONFIG.T.text_html, // may return X-Frame-Options, check it.
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 16/9,
                 "padding-bottom": 71 + 1

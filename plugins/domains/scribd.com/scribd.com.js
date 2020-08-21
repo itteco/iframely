@@ -1,12 +1,12 @@
 const $ = require('cheerio');
-const utils = require('../../lib/utils');
+const utils = require('../../../lib/utils');
 const querystring = require('querystring');
 const URL = require("url");
 
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|\w{2})\.scribd\.com\/(?:doc|document|embeds|presentation|fullscreen)\//i
+        /^https?:\/\/(?:www|\w{2})\.scribd\.com\/(doc|document|embeds|presentation|fullscreen)\/(\d+)/i
     ],
 
     provides: ['scribdAspect'],
@@ -73,9 +73,13 @@ module.exports = {
         }
     },
 
-    getData: function(og, oembed, options, cb) {
+    getData: function(urlMatch, og, oembed, options, cb) {
 
-        if (!og.image) {return cb(null, null);}
+        if (!og.image) {
+            return 'embeds' === urlMatch[1]
+                ? cb({redirect: `https://www.scribd.com/document/${urlMatch[2]}`})
+                : cb(null, null);
+        }
 
         utils.getImageMetadata(og.image.value || og.image, options, function(error, data) {
 

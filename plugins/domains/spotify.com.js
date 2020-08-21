@@ -1,13 +1,14 @@
-const cheerio = require('cheerio');
-
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|user|album|artist|show|episode)/i
+        /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|album|artist|show|episode|playlist)/i
     ],
 
     mixins: [
-        "oembed-site",
+        "og-site",
+        "oembed-iframe",
+        "og-image",
+        "oembed-thumbnail",
         "domain-icon"
     ],
 
@@ -23,19 +24,11 @@ module.exports = {
         }
     },
 
-    getLink: function(oembed, meta, options) {
+    getLink: function(iframe, meta, options) {
 
-        var $container = cheerio('<div>');
+        if (iframe.src) {
 
-        try {
-            $container.html(oembed.html5 || oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
-            var src = $iframe.attr('src');
+            var src = iframe.src;
 
             var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
 
@@ -58,11 +51,11 @@ module.exports = {
                         'aspect-ratio': 4/3,
                         'padding-bottom': 80,
                     } : {
-                        height: !include_playlist ? 80 : (oembed.height || 400)
+                        height: !include_playlist ? 80 : (iframe.height || 400)
                     };
             } else if (/episode|show/.test(src)) {
                 player.rel.push(CONFIG.R.audio);
-                player.height = oembed.height || 232;
+                player.height = iframe.height || 232;
             } else {
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
@@ -77,38 +70,36 @@ module.exports = {
                 };
             }
 
-            return [player, {
-                href: (meta.og && meta.og.image) || oembed.thumbnail_url,
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail
-            }, 
-            {
-                href: 'https://open.scdn.co/static/images/touch-icon-114.png',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.icon
-                // no sizes - let's validate it.
-            }]
+            return player;
         }
 
     },
 
     getData: function (url, options, cb) {
 
+        const trackInAlbumRegex = /^https?:\/\/open\.spotify\.com\/album\/[a-zA-Z0-9]+\?highlight=spotify:track:([a-zA-Z0-9]+)/i;
+
         if (!options.redirectsHistory && /^https?:\/\/play\./i.test(url)) {
             return cb ({
                 redirect: url.replace(/^https?:\/\/play\./i, 'https://open.')
             })
+        } else if (!options.redirectsHistory 
+            && trackInAlbumRegex.test(url)) {
+            return cb ({
+                redirect: 'https://open.spotify.com/track/' + url.match(trackInAlbumRegex)[1]
+            })            
+
         } else {
             cb(null);
         }
     },    
 
-    tests: [{noFeeds: true}, {skipMethods: ["getData"]},
-        "https://play.spotify.com/user/1241058074/playlist/44CgBWWr6nlpy7bdZS8ZmN",
+    tests: [{noFeeds: true}, {skipMethods: ["getData"], skipMixins: ["oembed-iframe", "oembed-thumbnail", "og-image"]},
+        "https://open.spotify.com/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
-        "http://open.spotify.com/user/cgwest23/playlist/4SsKyjaGlrHJbRCQwpeUsz",
+        "https://open.spotify.com/playlist/4SsKyjaGlrHJbRCQwpeUsz",
         "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi",
-        "https://open.spotify.com/user/bradgarropy/playlist/0OV99Ep2d1DCENJRPuEtXV",
+        "https://open.spotify.com/playlist/0OV99Ep2d1DCENJRPuEtXV",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "https://open.spotify.com/track/4by34YzNiEFRESAnBXo7x4",
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
@@ -117,6 +108,7 @@ module.exports = {
         "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
         "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
         "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW",
-        "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68"
+        "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68",
+        "https://open.spotify.com/album/3obcdB2QRQMfUBHzjOto4K?highlight=spotify:track:2qZ36jzyP1u29KaeuMmRZx"
     ]
 };
