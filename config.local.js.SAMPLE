@@ -7,9 +7,6 @@
         DEBUG: false,
         RICH_LOG_ENABLED: false,
 
-        // Limit workers count. If not specified, os.cpus().length is used
-        WORKERS_COUNT: 1
-
         // add custom whitelist to Iframely whitelist instead of replacing it
         WHITELIST_EXTEND: false,
 
@@ -64,7 +61,7 @@
         - memcached - https://github.com/3rd-Eden/node-memcached
         */
         CACHE_ENGINE: 'node-cache',
-        CACHE_TTL: 0, // In seconds. 
+        CACHE_TTL: 0, // In seconds.
         // 0 = 'never expire' for memcached & node-cache to let cache engine decide itself when to evict the record
         // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
@@ -143,7 +140,7 @@
         */
          }],
 
-        /* Configure use of HTTP proxies as needed. 
+        /* Configure use of HTTP proxies as needed.
            You don't have to specify all options per regex - just what you need to override
         */
         /*
@@ -166,8 +163,8 @@
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
         providerOptions: {
-            locale: "en_US",    // ISO 639-1 two-letter language code, e.g. en_CA or fr_CH. 
-                                // Will be added as highest priotity in accept-language header with each request. 
+            locale: "en_US",    // ISO 639-1 two-letter language code, e.g. en_CA or fr_CH.
+                                // Will be added as highest priotity in accept-language header with each request.
                                 // Plus is used in FB, YouTube and perhaps other plugins
             "twitter": {
                 "max-width": 550,
@@ -176,7 +173,7 @@
                 hide_thread: false,
                 omit_script: false,
                 center: false,
-                // dnt: true,                
+                // dnt: true,
                 cache_ttl: 100 * 365 * 24 * 3600 // 100 Years.
             },
             readability: {

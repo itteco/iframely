@@ -39,28 +39,7 @@ To get started with the APIs:
  - [META semantics](https://iframely.com/docs/meta) Iframely API scrapes for you.
  - Visual debug tool included in the package is at `{your.server}/debug`
 
-## Docker
 
-Build image:
-```
-docker build -t iframely:latest .
-
-```
-
-Run in development mode: 
-```
-docker run -it -p 8061:8061 -p 9329-9400:9229-9300 -e "NODE_ENV=development" -v $PWD/config.local.js:/iframely/config.local.js --name iframely iframely:latest
-```
-
-Run in production mode: 
-```
-docker run -it -p 8061:8061 -v $PWD/config.local.js:/iframely/config.local.js --name iframely iframely:latest
-```
-
-Stop:
-```
-docker stop iframely
-```
 
 ## Contribute
 

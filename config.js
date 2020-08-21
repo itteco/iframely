@@ -20,7 +20,6 @@
         relativeStaticUrl: "/s",
         use_http2: true,
         DEBUG: false,
-        WORKERS_COUNT: require('os').cpus().length,
 
         SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
@@ -42,8 +41,8 @@
 
         // Do not cache response in htmlparser with these status codes.
         TEMP_HTTP_ERROR_CODES: [
-            408, 
-            418, 
+            408,
+            418,
             429
             // 5xx included in logic.
         ],
@@ -76,7 +75,7 @@
 
         T: {
             text_html: "text/html",
-            maybe_text_html: "maybe_text_html",            
+            maybe_text_html: "maybe_text_html",
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
@@ -167,7 +166,7 @@
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
-            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
+            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media',
             'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
             'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr'
         ],
@@ -415,7 +414,7 @@
         } else {
             baseAppUrlForAgent = config.baseAppUrl;
         }
-        
+
         config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ")";
     }
 
