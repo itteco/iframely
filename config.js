@@ -19,7 +19,6 @@
         relativeStaticUrl: "/s",
         use_http2: true,
         DEBUG: false,
-        WORKERS_COUNT: require('os').cpus().length,
 
         SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
@@ -40,8 +39,8 @@
 
         // Do not cache response in htmlparser with these status codes.
         TEMP_HTTP_ERROR_CODES: [
-            408, 
-            418, 
+            408,
+            418,
             429
             // 5xx included in logic.
         ],
@@ -78,7 +77,7 @@
 
         T: {
             text_html: "text/html",
-            maybe_text_html: "maybe_text_html",            
+            maybe_text_html: "maybe_text_html",
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
@@ -425,7 +424,7 @@
         } else {
             baseAppUrlForAgent = config.baseAppUrl;
         }
-        
+
         config.USER_AGENT = "Iframely/" + version + " (+" + (baseAppUrlForAgent || 'https://github.com/itteco/iframely') + ")";
     }
 
