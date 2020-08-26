@@ -9,7 +9,7 @@ module.exports = {
         /^https?:\/\/(?:www|\w{2})\.scribd\.com\/(doc|document|embeds|presentation|fullscreen)\/(\d+)/i
     ],
 
-    provides: ['scribdAspect'],
+    provides: ['scribdData'],
 
     mixins: [
         "oembed-title",
@@ -21,18 +21,8 @@ module.exports = {
         "og-description"
     ],
 
-    getLink: function(url, oembed, scribdAspect, options) {
-
-        var $container = $('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch(ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
-            var href = $iframe.attr('src');
+    getLink: function(url, scribdData, options) {
+            var href = scribdData.href;
             var params = URL.parse(href, true).query;
             var hash = URL.parse(url, true).hash;
 
@@ -57,7 +47,7 @@ module.exports = {
                 href: href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1'),
                 accept: CONFIG.T.text_html,
                 rel: slideshow ? [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.html5, CONFIG.R.oembed] : [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
-                'aspect-ratio': scribdAspect,
+                'aspect-ratio': scribdData.aspect,
                 'padding-bottom': 45, // toolbar
                 options: {
                     slideshow: {
@@ -69,7 +59,7 @@ module.exports = {
                         value: page
                     }
                 }
-            }
+
         }
     },
 
@@ -86,10 +76,29 @@ module.exports = {
             if (error || data.error) {
                 console.log ('Error getting preview for Scribd: ' + error);
             } else {
-                return cb(null, {
-                    scribdAspect: data.width && data.height ? data.width / data.height : (oembed.thumbnail_height ?  oembed.thumbnail_width / oembed.thumbnail_height : null)
-                })
+                var $container = $('<div>');
+                try {
+                    $container.html(oembed.html);
+                } catch(ex) {}
 
+                var $iframe = $container.find('iframe');
+                if ($iframe.length === 1) {
+
+                    return cb(null, {
+                        scribdData: {
+                            aspect:
+                                data.width
+                                && data.height
+                                ? data.width / data.height
+                                : (oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : null),
+
+                            href: $iframe.attr('src')
+                        }
+                    })
+
+                } else {
+                    return cb(null, null)
+                }
             }
         });
     },
