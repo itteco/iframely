@@ -11,15 +11,7 @@ module.exports = {
 
     provides: ['scribdData'],
 
-    mixins: [
-        "oembed-title",
-        "oembed-thumbnail",
-        "oembed-site",
-        "oembed-author",
-        "og-image",
-        "domain-icon",
-        "og-description"
-    ],
+    mixins: [ "*" ],
 
     getLink: function(url, scribdData, options) {
             var href = scribdData.href;

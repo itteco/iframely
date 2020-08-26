@@ -4,13 +4,11 @@ module.exports = {
 
     re: require('./scribd.com').re,
 
-    mixins: [ "*" ],
-
     provides: ["scribdData"],
 
     getData: function(oembedError, cb, url, options, urlMatch, request) {
 
-        if (oembedError === 401 && /secret_password=/.test(url) && urlMatch.length === 3) {
+        if (oembedError === 401 && /(\?|&)secret_password=/.test(url)) {
 
             var secret = URL.parse(url, true).query["secret_password"];
 
