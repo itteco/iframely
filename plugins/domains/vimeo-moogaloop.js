@@ -1,7 +1,8 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i
+        /^https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i,
+        /^https?:\/\/player\.vimeo\.com\/video\/(\d+)/i
     ],
 
     // direct link to old swf, for example, 

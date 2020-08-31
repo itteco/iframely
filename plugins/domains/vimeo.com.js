@@ -3,9 +3,11 @@ const _ = require('underscore');
 
 module.exports = {
 
+    re: /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+
     mixins: [
         "oembed-title",
-        //"oembed-thumbnail", // allowed in getLink - only for landscape videos due to size problem
+        //"oembed-thumbnail", // Allowed in getLink - only for landscape videos due to size problem.
         "oembed-author",
         "oembed-duration",
         "oembed-site",
@@ -33,18 +35,20 @@ module.exports = {
         var qs = querystring.stringify(params);
         if (qs !== '') {qs = '?' + qs}
 
-        var player = {
-            href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
-            type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
-            "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
-            autoplay: "autoplay=1"
-        };
+        var links = [];
 
-        var links = [player];
+        if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
+            links.push({
+                href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
+                type: CONFIG.T.text_html,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
+                autoplay: "autoplay=1"
+            });
+        }
 
-        // let's try and add bigger image if needed, but check that it's value
-        // no need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214
+        // Let's try and add bigger image if needed, but check that it's value.
+        // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
         if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}\.jpg$/.test(oembed.thumbnail_url)) {
             links.push({
                 href:oembed.thumbnail_url.replace(/_\d+x\d+\.jpg$/, '.jpg'),
@@ -54,7 +58,7 @@ module.exports = {
         }
 
         if (!oembed.thumbnail_url) {
-            links.push({message: 'Password required for this video'});
+            links.push({message: 'Contact support to ' + (options.getProviderOptions('vimeo.disable_private', false) ? 'enable' : 'disable')+ ' Vimeos with site restrictions.'});
         } else if (oembed.width > oembed.height) { // oEmbed comes with the wrong thumbnail sizes for portrait videos
             links.push({
                 href:oembed.thumbnail_url,
@@ -70,11 +74,10 @@ module.exports = {
     },
 
     getData: function(url, oembedError, cb, options, whitelistRecord) {
-        // handle private videos, ex. https://vimeo.com/243312327, https://vimeo.com/channels/staffpicks/116307147
+        // Handle private videos, ex. https://vimeo.com/243312327
         cb (null,
             oembedError == 403 ? {
-                whitelistRecord: options.getWhitelistRecord(url, {exclusiveRel: 'oembed'}),
-                message: 'Because of its privacy settings, this video cannot be embedded'
+                message: 'Because of its privacy settings, this video cannot be embedded.'
             } : null
         );
 
@@ -83,15 +86,11 @@ module.exports = {
     tests: [{
         feed: "http://vimeo.com/channels/staffpicks/videos/rss"
     },
-        "http://vimeo.com/65836516",
+        "https://vimeo.com/65836516",
+        "https://vimeo.com/141567420",
         {
-            skipMixins: [
-                "oembed-description"
-            ]
-        }, {
-            skipMethods: [
-                "getData"
-            ]
+            skipMixins: ["oembed-description"],
+            skipMethods: ["getData"]
         }
     ]
 };

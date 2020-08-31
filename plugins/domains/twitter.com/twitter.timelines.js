@@ -1,17 +1,15 @@
 module.exports = {
 
-    // remove this plugin when Twitter fixes centering
-
     re: [
         /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?)\/(\d+)/i,
         /^https?:\/\/twitter\.com\/\w+$/i,
-        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?|lists?)\//i,
+        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?|lists?)\/?/i
     ],
 
     mixins: [
         'domain-icon',
         'oembed-site',
-        'html-title',
+        'oembed-title',
         'description',
         'og-image',
         'canonical'
@@ -21,7 +19,15 @@ module.exports = {
 
         var html = oembed.html;
 
-        if (options.getProviderOptions('twitter.center', true) && oembed.width) {
+        var width = options.maxWidth || options.getProviderOptions('twitter.timeline_width');
+
+        if (width) {
+            html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
+        } else if (width === '') {
+            html = html.replace(/data\-width=\"\d+\"\s?/i, '');
+        }
+
+        if (options.getProviderOptions('twitter.center', true) && /data\-width=\"\d+\"/i.test(html)) {
             html = '<div align="center">' + html + '</div>';
         }
 
@@ -35,13 +41,17 @@ module.exports = {
 
         if (limit !== 20) {
             html = html.replace(/href="/, 'data-tweet-limit="' + limit + '" href="');
-        }            
+        }
+
+        var theme = options.getRequestOptions('players.theme', '');
+        if (theme === 'dark' && !/data\-theme=\"dark\"/.test(html)) {
+            html = html.replace(/href="/, 'data-theme="dark" href="');
+        }
 
         return {
             html: html,
             rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
             type: CONFIG.T.text_html,
-            'max-width': oembed.width,
             options: {
                 limit: {
                     label: 'Include up to 20 tweets',
@@ -50,17 +60,29 @@ module.exports = {
                         max: 20,
                         min: 1
                     }
+                },
+                theme: {
+                    value: theme,
+                    values: {
+                        dark: "Use dark theme"
+                    }
                 }
             }
         }
     },
 
+    getData: function(options) {
+        options.followHTTPRedirect = true; // avoids login re-directs on /likes that blocked oEmbed discovery
+        options.exposeStatusCode = true;
+    },
+
     tests: [
         "https://twitter.com/potus",
+        "https://twitter.com/potus/likes",
         "https://twitter.com/i/moments/737260069209972736",
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
         "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
-        { skipMixins: ["og-image"]}
+        {skipMixins: ["og-image", "oembed-title", "description", "canonical", "domain-icon"]}, {skipMethods: ["getData"]}
     ]
 };

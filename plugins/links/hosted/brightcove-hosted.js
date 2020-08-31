@@ -15,12 +15,13 @@ module.exports = {
             };
         }
 
-        urlMatch = video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i) ||
-                   video_src.match(/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i);
+        urlMatch = video_src.match(/^https?:\/\/players\.brightcove\.net\/(\d+)\/([a-zA-Z0-9\-_]+|default)_default\/index.html\?videoId=([a-zA-Z0-9\-:]+)/i)
+                || video_src.match(/^https?:\/\/bcove\.me\/[a-zA-Z0-9]+/i)
+                || video_src.match(/^https?:\/\/players\.brightcove\.net\/pages\/v\d\/index\.html\?/i);
 
         if (urlMatch) {
             return {
-                __promoUri: video_src
+                __promoUri: video_src.replace(/&width=[^&]+/, '').replace(/&height=[^&]+/, '') // ex. for broken width/height: cricket.com.au
             };
         }
 

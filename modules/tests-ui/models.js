@@ -124,7 +124,8 @@
         test_set: {
             type: Schema.ObjectId,
             required: true,
-            ref: 'TestUrlsSet'
+            ref: 'TestUrlsSet',
+            index: true
         },
 
         plugin: {
@@ -141,7 +142,12 @@
         rel: [String],
 
         errors_list: [String],
-        warnings: [String]
+        warnings: [String],
+
+        h2: {
+            type: Boolean,
+            index: true
+        }
     });
 
     PageTestLogSchema.methods.hasError = function() {

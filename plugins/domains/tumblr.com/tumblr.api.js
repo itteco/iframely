@@ -5,7 +5,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
-        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{9,13})(?:\/[a-z0-9-]+)?/i
+        /^https?:\/\/([a-z-\.]+)\/(post)\/(\d{11,14})(?:\/[a-z0-9-]+)?(?:\?.*)?(?:#.*)?$/i
     ],
 
     provides: 'tumblr_post',
@@ -21,7 +21,7 @@ module.exports = {
             title: tumblr_post.title || caption || tumblr_post.summary || tumblr_post.blog_name,
             site: 'Tumblr',
             author: tumblr_post.blog_name,
-            author_url: 'http://' + tumblr_post.blog_name + '.tumblr.com',
+            author_url: 'https://' + tumblr_post.blog_name + '.tumblr.com',
             canonical: tumblr_post.permalink_url || tumblr_post.post_url,
             tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
             shortlink: tumblr_post.short_url,
@@ -34,7 +34,7 @@ module.exports = {
     getLink: function(tumblr_post) {
 
         var icon = {
-            href: "https://secure.assets.tumblr.com/images/apple-touch-icon-60x-60.png",
+            href: "https://assets.tumblr.com/images/apple-touch-icon-196x196.png",
             type: CONFIG.T.image,
             rel: CONFIG.R.icon
         };
@@ -52,7 +52,14 @@ module.exports = {
         }];
     },
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(oembedLinks, urlMatch, request, options, cb) {
+
+        // oEmbed will be in the known providers for *.tumblr.com; and it requires HTML parser discovery for custom domains.
+        var oembedLink = oembedLinks['0'];
+
+        if (!(oembedLink && /^https?:\/\/(?:www\.)?tumblr\.com/.test(oembedLink.href))) {
+            return cb(null); // Not a Tumblr domain, skip API calls and fall back to generic.
+        }
 
         var consumer_key = options.getProviderOptions('tumblr.consumer_key');
 
@@ -62,7 +69,7 @@ module.exports = {
         }
 
         request({
-            uri: "http://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
+            uri: "https://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
                 api_key: consumer_key,
                 id: urlMatch[3]
@@ -74,6 +81,10 @@ module.exports = {
 
                 if (error) {
                     return cb(error);
+                }
+
+                if (!body.meta) {
+                    return cb({responseStatusCode: 415, message: 'This Tumblr may contain sensitive media and is not supported'});
                 }
 
                 if (body.meta.status != 200) {

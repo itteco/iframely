@@ -87,13 +87,22 @@ module.exports = {
             cb (null, null);
         }
 
+    },
+
+    getData: function(url, oembedError) {
+
+        if (/^https?:\/\/(?:www\.)?slideshare\.net\/secret\//i.test(url) /* && oembedError */) {
+            return {
+                message: 'This content has been marked as private by the uploader.'
+            }
+        }
 
     },
 
     tests: [{
         page: "http://www.slideshare.net/popular/today",
         selector: "a.iso_slideshow_link"
-    },
+    }, {skipMethods: ["getData"]},
         "http://www.slideshare.net/geniusworks/gamechangers-the-next-generation-of-business-innovation-by-peter-fisk#btnNext",
         "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562"
     ]

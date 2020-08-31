@@ -1,9 +1,8 @@
 module.exports = {
 
     re: /^https?:\/\/(?:tube|www)\.geogebra\.org\/material\/\w+\/id\/([a-zA-Z0-9]+)/i,
-    //https://tube.geogebra.org/material/iframe/id/rgZVk8bJ
 
-    // it's here mostly just to detect proper embed sizing
+    // It's here mostly just to detect proper embed sizing.
     getLink: function(url, cheerio) {
         var $el = cheerio('script');
 
@@ -22,15 +21,20 @@ module.exports = {
                     }
                 }
             } catch (ex) {} 
+        } else {
+            return {
+                message: 'Make sure you publish the media before sharing..'
+            }
         }
     },
 
-    getData: function(__statusCode, cb) {
-        cb({
-            message: 'Make sure you publish the media before'
-        });
-
-    },    
+    getData: function(__statusCode) {
+        if (__statusCode === 403 || __statusCode === 401) {
+            return {
+                message: 'Make sure you publish the media before sharing.'
+            }
+        }
+    },
 
     tests: [{skipMethods: ['getData']},
         "https://www.geogebra.org/material/iframe/id/rgZVk8bJ"

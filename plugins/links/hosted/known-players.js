@@ -6,9 +6,9 @@ module.exports = {
 
         // Allow YouTube
         var urlMatch = video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/v\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/(?:https?:)?\/\/www\.youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/(?:https?:)?\/\/www\.youtube-nocookie\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
-                    || video_src.match(/(?:https?:)?\/\/www\.youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube-nocookie\.com\/v\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube-nocookie\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
+                    || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/embed\/([\-_a-zA-Z0-9]+)/i)
                     || video_src.match(/(?:https?:)?\/\/youtube\.googleapis\.com\/v\/([\-_a-zA-Z0-9]+)/i) //youtube.googleapis.com/v/k3Cd2lvQlN4?rel=0
                     || video_src.match(/(?:https?:)?\/\/(?:www\.)?youtube\.com\/watch\?v=([\-_a-zA-Z0-9]+)/i)
                     || video_src.match(/(?:https?:)?\/\/youtu\.be\/([\-_a-zA-Z0-9]+)/i);
@@ -23,6 +23,7 @@ module.exports = {
 
         // or DailyMotion, e.g. Liberation, Le Point, L'Express
         urlMatch = video_src.match(/^(?:https?:)?\/\/(?:www\.)?dailymotion\.com\/(?:swf|embed)?\/?video\/([_a-zA-Z0-9\-]+)/i)
+                || video_src.match(/^(?:https?:)?\/\/(?:www\.)?dailymotion\.com\/swf\/([_a-zA-Z0-9\-]+)/i)
                 || video_src.match(/^(?:https?:)?\/\/dai.ly\/([_a-zA-Z0-9\-]+)/i); // e.g. Libération.fr
 
         if (urlMatch) {

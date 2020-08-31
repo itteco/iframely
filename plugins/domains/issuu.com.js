@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
+    re: /^https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
 
     mixins: [
         "oembed-thumbnail",
@@ -28,7 +28,7 @@ module.exports = {
         return {
             html: html,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
             "aspect-ratio": aspect
         };
 

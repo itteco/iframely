@@ -1,8 +1,10 @@
-var entities = require('entities');
+const entities = require('entities');
 
 module.exports = {
 
     // It's official: https://developers.facebook.com/docs/plugins/oembed-endpoints
+
+    re: [].concat(require('./facebook.post').re, require('./facebook.video').re),
 
     mixins: [
         "domain-icon",

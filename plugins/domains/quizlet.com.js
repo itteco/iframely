@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/([\w-]+)\/?/i
+        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/([^\/]+)\/?/i
     ],
 
     mixins: [
@@ -15,7 +15,7 @@ module.exports = {
         return {
             href: 'https://quizlet.com/' + urlMatch[1]+ '/' + mode + '/embed',
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.survey, CONFIG.R.html5],
+            rel: [CONFIG.R.survey, CONFIG.R.html5, CONFIG.R.resizable],
             height: 500,
             options: {
                 mode: {

@@ -133,7 +133,6 @@ module.exports = function(app) {
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh'),
                     providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }
@@ -171,7 +170,7 @@ module.exports = function(app) {
                     _.extend(parsedUrl.query, getProviderOptionsQuery(req.query));
                     parsedUrl.query.uri = uri;
 
-                    render_link.href = url.format(parsedUrl);;
+                    render_link.href = url.format(parsedUrl);
                     delete render_link.html;
                 } else {
                     // Cache non inline link to later render for older consumers.
@@ -199,11 +198,13 @@ module.exports = function(app) {
             var omit_css = getBooleanParam(req, 'omit_css');
 
             iframelyUtils.generateLinksHtml(result, {
+                mediaPriority: getBooleanParam(req, 'media'),
                 autoplayMode: getBooleanParam(req, 'autoplay'),
                 aspectWrapperClass:     omit_css ? CONFIG.DEFAULT_OMIT_CSS_WRAPPER_CLASS : false,
                 maxWidthWrapperClass:   omit_css ? CONFIG.DEFAULT_MAXWIDTH_WRAPPER_CLASS : false,
                 omitInlineStyles: omit_css,
-                forceWidthLimitContainer: true
+                forceWidthLimitContainer: true,
+                amp: getBooleanParam(req, 'amp')
             });
 
             var forceGroup = req.query.group ? getBooleanParam(req, 'group') : CONFIG.GROUP_LINKS;
@@ -249,7 +250,7 @@ module.exports = function(app) {
 
     app.get('/reader.js', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -303,7 +304,7 @@ module.exports = function(app) {
 
     app.get('/render', function(req, res, next) {
 
-        var uri = prepareUri(req.query.uri);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -409,7 +410,7 @@ module.exports = function(app) {
 
     app.get('/oembed', function(req, res, next) {
 
-        var uri = prepareUri(req.query.url);
+        var uri = prepareUri(req.query.uri || req.query.url);
 
         if (processInitialErrors(uri, next)) {
             return;
@@ -428,7 +429,6 @@ module.exports = function(app) {
                     filterNonHTML5: getBooleanParam(req, 'html5'),
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     refresh: getBooleanParam(req, 'refresh'),
-                    disableCache: getBooleanParam(req, 'refresh'),
                     providerOptions: getProviderOptionsFromQuery(req.query)
                 }, cb);
             }
@@ -444,13 +444,15 @@ module.exports = function(app) {
             iframelyUtils.filterLinks(result, {
                 filterNonSSL: getBooleanParam(req, 'ssl'),
                 filterNonHTML5: getBooleanParam(req, 'html5'),
+                amp: getBooleanParam(req, 'amp'),
                 maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
             var oembed = oembedUtils.getOembed(uri, result, {
                 mediaPriority: getBooleanParam(req, 'media'),
                 omit_css: getBooleanParam(req, 'omit_css'),
-                targetWidthForResponsive: getIntParam(req, 'width')
+                targetWidthForResponsive: getIntParam(req, 'width'),
+                amp: getBooleanParam(req, 'amp')
             });
 
             if (req.query.format === "xml") {

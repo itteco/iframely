@@ -26,14 +26,44 @@ module.exports = {
             return cb (new Error ("No youtube.api_key configured"));
         }
 
-        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=id%2Csnippet%2Cstatistics%2CcontentDetails%2Cplayer%2Cstatus&key=" + api_key + "&id=" + urlMatch[1];
+        var parts = options.getProviderOptions('youtube.parts') || [
+            "id",
+            "snippet",
+            "statistics",
+            "contentDetails",
+            "player",
+            "status"
+        ];
+
+        var statsUri = "https://www.googleapis.com/youtube/v3/videos?part=" + parts.join("%2C") + "&key=" + api_key + "&id=" + urlMatch[1];
 
         request({
             uri: statsUri,
             cache_key: "youtube:gdata:" + urlMatch[1],
             json: true,
-            prepareResult: function(error, b, data, cb) {
+            allowCache: function(error, response, data) {
 
+                var errorDomain = 
+                    data 
+                    && data.error
+                    && data.error.errors
+                    && data.error.errors[0]
+                    && data.error.errors[0].domain;
+
+                var errorCode = 
+                    data 
+                    && data.error
+                    && data.error.code;
+
+                var usageLimitsError = 
+                    errorDomain === 'youtube.quota'
+                    || errorDomain === 'usageLimits';
+
+                var serverError = errorCode && errorCode >= 500 && errorCode < 600;
+
+                return !usageLimitsError && !serverError;
+            },
+            prepareResult: function(error, response, data, cb) {
                 if (error) {
                     return cb(error);
                 }
@@ -70,14 +100,14 @@ module.exports = {
                         dislikeCount: entry.statistics && entry.statistics.dislikeCount,
                         viewCount: entry.statistics && entry.statistics.viewCount,
 
-                        hd: entry.contentDetails && entry.contentDetails.definition == "hd",
+                        hd: entry.contentDetails && entry.contentDetails.definition === "hd",
                         playerHtml: entry.player && entry.player.embedHtml,
-                        embeddable: entry.status ? entry.status.embeddable: true,
+                        embeddable: entry.status ? entry.status.embeddable : true,
                         uploadStatus: entry.status && entry.status.uploadStatus
                     };
 
-                    if (entry.snippet && entry.snippet.thumbnails ) {
-                        gdata.thumbnails =  {mq: entry.snippet.thumbnails.medium, hq: entry.snippet.thumbnails.high, maxres: entry.snippet.thumbnails.maxres};
+                    if (entry.snippet && entry.snippet.thumbnails) {
+                        gdata.thumbnails = entry.snippet.thumbnails;
                     }
 
                     if (duration) {
@@ -95,13 +125,10 @@ module.exports = {
                         });
                     }
 
-                } else if (data.error && (data.error.code == 400 || data.error.code == 429)) {
-
-                    cb(null); // // silence error for fallback to generic providers. 429 - too many requests; 400 - probably API key is invalid
-
-                } else {
-
+                } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
+                } else {
+                    cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
         }, cb);
@@ -142,7 +169,7 @@ module.exports = {
                 if (typeof t === 'array') {
                     t = t[1];
                 }
-                if (typeof t === "string") {
+                if (typeof t === "string" && !/^\d+$/.test(t)) {
                     var m = t.match(/(\d+)m/);
                     var s = t.match(/(\d+)s/);
                     var time = 0;
@@ -179,8 +206,9 @@ module.exports = {
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
+        var rels = [CONFIG.R.player, CONFIG.R.html5];
 
-        if (!widescreen && youtube_video_gdata.playerHtml) { // maybe still widescreen
+        if (youtube_video_gdata.playerHtml) { // maybe still widescreen. plus detect 'allow' from html
             var $container = cheerio('<div>');
             try {
                 $container.html(youtube_video_gdata.playerHtml);
@@ -188,19 +216,17 @@ module.exports = {
 
             var $iframe = $container.find('iframe');
 
-            if ($iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
+            if (!widescreen && $iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
                 widescreen =  $iframe.attr('width') /  $iframe.attr('height') > 1.35;
             }
+            if ($iframe.attr('allow')) {
+                rels = rels.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+            }
         }
-        // End of widescreen check
+        // End of widescreen & allow check
 
-        var links = [{
-            href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.mq && youtube_video_gdata.thumbnails.mq.url,
-            rel: CONFIG.R.thumbnail,
-            type: CONFIG.T.image_jpeg,
-            width: 320,
-            height: 180
-        }];
+        var links = [];
+        var aspect = widescreen ? 16 / 9 : 4 / 3;
 
         if (youtube_video_gdata.embeddable) {
 
@@ -211,9 +237,9 @@ module.exports = {
 
             links.push({
                 href: 'https://www.' + domain + '.com/embed/' + youtube_video_gdata.id + qs,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: rels,
                 type: CONFIG.T.text_html,
-                "aspect-ratio": widescreen ? 16 / 9 : 4 / 3,
+                "aspect-ratio": aspect,
                 autoplay: "autoplay=1",
                 options: {
                     start: {
@@ -227,29 +253,36 @@ module.exports = {
                         placeholder: 'ex.: 11, 1m10s'
                     }
                 }
-
             }); 
         } else {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
         }
 
-        if (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres) {
-            links.push({
-                href: youtube_video_gdata.thumbnails.maxres.url,
-                rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image_jpeg,
-                width: youtube_video_gdata.thumbnails.maxres.width, 
-                height: youtube_video_gdata.thumbnails.maxres.height
-            });
-        } 
+        // thumbnails. Avoid black stripes
+        youtube_video_gdata.thumbnails && Object.keys(youtube_video_gdata.thumbnails).forEach(function(def) {
+            if ( youtube_video_gdata.thumbnails[def] 
+                && youtube_video_gdata.thumbnails[def].width
+                && youtube_video_gdata.thumbnails[def].height
+                && Math.round(10 * youtube_video_gdata.thumbnails[def].width / youtube_video_gdata.thumbnails[def].height) == Math.round(10 * aspect)) {
+                links.push({
+                    href: youtube_video_gdata.thumbnails[def].url,
+                    rel: CONFIG.R.thumbnail,
+                    type: CONFIG.T.image_jpeg,
+                    width: youtube_video_gdata.thumbnails[def].width, 
+                    height: youtube_video_gdata.thumbnails[def].height
+                });
+            }            
+        });
 
-        if (!widescreen) {
+        // But allow bigger image (with black stripes, sigh) for HD w/o maxresdefault to avoid 'tiny-only' thumbnail
+        if (youtube_video_gdata.embeddable && widescreen && youtube_video_gdata.thumbnails && !youtube_video_gdata.thumbnails.maxres && (youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high)) {
+            var thumbnail = youtube_video_gdata.thumbnails.standard || youtube_video_gdata.thumbnails.high;
             links.push({
-                href: youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.hq && youtube_video_gdata.thumbnails.hq.url,
+                href: thumbnail.url,
                 rel: CONFIG.R.thumbnail,
                 type: CONFIG.T.image_jpeg,
-                width: 480,
-                height: 360
+                width: thumbnail.width, 
+                height: thumbnail.height
             });
         }
 

@@ -7,9 +7,9 @@ module.exports = {
 
     getData: function(ld, whitelistRecord, url) {
 
-        if (ld.videoobject || ld.mediaobject) {
+        var json = ld.videoobject || ld.mediaobject || (ld.newsarticle && ld.newsarticle.video);
 
-            var json = ld.videoobject || ld.mediaobject;
+        if (json) {
 
             var data = {
                 schemaVideoObject: json
@@ -35,5 +35,6 @@ module.exports = {
     http://video.eurosport.co.uk/cycling/tour-de-france/2016/science-of-cycling-the-echelon-how-to-deal-with-a-crosswind_vid817450/video.shtml
     http://www.hgtv.com/videos/small-home-in-tucson-arizona-0210527
     http://www.travelchannel.com/videos/exorcism-of-roland-doe-0203807
+    https://www.parismatch.com/People/Delon-Belmondo-duel-au-sommet-pour-Paris-Match-1630358?jwsource=cl
     */
 };

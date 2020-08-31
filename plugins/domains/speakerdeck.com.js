@@ -20,7 +20,7 @@ module.exports = {
         var doc; 
 
         if ($iframe.length == 1) {
-            var href = $iframe.attr('src');
+            var href = $iframe.attr('src').replace(/^\/\//, 'https://');
             if (/\?slide=\d+/i.test(url)) {
                 href +=  href.indexOf('?') > -1 ? '&' : '?';
                 href += url.match(/\?(slide=\d+)/i)[1];

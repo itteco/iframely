@@ -5,6 +5,12 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
+    mixins: [
+        "domain-icon",
+        "oembed-canonical",
+        "oembed-site"
+    ],
+
     provides: '__isFBPage',
 
     getMeta: function(__isFBPage, oembed, meta) {
@@ -76,7 +82,7 @@ module.exports = {
                 },
                 "max-width": oembed.width
             });
-        } else {
+        } else if (meta.ld && meta.ld.person) {
             links.push ({
                 message: "Facebook profile pages of individual users are not embeddable."
             });

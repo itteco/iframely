@@ -15,7 +15,7 @@ In response to `url` request, APIs returns you the embeds and meta for a request
 
 Iframely can also be used as Node.js library (that's how it is used in our [cloud API](https://iframely.com)). 
 
-Requires Node version 0.10.22 and up. 
+Requires Node version 7 and up. 
 
 
 ## Not included as compared to Cloud API
@@ -47,12 +47,14 @@ We put our best effort to maintain Iframely and all its domain parsers. Please, 
 
 Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
+Please submit your PR against `develop` branch. This is where everything gets merged before being released into `master`.
+
 If you see an error in our domains whitelist (you can [debug URLs here](http://iframely.com/debug)), please ping us and we'll fix it in no time.
 
 
 ## License & Authors
 
-MIT License. (c) 2012-2017 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau)
+MIT License. (c) 2012-2019 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau)
 
 Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
 

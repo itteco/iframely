@@ -11,10 +11,9 @@
     var exec = require('child_process').exec;
 
     var models = require('./models');
+    var utils = require('./utils');
 
     var PluginTest = models.PluginTest;
-    var PageTestLog = models.PageTestLog;
-    var TestUrlsSet = models.TestUrlsSet;
     var TestingProgress = models.TestingProgress;
 
     module.exports = function(app){
@@ -49,7 +48,7 @@
                 return next(new Error("mongodb not initialized to store db logs"));
             }
 
-            var progress, pluginTests, groups = [];
+            var progress, groups = [];
 
             async.waterfall([
 
@@ -61,83 +60,26 @@
 
                     progress = _progress;
 
-                    PluginTest.find({
-                        obsolete: false
-                    }, {}, {
-                        sort:{
-                            _id: 1
-                        }
-                    }, cb);
-                },
-
-                function loadTestSets(_pluginTests, cb) {
-
-                    pluginTests = _pluginTests;
-
-                    async.mapSeries(pluginTests, function(p, cb) {
-                        TestUrlsSet.findOne({
-                            plugin: p._id
-                        }, {}, {
-                            sort: {
-                                created_at: -1
-                            }
-                        }, cb);
-                    }, cb);
-                },
-
-
-                function loadLogs(sets, cb) {
-
-                    var pluginTestsDict = _.object(pluginTests.map(function(p) { return [p._id, p]; }));
-
-                    async.eachSeries(sets.filter(function(s) {return s;}), function(s, cb) {
-
-                        var pluginTest = pluginTestsDict[s.plugin];
-                        pluginTest.last_urls_set = s;
-                        pluginTest.last_page_logs_dict = {};
-
-                        s.urls = s.urls || [];
-
-                        async.eachSeries(s.urls, function(url, cb) {
-
-                            async.waterfall([
-
-                                function(cb) {
-                                    PageTestLog.findOne({
-                                        url: url,
-                                        plugin: s.plugin
-                                    }, {}, {
-                                        sort: {
-                                            created_at: -1
-                                        }
-                                    }, cb);
-                                },
-
-                                function(log, cb) {
-
-                                    if (log) {
-                                        pluginTest.last_page_logs_dict[log.url] = log;
-                                    }
-
-                                    cb();
-                                }
-
-                            ], cb);
-
-                        }, cb);
-
-                    }, cb);
+                    utils.loadPluginTests(cb);
                 }
-            ], function(error) {
+
+            ], function(error, pluginTests) {
 
                 if (error) {
                     return next(new Error(error));
                 }
 
-                var totalTime = 0,
-                    totalCount = 0,
-                    totalOkTime = 0,
-                    totalOkCount = 0;
+                var stats = {
+                    http1: 0,
+                    h2: 0
+                }
+
+                var totalTime = Object.assign({}, stats),
+                    totalCount = Object.assign({}, stats),
+                    totalOkTime = Object.assign({}, stats),
+                    totalOkCount = Object.assign({}, stats),
+                    averageTime = Object.assign({}, stats),
+                    averageOkTime = Object.assign({}, stats);
 
                 pluginTests.forEach(function(pluginTest) {
 
@@ -147,11 +89,12 @@
 
                     for(var id in pluginTest.last_page_logs_dict) {
                         var log = pluginTest.last_page_logs_dict[id];
-                        totalTime += log.response_time;
-                        totalCount++;
+                        var key = log.h2 ? 'h2' : 'http1';
+                        totalTime[key] += log.response_time;
+                        totalCount[key]++;
                         if (!log.hasTimeout()) {
-                            totalOkTime += log.response_time;
-                            totalOkCount++;
+                            totalOkTime[key] += log.response_time;
+                            totalOkCount[key]++;
                         }
                     }
 
@@ -192,8 +135,10 @@
                 good.items = pluginTests.filter(function(p) { return !p.hasError; });
                 bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
-                var averageTime = Math.round(totalTime / (totalCount || 1));
-                var averageOkTime = Math.round(totalOkTime / (totalOkCount || 1));
+                _.keys(stats).forEach(function(key) {
+                    averageTime[key] = Math.round(totalTime[key] / (totalCount[key] || 1));
+                    averageOkTime[key] = Math.round(totalOkTime[key] / (totalOkCount[key] || 1));
+                });
 
                 res.render('tests-ui',{
                     groups: groups,
@@ -203,6 +148,7 @@
                     totalCount: totalCount,
                     averageOkTime: averageOkTime,
                     totalOkCount: totalOkCount,
+                    statsKeys: _.keys(stats),
                     format: function(d) {
                         if (!d) {
                             return "–";

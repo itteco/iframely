@@ -11,19 +11,41 @@ module.exports = {
         "og-description"
     ],
 
-    getLink: function(urlMatch, oembed) {
-        return [{
-            href: 'https://www.flickr.com/apps/slideshow/show.swf?v=143270&offsite=true&lang=en-us&page_show_url=' + encodeURIComponent(urlMatch[1] + '/show/') + '&page_show_back_url=' + encodeURIComponent(urlMatch[1] + '/') + '&set_id=' + encodeURIComponent(urlMatch[2]) + '&jump_to=',
-            type: CONFIG.T.flash,
-            rel: CONFIG.R.player
-        }, {
-            html: oembed.html
+    getLink: function(urlMatch, oembed, options) {
+
+        var html = oembed.html;
+
+        var opts = {
+            header: options.getRequestOptions('flickr.header', /data-header=\"true\"/i.test(html)),
+            footer: options.getRequestOptions('flickr.footer', /data-footer=\"true\"/i.test(html)),
+        };
+
+        var key; // thanks jslint
+        for (key in opts) {
+            html = html.replace(new RegExp('\\s?data\\-' + key + '="(true|false)"'), '');
+            if (opts[key]) {
+                html = html.replace('data-flickr-embed="true"', 'data-flickr-embed="true" data-' + key + '="true"');
+            }
+        }
+
+        return {
+            html: html
                 .replace(/\@n/g, "@N")
                 .replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
             rel: [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": oembed.width / oembed.height            
-        }];
+            "aspect-ratio": oembed.width / oembed.height,
+            options: {
+                header: {
+                    label: 'Show user header',
+                    value: opts.header
+                },
+                footer: {
+                    label: 'Show description footer',
+                    value: opts.footer
+                }
+            }
+        };
     },
 
     tests: [
