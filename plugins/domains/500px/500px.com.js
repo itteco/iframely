@@ -4,6 +4,8 @@ module.exports = {
 
     mixins: ["*"],
 
+    provides: ['__appFlag'],
+
     getLinks: function(urlMatch, twitter) {
         if (twitter.card === 'photo' && twitter.image) {
             return {
@@ -16,6 +18,12 @@ module.exports = {
                 rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
                 "aspect-ratio": twitter.image.height ? twitter.image.width / twitter.image.height : null
             }
+        }
+    },
+
+    getData: function(options) {
+        return {
+            __appFlag: true
         }
     },
 
