@@ -19,7 +19,11 @@ module.exports = {
         }
     },
 
-    tests: [{
+    getData: function(options) {
+        options.timeout = 40 * 1000;
+    },
+
+    tests: [{skipMethods:['getData']},{
         feed: "https://500px.com/upcoming.rss"
     },
         "https://web.500px.com/photo/13541787/Long-After-Sunset-In-The-Black-Mountains-by-Jim-Ross/",
