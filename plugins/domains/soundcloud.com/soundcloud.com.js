@@ -4,7 +4,7 @@ const URL = require("url");
 
 module.exports = {
 
-    provides: ['__allow_soundcloud_meta', 'sound_count'],
+    provides: ['__allow_soundcloud_meta', 'sound', 'iframe'],
 
     mixins: [
         "oembed-title",
@@ -15,19 +15,13 @@ module.exports = {
         "domain-icon"
     ],
 
-    getLink: function(oembed, sound_count, options) {
+    getLink: function(iframe, sound, options) {
 
-        var $container = $('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
         var links = [];
 
-        if ($iframe.length == 1 && sound_count !== 0) {
+        if (iframe.src && sound.count !== 0) {
 
-            var href = $iframe.attr('src');
+            var href = iframe.src;
             var params = URL.parse(href, true).query;
 
             if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
@@ -44,8 +38,11 @@ module.exports = {
             }
 
             href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
-            var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 'auto' : (/visual=false/.test(href) ? 166 : oembed.height));
-
+            var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 0 : (/visual=false/.test(href) ? 166 : iframe.height));
+            // Fallback to old values.
+            if (height === 'auto') {
+                height = 0;
+            }
             var opts = {
                 horizontal: {
                     label: CONFIG.L.horizontal,
@@ -66,11 +63,11 @@ module.exports = {
                         300: '300px',
                         400: '400px',
                         600: '600px',
-                        auto: 'Let Iframely optimize player for the artwork'
+                        0: 'Let Iframely optimize player for the artwork'
                     }
                 }
             };
-            if (height !== 'auto') {
+            if (height !== 0) {
                 opts.height.values[height] = height + 'px';
             }
 
@@ -85,7 +82,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
                 autoplay: "auto_play=true",
-                media: height === 'auto' ? {
+                media: height === 0 ? {
                     'aspect-ratio': 1, // the artwork is always 500x500
                     'max-width': 600, 
                 } : {
@@ -95,13 +92,13 @@ module.exports = {
             });
         }
 
-        if (oembed.thumbnail_url && !/\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)) {
+        if (sound.thumbnail && !/\/images\/fb_placeholder\.png/.test(sound.thumbnail.url)) {
             links.push({
-                href: oembed.thumbnail_url,
+                href: sound.thumbnail.url,
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-                width: oembed.thumbnail_width,
-                height: oembed.thumbnail_height
+                width: sound.thumbnail.width,
+                height: sound.thumbnail.height
             });
         }
 
@@ -121,13 +118,22 @@ module.exports = {
             )
         ) {
             return {
-                __allow_soundcloud_meta: true
+                __allow_soundcloud_meta: true,
+                iframe: oembed.getIframe()
             }
             
         } else {
             /* Ignore fallbacks, go directly to regular flow */
             return {
-                sound_count: 1
+                sound: {
+                    count: 1,
+                    thumbnail: {
+                        url: oembed.thumbnail_url,
+                        width: oembed.thumbnail_width,
+                        height: oembed.thumbnail_height
+                    }
+                },
+                iframe: oembed.getIframe()
             }
         }
     },

@@ -37,11 +37,7 @@ module.exports = {
     },
         "http://www.behance.net/gallery/ORBITAL-MECHANICS/10105739",
         "http://www.behance.net/gallery/TRIGGER/9939801",
-        "http://www.behance.net/gallery/MEGA-CITIES/8406797"
-        
-        // hosted via oEmbed endpoint:
-        // "http://portfolios.scad.edu/gallery/Privy-Boards-Graphic-Shirts/11126843",
-        // "http://ndagallery.cooperhewitt.org/gallery/12332063/Barclays-Center"
+        "http://www.behance.net/gallery/MEGA-CITIES/8406797"        
     ]
 
 };

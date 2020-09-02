@@ -1,9 +1,8 @@
 module.exports = {
 
     re: /^https?:\/\/(?:tube|www)\.geogebra\.org\/material\/\w+\/id\/([a-zA-Z0-9]+)/i,
-    //https://tube.geogebra.org/material/iframe/id/rgZVk8bJ
 
-    // it's here mostly just to detect proper embed sizing
+    // It's here mostly just to detect proper embed sizing.
     getLink: function(url, cheerio) {
         var $el = cheerio('script');
 
@@ -38,7 +37,6 @@ module.exports = {
     },
 
     tests: [{skipMethods: ['getData']},
-        "https://www.geogebra.org/material/iframe/id/rgZVk8bJ",
-        "https://www.geogebra.org/material/iframe/id/ECn5zx6m",
+        "https://www.geogebra.org/material/iframe/id/rgZVk8bJ"
     ]
 };

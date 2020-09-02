@@ -90,7 +90,8 @@ module.exports = {
             skipMixins: [
                 "oembed-title",
                 "oembed-author",
-                "oembed-license"
+                "oembed-license",
+                "og-description"
             ],
             skipMethods: [
                 "getData"

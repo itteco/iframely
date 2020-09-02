@@ -9,7 +9,7 @@ module.exports = {
         "oembed-description",
         "oembed-author",
         "oembed-site",
-        //"oembed-rich",
+        "oembed-error",
         "domain-icon"
     ],
 
@@ -120,7 +120,7 @@ module.exports = {
 
     },
 
-    tests: [{noFeeds: true}, {skipMixins: ["oembed-description"]},
+    tests: [{noFeeds: true}, {skipMixins: ["oembed-description", "oembed-error"]},
         "https://www.mixcloud.com/djtraviesa/",
         "https://www.mixcloud.com/sohoradio/dub-on-air-with-dennis-bovell-03032019/"
     ]

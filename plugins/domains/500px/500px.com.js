@@ -3,7 +3,11 @@ module.exports = {
     re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/(\d+)/i,
 
     mixins: [
-        "*"
+        "oembed-photo",
+        "domain-icon",
+        "oembed-author",
+        "oembed-site",
+        "oembed-title"
     ],
 
     getLinks: function(urlMatch, oembed) {

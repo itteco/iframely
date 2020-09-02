@@ -1,3 +1,6 @@
+const cheerio = require('cheerio');
+const decodeHTML5 = require('entities').decodeHTML5;
+
 module.exports = {
 
     re: [
@@ -14,13 +17,29 @@ module.exports = {
         "oembed-error"
     ],
 
-    getMeta: function (og, oembed) {
-        
-        return {
-            title: og.title ? og.title.match(/([^•\"]+)/i)[0] : "Post on Instagram",
-            description: oembed.title
+    getMeta: function (oembed, urlMatch, meta) {
+        var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
+
+        if (!title || /login/i.test(title)) {
+            var $container = cheerio('<div>');
+            try {
+                $container.html(decodeHTML5(oembed.html));
+            } catch (ex) {}
+
+            var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
+
+            if ($a.length == 1) {
+                title = $a.text();
+                title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
+            } else {
+                title = `Instagram (@${oembed.author_name})`;
+            }
         }
 
+        return {
+            title: title,
+            description: oembed.title
+        }
     },
 
     getLinks: function(url, urlMatch, meta, oembed, options) {
@@ -29,7 +48,9 @@ module.exports = {
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [
-            // Images.
+            // https://developers.facebook.com/docs/instagram/embedding/
+            // Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
+            // However, there's still a valid oembed thumbnail as of June 24, 2020. Let's use it if we can.
             {
                 href: src + 't',
                 type: CONFIG.T.image,
@@ -45,24 +66,21 @@ module.exports = {
             }, {
                 href: src + 'l',
                 type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: 1080,                
-                height: Math.round(1080 / aspect)
-            } 
-            /*
-            // return expanded image thumbnails if /p/shortcode/media stops working again
-            // it works as of Nov 20, 2019
-            {
+                rel: (meta.og && meta.og.video || !meta.og) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
+                width: oembed.thumbnail_width && (oembed.thumbnail_width - 1) || 1080, // It's actually 1080, but let's try and give oembed.thumbnail a higher priority
+                height: oembed.thumbnail_height && (oembed.thumbnail_height - 1) ||  Math.round(1080 / aspect)
+            }
+        ];
+
+        if (oembed.thumbnail_url) {
+            // Return expanded image thumbnails as /p/shortcode/media redirects cloud users to the login page.
+            links.push({
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-                // validate image as it may be expired
-            }, {
-                href: meta.og && meta.og.image,
-                type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
-                // validate image as it may be expired
-            }*/];
+                // No media - let's validate image as it may be expired.
+            });
+        }
 
         if (meta.og && meta.og.video) {
             links.push({
@@ -102,7 +120,8 @@ module.exports = {
             }
 
             // Fix for private posts that later became public
-            if (urlMatch[1] && urlMatch[1].length > 30 && meta.canonical) {
+            if (urlMatch[1] && urlMatch[1].length > 30 
+                && /^https?:\/\/www\.instagram\.com\/p\/([a-zA-Z0-9_-]+)\/?/i.test(meta.canonical)) {
                 html = html.replace(url, meta.canonical);
             }
 
@@ -137,18 +156,22 @@ module.exports = {
 
         // Avoid any issues with possible redirects,
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
+        var result = {};
         options.followHTTPRedirect = true; 
+
+        if (!options.getRequestOptions('instagram.meta', true)) {
+            result.meta = {};
+        }
+
         if (urlMatch[1] && urlMatch[1].length > 30) {
-            return {
-                message: 'This Instagram post is private.' // IDs longer than 30 is for private posts as of March 11, 2020
-            }
+            result.message = 'This Instagram post is private.'; // IDs longer than 30 is for private posts as of March 11, 2020
         }
 
         if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
-            return {
-                redirect: url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com')
-            }
+            result.redirect = url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com');
         }
+
+        return result;
     },
 
     tests: [{
