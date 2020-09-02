@@ -574,7 +574,7 @@
     }, {
         "name": "Figma",
         "templates": [        
-            "(?:[\\w\\.-]+\\.)?figma.com/(file|proto|login)/.*"
+            "(?:[\\w\\.-]+\\.)?figma.com/(file|proto)/.*"
         ],
         "endpoint": "https://www.figma.com/api/oembed"
     }, {
