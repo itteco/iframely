@@ -1,0 +1,13 @@
+build:
+  image: everydayhero/lambda:10
+  working_dir: /code
+  volumes:
+    - .:/code
+  environment:
+    - AWS_ACCESS_KEY_ID=${ACCESS_KEY}
+    - AWS_SECRET_ACCESS_KEY=${SECRET_KEY}
+    - AWS_ACCOUNT_ID
+    - AWS_REGION
+    - AWS_IAM_ROLE
+    - AWS_S3_BUCKET
+    - AWS_FN_NAME

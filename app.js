@@ -2,6 +2,8 @@ import { cacheMiddleware, NotFound } from './utils.js';
 import CONFIG from './config.loader.js';
 global.CONFIG = CONFIG;
 
+var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
+
 console.log("");
 console.log("Starting Iframely...");
 console.log("Base URL for embeds that require hosted renders:", CONFIG.baseAppUrl);
@@ -47,6 +49,8 @@ import apiViews from './modules/api/views.js';
 import debugViews from './modules/debug/views.js';
 apiViews(app);
 debugViews(app);
+
+app.use(awsServerlessExpressMiddleware.eventContext())
 
 if (CONFIG.tests) {
   const testViews = await import('./modules/tests-ui/views.js');

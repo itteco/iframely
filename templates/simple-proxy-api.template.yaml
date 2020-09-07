@@ -1,0 +1,45 @@
+---
+swagger: 2.0
+info:
+  title: AWS_FN_NAME
+basePath: /AWS_API_STAGE
+schemes:
+- https
+paths:
+  /:
+    x-amazon-apigateway-any-method:
+      produces:
+      - application/json
+      responses:
+        200:
+          description: 200 response
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: 200
+        uri: arn:aws:apigateway:AWS_REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:AWS_REGION:AWS_ACCOUNT_ID:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
+        passthroughBehavior: when_no_match
+        httpMethod: POST
+        type: aws_proxy
+  /{proxy+}:
+    x-amazon-apigateway-any-method:
+      produces:
+      - application/json
+      parameters:
+      - name: proxy
+        in: path
+        required: true
+        type: string
+      responses: {}
+      x-amazon-apigateway-integration:
+        uri: arn:aws:apigateway:AWS_REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:AWS_REGION:AWS_ACCOUNT_ID:function:${stageVariables.ServerlessExpressLambdaFunctionName}/invocations
+        httpMethod: POST
+        type: aws_proxy
+x-amazon-apigateway-binary-media-types:
+  - '*/*'
+definitions:
+  Empty:
+    type: object
+    title: Empty Schema
