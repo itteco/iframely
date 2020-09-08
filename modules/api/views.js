@@ -236,6 +236,15 @@ export default function(app) {
             }
 */
 
+            if (getBooleanParam(req, 'oembed')) {
+              var oembed = oembedUtils.getOembed(uri, result, {
+                  mediaPriority: getBooleanParam(req, 'media'),
+                  omit_css: getBooleanParam(req, 'omit_css'),
+                  targetWidthForResponsive: getIntParam(req, 'width')
+              });
+              result.oembed = oembed;
+            }
+
             res.sendJsonCached(result);
 
 
