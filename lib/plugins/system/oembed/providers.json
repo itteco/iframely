@@ -7,7 +7,7 @@
           "(?:www|m|business)\\.(facebook\\.com/\\d+_\\d+)"
         ],
         "url": "https://www.{1}",
-        "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
+        "endpoint": "https://graph.facebook.com/v8.0/oembed_post"
     },
     {
         "name": "Facebook Video no query string",
@@ -16,7 +16,7 @@
             "(?:www|m|business)\\.(facebook\\.com/watch/?\\?v=\\d+)"
         ],
         "url": "https://www.{1}",
-        "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
+        "endpoint": "https://graph.facebook.com/v8.0/oembed_video"
     },
     {
         "name": "Facebook Video",
@@ -29,7 +29,7 @@
           "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
           "(?:www|m|business)\\.(facebook\\.com/watch/?\\?(?:.+&)?v=\\d+)"
         ],
-        "endpoint": "https://www.facebook.com/plugins/video/oembed.json/"
+        "endpoint": "https://graph.facebook.com/v8.0/oembed_video"
     },
     {
         "name": "Facebook Post",
@@ -40,7 +40,7 @@
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
-        "endpoint": "https://www.facebook.com/plugins/post/oembed.json/"
+        "endpoint": "https://graph.facebook.com/v8.0/oembed_post"
     },    
     {
         "name": "Facebook Page",
@@ -48,7 +48,7 @@
             "(?:www|m)\\.facebook\\.com/(?:pg|pages)/",
             "(?:www|m)\\.facebook\\.com/[^/]+/?(?:about|photos|videos|events|timeline|photos_stream)?/?(?:\\?[^/\\?]+)?$"
         ],
-        "endpoint": "https://www.facebook.com/plugins/page/oembed.json/"
+        "endpoint": "https://graph.facebook.com/v8.0/oembed_page"
     },
     {
         "name": "Instagram",
@@ -56,7 +56,7 @@
             "(?:www\\.)?(instagram\\.com/(?:p|tv|reel)/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
-        "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://www.{1}"
+        "endpoint": "https://graph.facebook.com/v8.0/instagram_oembed?format={format}&url=https://www.{1}"
     },
     {
         "name": "Instagram user page",
@@ -64,7 +64,7 @@
             "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)",
             "(instagr\\.am/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "https://api.instagram.com/oembed?format={format}&url=https://www.{1}{2}"
+        "endpoint": "https://graph.facebook.com/v8.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
     },
     {
         "name": "Dailymotion",
