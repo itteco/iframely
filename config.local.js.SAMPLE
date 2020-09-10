@@ -108,7 +108,7 @@
         ADD_OEMBED_PARAMS: [{
             
             re: [ // Endpoint's URL regexp array.
-                /^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_/i
+                /^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/instagram_oembed/i
             ],            
             params: { // Custom query-string params object.
 
