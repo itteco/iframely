@@ -2,7 +2,12 @@ const entities = require('entities');
 
 module.exports = {
 
-    // It's official: https://developers.facebook.com/docs/plugins/oembed-endpoints
+    /**
+     * HEADS-UP: New endpoints as of Oct 24, 2020:
+     * https://developers.facebook.com/docs/plugins/oembed/
+     * Please configure your `access_token` in your local config file
+     * as desribed on https://github.com/itteco/iframely/issues/284.
+     */ 
 
     re: [].concat(require('./facebook.post').re, require('./facebook.video').re),
 

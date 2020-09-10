@@ -3,6 +3,13 @@ const decodeHTML5 = require('entities').decodeHTML5;
 
 module.exports = {
 
+    /**
+     * HEADS-UP: New endpoints as of Oct 24, 2020:
+     * https://developers.facebook.com/docs/instagram/oembed/
+     * Please configure your `access_token` in your local config file
+     * as desribed on https://github.com/itteco/iframely/issues/284.
+     */     
+
     re: [
         /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv|reel)\/([a-zA-Z0-9_-]+)\/?/i,
         /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_\-\.]+\/)?p\/([a-zA-Z0-9_-]+)/i,
@@ -48,9 +55,11 @@ module.exports = {
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [
-            // https://developers.facebook.com/docs/instagram/embedding/
-            // Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
-            // However, there's still a valid oembed thumbnail as of June 24, 2020. Let's use it if we can.
+            // After Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed/
+            // To be retired on Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed-legacy
+
+            // the /media/?size endpoint seem to have disappeared from new oEmbed doc. We'll have to see what happens.
+            // Also, Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
             {
                 href: src + 't',
                 type: CONFIG.T.image,
@@ -176,8 +185,7 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://blog.instagram.com/",
-        selector: ".photogrid a"
+        noFeeds: true
     },
         "https://www.instagram.com/p/HbBy-ExIyF/",
         "https://www.instagram.com/p/a_v1-9gTHx/",
