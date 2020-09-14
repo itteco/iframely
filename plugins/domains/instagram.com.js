@@ -21,7 +21,7 @@ module.exports = {
         "oembed-author",
         // "og-image", // it's the same as size L
         "domain-icon",
-        "oembed-error"
+        "fb-error"
     ],
 
     getMeta: function (oembed, urlMatch, meta) {
@@ -167,7 +167,7 @@ module.exports = {
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
         var result = {};
         options.followHTTPRedirect = true;
-        options.exposeStatusCode = true;
+        options.exposeStatusCode = true;        
 
         if (!options.getRequestOptions('instagram.meta', true)) {
             result.meta = {};
@@ -191,7 +191,7 @@ module.exports = {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
-            skipMixins: ["oembed-title", "oembed-error"],
+            skipMixins: ["oembed-title", "fb-error"],
             skipMethods: ['getData']
         }
     ]

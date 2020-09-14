@@ -8,7 +8,8 @@ module.exports = {
     mixins: [
         "domain-icon",
         "oembed-canonical",
-        "oembed-site"
+        "oembed-site",
+        "fb-error"
     ],
 
     provides: '__isFBPage',
@@ -102,7 +103,6 @@ module.exports = {
             };
         }
 
-
     },
 
     tests: [
@@ -111,7 +111,8 @@ module.exports = {
         "https://www.facebook.com/pg/RhulFencing/about/",
         {
             noFeeds: true,
-            skipMethods: ['getData']
+            skipMethods: ['getData'],
+            skipMixins: ['fb-error']
         }
     ]
 };
