@@ -26,26 +26,34 @@ module.exports = {
 
     getMeta: function (oembed, urlMatch, meta) {
         var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
+        var description = oembed.title;
 
-        if (!title || /login/i.test(title)) {
+        if (!description || !title || /login/i.test(title)) {
             var $container = cheerio('<div>');
             try {
                 $container.html(decodeHTML5(oembed.html));
             } catch (ex) {}
 
-            var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
+            if (!title || /login/i.test(title)) {
+                var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
 
-            if ($a.length == 1) {
-                title = $a.text();
-                title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
-            } else {
-                title = `Instagram (@${oembed.author_name})`;
+                if ($a.length == 1) {
+                    title = $a.text();
+                    title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
+                } else {
+                    title = `Instagram (@${oembed.author_name})`;
+                }
+            }
+
+            if (!description) {
+                var $a = $container.find(`p a[href*="${urlMatch[1]}"]`);
+                description = $a.text();
             }
         }
 
         return {
             title: title,
-            description: oembed.title
+            description: description
         }
     },
 
