@@ -1,3 +1,5 @@
+var logging = require('../../logging');
+
 module.exports = {
 
     getLink: function(oembedError, url, cb) {
@@ -42,7 +44,7 @@ module.exports = {
             result.message = fbError.message;
         }
 
-        console.log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
+        logging.log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
 
         return cb(result);
     },
