@@ -78,6 +78,6 @@ module.exports = {
     tests: [{
         noFeeds: true
     },
-        "https://www.twitch.tv/videos/287127728"
+        "https://www.twitch.tv/videos/743604531"
     ]
 };
