@@ -7,7 +7,6 @@ module.exports = {
 
     mixins: [
         "domain-icon",
-        "oembed-canonical",
         "oembed-site",
         // "fb-error" // Otherwise the HTTP redirect won't work for URLs like http://www.facebook.com/133065016766815_4376785445728063
     ],
@@ -111,8 +110,7 @@ module.exports = {
         "https://www.facebook.com/pg/RhulFencing/about/",
         {
             noFeeds: true,
-            skipMethods: ['getData'],
-            skipMixins: ['fb-error']
+            skipMethods: ['getData']
         }
     ]
 };
