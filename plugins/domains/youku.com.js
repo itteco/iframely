@@ -21,7 +21,7 @@ module.exports = {
 
     tests: [{
         page: "http://www.youku.com/",
-        selector: ".p-thumb>a[data-href]",
+        selector: ".pack_pack_cover>a[href]",
         urlAttribute: "data-href"
     },
         "http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842",
