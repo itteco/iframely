@@ -142,7 +142,6 @@ module.exports = {
             "og-description"
         ]
     },
-        "http://mad-hop.bandcamp.com/track/fracture",
         "http://music.zackhemsey.com/album/ronin",
         "http://music.zackhemsey.com/track/dont-get-in-my-way",
         "https://decembersongs.bandcamp.com/album/an-east-nashville-christmas",
