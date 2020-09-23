@@ -14,7 +14,7 @@ module.exports = {
             901: 417,  // ./oembed-post/, ./oembed-page/
 
             104: 415,            
-            368: 408   // Temporary blocked
+            368: 451   // Temporary blocked
         }
 
         let result = {}; // When left empty - it allows a  fallback to generic parsers and get the accurate http code.
