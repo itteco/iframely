@@ -12,7 +12,7 @@ module.exports = {
         /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=/i
     ],
 
-    mixins: ["oembed-error"],    
+    mixins: ["fb-error"],
 
     getLink: function(url, oembed, options) {
 
@@ -87,6 +87,6 @@ module.exports = {
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
         "https://www.facebook.com/watch/?ref=external&v=373114473595228",
-        {noFeeds: true}, {skipMixins: ["oembed-error"]}
+        {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
 };
