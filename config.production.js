@@ -1,5 +1,6 @@
 (function() {
   var config = {
+    CACHE_ENGINE: 'no-cache',
     allowedOrigins: ["*"],
     baseAppUrl: "https://iframely.blackbaud.services",
     providerOptions: {
