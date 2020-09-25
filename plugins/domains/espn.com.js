@@ -22,7 +22,6 @@ module.exports = {
     tests: [{
         noFeeds: true
     },
-        "http://www.espn.com/video/clip?id=espn:14780138",
         "http://www.secsports.com/video/17630059",
         "http://www.espn.com/video/clip/_/id/18883925",
         "http://www.espn.com/videohub/video/clip/_/id/18883925/categoryid/2378529"

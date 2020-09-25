@@ -36,7 +36,7 @@ module.exports = {
         "https://www.google.com/maps/d/viewer?mid=zkaGBGYwQzao.kWqUdP2InpAI",
         "https://www.google.com/maps/d/edit?mid=zHfMwAb37EWA.kW-Lq0FR1l5c",
         "https://www.google.com/maps/d/viewer?mid=z_qsuFRasJVo.kKU-PVbA1F_0",
-        "https://www.google.de/maps/d/embed?mid=zwd3SU4roCAo.kfq8xISQPTjQ"
+        "https://www.google.com/maps/d/embed?mid=1izQfrLruFuk98hsXu_aRQZXWHjE"
         //"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12096.58902529305!2d-73.9658349!3d40.7147747!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x269399134e767ac4!2sVICE+Media+LLC!5e0!3m2!1sen!2sus!4v14724998038"
     ]
 };

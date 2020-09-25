@@ -7,7 +7,7 @@ module.exports = {
 
     getData: function(ld, whitelistRecord, url) {
 
-        var json = ld.videoobject || ld.mediaobject || (ld.newsarticle && ld.newsarticle.video);
+        var json = ld.videoobject || ld.mediaobject || (ld.newsarticle && ld.newsarticle.video) || (ld.tvepisode && ld.tvepisode.video);
 
         if (json) {
 

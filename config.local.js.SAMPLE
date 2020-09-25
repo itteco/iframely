@@ -104,16 +104,31 @@
         // DISABLE_HTTP2: true,
 
         // Customize API calls to oembed endpoints.
+        // Must have: please add your `access_token` for Facebook and Instagram API calls
         ADD_OEMBED_PARAMS: [{
-            // Endpoint url regexp array.
-            re: [/^http:\/\/api\.instagram\.com\/oembed/],
-            // Custom get params object.
-            params: {
+            
+            re: [ // Endpoint's URL regexp array.
+                /^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/instagram_oembed/i
+            ],
+            params: { // Custom query-string params object.
+
+                // TODO: get your access Insagtam token as described 
+                // on https://developers.facebook.com/docs/instagram/oembed/                
+                access_token: '',   // The simplest way is 
+                                    // to use `{app-id}|{app secret}` as access token
+
+                // Add any other optional params
                 hidecaption: true
             }
         }, {
-            re: [/^https:\/\/www\.facebook\.com\/plugins\/page\/oembed\.json/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_page/i],
             params: {
+                // TODO: get your access token as described 
+                // on https://developers.facebook.com/docs/plugins/oembed                
+                access_token: '',   // The simplest way is 
+                                    // to use `{app-id}|{app secret}` as access token
+
+                // Add any other optional params
                 show_posts: 0,
                 show_facepile: 0,
                 maxwidth: 600
@@ -126,15 +141,18 @@
                 limit: 1,
                 maxwidth: 600
             }
-        /*
         }, {
-            // Facebook https://developers.facebook.com/docs/plugins/oembed-endpoints
-            re: [/^https:\/\/www\.facebook\.com\/plugins\/\w+\/oembed\.json/i],
+            // Facebook https://developers.facebook.com/docs/plugins/oembed/
+            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_/i],
             params: {
-                // Skip script tag and fb-root div.
-                omitscript: true
+                // TODO: get your access token as described 
+                // on https://developers.facebook.com/docs/plugins/oembed                
+                access_token: '',   // The simplest way is 
+                                    // to use `{app-id}|{app secret}` as access token
+
+                // Add any other optional params, like skip script tag and fb-root div
+                // omitscript: true
             }
-        */
          }],
 
         /* Configure use of HTTP proxies as needed. 

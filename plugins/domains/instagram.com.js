@@ -3,8 +3,15 @@ const decodeHTML5 = require('entities').decodeHTML5;
 
 module.exports = {
 
+    /**
+     * HEADS-UP: New endpoints as of Oct 24, 2020:
+     * https://developers.facebook.com/docs/instagram/oembed/
+     * Please configure your `access_token` in your local config file
+     * as desribed on https://github.com/itteco/iframely/issues/284.
+     */     
+
     re: [
-        /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)\/?/i,
+        /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv|reel)\/([a-zA-Z0-9_-]+)\/?/i,
         /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_\-\.]+\/)?p\/([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)$/i
     ],
@@ -14,31 +21,39 @@ module.exports = {
         "oembed-author",
         // "og-image", // it's the same as size L
         "domain-icon",
-        "oembed-error"
+        "fb-error"
     ],
 
     getMeta: function (oembed, urlMatch, meta) {
         var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
+        var description = oembed.title;
 
-        if (!title || /login/i.test(title)) {
+        if (!description || !title || /login/i.test(title)) {
             var $container = cheerio('<div>');
             try {
                 $container.html(decodeHTML5(oembed.html));
             } catch (ex) {}
 
-            var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
+            if (!title || /login/i.test(title)) {
+                var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
 
-            if ($a.length == 1) {
-                title = $a.text();
-                title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
-            } else {
-                title = `Instagram (@${oembed.author_name})`;
+                if ($a.length == 1) {
+                    title = $a.text();
+                    title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
+                } else {
+                    title = `Instagram (@${oembed.author_name})`;
+                }
+            }
+
+            if (!description) {
+                var $a = $container.find(`p a[href*="${urlMatch[1]}"]`);
+                description = $a.text();
             }
         }
 
         return {
             title: title,
-            description: oembed.title
+            description: description
         }
     },
 
@@ -48,9 +63,11 @@ module.exports = {
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [
-            // https://developers.facebook.com/docs/instagram/embedding/
-            // Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
-            // However, there's still a valid oembed thumbnail as of June 24, 2020. Let's use it if we can.
+            // After Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed/
+            // To be retired on Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed-legacy
+
+            // the /media/?size endpoint seem to have disappeared from new oEmbed doc. We'll have to see what happens.
+            // Also, Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
             {
                 href: src + 't',
                 type: CONFIG.T.image,
@@ -157,7 +174,8 @@ module.exports = {
         // Avoid any issues with possible redirects,
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
         var result = {};
-        options.followHTTPRedirect = true; 
+        options.followHTTPRedirect = true;
+        options.exposeStatusCode = true;        
 
         if (!options.getRequestOptions('instagram.meta', true)) {
             result.meta = {};
@@ -175,14 +193,13 @@ module.exports = {
     },
 
     tests: [{
-        page: "http://blog.instagram.com/",
-        selector: ".photogrid a"
+        noFeeds: true
     },
         "https://www.instagram.com/p/HbBy-ExIyF/",
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         {
-            skipMixins: ["oembed-title", "oembed-error"],
+            skipMixins: ["oembed-title", "fb-error"],
             skipMethods: ['getData']
         }
     ]
