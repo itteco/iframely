@@ -299,8 +299,8 @@
             /^https?:\/\/169\.254\.169\.254/
         ]
 
-        /** url for prerender service */
-        PRERENDER_URL: "https://domain/render?url=",
+        // Endpoint for prerender service, if you need it. Used to parse React apps. Very slow.
+        // PRERENDER_URL: "https://domain/render?url="
     };
 
     module.exports = config;
