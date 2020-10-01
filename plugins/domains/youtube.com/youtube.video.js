@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const querystring = require('querystring');
 const _ = require('underscore');
+const sysUtils = require('../../../logging')
 
 module.exports = {
 
@@ -128,6 +129,7 @@ module.exports = {
                 } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
+                    sysUtils.log('YoutTube fallback for ' + urlMatch[1], data);
                     cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
