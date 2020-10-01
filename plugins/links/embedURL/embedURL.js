@@ -8,7 +8,7 @@ module.exports = {
     getData: function(cheerio, decode, __allowEmbedURL) {
 
         /* Let's try to find ld+json in the body first. */
-        var $script = cheerio('script[type="application/ld+json"]:contains("embed")').first(); // embedURL can be embedurl, embedUrl, etc.
+        var $script = cheerio('script[type="application/ld+json"]:contains("VideoObject")').first(); // embedURL can be embedurl, embedUrl, etc.
 
         if ($script.length === 1) {
             try {

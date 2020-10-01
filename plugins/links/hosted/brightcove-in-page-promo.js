@@ -24,7 +24,7 @@ module.exports = {
          *           <script src="//players.brightcove.net/1125911414/VJ949r8Fg_default/index.min.js"></script>
         */
 
-        var $video = cheerio('video.video-js');
+        var $video = cheerio('video.video-js, video-js');
 
         if ($video.length == 1) {
 
