@@ -1,11 +1,12 @@
 module.exports = {
 
-    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
 
     mixins: [
         "*"
     ],
 
+    // https://developers.pinterest.com/tools/widget-builder/?type=board
     getLink: function(url, meta, options) {
         var og = meta.og;
 
@@ -57,6 +58,7 @@ module.exports = {
     },
         "http://pinterest.com/bcij/art-mosaics/",
         "http://pinterest.com/bcij/aging-gracefully/",
+        "https://www.pinterest.com/pinterest/official-news/",
         "https://www.pinterest.com/mimimememe/office-humor-work-jokes/"
     ]
 };
