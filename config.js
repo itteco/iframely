@@ -141,7 +141,6 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
-            sm4: "sm4",
 
             icon: "icon",
             logo: "logo",
@@ -329,9 +328,6 @@
             "og": [
                 "video"
             ],
-            "sm4": [
-                "video"
-            ],
             "oembed": [
                 "link",
                 "rich",
@@ -364,8 +360,7 @@
             "oembed",
             "og",
             "twitter",
-            "iframely",
-            "sm4"
+            "iframely"
         ],
 
         KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable)\.\w+\//i,
