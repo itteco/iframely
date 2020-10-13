@@ -3,7 +3,7 @@ const querystring = require('querystring');
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)/i
+        /^https?:\/\/www\.youtube\.com\/playlist\?(?:[=\-_a-zA-Z0-9&]+)?list=([\-_a-zA-Z0-9]+)/i
     ],
 
     mixins: [
@@ -42,6 +42,7 @@ module.exports = {
         noFeeds: true,
         skipMixins: ["og-description", "oembed-error"]
     },
-        "https://www.youtube.com/playlist?list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh"
+        "https://www.youtube.com/playlist?list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh",
+        "https://www.youtube.com/playlist?disable_polymer=true&list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh"
     ]
 };

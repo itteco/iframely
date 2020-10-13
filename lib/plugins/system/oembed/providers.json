@@ -160,7 +160,7 @@
     {
         "name": "YouTube Playlist",
         "templates": [
-            "www\\.youtube\\.com/playlist\\?list=([a-zA-Z0-9_-]+)"
+            "www\\.youtube\\.com/playlist"
         ],
         "endpoint": "https://www.youtube.com/oembed"
     },
