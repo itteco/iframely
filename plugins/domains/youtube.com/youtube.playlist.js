@@ -17,7 +17,7 @@ module.exports = {
         "oembed-error"
     ],    
 
-    getLinks: function(urlMatch, meta, options) {
+    getLinks: function(urlMatch, oembed, options) {
         
         var params = querystring.parse(options.getProviderOptions('youtube.playlist_params', '').replace(/^\?/, ''));
         var domain = /^https?:\/\/www\.youtube-nocookie\.com\//i.test(urlMatch[0]) || options.getProviderOptions('youtube.nocookie', false) ? 'youtube-nocookie' : 'youtube';
@@ -33,7 +33,7 @@ module.exports = {
             href: 'https://www.' + domain + '.com/embed/videoseries?list=' + urlMatch[1] + qs,
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
-            "aspect-ratio": meta.oembed && meta.oembed.width && meta.oembed.height ? meta.oembed.width / meta.oembed.height : 16/9,
+            "aspect-ratio": oembed.width && oembed.height ? oembed.width / oembed.height : 16/9,
             autoplay: 'autoplay=1'
         }
     },
