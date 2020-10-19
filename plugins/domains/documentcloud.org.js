@@ -68,6 +68,7 @@ module.exports = {
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265',
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/annotations/486265.html',
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html',
+        'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html',
         {
             noFeeds: true
         }

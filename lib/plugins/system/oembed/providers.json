@@ -747,5 +747,13 @@
             "mybeweeg.com/.*"
         ],
         "endpoint": "https://mybeweeg.com/services/oembed"
+    },
+    {
+        "name": "Documentcloud",
+        "templates": [
+            "documentcloud.org/documents/(\\d+)\\-([^%.]+|\\-).*"
+        ],
+        "url": "https://www.documentcloud.org/documents/{1}-{2}.html",
+        "endpoint": "https://www.documentcloud.org/api/oembed.json"
     }
 ]
