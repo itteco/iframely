@@ -749,9 +749,18 @@
         "endpoint": "https://mybeweeg.com/services/oembed"
     },
     {
+        "name": "Documentcloud no .html",
+        "templates": [
+            "documentcloud.org/documents/(\\d+)(-)(?:[^./]+)?"
+        ],
+        "url": "https://www.documentcloud.org/documents/{1}--{2}.html",
+        "endpoint": "https://www.documentcloud.org/api/oembed.json"
+    },
+    {
         "name": "Documentcloud",
         "templates": [
-            "documentcloud.org/documents/(\\d+)-(?:[^./]+)?([./].+)"
+            "documentcloud.org/documents/(\\d+)-(?:[^./]+)?(/[^.]+\\.html.*)",
+            "documentcloud.org/documents/(\\d+)-(?:[^./]+)?(\\.html.*)"
         ],
         "url": "https://www.documentcloud.org/documents/{1}--{2}",
         "endpoint": "https://www.documentcloud.org/api/oembed.json"
