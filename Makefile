@@ -13,6 +13,7 @@ build:
 	git checkout tag-${VERSION}
 	docker \
 		build \
+		--pull \
 		--rm --tag=${CONTAINER} .
 	@echo Image tag: ${VERSION}
 
