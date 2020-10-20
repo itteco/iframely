@@ -42,6 +42,7 @@ Last step is to commit any changes with git cm, and finally
     git merge tag-$VERSION
 
 Push to our repo (code + tags)
+
     git push
     git push origin $VERSION
 
