@@ -69,8 +69,7 @@ clean:
 		rm ${CONTAINER}
 	-docker \
 		rmi ${CONTAINER}
-	git checkout master
-	git branch -d ${VERSION}
+	git branch -d tag-${VERSION}
 
 push:
 	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} # && docker push ${IMAGE_NAME}
