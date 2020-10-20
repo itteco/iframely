@@ -6,23 +6,24 @@ Get upstream changes
 
     git fetch upstream
 
-Check if there is new version with git tags: 
+Check if there is new version with git tags:
 
     git tag | tail -n 1
 
-Latest I pushed was v1.3.NN (this is an example!)
+Check if the tag/version is higher then what you are already running.
 
-## If newer:
+## Build new version
 
-Update Makefile with the new version
+Export the VERSION shell variable
 
-    $EDITOR Makefile
+    export VERSION=$(git tag | tail -n 1)
+    echo $VERSION
 
-(the makefile will switch to new branch and build it)
+Run `make` and the Makefile uses the $VERSION variable to checkout the new version and build it.
 
     make
 
-Ignore any OSX/Darwin warnings for npm 
+Ignore any OSX/Darwin warnings for npm, feel free to contribute by fixing the dependencies if you are able to.
 
     make run
 
@@ -30,7 +31,7 @@ It's now running in the background, lets check the logs:
 
     docker logs iframely
 
-Go to [iframely on localhost](http://localhost:8061/debug) 
+Go to [iframely on localhost](http://localhost:8061/debug)
 If it looks good, lets tag and push to docker hub:
 
     make push
@@ -45,11 +46,10 @@ Last step is to commit any changes with git cm, and finally
 
 # Ansible
 
-If you want to use Ansible to deploy your iframely container, copy the ansible-docker-iframely directory to 
-your ansible roles dir and the playbook to the playbook dir. and run the playbook:
+If you want to use Ansible to deploy your iframely container, copy the ansible-docker-iframely directory to your ansible roles dir and the playbook to the playbook dir. and run the playbook:
 
 ```
-ansible-playbook playbooks/iframely.yml 
+ansible-playbook playbooks/iframely.yml
 ```
 
 Verify iframely:
