@@ -39,10 +39,11 @@ If it looks good, lets tag and push to docker hub:
 Last step is to commit any changes with git cm, and finally
 
     git checkout master
-    git merge tag-<version>
-    git tag <version>
-    git push (to our repo).
-    git push origin <version>
+    git merge tag-$VERSION
+
+Push to our repo (code + tags)
+    git push
+    git push origin $VERSION
 
 # Ansible
 
