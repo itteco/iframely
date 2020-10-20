@@ -61,4 +61,3 @@ Go to [iframely on my host](https://<hostname.example.com>/iframely?uri=https%3A
 
 You can run tests and setups yourself with the vagrant file in the ansible-docker-iframely directory. Just cd
 there and run `vagrant up`.
-
