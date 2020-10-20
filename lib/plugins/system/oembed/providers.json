@@ -751,9 +751,9 @@
     {
         "name": "Documentcloud",
         "templates": [
-            "documentcloud.org/documents/(\\d+)\\-([a-zA-Z0-9\\-]+|\\-).*"
+            "documentcloud.org/documents/(\\d+)-(?:[^./]+)?([./].+)"
         ],
-        "url": "https://www.documentcloud.org/documents/{1}-{2}.html",
+        "url": "https://www.documentcloud.org/documents/{1}--{2}",
         "endpoint": "https://www.documentcloud.org/api/oembed.json"
     }
 ]
