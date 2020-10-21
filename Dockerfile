@@ -9,7 +9,6 @@ WORKDIR /iframely
 ENV NODE_ENV=production
 
 RUN apk add --no-cache git && \
-    yarn add forever && \
     yarn install --frozen-lockfile --production
 
 ENTRYPOINT [ "/iframely/docker/entrypoint.sh" ]
