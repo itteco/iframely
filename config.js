@@ -71,6 +71,7 @@
 
         DEFAULT_OMIT_CSS_WRAPPER_CLASS: 'iframely-responsive',
         DEFAULT_MAXWIDTH_WRAPPER_CLASS: 'iframely-embed',
+        FORCE_WIDTH_LIMIT_CONTAINER: false,
 
         T: {
             text_html: "text/html",
