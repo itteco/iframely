@@ -206,10 +206,7 @@
             google: {
                 // https://developers.google.com/maps/documentation/embed/guide#api_key
                 maps_key: "INSERT YOUR VALUE"
-            },
-            twitter: {
-                disabled: false
-            },
+            }, 
 
             /*
             // Optional Camo Proxy to wrap all images: https://github.com/atmos/camo
