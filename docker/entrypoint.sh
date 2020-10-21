@@ -5,7 +5,7 @@ export ARGC="$#"
 
 function sigterm_handler() {
     echo "SIGTERM signal received."
-    forever stopall
+    yarn forever stopall
 }
 
 trap "sigterm_handler; exit" TERM
@@ -14,13 +14,13 @@ function entrypoint() {
     if [ "$ARGC" -eq 0 ]
     then
         # Run server in cluster mode by default
-        forever start cluster.js
+        yarn forever start cluster.js
     else
         # Use command line arguments supplied at runtime
-        forever start $ARGV
+        yarn forever start $ARGV
     fi
 
-    forever --fifo logs 0 &
+    yarn forever --fifo logs 0 &
     wait
 }
 
