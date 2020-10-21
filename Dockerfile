@@ -6,8 +6,10 @@ COPY . /iframely
 
 WORKDIR /iframely
 
+ENV NODE_ENV=production
+
 RUN apk add --no-cache git && \
-    npm install -g forever && \
-    npm install
+    yarn add forever && \
+    yarn install --frozen-lockfile --production
 
 ENTRYPOINT [ "/iframely/docker/entrypoint.sh" ]
