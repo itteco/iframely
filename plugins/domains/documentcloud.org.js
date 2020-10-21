@@ -25,7 +25,7 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
                 'aspect-ratio': aspect ? 100 / aspect : 1 / Math.sqrt(2) // document aspect
-            }            
+            };
 
             if (/DC\-embed\-document/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
@@ -58,6 +58,35 @@ module.exports = {
                 redirect += '/pages/' + m[1] + '.html';
             }
             cb ({redirect: redirect});
+        } else if (url.indexOf('%') !== -1) {
+
+            /** Fix for unicode characters in url causes 400 at provider oEmbed api */
+            var oembedUrl = '';
+            var match1 = url.match(/documentcloud.org\/documents\/(\d+)-(?:[^./]+)?(\/[^.]+\.html.*)/i);
+            var match2 = url.match(/documentcloud.org\/documents\/(\d+)-(?:[^./]+)?(\.html.*)/i);
+            var nohtml = url.match(/documentcloud.org\/documents\/(\d+)(-)(?:[^./]+)?$/i);
+            if (match1 && match1.length === 3) {
+                oembedUrl = `${match1[1]}--${match1[2]}`;
+            } else if (match2 && match2.length === 3) {
+                oembedUrl = `${match2[1]}--${match2[2]}`;
+            } else if (nohtml && nohtml.length === 3) {
+                oembedUrl = `${nohtml[1]}-${nohtml[2]}.html`;
+            }
+            if (oembedUrl) {
+                var uri = encodeURI(`https://www.documentcloud.org/documents/${oembedUrl}`);
+                cb(null, {
+                    oembedLinks: ['json', 'xml'].map(function (format) {
+                        return {
+                            href: `https://www.documentcloud.org/api/oembed.${format}?url=${uri}`,
+                            rel: 'alternate',
+                            type: `application/${format}+oembed`
+                        }
+                    })
+                })
+            } else {
+                cb (null);
+            }
+
         } else {
             cb (null);
         }
