@@ -29,7 +29,8 @@ module.exports = {
 
     getData: function(oembed, options) {
         
-        if (oembed.html && /class=\"fb\-(post|video)\"/i.test(oembed.html) && !/comment_id=/.test(oembed.html)) {
+        if (oembed.html && /class=\"fb\-(post|video)\"/i.test(oembed.html) 
+            && options.getProviderOptions('facebook.thumbnail', true) && !/comment_id=/.test(oembed.html)) {
 
             options.followHTTPRedirect = true; // avoid security re-directs of URLs if any
 

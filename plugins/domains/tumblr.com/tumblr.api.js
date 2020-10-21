@@ -79,8 +79,8 @@ module.exports = {
             timeout: 1000,
             prepareResult: function (error, response, body, cb) {
 
-                if (error) {
-                    return cb(error);
+                if (error || body.errors) {
+                    return cb(error || 'There was a Tumblr API error error');
                 }
 
                 if (!body.meta) {

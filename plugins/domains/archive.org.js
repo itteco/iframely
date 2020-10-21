@@ -114,7 +114,6 @@ module.exports = {
         "https://archive.org/details/ChronoTrigger_456",
         "https://archive.org/details/YourFami1948",
         "https://archive.org/details/MLKDream",
-        "https://archive.org/details/KurtSaxonThePoorMansJamesBondVol5.pdf",
         "https://archive.org/details/in.ernet.dli.2015.185295",
         "https://archive.org/details/galaxymagazine-1950-10",
         "https://archive.org/details/mma_selfportrait_with_a_straw_hat_obverse_the_potato_peeler_436532",

@@ -12,7 +12,7 @@ module.exports = {
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
     ],
 
-    mixins: ["oembed-error"],
+    mixins: ["fb-error"],
 
     getLink: function(url, oembed, options) {
 
@@ -73,6 +73,6 @@ module.exports = {
         "https://www.facebook.com/photo/?fbid=3862605057144203&set=p.3862605057144203&comment_id=3864356460302396&__cft__[0]=AZXLT8sxNqaF8oPzbvZ1-ti8F0PJRolmnsKGtIfgri2tLSzCT_DswnBXCHXdJN8pGWimUW9qfU6Az7bdZ3Dlvk06HohyowNOMG0TJ1ibFZX8Qico3Z-DuZcl48ABz1jqiEEUNVF-9BShKzMEeSwwO6Lx&__tn__=R]-R",
         "https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893",
         "https://www.facebook.com/141700922567987_3903702929701082",
-        {noFeeds: true}, {skipMixins: ["oembed-error"]}
+        {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
 };
