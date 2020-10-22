@@ -12,7 +12,8 @@ module.exports = {
         'oembed-title',
         'description',
         'og-image',
-        'canonical'
+        'canonical',
+        'oembed-error'
     ],
 
     getLink: function(url, oembed, options) {
