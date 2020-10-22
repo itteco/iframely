@@ -84,6 +84,6 @@ module.exports = {
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
         "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
-        {skipMixins: ["og-image", "oembed-title", "description", "canonical", "domain-icon"]}, {skipMethods: ["getData"]}
+        {skipMixins: ["og-image", "oembed-title", "description", "canonical", "domain-icon", "oembed-error"]}, {skipMethods: ["getData"]}
     ]
 };
