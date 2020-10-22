@@ -24,7 +24,6 @@ module.exports = {
 
     tests: [
         "https://padlet.com/musiquerostand/musique_et_publicite",
-        "https://padlet.com/ntourreau/gedjx0ek9idc",
         "https://padlet.com/angelique_stochmal/6x7j8v4yqrfp",
         "https://padlet.com/duffo_jonathan/rapaublues"
     ]
