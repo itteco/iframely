@@ -6,6 +6,7 @@ module.exports = {
 
     mixins: [
         "og-site",
+        "oembed-title",
         "oembed-iframe",
         "og-image",
         "oembed-thumbnail",
@@ -14,7 +15,6 @@ module.exports = {
 
     getMeta: function(meta) {
         return {
-            title: meta.og && meta.og.title,
             date: meta.music && meta.music.release_date,
             author: meta.twitter && meta.twitter.audio && meta.twitter.audio.artist_name,
             author_url: meta.music && meta.music.musician,
@@ -24,7 +24,7 @@ module.exports = {
         }
     },
 
-    getLink: function(iframe, meta, options) {
+    getLink: function(iframe, options) {
 
         if (iframe.src) {
 
@@ -76,6 +76,8 @@ module.exports = {
     },
 
     getData: function (url, options, cb) {
+
+        options.exposeStatusCode = true; // fallback for playlists - now 404s
 
         const trackInAlbumRegex = /^https?:\/\/open\.spotify\.com\/album\/[a-zA-Z0-9]+\?highlight=spotify:track:([a-zA-Z0-9]+)/i;
 
