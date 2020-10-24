@@ -62,35 +62,9 @@ module.exports = {
 
         var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
-        var links = [
-            // After Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed/
-            // To be retired on Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed-legacy
-
-            // the /media/?size endpoint seem to have disappeared from new oEmbed doc. We'll have to see what happens.
-            // Also, Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
-            {
-                href: src + 't',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
-                width: 150,
-                height: 150 
-            }, {
-                href: src + 'm',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
-                width: 320,
-                height: Math.round(320 / aspect)
-            }, {
-                href: src + 'l',
-                type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video || !meta.og) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: oembed.thumbnail_width && (oembed.thumbnail_width - 1) || 1080, // It's actually 1080, but let's try and give oembed.thumbnail a higher priority
-                height: oembed.thumbnail_height && (oembed.thumbnail_height - 1) ||  Math.round(1080 / aspect)
-            }
-        ];
+        var links = [];
 
         if (oembed.thumbnail_url) {
-            // Return expanded image thumbnails as /p/shortcode/media redirects cloud users to the login page.
             links.push({
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
@@ -98,6 +72,15 @@ module.exports = {
                 // No media - let's validate image as it may be expired.
             });
         }
+
+        if (meta.og && meta.og.image) {
+            links.push({
+                href: meta.og.image,
+                type: CONFIG.T.image,
+                rel: meta.og.video ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
+                // No media - let's validate image as it may be expired.
+            });
+        }        
 
         if (meta.og && meta.og.video) {
             links.push({
