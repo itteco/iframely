@@ -1,3 +1,5 @@
+const utils = require('../../lib/utils');
+
 module.exports = {
 
     getLink: function(url, __nonHtmlContentData, options) {
@@ -11,16 +13,22 @@ module.exports = {
                 // ex - http://zwinnalodz.eu/wp-content/uploads/2016/02/The-Lean-Startup-.pdf
                 // (Though Google seems to have the limit of 25Mb - that is still too much for general Iframely use)
 
+                var src = "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url);
+
+                // Warm up Google's cache
+                utils.getContentType(src, src, options, function(error, data) {
+                });
+
                 return {
-                    href: "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url),
-                    accept: CONFIG.T.text_html,
+                    href: src,
+                    type: CONFIG.T.text_html,
                     rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
                     "aspect-ratio": 1 / Math.sqrt(2) // standard sqrt(2) aspect for A4 and other standard A* format papers (except North America, of course)
                 }
 
             } else {
                 return {
-                    message: 'PDF files that are over 10Mb are not supported'
+                    message: 'PDF files that are over 10Mb are not supported by Google Docs Viewer'
                 }
             }
         }
