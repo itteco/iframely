@@ -572,6 +572,13 @@
         ],
         "endpoint": "https://api.beta.documentcloud.org/api/oembed"
     }, {
+        "name": "Overflow",
+        "templates": [
+            "overflow.io/s/*",
+            "overflow.io/embed/*"
+        ],
+        "endpoint": "https://overflow.io/services/oembed"
+    }, {
         "name": "Storied",
         "templates": [        
             "(\\w+.storied\\.co/.*/)"
