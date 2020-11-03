@@ -561,10 +561,16 @@
         "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
     }, {
         "name": "Tableau Public",
-        "templates": [            
+        "templates": [
             "public.tableau.com/.*"
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
+    }, {
+        "name": "DocumentCloud Beta",
+        "templates": [
+            "beta.documentcloud.org/documents/"
+        ],
+        "endpoint": "https://api.beta.documentcloud.org/api/oembed"
     }, {
         "name": "Storied",
         "templates": [        
