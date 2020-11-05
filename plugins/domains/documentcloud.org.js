@@ -77,7 +77,7 @@ module.exports = {
         }
     },
 
-    tests: [{skipMethods: ['getData']},
+    tests: [{skipMethods: ['getData']}, {skipMixins: ['og-description']},
         'https://www.documentcloud.org/documents/73991-day-three-documents',
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265',
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/annotations/486265.html',
