@@ -16,6 +16,10 @@ module.exports = {
             return cb();
         }
 
+        if (/^\/\//.test(promoUri)) {
+            promoUri = 'http:' + promoUri;
+        }
+
         var options2 = _.extend({}, options, {debug: false, mixAllWithDomainPlugin: false});
         delete options2.promoUri;
         delete options2.jar;
