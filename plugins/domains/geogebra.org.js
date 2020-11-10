@@ -14,9 +14,7 @@ module.exports = {
     getData: function(urlMatch, options, cb) {
         /**https://wiki.geogebra.org/en/Embedding_in_Webpages */
 
-        if (!options.redirectsHistory
-            || options.redirectsHistory.indexOf('https://www.geogebra.org/m/' + urlMatch[1]) === -1) {
-
+        if (!/^\d+$/.test(urlMatch[1])) {
             cb (null, {__promoUri: {url: 'https://www.geogebra.org/material/iframe/id/' + urlMatch[1]} });
         } else {
             cb(null, null)
