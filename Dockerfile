@@ -5,8 +5,6 @@ LABEL org.prx.app="yes"
 
 EXPOSE 8061
 
-COPY . /iframely
-
 WORKDIR /iframely
 
 # install git, aws-cli
@@ -18,7 +16,12 @@ RUN apk --no-cache add inotify-tools git ca-certificates \
 RUN git clone -o github https://github.com/PRX/aws-secrets
 RUN cp ./aws-secrets/bin/* /usr/local/bin
 
+COPY ./package.json /iframely/
+COPY ./yarn.lock /iframely/
 RUN npm install -g forever && \
     npm install
 
-ENTRYPOINT [ "/iframely/docker/entrypoint.sh" ]
+COPY . /iframely
+
+ENTRYPOINT [ "./bin/application" ]
+CMD [ "serve" ]

@@ -35,7 +35,7 @@ ApplicationRun () {
     CMD=
   elif [ "$PROCESS" = "serve" ] ; then
     UpdateEnvironment
-    CMD="npm run-script serve"
+    CMD="docker/entrypoint.sh"
   else
     CMD="npm run-script $PROCESS"
   fi

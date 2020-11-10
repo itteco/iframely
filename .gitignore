@@ -2,7 +2,6 @@
 .idea
 npm-debug.log
 node_modules
-config.local.js
 test/test2.js
 static/test
 iframely-*.json
@@ -15,3 +14,5 @@ lib/new/test.html
 lib/new/test.js
 
 iframely-private-plugins/
+
+.env
