@@ -1,0 +1,47 @@
+#!/bin/ash -e
+
+PROCESS=
+CMD_ARGS=
+CMD=
+
+ApplicationUsage () {
+  echo "usage: application [ serve | help | -- COMMAND ]"
+}
+
+ApplicationParseOpts () {
+  PROCESS=$1
+  shift
+  CMD_ARGS=$*
+}
+
+UpdateEnvironment () {
+  if [ -z "$LOCAL_ENV" ]; then
+    IFS=$'\n'
+    for item in `aws-secrets-get`; do
+      clean=`echo $item | sed 's/="\(.*\)"$/=\1/'`
+      export "$clean"
+    done
+    unset IFS
+  fi
+}
+
+ApplicationRun () {
+  CMD=
+  if [ "$PROCESS" = "help" ] ; then
+    ApplicationUsage
+    exit
+  elif [ "$PROCESS" = "--" ] ; then
+    UpdateEnvironment
+    CMD=
+  elif [ "$PROCESS" = "serve" ] ; then
+    UpdateEnvironment
+    CMD="docker/entrypoint.sh"
+  else
+    CMD="npm run-script $PROCESS"
+  fi
+
+  $CMD $CMD_ARGS
+}
+
+ApplicationParseOpts $*
+ApplicationRun
