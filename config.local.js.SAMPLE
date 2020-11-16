@@ -300,6 +300,7 @@
         ],
 
         // Endpoint for prerender service, if you need it. Used to parse React apps. Very slow.
+        // Tested with https://github.com/prerender/prerender
         // PRERENDER_URL: "https://domain/render?url="
     };
 
