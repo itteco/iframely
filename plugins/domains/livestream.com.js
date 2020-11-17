@@ -6,7 +6,7 @@ module.exports = {
         /^https?:\/\/livestream\.com\/accounts\/(\d+)\/(\w+)(\/videos?\/\d+)?/i,
         /^https?:\/\/livestream\.com\/(\w+)\/events\/(\d+)(\/videos?\/\d+)?/i,
         /^https?:\/\/livestream\.com\/(\w+)\/(\w+)(\/videos?\/\d+)/i,
-        /^https?:\/\/livestream\.com\/(\w+)\/(\w+)(?:\/?\?t=\d+)?$/i        
+        /^https?:\/\/livestream\.com\/(\w+)\/(\w+)(?:\/?\?t=\d+)?$/i
     ],    
 
     mixins: [
@@ -42,10 +42,7 @@ module.exports = {
     tests: [
         "https://livestream.com/accounts/242049/events/1978582",
         "https://livestream.com/ironman/events/7777204/videos/163920520",
-        "https://livestream.com/sevierheights/maincampus?t=1486305168991",
-        "https://livestream.com/myanmaritv/live",
         "https://livestream.com/accounts/1862284/ChannelersOfChange/videos/161518819?t=1503250404953",
-        "https://livestream.com/accounts/1862284/ChannelersOfChange",
-        "https://livestream.com/accounts/2787677/events/6862936/player?width=0&height=0&enableInfoAndActivity=true&defaultDrawer=&autoPlay=true&mute=false"
+        "https://livestream.com/accounts/1862284/ChannelersOfChange"
     ]
 };

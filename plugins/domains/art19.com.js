@@ -84,6 +84,7 @@ module.exports = {
             "twitter-image"
         ]
     },
-        "https://art19.com/shows/the-ringer-nba-show/episodes/350698d2-9b63-41ca-aca5-6b2d4c9fdf59"
+        "https://art19.com/shows/intercom-on-product-management?ref=producthunt",
+        "https://art19.com/shows/intercom-on-product-management/episodes/5801ff9e-51ba-4e15-a284-5069751c6bed"
     ]
 };

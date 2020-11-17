@@ -8,7 +8,7 @@ module.exports = {
 
         var title = (meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title'];
 
-    	if ((meta.fragment == '!' && /{{.+}}/.test(title)) || /^{{.+}}$/.test(title))  {
+    	if (meta.fragment == '!' && (/{{.+}}/.test(title) || meta['prerender-status-code'] || /^{{.+}}$/.test(title)))  {
     		//ex.: 	http://www.hitbox.tv/wavybabygaming
     		//		http://bteekh.com/5orm/post/9695/?ref=related
             //      https://maps.mysidewalk.com/a4c623c9fd

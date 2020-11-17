@@ -1,4 +1,4 @@
-var $ = require('cheerio');
+const $ = require('cheerio');
 
 module.exports = {
 
@@ -42,7 +42,6 @@ module.exports = {
     tests: [{skipMethods: ["getData", "getLink"]},
         "http://fyteensontop.tumblr.com/post/58053062280/130812-fanta-fanmeeting-niel-apink-eunji-cut",
         "http://hubol.tumblr.com/post/58053061056/check-out-how-cool-this-class-is",
-        "http://blog.instagram.com/post/53448889009/video-on-instagram",
         "http://soupsoup.tumblr.com/post/41952443284/think-of-yourself-less-of-a-journalist-and-more"
     ]
 };

@@ -112,6 +112,6 @@ module.exports = {
     },
 
     tests: [
-        "http://www.unotv.com/videoblogs/tecnologia/gadgets-tecnologia-apps/detalle/javier-matuk-20-enero-como-te-gustaria-mesas-pinball-futuro-986876/"
+        ""
     ]
 };
