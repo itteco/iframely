@@ -58,8 +58,11 @@ module.exports = {
                 redirect += '/pages/' + m[1] + '.html';
             }
             cb ({redirect: redirect});
-        } else if (url.indexOf('%') !== -1) {
 
+        } else if (
+            url.indexOf('%') !== -1
+            || /[\x00-\x7f]/.test(url)
+        ) {
             /** Fix for unicode characters in url causes 400 at provider oEmbed api */
             var uri = encodeURI(url.replace(/(\d+\-)[^./#?]+/i, '$1-').replace(/(\/\d+--)[^.]*$/i, '$1.html'));
             cb(null, {
