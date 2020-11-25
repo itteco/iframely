@@ -253,6 +253,27 @@ module.exports = {
             }
         };
 
+        var maxwidth = options.getRequestOptions('players.maxwidth', 325);
+        if (maxwidth !== 325 && !/data\-width=\"/.test(html)) {
+            html = html.replace(
+                '<blockquote class="twitter-tweet"',
+                '<blockquote class="twitter-tweet" data-width="'+ maxwidth + '"'
+            );
+        } else if (maxwidth !== 325 && /data\-width=\"/.test(html)) {
+            html = html.replace(
+                /data-width="\d+"/,
+                'data-width="'+ maxwidth + '"'
+            );
+        }
+        console.log(html);
+        opts.maxwidth = {
+            label: 'Maximum width of a tweet',
+            value: maxwidth,
+            range: {
+                max: 550,
+                min: 220
+            }
+        };
 
         var app = {
             html: html,
