@@ -253,6 +253,26 @@ module.exports = {
             }
         };
 
+        opts.maxwidth = {
+            value: '',
+            label: CONFIG.L.width,
+            placeholder: '220-550, in px'
+        };
+        var maxwidth =  parseInt(options.getRequestOptions('twitter.maxwidth', undefined));
+        if (maxwidth && maxwidth >= 220 && maxwidth <= 550) {
+            if (!/data\-width=\"/.test(html)) {
+                html = html.replace(
+                    '<blockquote class="twitter-tweet"',
+                    '<blockquote class="twitter-tweet" data-width="' + maxwidth + '"'
+                );
+            } else if (/data\-width=\"/.test(html)) {
+                html = html.replace(
+                    /data-width="\d+"/,
+                    'data-width="' + maxwidth + '"'
+                );
+            }
+            opts.maxwidth.value = maxwidth
+        }
 
         var app = {
             html: html,
