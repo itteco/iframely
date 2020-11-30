@@ -278,7 +278,7 @@ module.exports = {
             html: html,
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5],
-            "max-width": twitter_oembed["width"] || 550,
+            "max-width": opts.maxwidth.value || twitter_oembed["width"] || 550,
             options: opts
         };
 
