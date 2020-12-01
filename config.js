@@ -397,6 +397,13 @@
 
     _.extend(config, local);
 
+    // Providers config loader.
+    local_config_path = path.resolve(__dirname, "config.providers.js");
+    if (fs.existsSync(local_config_path)) {
+        var local = require(local_config_path);
+        _.extend(config, local);
+    }
+
     if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
     }
