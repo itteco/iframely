@@ -375,34 +375,32 @@
         }
     };
 
+    // Providers config loader.
+    var local_config_path = path.resolve(__dirname, "config.providers.js");
+    if (fs.existsSync(local_config_path)) {
+        var local = require(local_config_path);
+        _.extend(config, local);
+    }
+
+
     var env_config_path = path.resolve(
         __dirname,
         "config." + (process.env.NODE_ENV || "local") + ".js"
     );
 
-    var local_config_path = path.resolve(__dirname, "config.local.js");
-
-    var local;
+    local_config_path = path.resolve(__dirname, "config.local.js");
 
     // Try config by NODE_ENV.
     if (fs.existsSync(env_config_path)) {
-
-        local = require(env_config_path);
+        var local = require(env_config_path);
 
     } else if (fs.existsSync(local_config_path)) {
         // Else - try local config.
-
-        local = require(local_config_path);
+        var local = require(local_config_path);
     }
 
     _.extend(config, local);
 
-    // Providers config loader.
-    local_config_path = path.resolve(__dirname, "config.providers.js");
-    if (fs.existsSync(local_config_path)) {
-        var local = require(local_config_path);
-        _.extend(config, local);
-    }
 
     if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
