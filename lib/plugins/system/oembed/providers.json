@@ -760,5 +760,12 @@
             "mybeweeg.com/.*"
         ],
         "endpoint": "https://mybeweeg.com/services/oembed"
+    },
+    {
+        "name": "loom.com",
+        "templates": [
+            "(?:www\\.)?loom.com/(?:i|share)/.*"
+        ],
+        "endpoint": "https://www.loom.com/v1/oembed"
     }
 ]
