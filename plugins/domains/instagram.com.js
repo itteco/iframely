@@ -58,9 +58,6 @@ module.exports = {
     },
 
     getLinks: function(url, urlMatch, meta, oembed, options) {
-        var src = 'https://instagram.com/p/' + urlMatch[1] + '/media/?size=';
-
-        var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
 
         var links = [];
 
