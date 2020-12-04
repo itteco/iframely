@@ -57,7 +57,7 @@ module.exports = {
                         value: /data\-small\-header="(true|1)"/i.test(html)
                     }
                 },
-                "max-width": oembed.width
+                height: oembed.height
             };        
         }
     },
