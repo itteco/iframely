@@ -1,3 +1,5 @@
 .git
 .gitignore
+# Ignore local node_modules because we fetch only production dependencies
+# during the container build.
 node_modules
