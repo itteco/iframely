@@ -25,7 +25,8 @@ module.exports = {
             || (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html))
             || (meta['html-title'] && /security check required/i.test(meta['html-title']) && /blockquote/.test(oembed.html)) ) {
 
-            var html = oembed.html;
+            var html = oembed.html,
+                height = oembed.height;
 
             html = options.getRequestOptions('facebook.show_posts', false)
                 ? html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="true"')
@@ -39,25 +40,46 @@ module.exports = {
                 ? html.replace(/data\-small\-header=\"(?:false|0)?\"/i, 'data-small-header="true"')
                 : html.replace(/data\-small\-header=\"(true|1)\"/i, 'data-small-header="false"');
 
+            var opts = {
+                show_posts: {
+                    label: 'Show recent posts',
+                        value: /data\-show\-posts="(true|1)"/i.test(html)
+                },
+                show_facepile: {
+                    label: 'Show profile photos when friends like this',
+                        value: /data\-show\-facepile="(true|1)"/i.test(html)
+                },
+                small_header: {
+                    label: 'Use the small header instead',
+                        value: /data\-small\-header="(true|1)"/i.test(html)
+                }
+            };
+
+            if (options.getRequestOptions('facebook.show_posts')) {
+                height = options.getRequestOptions('facebook.height', height);
+
+                if (height < 70) {
+                    height = 70
+                };
+
+                opts.height = {
+                    label: CONFIG.L.height,
+                    value: height,
+                    placeholder: 'ex.: 500, in px'
+                };
+
+                html.replace(/data\-height\=\"(\d+)\"/i, '');
+                html = options.getRequestOptions('facebook.height', oembed.height)
+                    ? html.replace(/data\-small\-header=\"/i, 'data-height="' + height + '" data-small-header="')
+                    : html.replace(/data\-height\=\"(\d+)\"/i, '');
+            }
+
             return {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
                 html: html,
-                options: {
-                    show_posts: {
-                        label: 'Show recent posts',
-                        value: /data\-show\-posts="(true|1)"/i.test(html)
-                    },
-                    show_facepile: {
-                        label: 'Show profile photos when friends like this',
-                        value: /data\-show\-facepile="(true|1)"/i.test(html)
-                    },
-                    small_header: {
-                        label: 'Use the small header instead',
-                        value: /data\-small\-header="(true|1)"/i.test(html)
-                    }
-                },
-                "max-width": oembed.width
+                options: opts,
+                height: height
             };        
         }
     },
