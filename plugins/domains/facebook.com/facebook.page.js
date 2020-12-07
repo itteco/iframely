@@ -56,19 +56,20 @@ module.exports = {
             };
 
             if (options.getRequestOptions('facebook.show_posts')) {
-                height = options.getRequestOptions('facebook.page_height', height);
+                height = options.getRequestOptions('facebook.height', height);
 
                 if (height < 70) {
                     height = 70
                 };
 
-                opts.page_height = {
+                opts.height = {
                     label: CONFIG.L.height,
                     value: height,
                     placeholder: 'ex.: 500, in px'
                 };
 
-                html = options.getRequestOptions('facebook.page_height', oembed.height)
+                html.replace(/data\-height\=\"(\d+)\"/i, '');
+                html = options.getRequestOptions('facebook.height', oembed.height)
                     ? html.replace(/data\-small\-header=\"/i, 'data-height="' + height + '" data-small-header="')
                     : html.replace(/data\-height\=\"(\d+)\"/i, '');
             }
