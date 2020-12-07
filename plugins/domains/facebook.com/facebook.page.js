@@ -70,7 +70,7 @@ module.exports = {
 
                 html = options.getRequestOptions('facebook.page_height', oembed.height)
                     ? html.replace(/data\-small\-header=\"/i, 'data-height="' + height + '" data-small-header="')
-                    : html.replace(/data\-height\=\"(\d+)px\"/i, 'data-height=""');
+                    : html.replace(/data\-height\=\"(\d+)\"/i, '');
             }
 
             return {
