@@ -78,6 +78,6 @@ module.exports = {
     tests: [{
         noFeeds: true
     },
-        "https://www.twitch.tv/videos/743604531"
+        "https://www.twitch.tv/videos/743604531?parent=localhost"
     ]
 };
