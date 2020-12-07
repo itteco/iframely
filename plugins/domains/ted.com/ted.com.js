@@ -15,10 +15,10 @@ module.exports = {
         "favicon",
         "oembed-author",
         "oembed-canonical",
-        "oembed-description",
+        "og-description",
         "keywords",
         "oembed-site",
-        "oembed-title",
+        "og-title",
     ],
 
     getLink: function(oembed, tedLangs) {
