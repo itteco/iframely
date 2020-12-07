@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/giphy\.com\/gifs\/(?:[a-zA-Z0-9_-]+\-)?([a-z0-9\-]+)/i,
+        /^https?:\/\/giphy\.com\/(?:gifs|stickers)\/(?:[a-zA-Z0-9_-]+\-)?([a-z0-9\-]+)/i,
         /^https?:\/\/giphy\.com\/videos\/(?:[a-zA-Z0-9_-]+\-)?([a-zA-Z0-9]+)(?:\?.+)?/i
     ],
 
@@ -95,6 +95,7 @@ module.exports = {
         "http://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E",
         "https://giphy.com/gifs/nfl-super-bowl-nfl-sb-U7zS2FJTC8xclBzGVu",
         "https://giphy.com/videos/kehlani-open-passionate-kBMPSpmc4vbIc3h7Zo",
-        "https://giphy.com/gifs/dancing-happy-seinfeld-BlVnrxJgTGsUw" // this one was broken and excluded via `!twitter.image.url`
+        "https://giphy.com/gifs/dancing-happy-seinfeld-BlVnrxJgTGsUw", // this one was broken and excluded via `!twitter.image.url`
+        "https://giphy.com/stickers/cindysuenkeys-26AHtOSUIDsTJO7cs"
     ]
 };
