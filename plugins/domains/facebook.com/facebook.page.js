@@ -72,11 +72,10 @@ module.exports = {
                 html = options.getRequestOptions('facebook.height', oembed.height)
                     ? html.replace(/data\-small\-header=\"/i, 'data-height="' + height + '" data-small-header="')
                     : html.replace(/data\-height\=\"(\d+)\"/i, '');
+            } else if (/data\-small\-header="(true|1)"/i.test(html)){
+                height = 70;
             } else {
                 height = 130;
-                if (/data\-small\-header="(true|1)"/i.test(html)) {
-                    height = 70;
-                };
             }
 
             return {
