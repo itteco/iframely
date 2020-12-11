@@ -15,16 +15,20 @@ module.exports = {
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
     // https://www.documentcloud.org/help/api#oembed
 
-    getLink: function(oembed, options) {
+    getLink: function(url, oembed, options) {
+
+        const isBeta = /beta\.documentcloud\.org/.test(url);
 
         if (oembed.type === 'rich' && oembed.html) { // else: fallback to generic
             var html = oembed.html.replace(/\r?\n|\r/g, '');
-            var aspect = /padding\-bottom:(\d+.\d+)%/.test(html) && parseFloat(html.match(/padding\-bottom:(\d+.\d+)%/)[1]);
+            var aspect = /padding\-bottom:(\d+.\d+)%/.test(html) && 100 / parseFloat(html.match(/padding\-bottom:(\d+.\d+)%/)[1])
+                        || oembed.width && oembed.height && oembed.width / oembed.height
+                        || 1 / Math.sqrt(2);
             
             var link = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
-                'aspect-ratio': aspect ? 100 / aspect : 1 / Math.sqrt(2) // document aspect
+                'aspect-ratio': aspect
             };
 
             if (!/DC\-note/.test(html) && !/DC\-embed\-page/.test(html)) {
@@ -43,9 +47,15 @@ module.exports = {
                     }
                 } catch (ex) {}
 
+                if (isBeta && oembed.getIframe() && oembed.getIframe().src) {
+                    link.href = oembed.getIframe().src;
+                }
             }
 
-            link.html = html;
+            if (!link.href) {
+                link.html = html;
+            }
+
             return link;
         }
     },
