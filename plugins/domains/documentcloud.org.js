@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/(?:www\.)?documentcloud\.org\/documents?\/\d+/i,
+    re: /^https?:\/\/(?:www|beta)?\.?documentcloud\.org\/documents?\/\d+/i,
 
     mixins: [
         "domain-icon",
@@ -17,8 +17,8 @@ module.exports = {
 
     getLink: function(oembed, options) {
 
-        if (oembed.type === 'rich') { // else: fallback to generic
-            var html = oembed.html;
+        if (oembed.type === 'rich' && oembed.html) { // else: fallback to generic
+            var html = oembed.html.replace(/\r?\n|\r/g, '');
             var aspect = /padding\-bottom:(\d+.\d+)%/.test(html) && parseFloat(html.match(/padding\-bottom:(\d+.\d+)%/)[1]);
             
             var link = {
@@ -27,12 +27,14 @@ module.exports = {
                 'aspect-ratio': aspect ? 100 / aspect : 1 / Math.sqrt(2) // document aspect
             };
 
-            if (/DC\-embed\-document/.test(html)) {
+            if (!/DC\-note/.test(html) && !/DC\-embed\-page/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
+
                 try {
                     if (page && page !== '1') {
-                        html = html.replace ('" title="', '#document/p' + page + '" title="');                    
+                        html = html.replace (/"\s+title="/i, '#document/p' + page + '" title="');
                     }
+
                     link.options = {
                         page: {
                             label: CONFIG.L.page,
@@ -49,23 +51,32 @@ module.exports = {
     },
 
     getData: function(url, cb) {
-        if (/\.html#document\/p(\d+)(?:\/a(\d+))?/i.test(url)) {
-            var m = url.match(/\.html#document\/p(\d+)(?:\/a(\d+))?/i);
-            var redirect = url.replace(/\.html#document\/p(\d+)(?:\/a(\d+))?/i, '');
+
+        const isBeta = /beta\.documentcloud\.org/.test(url);
+
+        if (!isBeta && /(?:\.html)?#document\/p(\d+)(?:\/a(\d+))?/i.test(url)) {
+            var m = url.match(/(?:\.html)?#document\/p(\d+)(?:\/a(\d+))?/i);
+            var redirect = url.replace(/(?:\.html)?#document\/p(\d+)(?:\/a(\d+))?/i, '');
+            
             if (m[2]) {
                 redirect += '/annotations/' + m[2] + '.html';
             } else {
                 redirect += '/pages/' + m[1] + '.html';
             }
-            cb ({redirect: redirect});
+            
+            return cb ({
+                redirect: redirect
+            });
 
-        } else if (
-            url.indexOf('%') !== -1
-            || /[\x00-\x7f]/.test(url)
+        } else if (!isBeta && (
+                url.indexOf('%') !== -1 
+                || !/\d+\-[a-zA-Z0-9\-]+(?:(\.|\/|\?).+)?$/.test(url)
+            )
         ) {
             /** Fix for unicode characters in url causes 400 at provider oEmbed api */
             var uri = encodeURI(url.replace(/(\d+\-)[^./#?]+/i, '$1-').replace(/(\/\d+--)[^.]*$/i, '$1.html'));
-            cb(null, {
+            
+            return cb(null, {
                 oembedLinks: ['json', 'xml'].map(function (format) {
                     return {
                         href: `https://www.documentcloud.org/api/oembed.${format}?url=${uri}`,
@@ -73,7 +84,7 @@ module.exports = {
                         type: `application/${format}+oembed`
                     }
                 })
-            })
+            });
 
         } else {
             cb (null);
@@ -88,6 +99,8 @@ module.exports = {
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html',
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal',
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html',
+        "https://beta.documentcloud.org/documents/20059068-the-mueller-report#document/p17/a2001254",
+        "https://beta.documentcloud.org/documents/20059068-the-mueller-report",
         {
             noFeeds: true
         }
