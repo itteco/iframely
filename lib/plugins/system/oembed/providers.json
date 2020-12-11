@@ -568,9 +568,10 @@
     }, {
         "name": "DocumentCloud Beta",
         "templates": [
-            "beta.documentcloud.org/documents/"
+            "(beta.documentcloud.org/documents/.+)$"
         ],
-        "endpoint": "https://api.beta.documentcloud.org/api/oembed"
+        "url": "https://{1}",
+        "endpoint": "https://api.beta.documentcloud.org/api/oembed?url={url}&format={format}"
     }, {
         "name": "Overflow",
         "templates": [
