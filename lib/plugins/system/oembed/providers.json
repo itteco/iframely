@@ -390,13 +390,6 @@
         "endpoint": "https://embed.droplr.com/oembed"
     },
     {
-        "name": "Vine",
-        "templates": [
-            "vine.co/v/([a-zA-Z0-9-]+)"
-        ],
-        "endpoint": "https://vine.co/oembed/{1}.{format}"
-    },
-    {
         "name": "Tumblr",
         "templates": [
             "[a-z0-9-]+\\.tumblr\\.com/post/\\d+"
