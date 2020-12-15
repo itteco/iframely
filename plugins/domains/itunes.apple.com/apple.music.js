@@ -5,13 +5,21 @@ module.exports = {
 
     re: [
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
-        /^https?:\/\/music\.apple\.com\/(\w{2})\/(album|playlist)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
+        /^https?:\/\/music\.apple\.com\/(\w{2})\/(album|playlist|post)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
         /^https?:\/\/music\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i
     ],
+
+    highestPriority: true,
 
     mixins: [
         "*"
     ],
+
+    getMeta: function () {
+        return {
+            media: 'player' // avoid promo card on media=reader
+        }
+    },
 
     getLink: function(urlMatch, url, meta, options) {
 
@@ -58,6 +66,7 @@ module.exports = {
         'https://itunes.apple.com/us/album/eartha/1450438412?i=1450438420',
         'https://itunes.apple.com/album/1457610711?app=itunes&ls=1',
         'https://music.apple.com/jp/album/back-to-the-80s/1458246986',
-        'https://music.apple.com/us/album/gypsy-woman-shes-homeless-basement-boy-strip-to-the-bone-mix/1434891258?i=1434891369'
+        'https://music.apple.com/us/album/gypsy-woman-shes-homeless-basement-boy-strip-to-the-bone-mix/1434891258?i=1434891369',
+        'https://music.apple.com/fr/post/sa.01cb7f20-f25e-11e6-b1a9-afb0a09d5237'
     ]
 };
