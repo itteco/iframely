@@ -226,7 +226,8 @@
     {
         "name": "TikTok",
         "templates": [
-            "tiktok\\.com/@[^\\/]+\/video\/\\d+"
+            "tiktok\\.com/@[^\\/]+\/video\/\\d+",
+            "tiktok\\.com/share\/video\/\\d+"            
         ],
         "endpoint": "https://www.tiktok.com/oembed"
     },
