@@ -4,7 +4,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(channel)\/([a-zA-Z0-9_-]+)/i,
-        /^https?:\/\/(?:www\.)?youtube\.com\/(user)\/([a-zA-Z0-9_-]+)/i
+        /^https?:\/\/(?:www\.)?youtube\.com\/(user|c)\/([a-zA-Z0-9_-]+)/i
     ],
 
     mixins: ["domain-icon"],
@@ -129,6 +129,7 @@ module.exports = {
         noFeeds: true
     },
         "https://www.youtube.com/channel/UCSZ69a-0I1RRdNssyttBFcA",
-        "https://www.youtube.com/user/kvn/"
+        "https://www.youtube.com/user/kvn/",
+        "https://www.youtube.com/c/SpaceX"
     ]
 };
