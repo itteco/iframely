@@ -307,7 +307,7 @@ module.exports = {
             }
 
             links.push(thumbnail);
-        }        
+        }
 
         return links;
     },
