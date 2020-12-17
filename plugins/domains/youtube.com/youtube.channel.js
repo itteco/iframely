@@ -100,8 +100,7 @@ module.exports = {
         return {
             title: youtube_channel_gdata.title,
             description: youtube_channel_gdata.description,
-            site: "YouTube",
-            canonical: "https://www.youtube.com/watch?v=" + youtube_channel_gdata.id,
+            site: "YouTube"
         };
     },
 
