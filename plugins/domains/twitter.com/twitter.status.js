@@ -10,7 +10,7 @@ module.exports = {
         /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
     ],
 
-    provides: ['twitter_oembed', 'twitter_og', '__allow_twitter_og'],
+    provides: ['twitter_oembed', 'twitter_og', '__allowTwitterOg'],
 
     mixins: ['domain-icon'],
 
@@ -168,8 +168,9 @@ module.exports = {
             };
 
             if (/pic\.twitter\.com/i.test(oembed.html)) {
-                result.__allow_twitter_og = true;
+                result.__allowTwitterOg = true;
                 options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
+                options.exposeStatusCode = true;
             } else {
                 result.twitter_og = false;
             }
@@ -258,6 +259,7 @@ module.exports = {
             label: CONFIG.L.width,
             placeholder: '220-550, in px'
         };
+        
         var maxwidth =  parseInt(options.getRequestOptions('twitter.maxwidth', undefined));
         if (maxwidth && maxwidth >= 220 && maxwidth <= 550) {
             if (!/data\-width=\"/.test(html)) {
@@ -305,8 +307,7 @@ module.exports = {
             }
 
             links.push(thumbnail);
-
-        }        
+        }
 
         return links;
     },
