@@ -1,16 +1,22 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?)\/(\d+)/i,
-        /^https?:\/\/twitter\.com\/\w+$/i,
-        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?|lists?)\/?/i
+        /^https?:\/\/twitter\.com\/(\w+)\/(?:timelines?|moments?|likes?)\/(\d+)/i,
+        /^https?:\/\/twitter\.com\/(\w+)$/i,
+        /^https?:\/\/twitter\.com\/(\w+)\/(?:timelines?|moments?|likes?|lists?)\/?/i
     ],
 
     mixins: [
         'domain-icon',
         'oembed-error',
-        '*'
     ],
+
+    getMeta: function(meta, urlMatch) {
+        return {
+            title: meta['html-title'] || urlMatch[1],
+            description: meta.description
+        }
+    },
 
     getLink: function(url, oembed, options) {
 
