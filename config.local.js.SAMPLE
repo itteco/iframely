@@ -177,6 +177,7 @@
         */
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
+        // For available provider options - please see the code of its domain plugin.
         providerOptions: {
             locale: "en_US",    // ISO 639-1 two-letter language code, e.g. en_CA or fr_CH. 
                                 // Will be added as highest priotity in accept-language header with each request. 
@@ -206,7 +207,7 @@
             google: {
                 // https://developers.google.com/maps/documentation/embed/guide#api_key
                 maps_key: "INSERT YOUR VALUE"
-            },
+            }, 
 
             /*
             // Optional Camo Proxy to wrap all images: https://github.com/atmos/camo
@@ -229,16 +230,12 @@
             vimeo: {
                 get_params: "?byline=0&badge=0"     // https://developer.vimeo.com/player/embedding
             },
-
-            /*
             soundcloud: {
                 old_player: true // enables classic player
             },
             giphy: {
                 media_only: true // disables branded player for gifs and returns just the image
-            }
-            */
-            /*
+            },
             bandcamp: {
                 get_params: '/size=large/bgcol=333333/linkcol=ffffff/artwork=small/transparent=true/',
                 media: {
@@ -251,7 +248,11 @@
                         'max-width': 700
                     }
                 }
-            }
+            },
+            // Docs: https://dev.twitch.tv/docs/embed/video-and-clips
+            twitch: {
+                parent: 'jsbin.com, null.jsbin.com, localhost'
+            },
             */
         },
 
@@ -297,10 +298,11 @@
             // And this is AWS metadata service
             // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
             /^https?:\/\/169\.254\.169\.254/
-        ]
+        ],
 
-        /** url for prerender service */
-        PRERENDER_URL: "https://domain/render?url=",
+        // Endpoint for prerender service, if you need it. Used to parse React apps. Very slow.
+        // Tested with https://github.com/prerender/prerender
+        // PRERENDER_URL: "https://domain/render?url="
     };
 
     module.exports = config;

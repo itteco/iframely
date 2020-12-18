@@ -71,6 +71,7 @@
 
         DEFAULT_OMIT_CSS_WRAPPER_CLASS: 'iframely-responsive',
         DEFAULT_MAXWIDTH_WRAPPER_CLASS: 'iframely-embed',
+        FORCE_WIDTH_LIMIT_CONTAINER: false,
 
         T: {
             text_html: "text/html",
@@ -141,7 +142,6 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
-            sm4: "sm4",
 
             icon: "icon",
             logo: "logo",
@@ -166,7 +166,7 @@
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
             'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
             'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
-            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr'
+            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr', 'clipboard-write'
         ],
 
         // Option names
@@ -329,9 +329,6 @@
             "og": [
                 "video"
             ],
-            "sm4": [
-                "video"
-            ],
             "oembed": [
                 "link",
                 "rich",
@@ -364,8 +361,7 @@
             "oembed",
             "og",
             "twitter",
-            "iframely",
-            "sm4"
+            "iframely"
         ],
 
         KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable)\.\w+\//i,
@@ -379,27 +375,32 @@
         }
     };
 
+    // Providers config loader.
+    var local_config_path = path.resolve(__dirname, "config.providers.js");
+    if (fs.existsSync(local_config_path)) {
+        var local = require(local_config_path);
+        _.extend(config, local);
+    }
+
+
     var env_config_path = path.resolve(
         __dirname,
         "config." + (process.env.NODE_ENV || "local") + ".js"
     );
 
-    var local_config_path = path.resolve(__dirname, "config.local.js");
-
-    var local;
+    local_config_path = path.resolve(__dirname, "config.local.js");
 
     // Try config by NODE_ENV.
     if (fs.existsSync(env_config_path)) {
-
-        local = require(env_config_path);
+        var local = require(env_config_path);
 
     } else if (fs.existsSync(local_config_path)) {
         // Else - try local config.
-
-        local = require(local_config_path);
+        var local = require(local_config_path);
     }
 
     _.extend(config, local);
+
 
     if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;

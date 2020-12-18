@@ -40,6 +40,6 @@ module.exports = {
     },
 
     getLinks: function(appUriData) {
-        return appUriData.links;
+        return _.extend({}, appUriData.links);
     }
 };

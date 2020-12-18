@@ -3,7 +3,8 @@ var utils = require('./utils');
 module.exports = {
 
     getLink: function(meta) {
-
-        return utils.getImageLink("thumbnail", meta);
+    	if (!meta.og || !meta.og.image) {
+        	return utils.getImageLink("thumbnail", meta);
+    	}
     }
 };

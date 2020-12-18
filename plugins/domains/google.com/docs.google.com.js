@@ -48,7 +48,12 @@ module.exports = {
                 // use default aspect
 
             } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
-                file.height = schemaFileObject.height;
+                file.height = schemaFileObject.height && (schemaFileObject.height + 65);
+
+                if (file.height > 1500) {
+                    file.message = "If there's an extra vertical space, it is used up on next step (after \"Next\" is clicked in the form).";
+                }
+
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (CONFIG.R.app);
                 // Make forms resizeable

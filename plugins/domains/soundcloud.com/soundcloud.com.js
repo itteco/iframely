@@ -139,8 +139,8 @@ module.exports = {
     },
 
     tests: [{skipMethods: ["getData"]}, {skipMixins: ["oembed-description"]},
-        "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         "https://soundcloud.com/user-847444",
+        "https://m.soundcloud.com/claude-debussy/clair-de-lune",
         // user profile with no tracks: https://soundcloud.com/mata-klol    
 
         // The following URLs redirect to this plugin and should also work.

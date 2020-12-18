@@ -77,7 +77,7 @@
     {
         "name": "SoundCloud",
         "templates": [
-            "soundcloud\\.com/.+",
+            "(?:m\\.)?soundcloud\\.com/.+",
             "api\\.soundcloud\\.com\/(?:users|playlists|tracks)\\/\\d+"
         ],
         "endpoint": "https://soundcloud.com/oembed"
@@ -160,7 +160,7 @@
     {
         "name": "YouTube Playlist",
         "templates": [
-            "www\\.youtube\\.com/playlist\\?list=([a-zA-Z0-9_-]+)"
+            "www\\.youtube\\.com/playlist"
         ],
         "endpoint": "https://www.youtube.com/oembed"
     },
@@ -226,7 +226,8 @@
     {
         "name": "TikTok",
         "templates": [
-            "tiktok\\.com/@[^\\/]+\/video\/\\d+"
+            "tiktok\\.com/@[^\\/]+\/video\/\\d+",
+            "tiktok\\.com/share\/video\/\\d+"            
         ],
         "endpoint": "https://www.tiktok.com/oembed"
     },
@@ -390,13 +391,6 @@
         "endpoint": "https://embed.droplr.com/oembed"
     },
     {
-        "name": "Vine",
-        "templates": [
-            "vine.co/v/([a-zA-Z0-9-]+)"
-        ],
-        "endpoint": "https://vine.co/oembed/{1}.{format}"
-    },
-    {
         "name": "Tumblr",
         "templates": [
             "[a-z0-9-]+\\.tumblr\\.com/post/\\d+"
@@ -528,7 +522,13 @@
         ],
         "endpoint": "https://www.kickstarter.com/services/oembed"
     }, {
-        "name": "Producthunt Comments",
+        "name": "ProductHunt",
+        "templates": [
+            "(?:www\\.)producthunt\\.com/posts/"
+        ],
+        "endpoint": "https://api.producthunt.com/widgets/oembed"
+    }, {
+        "name": "ProductHunt Comments",
         "templates": [
             "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
         ],
@@ -561,10 +561,24 @@
         "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
     }, {
         "name": "Tableau Public",
-        "templates": [            
+        "templates": [
             "public.tableau.com/.*"
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
+    }, {
+        "name": "DocumentCloud Beta",
+        "templates": [
+            "(beta.documentcloud.org/documents/.+)$"
+        ],
+        "url": "https://{1}",
+        "endpoint": "https://api.beta.documentcloud.org/api/oembed?url={url}&format={format}"
+    }, {
+        "name": "Overflow",
+        "templates": [
+            "overflow.io/s/*",
+            "overflow.io/embed/*"
+        ],
+        "endpoint": "https://overflow.io/services/oembed"
     }, {
         "name": "Storied",
         "templates": [        
@@ -747,5 +761,12 @@
             "mybeweeg.com/.*"
         ],
         "endpoint": "https://mybeweeg.com/services/oembed"
+    },
+    {
+        "name": "loom.com",
+        "templates": [
+            "(?:www\\.)?loom.com/(?:i|share)/.*"
+        ],
+        "endpoint": "https://www.loom.com/v1/oembed"
     }
 ]

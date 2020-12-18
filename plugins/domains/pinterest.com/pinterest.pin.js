@@ -7,6 +7,7 @@ module.exports = {
         "*"
     ],
 
+    // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large
     getLink: function(url, meta, options) {
 
         var og = meta.og;
@@ -30,12 +31,15 @@ module.exports = {
                     pinWidth: null,
                     hideDescription: hide_description
                 },
+                // Pinterest doesn't show description with any settings as of Oct 6, 2020
+                /*
                 options: {
                     hide_description: {
                         label: 'Hide description',
                         value: hide_description
                     }
                 },
+                */
                 'max-width': 600
             };
         }
@@ -56,9 +60,11 @@ module.exports = {
     },
 
     tests: [{
-        // No Test Feed here not to violate "scrapping" restrictions of Pinterest
-        noFeeds: true
+        // No test feed here please not to violate "scrapping" restrictions of Pinterest
+        noFeeds: true,
+        skipMethods: ['getData']
     },
+        "https://www.pinterest.com/pin/99360735500167749/",
         "https://www.pinterest.com/pin/72831718944016807/",
         "https://www.pinterest.com/pin/211669251206627341/"
     ]
