@@ -1,8 +1,8 @@
 module.exports = {
 
-	re: [
-		/^https?:\/\/www\.nbcsports\.com\/videos?\/[a-zA-Z0-9-]+/i
-	],
+    re: [
+        /^https?:\/\/www\.nbcsports\.com\/videos?\/[a-zA-Z0-9-]+/i
+    ],
 
     mixins: [
         "*"
