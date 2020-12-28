@@ -1,6 +1,6 @@
 module.exports = {
 
-	provides: "iframe",
+    provides: "iframe",
 
     getData: function(oembed) {
 

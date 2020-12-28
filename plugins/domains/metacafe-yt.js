@@ -12,8 +12,8 @@ module.exports = {
 
         return {
             __promoUri: {
-            	url: "https://www.youtube.com/watch?v=" + urlMatch[1],
-            	rel: 'player'
+                url: "https://www.youtube.com/watch?v=" + urlMatch[1],
+                rel: 'player'
             }
         };
     }
