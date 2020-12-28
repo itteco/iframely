@@ -26,8 +26,14 @@ module.exports = {
 
         if (iframe && oembed.height) {
 
+            let src = iframe.src;
+            let lang_slug = src && tedLangs.language && tedLangs.language.value && `/lang/${tedLangs.language.value}`;
+            if (lang_slug && src.indexOf(lang_slug) === -1) {
+                src = src.replace(/\/talks\//, `/talks${lang_slug}/`);
+            }
+
             let link = {
-                href: iframe.src,
+                href: src,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height
@@ -78,16 +84,17 @@ module.exports = {
             meta.canonical = (meta.canonical || url).replace(/\??language=[\w_\-]+/, '');
         }
 
+        let oembedLang = language;
         /** When English isn't supported, oEmbed failes without proper language */
-        if (language === '' && !isTranslatedToEnglish && Object.keys(availableLanguages).length === 1) {
-            language = Object.keys(availableLanguages)[0];
+        if (oembedLang === '' && !isTranslatedToEnglish && Object.keys(availableLanguages).length === 1) {
+            oembedLang = Object.keys(availableLanguages)[0];
         }
 
         let data = {
             oembedLinks: [{
                 href: 'https://www.ted.com/services/v1/oembed.json?url=' 
-                    + encodeURIComponent(meta.canonical || url)                    
-                    + (language !== '' ? '&language=' + language : ''),
+                    + encodeURIComponent(meta.canonical || url)
+                    + (oembedLang !== '' ? '&language=' + oembedLang : ''),
                 rel: 'alternate',
                 type: 'application/json+oembed'
             }],
