@@ -59,11 +59,11 @@ module.exports = {
         if (meta.alternate) {
             meta.alternate.forEach(function(alternative) {
                 if (typeof(alternative) === "string" && /\?/.test(alternative)) {
-                    const query = URL.parse(alternative.toLowerCase(), true).query;
+                    const query = URL.parse(alternative.toLowerCase(), true).query;                    
                     
-                    if (query.language && query.language !== 'en') {
-                        availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
-                    } else if (query.language === 'en') {
+                    availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
+
+                    if (query.language === 'en') {
                         isTranslatedToEnglish = true;
                     }
                 }
@@ -107,7 +107,7 @@ module.exports = {
              * The only way to do so is with any non-empty special value.
              * It won't pass language validation and will be dropped to ''.
              */
-            if (/* url. */ query.language && query.language !== 'en') {
+            if (/* url. */ query.language) {
                 availableLanguages['-'] = '';
                 if (language === '') {
                     language = '-';
@@ -140,6 +140,7 @@ module.exports = {
     }, {skipMethods: ['getData']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
-        "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau"
+        "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau",
+        "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration"
     ]
 };
