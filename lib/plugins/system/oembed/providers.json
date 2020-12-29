@@ -312,14 +312,6 @@
         "endpoint": "http://fast.wistia.com/oembed.{format}"
     },
     {
-        "name": "IFTTT",
-        "templates": [
-            "ifttt\\.com/recipes/(\\d+).+",
-            "ifttt\\.com/applets/(\\d+).+"
-        ],
-        "endpoint": "https://ifttt.com/oembed?url=https://ifttt.com/recipes/{1}&format={format}"
-    },
-    {
         "name": "Crowdsignal",
         "templates": [
             "polldaddy\\.com/(?:poll|s)/.*",
