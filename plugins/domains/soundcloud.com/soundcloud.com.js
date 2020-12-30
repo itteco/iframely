@@ -109,13 +109,13 @@ module.exports = {
         if (
             /* Don't request meta for w.soundcloud.com widget redirects, html parser gets 401 there. */
             !/w\.soundcloud\.com/i.test(url)
-            && (
+            && ((
                 /* Skip the placeholder thumbnail in oEmbed - use user picture in og image instead. */
                 !oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)
                 
                 /* Also, check meta and try to exclude user profiles with 0 tracks. */
                 || /api\.soundcloud\.com(%2F|\/)users(%2F|\/)/i.test(oembed.html)
-            )
+            ) || !oembed.description)
         ) {
             return {
                 __allow_soundcloud_meta: true,
