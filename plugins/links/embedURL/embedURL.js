@@ -82,8 +82,13 @@ module.exports = {
     getLinks: function(schemaVideoObject, whitelistRecord) {        
 
         var links = [];
-        
-        var thumbnailURL = schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl;
+
+        var thumbnailURL = (schemaVideoObject.thumbnail && schemaVideoObject.thumbnail.contenturl)
+            || schemaVideoObject.thumbnail
+            || schemaVideoObject.thumbnailURL
+            || schemaVideoObject.thumbnailUrl
+            || schemaVideoObject.thumbnailurl;
+
         if (thumbnailURL) {
             links.push({
                 href: thumbnailURL,
