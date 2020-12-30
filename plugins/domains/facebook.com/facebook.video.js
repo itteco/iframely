@@ -12,7 +12,7 @@ module.exports = {
         /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=/i
     ],
 
-    mixins: ["fb-error"],
+    mixins: ["fb-error", "ld-video-thumbnail"],
 
     getLink: function(url, oembed, options) {
 
