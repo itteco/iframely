@@ -438,9 +438,10 @@
         "name": "RTL XL",
         "templates": [
             "rtlxl\\.nl/?(?:\\?.+)?#!/?.+",
+            "rtlxl\\.nl/programma/",            
             "rtl\\.nl/video/([a-zA-Z0-9-]+)"
         ],
-        "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
+        "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed"
     },
     {
         "name": "Ranker",
