@@ -6,7 +6,7 @@ module.exports = {
             return {
                 date: og.article.published_time || og.article.modified_time
             };
-        } else if (og.video) {
+        } else if (og.video && og.video.release_date) {
             return {
                 date: og.video.release_date
             };  
