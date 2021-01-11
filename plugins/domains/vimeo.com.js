@@ -73,15 +73,6 @@ module.exports = {
         return links;
     },
 
-    getData: function(url, oembedError, cb, options, whitelistRecord) {
-        // Handle private videos, ex. https://vimeo.com/243312327
-        cb (null,
-            oembedError == 403 ? {
-                message: 'Because of its privacy settings, this video cannot be embedded.'
-            } : null
-        );
-
-    },
 
     tests: [{
         feed: "http://vimeo.com/channels/staffpicks/videos/rss"
