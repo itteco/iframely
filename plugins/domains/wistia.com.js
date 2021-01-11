@@ -63,7 +63,7 @@ module.exports = {
 
     tests: [{
         noFeeds: true,
-        skipMixins: ["oembed-thumbnail"]
+        skipMixins: ["oembed-thumbnail", "oembed-duration"]
     },
         "https://appsumo.wistia.com/medias/fudkgyoejs",
         "https://shluchim.wistia.com/medias/l0mkqobjda",
