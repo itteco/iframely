@@ -5,18 +5,9 @@ module.exports = {
     getMeta: function(__allowFBThumbnail, meta) {
 
         if (meta.ld && meta.ld.videoobject) {
-            var duration = eval(
-                meta.ld.videoobject.duration || ''
-                    .replace('T','')
-                    .replace('P','')
-                    .replace('H','*3600+')
-                    .replace('M','*60+')
-                    .replace('S', '+')
-                    .slice(0, -1)
-            );
 
             return {
-                duration: duration,
+                duration: meta.ld.videoobject.duration.replace('T', 'PT'),
                 date: meta.ld.videoobject.datepublished,
                 views: meta.ld.videoobject.interactioncount
             }
