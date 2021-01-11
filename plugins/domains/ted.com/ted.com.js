@@ -129,6 +129,13 @@ module.exports = {
                     values: availableLanguages
                 }
             }
+
+            if (meta && meta.alternate 
+                && !meta.alternate.some(
+                    (link) => /^(application|text)\/(xml|json)\+oembed$/i.test(link.type)
+                )) {
+                data.__isYouTube = true;
+            }            
         }
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
