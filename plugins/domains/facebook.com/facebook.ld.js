@@ -7,7 +7,7 @@ module.exports = {
         if (meta.ld && meta.ld.videoobject) {
 
             return {
-                duration: meta.ld.videoobject.duration.replace('T', 'PT'),
+                duration: meta.ld.videoobject.duration.replace(/^T/, 'PT'),
                 date: meta.ld.videoobject.datepublished,
                 views: meta.ld.videoobject.interactioncount
             }
