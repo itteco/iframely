@@ -7,7 +7,11 @@ module.exports = {
 
     getData: function(ld, whitelistRecord, url) {
 
-        var json = ld.videoobject || ld.mediaobject || (ld.newsarticle && ld.newsarticle.video) || (ld.tvepisode && ld.tvepisode.video);
+        var json = ld.videoobject 
+                    || ld.mediaobject 
+                    || (ld.newsarticle && (ld.newsarticle.video || ld.newsarticle.videoobject)) 
+                    || (ld.tvepisode && (ld.tvepisode.video || ld.tvepisode.videoobject))
+                    || (ld.movie && (ld.movie.video || ld.movie.videoobject));
 
         if (json) {
 
@@ -36,5 +40,8 @@ module.exports = {
     http://www.hgtv.com/videos/small-home-in-tucson-arizona-0210527
     http://www.travelchannel.com/videos/exorcism-of-roland-doe-0203807
     https://www.parismatch.com/People/Delon-Belmondo-duel-au-sommet-pour-Paris-Match-1630358?jwsource=cl
+
+    Movie:
+    https://www.fandango.com/movie-trailer/x-men-days-of-future-past/159281?autoplay=true&mpxId=2458744940
     */
 };
