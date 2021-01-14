@@ -4,12 +4,6 @@ module.exports = {
 
     mixins: ["*"],
 
-    getMeta: function (urlMatch) {
-        return {
-            media: "player"
-        }
-    },
-
     // It's the same as in whitelist.
     // Plugin remains in place for media=player and also for the test URLs
     getLink: function(schemaVideoObject) {
