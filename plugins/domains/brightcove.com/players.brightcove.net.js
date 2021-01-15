@@ -36,12 +36,15 @@ module.exports = {
         var $iframe = $container.find('iframe');
 
         if ($iframe.length == 1) {
-            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record
+            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record            
         }
 
         if (/&iframe-url=/.test(url)) {
             var src = url.match(/&iframe-url=([^&]+)/i);
             player.href = Buffer.from(src[1], 'base64').toString()
+
+            delete player.type;
+            player.accept = CONFIG.T.text_html; // verify that it exists and isn't X-Frame-Optioned            
         }
 
         if (oembed.thumbnail_url) {
