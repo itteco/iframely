@@ -1,5 +1,5 @@
 CONTAINER	:= iframely
-HUB_USER	:= ${USER}
+HUB_USER	:= ${shell git config user.name}
 IMAGE_NAME	:= ${HUB_USER}/${CONTAINER}
 VERSION		:= ${VERSION}
 EXPOSEPORT	:= 8061
