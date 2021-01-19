@@ -7,6 +7,7 @@ if (!CONFIG.tests) {
 }
 
 process.title = "iframely-tests";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 var async = require('async');
 var _ = require('underscore');
