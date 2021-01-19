@@ -17,8 +17,8 @@ module.exports = {
 
     getMeta: function(meta) {
 
-        if (meta[""]) {
-            var data = meta[""];
+        if (meta.slideshare) {
+            var data = meta.slideshare;
             return {
                 views: data.view_count,
                 date: data.published || data.created_at || data.updated_at,
