@@ -13,7 +13,8 @@ module.exports = {
                     || ld.mediaobject 
                     || (ld.newsarticle && (ld.newsarticle.video || ld.newsarticle.videoobject)) 
                     || (ld.tvepisode && (ld.tvepisode.video || ld.tvepisode.videoobject))
-                    || (ld.movie && (ld.movie.video || ld.movie.videoobject));
+                    || (ld.movie && (ld.movie.video || ld.movie.videoobject))
+                    || (ld.tvclip && (ld.tvclip.video || ld.tvclip.videoobject));
 
         if (json) {
 
