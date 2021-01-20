@@ -117,9 +117,9 @@ module.exports = {
                     thumb_query.zoom = Math.max(zoom-1,0);
                 }
             }
-            var apiKey = options.getProviderOptions('google.maps.apiKey');
+            var apiKey = options.getProviderOptions('google.maps_key');
             if (apiKey) {
-                thumb_query.apiKey = apiKey;
+                thumb_query.key = apiKey;
             }
             if (query.hl) {
                 thumb_query.language = query.hl;
@@ -139,9 +139,8 @@ module.exports = {
             links.push({
                 href: 'http://maps.googleapis.com/maps/api/staticmap?'+QueryString.stringify(thumb_query),
                 rel: CONFIG.R.thumbnail,
-                type: CONFIG.T.image_png,
-                width:  250,
-                height: 250
+                type: CONFIG.T.image
+                // And let's validate image = that API key allows static maps
             });
         }
 

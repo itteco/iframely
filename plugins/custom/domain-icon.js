@@ -30,6 +30,10 @@ module.exports = {
         var domainUri = protocol + domain;
         var key = 'ha:domain_icon:' + domain;
 
+        if (options.debug) {
+            key += ':debug';
+        }
+
         async.waterfall([
 
             function(cb) {

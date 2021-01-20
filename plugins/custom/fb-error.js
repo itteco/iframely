@@ -32,7 +32,9 @@ module.exports = {
             error = 408;
         }
 
-        if (error) {
+        const isVideo = /(?:videos?|watch)/i.test(url);
+
+        if (error && !isVideo) {
             result.responseError = error;
         }
 
@@ -40,6 +42,9 @@ module.exports = {
             result.message = CONFIG.FB_ERROR_MESSAGE || 
                 "HEADS UP: Facebook & Instagram now require your own access_token configured. " 
                 + " See https://github.com/itteco/iframely/issues/284";
+        } else if (isVideo && error === 404) {
+            result.message = "This video cannot be embedded."; 
+            // And fallback to generic
         } else if (fbError.message && error !== 404) {
             result.message = fbError.message;
         }

@@ -1,12 +1,10 @@
 module.exports = {
 
-    re: [
-        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
-    ],
+    re: require('./twitter.status').re,
 
     provides: ['twitter_og'],
 
-    getData: function(__allow_twitter_og, meta) {
+    getData: function(__allowTwitterOg, meta) {
 
         return {
             twitter_og: meta.og ? meta.og : false
