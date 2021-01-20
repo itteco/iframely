@@ -203,7 +203,7 @@ module.exports = function(app) {
                 aspectWrapperClass:     omit_css ? CONFIG.DEFAULT_OMIT_CSS_WRAPPER_CLASS : false,
                 maxWidthWrapperClass:   omit_css ? CONFIG.DEFAULT_MAXWIDTH_WRAPPER_CLASS : false,
                 omitInlineStyles: omit_css,
-                forceWidthLimitContainer: true,
+                forceWidthLimitContainer: CONFIG.FORCE_WIDTH_LIMIT_CONTAINER,
                 amp: getBooleanParam(req, 'amp')
             });
 

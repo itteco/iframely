@@ -3,7 +3,7 @@ const querystring = require('querystring');
 module.exports = {
 
     re: [
-        /^https?:\/\/www\.youtube\.com\/playlist\?list=([\-_a-zA-Z0-9]+)/i
+        /^https?:\/\/www\.youtube\.com\/playlist\?(?:[=\-_a-zA-Z0-9&]+)?list=([\-_a-zA-Z0-9]+)/i
     ],
 
     mixins: [
@@ -31,7 +31,7 @@ module.exports = {
 
         return {
             href: 'https://www.' + domain + '.com/embed/videoseries?list=' + urlMatch[1] + qs,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.playlist, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width && oembed.height ? oembed.width / oembed.height : 16/9,
             autoplay: 'autoplay=1'
@@ -40,8 +40,9 @@ module.exports = {
 
     tests: [{
         noFeeds: true,
-        skipMixins: ["og-description", "oembed-error"]
+        skipMixins: ["og-description", "canonical", "oembed-error"]
     },
-        "https://www.youtube.com/playlist?list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh"
+        "https://www.youtube.com/playlist?list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh",
+        "https://www.youtube.com/playlist?disable_polymer=true&list=PLWYwsGgIRwA9y49l1bwvcAF0Dj-Ac-5kh"
     ]
 };
