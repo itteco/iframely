@@ -125,7 +125,7 @@ module.exports = {
         }
 
         if ($iframe.length == 1 && $iframe.attr('allow')) {
-            widget.rel = widget.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+            widget.rel = widget.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
         }        
 
         return widget;

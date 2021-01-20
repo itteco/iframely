@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+)\/?(?:$|\?|#)/i,
+    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\/?(?:$|\?|#)/i,
 
     mixins: [
         "og-image",
@@ -63,6 +63,7 @@ module.exports = {
         skipMixins: ["og-title", "og-description"]
     },
         "http://pinterest.com/bcij/",
-        "http://pinterest.com/franktofineart/"
+        "http://pinterest.com/franktofineart/",
+        "https://www.pinterest.com/pinterest/"
     ]
 };
