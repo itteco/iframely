@@ -5,6 +5,8 @@ module.exports = {
 
     re: CONFIG.BLACKLIST_DOMAINS_RE,
 
+    private: true, // do not show up in iframe.ly/domains.json
+
     notPlugin: CONFIG.BLACKLIST_DOMAINS_RE === null,
 
     getData: function(urlMatch, cb) {
