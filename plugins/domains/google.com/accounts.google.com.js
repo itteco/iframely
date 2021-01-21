@@ -6,6 +6,8 @@ module.exports = {
         /https?:\/\/www\.google\.com\/(?:[\/a-z0-9-.]+)?\/ServiceLogin/i
     ],
 
+    listed: false,
+
     getLink: function(urlMatch, cb) {
 
         cb ({
