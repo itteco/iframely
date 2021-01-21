@@ -11,6 +11,8 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/plugins\/comment_embed\.php\?href=/i         
     ],
 
+    private: true, // do not show up in iframe.ly/domains.json
+
     getData: function(url, meta, cb) {
 
         // Little hack for FB mobile URLs, as FB embeds don't recognize it's own mobile links.
