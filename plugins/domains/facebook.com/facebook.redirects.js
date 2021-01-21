@@ -11,7 +11,7 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/plugins\/comment_embed\.php\?href=/i         
     ],
 
-    private: true, // do not show up in iframe.ly/domains.json
+    listed: false, // do not show up in iframe.ly/domains.json
 
     getData: function(url, meta, cb) {
 
