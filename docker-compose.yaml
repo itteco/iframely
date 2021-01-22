@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  # Iframely service
+  iframely:
+    container_name: iframely
+    image: lainfox/iframely:latest
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - web
+      - internal
+    ports:
+      - 8061:8061
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /volume1/docker/iframely/custom-plugins:/iframely/custom-plugins
+      - /volume1/docker/iframely/config.local.js:/iframely/config.local.js
+    labels:
+      - "traefik.enable=true"
