@@ -5,14 +5,16 @@ module.exports = {
     ],
 
     mixins: [
-        "og-site",
+        //"og-site",
+        'oembed-site',
         "oembed-title",
         "oembed-iframe",
-        "og-image",
+        // "og-image",
         "oembed-thumbnail",
         "domain-icon"
     ],
 
+    /*
     getMeta: function(meta) {
         return {
             date: meta.music && meta.music.release_date,
@@ -23,6 +25,7 @@ module.exports = {
             canonical: meta.og && meta.og.url
         }
     },
+    */
 
     getLink: function(iframe, options) {
 
