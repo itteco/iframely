@@ -5,8 +5,8 @@ const URL = require("url");
 module.exports = {
 
     re: [
-        /^https?:\/\/(?:www\.)mixcloud\.com\/[a-zA-Z0-9\.\-_]+\/?(?:\?.+)?$/,
-        /^https?:\/\/(?:www\.)mixcloud\.com\/[a-zA-Z0-9\.\-_]+\/[a-zA-Z0-9\.\-_]+\-\d+\/?(?:\?.+)?/
+        /^https?:\/\/(?:www\.)mixcloud\.com\/(?:live\/)?[a-zA-Z0-9\.\-_]+\/?(?:\?.+)?$/,
+        /^https?:\/\/(?:www\.)mixcloud\.com\/[a-zA-Z0-9\.\-_]+\/[a-zA-Z0-9\.\-_]+\/?(?:\?.+)?/
     ],
 
     mixins: [
@@ -47,7 +47,7 @@ module.exports = {
                     widget.width = oembed.width;
                     widget.height = oembed.height;
 
-                    widget.error = 'Mixcloud user summary is currently broken'; // Sept 22, 2020
+                    // widget.error = 'Mixcloud user summary is currently broken'; // Sept 22, 2020 - works as of Jan 25, 2021
 
                 } else {
 
@@ -129,6 +129,8 @@ module.exports = {
 
     tests: [{noFeeds: true}, {skipMixins: ["oembed-description", "oembed-error"]},
         // "https://www.mixcloud.com/djtraviesa/",
-        "https://www.mixcloud.com/sohoradio/dub-on-air-with-dennis-bovell-03032019/"
+        "https://www.mixcloud.com/sohoradio/dub-on-air-with-dennis-bovell-03032019/",
+        "https://www.mixcloud.com/DJBlighty/housework004-house-deep-house-future-house-commercial-dance-instagram-djblighty/",
+        "https://www.mixcloud.com/live/soulfulhousedjs/"
     ]
 };

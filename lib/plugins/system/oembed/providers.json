@@ -291,9 +291,11 @@
     {
         "name": "Mixcloud",
         "templates": [
-            "www\\.mixcloud\\.com/.+/.+/.*",
-            "www\\.mixcloud\\.com/.+"
+            "www\\.mixcloud\\.com/live/(.+)",
+            "www\\.mixcloud\\.com/(.+/.+/.*)",
+            "www\\.mixcloud\\.com/(.+)"
         ],
+        "url": "https://www.mixcloud.com/{1}",
         "endpoint": "https://www.mixcloud.com/oembed/"
     },
     {
