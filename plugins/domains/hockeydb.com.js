@@ -9,7 +9,7 @@ module.exports = {
         var links = [{
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.html5],
-            html:'<script type="text/javascript" src="http://www.hockeydb.com/em/?pid=' + urlMatch[1] + '"></script>',
+            html:'<script type="text/javascript" src="https://www.hockeydb.com/em/?pid=' + urlMatch[1] + '"></script>',
             // href: 'http://www.hockeydb.com/em/?pid=' + urlMatch[1],
             width: 604
         }];
