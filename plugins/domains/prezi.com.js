@@ -1,6 +1,6 @@
 module.exports = {
 
-    re: /^https:\/\/prezi\.com\/([a-z0-9_]+)\/[^\/]+\/(?:\?[^\/\?]+)?$/i,
+    re: /^https:\/\/prezi\.com\/([a-z0-9\-_]+)\/[^\/]+\/(?:\?[^\/\?]+)?$/i,
 
     mixins: ["*"],
 
@@ -24,6 +24,7 @@ module.exports = {
 
     tests: [
         "https://prezi.com/hvsanqexuoza/designthinking-vs-leanstartup/",
-        "https://prezi.com/penxp_esmqzu/e-learning-mooc-spoc-et-compagnie/"
+        "https://prezi.com/penxp_esmqzu/e-learning-mooc-spoc-et-compagnie/",
+        "https://prezi.com/inge-1qo_fm4/ideas-sobre-la-nueva-economia/"
     ]
 };
