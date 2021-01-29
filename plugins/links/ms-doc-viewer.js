@@ -32,5 +32,12 @@ module.exports = {
                 message: __nonHtmlContentData.content_length > 10 * 1024 * 1024 ? 'Office file is bigger than 10Mb and is not supported' : 'File server sets cookie and is not supported'
             }
         }
+
+        if (options.getProviderOptions('disableDocViewers', false) 
+            && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)) {
+            return {
+                message: 'Office files are not supported per your media settings'
+            }
+        }
     }
 };

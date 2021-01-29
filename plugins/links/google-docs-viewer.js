@@ -31,6 +31,10 @@ module.exports = {
                     message: 'PDF files that are over 10Mb are not supported by Google Docs Viewer'
                 }
             }
+        } else if (/application\/pdf|text\/rtf/.test(__nonHtmlContentData.type)) {
+            return {
+                message: 'PDFs are not supported per your media settings'
+            }
         }
     }
 };
