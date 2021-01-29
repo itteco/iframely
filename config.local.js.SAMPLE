@@ -98,10 +98,12 @@
         // If there's no response from remote server, the timeout will occur after
         RESPONSE_TIMEOUT: 5 * 1000, //ms
 
-        /* From v1.4.0, Iframely supports HTTP/2 by default. Disable it, if you'd rather not.
+        /* From v1.4.0, Iframely works over HTTP/2 if not disabled.
            Alternatively, you can also disable per origin. See `proxy` option below.
+           The default in this sample config is to disable HTTP/2 as per
+           https://github.com/itteco/iframely/issues/277.
         */
-        // DISABLE_HTTP2: true,
+        DISABLE_HTTP2: true,
 
         // Customize API calls to oembed endpoints.
         // Must have: please add your `access_token` for Facebook and Instagram API calls
