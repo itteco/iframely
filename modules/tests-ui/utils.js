@@ -43,7 +43,7 @@ exports.sendQANotification = function(logEntry, data) {
 
         var baseAppUrl = CONFIG.baseAppUrl;
         if (/^\/\/:/.test(baseAppUrl)) {
-            baseAppUrl = 'https:' + baseAppUrl;
+            baseAppUrl = 'https' + baseAppUrl;
         }
 
         var previewMessage = "[" + logEntry.plugin + "] " + data.message;
