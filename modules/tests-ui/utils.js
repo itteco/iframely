@@ -42,8 +42,8 @@ exports.sendQANotification = function(logEntry, data) {
     if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
         var baseAppUrl = CONFIG.baseAppUrl;
-        if (/^\/\/:/.test(baseAppUrl)) {
-            baseAppUrl = 'https' + baseAppUrl;
+        if (/^\/\//.test(baseAppUrl)) {
+            baseAppUrl = 'https:' + baseAppUrl;
         }
 
         var previewMessage = "[" + logEntry.plugin + "] " + data.message;
