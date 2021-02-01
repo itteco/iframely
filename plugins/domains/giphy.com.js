@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/giphy\.com\/(?:gifs|stickers)\/(?:[a-zA-Z0-9_-]+\-)?([a-z0-9\-]+)/i,
-        /^https?:\/\/giphy\.com\/videos\/(?:[a-zA-Z0-9_-]+\-)?([a-zA-Z0-9]+)(?:\?.+)?/i
+        /^https?:\/\/giphy\.com\/(?:videos|clips)\/(?:[a-zA-Z0-9_-]+\-)?([a-zA-Z0-9]+)(?:\?.+)?/i
     ],
 
     mixins: [
@@ -18,7 +18,7 @@ module.exports = {
     getLinks: function(url, urlMatch, oembed, twitter, og, options) {
 
         var links = [];
-        var isVid =  /\/videos\//i.test(url);
+        var isVid =  /\/(videos|clips)\//i.test(url);
 
         if (twitter.player) {
             links.push({
@@ -27,7 +27,7 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
                 "aspect-ratio": twitter.player.width / twitter.player.height
             });
-        // Vidoes don't have Twitter player as of June 16, 2020
+        // Vidoes don't have Twitter player as of June 16, 2020 and as of Feb 1, 2021
         } else if (isVid && og.video && og.video.width && og.video.height) {
             links.push({
                 href: `https://giphy.com/embed/${urlMatch[1]}/video`,
