@@ -91,9 +91,9 @@
         "endpoint": "https://giphy.com/services/oembed"
     },
     {
-        "name": "Giphy video",
+        "name": "Giphy clips",
         "templates": [
-            "giphy\\.com/videos/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
+            "giphy\\.com/(?:videos|clips)/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
         ],
         "endpoint": "https://giphy.com/services/oembed"
     },    
