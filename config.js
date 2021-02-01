@@ -373,6 +373,14 @@
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
 
+        ADD_OEMBED_PARAMS: [{
+            // Facebook https://developers.facebook.com/docs/plugins/oembed/
+            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_/i],
+            params: {
+                access_token: `${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`
+            }
+         }],
+
         providerOptions: {
             "readability": {},
             "twitter.status": {}
