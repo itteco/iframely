@@ -51,6 +51,11 @@ exports.sendQANotification = function(logEntry, data) {
             message += " - " + errors;
         }
 
+        var debuggerBaseUrl = CONFIG.QA_BASE_URL || CONFIG.baseAppUrl;
+        if (/^\/\/:/.test(debuggerBaseUrl)) {
+            debuggerBaseUrl = 'https:' + debuggerBaseUrl;
+        }
+
         request({
             uri: CONFIG.SLACK_WEBHOOK_FOR_QA,
             method: 'POST',
@@ -76,7 +81,7 @@ exports.sendQANotification = function(logEntry, data) {
                             "text": {
                                 "type": "mrkdwn",
                                 "verbatim": true,
-                                "text": "`<" + (CONFIG.QA_BASE_URL || CONFIG.baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|debug>` " + logEntry.url.replace(/^https?:\/\//, '')    // Debug link.
+                                "text": "`<" + debuggerBaseUrl + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|debug>` " + logEntry.url.replace(/^https?:\/\//, '')    // Debug link.
                             }
                         }],
                         "color": COLORS[data.color]
