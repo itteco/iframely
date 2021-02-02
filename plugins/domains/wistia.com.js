@@ -44,7 +44,7 @@ module.exports = {
             return [{
                 html: oembed.html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5, CONFIG.R.inline],
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
                 height: 218
             }, icon];
 
