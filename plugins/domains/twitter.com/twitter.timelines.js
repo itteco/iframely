@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/twitter\.com\/(\w+)\/(?:timelines?|moments?|likes?)\/(\d+)/i,
-        /^https?:\/\/twitter\.com\/(\w+)$/i,
+        /^https?:\/\/twitter\.com\/(\w+)\/?(?:\?.*)?$/i,
         /^https?:\/\/twitter\.com\/(\w+)\/(?:timelines?|moments?|likes?|lists?)\/?/i
     ],
 
