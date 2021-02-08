@@ -63,7 +63,7 @@ module.exports = {
             return;
         }
 
-        var api_key = options.getProviderOptions('google.maps_key');
+        var api_key = options.getRequestOptions('google.maps_key');
         if (!api_key) {
             return;
         }
