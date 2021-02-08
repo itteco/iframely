@@ -63,10 +63,28 @@
         // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
         /*
+        // Redis mode (cluster or standard)
+        REDIS_MODE: 'standard',
+        */
+
+        /*
         // Redis cache options.
         REDIS_OPTIONS: {
             host: '127.0.0.1',
             port: 6379
+        },
+        */
+
+        /*
+        // Redis cluster options.
+        REDIS_CLUSTER_OPTIONS: {
+            servers: [
+                 {
+                     host: '10.0.0.10',
+                     port: 6379
+                 },
+                 // ...
+             ],
         },
         */
 
