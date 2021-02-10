@@ -85,6 +85,11 @@ module.exports = {
                 options: opts,
                 height: height
             };        
+        } else if (oembed.html) {
+            // Ex.: https://www.facebook.com/pages/Art-Friend-the-Curve/199296263568281
+            return {
+                message: "Unowned Facebook Pages are not supported."
+            }
         }
     },
 
