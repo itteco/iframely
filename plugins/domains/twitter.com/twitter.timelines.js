@@ -9,6 +9,7 @@ module.exports = {
     mixins: [
         'domain-icon',
         'oembed-error',
+        'oembed-site'
     ],
 
     getMeta: function(meta, urlMatch) {
