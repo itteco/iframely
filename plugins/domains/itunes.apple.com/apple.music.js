@@ -25,6 +25,7 @@ module.exports = {
 
         var canonical = meta.canonical || (meta.og && meta.og.url) || url;
         var isTrack =  /\?i=\d+/.test(canonical) || urlMatch[4] !== undefined;
+        var isMusicPost =meta.og && meta.og.type === 'music.post';
 
         var at = null;
         if (options.redirectsHistory) {
@@ -40,16 +41,19 @@ module.exports = {
             src += (/\?/.test(src) ? '&' : '?') + 'at=' + at;
         }
 
+        var rel = [CONFIG.R.player, CONFIG.R.html5];
+
         return {
             href: src,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, CONFIG.R.html5],
-            media: meta.og && meta.og.type === 'music.post' 
+            rel: isMusicPost 
+                ? rel : 
+                    isTrack ? [...rel, CONFIG.R.audio] : [...rel, CONFIG.R.audio, CONFIG.R.playlist, 'resizable'],
+            media: isMusicPost
                 ? {
                     'aspect-ratio': 16/9 // Apple gives it as 350px fixed-height, but it's wrong.
                 } : {
-                    height: isTrack ? 150 : 450,
-                    'max-width': 660
+                    height: isTrack ? 150 : 450
                 }
         };
     },
