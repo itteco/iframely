@@ -5,13 +5,13 @@ module.exports = {
         var stream = twitter.player && twitter.player.stream && twitter.player.stream.value;
         
         if (stream
-            && /\/preview\/([a-zA-Z0-9\-]+)\//i.test(stream)
+            && /^https:\/\/traffic\.libsyn.com\/(?:preview|secure)\/([a-zA-Z0-9\-]+)\//i.test(stream)
             && /^https?:\/\/html5\-player\.libsyn\.com\/embed(\/episode\/id\/\d+)/i.test(video_src)
             && /^https?:\/\/[a-z0-9\.\-]+\//i.test(url)) {
 
             return {
                 __promoUri: {                    
-                    url: 'http://' + stream.match(/\/preview\/([a-zA-Z0-9\-]+)\//i)[1] 
+                    url: 'http://' + stream.match(/\/(?:preview|secure)\/([a-zA-Z0-9\-]+)\//i)[1] 
                         + '.libsyn.com/'
                         + url.replace(/^https?:\/\/[a-z0-9\.\-]+\//i, ''),
                     rel: 'No rel=promo is required' // this field is just for debugging here. Not required
