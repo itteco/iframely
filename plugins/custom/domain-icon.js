@@ -55,28 +55,37 @@ module.exports = {
 
                 } else {
 
-                    // skip domain icon on cache miss 
-                    cb (null, null); 
+                    if (!options.forceSyncCheck) {
+                        // skip domain icon on cache miss 
+                        cb (null, null); 
+                    }
 
                     // and asynchronously put in cache for next time
                     // + run icons validation right away
 
                     // forceSyncCheck - ask 'checkFavicon' to check favicon this time before callback.
                     core.run(domainUri, _.extend({}, options, {forceSyncCheck: true}), function(error, data) {
+
+                        var icons;
+
                         if (data && data.links) {
 
                             // do need to set cache here as domains may redirect, 
                             // e.g. http ->https, then http urls will always miss icons.
 
-                            var icons = data.links.filter(function(link) {
+                            icons = data.links.filter(function(link) {
                                 return link.rel.indexOf(CONFIG.R.icon) > -1;
                             });
-
-                            cache.set(key, icons, {ttl: CONFIG.IMAGE_META_CACHE_TTL});
-
                         } else {
-                            cache.set(key, [], {ttl: CONFIG.IMAGE_META_CACHE_TTL});
+                            icons = [];
                         }
+                        
+                        if (options.forceSyncCheck) {
+                            // skip domain icon on cache miss 
+                            cb (null, {domain_icons: icons}); 
+                        }
+
+                        cache.set(key, icons, {ttl: CONFIG.IMAGE_META_CACHE_TTL});                        
                     });
                 }
             }
