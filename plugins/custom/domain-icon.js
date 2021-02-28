@@ -85,7 +85,7 @@ module.exports = {
                             cb (null, {domain_icons: icons}); 
                         }
 
-                        cache.set(key, icons, {ttl: CONFIG.IMAGE_META_CACHE_TTL});                        
+                        cache.set(key, icons, {ttl: icons.length > 0 ? CONFIG.IMAGE_META_CACHE_TTL : CONFIG.CACHE_TTL_PAGE_TIMEOUT});
                     });
                 }
             }
