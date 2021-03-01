@@ -57,7 +57,7 @@ module.exports = {
 
                     if (!options.forceSyncCheck) {
                         // skip domain icon on cache miss 
-                        cb (null, null); 
+                        cb (null, {domain_icons: []}); 
                     }
 
                     // and asynchronously put in cache for next time
