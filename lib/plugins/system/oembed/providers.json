@@ -212,7 +212,7 @@
     {
         "name": "Twitter Users",
         "templates": [
-            "(twitter\\.com/\\w+)/?$"
+            "(twitter\\.com/\\w+)/?(?:\\?.*)?$$"
         ],
         "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
