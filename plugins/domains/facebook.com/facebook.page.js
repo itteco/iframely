@@ -94,7 +94,7 @@ module.exports = {
     },
 
     getData: function(oembedError, meta) {
-        if (meta.ld && meta.ld.person) {
+        if (!meta.ld || meta.ld.person) {
             return {
                 message: "Facebook profile pages of individual users are not embeddable."
             };
