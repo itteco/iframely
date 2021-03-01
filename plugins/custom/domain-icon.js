@@ -5,6 +5,8 @@ var cache = require('../../lib/cache');
 var async = require('async');
 var _ = require('underscore');
 
+var log = exports.log = require('../../logging').log;
+
 module.exports = {
 
     provides: 'domain_icons',
@@ -83,6 +85,10 @@ module.exports = {
                         if (options.forceSyncCheck) {
                             // skip domain icon on cache miss 
                             cb (null, {domain_icons: icons}); 
+                        }
+
+                        if (icons.length === 0) {
+                            log('[domain-icons] no icons for', domainUri)
                         }
 
                         cache.set(key, icons, {ttl: icons.length > 0 ? CONFIG.IMAGE_META_CACHE_TTL : CONFIG.CACHE_TTL_PAGE_TIMEOUT});
