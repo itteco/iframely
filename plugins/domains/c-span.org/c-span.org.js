@@ -12,7 +12,7 @@ module.exports = {
             rel: [CONFIG.R.player, CONFIG.R.html5],
             type: CONFIG.T.text_html,
             'aspect-ratio': 16/9,
-            'padding-bottom': 40 + /*margin-top*/ 10 + /*margin-bottom*/ 10
+            'padding-bottom': 40 + /*margin-top*/ 10 + /*margin-bottom*/ 10,
             'max-width': 1024
         };
     },
