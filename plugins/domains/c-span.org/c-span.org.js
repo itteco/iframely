@@ -29,7 +29,7 @@ module.exports = {
         }
     },
 
-    tests: [{noFeeds: true},
+    tests: [{noFeeds: true}, {skipMethods: ['getData']},
         "https://www.c-span.org/video/?306629-5/law-sea-treaty",
         "https://www.c-span.org/video/?c4542435/house-floor-may-11-1995-rep-cunningham-homos-military-sensanders-insulted-thousands-men-women-put",
         "https://www.c-span.org/video/?509404-1/house-session"
