@@ -32,6 +32,15 @@ module.exports = {
             params.byline = 1;
         }
 
+        // Captions support:
+        // https://vimeo.zendesk.com/hc/en-us/articles/360027818211-Enabling-Captions-and-Subtitles-in-Embeds-by-Default
+        var texttrack = options.getRequestOptions('vimeo.texttrack');
+        if (texttrack && /\w{2}(?:\-\W{2})?/i.test(texttrack)) {
+            params.texttrack = texttrack;
+        } else {
+            texttrack = '';
+        }
+
         var qs = querystring.stringify(params);
         if (qs !== '') {qs = '?' + qs}
 
@@ -43,7 +52,14 @@ module.exports = {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
-                autoplay: "autoplay=1"
+                autoplay: "autoplay=1",
+                options: {
+                    texttrack: {
+                        value: texttrack,
+                        label: 'Text language (ignored if no captions)',
+                        placeholder: 'Two letters: en, fr, es, de...'
+                    }
+                }
             });
         }
 
@@ -79,6 +95,7 @@ module.exports = {
     },
         "https://vimeo.com/65836516",
         "https://vimeo.com/141567420",
+        "https://vimeo.com/76979871", // captions
         {
             skipMixins: ["oembed-description"],
             skipMethods: ["getData"]
