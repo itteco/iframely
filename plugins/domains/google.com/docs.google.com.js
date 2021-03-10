@@ -80,6 +80,10 @@ module.exports = {
                 file.rel.push (CONFIG.R.slideshow);
                 file['aspect-ratio'] = 16/9;
                 file['padding-bottom'] = 30;
+
+                if (/\/preview(?:\?.+)$/.test(file.href)) {
+                    file.href = file.href.replace(/\/preview(?:\?.+)$/, '/embed');
+                }
             }
 
             return file;
@@ -181,6 +185,7 @@ module.exports = {
         "https://drive.google.com/open?id=1rKcaLuY0WzhPqQFCGy_4aIJblnEziy7-",
         "https://drive.google.com/file/d/17cEEjFg-xJGnKfwQHDPF9mBNsBY8KTsc/preview",
         "https://drive.google.com/file/d/15rfX_NentPMEgJQ_io6qhctScmpahU00/view",
+        "https://docs.google.com/presentation/d/e/2PACX-1vQmrymNWFltfprLl9IX-irRcmvjsL1ahOKAt8YTzuWTdcWyIH2EX6wyUmmJ4ftG3dICaTZ9DCpqXiht/pub?start=false&loop=false&delayms=3000",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description"
