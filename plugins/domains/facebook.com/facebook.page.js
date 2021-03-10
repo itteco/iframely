@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/[^\/]+\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([^\/\?]+(?<!\.php))\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
