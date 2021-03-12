@@ -37,12 +37,18 @@ module.exports = {
             });            
         }
 
-        if (og.video && (/\.mp4/.test(og.video.url) || og.video.type === CONFIG.T.video_mp4)) {
+        var video = og.video;
+
+        if (video && video.length > 1) {
+            video = video[video.length -1];
+        }
+
+        if (video && (/\.mp4/.test(video.url) || video.type === CONFIG.T.video_mp4) && video.width && video.height) {
             links.push({
-                href: og.video.url.replace(/^http:\/\//i, 'https://'),
+                href: video.url.replace(/^http:\/\//i, 'https://'),
                 type: CONFIG.T.video_mp4,
                 rel: [CONFIG.R.player, CONFIG.R.html5, isVid ? CONFIG.R.og : CONFIG.R.gifv],
-                "aspect-ratio": og.video.width / og.video.height
+                "aspect-ratio": video.width / video.height
             });
         }
 
