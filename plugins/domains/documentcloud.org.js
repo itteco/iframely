@@ -25,7 +25,7 @@ module.exports = {
             
             var link = {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
                 'aspect-ratio': aspect
             };
 
@@ -48,6 +48,10 @@ module.exports = {
 
             if (!link.href) {
                 link.html = html;
+            }
+
+            if (!/DC\-note/.test(html)) {
+                link.rel.push(CONFIG.R.inline);
             }
 
             return link;
