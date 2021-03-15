@@ -561,12 +561,12 @@
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
     }, {
-        "name": "DocumentCloud Beta",
+        "name": "DocumentCloud Pages & Annotations",
         "templates": [
-            "(beta.documentcloud.org/documents/.+)$"
+            "(documentcloud.org/documents/\\d+\\-[^#\\?]+#document/p(\\d+)(?:/a\\d+)?)"
         ],
-        "url": "https://{1}",
-        "endpoint": "https://api.beta.documentcloud.org/api/oembed?url={url}&format={format}"
+        "url": "https://www.{1}",
+        "endpoint": "https://api.www.documentcloud.org/api/oembed"
     }, {
         "name": "Overflow",
         "templates": [
