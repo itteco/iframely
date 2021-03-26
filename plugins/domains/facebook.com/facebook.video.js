@@ -31,6 +31,7 @@ module.exports = {
             if (!/class=\"fb\-comment\-embed\"/i.test(html)) {
                 // thank you FB for not working with comments
                 // https://developers.facebook.com/docs/plugins/embedded-comments
+                html = html.replace(/<blockquote.+blockquote>/, '').replace(/data\-href=\"[^\"]+\"/, `data-href="${url}"`);            
                 html = html.replace(/class=\"fb\-video\"/i, 'class="fb-comment-embed"' + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"'));
             }
 
