@@ -8,18 +8,17 @@ module.exports = {
     ],
 
     mixins: ["*"],
+    provides: ["isGif"],
 
-    highestPriority: true,
-
-    getMeta: function(url, og) {
+    getMeta: function(url, og, twitter, isGif) {
 
         var meta = {};
         // Avoid canonical=gif for gif shots that invalidate thumbmails.
-        if (/\.gif/.test(og.url)) {
+        if (isGif) {
             meta.canonical = url;
         }
 
-        if (PROFILE_RE.test(url)) {
+        if (PROFILE_RE.test(url) || og.video || twitter.player || isGif) {
             // Wrap players into a promo card
             meta.media = 'reader';
         }
@@ -27,19 +26,41 @@ module.exports = {
         return meta;
     },
 
-    getLink: function(meta, url, urlMatch) {
+    getLink: function(og, twitter, url, urlMatch, isGif) {
+        var links = [];
 
-        if (meta.og && meta.og.image && !meta.og.video) {
-            return {
-                href: meta.og.image.url || meta.og.image,
-                type: CONFIG.T.image,
-                rel: !PROFILE_RE.test(url) && !meta.og.video ? [CONFIG.R.image, CONFIG.R.promo] : CONFIG.R.image,
-                width: meta.og.image.width,
-                height: meta.og.image.height
-            };
+        if (!isGif) {
+            if (og.image
+                && !og.video && !PROFILE_RE.test(url)) {
+                links.push({
+                    href: og.image.url || og.image,
+                    type: CONFIG.T.image,
+                    rel: CONFIG.R.image,
+                    // No sizes here - validate image. Ex.: https://dribbble.com/shots/15050018-Player-platform
+                });
+            }
+
+
+            // Twitter player is broken on GIFs: https://dribbble.com/shots/4240497-Wisdo-apps-video-introduction
+            if (twitter.player && twitter.player.width && twitter.player.height) {
+                links.push({
+                    href: twitter.player.value,
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.gifv, CONFIG.R.html5],
+                    'aspect-ratio': twitter.player.width / twitter.player.height,
+                })
+            }
         }
 
-        // The rest of links are well covered now by whitelist parsers + media=reader for profiles.
+        return links;
+
+        // The rest of links are well covered now by whitelist parsers + media=reader.
+    },
+
+    getData: function(og) {
+        return {
+            isGif: /\.gif/.test(og.url) || og.image && (/\.gif/.test(og.image.url || og.image))
+        }
     },
 
     tests: [ {
@@ -53,6 +74,7 @@ module.exports = {
         "https://dribbble.com/shots/1311850-Winter-Is-Coming",
         "https://dribbble.com/shots/5030547-Chairs-Store-App",
         "https://dribbble.com/Sochnik",
-        "https://dribbble.com/shots/5715634-Website-Banner-Slides"
+        "https://dribbble.com/shots/5715634-Website-Banner-Slides",
+        "https://dribbble.com/shots/14667116-Dark-Theme-UI-Elements-Design"
     ]
 };
