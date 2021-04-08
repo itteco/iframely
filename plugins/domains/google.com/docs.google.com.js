@@ -168,6 +168,11 @@ module.exports = {
                     embedUrl: url
                 }  
             });
+        } else if (!meta.og) {
+            return cb({
+                responseStatusCode: 415,
+                message: 'Google Docs could not load the file. Perhaps it is too large.'
+            })
         } else {
             return cb(null, null);
         }
