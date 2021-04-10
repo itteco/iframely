@@ -6,6 +6,8 @@ module.exports = {
         "*"
     ],
 
+    provides: ['__appFlag'],
+
     getLinks: function(og, url) {
 
         if (og.type === 'profile' || og.type === 'medium-com:collection' || og.type === 'article') {
@@ -24,6 +26,14 @@ module.exports = {
                 type: CONFIG.T.text_html
             };
         }        
+    },
+
+    getData: function(meta, options) {
+        if (!meta.og) {
+            return {
+                __appFlag: true
+            }
+        }
     },
 
     tests: [
