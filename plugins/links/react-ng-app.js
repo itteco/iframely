@@ -1,7 +1,5 @@
 module.exports = {
 
-    highestPriority: true,
-
     provides: '__appFlag',
 
     getData: function(meta, cb) {
@@ -22,7 +20,7 @@ module.exports = {
 
             return cb(null, {
                 __appFlag: true,
-                message: "This looks like JS app with {{...}} values in META section. If you are the owner, please run templates on the server."
+                message: "This looks like JS app with no prerender. If you are the owner, please run templates on the server for <a href=\"https://iframely.com/docs/about\">Iframely robot</a>."
             });
         } else {
             return cb();
