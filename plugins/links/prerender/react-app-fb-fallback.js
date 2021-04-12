@@ -1,4 +1,4 @@
-var core = require('../../lib/core');
+var core = require('../../../lib/core');
 var _ = require('underscore');
 
 module.exports = {
@@ -23,7 +23,7 @@ module.exports = {
 
             var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
 
-            if (!title ||  /^{{.+}}/.test(title)) {
+            if (!title ||  /{{.+}}/.test(title)) {
                 return cb({
                     responseStatusCode: 415
                 });

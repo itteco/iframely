@@ -1,4 +1,4 @@
-var core = require('../../lib/core');
+var core = require('../../../lib/core');
 var _ = require('underscore');
 
 module.exports = {
@@ -9,23 +9,21 @@ module.exports = {
 
     getData: function(url, __appFlag, options, meta, cb) {
 
-        var title = meta && ((meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title']);
+        var titleBefore = meta && ((meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title']);
 
-        if (CONFIG.PRERENDER_URL
-            && !url.startsWith(CONFIG.PRERENDER_URL)
-            && (!title || /^{{.+}}/.test(title))
-        ) {
+        if (CONFIG.PRERENDER_URL && !url.startsWith(CONFIG.PRERENDER_URL)) {
 
             var prerenderUrl = CONFIG.PRERENDER_URL + encodeURIComponent(url);
             var options2 = _.extend({}, options, {
                 debug: false,
                 refresh: true
             });
+
             core.run(prerenderUrl, options2, function(error, data) {
 
                 var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
 
-                if (!title ||  /^{{.+}}/.test(title)) {
+                if (!title ||  /{{.+}}/.test(title)) {
                     return cb({
                         responseStatusCode: 415
                     });
