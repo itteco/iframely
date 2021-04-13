@@ -40,7 +40,7 @@ module.exports = {
                 autoplay: "autoPlay=true"
             }, icon];
 
-        } else if (oembed.type === 'audio') { // Not in spec, but let it be
+        } else if (oembed.type === 'audio' || oembed.type === 'rich') { // 'Audio' is no longer in use as it's not per spec. But let's leave just in case.
             return [{
                 html: oembed.html,
                 type: CONFIG.T.text_html,
