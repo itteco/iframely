@@ -6,7 +6,8 @@ module.exports = {
 
     provides: [
         "oembedLinks",
-        "tedLangs"
+        "tedLangs",
+        "__allowEmbedURL"
     ],    
 
     mixins: [
@@ -19,6 +20,7 @@ module.exports = {
         "keywords",
         "oembed-site",
         "og-title",
+        "embedurl"
     ],
 
     getLink: function(oembed, tedLangs) {
@@ -136,6 +138,11 @@ module.exports = {
                 )) {
                 data.__isYouTube = true;
             }            
+        } else if (Object.keys(availableLanguages).length === 0) {
+            // For Pop Francis, the oEmbed request will fail without &language=es.
+            // And there' no way to detect &es language/
+            // So let's fallback to microformats (luckily, they have one on the page).
+            data.__allowEmbedURL = true;
         }
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
@@ -144,10 +151,11 @@ module.exports = {
     tests: [{
         page: "https://www.ted.com/talks",
         selector: "#browse-results a"
-    }, {skipMethods: ['getData']},
+    }, {skipMethods: ['getData']}, {skipMixins: ['embedurl']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
         "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration",
+        "https://www.ted.com/talks/lera_boroditsky_how_language_shapes_the_way_we_think",
 
         // Not translated to English:
         "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau",
