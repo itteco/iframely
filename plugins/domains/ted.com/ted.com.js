@@ -159,6 +159,8 @@ module.exports = {
 
         // Not translated to English:
         "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau",
-        "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",
+
+        // Should work, but let's skip from tests not to avoid all oembed-* mixins
+        // "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",
     ]
 };
