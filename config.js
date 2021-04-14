@@ -164,9 +164,11 @@
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
-            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
-            'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
-            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr', 'clipboard-write'
+            'accelerometer', 'ambient-light-sensor', 'autoplay', 'battery', 'camera', 'clipboard-write', 'display-capture',
+            'document-domain', 'encrypted-media', 'execution-while-not-rendered', 'execution-while-out-of-viewport', 
+            'fullscreen', 'geolocation', 'gyroscope', 'legacy-image-formats', 'magnetometer', 'microphone', 'midi', 
+            'oversized-images', 'payment', 'picture-in-picture', 'publickey-credentials-get', 'screen-wake-lock',
+            'speaker', 'sync-xhr', 'usb', 'vr', 'vr / xr', 'wake-lock', 'web-share', 'xr-spatial-tracking'
         ],
 
         // Option names
