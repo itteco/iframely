@@ -165,7 +165,7 @@
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
             'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
-            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr', 'clipboard-write', 'battery', 
+            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'vr / xr', 'clipboard-write', 'battery', 
             'execution-while-not-rendered', 'execution-while-out-of-viewport', 'legacy-image-formats', 'oversized-images',
             'publickey-credentials-get', 'screen-wake-lock', 'web-share', 'xr-spatial-tracking'
         ],
