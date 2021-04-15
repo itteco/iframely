@@ -135,6 +135,6 @@ module.exports = {
         "https://www.youtube.com/channel/UCSZ69a-0I1RRdNssyttBFcA",
         "https://www.youtube.com/user/kvn/",
         "https://www.youtube.com/c/SpaceX",
-        "https://www.youtube.com/c/Figmadesign"
+        // "https://www.youtube.com/c/Figmadesign"
     ]
 };
