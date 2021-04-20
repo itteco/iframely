@@ -36,7 +36,7 @@ module.exports = {
         }
     },
 
-    tests: [
+    tests: [{skipMethods: ["getData"]},
         "https://medium.com/@startswithabang",
         "https://medium.com/hackerpreneur-magazine/nobody-s-heard-of-you-and-that-s-okay-82792dfecc12",
         "https://medium.com/@AvenueTalentPartners/3-keys-to-doing-better-discovery-and-closing-more-deals-1f8ce7bcac3d"
