@@ -60,14 +60,14 @@ module.exports = {
                 file.rel.push (CONFIG.R.resizable);
 
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
-                file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
+                file["aspect-ratio"] = CONFIG.DOC_ASPECT_RATIO;
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader);
 
             /// } else if (urlMatch[1] === "file" && schemaFileObject.playerType) {
 
             } else if (urlMatch[1] === "spreadsheets" ) {
-                file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
+                file["aspect-ratio"] = 1 / CONFIG.DOC_ASPECT_RATIO;
                 file.rel.push (CONFIG.R.reader);
 
             } else if (urlMatch[1] === "drawings" ) {

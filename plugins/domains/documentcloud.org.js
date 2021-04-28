@@ -21,7 +21,7 @@ module.exports = {
             var html = oembed.html.replace(/\r?\n|\r/g, '');
             var aspect = /padding\-bottom:(\d+.\d+)%/.test(html) && 100 / parseFloat(html.match(/padding\-bottom:(\d+.\d+)%/)[1])
                         || oembed.width && oembed.height && oembed.width / oembed.height
-                        || 1 / Math.sqrt(2);
+                        || CONFIG.DOC_ASPECT_RATIO;
             
             var link = {
                 type: CONFIG.T.text_html,

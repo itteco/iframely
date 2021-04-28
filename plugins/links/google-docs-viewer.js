@@ -23,7 +23,7 @@ module.exports = {
                     href: src,
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
-                    "aspect-ratio": 1 / Math.sqrt(2) // standard sqrt(2) aspect for A4 and other standard A* format papers (except North America, of course)
+                    "aspect-ratio": CONFIG.DOC_ASPECT_RATIO
                 }
 
             } else {
