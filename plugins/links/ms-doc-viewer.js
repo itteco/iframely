@@ -13,7 +13,7 @@ module.exports = {
                 href: "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(url),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/i.test(__nonHtmlContentData.type) ?  4/3 : 1 / Math.sqrt(2)
+                "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/i.test(__nonHtmlContentData.type) ?  4/3 : CONFIG.DOC_ASPECT_RATIO
             }
 
             if (/^https?:\/\/[a-zA-Z0-9\-\_]+\.googleapis\.com\//i.test(url) || options.getProviderOptions('disableMSDocViewer', false)) {
