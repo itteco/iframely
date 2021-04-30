@@ -51,7 +51,9 @@ module.exports = {
                 link['max-width'] = width;
             }
 
-        } else {            
+        } else {
+
+            return;
 
             if (options.getRequestOptions('facebook.show_text', false) || options.getProviderOptions(CONFIG.O.more, false)) {
                 html = html.replace(/data\-show\-text=\"(true|false)\"/i, ''); // future-proof
@@ -61,12 +63,14 @@ module.exports = {
                 link.rel.push (CONFIG.R.player);
             }
 
+            
             link.options = {
                 show_text: { // different name from posts to allow separate config and defaults
                     label: 'Show author\'s text caption',
                     value: /data-show-text=\"true\"/i.test(html)
                 }
             }
+
 
             if (oembed.width && oembed.height) {
                 link['aspect-ratio'] = oembed.width / oembed.height;
