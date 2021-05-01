@@ -232,6 +232,14 @@
         "endpoint": "https://www.tiktok.com/oembed"
     },
     {
+        "name": "Tidal",
+        "templates": [
+            "(?:listen\\.|www\\.)?tidal\\.com\/(?:browse\/)?(\\w+)\/(\\d+)",
+            "(?:listen\\.|www\\.)?tidal\\.com\/(?:browse\/)?(\\w+)\/([a-zA-Z0-9\\-]+)"
+        ],
+        "endpoint": "https://oembed.tidal.com/"
+    },
+    {
         "name": "GfyCat",
         "templates": [
             "gfycat\\.com/.+"
