@@ -349,7 +349,7 @@
     {
         "name": "DeviantArt",
         "templates": [
-            ".*\\.deviantart\\.com/art/.*",
+            ".*\\.deviantart\\.com/.*/art/.*",
             ".*\\.deviantart\\.com/gallery/.*"
         ],
         "endpoint": "https://backend.deviantart.com/oembed"
