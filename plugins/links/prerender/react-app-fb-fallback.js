@@ -1,5 +1,5 @@
-var core = require('../../../lib/core');
-var _ = require('underscore');
+const core = require('../../../lib/core');
+const utils = require('./utils');
 
 module.exports = {
 
@@ -9,21 +9,19 @@ module.exports = {
 
     getData: function(url, __appFlag, options, cb) {
 
-        if (options.user_agent === CONFIG.FB_USER_AGENT || CONFIG.PRERENDER_URL) {
+        if (options.user_agent === CONFIG.FB_USER_AGENT) {
             return cb();
         }
 
-        var options2 = _.extend({}, options, {
+        var options2 = {...options, ...{
             debug: false,
             refresh: true,
             user_agent: CONFIG.FB_USER_AGENT
-        });
+        }};
 
         core.run(url, options2, function(error, data) {
 
-            var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
-
-            if (!title ||  /{{.+}}/.test(title)) {
+            if (data && data.meta && utils.maybeApp(data.meta)) {
                 return cb({
                     responseStatusCode: 415
                 });
@@ -36,10 +34,10 @@ module.exports = {
     },
 
     getMeta: function(appUriData) {
-        return _.extend({}, appUriData.meta);
+        return {...appUriData.meta}
     },
 
     getLinks: function(appUriData) {
-        return _.extend({}, appUriData.links);
+        return {...appUriData.links}
     }
 };
