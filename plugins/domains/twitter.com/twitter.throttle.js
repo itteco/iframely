@@ -5,12 +5,12 @@ module.exports = {
     provides: ["meta"],
 
     getData: function(url, __statusCode, cb) {
-        if (__statusCode === 429 || __statusCode === 400) {
+        // if (__statusCode === 429 || __statusCode === 404 || __statusCode === 403 || __statusCode === 400) {
             return cb(null, {meta: {}})
-        } else {
+        /* } else {
             return cb ({
                 responseStatusCode: __statusCode
             });
-        }
+        } */
     }
 };
