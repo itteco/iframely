@@ -79,9 +79,6 @@ module.exports = {
                     cache_key: 'twitter:oembed:' + id,
                     prepareResult: function(error, response, data, cb) {
 
-                        console.log("twitter response", response.statusCode, error, data);
-                        options.exposeStatusCode = true;
-
                         if (error) {
                             return cb(error);
                         }
