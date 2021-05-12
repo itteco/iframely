@@ -34,11 +34,8 @@ module.exports = {
         }
     },
 
-    tests: [{
-        page: 'https://genius.com/',
-        selector: '#top-songs a.chart_row'
-    }, { skipMixins: ["favicon"]},
-        "http://rock.genius.com/Bruce-springsteen-4th-of-july-asbury-park-sandy-lyrics",
-        "http://rap.genius.com/Beyonce-flawless-remix-lyrics"
+    tests: [{ skipMixins: ["favicon"]},
+        "https://genius.com/Bruce-springsteen-4th-of-july-asbury-park-sandy-lyrics",
+        "https://genius.com/Beyonce-flawless-remix-lyrics"
     ]
 };
