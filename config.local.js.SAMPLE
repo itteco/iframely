@@ -252,6 +252,7 @@
                 }
             },
             // Docs: https://dev.twitch.tv/docs/embed/video-and-clips
+            /*
             twitch: {
                 parent: 'jsbin.com, null.jsbin.com, localhost'
             },
