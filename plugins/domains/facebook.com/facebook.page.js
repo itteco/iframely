@@ -5,6 +5,8 @@ module.exports = {
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
+    listed: false, // Unfortunatelly, negative look behinds are not supported by Safari https://caniuse.com/js-regexp-lookbehind
+
     mixins: [
         "domain-icon",
         "og-image",
