@@ -5,11 +5,9 @@ module.exports = {
 
     highestPriority: true,
 
-    provides: 'appUriData',
+    provides: ['appUriData', 'whenPrerender'],
 
     getData: function(url, __appFlag, options, meta, cb) {
-
-        var titleBefore = meta && ((meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title']);
 
         if (CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
 
@@ -34,7 +32,8 @@ module.exports = {
                         delete data.meta.canonical;
                     }
                     return cb(error, {
-                        appUriData: data
+                        appUriData: data,
+                        whenPrerender: true
                     });
                 }
             });
@@ -43,11 +42,11 @@ module.exports = {
         }
     },
 
-    getMeta: function(appUriData) {
+    getMeta: function(appUriData, whenPrerender) {
         return {...appUriData.meta};
     },
 
-    getLinks: function(appUriData) {
-        return {...appUriData.links};
+    getLinks: function(appUriData, whenPrerender) {
+        return appUriData.links;
     }
 };

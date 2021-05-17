@@ -5,7 +5,7 @@ module.exports = {
 
     highestPriority: true,
 
-    provides: 'appUriData',
+    provides: ['appUriData', 'whenReact'],
 
     getData: function(url, __appFlag, options, cb) {
 
@@ -27,17 +27,18 @@ module.exports = {
                 });
             } else {
                 return cb(error, {
-                    appUriData: data
+                    appUriData: data,
+                    whenReact: true
                 });
             }
         });
     },
 
-    getMeta: function(appUriData) {
+    getMeta: function(appUriData, whenReact) {
         return {...appUriData.meta}
     },
 
-    getLinks: function(appUriData) {
-        return {...appUriData.links}
+    getLinks: function(appUriData, whenReact) {
+        return appUriData.links;
     }
 };
