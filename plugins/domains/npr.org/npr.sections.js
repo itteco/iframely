@@ -18,7 +18,7 @@ module.exports = {
             
             if (urlMatch) {
                 return {
-                    href: "//www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
+                    href: "https://www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
                     type: CONFIG.T.text_html,
                     rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.app], // `app` prevents it from being wrapped as promo card
                     height: 290,
