@@ -65,7 +65,6 @@ module.exports = {
         skipMethods: ['getData']
     },
         "https://www.pinterest.com/pin/99360735500167749/",
-        "https://www.pinterest.com/pin/72831718944016807/",
         "https://www.pinterest.com/pin/211669251206627341/"
     ]
 };
