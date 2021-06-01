@@ -58,8 +58,15 @@ module.exports = {
                 } else {
 
                     if (!options.forceSyncCheck) {
-                        // skip domain icon on cache miss 
-                        cb (null, {domain_icons: []}); 
+                        // On cache miss hard code domain icon to favicon.ico.
+
+                        cb(null, {
+                            domain_icons: [{
+                                href: `${domainUri}/favicon.ico`,
+                                type: CONFIG.T.image,
+                                rel: [CONFIG.R.icon, CONFIG.R.iframely] // It will be validated as image.
+                            }]
+                        }); 
                     }
 
                     // and asynchronously put in cache for next time
