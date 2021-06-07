@@ -53,6 +53,9 @@ module.exports = {
                     } : {
                         height: !include_playlist ? 80 : (iframe.height || 400)
                     };
+
+                // Temp fix for broken v2 playlist.
+                player.href = src.replace(/\/embed\/playlist\-v2\//, '/embed/playlist/');
             } else if (/episode|show/.test(src)) {
                 player.rel.push(CONFIG.R.audio);
                 player.height = iframe.height || 232;
