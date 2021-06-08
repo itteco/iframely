@@ -123,7 +123,7 @@ module.exports = {
         if (urlMatch[1] === "forms" && /\/closedform(?:\?.*)?$/.test(url)) {
             return cb ({
                 responseStatusCode: 410,
-                message: `The form ${meta['html-title'] || ''} is no longer accepting responses.`
+                message: `This Google form is no longer accepting responses.`
             });
         } else if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
