@@ -110,7 +110,7 @@
         ADD_OEMBED_PARAMS: [{
             
             re: [ // Endpoint's URL regexp array.
-                /^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/instagram_oembed/i
+                /^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/instagram_oembed/i
             ],
             params: { // Custom query-string params object.
 
@@ -123,7 +123,7 @@
                 hidecaption: true
             }
         }, {
-            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_page/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/oembed_page/i],
             params: {
                 // TODO: get your access token as described 
                 // on https://developers.facebook.com/docs/plugins/oembed                
@@ -145,7 +145,7 @@
             }
         }, {
             // Facebook https://developers.facebook.com/docs/plugins/oembed/
-            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/oembed_/i],
             params: {
                 // TODO: get your access token as described 
                 // on https://developers.facebook.com/docs/plugins/oembed                
