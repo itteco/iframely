@@ -23,10 +23,14 @@ module.exports = {
 
         var html = oembed.html;
 
-        var width = options.maxWidth || options.getProviderOptions('twitter.timeline_width');
+        var width =  parseInt(options.getRequestOptions('twitter.maxwidth', options.maxWidth));
 
         if (width) {
-            html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
+            if (/data\-width=\"(\d+)\"/i.test(html)) {
+                html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
+            } else {
+                html = html.replace('<a class="twitter-timeline"', `<a class="twitter-timeline" data-width="${width}"`);
+            }
         } else if (width === '') {
             html = html.replace(/data\-width=\"\d+\"\s?/i, '');
         }
@@ -70,6 +74,11 @@ module.exports = {
                     values: {
                         dark: "Use dark theme"
                     }
+                },
+                maxwidth: {
+                    value: width || '',
+                    label: CONFIG.L.width,
+                    placeholder: 'e.g. 550, in px'
                 }
             }
         }
