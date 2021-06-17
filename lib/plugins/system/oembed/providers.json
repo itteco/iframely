@@ -228,7 +228,6 @@
         "templates": [
             "(?:www|t)?\\.tiktok\\.com/@[^\\/]+\/video\/\\d+",
             "(?:www|t)?\\.tiktok\\.com/(?:i18n\/)?share\/video\/\\d+",
-            "vm\\.tiktok\\.com/[a-zA-Z0-9_]+",
             "m\\.tiktok\\.com/v/\\d+"
         ],
         "endpoint": "https://www.tiktok.com/oembed"
