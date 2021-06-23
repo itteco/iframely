@@ -9,7 +9,7 @@ module.exports = {
 
     getData: function(url, __appFlag, options, meta, cb) {
 
-        if (CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
+        if (CONFIG.PRERENDER && CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
 
             var prerenderUrl = CONFIG.PRERENDER_URL + encodeURIComponent(url);
             var options2 = {...options, ...{
