@@ -33,9 +33,18 @@ module.exports = {
                 var page = options.getRequestOptions('documentcloud.page', '1');
 
                 try {
+                    var iframe = oembed.getIframe();
+                    var href = iframe & iframe.href;
+
                     if (page && page !== '1') {
-                        html = html.replace (/"\s+title="/i, '#document/p' + page + '" title="');
+                        if (href) {
+                            href += '#document/p' + page;
+                        } else {                        
+                            html = html.replace (/"\s+title="/i, '#document/p' + page + '" title="');
+                        }
                     }
+
+                    link.href = href;
 
                     link.options = {
                         page: {
