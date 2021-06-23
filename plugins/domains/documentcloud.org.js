@@ -34,7 +34,7 @@ module.exports = {
 
                 try {
                     var iframe = oembed.getIframe();
-                    var href = iframe & iframe.src;
+                    var href = iframe.src;
 
                     if (page && page !== '1') {
                         if (href) {
