@@ -47,7 +47,9 @@ module.exports = {
                 schemaVideoObject: json
             };            
 
-            if (video_src && typeof video_src === "string" && whitelistRecord.isAllowed && (whitelistRecord.isDefault || !whitelistRecord.isAllowed('html-meta.embedURL'))
+            if (video_src && typeof video_src === "string" 
+                && whitelistRecord.isAllowed 
+                && (whitelistRecord.isDefault || whitelistRecord.isAllowed('html-meta.embedURL') === undefined)
                 && CONFIG.KNOWN_VIDEO_SOURCES.test(video_src)
                 && !CONFIG.KNOWN_VIDEO_SOURCES.test(url)) {
 
