@@ -4,11 +4,12 @@ module.exports = {
     re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/pin\/(\d+)/i,
 
     mixins: [
-        "*"
+        "*",
+        "oembed-iframe"
     ],
 
     // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large
-    getLink: function(url, meta, options) {
+    getLink: function(url, meta, iframe, options) {
 
         var og = meta.og;
 
@@ -40,6 +41,8 @@ module.exports = {
                     }
                 },
                 */
+                'aspect-ratio': iframe.width && iframe.height > 96 ? iframe.width / (iframe.height - 96): 1/1,
+                'padding-bottom': 96,
                 'max-width': 600
             };
         }
