@@ -11,7 +11,6 @@ function getVideoLinks(video, whitelistRecord) {
         accept.push (CONFIG.T.text_html);
     } else if (!whitelistRecord.isDefault) {
         accept.push (CONFIG.T.text_html);
-        accept.push (CONFIG.T.flash);
     }
 
     var players = [];
