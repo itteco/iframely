@@ -6,7 +6,7 @@ Iframely takes your URL and returns its metadata. If supported on the URL, we'll
 
 This package includes specific domain parsers for most popular publishers. YouTube, Facebook, Instagram, Twitter, SoundCloud, Google Maps, TED, Twitch and many more. See `/plugins/domains` folder. In addition, we cover many domains by whitelisting media thought the generic publishing protocols: [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards) and microformats. For the rest of URLs, you'll include have metadata and thumbnail images from those protocols. Use it to create your own URL previews.
 
-Iframely's [whitelist file](https://iframely.com/qa/whitelist.json) is fetched from our central database. The changes are update automatically in your instence by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
+Iframely's [whitelist file](https://iframely.com/qa/whitelist.json) is fetched from our central database. The changes are synced automatically to your instance by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
 
 ## API endpoints
 
@@ -23,7 +23,7 @@ You can use Iframely can as Node.js library. That's how we use it in the cloud. 
 
 ## Not included as compared to Cloud API
 
-Hosted [cloud APIs](https://iframely.com) can optionally return Iframely.com-powered iFrame renders in the `html` field. iFrames deliver all hosted widgets such as cards for URL previews, GIF support, player events, AMP, and others. Our [per-URL customization](https://iframely.com/docs/options), predictive sizing mechanism for JavaScript-based embeds to minimize the layout shift, lazy-loading, type-based media whitelist and the number of other configurations is only available in the cloud. 
+Hosted [cloud APIs](https://iframely.com) can optionally return Iframely.com-powered iFrame renders in the `html` field. iFrames deliver all hosted widgets such as cards for URL previews, GIF support, player events, AMP, and others. Our [per-URL customization](https://iframely.com/docs/options), predictive sizing mechanism for JavaScript-based embeds to minimize the layout shift, lazy-loading, type-based media whitelist and the number of other configurations are only available in the cloud. 
 
 This open-source version provides the web parsers only. Iframely cloud use data from those parsers as-is in production. Though the format of API endpoints between the cloud and self-hosted version should match, there might be minor discrepancies.
 
