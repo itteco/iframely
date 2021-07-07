@@ -1,57 +1,65 @@
+const PROFILE_RE = /^https?:\/\/dribbble\.com\/([a-zA-Z0-9\-]+)(?:\?[^\/]+)?$/i;
+
 module.exports = {
 
     re: [
         /^https?:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i,
-        /^https?:\/\/dribbble\.com\/([a-zA-Z0-9\-]+)(?:\?[^\/]+)?$/i
+        PROFILE_RE
     ],
 
-    mixins: [
-        "*"
-    ],
+    mixins: ["*"],
+    provides: ["isGif"],
 
-    getMeta: function(url, og) {
+    getMeta: function(url, og, twitter, isGif) {
 
-        // avoid canonical=gif for gif shots that invalidate thumbmails
-        if (/\.gif/.test(og.url)) {
-            return {
-                canonical: url
-            }
+        var meta = {};
+        // Avoid canonical=gif for gif shots that invalidate thumbmails.
+        if (isGif) {
+            meta.canonical = url;
         }
+
+        if (PROFILE_RE.test(url) || og.video || twitter.player || isGif) {
+            // Wrap players into a promo card
+            meta.media = 'reader';
+        }
+
+        return meta;
     },
 
-    getLink: function(meta, url, urlMatch, cb) {
+    getLink: function(og, twitter, url, urlMatch, isGif) {
+        var links = [];
 
-        if (meta.og && meta.og.image) {
-
-            var links = [{
-                href: meta.og.image.url || meta.og.image,
-                type: CONFIG.T.image,
-                rel: meta.og.type === 'profile'? [CONFIG.R.image, CONFIG.R.promo] : CONFIG.R.image,
-                width: meta.twitter.image.width,
-                height: meta.twitter.image.height
-            }];
-
-            if (meta.twitter && meta.twitter.player && /^https?:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i.test(url)) {
+        if (!isGif) {
+            if (og.image
+                && !og.video && !PROFILE_RE.test(url)) {
                 links.push({
-                    href: meta.twitter.player.value,
-                    media: {
-                        width: meta.twitter.player.width,
-                        height: meta.twitter.player.height,
-                        'max-width': 800
-                    }, 
-                    type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.gifv, CONFIG.R.html5, CONFIG.R.twitter, 'responsive']
+                    href: og.image.url || og.image,
+                    type: CONFIG.T.image,
+                    rel: CONFIG.R.image,
+                    // No sizes here - validate image. Ex.: https://dribbble.com/shots/15050018-Player-platform
                 });
             }
 
-            cb(null, links);
 
-        } else {
-            // Attachments pages doesn't have any meta at the moment :\
-            cb ({
-                redirect: urlMatch[0] + urlMatch[1]
-            });
+            // Twitter player is broken on GIFs: https://dribbble.com/shots/4240497-Wisdo-apps-video-introduction
+            if (twitter.player && twitter.player.width && twitter.player.height) {
+                links.push({
+                    href: twitter.player.value,
+                    type: CONFIG.T.text_html,
+                    rel: [CONFIG.R.player, CONFIG.R.gifv, CONFIG.R.html5],
+                    'aspect-ratio': twitter.player.width / twitter.player.height,
+                })
+            }
+        }
 
+        return links;
+
+        // The rest of links are well covered now by whitelist parsers + media=reader.
+    },
+
+    getData: function(og) {
+        return {
+            isGif: /\.gif/.test(og.url) || og.image && (/\.gif/.test(og.image.url || og.image))
         }
     },
 
@@ -60,10 +68,13 @@ module.exports = {
         selector: ".dribbble-link"
     }, {
         skipMethods: [
-            "getMeta"
+            "getMeta", "getLink"
         ]
     },
-        "http://dribbble.com/shots/1311850-Winter-Is-Coming",
-        "http://dribbble.com/shots/5030547-Chairs-Store-App"
+        "https://dribbble.com/shots/1311850-Winter-Is-Coming",
+        "https://dribbble.com/shots/5030547-Chairs-Store-App",
+        "https://dribbble.com/Sochnik",
+        "https://dribbble.com/shots/5715634-Website-Banner-Slides",
+        "https://dribbble.com/shots/14667116-Dark-Theme-UI-Elements-Design"
     ]
 };

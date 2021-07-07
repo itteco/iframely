@@ -60,14 +60,14 @@ module.exports = {
                 file.rel.push (CONFIG.R.resizable);
 
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
-                file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
+                file["aspect-ratio"] = CONFIG.DOC_ASPECT_RATIO;
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader);
 
             /// } else if (urlMatch[1] === "file" && schemaFileObject.playerType) {
 
             } else if (urlMatch[1] === "spreadsheets" ) {
-                file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
+                file["aspect-ratio"] = 1 / CONFIG.DOC_ASPECT_RATIO;
                 file.rel.push (CONFIG.R.reader);
 
             } else if (urlMatch[1] === "drawings" ) {
@@ -80,6 +80,10 @@ module.exports = {
                 file.rel.push (CONFIG.R.slideshow);
                 file['aspect-ratio'] = 16/9;
                 file['padding-bottom'] = 30;
+
+                if (/\/preview(?:\?.+)$/.test(file.href)) {
+                    file.href = file.href.replace(/\/preview(?:\?.+)$/, '/embed');
+                }
             }
 
             return file;
@@ -119,7 +123,7 @@ module.exports = {
         if (urlMatch[1] === "forms" && /\/closedform(?:\?.*)?$/.test(url)) {
             return cb ({
                 responseStatusCode: 410,
-                message: `The form ${meta['html-title'] || ''} is no longer accepting responses.`
+                message: `This Google form is no longer accepting responses.`
             });
         } else if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
@@ -164,6 +168,11 @@ module.exports = {
                     embedUrl: url
                 }  
             });
+        } else if (!meta.og) {
+            return cb({
+                responseStatusCode: 415,
+                message: 'Google Docs could not load the file. Perhaps it is too large.'
+            })
         } else {
             return cb(null, null);
         }
@@ -181,6 +190,7 @@ module.exports = {
         "https://drive.google.com/open?id=1rKcaLuY0WzhPqQFCGy_4aIJblnEziy7-",
         "https://drive.google.com/file/d/17cEEjFg-xJGnKfwQHDPF9mBNsBY8KTsc/preview",
         "https://drive.google.com/file/d/15rfX_NentPMEgJQ_io6qhctScmpahU00/view",
+        "https://docs.google.com/presentation/d/e/2PACX-1vQmrymNWFltfprLl9IX-irRcmvjsL1ahOKAt8YTzuWTdcWyIH2EX6wyUmmJ4ftG3dICaTZ9DCpqXiht/pub?start=false&loop=false&delayms=3000",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description"

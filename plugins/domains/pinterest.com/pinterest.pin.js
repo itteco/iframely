@@ -4,11 +4,12 @@ module.exports = {
     re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/pin\/(\d+)/i,
 
     mixins: [
-        "*"
+        "*",
+        "oembed-iframe"
     ],
 
     // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large
-    getLink: function(url, meta, options) {
+    getLink: function(url, meta, iframe, options) {
 
         var og = meta.og;
 
@@ -40,6 +41,8 @@ module.exports = {
                     }
                 },
                 */
+                'aspect-ratio': iframe.width && iframe.height > 96 ? iframe.width / (iframe.height - 96): 1/1,
+                'padding-bottom': 96,
                 'max-width': 600
             };
         }
@@ -65,7 +68,6 @@ module.exports = {
         skipMethods: ['getData']
     },
         "https://www.pinterest.com/pin/99360735500167749/",
-        "https://www.pinterest.com/pin/72831718944016807/",
         "https://www.pinterest.com/pin/211669251206627341/"
     ]
 };

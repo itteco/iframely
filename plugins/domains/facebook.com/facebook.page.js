@@ -1,7 +1,7 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/[^\/]+\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([^\/\?]+(?<!\.php))\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
@@ -85,11 +85,16 @@ module.exports = {
                 options: opts,
                 height: height
             };        
+        } else if (oembed.html) {
+            // Ex.: https://www.facebook.com/pages/Art-Friend-the-Curve/199296263568281
+            return {
+                message: "Unowned Facebook Pages are not supported."
+            }
         }
     },
 
     getData: function(oembedError, meta) {
-        if (meta.ld && meta.ld.person) {
+        if (!meta.ld || meta.ld.person) {
             return {
                 message: "Facebook profile pages of individual users are not embeddable."
             };

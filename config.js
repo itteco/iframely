@@ -26,7 +26,6 @@
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         WHITELIST_WILDCARD: {},
-        WHITELIST_LOG_URL: 'https://iframely.com/whitelist-log',
 
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
@@ -54,6 +53,8 @@
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
 
+        MAX_REDIRECTS: 5,
+
         RESPONSE_TIMEOUT: 5 * 1000,
 
         SHUTDOWN_TIMEOUT: 6 * 1000,
@@ -66,6 +67,7 @@
 
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
+        DOC_ASPECT_RATIO: 8.5 / 11,
         MAX_VERTICAL_ASPECT_RATIO: 1,
         ASPECT_RATIO_PRECISION: 0.25,
 
@@ -79,7 +81,7 @@
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
-            flash: "application/x-shockwave-flash",
+            flash: "application/x-shockwave-flash", // Adobe Flash Player is no longer supported
             image: "image",
             image_icon: "image/icon",
             image_png: "image/png",
@@ -164,9 +166,11 @@
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
-            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media', 
-            'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
-            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr', 'clipboard-write'
+            'accelerometer', 'ambient-light-sensor', 'autoplay', 'battery', 'camera', 'clipboard-write', 'display-capture',
+            'document-domain', 'encrypted-media', 'execution-while-not-rendered', 'execution-while-out-of-viewport', 
+            'fullscreen', 'geolocation', 'gyroscope', 'legacy-image-formats', 'magnetometer', 'microphone', 'midi', 
+            'oversized-images', 'payment', 'picture-in-picture', 'publickey-credentials-get', 'screen-wake-lock',
+            'speaker', 'sync-xhr', 'usb', 'vr', 'vr / xr', 'wake-lock', 'web-share', 'xr-spatial-tracking'
         ],
 
         // Option names

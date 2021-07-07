@@ -2,7 +2,7 @@ module.exports = {
 
     re: [
         /^https?:\/\/giphy\.com\/(?:gifs|stickers)\/(?:[a-zA-Z0-9_-]+\-)?([a-z0-9\-]+)/i,
-        /^https?:\/\/giphy\.com\/videos\/(?:[a-zA-Z0-9_-]+\-)?([a-zA-Z0-9]+)(?:\?.+)?/i
+        /^https?:\/\/giphy\.com\/(?:videos|clips)\/(?:[a-zA-Z0-9_-]+\-)?([a-zA-Z0-9]+)(?:\?.+)?/i
     ],
 
     mixins: [
@@ -18,7 +18,7 @@ module.exports = {
     getLinks: function(url, urlMatch, oembed, twitter, og, options) {
 
         var links = [];
-        var isVid =  /\/videos\//i.test(url);
+        var isVid =  /\/(videos|clips)\//i.test(url);
 
         if (twitter.player) {
             links.push({
@@ -27,22 +27,28 @@ module.exports = {
                 rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
                 "aspect-ratio": twitter.player.width / twitter.player.height
             });
-        // Vidoes don't have Twitter player as of June 16, 2020
+        // Vidoes don't have Twitter player as of June 16, 2020 and as of Feb 1, 2021
         } else if (isVid && og.video && og.video.width && og.video.height) {
             links.push({
                 href: `https://giphy.com/embed/${urlMatch[1]}/video`,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.gifv],
+                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.gifv, CONFIG.R.autoplay],
                 "aspect-ratio": og.video.width / og.video.height
             });            
         }
 
-        if (og.video && (/\.mp4/.test(og.video.url) || og.video.type === CONFIG.T.video_mp4)) {
+        var video = og.video;
+
+        if (video && video.length > 1) {
+            video = video[video.length -1];
+        }
+
+        if (video && (/\.mp4/.test(video.url) || video.type === CONFIG.T.video_mp4) && video.width && video.height) {
             links.push({
-                href: og.video.url.replace(/^http:\/\//i, 'https://'),
+                href: video.url.replace(/^http:\/\//i, 'https://'),
                 type: CONFIG.T.video_mp4,
                 rel: [CONFIG.R.player, CONFIG.R.html5, isVid ? CONFIG.R.og : CONFIG.R.gifv],
-                "aspect-ratio": og.video.width / og.video.height
+                "aspect-ratio": video.width / video.height
             });
         }
 
@@ -96,6 +102,7 @@ module.exports = {
         "https://giphy.com/gifs/nfl-super-bowl-nfl-sb-U7zS2FJTC8xclBzGVu",
         "https://giphy.com/videos/kehlani-open-passionate-kBMPSpmc4vbIc3h7Zo",
         "https://giphy.com/gifs/dancing-happy-seinfeld-BlVnrxJgTGsUw", // this one was broken and excluded via `!twitter.image.url`
-        "https://giphy.com/stickers/cindysuenkeys-26AHtOSUIDsTJO7cs"
+        "https://giphy.com/stickers/cindysuenkeys-26AHtOSUIDsTJO7cs",
+        "https://giphy.com/clips/LAS73aYc2HuOBn5w70"
     ]
 };

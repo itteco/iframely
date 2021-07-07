@@ -8,7 +8,7 @@
         RICH_LOG_ENABLED: false,
 
         // For embeds that require render, baseAppUrl will be used as the host.
-        baseAppUrl: "http://yourdomain.com",
+        baseAppUrl: "http://localhost:8061", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
         relativeStaticUrl: "/r",
 
         // Or just skip built-in renders altogether
@@ -63,10 +63,28 @@
         // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
         /*
+        // Redis mode (cluster or standard)
+        REDIS_MODE: 'standard',
+        */
+
+        /*
         // Redis cache options.
         REDIS_OPTIONS: {
             host: '127.0.0.1',
             port: 6379
+        },
+        */
+
+        /*
+        // Redis cluster options.
+        REDIS_CLUSTER_OPTIONS: {
+            servers: [
+                 {
+                     host: '10.0.0.10',
+                     port: 6379
+                 },
+                 // ...
+             ],
         },
         */
 
@@ -98,17 +116,19 @@
         // If there's no response from remote server, the timeout will occur after
         RESPONSE_TIMEOUT: 5 * 1000, //ms
 
-        /* From v1.4.0, Iframely supports HTTP/2 by default. Disable it, if you'd rather not.
+        /* From v1.4.0, Iframely works over HTTP/2 if not disabled.
            Alternatively, you can also disable per origin. See `proxy` option below.
+           The default in this sample config is to disable HTTP/2 as per
+           https://github.com/itteco/iframely/issues/277.
         */
-        // DISABLE_HTTP2: true,
+        DISABLE_HTTP2: true,
 
         // Customize API calls to oembed endpoints.
         // Must have: please add your `access_token` for Facebook and Instagram API calls
         ADD_OEMBED_PARAMS: [{
             
             re: [ // Endpoint's URL regexp array.
-                /^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/instagram_oembed/i
+                /^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/instagram_oembed/i
             ],
             params: { // Custom query-string params object.
 
@@ -121,7 +141,7 @@
                 hidecaption: true
             }
         }, {
-            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_page/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/oembed_page/i],
             params: {
                 // TODO: get your access token as described 
                 // on https://developers.facebook.com/docs/plugins/oembed                
@@ -143,7 +163,7 @@
             }
         }, {
             // Facebook https://developers.facebook.com/docs/plugins/oembed/
-            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/oembed_/i],
             params: {
                 // TODO: get your access token as described 
                 // on https://developers.facebook.com/docs/plugins/oembed                
@@ -250,6 +270,7 @@
                 }
             },
             // Docs: https://dev.twitch.tv/docs/embed/video-and-clips
+            /*
             twitch: {
                 parent: 'jsbin.com, null.jsbin.com, localhost'
             },

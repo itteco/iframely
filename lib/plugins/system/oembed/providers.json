@@ -7,7 +7,7 @@
           "(?:www|m|business)\\.(facebook\\.com/\\d+_\\d+)"
         ],
         "url": "https://www.{1}",
-        "endpoint": "https://graph.facebook.com/v8.0/oembed_post"
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_post"
     },
     {
         "name": "Facebook Video no query string",
@@ -16,7 +16,7 @@
             "(?:www|m|business)\\.(facebook\\.com/watch/?\\?v=\\d+)"
         ],
         "url": "https://www.{1}",
-        "endpoint": "https://graph.facebook.com/v8.0/oembed_video"
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_video"
     },
     {
         "name": "Facebook Video",
@@ -29,7 +29,7 @@
           "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
           "(?:www|m|business)\\.(facebook\\.com/watch/?\\?(?:.+&)?v=\\d+)"
         ],
-        "endpoint": "https://graph.facebook.com/v8.0/oembed_video"
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_video"
     },
     {
         "name": "Facebook Post",
@@ -40,7 +40,7 @@
           "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
-        "endpoint": "https://graph.facebook.com/v8.0/oembed_post"
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_post"
     },    
     {
         "name": "Facebook Page",
@@ -48,7 +48,7 @@
             "(?:www|m)\\.facebook\\.com/(?:pg|pages)/",
             "(?:www|m)\\.facebook\\.com/[^/]+/?(?:about|photos|videos|events|timeline|photos_stream)?/?(?:\\?[^/\\?]+)?$"
         ],
-        "endpoint": "https://graph.facebook.com/v8.0/oembed_page"
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_page"
     },
     {
         "name": "Instagram",
@@ -56,7 +56,7 @@
             "(?:www\\.)?(instagram\\.com/(?:p|tv|reel)/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
-        "endpoint": "https://graph.facebook.com/v8.0/instagram_oembed?format={format}&url=https://www.{1}/"
+        "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&url=https://www.{1}/"
     },
     {
         "name": "Instagram user page",
@@ -64,7 +64,7 @@
             "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)",
             "(instagr\\.am/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "https://graph.facebook.com/v8.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
+        "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
     },
     {
         "name": "Dailymotion",
@@ -91,9 +91,9 @@
         "endpoint": "https://giphy.com/services/oembed"
     },
     {
-        "name": "Giphy video",
+        "name": "Giphy clips",
         "templates": [
-            "giphy\\.com/videos/[a-zA-Z0-9_-]+\\-([a-zA-Z0-9]+)(?:\\?.+)?"
+            "giphy\\.com/(?:videos|clips)/(?:[a-zA-Z0-9_-]+\\-)?([a-zA-Z0-9]+)(?:\\?.+)?"
         ],
         "endpoint": "https://giphy.com/services/oembed"
     },    
@@ -212,7 +212,7 @@
     {
         "name": "Twitter Users",
         "templates": [
-            "(twitter\\.com/\\w+)/?$"
+            "(twitter\\.com/\\w+)/?(?:\\?.*)?$$"
         ],
         "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
@@ -226,10 +226,19 @@
     {
         "name": "TikTok",
         "templates": [
-            "tiktok\\.com/@[^\\/]+\/video\/\\d+",
-            "tiktok\\.com/share\/video\/\\d+"            
+            "(?:www|t)?\\.tiktok\\.com/@[^\\/]+\/video\/\\d+",
+            "(?:www|t)?\\.tiktok\\.com/(?:i18n\/)?share\/video\/\\d+",
+            "m\\.tiktok\\.com/v/\\d+"
         ],
         "endpoint": "https://www.tiktok.com/oembed"
+    },
+    {
+        "name": "Tidal",
+        "templates": [
+            "(?:listen\\.|www\\.)?tidal\\.com\/(?:browse\/)?(\\w+)\/(\\d+)",
+            "(?:listen\\.|www\\.)?tidal\\.com\/(?:browse\/)?(\\w+)\/([a-zA-Z0-9\\-]+)"
+        ],
+        "endpoint": "https://oembed.tidal.com/"
     },
     {
         "name": "GfyCat",
@@ -291,9 +300,11 @@
     {
         "name": "Mixcloud",
         "templates": [
-            "www\\.mixcloud\\.com/.+/.+/.*",
-            "www\\.mixcloud\\.com/.+"
+            "www\\.mixcloud\\.com/live/(.+)",
+            "www\\.mixcloud\\.com/(.+/.+/.*)",
+            "www\\.mixcloud\\.com/(.+)"
         ],
+        "url": "https://www.mixcloud.com/{1}",
         "endpoint": "https://www.mixcloud.com/oembed/"
     },
     {
@@ -310,14 +321,6 @@
             ".*\\.wistia.com/medias/.*"
         ],
         "endpoint": "http://fast.wistia.com/oembed.{format}"
-    },
-    {
-        "name": "IFTTT",
-        "templates": [
-            "ifttt\\.com/recipes/(\\d+).+",
-            "ifttt\\.com/applets/(\\d+).+"
-        ],
-        "endpoint": "https://ifttt.com/oembed?url=https://ifttt.com/recipes/{1}&format={format}"
     },
     {
         "name": "Crowdsignal",
@@ -347,7 +350,7 @@
     {
         "name": "DeviantArt",
         "templates": [
-            ".*\\.deviantart\\.com/art/.*",
+            ".*\\.deviantart\\.com/.*/art/.*",
             ".*\\.deviantart\\.com/gallery/.*"
         ],
         "endpoint": "https://backend.deviantart.com/oembed"
@@ -446,9 +449,10 @@
         "name": "RTL XL",
         "templates": [
             "rtlxl\\.nl/?(?:\\?.+)?#!/?.+",
+            "rtlxl\\.nl/programma/",            
             "rtl\\.nl/video/([a-zA-Z0-9-]+)"
         ],
-        "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed?url={1}"
+        "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed"
     },
     {
         "name": "Ranker",
@@ -566,12 +570,12 @@
         ],
         "endpoint": "https://public.tableau.com/profile/api/oembed"
     }, {
-        "name": "DocumentCloud Beta",
+        "name": "DocumentCloud Pages & Annotations",
         "templates": [
-            "(beta.documentcloud.org/documents/.+)$"
+            "(documentcloud.org/documents/\\d+\\-[^#\\?]+#document/p(\\d+)(?:/a\\d+)?)"
         ],
-        "url": "https://{1}",
-        "endpoint": "https://api.beta.documentcloud.org/api/oembed?url={url}&format={format}"
+        "url": "https://www.{1}",
+        "endpoint": "https://api.www.documentcloud.org/api/oembed"
     }, {
         "name": "Overflow",
         "templates": [
