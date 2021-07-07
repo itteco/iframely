@@ -81,7 +81,7 @@
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
-            flash: "application/x-shockwave-flash",
+            flash: "application/x-shockwave-flash", // Adobe Flash Player is no longer supported
             image: "image",
             image_icon: "image/icon",
             image_png: "image/png",
