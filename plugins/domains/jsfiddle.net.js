@@ -1,13 +1,13 @@
 module.exports = {
 
-    re: /(https?:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/).*/i,
+    re: /^(https?:\/\/jsfiddle.net\/(?:\w+\/)?\w+\/)\/?(?:[^\/]+)?$/i,
 
     mixins: [
         "*"
     ],
 
     getLink: function(urlMatch, meta) {
-        if (meta.author) { // E.g. skip /terms/
+        if (meta.author && meta.ld && meta.ld.code) { // E.g. skip /terms/ and blobs
             var src = urlMatch[1].replace(/^http:\/\//i, 'https://') + "embed/"; 
             return {
                 html: `<script async src="${src}"></script>`,
