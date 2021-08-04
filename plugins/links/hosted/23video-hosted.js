@@ -49,8 +49,6 @@ module.exports = {
         "http://video.itu.dk/live/13796543",
         "http://video.ku.dk/visual-social-media-lab-farida-vis-anne",
         "https://video.twentythree.net/intro-to-twentythrees-player-builder",
-        "http://videos.liftconference.com/video/3310088?source=share",
-
         "http://videos.theconference.se/paul-adams-solving-real-world-problems",
         "http://www.fftv.no/skipatruljen-s3e3-voss-resort",
         "https://videos.23video.com/novo-nordisk",
