@@ -28,7 +28,7 @@
         "graceful-cluster": "0.0.3",
         "htmlparser2": "3.9.2",
         "http-parser-js": "itteco/http-parser-js#magicode-fix-22",
-        "iconv-lite": "0.4.17",
+        "iconv-lite": "0.6.3",
         "iltorb": "^2.4.3",
         "imagesize": "1.0.0",
         "jslint": "^0.12.1",
