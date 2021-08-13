@@ -22,7 +22,7 @@ function assertOembed(oembed) {
             assert.isNumber(oembed.width);
             assert.isNumber(oembed.height);
             break;
-            
+
         case 'rich':
         case 'video':
             assert.isString(oembed.html);
@@ -30,14 +30,14 @@ function assertOembed(oembed) {
             assert.isNumber(oembed.height);
             break;
     }
-    
+
     if (oembed.thumbnail_url) {
         assert.isString(oembed.thumbnail_url);
         assert.match(oembed.thumbnail_url, /^https?:\/\//);
         assert.isNumber(oembed.thumbnail_width);
         assert.isNumber(oembed.thumbnail_height);
     }
-    
+
     if (oembed.provider_url) {
         assert.isString(oembed.provider_url);
         assert.match(oembed.provider_url, /^https?:\/\//);
@@ -51,7 +51,7 @@ describe('Core plugins', function() {
     describe('meta', function() {
 
         var error, data;
-        
+
         before(function(done) {
             iframely("http://www.bbc.com/news/science-environment-23767323", 'meta', findWhitelistRecordFor, function(_error, _data) {
                 error = _error;
