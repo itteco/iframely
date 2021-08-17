@@ -1,7 +1,7 @@
 
 module.exports = {
 
-    re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/pin\/(\d+)/i,
+    re: /^(https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3})\/pin\/(?:[^\/]+\-)?(\d+)/i,
 
     mixins: [
         "*",
@@ -9,7 +9,7 @@ module.exports = {
     ],
 
     // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large
-    getLink: function(url, meta, iframe, options) {
+    getLink: function(urlMatch, meta, iframe, options) {
 
         var og = meta.og;
 
@@ -24,7 +24,7 @@ module.exports = {
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
                 template: "pinterest.widget",
                 template_context: {
-                    url: og.url || url,
+                    url: `${urlMatch[1]}/pin/${urlMatch[2]}`,
                     title: "Pinterest Image",
                     type: "embedPin",
                     width: null,
@@ -68,6 +68,8 @@ module.exports = {
         skipMethods: ['getData']
     },
         "https://www.pinterest.com/pin/99360735500167749/",
-        "https://www.pinterest.com/pin/211669251206627341/"
+        "https://www.pinterest.com/pin/211669251206627341/",
+        "https://www.pinterest.ca/pin/705024516672989568/",
+        "https://www.pinterest.ca/pin/oven-baked-spaghetti-bolognese--492649949494109/"
     ]
 };
