@@ -11,11 +11,13 @@
     // DB connect.
     try {
         mongoose = require('mongoose');
+        mongoose.set('useUnifiedTopology', true);
         mongoose.set('useCreateIndex', true);
+        mongoose.set('useNewUrlParser', true);
         if (global.Promise) {
             mongoose.Promise = global.Promise;
         }
-        db = mongoose.createConnection(CONFIG.tests.mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
+        db = mongoose.createConnection(CONFIG.tests.mongodb);
     } catch (ex) {
         console.error("Plugins testing framework will not work. Can't connect to mongodb.");
         console.error(ex.stack);
