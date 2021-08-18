@@ -139,7 +139,8 @@
     {
         "name": "Vimeo",
         "templates": [
-            "(www\\.)?vimeo\\.com/.*"
+            "(www\\.)?vimeo\\.com/.*",
+            "player\\.vimeo\\.com/video/.*"
         ],
         "endpoint": "https://vimeo.com/api/oembed.{format}"
     },

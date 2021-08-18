@@ -3,7 +3,10 @@ const _ = require('underscore');
 
 module.exports = {
 
-    re: /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+    re: [
+        /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+        /^https?:\/\/player\.vimeo\.com\/video\/(\d+)/i
+    ],
 
     mixins: [
         "oembed-title",
