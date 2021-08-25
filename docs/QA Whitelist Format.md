@@ -98,7 +98,7 @@ We suggest the following algorithm. Let's say you have the URL `http://name.sub.
  2. Check if `*.sub.domain.com` exists. If it does, use as value.
  3. Check if `*.domain.com` exists. If it does, use the value (otherwise - we don't have info about the domain).
 
-The domains use variety of URL structures, and sometimes we need to whitelist the top domain, but blacklist some of the sub-domains, or whitelist all subdomains except only one. The algorithm above covers the logic of how we do it. 
+The domains use variety of URL structures, and sometimes we need to allow the top domain, but block some of the sub-domains, or whitelist all subdomains except only one. The algorithm above covers the logic of how we do it. 
 
 Please, note that `www.domain.com` and `domain.com` are the same in most cases. If you meet URLs with `www` and we do not list it explicitely as `www.domain.com`, check `domain.com` rather than `*.domain.com`. We try to be as careful about `www` as we can, but since it is a manual QA process, human error is always a factor.
 

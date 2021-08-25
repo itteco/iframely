@@ -13,7 +13,7 @@
 
     RESPONSE_TIMEOUT: 1 * 100, //ms
 
-    BLACKLIST_DOMAINS_RE: /blacklisted.*/
+    IGNORE_DOMAINS_RE: /blacklisted.*/
   };
 
   module.exports = config;

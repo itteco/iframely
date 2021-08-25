@@ -310,11 +310,12 @@
         }
         */
 
-        // Black-list any of the inappropriate domains. Iframely will return 417
+        // The list of regexs to be ignored. Iframely will return 417
         // At minimum, keep your localhosts blacklisted to avoid SSRF
-        BLACKLIST_DOMAINS_RE: [
+        IGNORE_DOMAINS_RE: [
             /^https?:\/\/127\.0\.0\.1/i,
             /^https?:\/\/localhost/i,
+            /^https?:\/\/[^\/]+:\d+\/?/, // Blocks port-scan via DNS pointing to 127.0.0.1
 
             // And this is AWS metadata service
             // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html

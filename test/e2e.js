@@ -177,7 +177,7 @@ describe('meta endpoint', function() {
         });
   });
 
-  it('should handle blacklisted domains', function(done) {
+  it('should handle ignored domains', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test-timeout',
