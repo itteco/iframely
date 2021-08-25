@@ -23,7 +23,8 @@ Run `make` and the Makefile uses the $VERSION variable to checkout the new versi
 
     make
 
-Ignore any OSX/Darwin warnings for npm, feel free to contribute by fixing the dependencies if you are able to.
+Go to [iframely on localhost](http://localhost:8061/iframely?uri=https%3A%2F%2Fsoundcloud.com%2Fsysoparna) and try with some uri
+If it looks good, lets tag and push to docker hub:
 
     make run
 
