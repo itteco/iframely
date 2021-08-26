@@ -780,5 +780,12 @@
             "([a-zA-Z0-9-]+).chromatic.com"
         ],
         "endpoint": "https://www.chromatic.com/oembed"
-    }    
+    },
+    {
+        "name": "Soundslice",
+        "templates": [
+            "soundslice.com/slices/.*"
+        ],
+        "endpoint": "https://www.soundslice.com/oembed/"
+    }      
 ]
