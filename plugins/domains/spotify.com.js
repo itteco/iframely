@@ -5,7 +5,6 @@ module.exports = {
     ],
 
     mixins: [
-        "og-site",
         "oembed-title",
         "oembed-iframe",
         "og-image",
@@ -20,7 +19,8 @@ module.exports = {
             author_url: meta.music && meta.music.musician,
             duration: meta.music && meta.music.duration,
             description: meta.og && meta.og.description,
-            canonical: meta.og && meta.og.url
+            canonical: meta.og && meta.og.url,
+            site: meta.og && meta.og.site_name || 'Spotify'
         }
     },
 

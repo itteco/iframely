@@ -40,7 +40,7 @@ module.exports = {
 
     tests: [
         "https://www.usatoday.com/videos/life/movies/academy-awards/2019/02/25/diversity-red-carpet-academy-awards/2980115002/",
-        "https://www.guampdn.com/videos/news/local/2019/03/24/crab-festival-activities/3260939002/",
+        // "https://www.guampdn.com/videos/news/local/2019/03/24/crab-festival-activities/3260939002/",
         "https://www.usatoday.com/videos/tech/2019/03/26/drones-flying-blood-north-carolina-hospital/3282276002/",
         "https://www.usatoday.com/videos/life/movies/2017/11/06/some-theaters-may-not-show-last-jedi-due-disneys-demands/107396942/?utm_source=feedblitz&utm_medium=FeedBlitzRss&utm_campaign=usatodaycommoney-topstories",
         "http://www.usatoday.com/media/cinematic/video/87694100/abdul-jabbar-mocks-trump-says-im-jordan/",
