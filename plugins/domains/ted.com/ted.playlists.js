@@ -15,11 +15,11 @@ module.exports = {
     getLink: function(urlMatch, og) {
         // oEmbed doesn't support playlists yet. Thus, the workaround. 
         
-        if (og.type === "video.other" && og.url) {
+        if (/\/playlists\//.test(og.url)) {
 
             return {
                 href: og.url.replace(/^https?:\/\/(www\.)?/i, "https://embed-ssl.").replace(/\?[^\/]+$/, ''),
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": 4/3
             }
