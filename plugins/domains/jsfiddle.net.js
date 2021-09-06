@@ -7,7 +7,10 @@ module.exports = {
     ],
 
     getLink: function(urlMatch, meta) {
-        if (meta.author && meta.ld && meta.ld.code) { // E.g. skip /terms/ and blobs
+        if (meta.author && (
+            meta.ld && meta.ld.code 
+            || meta.copyright)
+            ) { // E.g. skip /terms/ and blobs
             var src = urlMatch[1].replace(/^http:\/\//i, 'https://') + "embed/"; 
             return {
                 html: `<script async src="${src}"></script>`,
