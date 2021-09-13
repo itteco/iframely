@@ -787,5 +787,12 @@
             "soundslice.com/slices/.*"
         ],
         "endpoint": "https://www.soundslice.com/oembed/"
-    }      
+    },
+    {
+        "name": "Ex.Co",
+        "templates": [
+            "app.ex.co/stories/.*"
+        ],
+        "endpoint": "https://oembed.ex.co/item"
+    }  
 ]
