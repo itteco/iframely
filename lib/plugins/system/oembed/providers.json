@@ -794,5 +794,12 @@
             "app.ex.co/stories/.*"
         ],
         "endpoint": "https://oembed.ex.co/item"
+    },
+    {
+        "name": "loxi.io",
+        "templates": [
+            "[^\\.]+\\.loxi\\.io"
+        ],
+        "endpoint": "https://loxi.io/api/saas/v1/oembed"
     }  
 ]
