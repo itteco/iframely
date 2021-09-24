@@ -23,7 +23,7 @@ module.exports = {
     getLink: function(url, urlMatch) {
 
         return {
-                href: url.replace(/^https?:\/\//i, '//') + (url.indexOf('?') > -1 ? '&' :'?') + 'for=iframely',
+                href: url.replace(/^http:\/\//i, 'https://'),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.html5],
                 "height": urlMatch[1] == 'storymapjs' ? 800 : urlMatch[1] == 'juxtapose' ? 600: 650,
