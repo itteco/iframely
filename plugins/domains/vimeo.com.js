@@ -1,5 +1,4 @@
 const querystring = require('querystring');
-const _ = require('underscore');
 
 module.exports = {
 
@@ -25,8 +24,8 @@ module.exports = {
         };
     },
 
-
     getLink: function(oembed, options) {
+        var iframe = oembed.getIframe();
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
 
@@ -44,14 +43,11 @@ module.exports = {
             texttrack = '';
         }
 
-        var qs = querystring.stringify(params);
-        if (qs !== '') {qs = '?' + qs}
-
         var links = [];
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
             links.push({
-                href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
+                href: iframe.replaceQuerystring(params),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
