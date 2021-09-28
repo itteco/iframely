@@ -84,7 +84,7 @@ module.exports = {
         if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {
 
             // Fixed height case: <iframe width="100%" height="675"...
-            if (iframe.src && iframe.width === '100%' && (!iframe.height || Numnber.isInteger(iframe.height))) {
+            if (iframe && iframe.src && iframe.width === '100%' && (!iframe.height || Numnber.isInteger(iframe.height))) {
                 widget.height = iframe.height || oembed.height;
             } else {
                 widget['aspect-ratio'] = oembed.width / oembed.height;
