@@ -20,7 +20,8 @@ module.exports = {
         options.exposeStatusCode = true;
     },
 
-    tests: [
+    tests: [{skipMethods: ['getData', 'getLink'],
         "https://mol.im/a/9343193#v-4206468436429980814"
+    }
     ]
 };
