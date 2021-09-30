@@ -81,6 +81,7 @@ module.exports = {
     getData: function (url, options, cb) {
 
         options.exposeStatusCode = true; // fallback for playlists - now 404s
+        options.followHTTPRedirect = true;
 
         const trackInAlbumRegex = /^https?:\/\/open\.spotify\.com\/album\/[a-zA-Z0-9]+\?highlight=spotify:track:([a-zA-Z0-9]+)/i;
 
