@@ -16,7 +16,7 @@ module.exports = {
             cb (null, {
                 __appFlag: true
             });
-        } else {
+        } else if (!meta.ld || !meta.ld.schemaVideoObject) {
             var embedURL = /\/video\/(\d+)/i.test(url)
                 ? `https://player.twitch.tv/?video=${url.match(/\/video\/(\d+)/i)[1]}&autoplay=false`
                 : meta.og && meta.og.video && meta.og.video.secure_url && meta.og.video.secure_url.replace('&player=facebook', '');
@@ -26,6 +26,8 @@ module.exports = {
                     embedURL: embedURL
                 }
             });
+        } else {
+            cb(null, null);
         }
     },
 
