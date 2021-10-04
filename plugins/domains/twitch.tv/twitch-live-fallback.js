@@ -9,6 +9,8 @@ module.exports = {
         "*"
     ],
 
+    provides: ['schemaVideoObject'],    
+
     getData: function (meta, url, cb) {
         if (!meta.og || !meta.og.video) {
             cb (null, {
