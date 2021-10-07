@@ -11,7 +11,7 @@ module.exports = {
 
     getMeta: function(urlMatch) {
         return {
-            media: 'player'
+            medium: 'slideshow'
         }
     },
 
@@ -20,7 +20,7 @@ module.exports = {
         return {
             href: urlMatch[0].replace('http://', '//') + "/embed",
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.html5],
             "aspect-ratio": 640 / 360
         };
     },

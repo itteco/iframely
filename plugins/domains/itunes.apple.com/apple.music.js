@@ -17,7 +17,7 @@ module.exports = {
 
     getMeta: function () {
         return {
-            media: 'player' // avoid promo card on media=reader
+            medium: 'audio' // avoid promo card on media=reader
         }
     },
 
