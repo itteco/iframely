@@ -21,7 +21,7 @@ module.exports = {
     getMeta: function (meta, options) {
         if (!options.redirectsHistory || !/video\.html$/.test(options.redirectsHistory[0])) {
             return {
-                media: 'reader'
+                medium: 'article'
             }
         }
     },

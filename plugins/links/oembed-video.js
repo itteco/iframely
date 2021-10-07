@@ -83,14 +83,11 @@ module.exports = {
 
     },
 
-    highestPriority: true,
-
     getMeta: function(oembed, whitelistRecord) {
 
-        if (oembed.type === "video" || oembed.type === "audio"
-            || (oembed.type === "rich" && !whitelistRecord.isDefault && whitelistRecord.isAllowed('oembed.rich') && whitelistRecord.isAllowed('oembed.rich', "player")) ) {
+        if (!whitelistRecord.isAllowed('oembed.video') && (oembed.type === "video" || oembed.type === "audio")) {
             return {
-                media: "player"
+                medium: oembed.type
             };
         }
     },

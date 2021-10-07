@@ -7,7 +7,7 @@ module.exports = {
     getMeta: function (tumblr_post) {
         if (tumblr_post.type == "text") {
             return {
-                media: 'reader'
+                medium: 'article'
             };
         }
     },
