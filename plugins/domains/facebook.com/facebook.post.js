@@ -23,16 +23,7 @@ module.exports = {
             html = html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
                 'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); // FB gives it based on server IP, and it has inaccurate IP2Location 
 
-
-        if (/comment_id=\d+/i.test(url) && !/class=\"fb\-comment\-embed\"/i.test(html)) {
-            // thank you FB for not working with comments
-            // https://developers.facebook.com/docs/plugins/embedded-comments
-            html = html.replace(/data\-include\-parent=\"(true|false)\"/i, ''); // never is retured from API, but just to future-proof
-            html = html.replace(/<blockquote.+blockquote>/, '').replace(/data\-href=\"[^\"]+\"/, `data-href="${url}"`);
-            html = html.replace(/class=\"fb\-post\"/i, 'class="fb-comment-embed" data-include-parent="' 
-                + (options.getRequestOptions('facebook.include_comment_parent', false) || options.getProviderOptions(CONFIG.O.more, false)) + '"');
-
-        } else if (/photos?/i.test(url) 
+        if (/photos?/i.test(url) 
             && (options.getRequestOptions('facebook.hide_text') || options.getProviderOptions(CONFIG.O.less))
             && !/data-show-text="false"/.test(html)) {
             html = html.replace(/data\-show\-text=\"true\"/i, ''); // never is retured from API, but just to future-proof
@@ -42,20 +33,12 @@ module.exports = {
 
         var vary = {};
 
-        if (!/comment_id=\d+/i.test(url) && /photos?/i.test(url)) {
+        if (/photos?/i.test(url)) {
             vary.hide_text = {
                 label: 'Hide author\'s text caption',
                 value: /data-show-text=\"false\"/i.test(html)
             }
         }
-
-        if (/&reply_comment_id=/i.test(url) && /class=\"fb\-comment\-embed\"/i.test(html)) {
-            vary.include_comment_parent = {
-                label: "Include parent comment (if url is a reply)",
-                value: /data\-include\-parent=\"true\"/i.test(html)
-            }
-        }
-
 
         return {
             type: CONFIG.T.text_html,
@@ -70,8 +53,6 @@ module.exports = {
         "https://www.facebook.com/noven.roman/posts/555607674475258",
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
-        "https://www.facebook.com/zuck/posts/10102577175875681?comment_id=1193531464007751&reply_comment_id=654912701278942",
-        "https://www.facebook.com/photo/?fbid=3862605057144203&set=p.3862605057144203&comment_id=3864356460302396&__cft__[0]=AZXLT8sxNqaF8oPzbvZ1-ti8F0PJRolmnsKGtIfgri2tLSzCT_DswnBXCHXdJN8pGWimUW9qfU6Az7bdZ3Dlvk06HohyowNOMG0TJ1ibFZX8Qico3Z-DuZcl48ABz1jqiEEUNVF-9BShKzMEeSwwO6Lx&__tn__=R]-R",
         "https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893",
         "https://www.facebook.com/141700922567987_3903702929701082",
         {noFeeds: true}, {skipMixins: ["fb-error"]}
