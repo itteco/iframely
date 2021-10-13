@@ -69,7 +69,7 @@ module.exports = {
                         type: CONFIG.T.text_html,
                         rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
                         "aspect-ratio": aspect,
-                        "padding-bottom": 38
+                        "padding-bottom": 58
                     });
                 }
 
