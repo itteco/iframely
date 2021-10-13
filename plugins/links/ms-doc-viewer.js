@@ -1,6 +1,6 @@
 // https://support.office.com/en-gb/article/View-Office-documents-online-1cc2ea26-0f7b-41f7-8e0e-6461a104544e?ui=en-US&rs=en-GB&ad=GB
 
-module.exports = {
+export default {
 
     getLink: function(url, __nonHtmlContentData, options) {
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/live\.amcharts\.com\/([a-zA-Z0-9\-]+)/i,
 

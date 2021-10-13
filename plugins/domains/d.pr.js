@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(\w+\.)?d\.pr(?:\/free)?\/(?:i|v|)\//i

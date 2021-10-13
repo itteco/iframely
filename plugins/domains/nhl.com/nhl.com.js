@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /https?:\/\/(?:www\.)?nhl\.com(\/\w+\/)video\/(?:embed\/)?([a-zA-Z0-9\-]+\/t\-\d+\/c\-\d+)/i,

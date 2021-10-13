@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     getLink: function(url, meta, options, cb) {
 

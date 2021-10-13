@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /https?:\/\/i\.giphy\.com\/(\w+)\.gif(\?.*)?$/i,

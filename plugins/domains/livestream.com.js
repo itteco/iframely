@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/livestream\.com\/(\w+)\/events\/(\d+)(\/videos?\/\d+)?/i,

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/[a-zA-Z0-9\.]+\.libsyn(?:pro)?\.com\//,
 

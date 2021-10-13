@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // This is for articles only - players are covered by oembed auto-discovery
     re: [

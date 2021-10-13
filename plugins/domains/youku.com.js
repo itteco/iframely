@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     //http://v.youku.com/v_show/id_XNDkwNjg2NzQw.html?f=18736842
     re: [

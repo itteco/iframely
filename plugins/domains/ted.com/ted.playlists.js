@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www\.)?ted\.com\/playlists\//i,
 

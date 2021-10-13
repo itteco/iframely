@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/www\.hockeydb\.com\/ihdb\/stats\/pdisplay\.php\?pid=(\d+)/i,
 

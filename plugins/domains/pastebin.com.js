@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/pastebin\.com\/(?!search)([a-zA-Z0-9]+)/i

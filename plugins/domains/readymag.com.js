@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/readymag\.com\/\w+\/(\d+)/i

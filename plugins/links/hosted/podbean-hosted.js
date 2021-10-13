@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     getData: function(video_src) {
 

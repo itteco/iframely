@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/vimeo\.com\/moogaloop\.swf\?clip_id=(\d+)/i,
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www)?\.?documentcloud\.org\/documents?\/\d+/i,
 

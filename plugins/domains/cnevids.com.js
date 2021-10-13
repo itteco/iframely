@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     mixins: [
         "oembed-thumbnail",

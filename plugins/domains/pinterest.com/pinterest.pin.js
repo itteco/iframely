@@ -1,5 +1,5 @@
 
-module.exports = {
+export default {
 
     re: /^(https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3})\/pin\/(?:[^\/]+\-)?(\d+)/i,
 

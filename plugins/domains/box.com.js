@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https:\/\/app\.box\.com\/(?:embed|embed_widget)?\/?s\/([a-zA-Z0-9]+)/,

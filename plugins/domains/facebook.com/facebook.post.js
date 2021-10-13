@@ -1,6 +1,6 @@
 const DEFAULT_WIDTH = 640;
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/(permalink|story)\.php\?[^\/]+(\d{10,})/i,

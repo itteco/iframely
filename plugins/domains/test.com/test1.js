@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     provides: 'test_data1',
 
