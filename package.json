@@ -19,6 +19,7 @@
     },
     "license": "MIT",
     "dependencies": {
+        "abort-controller": "^3.0.0",
         "async": "2.4.1",
         "cheerio": "0.22.0",
         "chokidar": "^3.3.1",
@@ -35,6 +36,7 @@
         "memcached": "2.2.2",
         "moment": "2.19.3",
         "node-cache": "1.*",
+        "node-fetch": "^3.0.0",
         "parse-iso-duration": "1.0.0",
         "probe-image-size": "^5.0.0",
         "readabilitySAX": "1.6.1",
