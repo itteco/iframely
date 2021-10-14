@@ -1,10 +1,11 @@
-var assert = require('chai').assert
+import { assert as assert } from 'chai'
 
-global.CONFIG = require('../config');
+import config from '../config';
+global.CONFIG = config;
 
-var iframely = require('../lib/core').getPluginData;
-var findWhitelistRecordFor = require('../lib/whitelist').findWhitelistRecordFor;
-var utils = require('../lib/utils');
+import { getPluginData as iframely } from '../lib/core';
+import { findWhitelistRecordFor as findWhitelistRecordFor } from '../lib/whitelist';
+import * as utils from '../lib/utils.js';
 
 function assertOembed(oembed) {
     assert.isObject(oembed);
