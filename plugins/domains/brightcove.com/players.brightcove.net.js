@@ -1,7 +1,7 @@
-var cheerio = require('cheerio');
-var utils = require('../../../lib/utils');
+import * as cheerio from 'cheerio';
+import * as utils from '../../../lib/utils.js';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i

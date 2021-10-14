@@ -1,7 +1,7 @@
-const decodeHTML5 = require('entities').decodeHTML5;
-const utils = require('../../../lib/utils');
+import { decodeHTML5 as decodeHTML5 } from 'entities';
+import * as utils from '../../../lib/utils.js';
 
-module.exports = {
+export default {
 
     provides: 'schemaVideoObject',
 

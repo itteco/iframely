@@ -1,6 +1,6 @@
-var URL = require("url");
-var _ = require('underscore');
-var QueryString = require("querystring");
+import * as URL from "url";
+import * as _ from 'underscore';
+import * as QueryString from "querystring";
 
 var TypeMap = {
     m: 'roadmap',
@@ -14,7 +14,7 @@ function diameterToZoom (diameter) {
     return zoom < 0 ? 0 : zoom > 20 ? 20 : zoom;
 }
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/maps\.google\.(?:com?\.)?[a-z]+\/(?:maps(?:\/ms|\/preview)?)?[\?\#].+/i,

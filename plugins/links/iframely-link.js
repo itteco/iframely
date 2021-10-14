@@ -1,7 +1,7 @@
-var utils = require('./utils');
-var _ = require('underscore');
+import * as utils from './utils.js';
+import * as _ from 'underscore';
 
-module.exports = {
+export default {
 
     getLinks: function(meta, whitelistRecord) {
         return _.flatten(_.keys(meta).map(function(key) {

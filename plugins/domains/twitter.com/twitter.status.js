@@ -1,10 +1,10 @@
-var async = require('async');
-var cache = require('../../../lib/cache');
-var sysUtils = require('../../../logging');
-var _ = require('underscore');
-var entities = require('entities');
+import * as async from 'async';
+import * as cache from '../../../lib/cache.js';
+import * as sysUtils from '../../../logging.js';
+import * as _ from 'underscore';
+import * as entities from 'entities';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i

@@ -1,7 +1,7 @@
-var core = require('../../../lib/core');
-var _ = require('underscore');
+import * as core from '../../../lib/core.js';
+import * as _ from 'underscore';
 
-module.exports = {
+export default {
 
     provides: 'self',
 

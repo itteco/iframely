@@ -1,6 +1,6 @@
-var cheerio = require('cheerio');
+import * as cheerio from 'cheerio';
 
-module.exports = {
+export default {
 
     getMeta: function(oembed) {
         if (oembed.description) {

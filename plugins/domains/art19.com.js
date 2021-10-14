@@ -1,8 +1,8 @@
-var $ = require('cheerio');
-const querystring = require('querystring');
-const URL = require("url");
+import * as $ from 'cheerio';
+import * as querystring from 'querystring';
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: [
         /^(https?:\/\/art19\.com\/shows\/[a-zA-Z0-9\-_]+\/episodes\/[a-zA-Z0-9\-_]+)/i,

@@ -1,7 +1,7 @@
-var cheerio = require('cheerio');
-var entities = require('entities');
+import * as cheerio from 'cheerio';
+import * as entities from 'entities';
 
-module.exports = {
+export default {
 
     getLink: function(oembed, whitelistRecord, url) {
 

@@ -1,6 +1,6 @@
-const querystring = require('querystring');
+import * as querystring from 'querystring';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.youtube\.com\/playlist\?(?:[=\-_a-zA-Z0-9&]+)?list=([\-_a-zA-Z0-9]+)/i

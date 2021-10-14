@@ -1,6 +1,6 @@
-var $ = require('cheerio');
+import * as $ from 'cheerio';
 
-module.exports = {
+export default {
 
     mixins: [
         "oembed-title",

@@ -1,6 +1,6 @@
-var cheerio = require('cheerio');
+import * as cheerio from 'cheerio';
 
-module.exports = {
+export default {
 
     // this is the case of oembed photo or image, but with the html field
     // ex: 

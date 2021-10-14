@@ -1,6 +1,6 @@
-const cheerio = require('cheerio');
+import * as cheerio from 'cheerio';
 
-module.exports = {
+export default {
 
     getMeta: function(ld) {
         function clean(field) {

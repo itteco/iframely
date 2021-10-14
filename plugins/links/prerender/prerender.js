@@ -1,7 +1,7 @@
-const core = require('../../../lib/core');
-const utils = require('./utils');
+import * as core from '../../../lib/core.js';
+import * as utils from './utils.js';
 
-module.exports = {
+export default {
 
     highestPriority: true,
 

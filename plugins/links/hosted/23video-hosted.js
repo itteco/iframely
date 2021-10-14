@@ -1,6 +1,6 @@
-var cheerio = require('cheerio');
+import * as cheerio from 'cheerio';
 
-module.exports = {
+export default {
 
     // linked to oembed, so won't run for all URLs
     getLink: function(meta, oembed, whitelistRecord) {

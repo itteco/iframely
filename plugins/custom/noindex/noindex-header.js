@@ -1,6 +1,6 @@
-var pluginUtils = require('./utils');
+import * as pluginUtils from './utils.js';
 
-module.exports = {
+export default {
 
     getData: function(htmlparser, cb) {
         var headers = htmlparser.headers;

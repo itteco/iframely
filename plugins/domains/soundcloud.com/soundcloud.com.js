@@ -1,8 +1,8 @@
-const $ = require('cheerio');
-const querystring = require('querystring');
-const URL = require("url");
+import * as $ from 'cheerio';
+import * as querystring from 'querystring';
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     provides: ['__allow_soundcloud_meta', 'sound', 'iframe'],
 

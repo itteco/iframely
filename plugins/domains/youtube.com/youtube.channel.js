@@ -1,6 +1,6 @@
-const sysUtils = require('../../../logging')
+import * as sysUtils from '../../../logging.js'
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(channel)\/([a-zA-Z0-9_-]+)/i,

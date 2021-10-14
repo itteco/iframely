@@ -1,4 +1,4 @@
-var _ = require('underscore');
+import * as _ from 'underscore';
 
 var ALLOWED_TYPES = {};
 
@@ -6,7 +6,7 @@ _.values(CONFIG.T).forEach(function(v) {
     ALLOWED_TYPES[v] = true;
 });
 
-module.exports = {
+export default {
 
     notPlugin: true,
 

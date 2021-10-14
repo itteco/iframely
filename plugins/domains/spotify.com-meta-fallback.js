@@ -1,6 +1,8 @@
-module.exports = {
+import spotify_com from './spotify.com.js';
 
-    re: require('./spotify.com').re,
+export default {
+
+    re: spotify_com.re,
 
     provides: ['meta'],
 

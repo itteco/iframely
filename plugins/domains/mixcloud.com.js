@@ -1,8 +1,8 @@
-const cheerio = require('cheerio');
-const querystring = require('querystring');
-const URL = require("url");
+import * as cheerio from 'cheerio';
+import * as querystring from 'querystring';
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)mixcloud\.com\/(?:live\/)?[a-zA-Z0-9\.\-_]+\/?(?:\?.+)?$/,

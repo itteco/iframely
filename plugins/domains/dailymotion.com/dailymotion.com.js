@@ -1,6 +1,7 @@
-const querystring = require('querystring');
+import * as querystring from 'querystring';
+import * as request from 'request';
 
-module.exports = {
+export default {
 
     mixins: [
         "oembed-title",
@@ -49,7 +50,6 @@ module.exports = {
 
     tests: [{
         getUrls: function(cb) {
-            var request = require('request');
             request({
                 url: 'https://api.dailymotion.com/videos',
                 json: true

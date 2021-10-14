@@ -1,6 +1,6 @@
-var logging = require('../../logging');
+import * as logging from '../../logging.js';
 
-module.exports = {
+export default {
 
     getLink: function(oembedError, url, cb) {
 

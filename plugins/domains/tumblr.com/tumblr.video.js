@@ -1,8 +1,9 @@
-const $ = require('cheerio');
+import * as $ from 'cheerio';
+import tumblr_api from './tumblr.api.js';
 
-module.exports = {
+export default {
 
-    re: require('./tumblr.api').re, 
+    re: tumblr_api.re, 
 
     getLink: function(tumblr_post) {
 

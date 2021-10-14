@@ -1,7 +1,7 @@
-var utils = require('../../lib/utils');
-var $ = require('cheerio');
+import * as utils from '../../lib/utils.js';
+import * as $ from 'cheerio';
 
-module.exports = {
+export default {
 
     mixins: [
         // "*" // Linking to * will enable oembed-rich and will result in incorrect aspect-ratios

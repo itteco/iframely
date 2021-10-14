@@ -1,6 +1,6 @@
-const URL = require('url');
+import * as URL from 'url';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/[a-zA-Z0-9_]+\/v\/(\d+)/i,

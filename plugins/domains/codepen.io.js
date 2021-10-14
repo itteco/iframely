@@ -1,8 +1,8 @@
-const $ = require('cheerio');
-const querystring = require('querystring');
-const URL = require("url");
+import * as $ from 'cheerio';
+import * as querystring from 'querystring';
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: /https?:\/\/codepen\.io\/(?:[a-z0-9\-_]+\/)?(pen|details|full)\/([a-z0-9\-]+)/i,
 

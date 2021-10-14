@@ -1,6 +1,8 @@
-module.exports = {
+import c_span_org from './c-span.org.js';
 
-    re: require('./c-span.org.js').re,
+export default {
+
+    re: c_span_org.re,
 
     getData: function(url, options) {
         options.exposeStatusCode = true;

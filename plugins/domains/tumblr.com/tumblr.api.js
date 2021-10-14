@@ -1,7 +1,7 @@
-var $ = require('cheerio');
-var _ = require('underscore');
+import * as $ from 'cheerio';
+import * as _ from 'underscore';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,

@@ -1,9 +1,9 @@
-const $ = require('cheerio');
-const utils = require('../../../lib/utils');
-const querystring = require('querystring');
-const URL = require("url");
+import * as $ from 'cheerio';
+import * as utils from '../../../lib/utils.js';
+import * as querystring from 'querystring';
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www|\w{2})\.scribd\.com\/(doc|document|embeds|presentation|fullscreen)\/(\d+)/i

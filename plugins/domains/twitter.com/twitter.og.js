@@ -1,6 +1,8 @@
-module.exports = {
+import twitter_status from './twitter.status.js';
 
-    re: require('./twitter.status').re,
+export default {
+
+    re: twitter_status.re,
 
     provides: ['twitter_og'],
 

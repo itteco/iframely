@@ -1,9 +1,11 @@
-var _ = require('underscore');
-var $ = require('cheerio');
+import * as _ from 'underscore';
+import * as $ from 'cheerio';
 
-module.exports = {
+import tumblr_api from './tumblr.api.js';
 
-    re: require('./tumblr.api').re,    
+export default {
+
+    re: tumblr_api.re,
 
     getLinks: function(tumblr_post) {
 

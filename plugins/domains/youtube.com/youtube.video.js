@@ -1,9 +1,9 @@
-const cheerio = require('cheerio');
-const querystring = require('querystring');
-const _ = require('underscore');
-const sysUtils = require('../../../logging')
+import * as cheerio from 'cheerio';
+import * as querystring from 'querystring';
+import * as _ from 'underscore';
+import * as sysUtils from '../../../logging.js'
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(?:tv#\/)?watch\/?\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)/i,

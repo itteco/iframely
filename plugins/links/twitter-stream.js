@@ -1,4 +1,4 @@
-var _ = require("underscore");
+import * as _ from "underscore";
 
 function getStreamLinks(twitter, stream, whitelistRecord) {
 
@@ -31,7 +31,7 @@ function getStreamLinks(twitter, stream, whitelistRecord) {
     return player;
 }
 
-module.exports = {
+export default {
 
     getLink: function(twitter, whitelistRecord) {
 

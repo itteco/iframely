@@ -1,6 +1,6 @@
-var decodeHTML5 = require('entities').decodeHTML5;
+import { decodeHTML5 as decodeHTML5 } from 'entities';
 
-module.exports = {
+export default {
 
     getMeta: function(cheerio, decode, __allowPTagDescription) {
         // Get the text from the first <p> tag that's not in a header

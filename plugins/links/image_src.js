@@ -1,6 +1,6 @@
-var utils = require('./utils');
+import * as utils from './utils.js';
 
-module.exports = {
+export default {
 
     getLink: function(meta) {
         return utils.getImageLink('image_src', meta);

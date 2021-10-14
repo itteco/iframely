@@ -1,6 +1,6 @@
-var cheerio = require('cheerio');
+import * as cheerio from 'cheerio';
 
-module.exports = {
+export default {
 
     re: /^https?:(\/\/[\w-]+\.carto(?:db)?\.com\/(?:u\/[\w-]+\/)?viz\/[a-z0-9-]+)/i,
 

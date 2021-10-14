@@ -1,7 +1,7 @@
-var $ = require('cheerio');
-var entities = require('entities');
+import * as $ from 'cheerio';
+import * as entities from 'entities';
 
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www\.)?strawpoll\.me\/([0-9]+)$/i,
 

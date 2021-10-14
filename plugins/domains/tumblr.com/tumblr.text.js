@@ -1,8 +1,9 @@
-var $ = require('cheerio');
+import * as $ from 'cheerio';
+import tumblr_api from './tumblr.api.js';
 
-module.exports = {
+export default {
 
-    re: require('./tumblr.api').re,
+    re: tumblr_api.re,
 
     getMeta: function (tumblr_post) {
         if (tumblr_post.type == "text") {
