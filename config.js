@@ -162,7 +162,8 @@
             audio: 'audio',
             slideshow: 'slideshow',
             playlist: 'playlist',
-            '3d': '3d'
+            '3d': '3d',
+            encrypted: 'encrypted-media'
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
