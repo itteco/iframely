@@ -1,6 +1,6 @@
-var moment = require('moment');
+import moment from 'moment';
 
-exports.log = function() {
+export default function log() {
     var args = Array.prototype.slice.apply(arguments);
 
     // Add ip if request provided.

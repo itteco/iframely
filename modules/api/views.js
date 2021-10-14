@@ -1,15 +1,15 @@
-var iframelyCore = require('../../lib/core');
-var utils = require('../../utils');
-var _ = require('underscore');
-var async = require('async');
-var cache = require('../../lib/cache');
-var iframelyUtils = require('../../lib/utils');
-var oembedUtils = require('../../lib/oembed');
-var whitelist = require('../../lib/whitelist');
-var pluginLoader = require('../../lib/loader/pluginLoader');
-var jsonxml = require('jsontoxml');
-var url = require('url');
-var apiUtils = require('./utils');
+import * as iframelyCore from '../../lib/core.js';
+import * as utils from '../../utils.js';
+import * as _ from 'underscore';
+import * as async from 'async';
+import * as cache from '../../lib/cache.js';
+import * as iframelyUtils from '../../lib/utils.js';
+import * as oembedUtils from '../../lib/oembed.js';
+import * as whitelist from '../../lib/whitelist.js';
+import * as pluginLoader from '../../lib/loader/pluginLoader.js';
+import * as jsonxml from 'jsontoxml';
+import * as url from 'url';
+import * as apiUtils from './utils.js';
 
 var getProviderOptionsQuery = apiUtils.getProviderOptionsQuery;
 var getProviderOptionsFromQuery = apiUtils.getProviderOptionsFromQuery;
@@ -35,7 +35,9 @@ function prepareUri(uri) {
 
 var log = utils.log;
 
-var version = require('../../package.json').version;
+import { readFile } from 'fs/promises';
+const json = JSON.parse(await readFile(new URL('../../package.json', import.meta.url)));
+var version = json.version;
 
 function getRenderLinkCacheKey(uri, req) {
     var query = getProviderOptionsQuery(req.query);
@@ -106,7 +108,7 @@ function processInitialErrors(uri, next) {
     }
 }
 
-module.exports = function(app) {
+export default function(app) {
 
     app.get('/iframely', function(req, res, next) {
 

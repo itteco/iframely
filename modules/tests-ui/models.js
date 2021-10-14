@@ -1,16 +1,13 @@
-(function() {
-
     if (!CONFIG.tests) {
         return;
     }
-
-    var moment = require('moment');
+    import * as moment from 'moment';
 
     var mongoose, db;
 
     // DB connect.
     try {
-        mongoose = require('mongoose');
+        mongoose = await import('mongoose');
         mongoose.set('useUnifiedTopology', true);
         mongoose.set('useCreateIndex', true);
         mongoose.set('useNewUrlParser', true);
@@ -173,5 +170,3 @@
     exports.PageTestLog = db.model('PageTestLog', PageTestLogSchema);
     exports.TestUrlsSet = db.model('TestUrlsSet', TestUrlsSetSchema);
     exports.TestingProgress = db.model('TestingProgress', TestingProgressSchema);
-
-})();

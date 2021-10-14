@@ -1,4 +1,4 @@
-var sysUtils = require('./utils');
+import * as sysUtils from './utils.js';
 
 console.log("");
 console.log("Starting Iframely...");
@@ -8,9 +8,9 @@ if (!CONFIG.baseAppUrl) {
   console.warn('Warning: CONFIG.baseAppUrl not set, default value used');
 }
 
-var path = require('path');
-var express = require('express');
-var jsonxml = require('jsontoxml');
+import * as path from 'path';
+import * as express from 'express';
+import * as jsonxml from 'jsontoxml';
 
 var NotFound = sysUtils.NotFound;
 
@@ -42,10 +42,15 @@ app.use(function(req, res, next) {
 
 app.use(sysUtils.cacheMiddleware);
 
+import apiViews from './modules/api/views.js';
+import debugViews from './modules/debug/views.js';
+apiViews(app);
+debugViews(app);
 
-require('./modules/api/views')(app);
-require('./modules/debug/views')(app);
-require('./modules/tests-ui/views')(app);
+if (CONFIG.tests) {
+  const testViews = await import('./modules/tests-ui/views.js');
+  testViews.default(app);
+}
 
 app.use(logErrors);
 app.use(errorHandler);

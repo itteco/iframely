@@ -1,6 +1,7 @@
 {
     "name": "iframely",
     "version": "1.6.1",
+    "type": "module",
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": [
         "oembed",
@@ -26,6 +27,7 @@
         "ejs": "^3.1.6",
         "entities": "1.1.1",
         "express": "^4.16.3",
+        "globby": "^12.0.2",
         "graceful-cluster": "0.0.3",
         "htmlparser2": "3.9.2",
         "http-parser-js": "itteco/http-parser-js#magicode-fix-22",

@@ -125,7 +125,7 @@ See available attributes names to check if similar name exists at [/meta-mapping
 
 See example [/generic/meta/video.js](https://github.com/itteco/iframely/blob/master/plugins/generic/meta/video.js):
 
-    module.exports = {
+    export default {
         getMeta: function(meta) {
 
             // This prevents non useful errors loging with "undefined".
@@ -150,13 +150,13 @@ But `og:title` usually better and contains only article title without site name.
 
 If you want to mark you plugin as worst source of meta (like html `<title>` tag), use `lowestPriority: true`:
 
-    module.exports = {
+    export default {
         lowestPriority: true
     }
 
 If you want to mark your plugin as good source of meta (like og:title), use `highestPriority: true`:
 
-    module.exports = {
+    export default {
         highestPriority: true
     }
 

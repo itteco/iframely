@@ -1,20 +1,16 @@
-var _ = require('underscore');
-var FeedParser = require('feedparser');
-var request = require('request');
-var async = require('async');
-var url = require('url');
-
-var models = require('./models');
+import * as _ from 'underscore';
+import * as FeedParser from 'feedparser';
+import * as request from 'request';
+import * as async from 'async';
+import * as url from 'url';
+import * as models from './models.js';
 var PageTestLog = models.PageTestLog;
 var TestUrlsSet = models.TestUrlsSet;
 var PluginTest = models.PluginTest;
-
-var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
-
-var iframelyGetPluginData = require('../../lib/core').getPluginData;
-
-var pluginLoader = require('../../lib/loader/pluginLoader');
-var pluginUtils = require('../../lib/loader/utils');
+import { findWhitelistRecordFor as findWhitelistRecordFor } from '../../lib/whitelist';
+import { getPluginData as iframelyGetPluginData } from '../../lib/core';
+import * as pluginLoader from '../../lib/loader/pluginLoader.js';
+import * as pluginUtils from '../../lib/loader/utils.js';
 var plugins = pluginLoader._plugins,
     pluginsList = pluginLoader._pluginsList,
     DEFAULT_PARAMS = [].concat(pluginUtils.DEFAULT_PARAMS, pluginUtils.POST_PLUGIN_DEFAULT_PARAMS),

@@ -1,5 +1,5 @@
-var sysUtils = require('./utils');
-var app = require('./app');
+import * as sysUtils from './utils.js';
+import * as app from './app.js';
 
 var server = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || CONFIG.host, function(){
     console.log('\niframely is running on ' + server.address().address + ':' + server.address().port);
