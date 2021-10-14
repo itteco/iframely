@@ -12,7 +12,7 @@
     const json = JSON.parse(await readFile(new URL('./package.json', import.meta.url)));
     var version = json.version;
 
-    var config = {
+    const config = {
 
         baseAppUrl: "",
         port: 8061,

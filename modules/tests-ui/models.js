@@ -1,6 +1,3 @@
-    if (!CONFIG.tests) {
-        return;
-    }
     import * as moment from 'moment';
 
     var mongoose, db;
@@ -166,7 +163,7 @@
         return moment(this.created_at).format("DD-MM-YY HH:mm");
     };
 
-    exports.PluginTest = db.model('PluginTest', PluginTestSchema);
-    exports.PageTestLog = db.model('PageTestLog', PageTestLogSchema);
-    exports.TestUrlsSet = db.model('TestUrlsSet', TestUrlsSetSchema);
-    exports.TestingProgress = db.model('TestingProgress', TestingProgressSchema);
+    export const PluginTest = db.model('PluginTest', PluginTestSchema);
+    export const PageTestLog = db.model('PageTestLog', PageTestLogSchema);
+    export const TestUrlsSet = db.model('TestUrlsSet', TestUrlsSetSchema);
+    export const TestingProgress = db.model('TestingProgress', TestingProgressSchema);

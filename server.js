@@ -23,5 +23,3 @@ if (!CONFIG.DEBUG) {
         shutdownTimeout: CONFIG.SHUTDOWN_TIMEOUT
     });
 }
-
-module.exports = server;

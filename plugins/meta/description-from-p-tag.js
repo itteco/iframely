@@ -1,4 +1,4 @@
-import { decodeHTML5 as decodeHTML5 } from 'entities';
+import { decodeHTML5 } from 'entities';
 
 export default {
 

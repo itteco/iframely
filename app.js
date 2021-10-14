@@ -8,13 +8,12 @@ if (!CONFIG.baseAppUrl) {
   console.warn('Warning: CONFIG.baseAppUrl not set, default value used');
 }
 
-import * as path from 'path';
 import * as express from 'express';
 import * as jsonxml from 'jsontoxml';
 
 var NotFound = sysUtils.NotFound;
 
-var app = express();
+export const app = express();
 
 app.set('view engine', 'ejs');
 
@@ -175,5 +174,3 @@ app.get('/', function(req, res) {
 
 process.title = "iframely";
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
-module.exports = app;
