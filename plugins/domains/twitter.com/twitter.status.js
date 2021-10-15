@@ -1,5 +1,5 @@
 import * as async from 'async';
-import * as cache from '../../../lib/cache.js';
+import { cache } from '../../../lib/cache.js';
 import * as sysUtils from '../../../logging.js';
 import * as _ from 'underscore';
 import * as entities from 'entities';

@@ -1,4 +1,4 @@
-import * as sysUtils from './utils.js';
+import { cacheMiddleware, NotFound } from './utils.js';
 
 console.log("");
 console.log("Starting Iframely...");
@@ -10,8 +10,6 @@ if (!CONFIG.baseAppUrl) {
 
 import express from 'express';
 import * as jsonxml from 'jsontoxml';
-
-var NotFound = sysUtils.NotFound;
 
 const app = express();
 
@@ -41,7 +39,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(sysUtils.cacheMiddleware);
+app.use(cacheMiddleware);
 
 import apiViews from './modules/api/views.js';
 import debugViews from './modules/debug/views.js';

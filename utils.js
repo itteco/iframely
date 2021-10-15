@@ -2,7 +2,7 @@
     global.CONFIG = config;
 
     import * as async from 'async';
-    import * as cache from './lib/cache.js';
+    import { cache } from './lib/cache.js';
     import * as ejs from 'ejs';
     import * as fs from 'fs';
     import * as crypto from 'crypto';

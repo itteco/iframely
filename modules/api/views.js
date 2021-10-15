@@ -2,7 +2,7 @@ import * as iframelyCore from '../../lib/core.js';
 import * as utils from '../../utils.js';
 import * as _ from 'underscore';
 import * as async from 'async';
-import * as cache from '../../lib/cache.js';
+import { cache } from '../../lib/cache.js';
 import * as iframelyUtils from '../../lib/utils.js';
 import * as oembedUtils from '../../lib/oembed.js';
 import * as whitelist from '../../lib/whitelist.js';
