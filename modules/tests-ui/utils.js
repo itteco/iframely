@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
 import * as FeedParser from 'feedparser';
-import * as request from 'request';
+import request from 'request';
 import * as async from 'async';
 import * as url from 'url';
 import { PageTestLog, TestUrlsSet, PluginTest } from './models.js';

@@ -1,5 +1,5 @@
 import * as querystring from 'querystring';
-import * as request from 'request';
+import request from 'request';
 
 export default {
 
