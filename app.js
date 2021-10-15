@@ -8,12 +8,14 @@ if (!CONFIG.baseAppUrl) {
   console.warn('Warning: CONFIG.baseAppUrl not set, default value used');
 }
 
-import * as express from 'express';
+import express from 'express';
 import * as jsonxml from 'jsontoxml';
 
 var NotFound = sysUtils.NotFound;
 
-export const app = express();
+const app = express();
+
+export default app;
 
 app.set('view engine', 'ejs');
 

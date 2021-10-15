@@ -4,7 +4,8 @@
 
     // DB connect.
     try {
-        mongoose = await import('mongoose');
+        const mongoosePkg = await import('mongoose');
+        mongoose = mongoosePkg.default;
         mongoose.set('useUnifiedTopology', true);
         mongoose.set('useCreateIndex', true);
         mongoose.set('useNewUrlParser', true);
@@ -15,7 +16,6 @@
     } catch (ex) {
         console.error("Plugins testing framework will not work. Can't connect to mongodb.");
         console.error(ex.stack);
-        return;
     }
 
     var Schema = mongoose.Schema;

@@ -4,8 +4,8 @@ import * as request from 'request';
 import * as async from 'async';
 import * as url from 'url';
 import { PageTestLog, TestUrlsSet, PluginTest } from './models.js';
-import { findWhitelistRecordFor } from '../../lib/whitelist';
-import { getPluginData as iframelyGetPluginData } from '../../lib/core';
+import { findWhitelistRecordFor } from '../../lib/whitelist.js';
+import { getPluginData as iframelyGetPluginData } from '../../lib/core.js';
 import * as pluginLoader from '../../lib/loader/pluginLoader.js';
 import * as pluginUtils from '../../lib/loader/utils.js';
 
