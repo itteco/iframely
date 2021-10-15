@@ -1,4 +1,4 @@
-import * as utils from './utils.js';
+import utils from './utils.js';
 import * as _ from 'underscore';
 
 export default {

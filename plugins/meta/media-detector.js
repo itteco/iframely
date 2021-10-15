@@ -1,4 +1,4 @@
-import * as utils from '../links/utils.js';
+import utils from '../links/utils.js';
 
 export default {
 
