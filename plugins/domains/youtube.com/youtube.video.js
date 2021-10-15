@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 import * as querystring from 'querystring';
 import * as _ from 'underscore';
-import * as sysUtils from '../../../logging.js'
+import log from '../../../logging.js'
 
 export default {
 
@@ -129,7 +129,7 @@ export default {
                 } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
-                    sysUtils.log('YoutTube fallback for ' + urlMatch[1], data);
+                    log('YoutTube fallback for ' + urlMatch[1], data);
                     cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }

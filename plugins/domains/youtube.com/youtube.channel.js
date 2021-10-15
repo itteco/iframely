@@ -1,4 +1,4 @@
-import * as sysUtils from '../../../logging.js'
+import log from '../../../logging.js'
 
 export default {
 
@@ -90,7 +90,7 @@ export default {
                      * as if no channel found, but it actually exists.
                      * Ex.: https://www.youtube.com/c/Figmadesign
                      */
-                    sysUtils.log('YoutTube channel fallback for ' + url , data);
+                    log('YoutTube channel fallback for ' + url , data);
                     cb({
                         message: 'YouTube channel not found via data API...'
                         // But no response code. Let's fallback to default parsers

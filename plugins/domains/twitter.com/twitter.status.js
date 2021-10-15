@@ -1,6 +1,6 @@
 import * as async from 'async';
 import { cache } from '../../../lib/cache.js';
-import * as sysUtils from '../../../logging.js';
+import log from '../../../logging.js';
 import * as _ from 'underscore';
 import * as entities from 'entities';
 
@@ -85,9 +85,9 @@ export default {
 
                         if (response.fromRequestCache) {
                             if (blockExpireIn > 0) {
-                                sysUtils.log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
+                                log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
                             } else {
-                                sysUtils.log('   -- Twitter API cache used.');
+                                log('   -- Twitter API cache used.');
                             }
                         }
 
@@ -113,9 +113,9 @@ export default {
                                 }
 
                                 if (response.statusCode === 429) {
-                                    sysUtils.log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
+                                    log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
                                 } else {
-                                    sysUtils.log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
+                                    log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
                                 }
 
                                 // Store expire date as value to be sure it past.

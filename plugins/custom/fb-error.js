@@ -1,4 +1,4 @@
-import * as logging from '../../logging.js';
+import log from '../../logging.js';
 
 export default {
 
@@ -49,7 +49,7 @@ export default {
             result.message = fbError.message;
         }
 
-        logging.log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
+        log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
 
         return cb(result);
     },
