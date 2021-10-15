@@ -1,4 +1,3 @@
-import * as core from '../../../lib/core.js';
 import * as utils from './utils.js';
 
 export default {
@@ -7,7 +6,7 @@ export default {
 
     provides: ['appUriData', 'whenReact'],
 
-    getData: function(url, __appFlag, options, cb) {
+    getData: function(url, __appFlag, iframelyRun, options, cb) {
 
         if (options.user_agent === CONFIG.FB_USER_AGENT) {
             return cb();
@@ -19,7 +18,7 @@ export default {
             user_agent: CONFIG.FB_USER_AGENT
         }};
 
-        core.run(url, options2, function(error, data) {
+        iframelyRun(url, options2, function(error, data) {
 
             if (data && data.meta && utils.maybeApp(data.meta)) {
                 return cb({

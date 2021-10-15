@@ -1,4 +1,3 @@
-import * as core from '../../../lib/core.js';
 import * as utils from './utils.js';
 
 export default {
@@ -7,7 +6,7 @@ export default {
 
     provides: ['appUriData', 'whenPrerender'],
 
-    getData: function(url, __appFlag, options, meta, cb) {
+    getData: function(url, __appFlag, iframelyRun, options, meta, cb) {
 
         if (CONFIG.PRERENDER && CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
 
@@ -17,7 +16,7 @@ export default {
                 refresh: true
             }};
 
-            core.run(prerenderUrl, options2, function(error, data) {
+            iframelyRun(prerenderUrl, options2, function(error, data) {
 
                 var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
 

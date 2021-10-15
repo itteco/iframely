@@ -1,5 +1,4 @@
 // use this mixin for domain plugins where you do not want to pull out htmlparser but do need an icon or logo
-import * as core from '../../lib/core.js';
 import { cache } from '../../lib/cache.js';
 import * as async from 'async';
 import * as _ from 'underscore';
@@ -13,7 +12,7 @@ export default {
         return domain_icons;
     },
 
-    getData: function(url, cb, options) {
+    getData: function(url, iframelyRun, options, cb) {
 
         // find domain and protocol
         var domain, protocol;
@@ -71,7 +70,7 @@ export default {
                     // + run icons validation right away
 
                     // forceSyncCheck - ask 'checkFavicon' to check favicon this time before callback.
-                    core.run(domainUri, _.extend({}, options, {forceSyncCheck: true}), function(error, data) {
+                    iframelyRun(domainUri, _.extend({}, options, {forceSyncCheck: true}), function(error, data) {
 
                         var icons;
 

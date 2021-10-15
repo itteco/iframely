@@ -1,11 +1,10 @@
-import * as core from '../../../lib/core.js';
 import * as _ from 'underscore';
 
 export default {
 
     provides: 'self',
 
-    getData: function(url, __promoUri, options, cb) {
+    getData: function(url, __promoUri, iframelyRun, options, cb) {
 
         // __promoUri may be not string if no rel=promo need to be added
         // see theplatform plugin for example
@@ -24,7 +23,7 @@ export default {
         delete options2.promoUri;
         delete options2.jar;
 
-        core.run(promoUri, options2, function(error, data) {
+        iframelyRun(promoUri, options2, function(error, data) {
 
             var wrappedError = null;
 
