@@ -1,5 +1,5 @@
 import * as utils from '../../lib/utils.js';
-import * as $ from 'cheerio';
+import $ from 'cheerio';
 
 export default {
 

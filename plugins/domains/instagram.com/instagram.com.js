@@ -1,4 +1,4 @@
-import * as cheerio from 'cheerio';
+import cheerio from 'cheerio';
 import { decodeHTML5 as decodeHTML5 } from 'entities';
 
 export default {

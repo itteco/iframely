@@ -1,4 +1,4 @@
-import * as cheerio from 'cheerio';
+import cheerio from 'cheerio';
 import * as querystring from 'querystring';
 import * as URL from "url";
 

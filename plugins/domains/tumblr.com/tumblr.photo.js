@@ -1,5 +1,5 @@
 import * as _ from 'underscore';
-import * as $ from 'cheerio';
+import $ from 'cheerio';
 
 import tumblr_api from './tumblr.api.js';
 

@@ -1,4 +1,4 @@
-import * as $ from 'cheerio';
+import $ from 'cheerio';
 import * as entities from 'entities';
 
 export default {

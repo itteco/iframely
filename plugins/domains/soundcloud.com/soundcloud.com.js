@@ -1,4 +1,4 @@
-import * as $ from 'cheerio';
+import $ from 'cheerio';
 import * as querystring from 'querystring';
 import * as URL from "url";
 
