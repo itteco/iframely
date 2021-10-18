@@ -73,11 +73,11 @@ module.exports = {
 
     getData: function(url, og, schemaVideoObject) {
 
-        var embedUrl = schemaVideoObject.embedUrl || schemaVideoObject.embedURL;
+        var embedUrl = schemaVideoObject.embedUrl || schemaVideoObject.embedURL || schemaVideoObject.embedurl;
 
-        if (url === embedUrl) {
-            embedUrl = /\/video\/(\d+)/i.test(url)
-                ? `https://player.twitch.tv/?video=${url.match(/\/video\/(\d+)/i)[1]}&autoplay=false`
+        if (/\/videos?\/(\d+)/i.test(embedUrl)) {
+            embedUrl = /\/videos?\/(\d+)/i.test(embedUrl)
+                ? `https://player.twitch.tv/?video=${url.match(/\/videos?\/(\d+)/i)[1]}&autoplay=false`
                 : og.video && og.video.secure_url && og.video.secure_url.replace('&player=facebook', '');
         }
 
