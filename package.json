@@ -32,7 +32,6 @@
         "htmlparser2": "3.9.2",
         "http-parser-js": "itteco/http-parser-js#magicode-fix-22",
         "iconv-lite": "0.4.17",
-        "iltorb": "^2.4.3",
         "jslint": "^0.12.1",
         "jsontoxml": "0.0.11",
         "memcached": "2.2.2",
