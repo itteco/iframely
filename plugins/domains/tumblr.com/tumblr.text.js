@@ -1,4 +1,4 @@
-var $ = require('cheerio');
+var $ = require('cheerio').default;
 
 module.exports = {
 

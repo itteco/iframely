@@ -1,4 +1,4 @@
-const cheerio = require('cheerio');
+const cheerio = require('cheerio').default;
 const decodeHTML5 = require('entities').decodeHTML5;
 
 module.exports = {

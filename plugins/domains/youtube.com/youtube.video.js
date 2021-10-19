@@ -1,4 +1,4 @@
-const cheerio = require('cheerio');
+const cheerio = require('cheerio').default;
 const querystring = require('querystring');
 const _ = require('underscore');
 const sysUtils = require('../../../logging')

@@ -1,5 +1,5 @@
 var utils = require('../../lib/utils');
-var $ = require('cheerio');
+var $ = require('cheerio').default;
 
 module.exports = {
 
