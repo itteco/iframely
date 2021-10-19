@@ -1,4 +1,5 @@
-import $ from 'cheerio';
+import cheerio_pkg from 'cheerio';
+const $ = cheerio_pkg.default;
 import * as utils from '../../../lib/utils.js';
 import * as querystring from 'querystring';
 import * as URL from "url";

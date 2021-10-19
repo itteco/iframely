@@ -1,4 +1,5 @@
-import cheerio from 'cheerio';
+import cheerio_pkg from 'cheerio';
+const cheerio = cheerio_pkg.default;
 import * as querystring from 'querystring';
 import * as _ from 'underscore';
 import log from '../../../logging.js'

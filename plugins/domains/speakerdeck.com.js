@@ -1,4 +1,5 @@
-import $ from 'cheerio';
+import cheerio_pkg from 'cheerio';
+const $ = cheerio_pkg.default;
 
 export default {
 
