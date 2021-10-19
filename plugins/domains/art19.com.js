@@ -1,4 +1,4 @@
-var $ = require('cheerio').default;
+var $ = require('cheerio');
 const querystring = require('querystring');
 const URL = require("url");
 

@@ -1,4 +1,4 @@
-const $ = require('cheerio').default;
+const $ = require('cheerio');
 const utils = require('../../../lib/utils');
 const querystring = require('querystring');
 const URL = require("url");

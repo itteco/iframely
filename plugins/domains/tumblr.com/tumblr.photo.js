@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var $ = require('cheerio').default;
+var $ = require('cheerio');
 
 module.exports = {
 
