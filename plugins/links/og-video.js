@@ -1,5 +1,5 @@
 import * as _ from "underscore";
-import * as utils from './utils.js';
+import utils from './utils.js';
 
 function getVideoLinks(video, whitelistRecord) {
     
