@@ -1,5 +1,3 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
 import * as entities from 'entities';
 
 export default {
@@ -11,7 +9,7 @@ export default {
     getLink: function(urlMatch, cheerio) {
 
         var embed = entities.decodeHTML(cheerio('#embed-field-' + urlMatch[1]).attr('value'));
-        var iframe = $('<div>').html(embed).children('iframe');
+        var iframe = cheerio('<div>').html(embed).children('iframe');
         var height = parseInt(iframe.css('height').replace(/px$/, ''), 10) || 300;
         var width = parseInt(iframe.css('width').replace(/px$/, ''), 10) || 690;
 
@@ -27,7 +25,7 @@ export default {
     },
 
     tests: [
-        "http://www.strawpoll.me/1696",
+        "https://www.strawpoll.me/1696",
         "https://strawpoll.me/136"
     ]
 };

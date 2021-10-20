@@ -14,25 +14,11 @@ export default {
             rel:[CONFIG.R.oembed, CONFIG.R.player]
         };
 
-
-        // allow encoded entities if they start from $lt;
-        // ex.: http://www.nfb.ca/film/wild_life/
-        var html = oembed.html5 || oembed.html; 
-        if (/^&lt;/i.test(html)) {
-            html = entities.decodeHTML(html);
-        }
-
-        var $container = cheerio('<div>');
-        try {
-            $container.html(html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
+        var iframe = oembed.getIframe();
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1 && $iframe.attr('src')) {
-            player.href = $iframe.attr('src');
+        if (iframe && iframe.src) {
+            player.href = iframe.src;
 
             if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
                 player.href = player.href.replace(/^http:\/\//i, '//');
@@ -52,7 +38,7 @@ export default {
             }
 
         } else { 
-            player.html = html; // will render in an iframe
+            player.html = oembed.html; // will render in an iframe
             player.type = CONFIG.T.text_html;
         }
 
@@ -76,8 +62,8 @@ export default {
             player.rel.push(CONFIG.R.html5);
         }
 
-        if ($iframe.length == 1 && $iframe.attr('allow')) {
-            player.rel = player.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
+        if (iframe && iframe.allow) {
+            player.rel = player.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
         }        
 
         return player;
@@ -98,7 +84,6 @@ export default {
     /*
     tests: [
         "http://sports.pixnet.net/album/video/183041064", 
-        "http://video.yandex.ua/users/enema-bandit/view/11/?ncrnd=4917#hq"
     ]
     */
 };

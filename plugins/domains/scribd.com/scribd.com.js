@@ -1,23 +1,14 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
-import * as utils from '../../../lib/utils.js';
-import * as querystring from 'querystring';
-import * as URL from "url";
-
 export default {
 
     re: [
         /^https?:\/\/(?:www|\w{2})\.scribd\.com\/(doc|document|embeds|presentation|fullscreen)\/(\d+)/i
     ],
 
-    provides: ['scribdData'],
+    mixins: [ "*", "query"],
 
-    mixins: [ "*" ],
-
-    getLink: function(url, scribdData, options) {
-            var href = scribdData.href;
-            var params = URL.parse(href, true).query;
-            var hash = URL.parse(url, true).hash;
+    getLink: function(url, iframe, query, options) {
+            var params = Object.assign(iframe.query);
+            var hash = query.hash;
 
             var slideshow = options.getRequestOptions('scribd.slideshow', params.view_mode === 'slideshow');
             if (slideshow) {
@@ -37,10 +28,10 @@ export default {
             }
 
             return {
-                href: href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1'),
+                href: iframe.assignQuerystring(params),
                 accept: CONFIG.T.text_html,
                 rel: slideshow ? [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.html5, CONFIG.R.oembed] : [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.oembed],
-                'aspect-ratio': scribdData.aspect,
+                'aspect-ratio': iframe['data-aspect-ratio'],
                 'padding-bottom': 45, // toolbar
                 options: {
                     slideshow: {
@@ -56,44 +47,10 @@ export default {
         }
     },
 
-    getData: function(urlMatch, og, oembed, options, cb) {
-
-        if (!og.image) {
-            return 'embeds' === urlMatch[1]
-                ? cb({redirect: `https://www.scribd.com/document/${urlMatch[2]}`})
-                : cb(null, null);
-        }
-
-        utils.getImageMetadata(og.image.value || og.image, options, function(error, data) {
-
-            if (error || data.error) {
-                console.log ('Error getting preview for Scribd: ' + error);
-            } else {
-                var $container = $('<div>');
-                try {
-                    $container.html(oembed.html);
-                } catch(ex) {}
-
-                var $iframe = $container.find('iframe');
-                if ($iframe.length === 1) {
-
-                    return cb(null, {
-                        scribdData: {
-                            aspect:
-                                data.width
-                                && data.height
-                                ? data.width / data.height
-                                : (oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : null),
-
-                            href: $iframe.attr('src')
-                        }
-                    })
-
-                } else {
-                    return cb(null, null)
-                }
-            }
-        });
+    getData: function(urlMatch, options, cb) {
+        return 'embeds' === urlMatch[1]
+            ? cb({redirect: `https://www.scribd.com/document/${urlMatch[2]}`})
+            : cb(null, null);
     },
 
     tests: [{

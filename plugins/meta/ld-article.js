@@ -15,8 +15,8 @@ export default {
                 return $container.text();
             }
         }
-        if (ld.newsarticle) {
 
+        if (ld.newsarticle) {
             return {
                 title: clean(ld.newsarticle.headline),
                 category: clean(ld.newsarticle.articlesection),

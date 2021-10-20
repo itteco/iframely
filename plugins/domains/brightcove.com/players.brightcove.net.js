@@ -1,5 +1,3 @@
-import cheerio_pkg from 'cheerio';
-const cheerio = cheerio_pkg.default;
 import * as utils from '../../../lib/utils.js';
 
 export default {
@@ -17,11 +15,11 @@ export default {
     ],
 
     //HTML parser will 404 if BC account or player does not exist.
-    getLinks: function(url, oembed, options, cb) {
+    getLinks: function(url, iframe, options, cb) {
 
         var player = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5]
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed]
         };
 
         // autoplay=true comes from `brightcove-in-page-promo` only and follows whitelistRecord
@@ -31,15 +29,8 @@ export default {
             player.autoplay = "autoplay=true";
         }
 
-        var $container = cheerio('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record            
+        if (iframe.src) {
+            player.href = iframe.src + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record            
         }
 
         if (/&iframe-url=/.test(url)) {
@@ -50,9 +41,9 @@ export default {
             player.accept = CONFIG.T.text_html; // verify that it exists and isn't X-Frame-Optioned            
         }
 
-        if (oembed.thumbnail_url) {
+        if (iframe.placeholder) {
 
-            utils.getImageMetadata(oembed.thumbnail_url, options, function(error, data) {
+            utils.getImageMetadata(iframe.placeholder, options, function(error, data) {
 
                 var links = [];
 
@@ -63,7 +54,7 @@ export default {
                 } else if (data.width && data.height) {
 
                     links.push({
-                        href: oembed.thumbnail_url,
+                        href: iframe.placeholder,
                         type: CONFIG.T.image, 
                         rel: CONFIG.R.thumbnail,
                         width: data.width,
@@ -71,14 +62,14 @@ export default {
                     });                    
                 }
 
-                player['aspect-ratio'] = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+                player['aspect-ratio'] = (data.width && data.height) ? data.width / data.height : iframe.width / iframe.height;
                 links.push(player);
 
-                cb(null, links);
+                return cb(null, links);
 
             });
         } else {
-            cb (null, player);
+            return cb (null, player);
         }
 
     },

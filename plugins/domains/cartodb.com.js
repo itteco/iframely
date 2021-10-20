@@ -1,6 +1,3 @@
-import cheerio_pkg from 'cheerio';
-const cheerio = cheerio_pkg.default;
-
 export default {
 
     re: /^https?:(\/\/[\w-]+\.carto(?:db)?\.com\/(?:u\/[\w-]+\/)?viz\/[a-z0-9-]+)/i,
@@ -24,27 +21,15 @@ export default {
         };
     },
 
-    getLink: function(oembed) {
-
-        var $container = cheerio('<div>');
-        try {
-            $container.html(oembed.html5 || oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-
-            return {
-                href: $iframe.attr('src'),
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": 4/3,
-                "padding-bottom": 30
-                // aspect 4:3 is better than height=520px and width=100%
-            };
+    getLink: function(iframe) {
+        return {
+            href: iframe.src,
+            type: CONFIG.T.text_html,
+            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+            "aspect-ratio": 4/3,
+            "padding-bottom": 30
+            // aspect 4:3 is better than height=520px and width=100%
         }
-
     },
 
     tests: [{

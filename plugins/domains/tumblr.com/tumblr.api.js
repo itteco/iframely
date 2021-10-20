@@ -1,6 +1,5 @@
 import cheerio_pkg from 'cheerio';
 const $ = cheerio_pkg.default;
-import * as _ from 'underscore';
 
 export default {
 
@@ -24,7 +23,7 @@ export default {
             author: tumblr_post.blog_name,
             author_url: 'https://' + tumblr_post.blog_name + '.tumblr.com',
             canonical: tumblr_post.permalink_url || tumblr_post.post_url,
-            tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
+            tags: tumblr_post.tags && tumblr_post.tags.join(', '),
             shortlink: tumblr_post.short_url,
             date: tumblr_post.date,
             duration: tumblr_post.duration,
@@ -81,7 +80,7 @@ export default {
             prepareResult: function (error, response, body, cb) {
 
                 if (error || body.errors) {
-                    return cb(error || 'There was a Tumblr API error error');
+                    return cb(error || body.errors || 'There was a Tumblr API error');
                 }
 
                 if (!body.meta) {

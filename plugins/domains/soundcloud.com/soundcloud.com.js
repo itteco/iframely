@@ -1,11 +1,6 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
-import * as querystring from 'querystring';
-import * as URL from "url";
-
 export default {
 
-    provides: ['__allow_soundcloud_meta', 'sound', 'iframe'],
+    provides: ['__allow_soundcloud_meta', 'sound'],
 
     mixins: [
         "oembed-title",
@@ -22,8 +17,7 @@ export default {
 
         if (iframe.src && sound.count !== 0) {
 
-            var href = iframe.src;
-            var params = URL.parse(href, true).query;
+            var params = Object.assign(iframe.query);
 
             if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
                 params.visual = false;
@@ -38,7 +32,7 @@ export default {
                 params.color = options.getProviderOptions('soundcloud.color');
             }
 
-            href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
+            var href = iframe.assignQuerystring(params);
             var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 0 : (/visual=false/.test(href) ? 166 : iframe.height));
             // Fallback to old values.
             if (height === 'auto') {
@@ -119,8 +113,7 @@ export default {
             ) || !oembed.description)
         ) {
             return {
-                __allow_soundcloud_meta: true,
-                iframe: oembed.getIframe()
+                __allow_soundcloud_meta: true
             }
             
         } else {
@@ -133,8 +126,7 @@ export default {
                         width: oembed.thumbnail_width,
                         height: oembed.thumbnail_height
                     }
-                },
-                iframe: oembed.getIframe()
+                }
             }
         }
     },

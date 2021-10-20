@@ -1,54 +1,34 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
-
 export default {
 
     mixins: [
-        "oembed-title",
-        "oembed-site",
-        "oembed-author",
-        "domain-icon",
-        "og-description"     
+        "*", "query"
     ],
 
-    getLink: function (url, oembed) {
-        var $container = $('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch(ex) {}
+    getLink: function (url, iframe, query, options) {
 
-        var $iframe = $container.find('iframe');
-        var doc; 
+        var slide = options.getRequestOptions('speakerdeck.slide', query.slide ? parseInt(query.slide) || 1 : 1);
 
-        if ($iframe.length == 1) {
-            var href = $iframe.attr('src').replace(/^\/\//, 'https://');
-            if (/\?slide=\d+/i.test(url)) {
+        console.log('slide', slide);
+
+        if (iframe.src && iframe.width && iframe.height) {
+            var href = iframe.src.replace(/^\/\//, 'https://');
+            if (slide > 1) {
                 href +=  href.indexOf('?') > -1 ? '&' : '?';
-                href += url.match(/\?(slide=\d+)/i)[1];
+                href += 'slide=' + slide;
             }
-            doc = {
+            return {
                 href: href,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": oembed.width / oembed.height 
+                "aspect-ratio": iframe.width / iframe.height,
+                options: {
+                    slide: {
+                        label: CONFIG.L.page,
+                        value: slide
+                    }
+                }
             }
         }
-
-        var thumbnail;
-
-        if (doc) {
-            var id = doc.href.match(/\/\/speakerdeck\.com\/player\/([a-z0-9\-]+)/i)[1];
-
-            if (id) {
-                thumbnail = {
-                    href: 'https://speakerd.s3.amazonaws.com/presentations/' + id + '/slide_0.jpg',
-                    type: CONFIG.T.image,
-                    rel: [CONFIG.R.thumbnail]
-                };
-            }
-        }
-
-        return [doc, thumbnail];
     },
 
 
