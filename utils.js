@@ -10,7 +10,7 @@
     import * as urlLib from 'url';
 
     import log from './logging.js';
-    export {log};
+    export { log };
     import * as whitelist from './lib/whitelist.js';
     import * as pluginLoader from './lib/loader/pluginLoader.js';
 
