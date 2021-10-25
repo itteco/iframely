@@ -173,4 +173,5 @@ app.get('/', function(req, res) {
 });
 
 process.title = "iframely";
+// Not used by `helix-fetch`.
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
