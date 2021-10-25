@@ -38,7 +38,6 @@ export default {
             method: 'HEAD',
             headers: {
                 'Accept-Encoding': 'gzip, deflate, sdch', // this is required for head request to return content_length
-                'Connection': 'close'
             },
             prepareResult: function(error, response, body, cb) {
 

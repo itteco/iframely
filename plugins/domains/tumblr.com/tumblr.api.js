@@ -75,7 +75,6 @@ export default {
                 id: urlMatch[3]
             },
             json: true,
-            limit: 1, 
             timeout: 1000,
             prepareResult: function (error, response, body, cb) {
 

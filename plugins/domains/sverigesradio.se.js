@@ -14,7 +14,6 @@ export default {
 
         request({
             uri: "http://sverigesradio.se/sida/playerajax/getaudiourl?id=" + urlMatch[1] + "&type=publication&quality=medium&format=iis",
-            limit: 1, 
             timeout: 1000,
             prepareResult: function(error, response, body, cb) {
 
