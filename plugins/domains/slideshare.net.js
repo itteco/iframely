@@ -37,34 +37,38 @@ export default {
 
             utils.getImageMetadata(firstSlide, options, function(error, data) {
 
-                if (error || data.error || !data.width || !data.height) {
+                if (error || data.error) {
 
-                    return cb('Error getting first slide for Slideshare: ' + error);
+                    console.log ('Error getting first slide for Slideshare: ' + error);
 
-                } else {
+                } else if (data.width && data.height) {
 
-                    var aspect = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+                    links.push({
+                        href: firstSlide,
+                        type: CONFIG.T.image, 
+                        rel: CONFIG.R.thumbnail,
+                        width: data.width,
+                        height: data.height
+                    });
+                }
 
-                    return cb(null, [{
-                            href: firstSlide,
-                            type: CONFIG.T.image, 
-                            rel: CONFIG.R.thumbnail,
-                            width: data.width,
-                            height: data.height
-                        }, {
-                            href: oembed.thumbnail,
-                            type: CONFIG.T.image,
-                            rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-                            width: oembed.thumbnail_width,
-                            height: data.height ? Math.round (oembed.thumbnail_width / (data.width / data.height)) : oembed.thumbnail_height
-                        }, {
-                            href: iframe.src,
-                            type: CONFIG.T.text_html,
-                            rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
-                            "aspect-ratio": aspect,
-                            "padding-bottom": 38
-                        }
-                    ]);
+                var $container = $('<div>');
+                try {
+                    $container.html(oembed.html);
+                } catch(ex) {}
+
+                var $iframe = $container.find('iframe');
+
+                var aspect = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+
+                if ($iframe.length == 1) {
+                    links.push({
+                        href: $iframe.attr('src').replace('http:', ''),
+                        type: CONFIG.T.text_html,
+                        rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
+                        "aspect-ratio": aspect,
+                        "padding-bottom": 58
+                    });
                 }
 
             });
