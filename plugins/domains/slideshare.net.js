@@ -1,4 +1,6 @@
 import * as utils from '../../lib/utils.js';
+import cheerio_pkg from 'cheerio';
+const $ = cheerio_pkg.default;
 
 export default {
 
@@ -29,9 +31,10 @@ export default {
 
     },
 
-    getLink: function(oembed, iframe, options, cb) {
+    getLink: function(oembed, options, cb) {
 
-        if (iframe.src && oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
+        if (oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
+            var links = [];
 
             var firstSlide = (/^\/\//.test(oembed.slide_image_baseurl) ? 'http:' : '') + oembed.slide_image_baseurl + '1' + oembed.slide_image_baseurl_suffix;
 
@@ -70,6 +73,16 @@ export default {
                         "padding-bottom": 58
                     });
                 }
+
+                links.push ({
+                    href: oembed.thumbnail,
+                    type: CONFIG.T.image,
+                    rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+                    width: oembed.thumbnail_width,
+                    height: data.height ? Math.round (oembed.thumbnail_width / (data.width / data.height)) : oembed.thumbnail_height
+                });
+
+                cb(null, links);
 
             });
         } else {
