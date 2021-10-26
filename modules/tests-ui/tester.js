@@ -47,11 +47,6 @@ var PageTestLog = models.PageTestLog;
 var TestUrlsSet = models.TestUrlsSet;
 var TestingProgress = models.TestingProgress;
 
-if (!PluginTest) {
-    process.exit(0);
-    // return;
-}
-
 function log() {
     if (CONFIG.DEBUG) {
         console.log.apply(console, arguments);

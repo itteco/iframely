@@ -260,7 +260,12 @@ export function fetchFeedUrls(feedUrl, options, cb) {
         cb(error, urls);
     };
 
-    request(feedUrl)
+    request({
+        uri: feedUrl,
+        agentOptions: {
+            rejectUnauthorized: false
+        }
+    })
         .pipe(new FeedParser({addmeta: false}))
         .on('error', function(error) {
             _cb(error);
