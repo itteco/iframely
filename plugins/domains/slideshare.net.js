@@ -1,6 +1,4 @@
 import * as utils from '../../lib/utils.js';
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
 
 export default {
 
@@ -31,58 +29,43 @@ export default {
 
     },
 
-    getLink: function(oembed, options, cb) {
+    getLink: function(oembed, iframe, options, cb) {
 
-        if (oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
-            var links = [];
+        if (iframe.src && oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
 
             var firstSlide = (/^\/\//.test(oembed.slide_image_baseurl) ? 'http:' : '') + oembed.slide_image_baseurl + '1' + oembed.slide_image_baseurl_suffix;
 
             utils.getImageMetadata(firstSlide, options, function(error, data) {
 
-                if (error || data.error) {
+                if (error || data.error || !data.width || !data.height) {
 
-                    console.log ('Error getting first slide for Slideshare: ' + error);
+                    return cb('Error getting first slide for Slideshare: ' + error);
 
-                } else if (data.width && data.height) {
+                } else {
 
-                    links.push({
-                        href: firstSlide,
-                        type: CONFIG.T.image, 
-                        rel: CONFIG.R.thumbnail,
-                        width: data.width,
-                        height: data.height
-                    });
+                    var aspect = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+
+                    return cb(null, [{
+                            href: firstSlide,
+                            type: CONFIG.T.image, 
+                            rel: CONFIG.R.thumbnail,
+                            width: data.width,
+                            height: data.height
+                        }, {
+                            href: oembed.thumbnail,
+                            type: CONFIG.T.image,
+                            rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
+                            width: oembed.thumbnail_width,
+                            height: data.height ? Math.round (oembed.thumbnail_width / (data.width / data.height)) : oembed.thumbnail_height
+                        }, {
+                            href: iframe.src,
+                            type: CONFIG.T.text_html,
+                            rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
+                            "aspect-ratio": aspect,
+                            "padding-bottom": 58
+                        }
+                    ]);
                 }
-
-                var $container = $('<div>');
-                try {
-                    $container.html(oembed.html);
-                } catch(ex) {}
-
-                var $iframe = $container.find('iframe');
-
-                var aspect = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
-
-                if ($iframe.length == 1) {
-                    links.push({
-                        href: $iframe.attr('src').replace('http:', ''),
-                        type: CONFIG.T.text_html,
-                        rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
-                        "aspect-ratio": aspect,
-                        "padding-bottom": 58
-                    });
-                }
-
-                links.push ({
-                    href: oembed.thumbnail,
-                    type: CONFIG.T.image,
-                    rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-                    width: oembed.thumbnail_width,
-                    height: data.height ? Math.round (oembed.thumbnail_width / (data.width / data.height)) : oembed.thumbnail_height
-                });
-
-                cb(null, links);
 
             });
         } else {
