@@ -1,8 +1,15 @@
     import { fileURLToPath } from 'url';
     import { dirname } from 'path';
+    import { readFile } from 'fs/promises';
 
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = dirname(__filename);
+
+    // Optional SSL cert, if you serve under HTTPS.
+    /*
+    const ssl_key = const file = await readFile(new URL('./key.pem', import.meta.url), {encoding: 'utf8'});
+    const ssl_cert = await readFile(new URL('./cert.pem', import.meta.url), {encoding: 'utf8'});
+    */
 
     export default {
 
@@ -49,8 +56,8 @@
         // Optional SSL cert, if you serve under HTTPS.
         /*
         ssl: {
-            key: require('fs').readFileSync(__dirname + '/key.pem'),
-            cert: require('fs').readFileSync(__dirname + '/cert.pem'),
+            key: ssl_key,
+            cert: ssl_cert,
             port: 443
         },
         */
