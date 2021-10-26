@@ -1,5 +1,5 @@
     import * as async from 'async';
-    import * as moment from 'moment';
+    import moment from 'moment';
     import * as _ from 'underscore';
     import { exec as exec } from 'child_process';
     import * as models from './models.js';

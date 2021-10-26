@@ -1,4 +1,4 @@
-    import * as moment from 'moment';
+    import moment from 'moment';
     import mongoose from 'mongoose';
     import config from '../../config.js';
     global.CONFIG = config;
@@ -9,6 +9,7 @@
     if (global.Promise) {
         mongoose.Promise = global.Promise;
     }
+
     const db = mongoose.createConnection(CONFIG.tests.mongodb);
 
     var Schema = mongoose.Schema;

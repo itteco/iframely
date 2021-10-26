@@ -1,6 +1,6 @@
 import cheerio_pkg from 'cheerio';
 const cheerio = cheerio_pkg.default;
-import { decodeHTML5 as decodeHTML5 } from 'entities';
+import { decodeHTML5 } from 'entities';
 
 export default {
 

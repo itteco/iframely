@@ -1,4 +1,4 @@
-import { decodeHTML5 as decodeHTML5 } from 'entities';
+import { decodeHTML5 } from 'entities';
 import * as utils from '../../../lib/utils.js';
 
 export default {
