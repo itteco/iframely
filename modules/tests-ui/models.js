@@ -1,4 +1,6 @@
     import * as moment from 'moment';
+    import config from '../../config.js';
+    global.CONFIG = config;
 
     var mongoose, db;
 
