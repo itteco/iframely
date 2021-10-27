@@ -1,14 +1,9 @@
-import * as async from 'async';
-import { cache } from '../../../lib/cache.js';
 import log from '../../../logging.js';
-import * as _ from 'underscore';
 import * as entities from 'entities';
 
 export default {
 
-    re: [
-        /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i
-    ],
+    re: /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i,
 
     provides: ['twitter_oembed', 'twitter_og', '__allowTwitterOg'],
 
@@ -22,84 +17,65 @@ export default {
             return cb('Twitter API disabled');
         }
 
-        async.waterfall([
+        request({
+            url: "https://publish.twitter.com/oembed",
+            qs: {
+                hide_media:  c.hide_media, 
+                hide_thread: true, //  c.hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
+                omit_script: c.omit_script,
+                url: urlMatch[0]
+            },
+            json: true,
+            cache_key: 'twitter:oembed:' + urlMatch[1],
+            prepareResult: function(error, response, oembed, cb) {
 
-            function(cb) {
+                if (error) {
+                    return cb(error);
+                }
 
-                var id = urlMatch[1];
+                if (response.fromRequestCache) {
+                    log('   -- Twitter API cache used.');
+                }
 
-                request({
-                    url: "https://publish.twitter.com/oembed",
-                    qs: {
-                        hide_media:  c.hide_media, 
-                        hide_thread: true, //  c.hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
-                        omit_script: c.omit_script,
-                        url: urlMatch[0]
-                    },
-                    json: true,
-                    cache_key: 'twitter:oembed:' + id,
-                    prepareResult: function(error, response, data, cb) {
+                if (response.statusCode === 404) {
+                    return cb({
+                        responseStatusCode: 404,
+                        message: 'The tweet is no longer available.'
+                    })
 
-                        if (error) {
-                            return cb(error);
-                        }
+                } else if (response.statusCode === 403) {
+                    return cb({
+                        responseStatusCode: 404,
+                        message: 'It looks this Twitter account has been suspended.'
+                    })
 
-                        if (response.fromRequestCache) {
-                            log('   -- Twitter API cache used.');
-                        }
+                } else if (response.statusCode !== 200) {
+                    return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
+                }
 
-                        if (response.statusCode === 404) {
-                            return cb({
-                                responseStatusCode: 404,
-                                message: 'The tweet is no longer available.'
-                            })
-                        } else if (response.statusCode === 403) {
-                            return cb({
-                                responseStatusCode: 404,
-                                message: 'It looks this Twitter account has been suspended.'
-                            })
+                if (typeof oembed !== 'object') {
+                    return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + oembed);
+                }
 
-                        } else if (response.statusCode !== 200) {
-                            return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
-                        }
+                oembed.title = oembed.author_name + ' on Twitter';
+                oembed["min-width"] = c["min-width"];
+                oembed["max-width"] = c["max-width"];
 
-                        if (typeof data !== 'object') {
-                            return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + data);
-                        }
+                var result = {
+                    twitter_oembed: oembed
+                };
 
+                if (/pic\.twitter\.com/i.test(oembed.html)) {
+                    result.__allowTwitterOg = true;
+                    options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
+                    options.exposeStatusCode = true;
+                } else {
+                    result.twitter_og = false;
+                }
 
-                        cb(error, data);
-                    }
-                }, cb);
-
+                return cb(error, result);
             }
-
-        ], function(error, oembed) {
-
-
-            if (error) {
-                return cb(error);
-            }
-
-            oembed.title = oembed.author_name + ' on Twitter';
-
-            oembed["min-width"] = c["min-width"];
-            oembed["max-width"] = c["max-width"];
-
-            var result = {
-                twitter_oembed: oembed
-            };
-
-            if (/pic\.twitter\.com/i.test(oembed.html)) {
-                result.__allowTwitterOg = true;
-                options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
-                options.exposeStatusCode = true;
-            } else {
-                result.twitter_og = false;
-            }
-
-            cb(null, result);
-        });
+        }, cb);
     },
 
     getMeta: function(twitter_oembed) {
