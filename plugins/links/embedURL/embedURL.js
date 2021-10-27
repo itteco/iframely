@@ -15,7 +15,7 @@ export default {
                 var json = utils.parseJSONSource($script.html());
 
                 if (json['@type']) {
-                    ld = {};
+                    var ld = {};
                     ld[json['@type'].toLowerCase()] = json;
 
                     if (__allowEmbedURL !== 'skip_ld') {
