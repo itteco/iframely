@@ -12,7 +12,7 @@ export default {
 
         if ($script.length === 1) {
             try {
-                var json = utils.parseJSONSource($script.text());
+                var json = utils.parseJSONSource($script.html());
 
                 if (json['@type']) {
                     ld = {};
