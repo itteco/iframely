@@ -15,66 +15,27 @@ export default {
     mixins: ['domain-icon'],
 
     getData: function(urlMatch, request, options, cb) {
-        var id = urlMatch[1];
 
         var c = options.getProviderOptions("twitter") || options.getProviderOptions("twitter.status");
 
         if (c.disabled) {
-            return cb('Twitter API Disabled');
+            return cb('Twitter API disabled');
         }
-
-        var oauth = c.consumer_key 
-            ? {
-                consumer_key: c.consumer_key,
-                consumer_secret: c.consumer_secret,
-                token: c.access_token,
-                token_secret: c.access_token_secret
-            } : false;
-
-        var blockExpireIn = 0;
-        var block_key = 'twbl:' + c.consumer_key;
 
         async.waterfall([
 
             function(cb) {
 
-                if (oauth) {
-                    cache.get(block_key, cb);
-                } else {
-                    cb(null, null);
-                }
-            },
+                var id = urlMatch[1];
 
-            function(expireIn, cb) {
-
-                if (expireIn) {
-                    var now = Math.round(new Date().getTime() / 1000);
-                    if (expireIn > now) {
-                        blockExpireIn = expireIn - now;
-                    }
-                }
-
-                var usePublicApi = !oauth || blockExpireIn > 0;
-
-                var apiUrl;
-
-                var qs = {
-                    hide_media:  c.hide_media, 
-                    hide_thread: true, //  c.hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
-                    omit_script: c.omit_script
-                };
-
-                if (usePublicApi) {
-                    apiUrl = "https://publish.twitter.com/oembed";
-                    qs.url = urlMatch[0];
-                } else {
-                    apiUrl = "https://api.twitter.com/1.1/statuses/oembed.json";
-                    qs.id = id;
-                }
-
-                request(_.extend({
-                    url: apiUrl,
-                    qs: qs,
+                request({
+                    url: "https://publish.twitter.com/oembed",
+                    qs: {
+                        hide_media:  c.hide_media, 
+                        hide_thread: true, //  c.hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
+                        omit_script: c.omit_script,
+                        url: urlMatch[0]
+                    },
                     json: true,
                     cache_key: 'twitter:oembed:' + id,
                     prepareResult: function(error, response, data, cb) {
@@ -88,40 +49,6 @@ export default {
                                 log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
                             } else {
                                 log('   -- Twitter API cache used.');
-                            }
-                        }
-
-                        // Do not block 1.1 api if data from cache.
-                        if (oauth && !response.fromRequestCache) {
-
-                            var remaining = parseInt(response.headers['x-rate-limit-remaining']);
-
-                            if (response.statusCode === 429 || remaining <= 7) {
-                                var now = Math.round(new Date().getTime() / 1000);
-                                var limitResetAt = parseInt(response.headers['x-rate-limit-reset']);
-                                var ttl = limitResetAt - now;
-
-                                // Do not allow ttl 0.
-                                // 5 seconds - to cover possible time difference with twitter.
-                                if (ttl < 5) {
-                                    ttl = 5;
-                                }
-
-                                // Block maximum for 15 minutes.
-                                if (ttl > 15*60) {
-                                    ttl = 15*60
-                                }
-
-                                if (response.statusCode === 429) {
-                                    log('   -- Twitter API limit reached by status code 429. Disabling for ' + ttl + ' seconds.');
-                                } else {
-                                    log('   -- Twitter API limit warning, remaining calls: ' + remaining + '. Disabling for ' + ttl + ' seconds.');
-                                }
-
-                                // Store expire date as value to be sure it past.
-                                var expireIn = now + ttl;
-
-                                cache.set(block_key, expireIn, {ttl: ttl});
                             }
                         }
 
@@ -147,7 +74,7 @@ export default {
 
                         cb(error, data);
                     }
-                }, usePublicApi ? null : {oauth: oauth}), cb); // add oauth if 1.1, else skip it
+                }, cb);
 
             }
 
