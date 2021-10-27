@@ -45,11 +45,7 @@ export default {
                         }
 
                         if (response.fromRequestCache) {
-                            if (blockExpireIn > 0) {
-                                log('   -- Twitter API limit reached (' + blockExpireIn + ' seconds left), but cache used.');
-                            } else {
-                                log('   -- Twitter API cache used.');
-                            }
+                            log('   -- Twitter API cache used.');
                         }
 
                         if (response.statusCode === 404) {
