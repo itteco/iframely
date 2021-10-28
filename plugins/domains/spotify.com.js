@@ -97,7 +97,7 @@ export default {
         }
     },    
 
-    tests: [{noFeeds: true}, {skipMethods: ["getData"], skipMixins: ["oembed-iframe", "oembed-thumbnail", "og-image"]},
+    tests: [{noFeeds: true}, {skipMethods: ["getData"], skipMixins: ["oembed-thumbnail", "og-image"]},
         "https://open.spotify.com/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "https://open.spotify.com/playlist/4SsKyjaGlrHJbRCQwpeUsz",
