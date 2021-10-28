@@ -355,14 +355,14 @@ export function fetchUrlsByPageAndSelector(page, selector, options, cb) {
             iframelyGetPluginData(page, 'cheerio', findWhitelistRecordFor, cb);
         },
 
-        function($, cb) {
+        function(cheerio, cb) {
 
-            var $links = $(selector);
+            var $links = cheerio(selector);
 
             var urls = [];
             $links.each(function() {
                 if (urls.length < MAX_FEED_URLS) {
-                    var href = $(this).attr(options.urlAttribute || "href");
+                    var href = cheerio(this).attr(options.urlAttribute || "href");
                     if (href) {
                         var href = url.resolve(page, href);
                         if (urls.indexOf(href) == -1) {

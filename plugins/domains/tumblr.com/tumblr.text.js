@@ -1,5 +1,5 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
+import cheerio from 'cheerio';
+
 import tumblr_api from './tumblr.api.js';
 
 export default {
@@ -20,7 +20,7 @@ export default {
             return;
         }
 
-        var $post = $('<div>').html(tumblr_post.body);
+        var $post = cheerio('<div>').html(tumblr_post.body);
         var $image = $post.find('img').first(); // Could be more than 1 image, true. But the response time will be unacceptable as post-processing will check all image sizes.
 
         if ($image ) {

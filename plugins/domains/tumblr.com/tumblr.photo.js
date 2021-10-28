@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
+import cheerio from 'cheerio';
+
 
 import tumblr_api from './tumblr.api.js';
 
@@ -30,7 +30,7 @@ export default {
         tumblr_post.photos.forEach(function(photo) {
 
             var title = photo.caption || tumblr_post.caption;
-            title = $('<div>').html(title).text();
+            title = cheerio('<div>').html(title).text();
             if (title && title.length > 160) {
                 title = title.split(/[.,!?]/)[0];
             }

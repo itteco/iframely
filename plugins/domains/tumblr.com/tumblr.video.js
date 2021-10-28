@@ -1,5 +1,5 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
+import cheerio from 'cheerio';
+
 import tumblr_api from './tumblr.api.js';
 
 export default {
@@ -26,7 +26,7 @@ export default {
 
             var p = tumblr_post.player instanceof Array ? tumblr_post.player[0] : tumblr_post.player;
 
-            var $c = $('<div>').append(p.embed_code);
+            var $c = cheerio('<div>').append(p.embed_code);
             var $iframe = $c.find('iframe');
 
             if ($iframe.length) {

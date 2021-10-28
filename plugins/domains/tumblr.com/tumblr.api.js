@@ -1,5 +1,5 @@
-import cheerio_pkg from 'cheerio';
-const $ = cheerio_pkg.default;
+import cheerio from 'cheerio';
+
 
 export default {
 
@@ -12,7 +12,7 @@ export default {
 
     getMeta: function(tumblr_post) {
 
-        var caption = tumblr_post.caption ? $('<div>').html(tumblr_post.caption).text() : "";
+        var caption = tumblr_post.caption ? cheerio('<div>').html(tumblr_post.caption).text() : "";
         if (caption && caption.length > 160) {
             caption = caption.split(/[.,!?]/)[0];
         }
@@ -27,7 +27,7 @@ export default {
             shortlink: tumblr_post.short_url,
             date: tumblr_post.date,
             duration: tumblr_post.duration,
-            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? $('<div>').html(tumblr_post.body).find('p').first().text() : null
+            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? cheerio('<div>').html(tumblr_post.body).find('p').first().text() : null
         };
     },
 
