@@ -2,7 +2,10 @@ export default {
 
     re: /^https?:\/\/[a-zA-Z0-9\.]+\.libsyn(?:pro)?\.com\//,
 
-    mixins: ["*"],
+    mixins: [
+        "*",
+        "oembed-iframe"
+    ],
 
     getLink: function(iframe, meta, options) {
 
@@ -88,6 +91,7 @@ export default {
     },
 
     tests: [
+        "https://3manbreak.libsyn.com/10-build-a-bear-for-bradley-beal-december-1-of-3",
         "https://directory.libsyn.com/episode/index/id/3252958",
         // "http://mohrstories.libsyn.com/podcast/mor-stories-267-john-dimaggio", // not supported
         "https://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs",
