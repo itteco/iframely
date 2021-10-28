@@ -22,7 +22,7 @@
     "dependencies": {
         "@adobe/helix-fetch": "^3.0.0",
         "async": "2.4.1",
-        "cheerio": "^1.0.0-rc.10",
+        "cheerio": "^0.22.0",
         "chokidar": "^3.3.1",
         "ejs": "^3.1.6",
         "entities": "1.1.1",
