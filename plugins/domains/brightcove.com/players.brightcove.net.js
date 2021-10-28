@@ -11,7 +11,8 @@ export default {
     mixins: [
         "oembed-title",
         "oembed-site",
-        "oembed-error"
+        "oembed-error",
+        "oembed-iframe"
     ],
 
     //HTML parser will 404 if BC account or player does not exist.

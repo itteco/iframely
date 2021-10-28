@@ -7,6 +7,7 @@ export default {
         "oembed-author",
         "oembed-site",
         "oembed-title",
+        "oembed-iframe",
         //"description", // don't enable to avoid 403 from CodePen's htmlparser. Description is '...' in most cases anyway
         "domain-icon"
     ],

@@ -11,7 +11,8 @@ export default {
             "canonical",
             "description",
             "oembed-site",
-            "oembed-title"
+            "oembed-title",
+            "oembed-iframe"
     ],
 
     getMeta: function(meta) {

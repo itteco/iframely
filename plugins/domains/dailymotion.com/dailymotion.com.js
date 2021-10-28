@@ -11,6 +11,7 @@ export default {
         "domain-icon",
         "og-description",
         "canonical",
+        "oembed-iframe",
         "video"
     ],
 
@@ -19,17 +20,15 @@ export default {
      *   - queue-enable=false  - https://faq.dailymotion.com/hc/en-us/articles/360000713928-Disabling-the-Up-Next-Queue
      *   - ui-start-screen-info=0 - hide title amontg other things - https://nextgenthemes.com/how-to-hide-titles-and-change-other-setting-for-youtube-vimeo-embeds-in-wordpress-with-arve/
      */
-    getLink: function (url, oembed, options) {
+    getLink: function (url, iframe, options) {
         var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', '').replace(/^\?/, ''));
-        var qs = querystring.stringify(playlistParams);
-        var href = oembed.getIframeAttr('src');
 
-        if (href && oembed.height) {
+        if (iframe.src && iframe.height) {
             return {
-                href: href + (href.indexOf("?") > -1 ? "&" : (qs !== "" ? "?" : "")) + qs,
+                href: iframe.replaceQuerystring(playlistParams),
                 type: CONFIG.T.text_html,
                 "rel": [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.oembed],
-                "aspect-ratio": oembed.width / oembed.height,
+                "aspect-ratio": iframe.width / iframe.height,
                 scrolling: 'no',
                 autoplay: "autoplay=1"
             };

@@ -10,7 +10,8 @@ export default {
         "oembed-description",
         "og-image",
         "oembed-site",
-        "domain-icon"
+        "domain-icon",
+        "oembed-iframe"
     ],
 
     getLink: function(iframe, options) {

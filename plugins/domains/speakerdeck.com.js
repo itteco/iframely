@@ -8,8 +8,6 @@ export default {
 
         var slide = options.getRequestOptions('speakerdeck.slide', query.slide ? parseInt(query.slide) || 1 : 1);
 
-        console.log('slide', slide);
-
         if (iframe.src && iframe.width && iframe.height) {
             var href = iframe.src.replace(/^\/\//, 'https://');
             if (slide > 1) {

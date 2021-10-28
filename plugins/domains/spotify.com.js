@@ -8,6 +8,7 @@ export default {
         "oembed-title",
         "og-image",
         "oembed-thumbnail",
+        "oembed-iframe",
         "domain-icon"
     ],
 

@@ -11,7 +11,8 @@ export default {
         "oembed-author",
         "oembed-site",
         "keywords",
-        "favicon"
+        "favicon",
+        "oembed-iframe"
     ],
 
     getMeta: function(url, meta) {

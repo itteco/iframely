@@ -11,6 +11,7 @@ export default {
         "oembed-author",
         "oembed-site",
         "oembed-error",
+        "oembed-iframe",
         "domain-icon"
     ],
 

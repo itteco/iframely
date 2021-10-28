@@ -3,8 +3,7 @@ export default {
     re: /^https?:\/\/[a-zA-Z0-9\.]+\.libsyn(?:pro)?\.com\//,
 
     mixins: [
-        "*",
-        "oembed-iframe"
+        "*"
     ],
 
     getLink: function(iframe, meta, options) {
