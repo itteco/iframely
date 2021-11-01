@@ -56,7 +56,7 @@
         "supertest": "^4.0.2"
     },
     "iframely-proxy-plugins": true,
-    "main": "./lib/core",
+    "main": "./lib/core.js",
     "scripts": {
         "test": "npm run test-core-plugins && npm run test-e2e",
         "test-core-plugins": "mocha --exit test/core-plugins.js",
