@@ -14,6 +14,12 @@
     import * as whitelist from './lib/whitelist.js';
     import * as pluginLoader from './lib/loader/pluginLoader.js';
 
+    import { fileURLToPath } from 'url';
+    import { dirname } from 'path';
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+
     export function NotFound(message, messages) {
 
         if (typeof message === 'object') {
