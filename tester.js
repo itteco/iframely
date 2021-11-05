@@ -1,0 +1,1 @@
+import './modules/tests-ui/tester.js';
