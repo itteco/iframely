@@ -16,8 +16,9 @@ console.log(' - support@iframely.com - if you need help');
 console.log(' - twitter.com/iframely - news & updates');
 console.log(' - github.com/itteco/iframely - star & contribute');
 
+import { GracefulServer } from 'graceful-cluster';
+
 if (!CONFIG.DEBUG) {
-    var GracefulServer = require('graceful-cluster').GracefulServer;
     new GracefulServer({
         server: server,
         log: sysUtils.log,
