@@ -30,7 +30,7 @@
         "globby": "^12.0.2",
         "graceful-cluster": "0.0.3",
         "htmlparser2": "^7.1.2",
-        "iconv-lite": "0.4.17",
+        "iconv-lite": "^0.6.3",
         "jslint": "^0.12.1",
         "jsontoxml": "0.0.11",
         "memcached": "2.2.2",
