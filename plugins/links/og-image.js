@@ -1,28 +1,23 @@
 import * as _ from "underscore";
 
-var rel = [CONFIG.R.thumbnail, CONFIG.R.og];
+export function getImageLinks(image, rel) {
 
-function getImageLinks(image) {
-
-    var images = [{
+    var link = {
         href: image.url || image,
         type: image.type && /^image\//i.test(image.type) ? image.type : CONFIG.T.image,
-        rel: rel,
+        rel: [CONFIG.R.thumbnail, rel || CONFIG.R.og],
         width: image.width,
         height: image.height
-    }];
+    };
 
     if (image.secure_url) {
-        images.push({
-            href: image.secure_url,
-            type: image.type && /^image\//i.test(image.type) ? image.type : CONFIG.T.image,
-            rel: rel,
-            width: image.width,
-            height: image.height
-        });
+        var links = [{...link}];
+        link.href = image.secure_url;
+        links.push({...link});
+        return links;
+    } else {
+        return [link];
     }
-
-    return images;
 }
 
 export default {
