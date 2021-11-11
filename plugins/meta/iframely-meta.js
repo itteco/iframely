@@ -5,14 +5,11 @@ export default {
     // Override meta if publisher targets Iframely or one of the apps
     getMeta: function(meta, options) {
 
-        var appname = options.getRequestOptions('app.name', 'iframely');
+        var appname = options.getRequestOptions('app.name');
 
-        if (meta[appname]) {
+        if (appname && meta[appname]) {
             return meta[appname];
-        }
-
-        // Else if app name is set, but no meta targets that app on the page
-        if (meta.iframely) {
+        } else if (meta.iframely) {
             return meta.iframely;
         }
     }
