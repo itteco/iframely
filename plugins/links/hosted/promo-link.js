@@ -2,10 +2,14 @@ export default {
 
     provides: '__promoUri',
 
-    getData: function(meta, whitelistRecord) {
-        if (meta.promo && whitelistRecord.isAllowed && whitelistRecord.isAllowed('html-meta.promo')) {
+    getData: function(meta, options) {
+
+        var appname = options.getProviderOptions('app.name', 'iframely');
+        var data = meta[appname] || meta.iframely || meta;
+
+        if (data.attach || data.promo) {
             return {
-                __promoUri: meta.promo
+                __promoUri: data.attach || data.promo
             };
         }
     }
