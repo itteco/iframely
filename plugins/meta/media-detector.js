@@ -8,8 +8,8 @@ export default {
 
         const appname = options.getProviderOptions('app.name');
         if (Object.keys(meta).some(
-            key => key.indexOf(appname) === 0)
-                || key.indexOf('iframely' === 0)) {
+            key => key.indexOf(appname) === 0
+                || key.indexOf('iframely' === 0))) {
             return;
         }
 
