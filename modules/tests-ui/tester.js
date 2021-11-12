@@ -1,4 +1,4 @@
-import config from '../../config.js';
+import CONFIG from '../../config.loader.js';
 global.CONFIG = config;
 
 if (!CONFIG.tests) {
