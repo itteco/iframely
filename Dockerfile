@@ -9,7 +9,7 @@ WORKDIR /iframely
 
 # install git, aws-cli
 RUN apk --no-cache add inotify-tools git ca-certificates \
-    python py-pip py-setuptools groff less && \
+    python2 py-pip py-setuptools groff less && \
     pip --no-cache-dir install awscli
 
 # install PRX aws-secrets scripts
