@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /https?:\/\/(?:www|calendar)\.google\.com\/calendar\/embed\/?\?([^\/]+)/i

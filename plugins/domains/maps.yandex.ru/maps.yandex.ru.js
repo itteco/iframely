@@ -1,6 +1,6 @@
-var URL = require("url");
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: /^https:\/\/yandex\.ru\/maps\//,
 

@@ -1,8 +1,10 @@
-var $ = require('cheerio');
+import cheerio from 'cheerio';
 
-module.exports = {
+import tumblr_api from './tumblr.api.js';
 
-    re: require('./tumblr.api').re,
+export default {
+
+    re: tumblr_api.re,
 
     getMeta: function (tumblr_post) {
         if (tumblr_post.type == "text") {
@@ -18,7 +20,7 @@ module.exports = {
             return;
         }
 
-        var $post = $('<div>').html(tumblr_post.body);
+        var $post = cheerio('<div>').html(tumblr_post.body);
         var $image = $post.find('img').first(); // Could be more than 1 image, true. But the response time will be unacceptable as post-processing will check all image sizes.
 
         if ($image ) {

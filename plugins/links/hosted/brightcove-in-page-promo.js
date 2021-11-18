@@ -3,7 +3,7 @@
  * http://docs.brightcove.com/en/perform/brightcove-player/guides/embed-in-page.html
  */
 
-module.exports = {
+export default {
 
     provides: '__promoUri',
 

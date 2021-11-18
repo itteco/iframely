@@ -1,9 +1,8 @@
 'use strict';
-
-var request = require('supertest');
-var ServerMock = require('mock-http-server');
-var chai = require('chai');
-var async = require('async');
+import * as request from 'supertest';
+import * as ServerMock from 'mock-http-server';
+import * as chai from 'chai';
+import * as async from 'async';
 
 var server;
 
@@ -15,7 +14,7 @@ function invalidateRequireCache () {
 
 var startWithENV = function (env, cb) {
   process.env.NODE_ENV = env;
-  var app = require('../app');
+import * as app from '../app.js';
   server = app.listen(process.env.PORT, cb);
 };
 

@@ -1,7 +1,4 @@
-(function() {
-
-  var config = {
-
+export default {
     DEBUG: true,
     RICH_LOG_ENABLED: true,
 
@@ -11,7 +8,4 @@
     RESPONSE_TIMEOUT: 1 * 100, //ms
 
     IGNORE_DOMAINS_RE: /blacklisted.*/
-  };
-
-  module.exports = config;
-})();
+};

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/s3\.amazonaws\.com\/(?:uploads|CDN)\.knightlab\.com\/(storymapjs)\/\w+\/(?:[a-zA-Z0-9\-\/]+)\.html/i,

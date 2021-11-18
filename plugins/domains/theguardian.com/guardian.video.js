@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /https?:\/\/www\.theguardian\.com\/[\w-]+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
 

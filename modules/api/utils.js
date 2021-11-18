@@ -1,6 +1,6 @@
 var _RE = /^_.+/;
 
-exports.getProviderOptionsQuery = function(query) {
+export function getProviderOptionsQuery(query) {
     var providerOptionsQuery = {};
 
     for(var key in query) {
@@ -28,7 +28,7 @@ function normalizeValue(value) {
     return value;
 }
 
-exports.getProviderOptionsFromQuery = function(query) {
+export function getProviderOptionsFromQuery(query) {
     /*
     Convert '_option=value' to 
     providerOptions = {

@@ -1,6 +1,6 @@
-const decodeHTML5 = require('entities').decodeHTML5;
+import { decodeHTML5 } from 'entities';
 
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www.)?xkcd\.com\/\d+/i,
 

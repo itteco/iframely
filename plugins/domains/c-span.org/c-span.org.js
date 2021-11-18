@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/www\.c-span\.org\/video\/\?(c?[\d-]+)(\/[\w-]+)/i,
 

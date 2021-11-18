@@ -1,7 +1,8 @@
-const cheerio = require('cheerio');
-const decodeHTML5 = require('entities').decodeHTML5;
+import cheerio from 'cheerio';
 
-module.exports = {
+import { decodeHTML5 } from 'entities';
+
+export default {
 
     /**
      * HEADS-UP: New endpoints as of Oct 24, 2020:

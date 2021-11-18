@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/www\.tmz\.com\/videos\/([a-zA-Z0-9_]+)/,
 

@@ -1,6 +1,6 @@
-var urlLib = require('url');
+import * as urlLib from 'url';
 
-module.exports = {
+export default {
 
     provides: '__promoUri',
 

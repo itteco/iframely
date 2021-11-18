@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/www\.dailymotion\.com\/(swf|embed)\/video\//i,
 

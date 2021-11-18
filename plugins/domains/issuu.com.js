@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/issuu\.com\/[\w_.-]+\/docs\/([\w_.-]+)/i,
 

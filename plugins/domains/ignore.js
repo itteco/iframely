@@ -2,7 +2,7 @@
 
 const RE = CONFIG.IGNORE_DOMAINS_RE || CONFIG.BLACKLIST_DOMAINS_RE;
 
-module.exports = {
+export default {
 
     re: RE,
 

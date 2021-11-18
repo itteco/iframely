@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/channel9\.msdn\.com\/Events\/([\w-]+\/\d+\/[\w-]+)/i,
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // #v-1467332342001 isn't passed by Dailymail URL shortener
     re: /^https:\/\/mol\.im\/a\/\d+(#v\-\d+)/i,

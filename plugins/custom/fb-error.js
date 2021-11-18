@@ -1,6 +1,6 @@
-var logging = require('../../logging');
+import log from '../../logging.js';
 
-module.exports = {
+export default {
 
     getLink: function(oembedError, url, cb) {
 
@@ -49,7 +49,7 @@ module.exports = {
             result.message = fbError.message;
         }
 
-        logging.log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
+        log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
 
         return cb(result);
     },

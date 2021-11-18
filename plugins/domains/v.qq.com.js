@@ -1,4 +1,4 @@
-var _ = require('underscore');
+import * as _ from 'underscore';
 
 var res = [
     /^https?:\/\/v\.qq\.com\/page\/\w\/\w\/\w\/(\w+)\.html$/i,
@@ -8,7 +8,7 @@ var res = [
     /^https?:\/\/v\.qq\.com\/\w\/cover\/\w+\/(\w+)\.html/i
 ];
 
-module.exports = {
+export default {
 
     re: res,
 

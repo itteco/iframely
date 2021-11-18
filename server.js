@@ -1,5 +1,6 @@
-var sysUtils = require('./utils');
-var app = require('./app');
+import * as sysUtils from './utils.js';
+import app from './app.js';
+import *  as https from 'https';
 
 var server = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || CONFIG.host, function(){
     console.log('\niframely is running on ' + server.address().address + ':' + server.address().port);
@@ -7,7 +8,7 @@ var server = app.listen(process.env.PORT || CONFIG.port, process.env.HOST || CON
 });
 
 if (CONFIG.ssl) {
-    require('https').createServer(CONFIG.ssl, app).listen(CONFIG.ssl.port);
+    https.createServer(CONFIG.ssl, app).listen(CONFIG.ssl.port);
 }
 
 console.log('');
@@ -15,13 +16,12 @@ console.log(' - support@iframely.com - if you need help');
 console.log(' - twitter.com/iframely - news & updates');
 console.log(' - github.com/itteco/iframely - star & contribute');
 
+import { GracefulServer } from 'graceful-cluster';
+
 if (!CONFIG.DEBUG) {
-    var GracefulServer = require('graceful-cluster').GracefulServer;
     new GracefulServer({
         server: server,
         log: sysUtils.log,
         shutdownTimeout: CONFIG.SHUTDOWN_TIMEOUT
     });
 }
-
-module.exports = server;

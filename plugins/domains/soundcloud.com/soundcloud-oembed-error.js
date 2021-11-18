@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     provides: ['__allow_soundcloud_meta', 'iframe'],
 

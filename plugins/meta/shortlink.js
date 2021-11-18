@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     getMeta: function(meta) {
 
         var s = meta.shorturl || meta.short_url || meta.shortlink;

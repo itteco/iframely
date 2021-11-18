@@ -1,6 +1,6 @@
-var URL = require('url');
+import * as URL from 'url';
 
-module.exports = {
+export default {
 
     provides: '__ooyalaPlayer',
 
@@ -38,7 +38,6 @@ module.exports = {
             method: 'HEAD',
             headers: {
                 'Accept-Encoding': 'gzip, deflate, sdch', // this is required for head request to return content_length
-                'Connection': 'close'
             },
             prepareResult: function(error, response, body, cb) {
 

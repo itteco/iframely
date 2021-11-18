@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https:\/\/(?:[a-z0-9\-]+\.)?medium\.com\/@?[\w-]+/i,
 

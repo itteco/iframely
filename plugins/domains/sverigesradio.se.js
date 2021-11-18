@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // This is for articles only - players are covered by oembed auto-discovery
     re: [
@@ -14,8 +14,6 @@ module.exports = {
 
         request({
             uri: "http://sverigesradio.se/sida/playerajax/getaudiourl?id=" + urlMatch[1] + "&type=publication&quality=medium&format=iis",
-            limit: 1, 
-            timeout: 1000,
             prepareResult: function(error, response, body, cb) {
 
                 // 404 means article is not embeddable

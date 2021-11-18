@@ -1,6 +1,6 @@
-var oembedUtils = require('../../lib/plugins/system/oembed/oembedUtils');
+import * as oembedUtils from '../../lib/plugins/system/oembed/oembedUtils.js';
 
-module.exports = {
+export default {
 
     getData: function(url, meta, __noOembedLinks, cb) {
 

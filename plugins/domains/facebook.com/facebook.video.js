@@ -1,6 +1,6 @@
 const DEFAULT_WIDTH = 640;
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,

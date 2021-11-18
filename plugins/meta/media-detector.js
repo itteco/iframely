@@ -1,6 +1,6 @@
-const utils = require('../links/utils');
+import utils from '../links/utils.js';
 
-module.exports = {
+export default {
 
     lowestPriority: true,
 

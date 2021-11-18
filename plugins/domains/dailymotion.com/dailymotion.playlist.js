@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     /**
      * Endpoint `http://www.dailymotion.com/services/oembed`
      * does not provide oembed results for playlist url currently

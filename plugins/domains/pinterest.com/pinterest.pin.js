@@ -1,11 +1,10 @@
 
-module.exports = {
+export default {
 
     re: /^(https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3})\/pin\/(?:[^\/]+\-)?(\d+)/i,
 
     mixins: [
-        "*",
-        "oembed-iframe"
+        "*"
     ],
 
     // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large

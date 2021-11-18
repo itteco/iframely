@@ -1,5 +1,5 @@
-var URL = require("url");
-var QueryString = require("querystring");
+import * as URL from "url";
+import * as QueryString from "querystring";
 
 var LayerMap = {
     M: 'mapnik',
@@ -53,7 +53,7 @@ function getBBox(lat, lon, zoom, width, height) {
     return [lonlat_s[0], lonlat_s[1], lonlat_e[0], lonlat_e[1]];
 }
 
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www\.)?openstreetmap\.org\/(?:node\/\d+)?(?:\?.+|\#.*map=.+|export\/embed\.html\?)/i,
 

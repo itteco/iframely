@@ -1,7 +1,7 @@
 // Covers new google maps. Not classic ones. Classic ones are handled by maps.google.com.js plugin
 // Docs are at https://developers.google.com/maps/documentation/embed/guide
 
-module.exports = {
+export default {
 
     re: [
         // place 

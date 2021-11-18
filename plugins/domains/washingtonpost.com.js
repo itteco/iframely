@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https:\/\/www\.washingtonpost\.com\/(?:video|posttv)\/\w+\/[a-z0-9-]+\/\d+\/\d+\/\d+\/([a-z0-9-]+)_video\.html/i,
 

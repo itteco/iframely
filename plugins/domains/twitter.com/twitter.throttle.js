@@ -1,6 +1,9 @@
-module.exports = {
+import twitter_timelines from './twitter.timelines.js';
+import twitter_status from './twitter.status.js';
 
-    re: require('./twitter.timelines').re.concat(require('./twitter.status').re),
+export default {
+
+    re: twitter_timelines.re.concat(twitter_status.re),
 
     provides: ["meta"],
 

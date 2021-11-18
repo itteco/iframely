@@ -1,6 +1,6 @@
-const querystring = require('querystring');
+import * as querystring from 'querystring';
 
-module.exports = {
+export default {
 
     re: [
         /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.

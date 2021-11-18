@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // avoid wordpress pages
     lowestPriority: true,

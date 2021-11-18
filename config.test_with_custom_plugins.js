@@ -1,6 +1,4 @@
-(function() {
-
-  var config = {
+  export default {
 
     CUSTOM_PLUGINS_PATH: __dirname + '/test/fixtures/custom-plugins',
 
@@ -15,6 +13,3 @@
 
     IGNORE_DOMAINS_RE: /blacklisted.*/
   };
-
-  module.exports = config;
-})();

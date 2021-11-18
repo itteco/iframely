@@ -1,12 +1,12 @@
-module.exports = {
+export default {
 
     provides: "headers",
 
     getData: function(htmlparser, cb) {
 
-        if (htmlparser.request && htmlparser.request.response && htmlparser.request.response.headers) {
+        if (htmlparser.headers) {
             return cb (null, {
-                headers: htmlparser.request.response.headers
+                headers: htmlparser.headers
             })
         } else {
             cb();

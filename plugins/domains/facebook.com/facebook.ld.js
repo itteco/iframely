@@ -1,6 +1,8 @@
-module.exports = {
+import facebook_video_re from './facebook.video.js';
 
-    re: require('./facebook.video').re,
+export default {
+
+    re: facebook_video_re.re,
 
     getMeta: function(__allowFBThumbnail, schemaVideoObject) {
 

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.ebaumsworld\.com\/video\/watch\/(\d+)/i,

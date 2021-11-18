@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/www\.flickr\.com(\/photos\/[@a-zA-Z0-9_\.\-]+\/(?:sets|albums)\/(\d+))/i,    
 

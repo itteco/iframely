@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/(\d+)/i,
 

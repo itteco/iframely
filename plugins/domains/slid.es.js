@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     re: [
         /^https?:\/\/slides\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
     ],
