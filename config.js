@@ -26,7 +26,6 @@
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         WHITELIST_WILDCARD: {},
-        WHITELIST_LOG_URL: 'https://iframely.com/whitelist-log',
 
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
@@ -54,6 +53,8 @@
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
 
+        MAX_REDIRECTS: 5,
+
         RESPONSE_TIMEOUT: 5 * 1000,
 
         SHUTDOWN_TIMEOUT: 6 * 1000,
@@ -66,11 +67,13 @@
 
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
+        DOC_ASPECT_RATIO: 8.5 / 11,
         MAX_VERTICAL_ASPECT_RATIO: 1,
         ASPECT_RATIO_PRECISION: 0.25,
 
         DEFAULT_OMIT_CSS_WRAPPER_CLASS: 'iframely-responsive',
         DEFAULT_MAXWIDTH_WRAPPER_CLASS: 'iframely-embed',
+        FORCE_WIDTH_LIMIT_CONTAINER: false,
 
         T: {
             text_html: "text/html",
@@ -78,7 +81,7 @@
             javascript: "application/javascript",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
-            flash: "application/x-shockwave-flash",
+            flash: "application/x-shockwave-flash", // Adobe Flash Player is no longer supported
             image: "image",
             image_icon: "image/icon",
             image_png: "image/png",
@@ -141,7 +144,6 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
-            sm4: "sm4",
 
             icon: "icon",
             logo: "logo",
@@ -164,9 +166,11 @@
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
-            'ambient-light-sensor', 'autoplay', 'accelerometer', 'camera', 'display-capture', 'document-domain', 'encrypted-media',
-            'fullscreen', 'geolocation', 'gyroscope', 'magnetometer', 'microphone', 'midi', 'payment', 'picture-in-picture',
-            'speaker', 'sync-xhr', 'usb', 'wake-lock', 'vr', 'xr', 'vr / xr'
+            'accelerometer', 'ambient-light-sensor', 'autoplay', 'battery', 'camera', 'clipboard-write', 'display-capture',
+            'document-domain', 'encrypted-media', 'execution-while-not-rendered', 'execution-while-out-of-viewport', 
+            'fullscreen', 'geolocation', 'gyroscope', 'legacy-image-formats', 'magnetometer', 'microphone', 'midi', 
+            'oversized-images', 'payment', 'picture-in-picture', 'publickey-credentials-get', 'screen-wake-lock',
+            'speaker', 'sync-xhr', 'usb', 'vr', 'vr / xr', 'wake-lock', 'web-share', 'xr-spatial-tracking'
         ],
 
         // Option names
@@ -329,9 +333,6 @@
             "og": [
                 "video"
             ],
-            "sm4": [
-                "video"
-            ],
             "oembed": [
                 "link",
                 "rich",
@@ -364,8 +365,7 @@
             "oembed",
             "og",
             "twitter",
-            "iframely",
-            "sm4"
+            "iframely"
         ],
 
         KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable)\.\w+\//i,
@@ -379,27 +379,32 @@
         }
     };
 
+    // Providers config loader.
+    var local_config_path = path.resolve(__dirname, "config.providers.js");
+    if (fs.existsSync(local_config_path)) {
+        var local = require(local_config_path);
+        _.extend(config, local);
+    }
+
+
     var env_config_path = path.resolve(
         __dirname,
         "config." + (process.env.NODE_ENV || "local") + ".js"
     );
 
-    var local_config_path = path.resolve(__dirname, "config.local.js");
-
-    var local;
+    local_config_path = path.resolve(__dirname, "config.local.js");
 
     // Try config by NODE_ENV.
     if (fs.existsSync(env_config_path)) {
-
-        local = require(env_config_path);
+        var local = require(env_config_path);
 
     } else if (fs.existsSync(local_config_path)) {
         // Else - try local config.
-
-        local = require(local_config_path);
+        var local = require(local_config_path);
     }
 
     _.extend(config, local);
+
 
     if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;

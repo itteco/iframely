@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const querystring = require('querystring');
 const _ = require('underscore');
+const sysUtils = require('../../../logging')
 
 module.exports = {
 
@@ -128,6 +129,7 @@ module.exports = {
                 } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
+                    sysUtils.log('YoutTube fallback for ' + urlMatch[1], data);
                     cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
@@ -204,6 +206,14 @@ module.exports = {
             params.hl = options.getProviderOptions('locale', 'en-US').replace('_', '-');
         }
 
+        // https://developers.google.com/youtube/player_parameters#cc_load_policy
+        var cc_load_policy = options.getRequestOptions('youtube.cc_load_policy', params.cc_load_policy);
+        if (cc_load_policy) {
+            params.cc_load_policy = '1';
+        } else if (params.cc_load_policy) {
+            delete params.cc_load_policy;
+        }
+
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
         var rels = [CONFIG.R.player, CONFIG.R.html5];
@@ -251,6 +261,10 @@ module.exports = {
                         label: 'End on',
                         value: '' + (params.end || ''),
                         placeholder: 'ex.: 11, 1m10s'
+                    },
+                    cc_load_policy: {
+                        label: 'Closed captions',
+                        value: cc_load_policy ? true : false
                     }
                 }
             }); 

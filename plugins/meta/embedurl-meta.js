@@ -1,6 +1,6 @@
 module.exports = {
 
-	lowestPriority: true,
+    lowestPriority: true,
 
     getMeta: function(schemaVideoObject) {
 

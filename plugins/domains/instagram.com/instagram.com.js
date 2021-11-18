@@ -24,8 +24,10 @@ module.exports = {
         "fb-error"
     ],
 
-    getMeta: function (oembed, urlMatch, meta) {
-        var title = meta.og && meta.og.title ? meta.og.title.match(/([^•\":“]+)/i)[0]: '';
+    provides: ['ipOG', '__allowInstagramMeta'],
+
+    getMeta: function (oembed, urlMatch, ipOG) {
+        var title = ipOG.title ? ipOG.title.match(/([^•\":“]+)/i)[0]: '';
         var description = oembed.title;
 
         if (!description || !title || /login/i.test(title)) {
@@ -57,40 +59,11 @@ module.exports = {
         }
     },
 
-    getLinks: function(url, urlMatch, meta, oembed, options) {
-        var src = 'https://instagram.com/p/' + urlMatch[1] + '/media/?size=';
+    getLinks: function(url, urlMatch, ipOG, oembed, options) {
 
-        var aspect = oembed.thumbnail_width && oembed.thumbnail_height ? oembed.thumbnail_width / oembed.thumbnail_height : 1/1
-
-        var links = [
-            // After Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed/
-            // To be retired on Oct 24, 2020: https://developers.facebook.com/docs/instagram/oembed-legacy
-
-            // the /media/?size endpoint seem to have disappeared from new oEmbed doc. We'll have to see what happens.
-            // Also, Instagram now seems to want the images be hot-linked as the shortcode media redirects AWS and other clouds to the login page.
-            {
-                href: src + 't',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
-                width: 150,
-                height: 150 
-            }, {
-                href: src + 'm',
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail,
-                width: 320,
-                height: Math.round(320 / aspect)
-            }, {
-                href: src + 'l',
-                type: CONFIG.T.image,
-                rel: (meta.og && meta.og.video || !meta.og) ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
-                width: oembed.thumbnail_width && (oembed.thumbnail_width - 1) || 1080, // It's actually 1080, but let's try and give oembed.thumbnail a higher priority
-                height: oembed.thumbnail_height && (oembed.thumbnail_height - 1) ||  Math.round(1080 / aspect)
-            }
-        ];
+        var links = [];
 
         if (oembed.thumbnail_url) {
-            // Return expanded image thumbnails as /p/shortcode/media redirects cloud users to the login page.
             links.push({
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
@@ -99,18 +72,27 @@ module.exports = {
             });
         }
 
-        if (meta.og && meta.og.video) {
+        if (ipOG.image) {
             links.push({
-                href: meta.og.video.url,
-                type: meta.og.video.type || CONFIG.T.maybe_text_html,
+                href: ipOG.image,
+                type: CONFIG.T.image,
+                rel: ipOG.video ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
+                // No media - let's validate image as it may be expired.
+            });
+        }        
+
+        if (ipOG.video) {
+            links.push({
+                href: ipOG.video.url,
+                type: ipOG.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": meta.og.video.width / meta.og.video.height
+                "aspect-ratio": ipOG.video.width / ipOG.video.height
             });
             links.push({
-                href: meta.og.video.secure_url,
-                type: meta.og.video.type || CONFIG.T.maybe_text_html,
+                href: ipOG.video.secure_url,
+                type: ipOG.video.type || CONFIG.T.maybe_text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": meta.og.video.width / meta.og.video.height
+                "aspect-ratio": ipOG.video.width / ipOG.video.height
             });
         }
 
@@ -138,8 +120,8 @@ module.exports = {
 
             // Fix for private posts that later became public
             if (urlMatch[1] && urlMatch[1].length > 30 
-                && /^https?:\/\/www\.instagram\.com\/p\/([a-zA-Z0-9_-]+)\/?/i.test(meta.canonical)) {
-                html = html.replace(url, meta.canonical);
+                && /^https?:\/\/www\.instagram\.com\/p\/([a-zA-Z0-9_-]+)\/?/i.test(ipOG.url)) {
+                html = html.replace(url, ipOG.url);
             }
 
             var app = {
@@ -178,7 +160,9 @@ module.exports = {
         options.exposeStatusCode = true;        
 
         if (!options.getRequestOptions('instagram.meta', true)) {
-            result.meta = {};
+            result.ipOG = {};
+        } else {
+            result.__allowInstagramMeta = true;
         }
 
         if (urlMatch[1] && urlMatch[1].length > 30) {

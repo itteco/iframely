@@ -31,7 +31,7 @@ module.exports = {
             var embed = $video.attr('data-embed');
             var account = $video.attr('data-account');
             var player = $video.attr('data-player');
-            var video_id = $video.attr('data-video-id');
+            var video_id = $video.attr('data-video-id') || $video.attr('data-video-origin'); // For origin: https://www.eltiempo.es/videos/la-fuerza-de-la-naturaleza/en-directo-impresionante-erupcion-del-volcan-kilauea-en-hawai-tras-un-terremoto
             var iframeUrl = $video.attr('data-iframe-url');
 
             // Let's validate

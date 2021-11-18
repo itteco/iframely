@@ -3,36 +3,36 @@ const cheerio = require('cheerio');
 module.exports = {
 
     getMeta: function(ld) {
-		function clean(field) {
-			if (field) {
-				var $container = cheerio('<div>');
-				try {
-					$container.html(field);
-				} catch (ex) {
-					return undefined;
-				}
-				return $container.text();
-			}
-		}
-    	if (ld.newsarticle) {
+        function clean(field) {
+            if (field) {
+                var $container = cheerio('<div>');
+                try {
+                    $container.html(field);
+                } catch (ex) {
+                    return undefined;
+                }
+                return $container.text();
+            }
+        }
+        if (ld.newsarticle) {
 
-	        return {
-	        	title: clean(ld.newsarticle.headline),
-	        	category: clean(ld.newsarticle.articlesection),
+            return {
+                title: clean(ld.newsarticle.headline),
+                category: clean(ld.newsarticle.articlesection),
                 description: clean(ld.newsarticle.description)
-	        }
-    	}
+            }
+        }
     },
 
     getLink: function(ld) {
 
-    	if (ld.newsarticle && ld.newsarticle.thumbnailurl) {
-	        return {
-	        	href: ld.newsarticle.thumbnailurl,
-	        	type: CONFIG.T.image,
-	        	rel: CONFIG.R.thumbnail
-	        }
-    	}
+        if (ld.newsarticle && ld.newsarticle.thumbnailurl) {
+            return {
+                href: ld.newsarticle.thumbnailurl,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            }
+        }
     }
 
     // ex: 

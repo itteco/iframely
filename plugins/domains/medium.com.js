@@ -1,10 +1,12 @@
 module.exports = {
 
-    re: /^https:\/\/medium\.com\/@?[\w-]+/i,
+    re: /^https:\/\/(?:[a-z0-9\-]+\.)?medium\.com\/@?[\w-]+/i,
 
     mixins: [
         "*"
     ],
+
+    provides: ['__appFlag'],
 
     getLinks: function(og, url) {
 
@@ -26,8 +28,17 @@ module.exports = {
         }        
     },
 
-    tests: [
+    getData: function(meta, options) {
+        if (!meta.og) {
+            return {
+                __appFlag: true
+            }
+        }
+    },
+
+    tests: [{skipMethods: ["getData"]},
         "https://medium.com/@startswithabang",
-        "https://medium.com/hackerpreneur-magazine/nobody-s-heard-of-you-and-that-s-okay-82792dfecc12#.31za23rhx"
+        "https://medium.com/hackerpreneur-magazine/nobody-s-heard-of-you-and-that-s-okay-82792dfecc12",
+        "https://medium.com/@AvenueTalentPartners/3-keys-to-doing-better-discovery-and-closing-more-deals-1f8ce7bcac3d"
     ]
 };

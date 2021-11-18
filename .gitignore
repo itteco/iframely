@@ -16,3 +16,5 @@ lib/new/test.js
 iframely-private-plugins/
 
 .env
+
+config.providers.js

@@ -1,28 +1,36 @@
 module.exports = {
 
     re: [
-        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?)\/(\d+)/i,
-        /^https?:\/\/twitter\.com\/\w+$/i,
-        /^https?:\/\/twitter\.com\/\w+\/(?:timelines?|moments?|likes?|lists?)\/?/i
+        /^https?:\/\/twitter\.com\/(\w+)\/(?:timelines?|moments?|likes?)\/(\d+)/i,
+        /^https?:\/\/twitter\.com\/(\w+)\/?(?:\?.*)?$/i,
+        /^https?:\/\/twitter\.com\/(\w+)\/(?:timelines?|moments?|likes?|lists?)\/?/i
     ],
 
     mixins: [
         'domain-icon',
-        'oembed-site',
-        'oembed-title',
-        'description',
-        'og-image',
-        'canonical'
+        'oembed-error',
+        'oembed-site'
     ],
+
+    getMeta: function(meta, urlMatch) {
+        return {
+            title: meta['html-title'] || urlMatch[1],
+            description: meta.description
+        }
+    },
 
     getLink: function(url, oembed, options) {
 
         var html = oembed.html;
 
-        var width = options.maxWidth || options.getProviderOptions('twitter.timeline_width');
+        var width =  parseInt(options.getRequestOptions('twitter.maxwidth', options.maxWidth));
 
         if (width) {
-            html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
+            if (/data\-width=\"(\d+)\"/i.test(html)) {
+                html = html.replace(/data\-width=\"(\d+)\"/i, `data-width="${width}"`);
+            } else {
+                html = html.replace('<a class="twitter-timeline"', `<a class="twitter-timeline" data-width="${width}"`);
+            }
         } else if (width === '') {
             html = html.replace(/data\-width=\"\d+\"\s?/i, '');
         }
@@ -66,6 +74,11 @@ module.exports = {
                     values: {
                         dark: "Use dark theme"
                     }
+                },
+                maxwidth: {
+                    value: width || '',
+                    label: CONFIG.L.width,
+                    placeholder: 'e.g. 550, in px'
                 }
             }
         }
@@ -83,6 +96,6 @@ module.exports = {
         "https://twitter.com/TwitterDev/timelines/539487832448843776",
         "https://twitter.com/i/moments/1100515464948649985",
         "https://twitter.com/TwitterDev/lists/national-parks",
-        {skipMixins: ["og-image", "oembed-title", "description", "canonical", "domain-icon"]}, {skipMethods: ["getData"]}
+        {skipMixins: ["domain-icon", "oembed-error"]}, {skipMethods: ["getData"]}
     ]
 };

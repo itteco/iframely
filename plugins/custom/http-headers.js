@@ -1,6 +1,6 @@
 module.exports = {
 
-	provides: "headers",
+    provides: "headers",
 
     getData: function(htmlparser, cb) {
 

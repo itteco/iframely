@@ -1,25 +1,24 @@
-FROM node:12-alpine
+FROM node:12.18-alpine3.12
 
 MAINTAINER PRX <sysadmin@prx.org>
 LABEL org.prx.app="yes"
 
-EXPOSE 8061
-
 WORKDIR /iframely
 
-# install git, aws-cli
-RUN apk --no-cache add inotify-tools git ca-certificates \
-    python py-pip py-setuptools groff less && \
-    pip --no-cache-dir install awscli
+# Create new non-root user
+RUN addgroup -S iframelygroup && adduser -S iframely -G iframelygroup
 
-# install PRX aws-secrets scripts
-RUN git clone -o github https://github.com/PRX/aws-secrets
-RUN cp ./aws-secrets/bin/* /usr/local/bin
+# This will change the config to `config.<VALUE>.js` and the express server to change its behaviour.
+# You should overwrite this on the CLI with `-e NODE_ENV=production`.
+ENV NODE_ENV=local
 
-COPY ./package.json /iframely/
-COPY ./yarn.lock /iframely/
-RUN npm install -g forever && \
-    npm install
+## Utilize docker layer cache
+COPY package.json yarn.lock /iframely/
+RUN yarn install --pure-lockfile --production
+
+COPY . /iframely
+
+USER iframely
 
 COPY . /iframely
 
