@@ -1,6 +1,3 @@
-    import config from './config.js';
-    global.CONFIG = config;
-
     import * as async from 'async';
     import { cache } from './lib/cache.js';
     import * as ejs from 'ejs';

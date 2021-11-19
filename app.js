@@ -1,4 +1,6 @@
 import { cacheMiddleware, NotFound } from './utils.js';
+import CONFIG from './config.loader.js';
+global.CONFIG = CONFIG;
 
 console.log("");
 console.log("Starting Iframely...");

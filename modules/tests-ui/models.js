@@ -1,7 +1,6 @@
     import moment from 'moment';
     import mongoose from 'mongoose';
-    import config from '../../config.js';
-    global.CONFIG = config;
+    import CONFIG from '../../config.loader.js';
 
     mongoose.set('useUnifiedTopology', true);
     mongoose.set('useCreateIndex', true);

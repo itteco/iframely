@@ -1,5 +1,5 @@
-import config from '../../config.js';
-global.CONFIG = config;
+import CONFIG from '../../config.loader.js';
+global.CONFIG = CONFIG;
 
 if (!CONFIG.tests) {
     console.error('Tests not started: CONFIG.tests not configured.');
