@@ -2,7 +2,8 @@ module.exports = {
 
     // This is for articles only - players are covered by oembed auto-discovery
     re: [
-        /^https?:\/\/sverigesradio\.se\/sida\/artikel\.aspx\?programid=\d+&artikel=(\d+)/i
+        /^https?:\/\/sverigesradio\.se\/sida\/artikel\.aspx\?programid=\d+&artikel=(\d+)/i,
+        /^https?:\/\/sverigesradio\.se\/artikel\/(\d+)/i
     ],    
 
     mixins: [
@@ -25,7 +26,7 @@ module.exports = {
                     cb(null, {
                         href: 'https://sverigesradio.se/embed/publication/' + urlMatch[1],            
                         accept: CONFIG.T.text_html,
-                        rel: [CONFIG.R.player, CONFIG.R.html5],
+                        rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
                         'min-width': 210,
                         height: 150
                     });
@@ -35,8 +36,8 @@ module.exports = {
     },
 
     tests: [
-        "http://sverigesradio.se/sida/artikel.aspx?programid=406&artikel=5848335",
-        "http://sverigesradio.se/sida/artikel.aspx?programid=2054&artikel=6573606"
+        "https://sverigesradio.se/artikel/5848335",
+        "https://sverigesradio.se/artikel/6573606"
         // not embeddable http://sverigesradio.se/sida/artikel.aspx?programid=2054&artikel=5728497
     ]
 };

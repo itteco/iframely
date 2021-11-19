@@ -4,7 +4,9 @@ var utils = require('../../../lib/utils');
 module.exports = {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/\d+/i
+        /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i
+        // Avoid oembed error on experiences such as https://players.brightcove.net/6057277732001/experience_5fdc1e38e57a07002222f857/share.html
+        // Аuto-discovery on expeience pages is for a single video and isn't right either. So let oEmbed fail there for now.
     ],
 
     mixins: [
@@ -36,12 +38,15 @@ module.exports = {
         var $iframe = $container.find('iframe');
 
         if ($iframe.length == 1) {
-            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record
+            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record            
         }
 
         if (/&iframe-url=/.test(url)) {
             var src = url.match(/&iframe-url=([^&]+)/i);
             player.href = Buffer.from(src[1], 'base64').toString()
+
+            delete player.type;
+            player.accept = CONFIG.T.text_html; // verify that it exists and isn't X-Frame-Optioned            
         }
 
         if (oembed.thumbnail_url) {

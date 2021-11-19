@@ -31,6 +31,7 @@ module.exports = {
             if (!/class=\"fb\-comment\-embed\"/i.test(html)) {
                 // thank you FB for not working with comments
                 // https://developers.facebook.com/docs/plugins/embedded-comments
+                html = html.replace(/<blockquote.+blockquote>/, '').replace(/data\-href=\"[^\"]+\"/, `data-href="${url}"`);            
                 html = html.replace(/class=\"fb\-video\"/i, 'class="fb-comment-embed"' + (/data\-width=/i.test(html) ? '' : ' data-width="' + width + '"'));
             }
 
@@ -86,7 +87,6 @@ module.exports = {
         "https://www.facebook.com/tv2nyhederne/videos/1657445024271131/?comment_id=1657463030935997",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
-        "https://www.facebook.com/watch/?ref=external&v=373114473595228",
         {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
 };

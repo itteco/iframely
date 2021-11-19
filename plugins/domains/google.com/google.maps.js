@@ -63,7 +63,7 @@ module.exports = {
             return;
         }
 
-        var api_key = options.getProviderOptions('google.maps_key');
+        var api_key = options.getRequestOptions('google.maps_key');
         if (!api_key) {
             return;
         }
@@ -150,7 +150,7 @@ module.exports = {
         if (!options.getProviderOptions('google.maps_key')) {
             return cb ({
                 responseStatusCode: 415,
-                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/guide#api_key' target='_blank'>Get one</a> and add it to the provider options."
+                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/get-api-key' target='_blank'>Get one</a> and add it to the provider options."
             });
         }
 

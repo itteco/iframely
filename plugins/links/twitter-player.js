@@ -6,7 +6,7 @@ module.exports = {
 
             var player = {
                 href: twitter.player.value || twitter.player,
-                accept: CONFIG.T.text_html,
+                accept: [CONFIG.T.text_html, 'video/*', 'audio/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl],
                 rel: [CONFIG.R.player, CONFIG.R.twitter],
                 height: twitter.player.height
             };

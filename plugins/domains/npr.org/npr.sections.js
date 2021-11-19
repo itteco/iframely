@@ -10,6 +10,7 @@ module.exports = {
     getLink: function(cheerio) {
 
         var $button = cheerio('button[data-embed-url*="npr.org/player/embed/"]');
+        var rel = [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5, CONFIG.R.app];
 
         if ($button.length) {
             
@@ -18,9 +19,9 @@ module.exports = {
             
             if (urlMatch) {
                 return {
-                    href: "//www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
+                    href: "https://www.npr.org/player/embed/" + urlMatch[1] + "/" + urlMatch[2],
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.app], // `app` prevents it from being wrapped as promo card
+                    rel: rel,
                     height: 290,
                     'max-width': 800
                 };
@@ -37,7 +38,7 @@ module.exports = {
                 return {
                     href: config.embedLink,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.html5, CONFIG.R.player, CONFIG.R.app], // `app` prevents it from being wrapped as promo card],
+                    rel: rel,
                     'aspect-ratio': 16 / 9
                 };
             }

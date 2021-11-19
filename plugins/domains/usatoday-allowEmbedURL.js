@@ -5,9 +5,9 @@ module.exports = {
     provides: '__allowEmbedURL',
 
     getData: function(options) {
-    	return {
-    		__allowEmbedURL: true
-    	}
+        return {
+            __allowEmbedURL: true
+        }
     }
 
 }

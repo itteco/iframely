@@ -109,13 +109,13 @@ module.exports = {
         if (
             /* Don't request meta for w.soundcloud.com widget redirects, html parser gets 401 there. */
             !/w\.soundcloud\.com/i.test(url)
-            && (
+            && ((
                 /* Skip the placeholder thumbnail in oEmbed - use user picture in og image instead. */
                 !oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)
                 
                 /* Also, check meta and try to exclude user profiles with 0 tracks. */
                 || /api\.soundcloud\.com(%2F|\/)users(%2F|\/)/i.test(oembed.html)
-            )
+            ) || !oembed.description)
         ) {
             return {
                 __allow_soundcloud_meta: true,
@@ -139,8 +139,8 @@ module.exports = {
     },
 
     tests: [{skipMethods: ["getData"]}, {skipMixins: ["oembed-description"]},
-        "https://soundcloud.com/posij/sets/posij-28-hz-ep-division",
         "https://soundcloud.com/user-847444",
+        "https://m.soundcloud.com/claude-debussy/clair-de-lune",
         // user profile with no tracks: https://soundcloud.com/mata-klol    
 
         // The following URLs redirect to this plugin and should also work.
