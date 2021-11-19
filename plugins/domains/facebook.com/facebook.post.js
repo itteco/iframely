@@ -28,6 +28,7 @@ module.exports = {
             // thank you FB for not working with comments
             // https://developers.facebook.com/docs/plugins/embedded-comments
             html = html.replace(/data\-include\-parent=\"(true|false)\"/i, ''); // never is retured from API, but just to future-proof
+            html = html.replace(/<blockquote.+blockquote>/, '').replace(/data\-href=\"[^\"]+\"/, `data-href="${url}"`);
             html = html.replace(/class=\"fb\-post\"/i, 'class="fb-comment-embed" data-include-parent="' 
                 + (options.getRequestOptions('facebook.include_comment_parent', false) || options.getProviderOptions(CONFIG.O.more, false)) + '"');
 

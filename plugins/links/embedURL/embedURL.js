@@ -38,44 +38,43 @@ module.exports = {
                 // broken json, c'est la vie
                 // let's try microformats instead
             }
-        } 
+        }
 
         /* Else, the ld above didn't return any results. Let's try microformats. */
+        var videoObjectSchema = 'Object';
 
-            var videoObjectSchema = 'Object';
+        var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
 
-            var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
+        if ($scope.length) {
 
-            if ($scope.length) {
+            var $aScope = cheerio($scope);
 
-                var $aScope = cheerio($scope);
+            var result = {};
 
-                var result = {};
+            $aScope.find('[itemprop]').each(function() {
+                var $el = cheerio(this);
 
-                $aScope.find('[itemprop]').each(function() {
-                    var $el = cheerio(this);
+                var scope = $el.attr('itemscope');
+                if (typeof scope !== 'undefined') {
+                    return;
+                }
 
-                    var scope = $el.attr('itemscope');
-                    if (typeof scope !== 'undefined') {
-                        return;
-                    }
+                var $parentScope = $el.parents('[itemscope]');
+                if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
+                    return;
+                }
 
-                    var $parentScope = $el.parents('[itemscope]');
-                    if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
-                        return;
-                    }
+                var key = $el.attr('itemprop');
+                if (key) {
+                    var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
+                    result[key] = value;
+                }
+            });
 
-                    var key = $el.attr('itemprop');
-                    if (key) {
-                        var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
-                        result[key] = value;
-                    }
-                });
-
-                return {
-                    schemaVideoObject: result
-                };
-            }
+            return {
+                schemaVideoObject: result
+            };
+        }
         /* End of microformats. */
     },
 
@@ -100,7 +99,7 @@ module.exports = {
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
-                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, CONFIG.T.flash, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
+                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
             };
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {

@@ -18,12 +18,13 @@ module.exports = {
     getMeta: function(meta) {
 
         if (meta.slideshare) {
+            var data = meta.slideshare;
             return {
-                views: meta.slideshare.view_count,
-                date: meta.slideshare.published || meta.slideshare.created_at || meta.slideshare.updated_at,
-                category: meta.slideshare.category,
-                likes: meta.slideshare.favorites_count,
-                author_url: /^https:\/\//.test(meta.slideshare.author) ? meta.slideshare.author : null
+                views: data.view_count,
+                date: data.published || data.created_at || data.updated_at,
+                category: data.category,
+                likes: data.favorites_count,
+                author_url: /^https:\/\//.test(data.author) ? data.author : null
             }
         }
 

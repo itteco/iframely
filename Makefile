@@ -1,7 +1,7 @@
 CONTAINER	:= iframely
 HUB_USER	:= ${USER}
 IMAGE_NAME	:= ${HUB_USER}/${CONTAINER}
-VERSION		:= v1.3.1
+VERSION		:= ${VERSION}
 EXPOSEPORT	:= 8061
 PUBLISHPORT := ${EXPOSEPORT}
 
@@ -13,6 +13,7 @@ build:
 	git checkout tag-${VERSION}
 	docker \
 		build \
+		--pull \
 		--rm --tag=${CONTAINER} .
 	@echo Image tag: ${VERSION}
 
@@ -26,8 +27,9 @@ run:
 		--tty \
 		--hostname=${CONTAINER} \
 		--name=${CONTAINER} \
+		-e NODE_TLS_REJECT_UNAUTHORIZED=0 \
 		-p ${PUBLISHPORT}:${EXPOSEPORT} \
-		-v $(PWD)/config.local.js.SAMPLE:/iframely/config.local.js \
+		-v $(PWD)/config.local.js:/iframely/config.local.js \
 		$(CONTAINER)
 
 shell:
@@ -40,7 +42,7 @@ shell:
 		--name=${CONTAINER} \
 		-p ${PUBLISHPORT}:${EXPOSEPORT} \
 		--entrypoint "/bin/ash" \
-		-v $(PWD)/config.local.js.SAMPLE:/iframely/config.local.js \
+		-v $(PWD)/config.local.js:/iframely/config.local.js \
 		$(CONTAINER) 
 
 exec:
@@ -67,10 +69,11 @@ clean:
 		rm ${CONTAINER}
 	-docker \
 		rmi ${CONTAINER}
-	git checkout master
-	git branch -d ${VERSION}
+	git branch -d tag-${VERSION}
 
 push:
-	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} && docker push ${IMAGE_NAME}
+	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} # && docker push ${IMAGE_NAME}
+	docker tag ${CONTAINER} ${IMAGE_NAME}:latest
+	docker push ${IMAGE_NAME}
 
 restart: stop clean run

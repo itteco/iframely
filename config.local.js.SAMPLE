@@ -8,7 +8,7 @@
         RICH_LOG_ENABLED: false,
 
         // For embeds that require render, baseAppUrl will be used as the host.
-        baseAppUrl: "http://yourdomain.com",
+        baseAppUrl: "http://localhost:8061", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
         relativeStaticUrl: "/r",
 
         // Or just skip built-in renders altogether
@@ -63,10 +63,28 @@
         // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
         /*
+        // Redis mode (cluster or standard)
+        REDIS_MODE: 'standard',
+        */
+
+        /*
         // Redis cache options.
         REDIS_OPTIONS: {
             host: '127.0.0.1',
             port: 6379
+        },
+        */
+
+        /*
+        // Redis cluster options.
+        REDIS_CLUSTER_OPTIONS: {
+            servers: [
+                 {
+                     host: '10.0.0.10',
+                     port: 6379
+                 },
+                 // ...
+             ],
         },
         */
 
@@ -98,17 +116,19 @@
         // If there's no response from remote server, the timeout will occur after
         RESPONSE_TIMEOUT: 5 * 1000, //ms
 
-        /* From v1.4.0, Iframely supports HTTP/2 by default. Disable it, if you'd rather not.
+        /* From v1.4.0, Iframely works over HTTP/2 if not disabled.
            Alternatively, you can also disable per origin. See `proxy` option below.
+           The default in this sample config is to disable HTTP/2 as per
+           https://github.com/itteco/iframely/issues/277.
         */
-        // DISABLE_HTTP2: true,
+        DISABLE_HTTP2: true,
 
         // Customize API calls to oembed endpoints.
         // Must have: please add your `access_token` for Facebook and Instagram API calls
         ADD_OEMBED_PARAMS: [{
             
             re: [ // Endpoint's URL regexp array.
-                /^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/instagram_oembed/i
+                /^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/instagram_oembed/i
             ],
             params: { // Custom query-string params object.
 
@@ -121,7 +141,7 @@
                 hidecaption: true
             }
         }, {
-            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_page/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/oembed_page/i],
             params: {
                 // TODO: get your access token as described 
                 // on https://developers.facebook.com/docs/plugins/oembed                
@@ -143,7 +163,7 @@
             }
         }, {
             // Facebook https://developers.facebook.com/docs/plugins/oembed/
-            re: [/^https:\/\/graph\.facebook\.com\/v\d+\.\d+\/oembed_/i],
+            re: [/^https:\/\/graph\.facebook\.com\/v[0-9\.]+\/oembed_/i],
             params: {
                 // TODO: get your access token as described 
                 // on https://developers.facebook.com/docs/plugins/oembed                
@@ -177,6 +197,7 @@
         */
 
         // Customize API calls to 3rd parties. At the very least - configure required keys.
+        // For available provider options - please see the code of its domain plugin.
         providerOptions: {
             locale: "en_US",    // ISO 639-1 two-letter language code, e.g. en_CA or fr_CH. 
                                 // Will be added as highest priotity in accept-language header with each request. 
@@ -206,7 +227,7 @@
             google: {
                 // https://developers.google.com/maps/documentation/embed/guide#api_key
                 maps_key: "INSERT YOUR VALUE"
-            },
+            }, 
 
             /*
             // Optional Camo Proxy to wrap all images: https://github.com/atmos/camo
@@ -229,16 +250,12 @@
             vimeo: {
                 get_params: "?byline=0&badge=0"     // https://developer.vimeo.com/player/embedding
             },
-
-            /*
             soundcloud: {
                 old_player: true // enables classic player
             },
             giphy: {
                 media_only: true // disables branded player for gifs and returns just the image
-            }
-            */
-            /*
+            },
             bandcamp: {
                 get_params: '/size=large/bgcol=333333/linkcol=ffffff/artwork=small/transparent=true/',
                 media: {
@@ -251,7 +268,12 @@
                         'max-width': 700
                     }
                 }
-            }
+            },
+            // Docs: https://dev.twitch.tv/docs/embed/video-and-clips
+            /*
+            twitch: {
+                parent: 'jsbin.com, null.jsbin.com, localhost'
+            },
             */
         },
 
@@ -297,10 +319,11 @@
             // And this is AWS metadata service
             // https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
             /^https?:\/\/169\.254\.169\.254/
-        ]
+        ],
 
-        /** url for prerender service */
-        PRERENDER_URL: "https://domain/render?url=",
+        // Endpoint for prerender service, if you need it. Used to parse React apps. Very slow.
+        // Tested with https://github.com/prerender/prerender
+        // PRERENDER_URL: "https://domain/render?url="
     };
 
     module.exports = config;

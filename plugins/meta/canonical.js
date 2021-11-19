@@ -1,6 +1,6 @@
 module.exports = {
 
-	highestPriority: true,
+    highestPriority: true,
 
     getMeta: function(url, meta) {
 
