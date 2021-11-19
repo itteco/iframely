@@ -110,7 +110,7 @@ export default {
 
         } else {
             return {
-                message: 'No preview available for this file.'
+                message: 'Google has no preview available for this file.'
             }
         }
 
