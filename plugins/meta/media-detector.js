@@ -4,17 +4,18 @@ export default {
 
     lowestPriority: true,
 
-    getMeta: function(meta, url, whitelistRecord) {
+    getMeta: function(meta, url, options, whitelistRecord) {
 
-        if (Object.keys(meta).some(
-            key => utils.parseMetaLinks(key, meta[key], whitelistRecord).length > 0
-        )) {
-            return;
+        const appname = options.getProviderOptions('app.name');
+        if (appname) {
+            appname = appname.toLowerCase();
         }
 
-        // Player.
-
-        var has_player = false;
+        if (Object.keys(meta).some(
+            key => appname && key.indexOf(appname) === 0
+                || key.indexOf('iframely' === 0))) {
+            return;
+        }
 
         if (meta.og && /video|movie/i.test(meta.og.type)
             || meta.video_src || meta.video_type
