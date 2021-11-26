@@ -10,9 +10,9 @@ export default {
         if (appname) {
             appname = appname.toLowerCase();
         }
-        
+
         if (Object.keys(meta).some(
-            key => appname && key.indexOf(appname === 0
+            key => appname && key.indexOf(appname) === 0
                 || key.indexOf('iframely' === 0))) {
             return;
         }
