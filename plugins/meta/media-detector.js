@@ -7,8 +7,12 @@ export default {
     getMeta: function(meta, url, options, whitelistRecord) {
 
         const appname = options.getProviderOptions('app.name');
+        if (appname) {
+            appname = appname.toLowerCase();
+        }
+        
         if (Object.keys(meta).some(
-            key => key.indexOf(appname) === 0
+            key => appname && key.indexOf(appname === 0
                 || key.indexOf('iframely' === 0))) {
             return;
         }

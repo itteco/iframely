@@ -4,6 +4,10 @@ export default {
 
     getLinks: function(meta, whitelistRecord, options) {
         const appname = options.getProviderOptions('app.name');
+        if (appname) {
+            appname = appname.toLowerCase();
+        }
+        
         let ignoreIframely = false;
         let links = [];
 

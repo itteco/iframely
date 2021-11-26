@@ -4,7 +4,7 @@ export default {
 
     getData: function(meta, options) {
 
-        var appname = options.getProviderOptions('app.name', 'iframely');
+        var appname = options.getProviderOptions('app.name', 'iframely').toLowerCase();
         var data = meta[appname] || meta.iframely || meta;
 
         if (data.attach || data.promo) {
