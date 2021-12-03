@@ -17,11 +17,11 @@ export default {
         var path = ((og.video && og.video.url) || og.url).replace (/^https?:\/\/www\.cnn\.com\/videos?(\/#\/video)?\//i, "");
 
         return {
-                href: "//fave.api.cnn.io/v1/fav/?customer=cnn&env=prod&video=" + path,
-                accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": 416 / 234
-            };
+            href: "//fave.api.cnn.io/v1/fav/?customer=cnn&env=prod&video=" + path,
+            accept: CONFIG.T.text_html,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
+            "aspect-ratio": 416 / 234
+        };
     },
 
     tests: [{
