@@ -45,6 +45,7 @@ export default {
                     }
 
                     link.href = href;
+                    link['padding-bottom'] = 80;
 
                     link.options = {
                         page: {
