@@ -801,5 +801,12 @@
             "[^\\.]+\\.loxi\\.io"
         ],
         "endpoint": "https://loxi.io/api/saas/v1/oembed"
-    }  
+    },
+    {
+        "name": "Vectary",
+        "templates": [
+            "app.vectary.com/p/*"
+        ],
+        "endpoint": "https://www.vectary.com/api/vctr-oembed/v1/oembed"
+    }
 ]
