@@ -8,23 +8,15 @@ export default {
         "*"
     ],
 
-    getLink: function(twitter, cheerio) {
+    getLink: function(twitter, whitelistRecord) {
 
-        if (twitter.player) {
-
-            var $player = cheerio('#vod-player');
-
-            if ($player.length) {
-                
-                var src = $player.attr('src');
-                
-                return {
-                    href: src.match(/https:\/\/www\.nbcsports\.com\/vplayer\/p\/[a-zA-Z0-9_]+\/nbcsports\/select\/media\/[a-zA-Z0-9_]+/i)[0],
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
-                    accept: CONFIG.T.text_html,
-                    "aspect-ratio": 16/9,
-                    autoplay: 'autoPlay=true'
-                }
+        if (twitter.player && whitelistRecord.isAllowed('twitter.player')) {
+            return {
+                href: twitter.player.value,
+                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html,
+                "aspect-ratio": 16/9,
+                autoplay: 'autoPlay=true'
             }
         }
     },
