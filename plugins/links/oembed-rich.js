@@ -95,9 +95,11 @@ export default {
             if (whitelistRecord.isAllowed('oembed.rich', "resizable")) {
                 rels.push(CONFIG.R.resizable);
             }
+        } else if (whitelistRecord.isAllowed('oembed.rich', 'inline') /* && not responsive or horizontal*/) {
+            widget.height = oembed.height;
         } else {
             widget.width = oembed.width;
-            widget.height = oembed.height
+            widget.height = oembed.height;
         }
 
         if (iframe && iframe.src && iframe.allow) {
