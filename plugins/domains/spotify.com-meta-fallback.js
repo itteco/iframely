@@ -11,7 +11,7 @@ export default {
             && /\/playlist\//.test(url)
             && options.getProviderOptions('spotify.ignore_errors', true)
 
-            || [500, 503, 502].includes(__statusCode)
+            || [500, 503, 502, 406].includes(__statusCode)
             ) {
 
             return cb(null, {
