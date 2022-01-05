@@ -11,7 +11,8 @@ export default {
             rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl],
             html:'<script type="text/javascript" src="https://www.hockeydb.com/em/?pid=' + urlMatch[1] + '"></script>',
             // href: 'http://www.hockeydb.com/em/?pid=' + urlMatch[1],
-            'max-width': 604
+            'max-width': 604,
+            height: 414
         }];
 
         // we also need a thumbnail for SSL fallback to summary card
