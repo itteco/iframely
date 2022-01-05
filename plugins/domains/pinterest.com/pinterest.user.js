@@ -51,7 +51,7 @@ export default {
                         placeholder: 'ex.: 600, in px'
                     }
                 },
-                // width: width, // inline HTML should have only height now
+                'max-width': width, // inline HTML should have only height now
                 height: height + 120
             };
         }
