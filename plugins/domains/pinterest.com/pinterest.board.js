@@ -46,7 +46,7 @@ export default {
                         placeholder: 'ex.: 600, in px'
                     }
                 },
-                width: width,
+                // width: width, // inline HTML should come only with height now
                 height: height + 120
             };
         }
