@@ -21,7 +21,7 @@ export default {
 
             return {
                 html: '<script async src="https://static.medium.com/embed.js"></script><a class="m-' + t + '" href="' + url.replace('medium.com/s/','medium.com/') + '">' + og.title + '</a>',
-                width: 400,
+                'max-width': 400,
                 rel: [og.type === 'article' ? CONFIG.R.summary : CONFIG.R.app, CONFIG.R.inline, CONFIG.R.ssl],
                 type: CONFIG.T.text_html
             };
