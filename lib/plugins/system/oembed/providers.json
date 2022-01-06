@@ -808,5 +808,12 @@
             "app.vectary.com/p/*"
         ],
         "endpoint": "https://www.vectary.com/api/vctr-oembed/v1/oembed"
+    },
+    {
+        "name": "Opinary",
+        "templates": [
+            "compass.pressekompass.net/*" 
+        ],
+        "endpoint": "https://api.opinary.com/oembed"
     }
 ]
