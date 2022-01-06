@@ -16,7 +16,7 @@ export default {
 
         var thumbnail = meta.og && meta.og.image 
                         || meta.twitter && meta.twitter.image
-                        || meta.ld && meta.ld.image && meta.ld.image.contenturl;
+                        || meta.ld && meta.ld.socialmediaposting.image && meta.ld.socialmediaposting.image.contenturl;
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
             // && trye skip profile pictures for posts
