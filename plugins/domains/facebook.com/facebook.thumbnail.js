@@ -12,12 +12,20 @@ export default {
 
     re: [].concat(facebook_post.re, facebook_video.re),
 
-    getLink: function(url, __allowFBThumbnail, meta) {
+    getLink: function(url, __allowFBThumbnail, options, meta) {
 
-        var thumbnail = meta.og && meta.og.image || meta.twitter && meta.twitter.image;
+        var thumbnail = meta.og && meta.og.image 
+                        || meta.twitter && meta.twitter.image
+                        || meta.ld && meta.ld.image && meta.ld.image.contenturl;
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
-            && (!/\/s?p?200x200\//i.test(thumbnail) || (meta.og && meta.og.video) )) { // skip profile pictures for posts
+            // && trye skip profile pictures for posts
+            && (options.getRequestOptions('facebook.thumbnail') === 'any' // Explicitely allowed for an account.
+                || meta.og && meta.og.video  // videos
+                || meta.ld && meta.ld.image  // images
+                || /\.png\?/.test(thumbnail) // profile pictures are jpegs
+                || /safe_image\.php\?/.test(thumbnail) // URL cards
+                )) {
 
             return {
                 href: thumbnail,
