@@ -20,9 +20,9 @@ export default {
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
             // && trye skip profile pictures for posts
-            && (options.getRequestOptions('facebook.thumbnail') === 'any' // Explicitely allowed for an account.
+            && (options.getRequestOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
                 || meta.og && meta.og.video  // videos
-                || meta.ld && meta.ld.image  // images
+                || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.image  // images
                 || /\.png\?/.test(thumbnail) // profile pictures are jpegs
                 || /safe_image\.php\?/.test(thumbnail) // URL cards
                 )) {
