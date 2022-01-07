@@ -7,7 +7,7 @@ export default {
         if (!options.getProviderOptions('disableDocViewers', false)
             && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)
             && (!__nonHtmlContentData.content_length || __nonHtmlContentData.content_length < 10 * 1024 * 1024)
-            &&  !__nonHtmlContentData['set-cookie']) {
+            ) {
 
             var result = {
                 href: "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(url),
@@ -25,11 +25,13 @@ export default {
 
             return result;
         } 
-        // checked if viewer could not be used
+        
+        // `__nonHtmlContentData['set-cookie']` message used to be 'File server sets cookie and is not supported'
+        // But it doesn't seem to be relevant any longer as of Jan 7, 2022
         if (/application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type) 
-            && (__nonHtmlContentData.content_length > 10 * 1024 * 1024 || __nonHtmlContentData['set-cookie'])) {
+            && __nonHtmlContentData.content_length > 10 * 1024 * 1024) {
             return {
-                message: __nonHtmlContentData.content_length > 10 * 1024 * 1024 ? 'Office file is bigger than 10Mb and is not supported' : 'File server sets cookie and is not supported'
+                message: 'Office file is bigger than 10Mb and is not supported'
             }
         }
 
