@@ -23,6 +23,7 @@ export default {
             && (options.getRequestOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
                 || meta.og && meta.og.video  // videos
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.image  // images
+                || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.sharedcontent
                 || /\.png\?/.test(thumbnail) // profile pictures are jpegs
                 || /safe_image\.php\?/.test(thumbnail) // URL cards
                 )) {
