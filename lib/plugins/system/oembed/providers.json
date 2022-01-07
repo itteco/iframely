@@ -815,5 +815,12 @@
             "compass.pressekompass.net/*" 
         ],
         "endpoint": "https://api.opinary.com/oembed"
+    },
+    {
+        "name": "GRID",
+        "templates": [
+            "grid.is/.+/.+" 
+        ],
+        "endpoint": "https://grid.is/api/oembed"
     }
 ]
