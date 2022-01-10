@@ -41,7 +41,9 @@ export default {
 
     getMeta: function(__promoUri, promo) {
         return {
-            promo: promo.meta.canonical || (typeof __promoUri !== "string" ? __promoUri.url : __promoUri)
+            promo: typeof __promoUri !== "string" ? __promoUri.url : __promoUri,
+            provider: promo.meta && (promo.meta.provider || promo.meta.site),
+            provider_url: promo.meta && promo.meta.provider_url // if any;
         };
     },
 
