@@ -14,7 +14,7 @@ export default {
 
         return cb({
             responseStatusCode: 417,
-            message: 'This domain is ignored either on owner\'s request or by Iframely admins.'
+            message: 'This URL is not allowed on owner\'s request or by Iframely admins.'
         });
     }
 
