@@ -13,7 +13,7 @@ export default {
 
         if (Object.keys(meta).some(
             key => appname && key.indexOf(appname) === 0
-                || key.indexOf('iframely' === 0))) {
+                || key.indexOf('iframely') === 0)) {
             return;
         }
 
