@@ -13,7 +13,8 @@ export default {
             100: 404,  // https://developers.facebook.com/docs/graph-api/reference/oembed-video/
             901: 417,  // ./oembed-post/, ./oembed-page/
 
-            104: 415,            
+            104: 415, 
+            400: 403,  // Private Media            
             368: 451   // Temporary blocked
         }
 
@@ -45,8 +46,8 @@ export default {
         } else if (isVideo && error === 404) {
             result.message = "This video cannot be embedded."; 
             // And fallback to generic
-        } else if (fbError.message && error !== 404) {
-            result.message = fbError.message;
+        } else if ((fbError.error_user_msg || fbError.message) && error !== 404) {
+            result.message = fbError.error_user_msg || fbError.message;
         }
 
         log('Facebook oembed api - error getting oembed for', url, JSON.stringify(fbError), JSON.stringify(result));
