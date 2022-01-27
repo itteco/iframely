@@ -1,21 +1,8 @@
-import utils from '../links/utils.js';
-
 export default {
 
     lowestPriority: true,
 
-    getMeta: function(meta, url, options, whitelistRecord) {
-
-        const appname = options.getProviderOptions('app.name');
-        if (appname) {
-            appname = appname.toLowerCase();
-        }
-
-        if (Object.keys(meta).some(
-            key => appname && key.indexOf(appname) === 0
-                || key.indexOf('iframely') === 0)) {
-            return;
-        }
+    getMeta: function(meta, url, whitelistRecord) {
 
         if (meta.og && /video|movie/i.test(meta.og.type)
             || meta.video_src || meta.video_type
