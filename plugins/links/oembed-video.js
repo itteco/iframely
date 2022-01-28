@@ -42,8 +42,7 @@ export default {
             player.type = CONFIG.T.text_html;
         }
 
-
-        if (whitelistRecord.isAllowed('oembed.video', 'responsive')) {
+        if (whitelistRecord.isAllowed('oembed.video', 'responsive') && oembed.width && oembed.height) {
             player['aspect-ratio'] = oembed.width / oembed.height;
         } else {
             player.width = oembed.width;
