@@ -6,29 +6,14 @@ export default {
 
     // It's the same as in whitelist.
     // Plugin remains in place for media=player and also for the test URLs
-    getLink: function(schemaVideoObject, meta, options) {
+    getLink: function(schemaVideoObject) {
 
-        const disable_video = options.getRequestOptions('nbc.disable_video', false);
-        const opts = {
-            disable_video: disable_video
+        return {
+            href: schemaVideoObject.embedURL || schemaVideoObject.embedurl,
+            rel: [CONFIG.R.player, CONFIG.R.html5],
+            accept: CONFIG.T.text_html,
+            "aspect-ratio": 560/315
         };
-
-        if (!disable_video) {
-            return {
-                href: schemaVideoObject.embedURL || schemaVideoObject.embedurl,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                accept: CONFIG.T.text_html,
-                "aspect-ratio": 560/315,
-                options: opts
-            }
-        } else if (meta.og && meta.og.image && meta.og.image.url){
-            return {
-                href: meta.og.image.url,
-                rel: [CONFIG.R.thumnbnail],
-                type: CONFIG.T.image, 
-                options: opts
-            }
-        }
     },
 
     tests: [
