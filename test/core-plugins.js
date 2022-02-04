@@ -1,10 +1,9 @@
-import { assert as assert } from 'chai'
+import { assert } from 'chai';
 
-import config from '../config';
-global.CONFIG = config;
+import CONFIG from '../config.loader.js';
 
-import { getPluginData as iframely } from '../lib/core';
-import { findWhitelistRecordFor as findWhitelistRecordFor } from '../lib/whitelist';
+import { getPluginData as iframely } from '../lib/core.js';
+import { findWhitelistRecordFor as findWhitelistRecordFor } from '../lib/whitelist.js';
 import * as utils from '../lib/utils.js';
 
 function assertOembed(oembed) {
@@ -107,7 +106,7 @@ describe('Core plugins', function() {
                 assert.equal(data.width, 400);
                 assert.equal(data.height, 211);
                 assert.equal(data.content_length, 33572);
-                assert.equal(data.format, "jpeg");
+                assert.equal(data.format, "jpg");
                 done();
             });
         });
