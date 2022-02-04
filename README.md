@@ -8,6 +8,10 @@ This package includes specific domain parsers for most popular publishers. YouTu
 
 Iframely's [whitelist file](https://iframely.com/qa/whitelist.json) is fetched from our central database. The changes are synced automatically to your instance by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
 
+## Breaking changes in version 2.0.0
+
+The minimum version of the Node required for Iframely starting from version 2.0.0 is Node 12. Please see [migration steps](https://github.com/itteco/iframely/issues/350) from earlier versions.
+
 ## API endpoints
 
 To make use of the data, you need to connect to APIs over HTTP. There are two endpoints available. One in [oEmbed](https://iframely.com/docs/oembed-api) and one in [Iframely API](https://iframely.com/docs/iframely-api) format. The oEmbed endpoint is just an adapter from Iframely to oEmbed spec. 
@@ -54,5 +58,5 @@ Please submit your PR against `develop` branch. This is where everything gets me
 
 ## License & Authors
 
-MIT License. (c) 2012-2021 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).
+MIT License. (c) 2012-2022 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).
 
