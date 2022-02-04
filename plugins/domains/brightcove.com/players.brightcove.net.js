@@ -1,7 +1,6 @@
-var cheerio = require('cheerio');
-var utils = require('../../../lib/utils');
+import * as utils from '../../../lib/utils.js';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i
@@ -12,15 +11,16 @@ module.exports = {
     mixins: [
         "oembed-title",
         "oembed-site",
-        "oembed-error"
+        "oembed-error",
+        "oembed-iframe"
     ],
 
     //HTML parser will 404 if BC account or player does not exist.
-    getLinks: function(url, oembed, options, cb) {
+    getLinks: function(url, iframe, options, cb) {
 
         var player = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.oembed, CONFIG.R.player, CONFIG.R.html5]
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed]
         };
 
         // autoplay=true comes from `brightcove-in-page-promo` only and follows whitelistRecord
@@ -30,15 +30,8 @@ module.exports = {
             player.autoplay = "autoplay=true";
         }
 
-        var $container = cheerio('<div>');
-        try {
-            $container.html(oembed.html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        if ($iframe.length == 1) {
-            player.href = $iframe.attr('src') + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record            
+        if (iframe.src) {
+            player.href = iframe.src + (/&autoplay=true/.test(url) ? '&autoplay=true' : ''); // autoplay=true in URL comes from brightcove-allow-in-page whitelist record            
         }
 
         if (/&iframe-url=/.test(url)) {
@@ -49,9 +42,9 @@ module.exports = {
             player.accept = CONFIG.T.text_html; // verify that it exists and isn't X-Frame-Optioned            
         }
 
-        if (oembed.thumbnail_url) {
+        if (iframe.placeholder) {
 
-            utils.getImageMetadata(oembed.thumbnail_url, options, function(error, data) {
+            utils.getImageMetadata(iframe.placeholder, options, function(error, data) {
 
                 var links = [];
 
@@ -62,7 +55,7 @@ module.exports = {
                 } else if (data.width && data.height) {
 
                     links.push({
-                        href: oembed.thumbnail_url,
+                        href: iframe.placeholder,
                         type: CONFIG.T.image, 
                         rel: CONFIG.R.thumbnail,
                         width: data.width,
@@ -70,14 +63,14 @@ module.exports = {
                     });                    
                 }
 
-                player['aspect-ratio'] = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
+                player['aspect-ratio'] = (data.width && data.height) ? data.width / data.height : iframe.width / iframe.height;
                 links.push(player);
 
-                cb(null, links);
+                return cb(null, links);
 
             });
         } else {
-            cb (null, player);
+            return cb (null, player);
         }
 
     },

@@ -1,19 +1,18 @@
-(function() {
+    import * as _ from 'underscore';
+    import * as path from 'path';
+    import * as fs from 'fs';
 
-    // Monkey patch before you require http for the first time.
-    var majorVersion = process.version.match(/v(\d+)\./);
-    majorVersion = parseInt(majorVersion);
-    if (majorVersion < 10) {
-        process.binding('http_parser').HTTPParser = require('http-parser-js').HTTPParser;
-    }
+    import { fileURLToPath } from 'url';
+    import { dirname } from 'path';
 
-    var _ = require('underscore');
-    var path = require('path');
-    var fs = require('fs');
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+    
+    import { readFile } from 'fs/promises';
+    const json = JSON.parse(await readFile(new URL('./package.json', import.meta.url)));
+    var version = json.version;
 
-    var version = require('./package.json').version;
-
-    var config = {
+    const config = {
 
         baseAppUrl: "",
         port: 8061,
@@ -162,7 +161,8 @@
             audio: 'audio',
             slideshow: 'slideshow',
             playlist: 'playlist',
-            '3d': '3d'
+            '3d': '3d',
+            encrypted: 'encrypted-media'
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
@@ -368,7 +368,7 @@
             "iframely"
         ],
 
-        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable)\.\w+\//i,
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable|captivate)\.\w+\//i,
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
@@ -382,7 +382,8 @@
     // Providers config loader.
     var local_config_path = path.resolve(__dirname, "config.providers.js");
     if (fs.existsSync(local_config_path)) {
-        var local = require(local_config_path);
+        var local = await import(local_config_path);
+        local = local && local.default;
         _.extend(config, local);
     }
 
@@ -396,11 +397,13 @@
 
     // Try config by NODE_ENV.
     if (fs.existsSync(env_config_path)) {
-        var local = require(env_config_path);
+        var local = await import(env_config_path);
+        local = local && local.default;
 
     } else if (fs.existsSync(local_config_path)) {
         // Else - try local config.
-        var local = require(local_config_path);
+        var local = await import(local_config_path);
+        local = local && local.default;
     }
 
     _.extend(config, local);
@@ -428,5 +431,4 @@
         config.HTTP2_RETRY_CODES[item] = 1;
     });
 
-    module.exports = config;
-})();
+    export default config;

@@ -1,6 +1,6 @@
-var getProviderOptionsQuery = require('../api/utils').getProviderOptionsQuery;
+import { getProviderOptionsQuery } from '../api/utils.js';
 
-module.exports = function(app) {
+export default function(app) {
 
     app.get('/debug', function(req, res, next) {
 

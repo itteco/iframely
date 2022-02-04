@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?brainyquote\.com\/quotes(?:\/quotes)?\/\w\/?/i

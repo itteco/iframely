@@ -1,6 +1,6 @@
-const sysUtils = require('../../../logging')
+import log from '../../../logging.js'
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(channel)\/([a-zA-Z0-9_-]+)/i,
@@ -90,7 +90,7 @@ module.exports = {
                      * as if no channel found, but it actually exists.
                      * Ex.: https://www.youtube.com/c/Figmadesign
                      */
-                    sysUtils.log('YoutTube channel fallback for ' + url , data);
+                    log('YoutTube channel fallback for ' + url , data);
                     cb({
                         message: 'YouTube channel not found via data API...'
                         // But no response code. Let's fallback to default parsers

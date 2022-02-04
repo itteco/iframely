@@ -1,7 +1,8 @@
-const cheerio = require('cheerio');
-const decodeHTML5 = require('entities').decodeHTML5;
+import cheerio from 'cheerio';
 
-module.exports = {
+import { decodeHTML5 } from 'entities';
+
+export default {
 
     /**
      * HEADS-UP: New endpoints as of Oct 24, 2020:
@@ -128,8 +129,10 @@ module.exports = {
                 html: html,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
-                'max-width': 660,
-                'min-width': 326,
+                // sizing is from Instagram placeholder to avoid double height changes
+                'max-width': 660,                
+                'aspect-ratio': 200/63,
+                'padding-bottom': 200,
                 options: {
                     showcaption: {
                         label: 'Show author\'s text caption',

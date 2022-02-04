@@ -1,6 +1,4 @@
-(function() {
-
-  var config = {
+  export default {
 
     CUSTOM_PLUGINS_PATH: __dirname + '/test/fixtures/custom-plugins',
 
@@ -13,8 +11,5 @@
 
     RESPONSE_TIMEOUT: 1 * 100, //ms
 
-    BLACKLIST_DOMAINS_RE: /blacklisted.*/
+    IGNORE_DOMAINS_RE: /blacklisted.*/
   };
-
-  module.exports = config;
-})();

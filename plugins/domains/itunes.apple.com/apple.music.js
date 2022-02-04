@@ -1,7 +1,7 @@
-const URL = require('url');
-const _ = require('underscore');
+import * as URL from 'url';
+import * as _ from 'underscore';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
@@ -17,7 +17,7 @@ module.exports = {
 
     getMeta: function () {
         return {
-            media: 'player' // avoid promo card on media=reader
+            medium: 'audio' // avoid promo card on media=reader
         }
     },
 

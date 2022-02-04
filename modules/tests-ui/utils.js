@@ -1,20 +1,14 @@
-var _ = require('underscore');
-var FeedParser = require('feedparser');
-var request = require('request');
-var async = require('async');
-var url = require('url');
+import * as _ from 'underscore';
+import FeedParser from 'feedparser';
+import request from 'request';
+import * as async from 'async';
+import * as url from 'url';
+import { PageTestLog, TestUrlsSet, PluginTest } from './models.js';
+import { findWhitelistRecordFor } from '../../lib/whitelist.js';
+import { getPluginData as iframelyGetPluginData } from '../../lib/core.js';
+import * as pluginLoader from '../../lib/loader/pluginLoader.js';
+import * as pluginUtils from '../../lib/loader/utils.js';
 
-var models = require('./models');
-var PageTestLog = models.PageTestLog;
-var TestUrlsSet = models.TestUrlsSet;
-var PluginTest = models.PluginTest;
-
-var findWhitelistRecordFor = require('../../lib/whitelist').findWhitelistRecordFor;
-
-var iframelyGetPluginData = require('../../lib/core').getPluginData;
-
-var pluginLoader = require('../../lib/loader/pluginLoader');
-var pluginUtils = require('../../lib/loader/utils');
 var plugins = pluginLoader._plugins,
     pluginsList = pluginLoader._pluginsList,
     DEFAULT_PARAMS = [].concat(pluginUtils.DEFAULT_PARAMS, pluginUtils.POST_PLUGIN_DEFAULT_PARAMS),
@@ -37,7 +31,7 @@ const COLORS = {
 
 const SLACK_USERNAME = "Testy";
 
-exports.sendQANotification = function(logEntry, data) {
+export function sendQANotification(logEntry, data) {
 
     if (CONFIG.SLACK_WEBHOOK_FOR_QA && CONFIG.SLACK_CHANNEL_FOR_QA) {
 
@@ -93,7 +87,7 @@ exports.sendQANotification = function(logEntry, data) {
 }
 
 function getTestsSummary(cb) {
-    exports.loadPluginTests(function(error, pluginTests) {
+    loadPluginTests(function(error, pluginTests) {
 
         pluginTests.forEach(function(pluginTest) {
 
@@ -129,7 +123,7 @@ function getTestsSummary(cb) {
     });
 }
 
-exports.loadPluginTests = function(cb) {
+export function loadPluginTests(cb) {
 
     var pluginTests;
 
@@ -216,7 +210,7 @@ exports.loadPluginTests = function(cb) {
     });
 }
 
-exports.getPluginUnusedMethods = function(pluginId, debugData) {
+export function getPluginUnusedMethods(pluginId, debugData) {
 
     var usedMethods = getAllUsedMethods(debugData);
     var pluginMethods = findAllPluginMethods(pluginId, plugins);
@@ -228,7 +222,7 @@ exports.getPluginUnusedMethods = function(pluginId, debugData) {
     };
 };
 
-exports.getErrors = function(debugData) {
+export function getErrors(debugData) {
 
     var errors = [];
 
@@ -248,7 +242,7 @@ exports.getErrors = function(debugData) {
 
 var MAX_FEED_URLS = 5;
 
-var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
+export function fetchFeedUrls(feedUrl, options, cb) {
 
     if (typeof options === "function") {
         cb = options;
@@ -266,7 +260,12 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
         cb(error, urls);
     };
 
-    request(feedUrl)
+    request({
+        uri: feedUrl,
+        agentOptions: {
+            rejectUnauthorized: false
+        }
+    })
         .pipe(new FeedParser({addmeta: false}))
         .on('error', function(error) {
             _cb(error);
@@ -300,7 +299,7 @@ var fetchFeedUrls = exports.fetchFeedUrls = function(feedUrl, options, cb) {
         });
 };
 
-exports.fetchUrlsByPageOnFeed = function(pageWithFeed, otpions, cb) {
+export function fetchUrlsByPageOnFeed(pageWithFeed, otpions, cb) {
 
     if (typeof options === "function") {
         cb = options;
@@ -343,7 +342,7 @@ exports.fetchUrlsByPageOnFeed = function(pageWithFeed, otpions, cb) {
     ], cb);
 };
 
-exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
+export function fetchUrlsByPageAndSelector(page, selector, options, cb) {
 
     if (typeof options === "function") {
         cb = options;
@@ -356,14 +355,14 @@ exports.fetchUrlsByPageAndSelector = function(page, selector, options, cb) {
             iframelyGetPluginData(page, 'cheerio', findWhitelistRecordFor, cb);
         },
 
-        function($, cb) {
+        function(cheerio, cb) {
 
-            var $links = $(selector);
+            var $links = cheerio(selector);
 
             var urls = [];
             $links.each(function() {
                 if (urls.length < MAX_FEED_URLS) {
-                    var href = $(this).attr(options.urlAttribute || "href");
+                    var href = cheerio(this).attr(options.urlAttribute || "href");
                     if (href) {
                         var href = url.resolve(page, href);
                         if (urls.indexOf(href) == -1) {

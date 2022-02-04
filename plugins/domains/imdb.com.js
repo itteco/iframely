@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.imdb\.com\/video\/(?:[\w]+\/)?vi(\d+)/i,

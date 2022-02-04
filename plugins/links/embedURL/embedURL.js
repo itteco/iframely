@@ -1,7 +1,7 @@
-const decodeHTML5 = require('entities').decodeHTML5;
-const utils = require('../../../lib/utils');
+import { decodeHTML5 } from 'entities';
+import * as utils from '../../../lib/utils.js';
 
-module.exports = {
+export default {
 
     provides: 'schemaVideoObject',
 
@@ -12,10 +12,10 @@ module.exports = {
 
         if ($script.length === 1) {
             try {
-                var json = utils.parseJSONSource($script.text());
+                var json = utils.parseJSONSource($script.html());
 
                 if (json['@type']) {
-                    ld = {};
+                    var ld = {};
                     ld[json['@type'].toLowerCase()] = json;
 
                     if (__allowEmbedURL !== 'skip_ld') {

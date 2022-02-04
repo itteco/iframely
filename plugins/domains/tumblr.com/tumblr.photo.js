@@ -1,9 +1,12 @@
-var _ = require('underscore');
-var $ = require('cheerio');
+import * as _ from 'underscore';
+import cheerio from 'cheerio';
 
-module.exports = {
 
-    re: require('./tumblr.api').re,    
+import tumblr_api from './tumblr.api.js';
+
+export default {
+
+    re: tumblr_api.re,
 
     getLinks: function(tumblr_post) {
 
@@ -27,7 +30,7 @@ module.exports = {
         tumblr_post.photos.forEach(function(photo) {
 
             var title = photo.caption || tumblr_post.caption;
-            title = $('<div>').html(title).text();
+            title = cheerio('<div>').html(title).text();
             if (title && title.length > 160) {
                 title = title.split(/[.,!?]/)[0];
             }

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/giphy\.com\/(?:gifs|stickers)\/(?:[a-zA-Z0-9_-]+\-)?([a-z0-9\-]+)/i,

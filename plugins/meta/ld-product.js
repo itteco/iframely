@@ -1,6 +1,7 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
 
-module.exports = {
+
+export default {
 
     highestPriority: true,
 

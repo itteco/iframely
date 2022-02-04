@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // direct "share" links to players from DailyMail articles. They end with #v-1467332342001
     re: [        

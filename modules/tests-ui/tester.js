@@ -1,23 +1,21 @@
-global.CONFIG = require('../../config');
+import CONFIG from '../../config.loader.js';
+global.CONFIG = CONFIG;
 
 if (!CONFIG.tests) {
     console.error('Tests not started: CONFIG.tests not configured.');
     process.exit(0);
-    return;
+    // return;
 }
 
 process.title = "iframely-tests";
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-var async = require('async');
-var _ = require('underscore');
-
-var models = require('./models');
-var utils = require('./utils');
-
-var iframely = require('../../lib/core').run;
-var whitelist = require('../../lib/whitelist');
-var pluginLoader = require('../../lib/loader/pluginLoader');
+import * as async from 'async';
+import * as _ from 'underscore';
+import * as models from './models.js';
+import * as utils from './utils.js';
+import { run as iframely } from '../../lib/core.js';
+import * as whitelist from '../../lib/whitelist.js';
+import * as pluginLoader from '../../lib/loader/pluginLoader.js';
 var plugins = pluginLoader._plugins;
 
 var testOnePlugin = false;
@@ -48,11 +46,6 @@ var PluginTest = models.PluginTest;
 var PageTestLog = models.PageTestLog;
 var TestUrlsSet = models.TestUrlsSet;
 var TestingProgress = models.TestingProgress;
-
-if (!PluginTest) {
-    process.exit(0);
-    return;
-}
 
 function log() {
     if (CONFIG.DEBUG) {

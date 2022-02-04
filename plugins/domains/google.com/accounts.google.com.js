@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /https?:\/\/accounts\.google\.com\/ServiceLogin/i,

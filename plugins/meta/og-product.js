@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // https://developers.pinterest.com/docs/rich-pins/products/?
     getMeta: function(og, meta) {

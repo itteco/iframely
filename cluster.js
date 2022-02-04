@@ -1,5 +1,5 @@
-var GracefulCluster = require('graceful-cluster').GracefulCluster;
-var sysUtils = require('./utils');
+import { GracefulCluster } from 'graceful-cluster';
+import * as sysUtils from './utils.js';
 
 process.title = 'iframely-cluster';
 
@@ -10,6 +10,6 @@ GracefulCluster.start({
     restartOnTimeout: CONFIG.CLUSTER_WORKER_RESTART_ON_PERIOD,
     restartOnMemory: CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED,
     serverFunction: function() {
-        require('./server');
+        import('./server');
     }
 });

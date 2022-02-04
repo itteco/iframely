@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www)?\.?documentcloud\.org\/documents?\/\d+/i,
 
@@ -45,6 +45,7 @@ module.exports = {
                     }
 
                     link.href = href;
+                    link['padding-bottom'] = 80;
 
                     link.options = {
                         page: {

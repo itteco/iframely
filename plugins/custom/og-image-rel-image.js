@@ -1,4 +1,4 @@
-var _ = require("underscore");
+import * as _ from "underscore";
 
 var rel = [CONFIG.R.image, CONFIG.R.og];
 
@@ -18,7 +18,7 @@ function getImageLinks(image) {
     }];
 }
 
-module.exports = {
+export default {
 
     getLinks: function(og) {
 

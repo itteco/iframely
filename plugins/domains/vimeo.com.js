@@ -1,9 +1,11 @@
-const querystring = require('querystring');
-const _ = require('underscore');
+import * as querystring from 'querystring';
 
-module.exports = {
+export default {
 
-    re: /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+    re: [
+        /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+        /^https?:\/\/player\.vimeo\.com\/video\/(\d+)/i
+    ],
 
     mixins: [
         "oembed-title",
@@ -22,8 +24,8 @@ module.exports = {
         };
     },
 
-
     getLink: function(oembed, options) {
+        var iframe = oembed.getIframe();
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
 
@@ -41,14 +43,11 @@ module.exports = {
             texttrack = '';
         }
 
-        var qs = querystring.stringify(params);
-        if (qs !== '') {qs = '?' + qs}
-
         var links = [];
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
             links.push({
-                href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
+                href: iframe.replaceQuerystring(params),
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.html5],
                 "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
@@ -65,9 +64,9 @@ module.exports = {
 
         // Let's try and add bigger image if needed, but check that it's value.
         // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
-        if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}\.jpg$/.test(oembed.thumbnail_url)) {
+        if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
             links.push({
-                href:oembed.thumbnail_url.replace(/_\d+x\d+\.jpg$/, '.jpg'),
+                href:oembed.thumbnail_url.replace(/_\d+x\d+((?:\.jpg)?)$/, '$1'),
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
             });

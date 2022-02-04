@@ -1,22 +1,14 @@
-(function() {
-
-    if (!CONFIG.tests) {
-        module.exports = function(){};
-        return;
-    }
-
-    var async = require('async');
-    var moment = require('moment');
-    var _ = require('underscore');
-    var exec = require('child_process').exec;
-
-    var models = require('./models');
-    var utils = require('./utils');
+    import * as async from 'async';
+    import moment from 'moment';
+    import * as _ from 'underscore';
+    import { exec as exec } from 'child_process';
+    import * as models from './models.js';
+    import * as utils from './utils.js';
 
     var PluginTest = models.PluginTest;
     var TestingProgress = models.TestingProgress;
 
-    module.exports = function(app){
+    export default function(app){
 
         app.get('/tests/run/:plugin', function(req, res, next) {
 
@@ -159,4 +151,3 @@
             });
         });
     }
-})();

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.nytimes\.com\/video\/[a-zA-Z0-9\-]+\/(\d+)\//,

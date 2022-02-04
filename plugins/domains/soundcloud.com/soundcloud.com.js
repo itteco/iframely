@@ -1,16 +1,13 @@
-const $ = require('cheerio');
-const querystring = require('querystring');
-const URL = require("url");
+export default {
 
-module.exports = {
-
-    provides: ['__allow_soundcloud_meta', 'sound', 'iframe'],
+    provides: ['__allow_soundcloud_meta', 'sound'],
 
     mixins: [
         "oembed-title",
         "oembed-site",
         "oembed-author",
         "oembed-description",
+        "oembed-iframe",
         // do not link to meta as it disables support for direct player urls redirects from w.soundcloud.com
         "domain-icon"
     ],
@@ -21,8 +18,7 @@ module.exports = {
 
         if (iframe.src && sound.count !== 0) {
 
-            var href = iframe.src;
-            var params = URL.parse(href, true).query;
+            var params = Object.assign(iframe.query);
 
             if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
                 params.visual = false;
@@ -37,7 +33,7 @@ module.exports = {
                 params.color = options.getProviderOptions('soundcloud.color');
             }
 
-            href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
+            var href = iframe.assignQuerystring(params);
             var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 0 : (/visual=false/.test(href) ? 166 : iframe.height));
             // Fallback to old values.
             if (height === 'auto') {
@@ -118,8 +114,7 @@ module.exports = {
             ) || !oembed.description)
         ) {
             return {
-                __allow_soundcloud_meta: true,
-                iframe: oembed.getIframe()
+                __allow_soundcloud_meta: true
             }
             
         } else {
@@ -132,8 +127,7 @@ module.exports = {
                         width: oembed.thumbnail_width,
                         height: oembed.thumbnail_height
                     }
-                },
-                iframe: oembed.getIframe()
+                }
             }
         }
     },

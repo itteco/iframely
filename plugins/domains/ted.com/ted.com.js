@@ -1,6 +1,6 @@
-const URL = require('url');
+import * as URL from 'url';
 
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:www\.)?ted\.com\/talks\//i,
 
@@ -136,13 +136,14 @@ module.exports = {
                 && !meta.alternate.some(
                     (link) => /^(application|text)\/(xml|json)\+oembed$/i.test(link.type)
                 )) {
-                data.__isYouTube = true;
+                data.__isYouTube = 'maybe';
             }            
         } else if (Object.keys(availableLanguages).length === 0) {
             // For Pop Francis, the oEmbed request will fail without &language=es.
             // And there' no way to detect &es language/
             // So let's fallback to microformats (luckily, they have one on the page).
             data.__allowEmbedURL = true;
+            data.__isYouTube = 'maybe';
         }
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
@@ -156,9 +157,6 @@ module.exports = {
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
         "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration",
         "https://www.ted.com/talks/lera_boroditsky_how_language_shapes_the_way_we_think",
-
-        // Not translated to English:
-        "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau",
 
         // Should work, but let's skip from tests not to avoid all oembed-* mixins
         // "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [        
         /https?:\/\/(?:www\.)?vbox7\.com\/play:(\w+)/i

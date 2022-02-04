@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/www\.youtube\.com\/shared\/?\?ci=([a-zA-Z0-9_-]+)/i,
 

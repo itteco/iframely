@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     // also used for hosted simplecasts
     re: [

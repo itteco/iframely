@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https:\/\/prezi\.com\/([a-z0-9\-_]+)\/[^\/]+\/(?:\?[^\/\?]+)?$/i,
 

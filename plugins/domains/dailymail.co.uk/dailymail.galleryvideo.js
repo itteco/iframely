@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [        
         /^https?:\/\/www\.dailymail\.co\.uk\/video\/\w+\/video\-(\d+)\//i

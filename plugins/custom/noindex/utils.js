@@ -1,8 +1,8 @@
-exports.notPlugin = true;
+export const notPlugin = true;
 
 var NO_INDEX_TAGS = ['noindex'];
 
-exports.checkRobots = function(noindexHeader, cb) {
+export function checkRobots(noindexHeader, cb) {
     if (noindexHeader) {
         var i;
         for(i = 0; i < NO_INDEX_TAGS.length; i++) {

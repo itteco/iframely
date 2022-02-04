@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:tube|www)\.geogebra\.org\/(?:m|classic|graphing)\/(?:[a-zA-Z0-9]+)#material\/([a-zA-Z0-9#]+)/i,

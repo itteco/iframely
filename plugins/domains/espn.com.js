@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?espn\.com?(?:\.\w{2})?\/video\/clip\?id=espn:(\d+)/i,

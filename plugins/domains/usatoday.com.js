@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.([a-z\-]+)\.com\/media\/cinematic\/video\/(\d{7,12})\/[a-zA-Z0-9\-\_:\.]+\/?(?:[^\/]+)?$/i,
@@ -40,7 +40,7 @@ module.exports = {
 
     tests: [
         "https://www.usatoday.com/videos/life/movies/academy-awards/2019/02/25/diversity-red-carpet-academy-awards/2980115002/",
-        "https://www.guampdn.com/videos/news/local/2019/03/24/crab-festival-activities/3260939002/",
+        // "https://www.guampdn.com/videos/news/local/2019/03/24/crab-festival-activities/3260939002/",
         "https://www.usatoday.com/videos/tech/2019/03/26/drones-flying-blood-north-carolina-hospital/3282276002/",
         "https://www.usatoday.com/videos/life/movies/2017/11/06/some-theaters-may-not-show-last-jedi-due-disneys-demands/107396942/?utm_source=feedblitz&utm_medium=FeedBlitzRss&utm_campaign=usatodaycommoney-topstories",
         "http://www.usatoday.com/media/cinematic/video/87694100/abdul-jabbar-mocks-trump-says-im-jordan/",
@@ -53,7 +53,7 @@ module.exports = {
         "http://www.usatoday.com/videos/sports/2016/12/20/behind-scenes:-michael-phelps-cover-shoot/95645660/",
         "http://www.usatoday.com/videos/news/2017/01/07/what-know-ft.-lauderdale-airport-shooter/96291014/",
         "https://www.cincinnati.com/videos/sports/high-school/high-school-sports/2020/08/19/watch-enquirer-writers-break-down-ohio-high-school-girls-soccer-scene-2020/5607979002/",
-        "http://www.guampdn.com/videos/news/nation/2015/08/18/31948487/",
+        // "http://www.guampdn.com/videos/news/nation/2015/08/18/31948487/",
         "http://www.courier-journal.com/videos/sports/college/kentucky/2015/08/17/31862551/",
         "http://www.newarkadvocate.com/videos/sports/high-school/football/2015/08/15/31789999/",
         "http://www.citizen-times.com/videos/news/2015/08/17/31865067/",

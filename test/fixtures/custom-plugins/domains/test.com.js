@@ -1,6 +1,4 @@
-var utils = require('../../../../utils');
-
-module.exports = {
+export default {
 
     re: /testok/i,
 

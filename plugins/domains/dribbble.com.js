@@ -1,6 +1,6 @@
 const PROFILE_RE = /^https?:\/\/dribbble\.com\/([a-zA-Z0-9\-]+)(?:\?[^\/]+)?$/i;
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/dribbble\.com\/shots\/([a-zA-Z0-9\-]+)/i,
@@ -20,7 +20,7 @@ module.exports = {
 
         if (PROFILE_RE.test(url) || og.video || twitter.player || isGif) {
             // Wrap players into a promo card
-            meta.media = 'reader';
+            meta.medium = 'article';
         }
 
         return meta;

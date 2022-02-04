@@ -1,8 +1,10 @@
 /* Tumblr embed codes are broken as of Feb 13, 2020 */
 
-module.exports = {
+import tumblr_api from './tumblr.api.js';
 
-    re: require('./tumblr.api').re,
+export default {
+
+    re: tumblr_api.re,
 
     getLink: function(tumblr_post, oembed, options) {
 
