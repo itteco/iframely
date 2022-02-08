@@ -154,7 +154,7 @@ The Docker container will:
 
 Ignore any build warnings from NPM on OSX (Darwin).
 
-A longer documentation with docker build instructions (tags/forked repo) for upload to docker hub is available here: [DOCKER-BUILD-INSTRUCTION.md](DOCKER-BUILD-INSTRUCTION.md).
+A longer documentation with docker build instructions (tags/forked repo) for upload to docker hub is available here: [DOCKER-BUILD-INSTRUCTION.md](https://github.com/itteco/iframely/blob/master/docs/DOCKER-BUILD-INSTRUCTION.md).
 
 ## Ansible + Vagrant
 
