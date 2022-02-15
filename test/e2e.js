@@ -1,8 +1,9 @@
 'use strict';
-import * as request from 'supertest';
-import * as ServerMock from 'mock-http-server';
-import * as chai from 'chai';
-import * as async from 'async';
+import request from 'supertest';
+import ServerMock from 'mock-http-server';
+import chai from 'chai';
+import async from 'async';
+import app from '../app.js';
 
 describe('meta endpoint', function() {
 
@@ -15,7 +16,6 @@ describe('meta endpoint', function() {
   var server;
 
   beforeEach(function(done) {
-import * as app from '../app.js';
     server = app.listen(process.env.PORT, function() {
       targetMockedServer.start(done);
     });
@@ -198,7 +198,7 @@ import * as app from '../app.js';
               code: 417,
               message: 'Requested page error: 417',
               messages: [
-                "This domain is flagged as inappropriate."
+                "This URL is not allowed on owner's request or by Iframely admins."
               ]
             }
           });
@@ -216,7 +216,7 @@ import * as app from '../app.js';
       }
     });
 
-    var url = 'http://127.0.0.1:9000/test403';
+    var url = TARGET_MOCKED_SERVER_BASEURL+'/test403';
     var endpoint = '/iframely?url=' + url;
 
     function runExpectations(res) {
