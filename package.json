@@ -62,7 +62,7 @@
         "test": "npm run test-core-plugins && npm run test-e2e",
         "test-core-plugins": "mocha --exit test/core-plugins.js",
         "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js",
-        "template": "AWS_API_STAGE=prod node bin/template.js",
+        "template": "AWS_API_STAGE=prod node bin/template.cjs",
         "package": "aws cloudformation package --template ./cloudformation.yaml --s3-bucket $AWS_S3_BUCKET --s3-prefix iframely --output-template packaged-sam.yaml --region us-east-1",
         "upload": "aws cloudformation deploy --template-file packaged-sam.yaml --stack-name $AWS_FN_NAME --capabilities CAPABILITY_IAM --region us-east-1",
         "delete-stack": "aws cloudformation delete-stack --stack-name $AWS_FN_NAME --region us-east-1",

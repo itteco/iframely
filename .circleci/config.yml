@@ -30,7 +30,7 @@ commands:
     steps:
       - run:
           name: Test 🛠
-          command: yarn test
+          command: yarn test-core-plugins
   deploy:
     steps:
       - run:
@@ -40,7 +40,7 @@ commands:
 jobs:
   deploy:
     docker:
-      - image: circleci/node:10
+      - image: circleci/node:14
     steps:
       - build
       - test
