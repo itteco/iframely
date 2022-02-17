@@ -822,5 +822,12 @@
             "grid.is/.+/.+" 
         ],
         "endpoint": "https://grid.is/api/oembed"
+    },
+    {
+        "name": "Anchor FM",
+        "templates": [
+            "anchor.fm/[a-zA-Z0-9\\-]+/episodes/[^\\/]+\\-([a-zA-Z0-9]+)(?:$|\\?)" 
+        ],
+        "endpoint": "https://anchor.fm/api/v3/episodes/{1}/oembed?format={format}"
     }
 ]
