@@ -180,24 +180,29 @@ export default {
         }
      }],
 
-    /* Configure use of HTTP proxies as needed. 
+    /* Configure use of HTTP proxies, headders as needed. 
        You don't have to specify all options per regex - just what you need to override
     */
     /*
     PROXY: [{
         re: [/^https?:\/\/www\.domain\.com/],
-        proxy_server: 'http://1.2.3.4:8080',
+
+        // Either `proxy`, or `proxy_url`, or none.
+        proxy: true,  // Will fetch URL via echo service configured as PROXY_URL. See below.
+        // proxy_url: 'http://1.2.3.4:8080?url={url}', // Will fetch URL via this exact echo service, see below.
+
         user_agent: 'CHANGE YOUR AGENT',
         headers: {
             // HTTP headers
             // Overrides previous params if overlapped.
         },
-        request_options: {
-            // Refer to: https://github.com/request/request
-            // Overrides previous params if overlapped.
-        },
         cache_ttl: 3600  // in seconds, cache response for 1 hour.
     }],
+
+    // Proxy now requires an echo service endpoint. 
+    // See #354 and example code at 
+    // https://gist.github.com/nleush/7916ee89f7b8d6f0cd478d7335702139
+    PROXY_URL: 'http://1.2.3.4:8080?url={url}',  // Iframely will add `?url=...` to this endpoint
     */
 
     // Customize API calls to 3rd parties. At the very least - configure required keys.
