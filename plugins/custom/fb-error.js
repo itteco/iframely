@@ -21,7 +21,7 @@ export default {
         let result = {}; // When left empty - it allows a  fallback to generic parsers and get the accurate http code.
         const fbError = oembedError.body && oembedError.body.error || {};
 
-        const error = fbError.code 
+        var error = fbError.code 
                     && KNOWN_CODES[fbError.code] /* is defined */
                     ? KNOWN_CODES[fbError.code]
                     : null;
