@@ -1,0 +1,10 @@
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: iframely 
+    restart: always
+    ports:
+      - "8061:8061"
