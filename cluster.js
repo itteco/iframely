@@ -10,6 +10,6 @@ GracefulCluster.start({
     restartOnTimeout: CONFIG.CLUSTER_WORKER_RESTART_ON_PERIOD,
     restartOnMemory: CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED,
     serverFunction: function() {
-        import('./server');
+        import('./server.js');
     }
 });
