@@ -619,7 +619,8 @@
         "name": "Podbean",
         "templates": [
             "(?:www\\.)?podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
-            "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
+            "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)",
+            "(?:www\\.)?podbean.com/media/share/(dir\\-[a-zA-Z0-9\\-]+)"
         ],
         "endpoint": "https://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
     }, {
