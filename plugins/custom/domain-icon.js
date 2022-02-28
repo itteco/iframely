@@ -59,7 +59,7 @@ export default {
 
                         cb(null, {
                             domain_icons: [{
-                                href: `${domainUri}/favicon.ico`,
+                                href: CONFIG.FALLBACK_ICONS && CONFIG.FALLBACK_ICONS[domain] || `${domainUri}/favicon.ico`,
                                 type: CONFIG.T.image,
                                 rel: [CONFIG.R.icon, CONFIG.R.iframely] // It will be validated as image.
                             }]
