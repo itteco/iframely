@@ -20,7 +20,7 @@ export default {
             if (!/\/(?:videos?|media|player|embed)\//i.test(url) && !/https?:\/\/videos?\./i.test(url)
                 && (/article|blog|news|post|noticia/i.test(url) 
                     || (/\/(\d{4})\/(\d{2})\/(\d{2})/).test(url) 
-                    || /article|post/i.test(meta.og.type) && !media.ld
+                    || /article|post/i.test(meta.og.type) && !meta.ld
                     || (
                         meta.og.video 
                         && whitelistRecord.isDefault 
