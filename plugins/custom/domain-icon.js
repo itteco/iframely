@@ -55,7 +55,7 @@ export default {
                     });
 
                     cb(null, {
-                        domain_icons: data
+                        domain_icons: data.length > 0 ? data : FALLBACK_ICONS
                     });
 
                 } else {
@@ -86,12 +86,12 @@ export default {
                             });
                         } else {
                             log('[domain-icons] no icons for', domainUri);
-                            icons = FALLBACK_ICONS;
+                            icons = [];
                         }
                         
                         if (options.forceSyncCheck) {
                             // skip domain icon on cache miss 
-                            cb(null, {domain_icons: icons}); 
+                            cb(null, {domain_icons: icons && icons.length > 0 ? icons : FALLBACK_ICONS}); 
                         }
 
                         cache.set(key, icons, {ttl: icons.length > 0 ? CONFIG.IMAGE_META_CACHE_TTL : CONFIG.CACHE_TTL_PAGE_TIMEOUT});
