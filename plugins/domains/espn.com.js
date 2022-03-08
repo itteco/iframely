@@ -4,7 +4,8 @@ export default {
         /^https?:\/\/(?:www\.)?espn\.com?(?:\.\w{2})?\/video\/clip\?id=espn:(\d+)/i,
         /^https?:\/\/(?:www\.)?espn\.com?(?:\.\w{2})?\/video\/clip\?id=(\d+)/i,
         /^https?:\/\/(?:www\.)?secsports\.com\/video\/(\d+)/i,
-        /^https?:\/\/(?:www\.)?espn\.com?(?:\.\w{2})?\/(?:videohub\/)?video\/clip\/_\/id\/(\d+)/i
+        /^https?:\/\/(?:www\.)?espn\.com?(?:\.\w{2})?\/(?:videohub\/)?video\/clip\/_\/id\/(\d+)/i,
+        /^https?:\/\/(?:www\.)?espn\.com\/watch\/player\/[^\/]+\/id\/(\d+)/i
     ],
 
     mixins: ["*"],
@@ -26,6 +27,8 @@ export default {
         "http://www.espn.com/video/clip/_/id/18883925",
         "https://www.espn.com.ar/video/clip/_/id/7969505",
         "https://www.espn.com/video/clip?id=30616148",
-        "http://www.espn.com/videohub/video/clip/_/id/18883925/categoryid/2378529"
+        "http://www.espn.com/videohub/video/clip/_/id/18883925/categoryid/2378529",
+        "https://www.espn.com/watch/player/_/id/33449144",
+        "https://www.espn.com/watch/player/_/id/27394219/country/us/redirected/true#bucketId=1"
     ]
 };
