@@ -3,7 +3,7 @@ import * as entities from 'entities';
 
 export default {
 
-    re: /^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i,
+    re: [/^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i],
 
     provides: ['twitter_oembed', 'twitter_og', '__allowTwitterOg'],
 
@@ -70,7 +70,7 @@ export default {
                     options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
                     options.exposeStatusCode = true;
                 } else {
-                    result.twitter_og = false;
+                    result.twitter_og = {};
                 }
 
                 return cb(error, result);
@@ -111,9 +111,10 @@ export default {
 
         // Handle tweet options
         var has_thread = /\s?data-conversation=\"none\"/.test(html);
-        var has_media = ((twitter_og !== undefined) && (twitter_og.video !== undefined)) 
-                        || /https:\/\/t\.co\//i.test(html) || /pic\.twitter\.com\//i.test(html) 
-                        || ((twitter_og.image !== undefined) && (twitter_og.image.user_generated !== undefined || !/\/profile_images\//i.test(twitter_og.image)));
+        var has_media = !!twitter_og.video
+                        || /https:\/\/t\.co\//i.test(html) 
+                        || /pic\.twitter\.com\//i.test(html) 
+                        || twitter_og.image && (!!twitter_og.image.user_generated || !/\/profile_images\//i.test(twitter_og.image));
 
         if (has_thread && (!options.getRequestOptions('twitter.hide_thread', true) || options.getProviderOptions(CONFIG.O.more, false) )) {
             html = html.replace(/\s?data-conversation=\"none\"/i, '');
@@ -139,6 +140,7 @@ export default {
                 value: /\s?data-conversation=\"none\"/.test(html)
             }
         }
+
         if (has_media) {
             opts.hide_media = {
                 label: 'Hide photos, videos, and cards',
@@ -190,14 +192,13 @@ export default {
 
         links.push(app);
 
-        if (twitter_og && twitter_og.image && 
-            !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image)) {
-            // skip profile pictures
+        if (twitter_og.image) {
+            const isProfilePic = !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image);
 
             var thumbnail = {
                 href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
                 type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail
+                rel: isProfilePic ? [CONFIG.R.thumbnail, CONFIG.R.profile] : CONFIG.R.thumbnail
             };
 
             if (twitter_og.video && twitter_og.video.width && twitter_og.video.height) {
@@ -212,7 +213,6 @@ export default {
     },
 
     tests: [
-
         "https://twitter.com/Tackk/status/610432299486814208/video/1",
         "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"  // og-image
     ]

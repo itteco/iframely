@@ -13,10 +13,12 @@ export default {
         'oembed-site'
     ],
 
-    getMeta: function(meta, urlMatch) {
+    provides: ['__allowTwitterOg'],
+
+    getMeta: function(twitter_og, urlMatch) {
         return {
-            title: meta['html-title'] || urlMatch[1],
-            description: meta.description
+            title: twitter_og.title || urlMatch[1],
+            description: twitter_og.description
         }
     },
 
