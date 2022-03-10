@@ -60,3 +60,8 @@ Please submit your PR against `develop` branch. This is where everything gets me
 
 MIT License. (c) 2012-2022 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).
 
+## Important Links
+
+- [Pipeline](https://app.circleci.com/pipelines/github/blackbaud-services/iframely)
+- [API Gateway](https://us-east-1.console.aws.amazon.com/apigateway/home?region=us-east-1#/apis/tmc9fp38w6/resources)
+- [Lambda](https://us-east-1.console.aws.amazon.com/lambda/home?region=us-east-1#/functions/iframelyProd-iframelyProd-1CNBJQIOZ30IT)
