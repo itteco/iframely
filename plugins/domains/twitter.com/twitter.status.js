@@ -193,7 +193,7 @@ export default {
         links.push(app);
 
         if (twitter_og.image) {
-            const isProfilePic = !/\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image);
+            const isProfilePic = /\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image);
 
             var thumbnail = {
                 href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
