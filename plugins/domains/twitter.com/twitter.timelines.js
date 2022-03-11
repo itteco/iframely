@@ -13,14 +13,16 @@ export default {
         'oembed-site'
     ],
 
-    getMeta: function(meta, urlMatch) {
+    provides: ['__allowTwitterOg'],
+
+    getMeta: function(twitter_og, urlMatch) {
         return {
-            title: meta['html-title'] || urlMatch[1],
-            description: meta.description
+            title: twitter_og.title || urlMatch[1],
+            description: twitter_og.description
         }
     },
 
-    getLink: function(url, oembed, options) {
+    getLink: function(url, oembed, twitter_og, options) {
 
         var html = oembed.html;
 
@@ -80,7 +82,8 @@ export default {
             html = html.replace(/href="/, 'data-theme="dark" href="');
         }
 
-        return {
+
+        var links = [{
             html: html,
             rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
             type: CONFIG.T.text_html,
@@ -110,12 +113,25 @@ export default {
                     placeholder: 'in px. Overrides # of tweets.'
                 }                
             }
+        }];
+
+        if (twitter_og.image) {
+            links.push({
+                href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            });
         }
+
+        return links;
     },
 
     getData: function(options) {
         options.followHTTPRedirect = true; // avoids login re-directs on /likes that blocked oEmbed discovery
         options.exposeStatusCode = true;
+        return {
+            __allowTwitterOg: true
+        }
     },
 
     tests: [
