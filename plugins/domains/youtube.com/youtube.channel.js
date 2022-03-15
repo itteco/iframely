@@ -67,7 +67,7 @@ export default {
                     return cb(error);
                 }
 
-                if (data.items && data.items.length > 0) {
+                if (data && data.items && data.items.length > 0) {
 
                     var entry = data.items[0];
 
@@ -83,7 +83,7 @@ export default {
                         youtube_channel_gdata: gdata
                     });
 
-                } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
+                } else if (data && (data.items && data.items.length == 0 || data.error && data.error.code == 404)) {
                     cb({responseStatusCode: 404});
                 } else {
                     /* Can be `data.pageInfo && data.pageInfo.totalResults === 0` 
