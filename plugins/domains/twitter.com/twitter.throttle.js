@@ -5,7 +5,7 @@ export default {
 
     re: [...timelinePlugin.re, ...statusPlugin.re],
 
-    provides: ["twitter.og"],
+    provides: ["twitter_og"],
 
     getData: function(url, __statusCode, cb) {
         // if (__statusCode === 429 || __statusCode === 404 || __statusCode === 403 || __statusCode === 400) {
