@@ -830,5 +830,12 @@
             "anchor.fm/[a-zA-Z0-9\\-]+/episodes/[^\\/]+\\-([a-zA-Z0-9]+)(?:$|\\?)" 
         ],
         "endpoint": "https://anchor.fm/api/v3/episodes/{1}/oembed?format={format}"
+    },
+    {
+        "name": "Videoask",
+        "templates": [
+            "videoask.com/*"             
+        ],
+        "endpoint": "https://www.videoask.com/oembed"
     }
 ]
