@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:\w+\.)?polldaddy\.com\/poll\/([0-9]+)/i,

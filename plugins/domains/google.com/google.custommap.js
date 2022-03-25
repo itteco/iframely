@@ -1,6 +1,6 @@
 // Custom Google Maps
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/d\/(?:edit|embed|viewer)\?(?:[^&]+&)*(mid)=([a-zA-Z0-9\.\-_]+)/i,

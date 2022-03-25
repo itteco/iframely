@@ -1,6 +1,6 @@
-var utils = require('../../lib/utils');
+import * as utils from '../../lib/utils.js';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/archive\.org\/details\/([^\/]+)\/?\??/i

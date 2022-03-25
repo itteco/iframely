@@ -1,7 +1,8 @@
-var cheerio = require('cheerio');
-var entities = require('entities');
+import cheerio from 'cheerio';
 
-module.exports = {
+import * as entities from 'entities';
+
+export default {
 
     getLink: function(oembed, whitelistRecord, url) {
 
@@ -13,25 +14,11 @@ module.exports = {
             rel:[CONFIG.R.oembed, CONFIG.R.player]
         };
 
-
-        // allow encoded entities if they start from $lt;
-        // ex.: http://www.nfb.ca/film/wild_life/
-        var html = oembed.html5 || oembed.html; 
-        if (/^&lt;/i.test(html)) {
-            html = entities.decodeHTML(html);
-        }
-
-        var $container = cheerio('<div>');
-        try {
-            $container.html(html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
+        var iframe = oembed.getIframe();
 
         // if embed code contains <iframe>, return src
-        if ($iframe.length == 1 && $iframe.attr('src')) {
-            player.href = $iframe.attr('src');
+        if (iframe && iframe.src) {
+            player.href = iframe.src;
 
             if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
                 player.href = player.href.replace(/^http:\/\//i, '//');
@@ -51,12 +38,11 @@ module.exports = {
             }
 
         } else { 
-            player.html = html; // will render in an iframe
+            player.html = oembed.html; // will render in an iframe
             player.type = CONFIG.T.text_html;
         }
 
-
-        if (whitelistRecord.isAllowed('oembed.video', 'responsive')) {
+        if (whitelistRecord.isAllowed('oembed.video', 'responsive') && oembed.width && oembed.height) {
             player['aspect-ratio'] = oembed.width / oembed.height;
         } else {
             player.width = oembed.width;
@@ -75,22 +61,19 @@ module.exports = {
             player.rel.push(CONFIG.R.html5);
         }
 
-        if ($iframe.length == 1 && $iframe.attr('allow')) {
-            player.rel = player.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
+        if (iframe && iframe.allow) {
+            player.rel = player.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
         }        
 
         return player;
 
     },
 
-    highestPriority: true,
-
     getMeta: function(oembed, whitelistRecord) {
 
-        if (oembed.type === "video" || oembed.type === "audio"
-            || (oembed.type === "rich" && !whitelistRecord.isDefault && whitelistRecord.isAllowed('oembed.rich') && whitelistRecord.isAllowed('oembed.rich', "player")) ) {
+        if (!whitelistRecord.isAllowed('oembed.video') && (oembed.type === "video" || oembed.type === "audio")) {
             return {
-                media: "player"
+                medium: oembed.type
             };
         }
     },
@@ -100,7 +83,6 @@ module.exports = {
     /*
     tests: [
         "http://sports.pixnet.net/album/video/183041064", 
-        "http://video.yandex.ua/users/enema-bandit/view/11/?ncrnd=4917#hq"
     ]
     */
 };

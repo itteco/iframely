@@ -1,9 +1,10 @@
-const cheerio = require('cheerio');
-const querystring = require('querystring');
-const _ = require('underscore');
-const sysUtils = require('../../../logging')
+import cheerio from 'cheerio';
 
-module.exports = {
+import * as querystring from 'querystring';
+import * as _ from 'underscore';
+import log from '../../../logging.js'
+
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(?:tv#\/)?watch\/?\?(?:[^&]+&)*v=([a-zA-Z0-9_-]+)/i,
@@ -129,7 +130,7 @@ module.exports = {
                 } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
-                    sysUtils.log('YoutTube fallback for ' + urlMatch[1], data);
+                    log('YoutTube fallback for ' + urlMatch[1], data);
                     cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
                 }
             }
@@ -147,7 +148,6 @@ module.exports = {
             likes: youtube_video_gdata.likeCount,
             dislikes: youtube_video_gdata.dislikeCount,
             views: youtube_video_gdata.viewCount,
-            media: 'player', 
             site: "YouTube",
             canonical: "https://www.youtube.com/watch?v=" + youtube_video_gdata.id,
             author_url: "https://www.youtube.com/" + (youtube_video_gdata.channelId  ? "channel/" + youtube_video_gdata.channelId : "user/" + youtube_video_gdata.uploader)

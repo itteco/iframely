@@ -1,6 +1,7 @@
 {
     "name": "iframely",
-    "version": "1.6.1",
+    "version": "2.0.0",
+    "type": "module",
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": [
         "oembed",
@@ -19,14 +20,16 @@
     },
     "license": "MIT",
     "dependencies": {
+        "@adobe/helix-fetch": "^3.0.0",
         "async": "2.4.1",
         "cheerio": "0.22.0",
         "chokidar": "^3.5.2",
         "ejs": "^3.1.6",
         "entities": "1.1.1",
         "express": "^4.16.3",
+        "globby": "^12.0.2",
         "graceful-cluster": "0.0.3",
-        "htmlparser2": "3.9.2",
+        "htmlparser2": "^7.1.2",
         "http-parser-js": "itteco/http-parser-js#magicode-fix-22",
         "iconv-lite": "0.6.3",
         "iltorb": "^2.4.3",
@@ -47,21 +50,21 @@
         "underscore": "^1.13.1"
     },
     "devDependencies": {
-        "chai": "^3.5.0",
+        "chai": "^4.3.0",
         "feedparser": "2.2.0",
-        "mocha": "^5.2.0",
+        "mocha": "^9.2.0",
         "mock-http-server": "^1.0.0",
-        "mongoose": "^5.12.7",
+        "mongoose": "^5.13.7",
         "supertest": "^4.0.2"
     },
     "iframely-proxy-plugins": true,
-    "main": "./lib/core",
+    "main": "./lib/core.js",
     "scripts": {
         "test": "npm run test-core-plugins && npm run test-e2e",
         "test-core-plugins": "mocha --exit test/core-plugins.js",
         "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
     },
     "engines": {
-        "node": ">=8.0.0"
+        "node": ">=12.0"
     }
 }

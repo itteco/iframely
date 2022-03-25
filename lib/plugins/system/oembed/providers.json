@@ -139,7 +139,8 @@
     {
         "name": "Vimeo",
         "templates": [
-            "(www\\.)?vimeo\\.com/.*"
+            "(www\\.)?vimeo\\.com/.*",
+            "player\\.vimeo\\.com/video/.*"
         ],
         "endpoint": "https://vimeo.com/api/oembed.{format}"
     },
@@ -772,5 +773,54 @@
             "(?:www\\.)?loom.com/(?:i|share)/.*"
         ],
         "endpoint": "https://www.loom.com/v1/oembed"
+    },
+    {
+        "name": "Chromatic Storybook",
+        "templates": [
+            "([a-zA-Z0-9-]+).chromatic.com"
+        ],
+        "endpoint": "https://www.chromatic.com/oembed"
+    },
+    {
+        "name": "Soundslice",
+        "templates": [
+            "soundslice.com/slices/.*"
+        ],
+        "endpoint": "https://www.soundslice.com/oembed/"
+    },
+    {
+        "name": "Ex.Co",
+        "templates": [
+            "app.ex.co/stories/.*"
+        ],
+        "endpoint": "https://oembed.ex.co/item"
+    },
+    {
+        "name": "loxi.io",
+        "templates": [
+            "[^\\.]+\\.loxi\\.io"
+        ],
+        "endpoint": "https://loxi.io/api/saas/v1/oembed"
+    },
+    {
+        "name": "Vectary",
+        "templates": [
+            "app.vectary.com/p/*"
+        ],
+        "endpoint": "https://www.vectary.com/api/vctr-oembed/v1/oembed"
+    },
+    {
+        "name": "Opinary",
+        "templates": [
+            "compass.pressekompass.net/*" 
+        ],
+        "endpoint": "https://api.opinary.com/oembed"
+    },
+    {
+        "name": "GRID",
+        "templates": [
+            "grid.is/.+/.+" 
+        ],
+        "endpoint": "https://grid.is/api/oembed"
     }
 ]

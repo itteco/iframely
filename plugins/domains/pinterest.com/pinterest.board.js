@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
 
@@ -46,7 +46,7 @@ module.exports = {
                         placeholder: 'ex.: 600, in px'
                     }
                 },
-                width: width,
+                'max-width': width, // inline HTML should come only with height now
                 height: height + 120
             };
         }

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/animoto\.com\/play\/\w+/i,
 

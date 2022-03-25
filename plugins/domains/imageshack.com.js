@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     re: /^https?:\/\/imageshack\.com\/i\/\w+/i,
 
     mixins: [

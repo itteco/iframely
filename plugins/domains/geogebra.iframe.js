@@ -1,16 +1,14 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:tube|www)\.geogebra\.org\/material\/\w+\/id\/([a-zA-Z0-9]+)/i,
 
     // It's here mostly just to detect proper embed sizing.
     getLink: function(url, cheerio) {
-        var $el = cheerio('script');
-
         var $script = cheerio('script:contains("var parameters =")');
 
-        if ($script.length === 1 && /({.+});/i.test($script.text())) {
+        if ($script.length === 1 && /({.+});/i.test($script.html())) {
             try {
-                var params = JSON.parse ($script.text().match(/({.+});/i)[1]);
+                var params = JSON.parse ($script.html().match(/({.+});/i)[1]);
 
                 if (params.width && params.height) {
                     return {

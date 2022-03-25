@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /https:\/\/theta360\.com\/(?:spheres|s)(?:\/\w+)?\/[\w-]+/i,
 

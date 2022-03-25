@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/abcnews\.go\.com\/\w+\/(?:\w+\/)?video\/[a-zA-Z0-9\-_]+\-(\d+)/i        

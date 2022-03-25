@@ -1,9 +1,8 @@
 'use strict';
-
-var request = require('supertest');
-var ServerMock = require('mock-http-server');
-var chai = require('chai');
-var async = require('async');
+import * as request from 'supertest';
+import * as ServerMock from 'mock-http-server';
+import * as chai from 'chai';
+import * as async from 'async';
 
 describe('meta endpoint', function() {
 
@@ -16,7 +15,7 @@ describe('meta endpoint', function() {
   var server;
 
   beforeEach(function(done) {
-    var app = require('../app');
+import * as app from '../app.js';
     server = app.listen(process.env.PORT, function() {
       targetMockedServer.start(done);
     });
@@ -177,7 +176,7 @@ describe('meta endpoint', function() {
         });
   });
 
-  it('should handle blacklisted domains', function(done) {
+  it('should handle ignored domains', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test-timeout',

@@ -1,10 +1,10 @@
-var assert = require('chai').assert
+import { assert } from 'chai';
 
-global.CONFIG = require('../config');
+import CONFIG from '../config.loader.js';
 
-var iframely = require('../lib/core').getPluginData;
-var findWhitelistRecordFor = require('../lib/whitelist').findWhitelistRecordFor;
-var utils = require('../lib/utils');
+import { getPluginData as iframely } from '../lib/core.js';
+import { findWhitelistRecordFor as findWhitelistRecordFor } from '../lib/whitelist.js';
+import * as utils from '../lib/utils.js';
 
 function assertOembed(oembed) {
     assert.isObject(oembed);
@@ -106,7 +106,7 @@ describe('Core plugins', function() {
                 assert.equal(data.width, 400);
                 assert.equal(data.height, 211);
                 assert.equal(data.content_length, 33572);
-                assert.equal(data.format, "jpeg");
+                assert.equal(data.format, "jpg");
                 done();
             });
         });

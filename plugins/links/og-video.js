@@ -1,5 +1,5 @@
-var _ = require("underscore");
-var utils = require('./utils');
+import * as _ from "underscore";
+import utils from './utils.js';
 
 function getVideoLinks(video, whitelistRecord) {
     
@@ -48,7 +48,7 @@ function getVideoLinks(video, whitelistRecord) {
     return players;
 }
 
-module.exports = {
+export default {
 
     getLinks: function(og, whitelistRecord) {
 

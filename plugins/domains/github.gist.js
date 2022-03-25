@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/gist\.github\.com\/([\w\.\-]+\/)(\w+)(#([\w\.\-]+))?/i,
 

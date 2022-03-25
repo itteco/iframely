@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/padlet\.com\/[0-9a-zA-Z_\-]+\/([0-9a-zA-Z_\-]+)/i

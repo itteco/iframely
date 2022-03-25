@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     provides: ['__allow_soundcloud_meta', 'iframe'],
 
@@ -16,6 +16,10 @@ module.exports = {
             return cb({
                 responseError: oembedError
             });
+        } else if (oembedError === 404 && !twitter.title) {
+            return cb({
+                responseError: 404
+            });            
         } else {
             return cb(null, null); // fallback to generic parsers.
         }

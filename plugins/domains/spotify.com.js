@@ -1,15 +1,14 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:open|play|www)\.spotify\.com\/(?:track|album|artist|show|episode|playlist)/i
     ],
 
     mixins: [
-        "og-site",
         "oembed-title",
-        "oembed-iframe",
         "og-image",
         "oembed-thumbnail",
+        "oembed-iframe",
         "domain-icon"
     ],
 
@@ -20,7 +19,8 @@ module.exports = {
             author_url: meta.music && meta.music.musician,
             duration: meta.music && meta.music.duration,
             description: meta.og && meta.og.description,
-            canonical: meta.og && meta.og.url
+            canonical: meta.og && meta.og.url,
+            site: meta.og && meta.og.site_name || 'Spotify'
         }
     },
 
@@ -28,18 +28,16 @@ module.exports = {
 
         if (iframe.src) {
 
-            var src = iframe.src;
-
             var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
 
             var player = {
-                href: src,
+                href: iframe.src,
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 options: {}
             };
 
-            if (/album|playlist/.test(src)) {
+            if (/album|playlist/.test(iframe.src)) {
                 var include_playlist = options.getRequestOptions('spotify.playlist', true);
                 player.rel.push(CONFIG.R.playlist);
                 player.options.playlist = {
@@ -55,8 +53,8 @@ module.exports = {
                     };
 
                 // Temp fix for broken v2 playlist.
-                player.href = src.replace(/\/embed\/playlist\-v2\//, '/embed/playlist/');
-            } else if (/episode|show/.test(src)) {
+                player.href = iframe.src.replace(/\/embed\/playlist\-v2\//, '/embed/playlist/');
+            } else if (/episode|show/.test(iframe.src)) {
                 player.rel.push(CONFIG.R.audio);
                 player.height = iframe.height || 232;
             } else {
@@ -81,6 +79,7 @@ module.exports = {
     getData: function (url, options, cb) {
 
         options.exposeStatusCode = true; // fallback for playlists - now 404s
+        options.followHTTPRedirect = true;
 
         const trackInAlbumRegex = /^https?:\/\/open\.spotify\.com\/album\/[a-zA-Z0-9]+\?highlight=spotify:track:([a-zA-Z0-9]+)/i;
 

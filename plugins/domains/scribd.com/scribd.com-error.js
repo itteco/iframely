@@ -1,8 +1,9 @@
-const URL = require("url");
+import * as URL from "url";
+import scribd_com from './scribd.com.js';
 
-module.exports = {
+export default {
 
-    re: require('./scribd.com').re,
+    re: scribd_com.re,
 
     provides: ["scribdData"],
 

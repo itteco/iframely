@@ -1,6 +1,7 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
 
-module.exports = {
+
+export default {
 
     getMeta: function(ld) {
         function clean(field) {
@@ -14,8 +15,8 @@ module.exports = {
                 return $container.text();
             }
         }
-        if (ld.newsarticle) {
 
+        if (ld.newsarticle) {
             return {
                 title: clean(ld.newsarticle.headline),
                 category: clean(ld.newsarticle.articlesection),

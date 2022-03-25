@@ -1,8 +1,10 @@
-const decodeHTML5 = require('entities').decodeHTML5;
+import { decodeHTML5 } from 'entities';
+import dailymail_embeddedvideo from './dailymail.embeddedvideo.js';
+import dailymail_galleryvideo from './dailymail.galleryvideo.js';
 
-module.exports = {
+export default {
 
-    re: [].concat(require('./dailymail.embeddedvideo').re, require('./dailymail.galleryvideo').re),
+    re: [].concat(dailymail_embeddedvideo.re, dailymail_galleryvideo.re),
 
     provides: 'dailymailVideo',
 

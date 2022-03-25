@@ -1,7 +1,7 @@
 // Covers Google Maps street view images only: 
 // https://developers.google.com/maps/documentation/streetview/intro
 
-module.exports = {
+export default {
 
     re: [
         // place 

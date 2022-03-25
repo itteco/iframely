@@ -1,13 +1,12 @@
-const core = require('../../../lib/core');
-const utils = require('./utils');
+import utils from './utils.js';
 
-module.exports = {
+export default {
 
     highestPriority: true,
 
     provides: ['appUriData', 'whenReact'],
 
-    getData: function(url, __appFlag, options, cb) {
+    getData: function(url, __appFlag, iframelyRun, options, cb) {
 
         if (options.user_agent === CONFIG.FB_USER_AGENT) {
             return cb();
@@ -19,7 +18,7 @@ module.exports = {
             user_agent: CONFIG.FB_USER_AGENT
         }};
 
-        core.run(url, options2, function(error, data) {
+        iframelyRun(url, options2, function(error, data) {
 
             if (data && data.meta && utils.maybeApp(data.meta)) {
                 return cb({
