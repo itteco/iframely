@@ -43,7 +43,7 @@
         "redis-clustr": "1.7.0",
         "request": "^2.88.0",
         "sax": "1.2.2",
-        "semver": "^6.3.0",
+        "semver": "^7.3.6",
         "send": "0.16.1",
         "underscore": "^1.13.1"
     },
