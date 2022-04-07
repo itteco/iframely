@@ -14,7 +14,7 @@ There are few cases, when rendering of embed content is required by the server, 
 
 ## Initial Installation
 
-Node.js version 7 and higher is required (was tested up to 12.9.0). Install it from [pre-built installer](http://nodejs.org/download/) for your platform or from any of the [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+Node.js version 12. Install it from [pre-built installer](http://nodejs.org/download/) for your platform or from any of the [package managers](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
     cd <your servers dir>
     git clone https://github.com/itteco/iframely.git
@@ -154,7 +154,7 @@ The Docker container will:
 
 Ignore any build warnings from NPM on OSX (Darwin).
 
-A longer documentation with docker build instructions (tags/forked repo) for upload to docker hub is available here: [DOCKER-BUILD-INSTRUCTION.md](DOCKER-BUILD-INSTRUCTION.md).
+A longer documentation with docker build instructions (tags/forked repo) for upload to docker hub is available here: [DOCKER-BUILD-INSTRUCTION.md](https://github.com/itteco/iframely/blob/master/docs/DOCKER-BUILD-INSTRUCTION.md).
 
 ## Ansible + Vagrant
 

@@ -10,7 +10,7 @@ Iframely's [whitelist file](https://iframely.com/qa/whitelist.json) is fetched f
 
 ## Breaking changes in version 2.0.0
 
-The minimum version of the Node required for Iframely starting from version 2.0.0 is Node 12. Please see [migration steps](https://github.com/itteco/iframely/issues/350) from earlier versions.
+The minimum version of the Node required for Iframely starting from version 2.0.0 is Node 14. Please see [migration steps](https://github.com/itteco/iframely/issues/350) from earlier versions.
 
 ## API endpoints
 

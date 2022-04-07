@@ -1,6 +1,6 @@
 export default {
 
-    re: /^https?:\/\/gist\.github\.com\/([\w\.\-]+\/)(\w+)(#([\w\.\-]+))?/i,
+    re: /^https?:\/\/gist\.github\.com\/(?:[\w\.\-]+\/)?(\w+)(?:#([\w\.\-]+))?/i,
 
     mixins: [
         "og-site",
@@ -18,8 +18,8 @@ export default {
     },
 
     getLink: function(urlMatch, request, cb) {
-        var gistId = urlMatch[2];
-        var filePermalink = urlMatch[4];
+        var gistId = urlMatch[1];
+        var filePermalink = urlMatch[2];
 
         if (!filePermalink) {
             // No hash
@@ -88,6 +88,7 @@ export default {
         "https://gist.github.com/2719090",
         "https://gist.github.com/schisamo/163c34f3f6335bc12d45",
         "https://gist.github.com/iparamonau/635df38fa737a1d80d23",
-        "https://gist.github.com/suprememoocow/a26a7cc168a71cc3c69b#file-script-alert-1-script"
+        "https://gist.github.com/suprememoocow/a26a7cc168a71cc3c69b#file-script-alert-1-script",
+        "https://gist.github.com/suprememoocow/a26a7cc168a71cc3c69b#file-test-blah__-txt"
     ]
 };

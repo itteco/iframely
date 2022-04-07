@@ -619,7 +619,8 @@
         "name": "Podbean",
         "templates": [
             "(?:www\\.)?podbean.com/media/player/([a-zA-Z0-9\\-]+)(?:\\-pb)?",
-            "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)"
+            "(?:www\\.)?podbean.com/media/share/pb\\-([a-zA-Z0-9\\-]+)",
+            "(?:www\\.)?podbean.com/media/share/(dir\\-[a-zA-Z0-9\\-]+)"
         ],
         "endpoint": "https://www.podbean.com/media/oembed?url=https://www.podbean.com/media/player/{1}"
     }, {
@@ -822,5 +823,19 @@
             "grid.is/.+/.+" 
         ],
         "endpoint": "https://grid.is/api/oembed"
+    },
+    {
+        "name": "Anchor FM",
+        "templates": [
+            "anchor.fm/[a-zA-Z0-9\\-]+/episodes/[^\\/]+\\-([a-zA-Z0-9]+)(?:$|\\?)" 
+        ],
+        "endpoint": "https://anchor.fm/api/v3/episodes/{1}/oembed?format={format}"
+    },
+    {
+        "name": "Videoask",
+        "templates": [
+            "videoask.com/*"             
+        ],
+        "endpoint": "https://www.videoask.com/oembed"
     }
 ]
