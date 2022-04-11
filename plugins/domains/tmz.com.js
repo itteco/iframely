@@ -1,11 +1,12 @@
 export default {
 
-    re: /^https?:\/\/www\.tmz\.com\/videos\/([a-zA-Z0-9_]+)/,
+    re: /^https?:\/\/www\.tmz\.com\/(?:videos|watch)\/([a-zA-Z0-9_]+)/,
 
     mixins: [
         "*"
     ],
 
+    // It's here mostly for tests
     getLinks: function(schemaVideoObject) {
 
         var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
