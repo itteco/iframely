@@ -48,7 +48,7 @@ export default {
                 // use default aspect
 
             } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
-                file.height = schemaFileObject.height && (schemaFileObject.height + 65);
+                file.height = schemaFileObject.height && (schemaFileObject.height + 65 + 48);
 
                 if (file.height > 1500) {
                     file.message = "If there's an extra vertical space, it is used up on next step (after \"Next\" is clicked in the form).";
