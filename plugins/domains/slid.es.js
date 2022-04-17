@@ -1,6 +1,6 @@
 export default {
     re: [
-        /^https?:\/\/slides\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
+        /^https?:\/\/(?:[a-zA-Z0-9\-]+\.)?slides\.com\/([a-zA-Z0-9_\-]+)\/([a-zA-Z0-9_\-]+)/i
     ],
 
     highestPriority: true, 
@@ -36,7 +36,7 @@ export default {
     tests: [{skipMethods: ["getData"]},
         "http://slides.com/timkindberg/ui-router",
         "https://slides.com/thedatacentral/the-data-central",
-        "https://slides.com/jbsaurine/gpe?token=hYf8nobC",
+        "https://apollo-academy.slides.com/jbsaurine/gpe?token=hYf8nobC",
         "https://slides.com/webmax/angular-status-13"
     ]
 };
