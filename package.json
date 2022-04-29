@@ -20,11 +20,11 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@adobe/helix-fetch": "^3.0.0",
+        "@adobe/helix-fetch": "^3.0.9",
         "async": "^2.6.4",
         "cheerio": "^0.22.0",
         "chokidar": "^3.5.2",
-        "ejs": "^3.1.6",
+        "ejs": "^3.1.7",
         "entities": "1.1.1",
         "express": "^4.18.0",
         "globby": "^12.0.2",
@@ -49,9 +49,9 @@
     },
     "devDependencies": {
         "chai": "^4.3.0",
-        "feedparser": "2.2.0",
+        "feedparser": "2.2.10",
         "mocha": "^9.2.2",
-        "mock-http-server": "^1.0.0",
+        "mock-http-server": "^1.4.5",
         "mongoose": "^5.13.7",
         "supertest": "^4.0.2"
     },
