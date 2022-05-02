@@ -27,7 +27,6 @@
         "ejs": "^3.1.7",
         "entities": "1.1.1",
         "express": "^4.18.0",
-        "globby": "^12.0.2",
         "graceful-cluster": "0.0.3",
         "htmlparser2": "^7.1.2",
         "iconv-lite": "^0.6.3",
