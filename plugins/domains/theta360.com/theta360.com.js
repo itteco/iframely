@@ -26,8 +26,6 @@ export default {
 
     tests: [
         {
-            page: 'https://theta360.com/en/gallery/',
-            selector: '.library .item a',
             skipMixins: [
                 "og-description"
             ]

@@ -14,12 +14,12 @@ export default {
 
     getLink: function(url, __allowFBThumbnail, options, meta) {
 
-        var thumbnail = meta.og && meta.og.image 
-                        || meta.twitter && meta.twitter.image
+        var thumbnail = meta.twitter && meta.twitter.image
+                        || meta.og && meta.og.image
                         || meta.ld && meta.ld.socialmediaposting.image && meta.ld.socialmediaposting.image.contenturl;
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
-            // && trye skip profile pictures for posts
+            // && try skip profile pictures for posts
             && (options.getRequestOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
                 || meta.og && meta.og.video  // videos
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.image  // images

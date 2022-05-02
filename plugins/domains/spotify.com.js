@@ -32,7 +32,7 @@ export default {
 
             var player = {
                 href: iframe.src,
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
                 options: {}
             };
@@ -112,7 +112,7 @@ export default {
         "https://play.spotify.com/track/34zWZOSpU2V1ab0PiZCcv4",
         "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
         "https://open.spotify.com/episode/7qPeNdwJ8JiAFQC65Ik7MW",
-        "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68",
+        // soft 404: "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68",
         "https://open.spotify.com/album/3obcdB2QRQMfUBHzjOto4K?highlight=spotify:track:2qZ36jzyP1u29KaeuMmRZx"
     ]
 };

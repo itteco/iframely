@@ -30,12 +30,11 @@ export default {
             var href = iframe.src;
 
             if (/\/widget\/follow\//.test(href)) {
+
                 widget.href = href;
                 widget.rel.push(CONFIG.R.summary);
                 widget.width = oembed.width;
                 widget.height = oembed.height;
-
-                // widget.error = 'Mixcloud user summary is currently broken'; // Sept 22, 2020 - works as of Jan 25, 2021
 
             } else {
 
@@ -102,20 +101,20 @@ export default {
                         value: params.hide_artwork === 1
                     };
 
-                }          
-
-                return [widget, {
-                    href: oembed.image, 
-                    type: CONFIG.T.image, 
-                    rel: CONFIG.R.thumbnail
-                }]
+                }       
             }
+
+            return [widget, {
+                href: oembed.image, 
+                type: CONFIG.T.image, 
+                rel: CONFIG.R.thumbnail
+            }]
         }
 
     },
 
     tests: [{noFeeds: true}, {skipMixins: ["oembed-description", "oembed-error"]},
-        // "https://www.mixcloud.com/djtraviesa/",
+        "https://www.mixcloud.com/djtraviesa/",
         "https://www.mixcloud.com/sohoradio/dub-on-air-with-dennis-bovell-03032019/",
         "https://www.mixcloud.com/DJBlighty/housework004-house-deep-house-future-house-commercial-dance-instagram-djblighty/",
         "https://www.mixcloud.com/live/soulfulhousedjs/"
