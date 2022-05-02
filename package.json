@@ -52,7 +52,7 @@
         "mocha": "^9.2.2",
         "mock-http-server": "^1.4.5",
         "mongoose": "^5.13.7",
-        "supertest": "^4.0.2"
+        "supertest": "^6.2.3"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core.js",
