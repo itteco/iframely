@@ -32,9 +32,9 @@
         "htmlparser2": "^7.1.2",
         "iconv-lite": "^0.6.3",
         "jslint": "^0.12.1",
-        "jsontoxml": "0.0.11",
+        "jsontoxml": "^1.0.1",
         "memcached": "2.2.2",
-        "moment": "2.29.2",
+        "moment": "^2.29.3",
         "node-cache": "1.*",
         "parse-iso-duration": "^1.1.0",
         "probe-image-size": "^7.2.3",
@@ -44,7 +44,7 @@
         "request": "^2.88.0",
         "sax": "1.2.2",
         "semver": "^7.3.7",
-        "send": "0.16.1",
+        "send": "^0.18.0",
         "underscore": "^1.13.3"
     },
     "devDependencies": {
