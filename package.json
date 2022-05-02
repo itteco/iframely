@@ -34,7 +34,7 @@
         "jsontoxml": "^1.0.1",
         "memcached": "2.2.2",
         "moment": "^2.29.3",
-        "node-cache": "1.*",
+        "node-cache": "5.*",
         "parse-iso-duration": "^1.1.0",
         "probe-image-size": "^7.2.3",
         "readabilitySAX": "1.6.1",
