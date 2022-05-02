@@ -38,7 +38,7 @@
         "parse-iso-duration": "^1.1.0",
         "probe-image-size": "^7.2.3",
         "readabilitySAX": "1.6.1",
-        "redis": "3.1.1",
+        "redis": "^4.0.6",
         "redis-clustr": "1.7.0",
         "request": "^2.88.0",
         "sax": "1.2.2",
@@ -49,10 +49,10 @@
     "devDependencies": {
         "chai": "^4.3.0",
         "feedparser": "2.2.10",
-        "mocha": "^9.2.2",
+        "mocha": "^10.0.0",
         "mock-http-server": "^1.4.5",
         "mongoose": "^5.13.7",
-        "supertest": "^4.0.2"
+        "supertest": "^6.2.3"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core.js",
