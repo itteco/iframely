@@ -1014,10 +1014,10 @@ glob@~7.1.3:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-graceful-cluster@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/graceful-cluster/-/graceful-cluster-0.0.3.tgz#2c3f57da3610afb28c1bbc8afaa5030dcf506bdc"
-  integrity sha1-LD9X2jYQr7KMG7yK+qUDDc9Qa9w=
+graceful-cluster@0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/graceful-cluster/-/graceful-cluster-0.0.5.tgz#fe45cded3a2e216c3ed23404fe896e877c950e57"
+  integrity sha512-X3c/3MNJ2CZvSZ3sMco3HWqSBJBNiAyrNbycEj4NJpvRc7/QLI0nOi3d2MaXDMWXoenlk+Xsazwr2RMT/hHcZg==
 
 har-schema@^2.0.0:
   version "2.0.0"
