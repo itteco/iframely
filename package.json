@@ -34,7 +34,7 @@
         "jslint": "^0.12.1",
         "jsontoxml": "0.0.11",
         "memcached": "2.2.2",
-        "moment": "2.29.2",
+        "moment": "2.29.3",
         "node-cache": "1.*",
         "parse-iso-duration": "^1.1.0",
         "probe-image-size": "^7.2.3",
