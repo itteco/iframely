@@ -75,6 +75,7 @@ clean:
 push:
 	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} # && docker push ${IMAGE_NAME}
 	docker tag ${CONTAINER} ${IMAGE_NAME}:latest
+	docker push ${IMAGE_NAME}:${VERSION}
 	docker push ${IMAGE_NAME}
 
 restart: stop clean run
