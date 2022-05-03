@@ -20,7 +20,8 @@ export default {
         "keywords",
         "oembed-site",
         "og-title",
-        "embedurl"
+        "embedurl",
+        'embedurl-meta'
     ],
 
     getLink: function(oembed, tedLangs) {
@@ -60,12 +61,12 @@ export default {
          */
         if (meta.alternate) {
             meta.alternate.forEach(function(alternative) {
-                if (typeof(alternative) === "string" && /\?/.test(alternative)) {
-                    const query = URL.parse(alternative.toLowerCase(), true).query;                    
+                if (typeof(alternative) === "string" && /\?language=([a-z\-]+)$/i.test(alternative)) {
+                    const lang = alternative.match(/\?language=([a-z\-]+)$/i)[1];
                     
-                    availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
+                    availableLanguages[lang] = CONFIG.LC && CONFIG.LC[lang] || lang;
 
-                    if (query.language === 'en') {
+                    if (lang === 'en') {
                         isTranslatedToEnglish = true;
                     }
                 }
@@ -132,19 +133,18 @@ export default {
                 }
             }
 
-            if (meta && meta.alternate 
-                && !meta.alternate.some(
-                    (link) => /^(application|text)\/(xml|json)\+oembed$/i.test(link.type)
-                )) {
-                data.__isYouTube = 'maybe';
-            }            
         } else if (Object.keys(availableLanguages).length === 0) {
             // For Pop Francis, the oEmbed request will fail without &language=es.
             // And there' no way to detect &es language/
             // So let's fallback to microformats (luckily, they have one on the page).
             data.__allowEmbedURL = true;
-            data.__isYouTube = 'maybe';
         }
+
+        // Unfortunately as of Apr 11, 2022, we need to verify if it's YouTube for every URL.
+        // Before we could check empty languages or absense of oEmbed discovery link. 
+        // Now all valid and invalid players have identical data sets.
+        data.__isYouTube = 'maybe';
+
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
     },

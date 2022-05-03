@@ -31,7 +31,7 @@ It's now running in the background, lets check the logs:
 
     docker logs iframely
 
-Go to [iframely on localhost](http://localhost:8061/debug)
+Go to [iframely on localhost](http://localhost:8061/iframely?uri=https%3A%2F%2Fsoundcloud.com%2Fsysoparna) and try with some uri
 If it looks good, lets tag and push to docker hub:
 
     make push

@@ -3,13 +3,13 @@ const DEFAULT_WIDTH = 640;
 export default {
 
     re: [
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/.+/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=/i
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d+)$/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/(\d+)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=(\d+)/i
     ],
 
     mixins: ["fb-error"],
