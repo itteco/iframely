@@ -51,7 +51,7 @@
         "feedparser": "2.2.10",
         "mocha": "^10.0.0",
         "mock-http-server": "^1.4.5",
-        "mongoose": "^5.13.13",
+        "mongoose": "^6.3.2",
         "supertest": "^6.2.3"
     },
     "iframely-proxy-plugins": true,
