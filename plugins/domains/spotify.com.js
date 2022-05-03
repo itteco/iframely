@@ -54,9 +54,18 @@ export default {
 
                 // Temp fix for broken v2 playlist.
                 player.href = iframe.src.replace(/\/embed\/playlist\-v2\//, '/embed/playlist/');
-            } else if (/episode|show/.test(iframe.src)) {
+
+            } else if (/show/.test(iframe.src)) {
                 player.rel.push(CONFIG.R.audio);
                 player.height = iframe.height || 232;
+
+            } else if (/episode/.test(iframe.src)) {
+                var isVideo = !!iframe.width; // 100% width for audio episodes is not set in `iframe`
+                if (!isVideo) player.rel.push(CONFIG.R.audio);
+                player.media = isVideo && iframe.height
+                                ? {'aspect-ratio' : iframe.width / iframe.height}
+                                : {height: iframe.height || 232}
+
             } else {
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
@@ -113,6 +122,7 @@ export default {
         "https://open.spotify.com/show/7gozmLqbcbr6PScMjc0Zl4?si=nUubrGA2Sj-2pYPgkSWYrA",
         "https://open.spotify.com/episode/2DBstW0LumPSF5SyO5ofRe",
         // soft 404: "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68",
-        "https://open.spotify.com/album/3obcdB2QRQMfUBHzjOto4K?highlight=spotify:track:2qZ36jzyP1u29KaeuMmRZx"
+        "https://open.spotify.com/album/3obcdB2QRQMfUBHzjOto4K?highlight=spotify:track:2qZ36jzyP1u29KaeuMmRZx",
+        "https://open.spotify.com/episode/2jAYGAbZHxReyhtK6kI5xG"
     ]
 };
