@@ -94,7 +94,7 @@ export default {
     },
 
     getData: function(oembedError, url, meta) {
-        if ((!meta.ld || meta.ld.person) && !/^https?:\/\/(?:www\.)?facebook\.com\/login\/web\/?$/i.test(url)) {
+        if ((!meta.ld || meta.ld.person) && !/^https?:\/\/(?:www\.)?facebook\.com\/login\?next=?$/i/i.test(url)) {
             return {
                 message: "Facebook profile pages of individual users are not embeddable."
             };
