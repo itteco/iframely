@@ -87,8 +87,8 @@
             result += new Date(whitelistRecord.date).getTime();
         }
 
-        // TODO: use new method, see `hasNewPluginForUri`.
-        var plugin = pluginLoader.findDomainPlugin(uri);
+        // `0` to search all plugins.
+        var plugin = pluginLoader.hasNewPluginForUri(0, uri);
         if (plugin) {
             result += plugin.getPluginLastModifiedDate().getTime();
         }
