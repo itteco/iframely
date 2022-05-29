@@ -11,6 +11,6 @@ export default {
 
         return maybeApp
             || meta['prerender-status-code'] 
-            || /^{{.+}}$/.test(title)
+            || /{{.+}}/.test(title) // eg. https://uwaterloo.ca/canadian-design-workshop/
     }
 };
