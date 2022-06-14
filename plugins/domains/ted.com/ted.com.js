@@ -30,10 +30,11 @@ export default {
         if (iframe && oembed.height) {
 
             let src = iframe.src;
-            let lang_slug = src && tedLangs.language && tedLangs.language.value 
-                            && tedLangs.language.value === '-' // clearing language from within URL itself via `&_language=-` option
-                                ? ''
-                                : `/lang/${tedLangs.language.value}`;
+            let lang_slug = src 
+                            && tedLangs.language && tedLangs.language.value 
+                            && tedLangs.language.value !== '-' // clearing language from within URL itself via `&_language=-` option
+                                ? `/lang/${tedLangs.language.value}`
+                                : '';
 
             if (lang_slug && src.indexOf(lang_slug) === -1) {
                 src = src.replace(/\/talks\//, `/talks${lang_slug}/`);
@@ -86,7 +87,6 @@ export default {
                         query.language 
                             || options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')
                         ) || '';
-
         if (!availableLanguages[language]) {
             /** oEmbed request fails with 404 if language isn't valid... */
             language = '';
