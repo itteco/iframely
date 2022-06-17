@@ -615,7 +615,7 @@
         "templates": [
             ".*\\.podigee.io/.*"
         ],
-        "endpoint": "https://embed.podigee.com/oembed?type=iframe&url={url}"
+        "endpoint": "https://embed.podigee.com/oembed?url={url}"
     }, {
         "name": "Podbean",
         "templates": [
