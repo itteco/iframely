@@ -25,7 +25,7 @@
         "cheerio": "^0.22.0",
         "chokidar": "^3.5.2",
         "ejs": "^3.1.8",
-        "entities": "1.1.1",
+        "entities": "1.1.2",
         "express": "^4.18.1",
         "graceful-cluster": "^0.0.5",
         "htmlparser2": "^7.1.2",
