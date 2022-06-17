@@ -20,7 +20,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@adobe/helix-fetch": "^3.0.9",
+        "@adobe/helix-fetch": "^3.0.11",
         "async": "^3.2.3",
         "cheerio": "^0.22.0",
         "chokidar": "^3.5.2",
