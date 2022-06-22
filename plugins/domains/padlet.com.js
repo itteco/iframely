@@ -1,3 +1,5 @@
+const RE = /^https:\/\/padlet\.com\/padlets\/([0-9a-zA-Z]+)\/exports\/feed\.xml/i;
+
 export default {
 
     re: [
@@ -10,11 +12,13 @@ export default {
 
     getLink: function(urlMatch, meta) {
 
-        if (meta.alternate && meta.alternate.length == 1 
-            && meta.alternate[0].href && /^https:\/\/padlet\.com\/padlets\/[0-9a-zA-Z]+\/exports\/feed\.xml$/.test(meta.alternate[0].href)) {
+        const alternate = meta.alternate && meta.alternate.length == 1 
+            && meta.alternate[0].href;
+
+        if (alternate && RE.test(alternate)) {
 
             return {
-                href: 'https://padlet.com/embed/' + (meta.alternate[0].href.match(/^https:\/\/padlet\.com\/padlets\/([0-9a-zA-Z]+)\/exports\/feed\.xml$/)[1]), //https://padlet.com/embed/g44u46on3u5n
+                href: 'https://padlet.com/embed/' + (alternate.match(RE)[1]), // https://padlet.com/embed/g44u46on3u5n
                 accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.resizable],
                 height: 608
