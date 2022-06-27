@@ -5,6 +5,7 @@ export default {
     getData: function(url, meta, __noOembedLinks, options, cb) {
 
         var oembedLinks = oembedUtils.findOembedLinks(null, meta);
+        var iframelyTargeted = Object.keys(meta).some(key => key.indexOf('iframely') === 0);
 
         return cb(
             meta.robots
@@ -13,6 +14,7 @@ export default {
             && !meta.og
             && !meta.twitter
             && !oembedLinks // null if length == 0.
+            && !iframelyTargeted
             && !options.allowNoIndex
             ? {
                responseStatusCode: 403,
