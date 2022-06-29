@@ -3,13 +3,13 @@
 
 
 "@adobe/helix-fetch@^3.0.11":
-  version "3.0.11"
-  resolved "https://registry.yarnpkg.com/@adobe/helix-fetch/-/helix-fetch-3.0.11.tgz#6c32547c87f0507c205cef7552e0074cd3ac0f75"
-  integrity sha512-2TPlo5CCeq7BQRlHNl7eGHTXuHGJb8rflo+ArdN5Xx2T0leLs0mCRbsO2yr1p6iR4W/OThd1VKucQRnITr/xvQ==
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@adobe/helix-fetch/-/helix-fetch-3.1.0.tgz#83a0f7eadce36d97f82b92156696f69b3f36697d"
+  integrity sha512-0lnA4Fh7YZsS1wdEPZ3OVV2uW096jSAi5XwUYS1dohumR+dtfaogtUfzS+HETI14rrx+43a+kl1rzJ3lf9npzw==
   dependencies:
     debug "4.3.4"
     http-cache-semantics "4.1.0"
-    lru-cache "7.10.1"
+    lru-cache "7.10.2"
 
 "@redis/bloom@1.0.2":
   version "1.0.2"
@@ -1399,10 +1399,10 @@ loupe@^2.3.1:
   dependencies:
     get-func-name "^2.0.0"
 
-lru-cache@7.10.1:
-  version "7.10.1"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.10.1.tgz#db577f42a94c168f676b638d15da8fb073448cab"
-  integrity sha512-BQuhQxPuRl79J5zSXRP+uNzPOyZw2oFI9JLRQ80XswSvg21KMKNtQza9eF42rfI/3Z40RvzBdXgziEkudzjo8A==
+lru-cache@7.10.2:
+  version "7.10.2"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.10.2.tgz#aab494e0768ce94f199ef553ffe0a362f2a58bb9"
+  integrity sha512-9zDbhgmXAUvUMPV81A705K3tVzcPiZL3Bf5/5JC/FjYJlLZ5AJCeqIRFHJqyBppiLosqF+uKB7p8/RDXylqBIw==
 
 lru-cache@^6.0.0:
   version "6.0.0"
