@@ -3,9 +3,9 @@
 
 
 "@adobe/helix-fetch@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@adobe/helix-fetch/-/helix-fetch-3.1.0.tgz#83a0f7eadce36d97f82b92156696f69b3f36697d"
-  integrity sha512-0lnA4Fh7YZsS1wdEPZ3OVV2uW096jSAi5XwUYS1dohumR+dtfaogtUfzS+HETI14rrx+43a+kl1rzJ3lf9npzw==
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@adobe/helix-fetch/-/helix-fetch-3.1.1.tgz#def8c6afe7541d9840103d0eeac37b637aa04e3b"
+  integrity sha512-WwhJDmzAWeVduzZyrPia9cFcIERp7BbDKW1xPzk6stPA2txBcyU/rW6/a4I+2409shtX9LC0x8gjvuoRTObLvw==
   dependencies:
     debug "4.3.4"
     http-cache-semantics "4.1.0"
