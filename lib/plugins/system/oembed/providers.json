@@ -835,8 +835,16 @@
     {
         "name": "Videoask",
         "templates": [
-            "videoask.com/*"             
+            "videoask.com/*"
         ],
         "endpoint": "https://www.videoask.com/oembed"
+    },
+    {
+        "name": "Zoho Docs",
+        "templates": [
+            "docs.zoho(?:public)?.com/*"  
+        ],
+        "endpoint": "https://docs.zoho.com/services/oembed"
     }
+
 ]
