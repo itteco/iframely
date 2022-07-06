@@ -42,6 +42,8 @@ export default {
 
 
             // Twitter player is broken on GIFs: https://dribbble.com/shots/4240497-Wisdo-apps-video-introduction
+            // 2022.07.05: Dribble player is broken now for all. IT comes with x-frame-option that allow only on Twitter.com
+            /*
             if (twitter.player && twitter.player.width && twitter.player.height) {
                 links.push({
                     href: twitter.player.value,
@@ -50,6 +52,7 @@ export default {
                     'aspect-ratio': twitter.player.width / twitter.player.height,
                 })
             }
+            */
         }
 
         return links;
