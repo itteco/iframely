@@ -19,7 +19,7 @@ export default {
 
             return {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5, CONFIG.R.maxwidth],
                 template: "pinterest.widget",
                 template_context: {
                     url: og.url || url,

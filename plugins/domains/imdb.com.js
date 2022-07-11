@@ -25,7 +25,7 @@ export default {
         return {
             href: "https://www.imdb.com/videoembed/vi" + urlMatch[1],
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.maxwidth],
             'aspect-ratio': 16/9
         }
     },
