@@ -164,9 +164,7 @@
             '3d': '3d',
             encrypted: 'encrypted-media',
 
-            profile: 'profile',
-
-            maxwidth: 'maxwidth'
+            profile: 'profile'
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
