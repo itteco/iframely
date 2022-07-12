@@ -13,7 +13,7 @@ export default {
         if (twitter.player && whitelistRecord.isAllowed('twitter.player')) {
             return {
                 href: twitter.player.value,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: CONFIG.R.player,
                 accept: CONFIG.T.text_html,
                 "aspect-ratio": 16/9,
                 autoplay: 'autoPlay=true'

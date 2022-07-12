@@ -88,7 +88,7 @@ export default {
                         links.push({
                             href: 'https://archive.org/stream/' + urlMatch[1] + '?ui=embed',
                             type: CONFIG.T.text_html,
-                            rel: [CONFIG.R.reader, CONFIG.R.html5],
+                            rel: CONFIG.R.reader,
                             "aspect-ratio": aspect,
                             //"padding-bottom": 40 + 15 // padding no longer needed
                         });

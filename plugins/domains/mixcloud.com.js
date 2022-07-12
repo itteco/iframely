@@ -23,7 +23,7 @@ export default {
         } else {
 
             var widget = {
-                rel: [CONFIG.R.oembed, CONFIG.R.html5],
+                rel: [CONFIG.R.oembed],
                 type: CONFIG.T.text_html
             };
 

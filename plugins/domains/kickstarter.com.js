@@ -68,7 +68,7 @@ export default {
                     links.push({
                         href: iframe.src,
                         type: CONFIG.T.text_html,
-                        rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
+                        rel: [CONFIG.R.player, CONFIG.R.oembed],
                         "aspect-ratio": aspect
                     });
 
@@ -82,7 +82,7 @@ export default {
                 return cb(null, [{
                     href: iframe.src,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
+                    rel: [CONFIG.R.app, CONFIG.R.oembed],
                     width: oembed.width,
                     height: oembed.height,
                     scrolling: 'no'

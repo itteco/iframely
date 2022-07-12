@@ -15,7 +15,7 @@ export default {
             
             var href = iframe.src.match(re)[0];
             var player = {
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
                 type: CONFIG.T.text_html
             };            
 

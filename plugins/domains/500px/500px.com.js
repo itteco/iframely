@@ -13,7 +13,7 @@ export default {
                     id: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+                rel: [CONFIG.R.image, CONFIG.R.ssl, CONFIG.R.inline],
                 "aspect-ratio": twitter.image.height ? twitter.image.width / twitter.image.height : null
             }
         }

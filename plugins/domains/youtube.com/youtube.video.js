@@ -216,7 +216,7 @@ export default {
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
-        var rels = [CONFIG.R.player, CONFIG.R.html5];
+        var rels = [CONFIG.R.player];
 
         if (youtube_video_gdata.playerHtml) { // maybe still widescreen. plus detect 'allow' from html
             var $container = cheerio('<div>');

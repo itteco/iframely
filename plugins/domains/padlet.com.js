@@ -20,7 +20,7 @@ export default {
             return {
                 href: 'https://padlet.com/embed/' + (alternate.match(RE)[1]), // https://padlet.com/embed/g44u46on3u5n
                 accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.resizable],
+                rel: [CONFIG.R.app, CONFIG.R.resizable],
                 height: 608
             };
         }
