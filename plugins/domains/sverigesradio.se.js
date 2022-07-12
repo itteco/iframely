@@ -20,7 +20,7 @@ export default {
         if (sveriges.canBeEmbedded) {
             return {
                 href: sveriges.embedUrl,
-                accept: CONFIG.T.text_html,
+                type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.audio],
                 'min-width': 210,
                 height: 150
