@@ -6,7 +6,7 @@ export default {
         /^https?:\/\/sverigesradio\.se\/(artikel)\/([^\/]+)(?:\?.+)?$/i,
         /^https?:\/\/sverigesradio\.se\/embed\/(publication|episode)\/(\d+)/i,
         /^https?:\/\/sverigesradio\.se\/(avsnitt)\/(\d+)\/?(?:\?.+)?$/i,
-        /^https?:\/\/sverigesradio\.se\/(avsnitt)\/(\d+)\/?(?:\?.+)?$/i,
+        /^https?:\/\/sverigesradio\.se\/(avsnitt)\/([^\/]+)(?:\?.+)?$/i,
     ],
 
     provides: 'sveriges',
@@ -70,7 +70,8 @@ export default {
         "https://sverigesradio.se/artikel/professorn-om-rymdbilden-det-ar-hisnande",
         "https://sverigesradio.se/avsnitt/1966906",
         "https://sverigesradio.se/embed/publication/6652202",
-        "https://sverigesradio.se/embed/episode/1966906"
+        "https://sverigesradio.se/embed/episode/1966906",
+        "https://sverigesradio.se/avsnitt/nikola-tesla-elektricitetspionjaren-som-glomdes-bort"
         // Not embeddable: https://sverigesradio.se/artikel/4351444
     ]
 };
