@@ -12,7 +12,7 @@ export default {
             var result = {
                 href: "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(url),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
+                rel: [CONFIG.R.reader, CONFIG.R.file],
                 "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/i.test(__nonHtmlContentData.type) ?  4/3 : CONFIG.DOC_ASPECT_RATIO
             }
 

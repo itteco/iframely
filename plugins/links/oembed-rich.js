@@ -37,13 +37,10 @@ export default {
             rels.push(CONFIG.R['3d']);
         }
 
-
         if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
             rels.push(CONFIG.R.inline);
         }
-        if (whitelistRecord.isAllowed('oembed.rich', "html5")) {
-            rels.push(CONFIG.R.html5);
-        }
+
         rels.push ("allow"); // Otherwise, rich->players get denied by oembed:video whitelist record.
 
         var widget = {
