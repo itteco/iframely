@@ -28,7 +28,7 @@ export default {
                 var player = {
                     href: 'https://archive.org/embed/' + hrefMatch[1],
                     accept: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5]
+                    rel: CONFIG.R.player
                 };
 
                 if (/\.(mp3|wma|wav|flac)$/i.test(playerHref)) {
