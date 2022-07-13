@@ -845,6 +845,13 @@
             "docs.zoho(?:public)?.com/*"  
         ],
         "endpoint": "https://docs.zoho.com/services/oembed"
+    },
+    {
+        "name": "ShiftX",
+        "templates": [
+            "shiftx.com/processes/.+/view",
+            "shiftx.com/processes/.+/public/.+"            
+        ],
+        "endpoint": "https://shiftx.com/oembed"
     }
-
 ]
