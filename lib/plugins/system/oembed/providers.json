@@ -853,5 +853,12 @@
             "shiftx.com/processes/.+/public/.+"            
         ],
         "endpoint": "https://shiftx.com/oembed"
+    },
+    {
+        "name": "Omny.fm",
+        "templates": [
+            "omny.fm/shows/*"
+        ],
+        "endpoint": "https://omny.fm/oembed"
     }
 ]
