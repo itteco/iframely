@@ -17,7 +17,7 @@ export default {
                     labels.currency = twitter["label"+i];
                 } else if (twitter["label"+i].match(/^currency$/i)) {
                     labels.currency = twitter["data"+i];
-                } else {
+                } else if (twitter["label"+i] && twitter["label"+i].indexOf('.') === -1) {
                     labels["label" + j + "-" + twitter["label"+i]] = twitter["data"+i];
                     j++;
                 }
