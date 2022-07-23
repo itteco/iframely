@@ -15,7 +15,7 @@ export default {
         return {
             href: 'https://www.espn.com/core/video/iframe?id=' + urlMatch[1] + '&endcard=false',
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             "aspect-ratio": 16/9
         };
     },

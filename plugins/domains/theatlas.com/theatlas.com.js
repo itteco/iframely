@@ -27,7 +27,7 @@ export default {
                     thumbnail: thumbnail
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 'aspect-ratio': 4/3
             };
 

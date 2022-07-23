@@ -49,7 +49,7 @@ export default {
             links.push({
                 href: iframe.replaceQuerystring(params),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: CONFIG.R.player,
                 "aspect-ratio": oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
                 autoplay: "autoplay=1",
                 options: {

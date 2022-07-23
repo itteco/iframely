@@ -25,7 +25,7 @@ export default {
             
             var link = {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
+                rel: [CONFIG.R.reader, CONFIG.R.ssl],
                 'aspect-ratio': aspect
             };
 

@@ -41,14 +41,12 @@ export default {
             src += (/\?/.test(src) ? '&' : '?') + 'at=' + at;
         }
 
-        var rel = [CONFIG.R.player, CONFIG.R.html5];
-
         return {
             href: src,
             type: CONFIG.T.text_html,
             rel: isMusicPost 
-                ? rel : 
-                    isTrack ? [...rel, CONFIG.R.audio] : [...rel, CONFIG.R.audio, CONFIG.R.playlist, 'resizable'],
+                ? CONFIG.R.player : 
+                    isTrack ? [CONFIG.R.player, CONFIG.R.audio] : [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, 'resizable'],
             media: isMusicPost
                 ? {
                     'aspect-ratio': 16/9 // Apple gives it as 350px fixed-height, but it's wrong.

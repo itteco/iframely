@@ -69,8 +69,6 @@ export default {
                         href = href + where_hosted + '/'
                             + 'iframe.html?ec=' + __ooyalaPlayer.embedCode + '&pbid=' + __ooyalaPlayer.pbid + '&pcode=' + __ooyalaPlayer.pcode;
 
-                        rel.push(CONFIG.R.html5);
-
                     //v3, 2
                     } else if (__ooyalaPlayer.pbid) {
                         href = href + 'tframe.html?platform=html5-priority&embedCode=' + __ooyalaPlayer.embedCode + '&keepEmbedCode=true' + '&pbid=' + __ooyalaPlayer.pbid;
@@ -78,8 +76,6 @@ export default {
                         if (__ooyalaPlayer['options[adSetTag]'] && '' !== __ooyalaPlayer['options[adSetTag]']) {
                             href += '&options[adSetTag]=' + __ooyalaPlayer['options[adSetTag]'];
                         }
-
-                        rel.push(CONFIG.R.html5);
 
                     /* disable player.swf - we can not reliably detect if the video is valid or not */
                     } else {

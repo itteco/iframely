@@ -26,7 +26,7 @@ export default {
         return {
             href: iframe.src,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: CONFIG.R.app,
             "aspect-ratio": 4/3,
             "padding-bottom": 30
             // aspect 4:3 is better than height=520px and width=100%

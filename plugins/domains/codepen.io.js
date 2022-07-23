@@ -39,7 +39,7 @@ export default {
         return {
             href: href,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.oembed, CONFIG.R.html5],
+            rel: [CONFIG.R.app, CONFIG.R.oembed],
             height: params.height,
             options: {
                 height: {

@@ -19,7 +19,7 @@ export default {
         return {
             href: "//fave.api.cnn.io/v1/fav/?customer=cnn&env=prod&video=" + path,
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             "aspect-ratio": 416 / 234
         };
     },

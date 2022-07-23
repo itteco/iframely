@@ -21,7 +21,7 @@ export default {
 
         var link = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.ssl, CONFIG.R.html5],
+            rel: [CONFIG.R.ssl],
         }; 
    
 

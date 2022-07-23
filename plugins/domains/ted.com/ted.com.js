@@ -45,7 +45,7 @@ export default {
             let link = {
                 href: src,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height
             };
 

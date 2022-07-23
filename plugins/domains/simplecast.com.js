@@ -32,7 +32,7 @@ export default {
             return {
                 href: href,
                 accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.oembed],
                 height: /embed\.|player\./i.test(href) ? 200 : twitter.player.height || 200, // twitter.player.height is sometimes 180 as in oEmbed, but that's not enough
                 options: opts
             };

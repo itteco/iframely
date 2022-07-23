@@ -112,7 +112,7 @@ export default {
         var links = [{
             href: map,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: CONFIG.R.app,
             "aspect-ratio": eval(gmap.aspect.replace('x', '/')),
             options: {
                 zoom: {

@@ -102,9 +102,6 @@ export default {
                 accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
             };
 
-            if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {
-                player.rel.push(CONFIG.R.html5);
-            }
             if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.autoplay)) {
                 player.rel.push(CONFIG.R.autoplay);
             }

@@ -56,7 +56,7 @@ export default {
             return {
                 href: embedURL,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: CONFIG.R.player,
                 'aspect-ratio': 16/9,
                 autoplay: 'autoplay=true',
                 message: message,

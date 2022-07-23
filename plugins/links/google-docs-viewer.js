@@ -22,7 +22,7 @@ export default {
                 return {
                     href: src,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
+                    rel: [CONFIG.R.reader, CONFIG.R.file],
                     "aspect-ratio": CONFIG.DOC_ASPECT_RATIO
                 }
 

@@ -22,7 +22,7 @@ export default {
             return {
                 href: `${urlMatch[0].replace('http://', '//')}/embed` + (query.token ? `?token=${query.token}` : ''),
                 accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.slideshow],
                 'aspect-ratio': 960/700,
                 'padding-bottom': 34
             };

@@ -20,7 +20,7 @@ export default {
 
             return {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 template: "pinterest.widget",
                 template_context: {
                     url: `${urlMatch[1]}/pin/${urlMatch[2]}`,
