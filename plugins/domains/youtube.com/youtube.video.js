@@ -70,7 +70,7 @@ export default {
                     return cb(error);
                 }
 
-                if (data.items && data.items.length > 0) {
+                if (data && data.items && data.items.length > 0) {
 
                     var entry = data.items[0];
 
@@ -127,7 +127,7 @@ export default {
                         });
                     }
 
-                } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
+                } else if (data && data.items && data.items.length == 0 || data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
                     log('YoutTube fallback for ' + urlMatch[1], data);
