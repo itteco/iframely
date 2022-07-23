@@ -34,7 +34,7 @@ export default {
         if (schemaFileObject.embedURL || schemaFileObject.embedUrl) {
 
             var file = {
-                rel: CONFIG.R.file,
+                rel: [CONFIG.R.file],
                 href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
                 accept: CONFIG.T.text_html
             };
