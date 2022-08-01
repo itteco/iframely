@@ -3,8 +3,7 @@ export default {
     // also used for hosted simplecasts
     re: [
         /^https?:\/\/[a-zA-Z0-9\-_]+\.simplecast\.com\/episodes\/[a-zA-Z0-9\-]+/i,
-        /^https?:\/\/embed\.simplecast\.com\/[a-zA-Z0-9\-]+/i,
-        /^https?:\/\/simplecast\.com\/s\/[a-zA-Z0-9\-]+/i
+        /^https?:\/\/simplecast\.com\/s\/[a-zA-Z0-9\-]+/i,
     ],
 
     mixins: ["*"],
@@ -39,8 +38,7 @@ export default {
         }
     },
 
-    tests: [
-        "https://embed.simplecast.com/c0e95371",        
+    tests: [    
         "https://tgd.simplecast.com/episodes/dan-blackman-and-robyn-kanner-the-power-7fe152f4"
         /*
         http://bikeshed.fm/54
