@@ -860,5 +860,13 @@
             "omny.fm/shows/*"
         ],
         "endpoint": "https://omny.fm/oembed"
+    },
+    {
+        "name": "Metacdn",
+        "templates": [
+            "metacdn.com/r/*"
+        ],
+        "endpoint": "https://www.metacdn.com/api/oembed?url={url}&format={format}"
     }
+
 ]
