@@ -2,12 +2,15 @@ version: 0.2
 env:
   variables:
     PRX_ECR_CONFIG_PARAMETERS: "IframelyEcrImageTag"
+    PRX_SPIRE_ECR_PKG_PARAMETERS: WEB_SERVER=/prx/stag/Spire/The_World-Iframely/pkg/docker-image-tag
   parameter-store:
-    DOCKERHUB_USERNAME: "/prx/DOCKERHUB_USERNAME"
-    DOCKERHUB_PASSWORD: "/prx/DOCKERHUB_PASSWORD"
+    DOCKERHUB_USERNAME: /prx/DOCKERHUB_USERNAME
+    DOCKERHUB_PASSWORD: /prx/DOCKERHUB_PASSWORD
   exported-variables:
     - PRX_ECR_CONFIG_PARAMETERS
     - PRX_ECR_IMAGE
+    - PRX_SPIRE_ECR_PKG_PARAMETERS
+    - WEB_SERVER
 phases:
   install:
     runtime-versions:
@@ -18,12 +21,14 @@ phases:
       - echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
   build:
     commands:
-      - "echo CODEBUILD_BUILD_ID=$CODEBUILD_BUILD_ID > .env"
-      - "echo PRX_REPO=$PRX_REPO >> .env"
-      - "echo PRX_COMMIT=$PRX_COMMIT >> .env"
-      - "echo PRX_BRANCH=$PRX_BRANCH >> .env"
-      - "echo PRX_GITHUB_PR=$PRX_GITHUB_PR >> .env"
-      - "docker-compose build"
+      - echo CODEBUILD_BUILD_ID=$CODEBUILD_BUILD_ID > .env
+      - echo PRX_REPO=$PRX_REPO >> .env
+      - echo PRX_COMMIT=$PRX_COMMIT >> .env
+      - echo PRX_BRANCH=$PRX_BRANCH >> .env
+      - echo PRX_GITHUB_PR=$PRX_GITHUB_PR >> .env
+      - docker-compose build
   post_build:
     commands:
-      - 'curl -sO "https://raw.githubusercontent.com/PRX/Infrastructure/master/ci/utility/post_build.sh" && chmod +x post_build.sh && . ./post_build.sh'
+      - curl -sO "https://raw.githubusercontent.com/PRX/Infrastructure/main/ci/utility/post_build.sh"
+      - chmod +x post_build.sh
+      - . ./post_build.sh

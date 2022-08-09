@@ -2,6 +2,7 @@ FROM node:12.18-alpine3.12
 
 MAINTAINER PRX <sysadmin@prx.org>
 LABEL org.prx.app="yes"
+LABEL org.prx.spire.publish.ecr="WEB_SERVER"
 
 WORKDIR /iframely
 
