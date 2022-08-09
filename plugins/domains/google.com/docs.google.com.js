@@ -147,6 +147,11 @@ export default {
                     embedUrl: url
                 }  
             });
+        } else if (/\/pubchart(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
+            return cb({
+                responseStatusCode: 415,
+                message: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
+            })            
         } else if (!meta.og) {
             return cb({
                 responseStatusCode: 415,
