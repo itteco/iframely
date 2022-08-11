@@ -867,6 +867,12 @@
             "metacdn.com/r/*"
         ],
         "endpoint": "https://www.metacdn.com/api/oembed?url={url}&format={format}"
+    },
+    {
+        "name": "iorad",
+        "templates": [
+            "iorad.com/player/*"
+        ],
+        "endpoint": "https://www.iorad.com/api/oembed"
     }
-
 ]
