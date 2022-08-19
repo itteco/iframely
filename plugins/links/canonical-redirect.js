@@ -14,6 +14,7 @@ export default {
                 || url.match(/(\.|\/|\-|_)(?:amp|embed)(?:html)?(\.|\/|\-|_)/i) 
                 || url.match(/(\-|\/|\.|!)(?:amp|embed)(?:\.html)?$/i)
                 || (!meta.og && !meta.twitter && /(?:embed|amp)/i.test(url)))
+            && !/^https?:\/\/[^\/]+\/?$/ // do not redirect to homepage
             ) {
 
             // Do not redirect to url from redirects history.
