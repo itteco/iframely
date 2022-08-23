@@ -55,4 +55,3 @@ Please submit your PR against `develop` branch. This is where everything gets me
 ## License & Authors
 
 MIT License. (c) 2012-2021 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).
-
