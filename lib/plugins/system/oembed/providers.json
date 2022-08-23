@@ -874,5 +874,11 @@
             "iorad.com/player/*"
         ],
         "endpoint": "https://www.iorad.com/api/oembed"
+    }, {
+        "name": "Dropbox Capture",
+        "templates": [
+            "capture.dropbox.com/*"
+        ],
+        "endpoint": "https://www.dropbox.com/capture/oembed?format={format}&url={url}"
     }
 ]
