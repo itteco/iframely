@@ -28,7 +28,7 @@ export default {
 
         if (iframe.src) {
 
-            var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
+            var horizontal_player = options.getRequestOptions('players.horizontal', false);
 
             var player = {
                 href: iframe.src,

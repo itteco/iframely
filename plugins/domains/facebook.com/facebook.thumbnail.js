@@ -20,7 +20,7 @@ export default {
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
             // && try skip profile pictures for posts
-            && (options.getRequestOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
+            && (options.getProviderOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
                 || meta.og && meta.og.video  // videos
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.image  // images
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.sharedcontent

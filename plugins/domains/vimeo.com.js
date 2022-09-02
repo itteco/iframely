@@ -83,7 +83,10 @@ export default {
 
         // Also let's try and add bigger image if needed, but check that it's value.
         // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
-        if (options.getProviderOptions('images.loadSize') !== false && /\-d_\d{2,4}x\d{2,4}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
+        if (/* options.getProviderOptions('images.loadSize') !== false */
+            CONFIG.providerOptions && CONFIG.providerOptions.images
+            && CONFIG.providerOptions.images.loadSize !== false
+            && /\-d_\d{2,4}x\d{2,4}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
             links.push({
                 href:oembed.thumbnail_url.replace(/\-d_\d{2,4}x\d{2,4}((?:\.jpg)?)$/, `-d_${oembed.width}$1`),
                 type: CONFIG.T.image,

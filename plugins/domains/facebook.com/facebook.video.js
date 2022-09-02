@@ -25,7 +25,7 @@ export default {
         }; 
    
 
-        if (options.getRequestOptions('facebook.show_text', false) || options.getProviderOptions(CONFIG.O.more, false)) {
+        if (options.getRequestOptions('facebook.show_text', false)) {
             html = html.replace(/data\-show\-text=\"(true|false)\"/i, ''); // future-proof
             html = html.replace(/class=\"fb\-video\"/i, 'class="fb-video" data-show-text="true"');
             link.rel.push(CONFIG.R.app);

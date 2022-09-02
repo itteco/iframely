@@ -177,16 +177,6 @@
             'speaker', 'sync-xhr', 'usb', 'vr', 'vr / xr', 'wake-lock', 'web-share', 'xr-spatial-tracking'
         ],
 
-        // Option names
-        O: {
-            // compact & full - deprecated
-            compact: "iframely.less",
-            full: "iframely.more",
-            // use O.more & O.less instead
-            more: "iframely.more",
-            less: "iframely.less"
-        },
-
         // Option labels:
         L: {
             horizontal: 'Slimmer horizontal player',

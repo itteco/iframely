@@ -50,7 +50,7 @@ export default {
                     media: album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track
                 }
             } else {
-                var horizontal = options.getProviderOptions('players.horizontal', options.getProviderOptions('bandcamp.small_player', options.getProviderOptions(CONFIG.O.less)));
+                var horizontal = options.getProviderOptions('players.horizontal', options.getProviderOptions('bandcamp.small_player', false));
                 var opts = {
                     layout: {
                         label: 'Layout',

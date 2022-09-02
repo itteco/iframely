@@ -20,7 +20,7 @@ export default {
 
             var params = Object.assign(iframe.query);
 
-            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
+            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player'))) {
                 params.visual = false;
             }
             if (options.getRequestOptions('soundcloud.hide_comments') !== undefined) {

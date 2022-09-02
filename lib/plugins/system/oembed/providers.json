@@ -37,7 +37,7 @@
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo/?\\?",
-          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(?:photos/)?[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
         "endpoint": "https://graph.facebook.com/v11.0/oembed_post"

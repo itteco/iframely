@@ -19,10 +19,10 @@ function normalizeValue(value) {
     if (value === 'false') {
         return false;
     }
-    if (value.match(/^\d+$/)) {
+    if (/^\d+$/.test(value)) {
         return parseInt(value);
     }
-    if (value.match(/^(\d+)?\.\d+$/)) {
+    if (/^(\d+)?\.\d+$/.test(value)) {
         return parseFloat(value);
     }
     return value;
@@ -43,10 +43,14 @@ export function getProviderOptionsFromQuery(query) {
     for(var key in query) {
         if (key.length > 1 && _RE.test(key)) {
             var value = normalizeValue(query[key]);
-            var realKey = key.substr(1);
-            providerOptions._ = providerOptions._ || {};
-            providerOptions._[realKey] = value;
+            providerOptions[key] = value;
         }
+    }
+
+    // Move `query.maxwidth` to `providerOptions.maxwidth`.
+    var maxWidth = normalizeValue(query['maxwidth']);
+    if (maxWidth) {
+        providerOptions.maxwidth = maxWidth;
     }
 
     return providerOptions;
