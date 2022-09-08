@@ -101,7 +101,12 @@ export default {
 
         if (iframe && iframe.src && iframe.allow) {
             widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
-        }        
+        }
+
+        if (widget.href && whitelistRecord.isAllowed('oembed.rich', "accept") && widget.type === CONFIG.T.text_html) {
+            widget.accept = widget.type;
+            delete widget.type;
+        }
 
         return widget;
     },
