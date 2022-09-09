@@ -103,7 +103,7 @@ export default {
 
     tests: [
         "https://www.facebook.com/facebook",
-        "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
+        // "https://www.facebook.com/hlaskyjanalasaka?fref=nf", // no longer owned
         "https://www.facebook.com/pg/RhulFencing/",
         "https://www.facebook.com/caboreytours/",
         {
