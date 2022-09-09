@@ -12,26 +12,21 @@ export default {
 
         if ($script.length === 1) {
             try {
-                var json = utils.parseJSONSource($script.html());
+                var ld = utils.parseLDSource($script.html(), decode);
 
-                if (json['@type']) {
-                    var ld = {};
-                    ld[json['@type'].toLowerCase()] = json;
-
-                    if (__allowEmbedURL !== 'skip_ld') {
-                        return {
-                            ld: ld
-                        }
-                    } else if (ld.videoobject || ld.mediaobject) {
-                        var videoObject = ld.videoobject || ld.mediaobject,
-                            href = videoObject.embedURL || videoObject.embedUrl || videoObject.embedurl;
-
-                        if (href) {
-                            return {
-                                schemaVideoObject: ld.videoobject || ld.mediaobject
-                            }
-                        } // else check microformats, ex.: cbssports
+                if (ld && __allowEmbedURL !== 'skip_ld') {
+                    return {
+                        ld: ld
                     }
+                } else if (ld && (ld.videoobject || ld.mediaobject)) {
+                    const videoObject = ld.videoobject || ld.mediaobject,
+                        href = videoObject.embedURL || videoObject.embedUrl || videoObject.embedurl || videoObject.contentURL || videoobject.contentUrl || videoobject.contenturl;
+
+                    if (href) {
+                        return {
+                            schemaVideoObject: ld.videoobject || ld.mediaobject
+                        }
+                    } // else check microformats, ex.: cbssports
                 }
 
             } catch (ex) {
