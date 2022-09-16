@@ -16,7 +16,7 @@ export default {
         }
 
         return {
-            html: `<script src="https://pastebin.com/embed_js/${urlMatch[1]}>"</script>`,
+            html: `<script src="https://pastebin.com/embed_js/${urlMatch[1]}"></script>`,
             type: CONFIG.T.text_html,  
             rel: [CONFIG.R.reader, CONFIG.R.ssl]  // not inline
         }
