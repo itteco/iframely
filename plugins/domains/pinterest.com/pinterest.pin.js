@@ -8,7 +8,7 @@ export default {
     ],
 
     // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large
-    getLink: function(urlMatch, meta, iframe, options) {
+    getLink: function(urlMatch, meta, options) {
 
         var og = meta.og;
 
@@ -40,7 +40,7 @@ export default {
                     }
                 },
                 */
-                'aspect-ratio': iframe.width && iframe.height > 96 ? iframe.width / (iframe.height - 96): 1/1,
+                'aspect-ratio': og.image && og.image.width && og.image.height ? og.image.width / og.image.height: 1/1,
                 'padding-bottom': 96,
                 'max-width': 600
             };
