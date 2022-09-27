@@ -12,12 +12,32 @@ export default {
     provides: 'sveriges',
 
     mixins: [
-        "*"
+        // oEmbed returns "non-starting" player too - https://sverigesradio.se/avsnitt/1966906
+        "twitter-title",
+        "twitter-description",
+        "twitter-site",
+        "twitter-image",
+        "ld-newsarticle-logo",
+        "ld-author",
+        "ld-date",
+        "canonical",
+        "keywords",
+        "media-detector",
+        "theme-color",
+        "favicon",
     ],
+
+    getMeta: function(sverigies) {
+        return {
+            title: sveriges.title,
+            description: sveriges.description
+        }
+    },
 
     getLink: function(sveriges) {
 
         if (sveriges.canBeEmbedded) {
+
             return {
                 href: sveriges.embedUrl,
                 type: CONFIG.T.text_html,
@@ -25,14 +45,16 @@ export default {
                 'min-width': 210,
                 height: 150
             }
-        } else {
-            return {
-                message: "This Sveriges Radio publication does not have an audio embed"
+
+        } else {            
+            return { 
+                message: "This Sveriges Radio player won't play when embedded"
             }
+            // And no fallback to generic oEmbed
         }
     },
 
-    getData: function(urlMatch, request, cheerio, cb) {
+    getData: function(url, urlMatch, request, cheerio, cb) {
 
         var id = urlMatch[2],
             type = urlMatch[1] === 'avsnitt' || urlMatch[1] === 'episode' ? 'episode' : 'article';
@@ -56,9 +78,13 @@ export default {
                 if (error || response.statusCode !== 200) {
                     return cb(null);
                 } else {
-                    cb(null, {
-                        sveriges: body
-                    });
+                    if (/\/embed\//.test(url) && body.url && body.url !== url) {
+                        cb({redirect: body.url});
+                    } else {
+                        cb(null, {
+                            sveriges: body
+                        });
+                    }
                 }
             }
         }, cb);
@@ -70,7 +96,8 @@ export default {
         "https://sverigesradio.se/artikel/professorn-om-rymdbilden-det-ar-hisnande",
         "https://sverigesradio.se/avsnitt/1966906",
         "https://sverigesradio.se/embed/publication/6652202",
-        "https://sverigesradio.se/embed/episode/1966906",
+        "https://sverigesradio.se/embed/publication/8087725",
+        // Not embeddable: "https://sverigesradio.se/embed/episode/1966906",
         "https://sverigesradio.se/avsnitt/nikola-tesla-elektricitetspionjaren-som-glomdes-bort"
         // Not embeddable: https://sverigesradio.se/artikel/4351444
     ]
