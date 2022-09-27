@@ -27,12 +27,14 @@ export default {
         "favicon",
     ],
 
+    /* Not needed
     getMeta: function(sverigies) {
         return {
             title: sveriges.title,
             description: sveriges.description
         }
     },
+    */
 
     getLink: function(sveriges) {
 
@@ -90,11 +92,11 @@ export default {
         }, cb);
     },
 
-    tests: [
+    tests: [{skipMixins: ['keywords']},
         "https://sverigesradio.se/artikel/5848335",
         "https://sverigesradio.se/artikel/6573606",
         "https://sverigesradio.se/artikel/professorn-om-rymdbilden-det-ar-hisnande",
-        "https://sverigesradio.se/avsnitt/1966906",
+        // "https://sverigesradio.se/avsnitt/1966906",
         "https://sverigesradio.se/embed/publication/6652202",
         "https://sverigesradio.se/embed/publication/8087725",
         // Not embeddable: "https://sverigesradio.se/embed/episode/1966906",
