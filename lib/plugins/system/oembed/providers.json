@@ -880,5 +880,11 @@
             "capture.dropbox.com/*"
         ],
         "endpoint": "https://www.dropbox.com/capture/oembed?format={format}&url={url}"
+    }, {
+        "name": "Miro",
+        "templates": [
+            "miro.com/app/board/*"
+        ],
+        "endpoint": "https://miro.com/api/v1/oembed?format={format}&url={url}"
     }
 ]
