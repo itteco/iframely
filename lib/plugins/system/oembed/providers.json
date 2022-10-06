@@ -886,5 +886,11 @@
             "miro.com/app/board/*"
         ],
         "endpoint": "https://miro.com/api/v1/oembed?format={format}&url={url}"
+    }, {
+        "name": "Paperform",
+        "templates": [
+            ".*\\.paperform\\.co/.*"
+        ],
+        "endpoint": "https://paperform.co/services/oembed?url={url}"
     }
 ]
