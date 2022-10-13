@@ -16,7 +16,7 @@ export default {
 
         var player = {
                 href: twitter.player.value,
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player],
                 'max-width': 1064
             };
