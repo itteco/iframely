@@ -43,6 +43,11 @@
             // 5xx included in logic.
         ],
 
+        HTTP2_RETRY_CODES_LIST: [
+            'ECONNRESET',
+            'ESOCKETTIMEDOUT'
+        ],
+
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
 
