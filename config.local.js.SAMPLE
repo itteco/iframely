@@ -182,7 +182,7 @@ export default {
         }
      }],
 
-    /* Configure use of HTTP proxies, headders as needed. 
+    /* Configure use of HTTP proxies, headers as needed. 
        You don't have to specify all options per regex - just what you need to override
     */
     /*
