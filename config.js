@@ -20,7 +20,6 @@
         use_http2: true,
         DEBUG: false,
 
-        SPDY_AGENT_DEFAULT_PORT: 443,
         WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
@@ -30,7 +29,7 @@
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
         API_REQUEST_CACHE_TTL: 30 * 24 * 60 * 60,
-        IMAGE_META_CACHE_TTL: 7 *24 * 60 * 60,
+        IMAGE_META_CACHE_TTL: 7 * 24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
         CACHE_TTL_PAGE_404: 10 * 60,
@@ -42,11 +41,6 @@
             418, 
             429
             // 5xx included in logic.
-        ],
-
-        HTTP2_RETRY_CODES_LIST: [
-            'ECONNRESET',
-            'ESOCKETTIMEDOUT'
         ],
 
         CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
@@ -337,14 +331,6 @@
                 "video",
                 "embedURL"
             ]
-        },
-
-        REL_OPTIONS: {
-            all: ["ssl"],
-            player: ["responsive", "autoplay"],
-            video: ["responsive", "autoplay"],
-            link: ["reader"],
-            rich: ["reader"]
         },
 
         // whitelist rel to iframely rel.
