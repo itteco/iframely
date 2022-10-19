@@ -27,7 +27,7 @@
         "dom-serializer": "^2.0.0",
         "domutils": "^3.0.1",
         "ejs": "^3.1.8",
-        "entities": "1.1.2",
+        "entities": "4.4.0",
         "express": "^4.18.1",
         "graceful-cluster": "^0.0.5",
         "htmlparser2": "^7.1.2",
