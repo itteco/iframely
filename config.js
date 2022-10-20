@@ -1,4 +1,3 @@
-    import * as _ from 'underscore';
     import * as path from 'path';
     import * as fs from 'fs';
     import * as yaml_config from 'node-yaml-config';
@@ -370,7 +369,7 @@
     if (fs.existsSync(local_config_path)) {
         var local = await import(local_config_path);
         local = local && local.default;
-        _.extend(config, local);
+        Object.assign(config, local);
     }
 
 
@@ -394,7 +393,7 @@
         local = local && local.default;
     }
 
-    _.extend(config, local);
+    Object.assign(config, local);
 
     env_config_path = path.resolve(
         __dirname,
@@ -413,7 +412,7 @@
         local = null;
     }
 
-    _.extend(config, local);
+    Object.assign(config, local);
 
     if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;
