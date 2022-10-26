@@ -10,7 +10,7 @@ export default {
 
         return {
             href: schemaVideoObject.embedURL || schemaVideoObject.embedurl,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             accept: CONFIG.T.text_html,
             "aspect-ratio": 560/315
         };

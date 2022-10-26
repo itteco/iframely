@@ -85,14 +85,8 @@ export default {
         if (ipOG.video) {
             links.push({
                 href: ipOG.video.url,
-                type: ipOG.video.type || CONFIG.T.maybe_text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": ipOG.video.width / ipOG.video.height
-            });
-            links.push({
-                href: ipOG.video.secure_url,
-                type: ipOG.video.type || CONFIG.T.maybe_text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html,
+                rel: CONFIG.R.player,
                 "aspect-ratio": ipOG.video.width / ipOG.video.height
             });
         }
@@ -102,11 +96,11 @@ export default {
             var html = oembed.html;
             var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if (!captioned && (options.getRequestOptions('instagram.showcaption', false) || options.getProviderOptions(CONFIG.O.more, false))) {
+            if (!captioned && options.getRequestOptions('instagram.showcaption', false)) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
-            if (captioned && (!options.getRequestOptions('instagram.showcaption', true) || options.getProviderOptions(CONFIG.O.less, false))) {
+            if (captioned && !options.getRequestOptions('instagram.showcaption', true)) {
                 html = html.replace("data-instgrm-captioned ", "");
             }
 
@@ -128,7 +122,7 @@ export default {
             var app = {
                 html: html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 // sizing is from Instagram placeholder to avoid double height changes
                 'max-width': 660,                
                 'aspect-ratio': 200/63,
@@ -162,7 +156,7 @@ export default {
         options.followHTTPRedirect = true;
         options.exposeStatusCode = true;        
 
-        if (!options.getRequestOptions('instagram.meta', true)) {
+        if (!options.getProviderOptions('instagram.meta', true)) {
             result.ipOG = {};
         } else {
             result.__allowInstagramMeta = true;

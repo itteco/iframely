@@ -9,7 +9,7 @@ export default {
 
     mixins: [
         "oembed-title",
-        //"oembed-thumbnail", // Allowed in getLink - only for landscape videos due to size problem.
+        //"oembed-thumbnail", // Allowed in getLink. Portrait videos's thumnnail has incorrect size in oEmbed.
         "oembed-author",
         "oembed-duration",
         "oembed-site",
@@ -49,8 +49,8 @@ export default {
             links.push({
                 href: iframe.replaceQuerystring(params),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
+                rel: CONFIG.R.player,
+                "aspect-ratio": oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
                 autoplay: "autoplay=1",
                 options: {
                     texttrack: {
@@ -62,27 +62,36 @@ export default {
             });
         }
 
-        // Let's try and add bigger image if needed, but check that it's value.
-        // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
-        if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
-            links.push({
-                href:oembed.thumbnail_url.replace(/_\d+x\d+((?:\.jpg)?)$/, '$1'),
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail
-            });
-        }
-
         if (!oembed.thumbnail_url) {
             links.push({message: 'Contact support to ' + (options.getProviderOptions('vimeo.disable_private', false) ? 'enable' : 'disable')+ ' Vimeos with site restrictions.'});
-        } else if (oembed.width > oembed.height) { // oEmbed comes with the wrong thumbnail sizes for portrait videos
-            links.push({
+        } else {
+
+            var thumbnail = {
                 href:oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-                width: oembed.thumbnail_width,
-                height: oembed.thubnail_height
-            });
+            };
 
+            // oEmbed comes with the wrong thumbnail sizes for portrait videos,
+            // Let validators check image size for those.
+            if (oembed.thumbnail_width > oembed.thumbnail_height) {
+                thumbnail.width = oembed.thumbnail_width;
+                thumbnail.height = oembed.thubnail_height;
+            }
+            links.push(thumbnail);
+        }
+
+        // Also let's try and add bigger image if needed, but check that it's value.
+        // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
+        if (/* options.getProviderOptions('images.loadSize') !== false */
+            CONFIG.providerOptions && CONFIG.providerOptions.images
+            && CONFIG.providerOptions.images.loadSize !== false
+            && /\-d_\d{2,4}x\d{2,4}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
+            links.push({
+                href:oembed.thumbnail_url.replace(/\-d_\d{2,4}x\d{2,4}((?:\.jpg)?)$/, `-d_${oembed.width}$1`),
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            });
         }
 
         return links;
@@ -94,7 +103,8 @@ export default {
     },
         "https://vimeo.com/65836516",
         "https://vimeo.com/141567420",
-        "https://vimeo.com/76979871", // captions
+        "https://vimeo.com/76979871", // Captions
+        "https://vimeo.com/216098214", // Portrait
         {
             skipMixins: ["oembed-description"],
             skipMethods: ["getData"]

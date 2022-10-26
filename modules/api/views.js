@@ -127,6 +127,7 @@ export default function(app) {
                 iframelyCore.run(uri, {
                     v: '1.3',
                     debug: getBooleanParam(req, 'debug'),
+                    returnProviderOptionsUsage: getBooleanParam(req, 'debug'),
                     mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
                     forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
                     whitelist: getBooleanParam(req, 'whitelist'),

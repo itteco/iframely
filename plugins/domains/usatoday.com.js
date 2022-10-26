@@ -30,7 +30,7 @@ export default {
     getLink: function (gannettVideo) {
         return {
             href: 'https://uw-media.' + gannettVideo.domain +'.com/embed/video/' + gannettVideo.id + '/?placement=snow-embed',
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             accept: CONFIG.T.text_html, // let validators check it, including ssl            
             'aspect-ratio': 16/9,
             scrolling: 'no',
@@ -58,7 +58,6 @@ export default {
         "http://www.newarkadvocate.com/videos/sports/high-school/football/2015/08/15/31789999/",
         "http://www.citizen-times.com/videos/news/2015/08/17/31865067/",
         "http://www.sctimes.com/videos/weather/2015/08/17/31839437/",
-        "http://www.baxterbulletin.com/videos/news/local/2015/08/17/31843911/",
         "http://www.delmarvanow.com/videos/sports/high-school/2015/08/18/31933549/",
         "https://www.courier-journal.com/videos/entertainment/2015/08/24/31920575/",
         "http://www.detroitnews.com/videos/sports/nfl/lions/2015/08/19/31954181/",

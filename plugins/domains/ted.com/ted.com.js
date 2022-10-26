@@ -20,7 +20,8 @@ export default {
         "keywords",
         "oembed-site",
         "og-title",
-        "embedurl"
+        "embedurl",
+        'embedurl-meta'
     ],
 
     getLink: function(oembed, tedLangs) {
@@ -29,15 +30,22 @@ export default {
         if (iframe && oembed.height) {
 
             let src = iframe.src;
-            let lang_slug = src && tedLangs.language && tedLangs.language.value && `/lang/${tedLangs.language.value}`;
+            let lang_slug = src 
+                            && tedLangs.language && tedLangs.language.value 
+                            && tedLangs.language.value !== '-' // clearing language from within URL itself via `&_language=-` option
+                                ? `/lang/${tedLangs.language.value}`
+                                : '';
+
             if (lang_slug && src.indexOf(lang_slug) === -1) {
                 src = src.replace(/\/talks\//, `/talks${lang_slug}/`);
+            } else if (lang_slug === '') {
+                src = src.replace(/\/lang\/\w{2}/, '');
             }
 
             let link = {
                 href: src,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height
             };
 
@@ -60,12 +68,12 @@ export default {
          */
         if (meta.alternate) {
             meta.alternate.forEach(function(alternative) {
-                if (typeof(alternative) === "string" && /\?/.test(alternative)) {
-                    const query = URL.parse(alternative.toLowerCase(), true).query;                    
+                if (typeof(alternative) === "string" && /\?language=([a-z\-]+)$/i.test(alternative)) {
+                    const lang = alternative.match(/\?language=([a-z\-]+)$/i)[1];
                     
-                    availableLanguages[query.language] = CONFIG.LC && CONFIG.LC[query.language] || query.language;
+                    availableLanguages[lang] = CONFIG.LC && CONFIG.LC[lang] || lang;
 
-                    if (query.language === 'en') {
+                    if (lang === 'en') {
                         isTranslatedToEnglish = true;
                     }
                 }
@@ -79,7 +87,6 @@ export default {
                         query.language 
                             || options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')
                         ) || '';
-
         if (!availableLanguages[language]) {
             /** oEmbed request fails with 404 if language isn't valid... */
             language = '';
@@ -132,19 +139,18 @@ export default {
                 }
             }
 
-            if (meta && meta.alternate 
-                && !meta.alternate.some(
-                    (link) => /^(application|text)\/(xml|json)\+oembed$/i.test(link.type)
-                )) {
-                data.__isYouTube = 'maybe';
-            }            
         } else if (Object.keys(availableLanguages).length === 0) {
             // For Pop Francis, the oEmbed request will fail without &language=es.
             // And there' no way to detect &es language/
             // So let's fallback to microformats (luckily, they have one on the page).
             data.__allowEmbedURL = true;
-            data.__isYouTube = 'maybe';
         }
+
+        // Unfortunately as of Apr 11, 2022, we need to verify if it's YouTube for every URL.
+        // Before we could check empty languages or absense of oEmbed discovery link. 
+        // Now all valid and invalid players have identical data sets.
+        data.__isYouTube = 'maybe';
+
         /** `cb` is needed to be one tick ahead of oembedLinks auto-discovery. */
         return cb (null, data);
     },
@@ -152,11 +158,12 @@ export default {
     tests: [{
         page: "https://www.ted.com/talks",
         selector: "#browse-results a"
-    }, {skipMethods: ['getData']}, {skipMixins: ['embedurl']},
+    }, {skipMethods: ['getData']}, {skipMixins: ['embedurl', 'og-title']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
         "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration",
         "https://www.ted.com/talks/lera_boroditsky_how_language_shapes_the_way_we_think",
+        "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau?language=fr", // test with &&_language=-
 
         // Should work, but let's skip from tests not to avoid all oembed-* mixins
         // "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",

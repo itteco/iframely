@@ -34,7 +34,7 @@ export default {
         if (schemaFileObject.embedURL || schemaFileObject.embedUrl) {
 
             var file = {
-                rel: [CONFIG.R.file, CONFIG.R.html5],
+                rel: [CONFIG.R.file],
                 href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
                 accept: CONFIG.T.text_html
             };
@@ -48,7 +48,7 @@ export default {
                 // use default aspect
 
             } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
-                file.height = schemaFileObject.height && (schemaFileObject.height + 65);
+                file.height = schemaFileObject.height && (schemaFileObject.height + 65 + 48);
 
                 if (file.height > 1500) {
                     file.message = "If there's an extra vertical space, it is used up on next step (after \"Next\" is clicked in the form).";
@@ -147,6 +147,11 @@ export default {
                     embedUrl: url
                 }  
             });
+        } else if (/\/pubchart(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
+            return cb({
+                responseStatusCode: 415,
+                message: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
+            })            
         } else if (!meta.og) {
             return cb({
                 responseStatusCode: 415,

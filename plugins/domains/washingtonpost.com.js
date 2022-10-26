@@ -11,7 +11,7 @@ export default {
         return {
             href: 'https://www.washingtonpost.com/video/c/embed/' + urlMatch[1],
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             "aspect-ratio": 16 / 9,
             scrolling: 'no',
             autoplay: "autoplay=1"

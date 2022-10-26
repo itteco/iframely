@@ -12,7 +12,7 @@ export default {
 
             var image = {
                 type: CONFIG.T.text_html,  // Always an iframe, either native, or hosted
-                rel:[CONFIG.R.oembed, CONFIG.R.image, CONFIG.R.html5],
+                rel:[CONFIG.R.oembed, CONFIG.R.image],
                 'aspect-ratio': oembed.width / oembed.height // have to assume it's responsive
             };
 

@@ -19,12 +19,12 @@ export default {
             (meta.twitter && meta.twitter.app && meta.twitter.app.url && /\/user\//i.test(meta.twitter.app.url.iphone))) {
 
             var height = options.getRequestOptions('pinterest.height', options.maxHeight || 600);
-            var width = options.getRequestOptions('pinterest.width', options.maxWidth || 600);
+            var width = options.getRequestOptions('pinterest.width', options.getRequestOptions('maxwidth', 600));
             var pinWidth = options.getRequestOptions('pinterest.pinWidth', 120);
 
             return {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 template: "pinterest.widget",
                 template_context: {
                     url: og.url || url,

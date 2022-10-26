@@ -3,9 +3,11 @@ import * as utils from '../../../lib/utils.js';
 export default {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i
+        /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i,
         // Avoid oembed error on experiences such as https://players.brightcove.net/6057277732001/experience_5fdc1e38e57a07002222f857/share.html
         // Аuto-discovery on expeience pages is for a single video and isn't right either. So let oEmbed fail there for now.
+
+        /^https?:\/\/players\.brightcove\.net\/pages\/v\d\/index\.html\?/i
     ],
 
     mixins: [
@@ -15,12 +17,18 @@ export default {
         "oembed-iframe"
     ],
 
+    getMeta: function() {
+        return {
+            provider_url: 'brightcove.com' // for consents
+        }
+    },
+
     //HTML parser will 404 if BC account or player does not exist.
     getLinks: function(url, iframe, options, cb) {
 
         var player = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed]
+            rel: [CONFIG.R.player, CONFIG.R.oembed]
         };
 
         // autoplay=true comes from `brightcove-in-page-promo` only and follows whitelistRecord
@@ -76,7 +84,8 @@ export default {
     },
 
     tests: [{skipMixins:['oembed-error']},
-        "https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001"
+        "https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001",
+        "http://players.brightcove.net/pages/v1/index.html?accountId=5660549837001&playerId=default&videoId=6303785895001&mode=iframe"
         // But sometimes thumbnail aspect is actually incorrect while oembed default is correct:
         // https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001
     ]

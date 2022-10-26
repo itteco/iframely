@@ -1,7 +1,6 @@
 // use this mixin for domain plugins where you do not want to pull out htmlparser but do need an icon or logo
 import { cache } from '../../lib/cache.js';
 import * as async from 'async';
-import * as _ from 'underscore';
 import log from '../../logging.js';
 
 export default {
@@ -33,6 +32,12 @@ export default {
             key += ':debug';
         }
 
+        const FALLBACK_ICONS = [{
+            href: CONFIG.FALLBACK_ICONS && CONFIG.FALLBACK_ICONS[domain] || `${domainUri}/favicon.ico`,
+            type: CONFIG.T.image,
+            rel: [CONFIG.R.icon, CONFIG.R.iframely] // It will be validated as image.
+        }];
+
         async.waterfall([
 
             function(cb) {
@@ -49,7 +54,7 @@ export default {
                     });
 
                     cb(null, {
-                        domain_icons: data
+                        domain_icons: data.length > 0 ? data : FALLBACK_ICONS
                     });
 
                 } else {
@@ -58,11 +63,7 @@ export default {
                         // On cache miss hard code domain icon to favicon.ico.
 
                         cb(null, {
-                            domain_icons: [{
-                                href: `${domainUri}/favicon.ico`,
-                                type: CONFIG.T.image,
-                                rel: [CONFIG.R.icon, CONFIG.R.iframely] // It will be validated as image.
-                            }]
+                            domain_icons: FALLBACK_ICONS
                         }); 
                     }
 
@@ -70,7 +71,10 @@ export default {
                     // + run icons validation right away
 
                     // forceSyncCheck - ask 'checkFavicon' to check favicon this time before callback.
-                    iframelyRun(domainUri, _.extend({}, options, {forceSyncCheck: true}), function(error, data) {
+                    var options2 = Object.assign({}, options, {forceSyncCheck: true});
+                    delete options2._usedProviderOptions;
+
+                    iframelyRun(domainUri, options2, function(error, data) {
 
                         var icons;
 
@@ -83,16 +87,13 @@ export default {
                                 return link.rel.indexOf(CONFIG.R.icon) > -1;
                             });
                         } else {
+                            log('[domain-icons] no icons for', domainUri);
                             icons = [];
                         }
                         
                         if (options.forceSyncCheck) {
                             // skip domain icon on cache miss 
-                            cb (null, {domain_icons: icons}); 
-                        }
-
-                        if (icons.length === 0) {
-                            log('[domain-icons] no icons for', domainUri)
+                            cb(null, {domain_icons: icons && icons.length > 0 ? icons : FALLBACK_ICONS}); 
                         }
 
                         cache.set(key, icons, {ttl: icons.length > 0 ? CONFIG.IMAGE_META_CACHE_TTL : CONFIG.CACHE_TTL_PAGE_TIMEOUT});

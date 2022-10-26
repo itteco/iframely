@@ -19,6 +19,10 @@ export default {
 
         if (json) {
 
+            if (Array.isArray(json) && json.length === 1) {
+                json = json[0];
+            }
+
             var video_src = json.embedurl || json.embedUrl || json.embedURL || json.contenturl || json.contentUrl || json.contentURL;
 
             if (/^<iframe.*<\/iframe>$/i.test(video_src)) {
@@ -42,7 +46,6 @@ export default {
                     }
                 }
             }
-
 
             var data = {
                 schemaVideoObject: json

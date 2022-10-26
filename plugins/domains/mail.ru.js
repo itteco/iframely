@@ -22,7 +22,7 @@ export default {
             return {
                     href: "https://my.mail.ru/video/embed/" + video_id[1],
                     accept: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
+                    rel: CONFIG.R.player,
                     "aspect-ratio": 626 / 367,
                     autoplay: "autoplay=1"
                 };

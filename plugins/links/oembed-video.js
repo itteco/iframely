@@ -57,13 +57,14 @@ export default {
             player.autoplay = whitelistRecord.oembed['video-autoplay'];
         }
 
-        if (whitelistRecord.isAllowed('oembed.video', 'html5')) {
-            player.rel.push(CONFIG.R.html5);
-        }
-
         if (iframe && iframe.allow) {
             player.rel = player.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
-        }        
+        }
+
+        if (player.href && whitelistRecord.isAllowed('oembed.rich', "accept") && player.type === CONFIG.T.text_html) {
+            player.accept = player.type;
+            delete player.type;
+        }
 
         return player;
 

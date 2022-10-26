@@ -25,7 +25,7 @@ export default {
             
             var link = {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
+                rel: [CONFIG.R.reader, CONFIG.R.ssl],
                 'aspect-ratio': aspect
             };
 
@@ -68,42 +68,25 @@ export default {
         }
     },
 
-    getData: function(url, cb) {
-
-        /* if (/(?:\.html)?#document\/p(\d+)(?:\/a(\d+))?/i.test(url)) {
-            var m = url.match(/(?:\.html)?#document\/p(\d+)(?:\/a(\d+))?/i);
-            var redirect = url.replace(/(?:\.html)?#document\/p(\d+)(?:\/a(\d+))?/i, '');
+    // Pages and comments are covered by known providers in providers.json
+    getData: function(url, __noOembedLinks, cb) {
             
-            if (m[2]) {
-                redirect += '/annotations/' + m[2] + '.html';
-            } else {
-                redirect += '/pages/' + m[1] + '.html';
-            }
-            
-            return cb ({
-                redirect: redirect
-            });
-
-        } else */ if (
-            url.indexOf('%') !== -1 
-            // || !/\d+\-[a-zA-Z0-9\-]+(?:(\.|\/|\?).+)?$/.test(url)    // This was for `/pages/2.html`
-        ) {
-            /** Fix for unicode characters in url causes 400 at provider oEmbed api */
-            var uri = encodeURI(url.replace(/(\d+\-)[^./#?]+/i, '$1-')); // .replace(/(\/\d+--)[^.]*$/i, '$1.html')); // This was for `/pages/2.html`
-            
-            return cb(null, {
-                oembedLinks: ['json', 'xml'].map(function (format) {
-                    return {
-                        href: `https://www.documentcloud.org/api/oembed.${format}?url=${uri}`,
-                        rel: 'alternate',
-                        type: `application/${format}+oembed`
-                    }
-                })
-            });
-
-        } else {
-            return cb (null);
-        }
+        /** Fix for unicode characters in url causes 400 at provider oEmbed api */
+        var uri = encodeURI(
+            url.indexOf('%') === -1
+                ? url
+                : url.replace(/(\d+\-)[^./#?]+/i, '$1-')
+        );
+        
+        return cb(null, {
+            oembedLinks: ['json', 'xml'].map(function (format) {
+                return {
+                    href: `https://www.documentcloud.org/api/oembed.${format}?url=${uri}`,
+                    rel: 'alternate',
+                    type: `application/${format}+oembed`
+                }
+            })
+        });
     },
 
     tests: [{skipMethods: ['getData']},

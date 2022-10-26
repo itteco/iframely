@@ -37,13 +37,10 @@ export default {
             rels.push(CONFIG.R['3d']);
         }
 
-
         if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
             rels.push(CONFIG.R.inline);
         }
-        if (whitelistRecord.isAllowed('oembed.rich', "html5")) {
-            rels.push(CONFIG.R.html5);
-        }
+
         rels.push ("allow"); // Otherwise, rich->players get denied by oembed:video whitelist record.
 
         var widget = {
@@ -90,7 +87,7 @@ export default {
                 widget['aspect-ratio'] = oembed.width / oembed.height;
             }
         } else if (whitelistRecord.isAllowed('oembed.rich', 'horizontal')) {
-            widget.height = iframe.height || oembed.height;
+            widget.height = (iframe && iframe.height) || oembed.height;
 
             if (whitelistRecord.isAllowed('oembed.rich', "resizable")) {
                 rels.push(CONFIG.R.resizable);
@@ -104,7 +101,12 @@ export default {
 
         if (iframe && iframe.src && iframe.allow) {
             widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
-        }        
+        }
+
+        if (widget.href && whitelistRecord.isAllowed('oembed.rich', "accept") && widget.type === CONFIG.T.text_html) {
+            widget.accept = widget.type;
+            delete widget.type;
+        }
 
         return widget;
     },

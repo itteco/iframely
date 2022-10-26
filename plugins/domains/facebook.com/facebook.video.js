@@ -3,13 +3,13 @@ const DEFAULT_WIDTH = 640;
 export default {
 
     re: [
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d{5,})$/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d{5,})(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/.+/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=/i
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php.*[\?&]v=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/photo\.php.*[\?&]v=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d+)$/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d+)(?:$|&)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/(\d+)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=(\d+)/i
     ],
 
     mixins: ["fb-error"],
@@ -21,11 +21,11 @@ export default {
 
         var link = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.ssl, CONFIG.R.html5],
+            rel: [CONFIG.R.ssl],
         }; 
    
 
-        if (options.getRequestOptions('facebook.show_text', false) || options.getProviderOptions(CONFIG.O.more, false)) {
+        if (options.getRequestOptions('facebook.show_text', false)) {
             html = html.replace(/data\-show\-text=\"(true|false)\"/i, ''); // future-proof
             html = html.replace(/class=\"fb\-video\"/i, 'class="fb-video" data-show-text="true"');
             link.rel.push(CONFIG.R.app);
