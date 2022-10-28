@@ -14,6 +14,10 @@ export default {
                     query[key] = true;
                 } else if (query[key] === "false") {
                     query[key] = false;
+                } else if (/^\d+$/.test(query[key])) {
+                    try {
+                        query[key] = parseInt(query[key]);
+                    } catch (ex) {}
                 }
             }
             return {
