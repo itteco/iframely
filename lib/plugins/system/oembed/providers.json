@@ -234,6 +234,14 @@
         "endpoint": "https://www.tiktok.com/oembed"
     },
     {
+        "name": "TikTok US",
+        "templates": [
+            "\\w{2}\\.(tiktok\\.com/@[^\\/]+\/video\/\\d+)"
+        ],
+        "url": "https://www.{1}",
+        "endpoint": "https://www.tiktok.com/oembed"
+    },
+    {
         "name": "Tidal",
         "templates": [
             "(?:listen\\.|www\\.)?tidal\\.com\/(?:browse\/)?(\\w+)\/(\\d+)",
