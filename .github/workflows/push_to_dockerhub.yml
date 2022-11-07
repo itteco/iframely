@@ -11,7 +11,7 @@ on:
     tags:
       - '*'
 env:
-  PUSH_BRANCH_TO_DOCKERHUB: false
+  PUSH_BRANCH_TO_DOCKERHUB: true
 jobs:
   build:
     runs-on: ubuntu-latest
