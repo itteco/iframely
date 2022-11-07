@@ -27,7 +27,7 @@ export default {
             return {
                 href: iframe.replaceQuerystring(playlistParams),
                 type: CONFIG.T.text_html,
-                "rel": [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.oembed],
+                "rel": [CONFIG.R.player, CONFIG.R.oembed],
                 "aspect-ratio": iframe.width / iframe.height,
                 scrolling: 'no',
                 autoplay: "autoplay=1"

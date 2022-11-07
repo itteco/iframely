@@ -24,7 +24,7 @@ export default {
             links.push({
                 href: (twitter.player.value || twitter.player).replace(/\/twitter\/iframe$/, ''),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.html5, CONFIG.R.gifv],
+                rel: [CONFIG.R.player, CONFIG.R.twitter, CONFIG.R.gifv],
                 "aspect-ratio": twitter.player.width / twitter.player.height
             });
         // Vidoes don't have Twitter player as of June 16, 2020 and as of Feb 1, 2021
@@ -32,7 +32,7 @@ export default {
             links.push({
                 href: `https://giphy.com/embed/${urlMatch[1]}/video`,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.gifv, CONFIG.R.autoplay],
+                rel: [CONFIG.R.player, CONFIG.R.gifv, CONFIG.R.autoplay],
                 "aspect-ratio": og.video.width / og.video.height
             });            
         }
@@ -47,7 +47,7 @@ export default {
             links.push({
                 href: video.url.replace(/^http:\/\//i, 'https://'),
                 type: CONFIG.T.video_mp4,
-                rel: [CONFIG.R.player, CONFIG.R.html5, isVid ? CONFIG.R.og : CONFIG.R.gifv],
+                rel: [CONFIG.R.player, isVid ? CONFIG.R.og : CONFIG.R.gifv],
                 "aspect-ratio": video.width / video.height
             });
         }

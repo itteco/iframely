@@ -89,7 +89,13 @@ export default {
         var rels = key.split(/\W+/);
 
         if (!rels.some(rel => CONFIG.REL_GROUPS && CONFIG.REL_GROUPS.includes(rel))) {
-            return [];
+            if (whitelistRecord.isAllowed('iframely.app') && /iframely/i.test(key)) {
+                // Allow <link rel="iframely" ....
+                // With default rel of "app"
+                rels.push(CONFIG.R.app);
+            } else {
+                return [];
+            }
         }
 
         if (!(value instanceof Array)) {

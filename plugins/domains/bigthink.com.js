@@ -6,7 +6,7 @@ export default {
 
     getData: function(ld, cheerio, cb) {
         var $el = cheerio('head script[src*="cdn.jwplayer.com"]');
-        var player_re = /jwplayer.com\/libraries\/(\w+)\.js$/i;
+        var player_re = /jwplayer.com\/libraries\/(\w+)\.js/i;
         var media_re = /jwplayer.com\/v\d+\/media\/(\w+)\/poster\.jpg$/i;
 
         if ($el.length > 0 

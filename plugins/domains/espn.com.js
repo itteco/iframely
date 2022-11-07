@@ -15,7 +15,7 @@ export default {
         return {
             href: 'https://www.espn.com/core/video/iframe?id=' + urlMatch[1] + '&endcard=false',
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             "aspect-ratio": 16/9
         };
     },
@@ -27,7 +27,6 @@ export default {
         "http://www.espn.com/video/clip/_/id/18883925",
         "https://www.espn.com.ar/video/clip?id=10100188",
         "http://www.espn.com/videohub/video/clip/_/id/18883925/categoryid/2378529",
-        "https://www.espn.com/watch/player/_/id/33449144",
         "https://www.espn.com/watch/player/_/id/27394219/country/us/redirected/true#bucketId=1",
         "https://espndeportes.espn.com/video/clip/_/id/10250538"
     ]

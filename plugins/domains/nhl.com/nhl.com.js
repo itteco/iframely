@@ -12,7 +12,7 @@ export default {
         return {
             href: "https://www.nhl.com" + urlMatch[1] + "video/embed/" + urlMatch[2],
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player,  CONFIG.R.html5],
+            rel: CONFIG.R.player,
             "aspect-ratio": 540 / 310,
             "max-width": 1280
         }

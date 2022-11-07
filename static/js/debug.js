@@ -252,6 +252,9 @@ function showEmbeds($embeds, data, filterByRel) {
 
             $meta.append('<tr>' + (DEBUG ? ('<td>' + pluginId + '</td><td></td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
         });
+        if (DEBUG && data.vary && data.vary.join) {
+            $meta.append('<tr><td></td><td></td><td><strong>vary</strong></td><td>' + data.vary.join('<br>') + '</td></tr>')
+        }
 
         $embeds.prepend($meta);
         $embeds.prepend('<h4>Unified meta</h4>');

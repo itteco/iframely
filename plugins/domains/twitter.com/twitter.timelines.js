@@ -85,7 +85,7 @@ export default {
 
         var links = [{
             html: html,
-            rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+            rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.inline],
             type: CONFIG.T.text_html,
             options: {
                 limit: {

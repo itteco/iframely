@@ -13,7 +13,7 @@ export default {
         return {
             href: "https://www.ebaumsworld.com/media/embed/" + urlMatch[1],
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.autoplay],
             "aspect-ratio": 567 / 345
         };
     },

@@ -28,12 +28,12 @@ export default {
 
         if (iframe.src) {
 
-            var horizontal_player = options.getRequestOptions('players.horizontal', options.getProviderOptions(CONFIG.O.less));
+            var horizontal_player = options.getRequestOptions('players.horizontal', false);
 
             var player = {
                 href: iframe.src,
                 accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.ssl],
                 options: {}
             };
 
@@ -44,39 +44,27 @@ export default {
                     label: CONFIG.L.playlist,
                     value: include_playlist
                 };
-                player.media = horizontal_player === false && include_playlist 
-                    ? {
-                        'aspect-ratio': 4/3,
-                        'padding-bottom': 80,
-                    } : {
-                        height: !include_playlist ? 80 : (iframe.height || 400)
-                    };
-
-                // Temp fix for broken v2 playlist.
-                player.href = iframe.src.replace(/\/embed\/playlist\-v2\//, '/embed/playlist/');
-
-            } else if (/show/.test(iframe.src)) {
-                player.rel.push(CONFIG.R.audio);
-                player.height = iframe.height || 232;
+                player.media = {
+                    height: !include_playlist ? 80 : (iframe.height || 400)
+                };
 
             } else if (/episode/.test(iframe.src)) {
                 var isVideo = !!iframe.width; // 100% width for audio episodes is not set in `iframe`
                 if (!isVideo) player.rel.push(CONFIG.R.audio);
                 player.media = isVideo && iframe.height
                                 ? {'aspect-ratio' : iframe.width / iframe.height}
-                                : {height: iframe.height || 232}
+                                : {height: iframe.height || 152}
 
-            } else {
+            // else /track/ or /show/
+            } else { 
                 player.rel.push(CONFIG.R.audio);
                 player.options.horizontal = {
                     label: CONFIG.L.horizontal,
                     value: horizontal_player === true
                 };
 
-                player.media = horizontal_player ? {height: 80} : {
-                    'aspect-ratio': 1,
-                    'padding-bottom': 80,
-                    'max-width': 500
+                player.media = {
+                    height: horizontal_player ? 80: 152
                 };
             }
 
@@ -113,7 +101,6 @@ export default {
         "https://open.spotify.com/playlist/4SsKyjaGlrHJbRCQwpeUsz",
         "http://open.spotify.com/album/42jcZtPYrmZJhqTbUhLApi",
         "https://open.spotify.com/playlist/0OV99Ep2d1DCENJRPuEtXV",
-        "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "https://open.spotify.com/track/4by34YzNiEFRESAnBXo7x4",
         "https://open.spotify.com/track/2qZ36jzyP1u29KaeuMmRZx",
         "http://open.spotify.com/track/7ldU6Vh9bPCbKW2zHE65dg",
@@ -123,6 +110,7 @@ export default {
         "https://open.spotify.com/episode/2DBstW0LumPSF5SyO5ofRe",
         // soft 404: "https://open.spotify.com/episode/48Hca47BsH35I2GS0trj68",
         "https://open.spotify.com/album/3obcdB2QRQMfUBHzjOto4K?highlight=spotify:track:2qZ36jzyP1u29KaeuMmRZx",
-        "https://open.spotify.com/episode/2jAYGAbZHxReyhtK6kI5xG"
+        "https://open.spotify.com/episode/2jAYGAbZHxReyhtK6kI5xG",
+        "https://open.spotify.com/track/7wOhrfBztELHLHuQQ3YOVA"
     ]
 };

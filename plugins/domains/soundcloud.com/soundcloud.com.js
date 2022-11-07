@@ -20,7 +20,7 @@ export default {
 
             var params = Object.assign(iframe.query);
 
-            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
+            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player'))) {
                 params.visual = false;
             }
             if (options.getRequestOptions('soundcloud.hide_comments') !== undefined) {
@@ -76,7 +76,7 @@ export default {
             links.push({
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.audio],
                 autoplay: "auto_play=true",
                 media: height === 0 ? {
                     'aspect-ratio': 1, // the artwork is always 500x500

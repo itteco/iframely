@@ -61,7 +61,7 @@ export default {
                         }, {
                             href: iframe.src,
                             type: CONFIG.T.text_html,
-                            rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow, CONFIG.R.html5],
+                            rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow],
                             "aspect-ratio": aspect,
                             "padding-bottom": 58
                         }

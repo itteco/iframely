@@ -21,11 +21,11 @@ export default {
 
         var link = {
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.ssl, CONFIG.R.html5],
+            rel: [CONFIG.R.ssl],
         }; 
    
 
-        if (options.getRequestOptions('facebook.show_text', false) || options.getProviderOptions(CONFIG.O.more, false)) {
+        if (options.getRequestOptions('facebook.show_text', false)) {
             html = html.replace(/data\-show\-text=\"(true|false)\"/i, ''); // future-proof
             html = html.replace(/class=\"fb\-video\"/i, 'class="fb-video" data-show-text="true"');
             link.rel.push(CONFIG.R.app);

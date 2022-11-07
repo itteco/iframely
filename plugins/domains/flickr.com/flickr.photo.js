@@ -51,7 +51,7 @@ export default {
 
         result.push({
             html: html.replace(/width=\"\d+\" height=\"\d+\" alt/, 'width="100%" alt'),
-            rel: (oembed.type === 'photo' ? [CONFIG.R.image] : [CONFIG.R.player, CONFIG.R.slideshow]).concat([CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5]),
+            rel: (oembed.type === 'photo' ? [CONFIG.R.image] : [CONFIG.R.player, CONFIG.R.slideshow]).concat([CONFIG.R.ssl, CONFIG.R.inline]),
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width / oembed.height,
             options: {

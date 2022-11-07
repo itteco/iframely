@@ -14,7 +14,7 @@ export default {
                     return {
                         href: url,
                         type: CONFIG.T.text_html,
-                        rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.oembed],
+                        rel: [CONFIG.R.app, CONFIG.R.oembed],
                         'aspect-ratio': params.width / params.height
                     }
                 }

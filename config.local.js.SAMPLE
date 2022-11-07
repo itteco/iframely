@@ -85,8 +85,10 @@ export default {
     /*
     // Redis cache options.
     REDIS_OPTIONS: {
-        host: '127.0.0.1',
-        port: 6379
+        socket: {
+            host: '127.0.0.1',
+            port: 6379
+        }
     },
     */
 
@@ -170,27 +172,7 @@ export default {
         }
      }],
 
-        /* Configure use of HTTP proxies as needed.
-           You don't have to specify all options per regex - just what you need to override
-        */
-        /*
-        PROXY: [{
-            re: [/^https?:\/\/www\.domain\.com/],
-            proxy_server: 'http://1.2.3.4:8080',
-            user_agent: 'CHANGE YOUR AGENT',
-            headers: {
-                // HTTP headers
-                // Overrides previous params if overlapped.
-            },
-            request_options: {
-                // Refer to: https://github.com/request/request
-                // Overrides previous params if overlapped.
-            },
-            cache_ttl: 3600, // in seconds, cache response for 1 hour.
-            disable_http2: true
-        }],
-        */
-    /* Configure use of HTTP proxies, headders as needed. 
+    /* Configure use of HTTP proxies, headers as needed. 
        You don't have to specify all options per regex - just what you need to override
     */
     /*

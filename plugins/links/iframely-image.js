@@ -4,7 +4,7 @@ export default {
 
     getLinks: function(meta, options) {
 
-        var appname = options.getRequestOptions('app.name');
+        var appname = options.getProviderOptions('app.name');
         if (appname) {
             appname = appname.toLowerCase();
         }

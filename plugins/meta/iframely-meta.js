@@ -5,7 +5,7 @@ export default {
     // Override meta if publisher targets Iframely or one of the apps
     getMeta: function(meta, options) {
 
-        var appname = options.getRequestOptions('app.name');
+        var appname = options.getProviderOptions('app.name');
         if (appname) {
             appname = appname.toLowerCase();
         }        

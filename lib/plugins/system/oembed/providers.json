@@ -37,7 +37,7 @@
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo/?\\?",
-          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/photos/[^\\/]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(?:photos/)?[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
         "endpoint": "https://graph.facebook.com/v11.0/oembed_post"
@@ -231,6 +231,14 @@
             "(?:www|t)?\\.tiktok\\.com/(?:i18n\/)?share\/video\/\\d+",
             "m\\.tiktok\\.com/v/\\d+"
         ],
+        "endpoint": "https://www.tiktok.com/oembed"
+    },
+    {
+        "name": "TikTok US",
+        "templates": [
+            "\\w{2}\\.(tiktok\\.com/@[^\\/]+\/video\/\\d+)"
+        ],
+        "url": "https://www.{1}",
         "endpoint": "https://www.tiktok.com/oembed"
     },
     {
@@ -529,13 +537,14 @@
     }, {
         "name": "ProductHunt",
         "templates": [
-            "(?:www\\.)producthunt\\.com/posts/"
+            "(?:www\\.)producthunt\\.com/(?:posts|products)/([^/#]+)"
         ],
-        "endpoint": "https://api.producthunt.com/widgets/oembed"
+        "endpoint": "https://api.producthunt.com/widgets/oembed",
+        "url": "https://producthunt.com/posts/{1}"
     }, {
         "name": "ProductHunt Comments",
         "templates": [
-            "(?:www\\.)producthunt\\.com/posts/[^#]+#comments?\\-(\\d+)"
+            "(?:www\\.)producthunt\\.com/(?:posts|products)/[^#]+#comments?\\-(\\d+)"
         ],
         "url": "https://www.producthunt.com/comments/{1}",
         "endpoint": "https://api.producthunt.com/widgets/oembed?url={url}"
@@ -614,7 +623,7 @@
         "templates": [
             ".*\\.podigee.io/.*"
         ],
-        "endpoint": "https://embed.podigee.com/oembed?type=iframe&url={url}"
+        "endpoint": "https://embed.podigee.com/oembed?url={url}"
     }, {
         "name": "Podbean",
         "templates": [
@@ -834,8 +843,62 @@
     {
         "name": "Videoask",
         "templates": [
-            "videoask.com/*"             
+            "videoask.com/*"
         ],
         "endpoint": "https://www.videoask.com/oembed"
+    },
+    {
+        "name": "Zoho Docs",
+        "templates": [
+            "docs.zoho(?:public)?.com/*"  
+        ],
+        "endpoint": "https://docs.zoho.com/services/oembed"
+    },
+    {
+        "name": "ShiftX",
+        "templates": [
+            "shiftx.com/processes/.+/view",
+            "shiftx.com/processes/.+/public/.+"            
+        ],
+        "endpoint": "https://shiftx.com/oembed"
+    },
+    {
+        "name": "Omny.fm",
+        "templates": [
+            "omny.fm/shows/*"
+        ],
+        "endpoint": "https://omny.fm/oembed"
+    },
+    {
+        "name": "Metacdn",
+        "templates": [
+            "metacdn.com/r/*"
+        ],
+        "endpoint": "https://www.metacdn.com/api/oembed?url={url}&format={format}"
+    },
+    {
+        "name": "iorad",
+        "templates": [
+            "iorad.com/player/*"
+        ],
+        "endpoint": "https://www.iorad.com/api/oembed"
+    }, {
+        "name": "Dropbox Capture",
+        "templates": [
+            "capture.dropbox.com/*"
+        ],
+        "endpoint": "https://www.dropbox.com/capture/oembed?format={format}&url={url}"
+    }, {
+        "name": "Miro",
+        "templates": [
+            "miro.com/app/board/*"
+        ],
+        "endpoint": "https://miro.com/api/v1/oembed?format={format}&url={url}"
+    }, {
+        "name": "Paperform",
+        "templates": [
+            ".*\\.paperform\\.co/.*"
+        ],
+        "endpoint": "https://paperform.co/services/oembed?url={url}"
     }
 ]

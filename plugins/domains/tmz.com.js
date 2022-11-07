@@ -14,7 +14,7 @@ export default {
         if (href) {
             return {
                 href: href,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: CONFIG.R.player,
                 type: CONFIG.T.text_html,
                 "aspect-ratio": 16/9,
                 "padding-bottom": 10
