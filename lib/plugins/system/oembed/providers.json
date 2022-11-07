@@ -900,5 +900,11 @@
             ".*\\.paperform\\.co/.*"
         ],
         "endpoint": "https://paperform.co/services/oembed?url={url}"
+    }, {
+        "name": "Airtable",
+        "templates": [
+            "airtable\\.com/*/*"
+        ],
+        "endpoint": "https://airtable.com/integration/oembed"
     }
 ]
