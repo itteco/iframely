@@ -8,7 +8,7 @@ export default {
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\/video\.php\?v=(\d+)$/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]v=(\d+)(?:$|&)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/video\.php.*[\?&]id=(\d+)(?:$|&)/i,
-        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9.]+\/videos\/(\d+)/i,
+        /^https?:\/\/(?:www|business)\.facebook\.com\/[a-zA-Z0-9\.]+\/videos\/(?:[a-zA-Z0-9\-]+\/)?(\d+)/i,
         /^https?:\/\/(?:www|business)\.facebook\.com\/watch\/?\?(?:.+&)?v=(\d+)/i
     ],
 
@@ -56,6 +56,7 @@ export default {
         "https://business.facebook.com/KMPHFOX26/videos/10154356403004012/",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
+        "https://www.facebook.com/ScottishDailyExpress/videos/former-scottish-conservative-leader-ruth-davidson-opens-up-about-ivf-struggle-wi/1281761502607093/",
         {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
 };
