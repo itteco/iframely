@@ -27,6 +27,7 @@ export default {
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.sharedcontent
                 || /\.png\?/.test(thumbnail) // profile pictures are jpegs
                 || /safe_image\.php\?/.test(thumbnail) // URL cards
+                || /\?url=/.test(thumbnail) // URL cards
                 )) {
 
             return {
