@@ -447,15 +447,13 @@ export default function(app) {
             iframelyUtils.filterLinks(result, {
                 filterNonSSL: getBooleanParam(req, 'ssl'),
                 filterNonHTML5: getBooleanParam(req, 'html5'),
-                amp: getBooleanParam(req, 'amp'),
                 maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width')
             });
 
             var oembed = oembedUtils.getOembed(uri, result, {
                 mediaPriority: getBooleanParam(req, 'media'),
                 omit_css: getBooleanParam(req, 'omit_css'),
-                targetWidthForResponsive: getIntParam(req, 'width'),
-                amp: getBooleanParam(req, 'amp')
+                targetWidthForResponsive: getIntParam(req, 'width')
             });
 
             if (req.query.format === "xml") {
