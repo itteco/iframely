@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /https?:\/\/www\.theguardian\.com\/[\w-]+\/video\/\d+\/\w+\/\d+\/[\w-]+/i,
 
@@ -19,7 +19,7 @@ module.exports = {
                 return {
                     href: video.replace(/https?:\/\/www\.theguardian\.com\//, "https://embed.theguardian.com/embed/video/"),
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5],
+                    rel: CONFIG.R.player,
                     "aspect-ratio": 560 / 315
                 };
             }

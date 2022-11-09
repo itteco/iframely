@@ -1,6 +1,6 @@
-var URL = require("url");
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: /^https:\/\/yandex\.ru\/maps\//,
 
@@ -42,7 +42,7 @@ module.exports = {
                 aspect_ratio: aspect_ratio
             },
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.ssl],
+            rel: [CONFIG.R.app, CONFIG.R.ssl],
             "aspect-ratio": aspect_ratio
         };
     },

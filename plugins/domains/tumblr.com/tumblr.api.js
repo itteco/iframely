@@ -1,7 +1,7 @@
-var $ = require('cheerio');
-var _ = require('underscore');
+import cheerio from 'cheerio';
 
-module.exports = {
+
+export default {
 
     re: [
         /^https?:\/\/([a-z0-9-]+\.tumblr\.com)\/(post|image)\/(\d+)(?:\/[a-z0-9-]+)?/i,
@@ -12,7 +12,7 @@ module.exports = {
 
     getMeta: function(tumblr_post) {
 
-        var caption = tumblr_post.caption ? $('<div>').html(tumblr_post.caption).text() : "";
+        var caption = tumblr_post.caption ? cheerio('<div>').html(tumblr_post.caption).text() : "";
         if (caption && caption.length > 160) {
             caption = caption.split(/[.,!?]/)[0];
         }
@@ -23,11 +23,11 @@ module.exports = {
             author: tumblr_post.blog_name,
             author_url: 'https://' + tumblr_post.blog_name + '.tumblr.com',
             canonical: tumblr_post.permalink_url || tumblr_post.post_url,
-            tags: _.unique([].concat(tumblr_post.tags, tumblr_post.featured_in_tag || [])).join(', '),
+            tags: tumblr_post.tags && tumblr_post.tags.join(', '),
             shortlink: tumblr_post.short_url,
             date: tumblr_post.date,
             duration: tumblr_post.duration,
-            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? $('<div>').html(tumblr_post.body).find('p').first().text() : null
+            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? cheerio('<div>').html(tumblr_post.body).find('p').first().text() : null
         };
     },
 
@@ -75,12 +75,10 @@ module.exports = {
                 id: urlMatch[3]
             },
             json: true,
-            limit: 1, 
-            timeout: 1000,
             prepareResult: function (error, response, body, cb) {
 
                 if (error || body.errors) {
-                    return cb(error || 'There was a Tumblr API error error');
+                    return cb(error || body.errors || 'There was a Tumblr API error');
                 }
 
                 if (!body.meta) {

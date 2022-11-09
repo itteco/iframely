@@ -1,38 +1,33 @@
-module.exports = {
-
-    re: /^https?:\/\/bigthink\.com\/videos\/([a-zA-Z0-9\-]+)/i,
+export default {
 
     mixins: [
         "*"
     ],
 
-    getData: function(cheerio, cb) {
-        var $el = cheerio('.widget__video script');
+    getData: function(ld, cheerio, cb) {
+        var $el = cheerio('head script[src*="cdn.jwplayer.com"]');
+        var player_re = /jwplayer.com\/libraries\/(\w+)\.js/i;
+        var media_re = /jwplayer.com\/v\d+\/media\/(\w+)\/poster\.jpg$/i;
 
-        var $container = cheerio('<div>');
-        try {
-            $container.html($el.text());
-        } catch (ex) {}
+        if ($el.length > 0 
+            && player_re.test($el.attr('src'))
+            && ld.article && ld.article.image 
+            && media_re.test(ld.article.image.url)) {
 
-        var $iframe = $container.find('iframe');
+            var player_id = $el.attr('src').match(player_re)[1];
+            var media_id = ld.article.image.url.match(media_re)[1];
 
-        if (/jwplayer_video_url=/.test($iframe.attr('src'))) {
             cb (null, {
-                __promoUri: {url: decodeURIComponent($iframe.attr('src').match(/jwplayer_video_url=([^&]+)/i)[1]).replace(/\.js$/, '.html')}
+                __promoUri: `https://content.jwplatform.com/players/${media_id}-${player_id}.html`
             });
         } else {
             cb(null);
         }
     },
 
-    tests: [{
-        page: "http://bigthink.com/videos",
-        selector: ".trending-posts a.custom-post-headline",
-        getUrl: function(url) {
-            return url.match(/\/videos\//i) && url;
-        }        
-    },
+    tests: [
         "http://bigthink.com/videos/bre-pettis-on-makerbot-3-d-printing",
-        "http://bigthink.com/videos/vivek-wadhwa-every-industry-will-be-disrupted"
+        "http://bigthink.com/videos/vivek-wadhwa-every-industry-will-be-disrupted",
+        "https://bigthink.com/the-present/neil-degrasse-tyson-life-on-europa-jupiters-icy-moon/"
     ]
 };

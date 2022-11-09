@@ -1,9 +1,9 @@
 'use strict';
-
-var request = require('supertest');
-var ServerMock = require('mock-http-server');
-var chai = require('chai');
-var async = require('async');
+import request from 'supertest';
+import ServerMock from 'mock-http-server';
+import chai from 'chai';
+import async from 'async';
+import app from '../app.js';
 
 describe('meta endpoint', function() {
 
@@ -16,7 +16,6 @@ describe('meta endpoint', function() {
   var server;
 
   beforeEach(function(done) {
-    var app = require('../app');
     server = app.listen(process.env.PORT, function() {
       targetMockedServer.start(done);
     });
@@ -177,7 +176,7 @@ describe('meta endpoint', function() {
         });
   });
 
-  it('should handle blacklisted domains', function(done) {
+  it('should handle ignored domains', function(done) {
     targetMockedServer.on({
       method: 'GET',
       path: '/test-timeout',
@@ -199,7 +198,7 @@ describe('meta endpoint', function() {
               code: 417,
               message: 'Requested page error: 417',
               messages: [
-                "This domain is flagged as inappropriate."
+                "This URL is not allowed on owner's request or by Iframely admins."
               ]
             }
           });
@@ -217,7 +216,7 @@ describe('meta endpoint', function() {
       }
     });
 
-    var url = 'http://127.0.0.1:9000/test403';
+    var url = TARGET_MOCKED_SERVER_BASEURL+'/test403';
     var endpoint = '/iframely?url=' + url;
 
     function runExpectations(res) {

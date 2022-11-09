@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(\w+\.)?d\.pr(?:\/free)?\/(?:i|v|)\//i
@@ -46,7 +46,6 @@ module.exports = {
         skipMethods: ['getData']
     },
         "https://d.pr/i/9jB7",
-        "https://d.pr/i/vO1p",
-        "https://d.pr/free/v/MU6bHj"
+        "https://d.pr/v/6xCyV3"
     ]
 };

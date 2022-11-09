@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:\w+\.)?polldaddy\.com\/poll\/([0-9]+)/i,
@@ -27,7 +27,7 @@ module.exports = {
 
         return {
             type: CONFIG.T.text_html,
-            rel: /^https?:\/\/(?:\w+\.)?polldaddy\.com\/s\//i.test(url) ? [CONFIG.R.survey, CONFIG.R.inline, CONFIG.R.ssl, CONFIG.R.html5] : [CONFIG.R.survey, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: /^https?:\/\/(?:\w+\.)?polldaddy\.com\/s\//i.test(url) ? [CONFIG.R.survey, CONFIG.R.inline, CONFIG.R.ssl] : [CONFIG.R.survey, CONFIG.R.ssl],
             html: oembed.html.replace(/src=\"http:\/\/static\.polldaddy\.com/, "src=\"https://secure.polldaddy.com"),
             "min-width": 332
         };

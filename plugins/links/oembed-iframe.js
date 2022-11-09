@@ -1,6 +1,6 @@
-module.exports = {
+export default {
 
-	provides: "iframe",
+    provides: "iframe",
 
     getData: function(oembed) {
 

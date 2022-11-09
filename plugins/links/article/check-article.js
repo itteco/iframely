@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     provides: '__is_general_article',
 

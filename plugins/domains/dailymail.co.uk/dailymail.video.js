@@ -1,8 +1,10 @@
-const decodeHTML5 = require('entities').decodeHTML5;
+import { decodeHTML5 } from 'entities';
+import dailymail_embeddedvideo from './dailymail.embeddedvideo.js';
+import dailymail_galleryvideo from './dailymail.galleryvideo.js';
 
-module.exports = {
+export default {
 
-    re: [].concat(require('./dailymail.embeddedvideo').re, require('./dailymail.galleryvideo').re),
+    re: [].concat(dailymail_embeddedvideo.re, dailymail_galleryvideo.re),
 
     provides: 'dailymailVideo',
 
@@ -34,7 +36,7 @@ module.exports = {
         }, {
             // if something is undefined - let getLinks fail to fall back to default parsers
             href: dailymailVideo.plugins['social-share'].embedUrl, // no SSL
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             type: CONFIG.T.text_html,             
             "aspect-ratio": 484 / 282, // taken from mp4 aspect
             "padding-bottom": 50 + 50 + 50,

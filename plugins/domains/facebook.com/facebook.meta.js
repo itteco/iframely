@@ -1,6 +1,9 @@
-const entities = require('entities');
+import * as entities from 'entities';
 
-module.exports = {
+import facebook_post from './facebook.post.js';
+import facebook_video from './facebook.video.js';
+
+export default {
 
     /**
      * HEADS-UP: New endpoints as of Oct 24, 2020:
@@ -9,7 +12,7 @@ module.exports = {
      * as desribed on https://github.com/itteco/iframely/issues/284.
      */ 
 
-    re: [].concat(require('./facebook.post').re, require('./facebook.video').re),
+    re: [].concat(facebook_post.re, facebook_video.re),
 
     mixins: [
         "domain-icon",
@@ -32,8 +35,8 @@ module.exports = {
             title = title ? title[1] : author;
 
             return {
-                title: title ? entities.decodeHTML(title) : null,
-                description: description ? entities.decodeHTML(description) : null,
+                title: title ? entities.decodeHTML(title) : oembed.title,
+                description: description ? entities.decodeHTML(description) : oembed.description,
                 author: author
             };
         }

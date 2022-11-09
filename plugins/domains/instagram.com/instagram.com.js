@@ -1,7 +1,8 @@
-const cheerio = require('cheerio');
-const decodeHTML5 = require('entities').decodeHTML5;
+import cheerio from 'cheerio';
 
-module.exports = {
+import { decodeHTML5 } from 'entities';
+
+export default {
 
     /**
      * HEADS-UP: New endpoints as of Oct 24, 2020:
@@ -84,14 +85,8 @@ module.exports = {
         if (ipOG.video) {
             links.push({
                 href: ipOG.video.url,
-                type: ipOG.video.type || CONFIG.T.maybe_text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": ipOG.video.width / ipOG.video.height
-            });
-            links.push({
-                href: ipOG.video.secure_url,
-                type: ipOG.video.type || CONFIG.T.maybe_text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html,
+                rel: CONFIG.R.player,
                 "aspect-ratio": ipOG.video.width / ipOG.video.height
             });
         }
@@ -101,11 +96,11 @@ module.exports = {
             var html = oembed.html;
             var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if (!captioned && (options.getRequestOptions('instagram.showcaption', false) || options.getProviderOptions(CONFIG.O.more, false))) {
+            if (!captioned && options.getRequestOptions('instagram.showcaption', false)) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
-            if (captioned && (!options.getRequestOptions('instagram.showcaption', true) || options.getProviderOptions(CONFIG.O.less, false))) {
+            if (captioned && !options.getRequestOptions('instagram.showcaption', true)) {
                 html = html.replace("data-instgrm-captioned ", "");
             }
 
@@ -127,9 +122,11 @@ module.exports = {
             var app = {
                 html: html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
-                'max-width': 660,
-                'min-width': 326,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
+                // sizing is from Instagram placeholder to avoid double height changes
+                'max-width': 660,                
+                'aspect-ratio': 200/63,
+                'padding-bottom': 200,
                 options: {
                     showcaption: {
                         label: 'Show author\'s text caption',
@@ -159,7 +156,7 @@ module.exports = {
         options.followHTTPRedirect = true;
         options.exposeStatusCode = true;        
 
-        if (!options.getRequestOptions('instagram.meta', true)) {
+        if (!options.getProviderOptions('instagram.meta', true)) {
             result.ipOG = {};
         } else {
             result.__allowInstagramMeta = true;

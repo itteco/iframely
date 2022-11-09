@@ -1,7 +1,7 @@
-module.exports = {
+export default {
 
     re: [
-    	/https?:\/\/j\.gifs\.com\/(\w+)\.gif$/i
+        /https?:\/\/j\.gifs\.com\/(\w+)\.gif$/i
     ],
 
     getLink: function(urlMatch, cb) {

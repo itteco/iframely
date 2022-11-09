@@ -1,10 +1,10 @@
-var utils = require('./utils');
+import utils from './utils.js';
 
-module.exports = {
+export default {
 
     getLink: function(meta) {
-    	if (!meta.og || !meta.og.image) {
-        	return utils.getImageLink("thumbnail", meta);
-    	}
+        if (!meta.og || !meta.og.image) {
+            return utils.getImageLink("thumbnail", meta);
+        }
     }
 };

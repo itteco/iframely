@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.imdb\.com\/video\/(?:[\w]+\/)?vi(\d+)/i,
@@ -16,16 +16,10 @@ module.exports = {
             return;
         }
 
-        var width = options.maxWidth || 480;
-
-        if (width < 400) {
-            width = 400;
-        }
-
         return {
             href: "https://www.imdb.com/videoembed/vi" + urlMatch[1],
             accept: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             'aspect-ratio': 16/9
         }
     },

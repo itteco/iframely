@@ -1,9 +1,9 @@
-var pluginUtils = require('./utils');
+import * as pluginUtils from './utils.js';
 
-module.exports = {
+export default {
 
     getData: function(htmlparser, cb) {
-        var headers = htmlparser.request.response.headers;
+        var headers = htmlparser.headers;
         if (pluginUtils.checkRobots(headers['x-robots-tag'], cb)) {
             return;
         } else {

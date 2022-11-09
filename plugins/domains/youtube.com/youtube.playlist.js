@@ -1,6 +1,6 @@
-const querystring = require('querystring');
+import * as querystring from 'querystring';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.youtube\.com\/playlist\?(?:[=\-_a-zA-Z0-9&]+)?list=([\-_a-zA-Z0-9]+)/i
@@ -31,7 +31,7 @@ module.exports = {
 
         return {
             href: 'https://www.' + domain + '.com/embed/videoseries?list=' + urlMatch[1] + qs,
-            rel: [CONFIG.R.player, CONFIG.R.playlist, CONFIG.R.html5],
+            rel: [CONFIG.R.player, CONFIG.R.playlist],
             type: CONFIG.T.text_html,
             "aspect-ratio": oembed.width && oembed.height ? oembed.width / oembed.height : 16/9,
             autoplay: 'autoplay=1'

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/(\d+)/i,
 
@@ -13,7 +13,7 @@ module.exports = {
                     id: urlMatch[1]
                 },
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.image, CONFIG.R.html5, CONFIG.R.ssl, CONFIG.R.inline],
+                rel: [CONFIG.R.image, CONFIG.R.ssl, CONFIG.R.inline],
                 "aspect-ratio": twitter.image.height ? twitter.image.width / twitter.image.height : null
             }
         }

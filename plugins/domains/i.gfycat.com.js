@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /https?:\/\/(?:giant|thumbs|zippy)\.gfycat\.com\/([a-zA-Z0-9]+)(?:\-mobile|\-size_restricted)?\.(?:webm|mp4|gif)$/i,

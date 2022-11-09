@@ -6,9 +6,8 @@ EXPOSEPORT	:= 8061
 PUBLISHPORT := ${EXPOSEPORT}
 
 build:
-	git fetch upstream
 	git checkout master
-	git merge upstream/master
+	git pull --rebase upstream master
 	git branch -f tag-${VERSION}
 	git checkout tag-${VERSION}
 	docker \
@@ -29,7 +28,7 @@ run:
 		--name=${CONTAINER} \
 		-e NODE_TLS_REJECT_UNAUTHORIZED=0 \
 		-p ${PUBLISHPORT}:${EXPOSEPORT} \
-		-v $(PWD)/config.local.js:/iframely/config.local.js \
+		-v ${PWD}/config.local.js:/iframely/config.local.js \
 		$(CONTAINER)
 
 shell:
@@ -42,13 +41,14 @@ shell:
 		--name=${CONTAINER} \
 		-p ${PUBLISHPORT}:${EXPOSEPORT} \
 		--entrypoint "/bin/ash" \
-		-v $(PWD)/config.local.js:/iframely/config.local.js \
+		-v ${PWD}/config.local.js:/iframely/config.local.js \
 		$(CONTAINER) 
 
 exec:
 	docker exec \
 		--interactive \
 		--tty \
+		--rm \
 		${CONTAINER} \
 		/bin/ash
 
@@ -72,8 +72,9 @@ clean:
 	git branch -d tag-${VERSION}
 
 push:
-	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION} # && docker push ${IMAGE_NAME}
+	docker tag ${CONTAINER} ${IMAGE_NAME}:${VERSION}
 	docker tag ${CONTAINER} ${IMAGE_NAME}:latest
+	docker push ${IMAGE_NAME}:${VERSION}
 	docker push ${IMAGE_NAME}
 
 restart: stop clean run

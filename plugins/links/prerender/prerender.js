@@ -1,31 +1,26 @@
-var core = require('../../lib/core');
-var _ = require('underscore');
+import utils from './utils.js';
 
-module.exports = {
+export default {
 
     highestPriority: true,
 
-    provides: 'appUriData',
+    provides: ['appUriData', 'whenPrerender'],
 
-    getData: function(url, __appFlag, options, meta, cb) {
+    getData: function(url, __appFlag, iframelyRun, options, meta, cb) {
 
-        var title = meta && ((meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title']);
-
-        if (CONFIG.PRERENDER_URL
-            && !url.startsWith(CONFIG.PRERENDER_URL)
-            && (!title || /^{{.+}}/.test(title))
-        ) {
+        if (CONFIG.PRERENDER && CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
 
             var prerenderUrl = CONFIG.PRERENDER_URL + encodeURIComponent(url);
-            var options2 = _.extend({}, options, {
+            var options2 = {...options, ...{
                 debug: false,
                 refresh: true
-            });
-            core.run(prerenderUrl, options2, function(error, data) {
+            }};
+
+            iframelyRun(prerenderUrl, options2, function(error, data) {
 
                 var title = data && data.meta && ((data.meta.og && data.meta.og.title) || (data.meta.twitter && data.meta.twitter.title) || data.meta.title || data.meta['html-title']);
 
-                if (!title ||  /^{{.+}}/.test(title)) {
+                if (data && data.meta && utils.maybeApp(data.meta)) {
                     return cb({
                         responseStatusCode: 415
                     });
@@ -36,7 +31,8 @@ module.exports = {
                         delete data.meta.canonical;
                     }
                     return cb(error, {
-                        appUriData: data
+                        appUriData: data,
+                        whenPrerender: true
                     });
                 }
             });
@@ -45,11 +41,11 @@ module.exports = {
         }
     },
 
-    getMeta: function(appUriData) {
-        return _.extend({}, appUriData.meta);
+    getMeta: function(appUriData, whenPrerender) {
+        return {...appUriData.meta};
     },
 
-    getLinks: function(appUriData) {
+    getLinks: function(appUriData, whenPrerender) {
         return appUriData.links;
     }
 };

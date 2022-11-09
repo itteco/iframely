@@ -1,6 +1,4 @@
-var cheerio = require('cheerio');
-
-module.exports = {
+export default {
 
     // this is the case of oembed photo or image, but with the html field
     // ex: 
@@ -14,22 +12,16 @@ module.exports = {
 
             var image = {
                 type: CONFIG.T.text_html,  // Always an iframe, either native, or hosted
-                rel:[CONFIG.R.oembed, CONFIG.R.image, CONFIG.R.html5],
+                rel:[CONFIG.R.oembed, CONFIG.R.image],
                 'aspect-ratio': oembed.width / oembed.height // have to assume it's responsive
             };
 
 
-            var $container = cheerio('<div>');
-            try {
-                $container.html(oembed.html5 || oembed.html);
-            } catch (ex) {}
-
-            var $iframe = $container.find('iframe');
-
+            var iframe = oembed.getIframe();
 
             // if embed code contains <iframe>, return src
-            if ($iframe.length == 1) {
-                image.href = $iframe.attr('src');
+            if (iframe.src) {
+                image.href = iframe.src;
             } else { 
                 image.html = oembed.html || oembed.html5; // will render in an iframe
             }

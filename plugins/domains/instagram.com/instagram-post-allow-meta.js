@@ -1,6 +1,8 @@
-module.exports = {
+import instagram_com from './instagram.com.js';
 
-    re: require('./instagram.com').re,
+export default {
+
+    re: instagram_com.re,
 
     provides: 'ipOG',
 

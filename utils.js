@@ -1,21 +1,23 @@
-(function() {
+    import * as async from 'async';
+    import { cache } from './lib/cache.js';
+    import * as ejs from 'ejs';
+    import * as fs from 'fs';
+    import * as crypto from 'crypto';
+    import * as _ from 'underscore';
+    import * as urlLib from 'url';
 
-    global.CONFIG = require('./config');
+    import log from './logging.js';
+    export { log };
+    import * as whitelist from './lib/whitelist.js';
+    import * as pluginLoader from './lib/loader/pluginLoader.js';
 
-    var async = require('async');
-    var cache = require('./lib/cache');
-    var ejs = require('ejs');
-    var fs = require('fs');
-    var crypto = require('crypto');
-    var _ = require('underscore');
-    var urlLib = require('url');
+    import { fileURLToPath } from 'url';
+    import { dirname } from 'path';
 
-    var log = exports.log = require('./logging').log;
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
 
-    var whitelist = require('./lib/whitelist');
-    var pluginLoader = require('./lib/loader/pluginLoader');
-
-    function NotFound(message, messages) {
+    export function NotFound(message, messages) {
 
         if (typeof message === 'object') {
             this.meta = message;
@@ -33,9 +35,7 @@
 
     NotFound.prototype.__proto__ = Error.prototype;
 
-    exports.NotFound = NotFound;
-
-    function HttpError(code, message, messages) {
+    export function HttpError(code, message, messages) {
 
         Error.call(this); //super constructor
         Error.captureStackTrace(this, this.constructor); //super helper method to include stack trace in error object
@@ -49,9 +49,9 @@
 
     HttpError.prototype.__proto__ = Error.prototype;
 
-    exports.HttpError = HttpError;
-
-    var version = require('./package.json').version;
+    import { readFile } from 'fs/promises';
+    const json = JSON.parse(await readFile(new URL('./package.json', import.meta.url)));
+    var version = json.version;
 
     var etag = function(value) {
         return '"' + crypto.createHash('md5').update(value).digest("hex") + '"';
@@ -87,9 +87,10 @@
             result += new Date(whitelistRecord.date).getTime();
         }
 
-        var plugin = pluginLoader.findDomainPlugin(uri);
+        // `0` to search all plugins.
+        var plugin = pluginLoader.hasNewPluginForUri(0, uri);
         if (plugin) {
-            result += plugin.getPluginLastModifiedDate().getTime();
+            result += plugin.modifiedWithMixins.getTime();
         }
 
         if (result) {
@@ -158,7 +159,7 @@
         cache.set('urlcache:' + version + (linkValidationKey || '') + ':' + url, data, {ttl: ttl});
     }
 
-    exports.cacheMiddleware = function(req, res, next) {
+    export function cacheMiddleware(req, res, next) {
 
         async.waterfall([
 
@@ -334,5 +335,3 @@
             next();
         });
     };
-
-})();

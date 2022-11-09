@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     getLink: function (meta, whitelistRecord) {
 
@@ -6,7 +6,7 @@ module.exports = {
         
             var player = {
                 href: meta.video_src.href || meta.video_src,
-                accept: [CONFIG.T.text_html, CONFIG.T.flash, 'video/*'],
+                accept: [CONFIG.T.text_html, 'video/*'],
                 rel: [CONFIG.R.player]
             };
 
@@ -15,10 +15,6 @@ module.exports = {
             } else {
                 player.width = meta.video_width;
                 player.height = meta.video_height;
-            }
-
-            if (whitelistRecord.isAllowed('html-meta.video', CONFIG.R.html5)) {
-                player.rel.push(CONFIG.R.html5);
             }
 
             if (whitelistRecord.isAllowed('html-meta.video', CONFIG.R.autoplay)) {

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)(?:\?parent=.*)?$/i,
@@ -9,12 +9,14 @@ module.exports = {
         "*"
     ],
 
+    provides: ['schemaVideoObject'],    
+
     getData: function (meta, url, cb) {
         if (!meta.og || !meta.og.video) {
             cb (null, {
                 __appFlag: true
             });
-        } else {
+        } else if (!meta.ld || !meta.ld.videoobject) {
             var embedURL = /\/video\/(\d+)/i.test(url)
                 ? `https://player.twitch.tv/?video=${url.match(/\/video\/(\d+)/i)[1]}&autoplay=false`
                 : meta.og && meta.og.video && meta.og.video.secure_url && meta.og.video.secure_url.replace('&player=facebook', '');
@@ -24,6 +26,8 @@ module.exports = {
                     embedURL: embedURL
                 }
             });
+        } else {
+            cb(null, null);
         }
     },
 

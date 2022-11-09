@@ -1,6 +1,6 @@
-var utils = require('../../lib/utils');
+import * as utils from '../../lib/utils.js';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/archive\.org\/details\/([^\/]+)\/?\??/i
@@ -28,7 +28,7 @@ module.exports = {
                 var player = {
                     href: 'https://archive.org/embed/' + hrefMatch[1],
                     accept: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.html5]
+                    rel: CONFIG.R.player
                 };
 
                 if (/\.(mp3|wma|wav|flac)$/i.test(playerHref)) {
@@ -88,7 +88,7 @@ module.exports = {
                         links.push({
                             href: 'https://archive.org/stream/' + urlMatch[1] + '?ui=embed',
                             type: CONFIG.T.text_html,
-                            rel: [CONFIG.R.reader, CONFIG.R.html5],
+                            rel: CONFIG.R.reader,
                             "aspect-ratio": aspect,
                             //"padding-bottom": 40 + 15 // padding no longer needed
                         });

@@ -1,7 +1,7 @@
 // Covers new google maps. Not classic ones. Classic ones are handled by maps.google.com.js plugin
 // Docs are at https://developers.google.com/maps/documentation/embed/guide
 
-module.exports = {
+export default {
 
     re: [
         // place 
@@ -63,7 +63,7 @@ module.exports = {
             return;
         }
 
-        var api_key = options.getProviderOptions('google.maps_key');
+        var api_key = options.getRequestOptions('google.maps_key');
         if (!api_key) {
             return;
         }
@@ -112,7 +112,7 @@ module.exports = {
         var links = [{
             href: map,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: CONFIG.R.app,
             "aspect-ratio": eval(gmap.aspect.replace('x', '/')),
             options: {
                 zoom: {
@@ -150,7 +150,7 @@ module.exports = {
         if (!options.getProviderOptions('google.maps_key')) {
             return cb ({
                 responseStatusCode: 415,
-                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/guide#api_key' target='_blank'>Get one</a> and add it to the provider options."
+                message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/get-api-key' target='_blank'>Get one</a> and add it to the provider options."
             });
         }
 

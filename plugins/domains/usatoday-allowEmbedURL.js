@@ -1,13 +1,15 @@
-module.exports = {
+import usatoday_com from './usatoday.com.js';
 
-    re: require('./usatoday.com').re,
+export default {
+
+    re: usatoday_com.re,
 
     provides: '__allowEmbedURL',
 
     getData: function(options) {
-    	return {
-    		__allowEmbedURL: true
-    	}
+        return {
+            __allowEmbedURL: true
+        }
     }
 
 }

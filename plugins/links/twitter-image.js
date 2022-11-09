@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     getLinks: function(twitter, meta, whitelistRecord) {
 

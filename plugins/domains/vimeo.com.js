@@ -1,13 +1,15 @@
-const querystring = require('querystring');
-const _ = require('underscore');
+import * as querystring from 'querystring';
 
-module.exports = {
+export default {
 
-    re: /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+    re: [
+        /^https:\/\/vimeo\.com(?:\/channels?\/\w+)?\/\d+/i, // Includes private reviews like /video/123/ABC.
+        /^https?:\/\/player\.vimeo\.com\/video\/(\d+)/i
+    ],
 
     mixins: [
         "oembed-title",
-        //"oembed-thumbnail", // Allowed in getLink - only for landscape videos due to size problem.
+        //"oembed-thumbnail", // Allowed in getLink. Portrait videos's thumnnail has incorrect size in oEmbed.
         "oembed-author",
         "oembed-duration",
         "oembed-site",
@@ -22,8 +24,8 @@ module.exports = {
         };
     },
 
-
     getLink: function(oembed, options) {
+        var iframe = oembed.getIframe();
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
 
@@ -32,62 +34,77 @@ module.exports = {
             params.byline = 1;
         }
 
-        var qs = querystring.stringify(params);
-        if (qs !== '') {qs = '?' + qs}
+        // Captions support:
+        // https://vimeo.zendesk.com/hc/en-us/articles/360027818211-Enabling-Captions-and-Subtitles-in-Embeds-by-Default
+        var texttrack = options.getRequestOptions('vimeo.texttrack');
+        if (texttrack && /\w{2}(?:\-\W{2})?/i.test(texttrack)) {
+            params.texttrack = texttrack;
+        } else {
+            texttrack = '';
+        }
 
         var links = [];
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
             links.push({
-                href: "https://player.vimeo.com/video/" + oembed.video_id + qs,
+                href: iframe.replaceQuerystring(params),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": oembed.thumbnail_width < oembed.thumnmail_height ? oembed.thumbnail_width / oembed.thubnail_height : oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
-                autoplay: "autoplay=1"
-            });
-        }
-
-        // Let's try and add bigger image if needed, but check that it's value.
-        // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
-        if (options.getProviderOptions('images.loadSize') !== false && /\d+_\d{2,3}x\d{2,3}\.jpg$/.test(oembed.thumbnail_url)) {
-            links.push({
-                href:oembed.thumbnail_url.replace(/_\d+x\d+\.jpg$/, '.jpg'),
-                type: CONFIG.T.image,
-                rel: CONFIG.R.thumbnail
+                rel: CONFIG.R.player,
+                "aspect-ratio": oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
+                autoplay: "autoplay=1",
+                options: {
+                    texttrack: {
+                        value: texttrack,
+                        label: 'Text language (ignored if no captions)',
+                        placeholder: 'Two letters: en, fr, es, de...'
+                    }
+                }
             });
         }
 
         if (!oembed.thumbnail_url) {
             links.push({message: 'Contact support to ' + (options.getProviderOptions('vimeo.disable_private', false) ? 'enable' : 'disable')+ ' Vimeos with site restrictions.'});
-        } else if (oembed.width > oembed.height) { // oEmbed comes with the wrong thumbnail sizes for portrait videos
-            links.push({
+        } else {
+
+            var thumbnail = {
                 href:oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-                width: oembed.thumbnail_width,
-                height: oembed.thubnail_height
-            });
+            };
 
+            // oEmbed comes with the wrong thumbnail sizes for portrait videos,
+            // Let validators check image size for those.
+            if (oembed.thumbnail_width > oembed.thumbnail_height) {
+                thumbnail.width = oembed.thumbnail_width;
+                thumbnail.height = oembed.thubnail_height;
+            }
+            links.push(thumbnail);
+        }
+
+        // Also let's try and add bigger image if needed, but check that it's value.
+        // No need to add everywhere: some thumbnails are ok, like https://vimeo.com/183776089, but some are not - http://vimeo.com/62092214.
+        if (/* options.getProviderOptions('images.loadSize') !== false */
+            CONFIG.providerOptions && CONFIG.providerOptions.images
+            && CONFIG.providerOptions.images.loadSize !== false
+            && /\-d_\d{2,4}x\d{2,4}(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
+            links.push({
+                href:oembed.thumbnail_url.replace(/\-d_\d{2,4}x\d{2,4}((?:\.jpg)?)$/, `-d_${oembed.width}$1`),
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            });
         }
 
         return links;
     },
 
-    getData: function(url, oembedError, cb, options, whitelistRecord) {
-        // Handle private videos, ex. https://vimeo.com/243312327
-        cb (null,
-            oembedError == 403 ? {
-                message: 'Because of its privacy settings, this video cannot be embedded.'
-            } : null
-        );
-
-    },
 
     tests: [{
         feed: "http://vimeo.com/channels/staffpicks/videos/rss"
     },
         "https://vimeo.com/65836516",
         "https://vimeo.com/141567420",
+        "https://vimeo.com/76979871", // Captions
+        "https://vimeo.com/216098214", // Portrait
         {
             skipMixins: ["oembed-description"],
             skipMethods: ["getData"]

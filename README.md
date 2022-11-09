@@ -1,30 +1,37 @@
-# Iframely API for Responsive Web Embeds
+# Iframely API for Responsive Web Embeds and URL Meta
 
-This is the self-hosted version of Iframely's APIs and parsers. 
+This is the self-hosted version of [Iframely](https://iframely.com)'s APIs and HTML parsers. 
 
-Iframely gives your fast and simple API for responsive web embeds and semantic meta. The parsers cover well [over 1800 domains](https://iframely.com/domains) through 200+ custom domain plugins and generic support for [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/) and [Twitter Cards](https://dev.twitter.com/docs/cards), that are powered by Iframely's whitelist. 
+Iframely takes your URL and returns its metadata. If supported on the URL, we'll add HTML of rich media embeds. Think layers, posts, slideshows, surveys, infographics, maps and more.
 
-The whitelist file is pulled from iframely.com database and is updated automatically. The whitelisting is manual process on our end. You can also [have your own whitelist](https://iframely.com/docs/whitelist-format) file. 
+This package includes specific domain parsers for most popular publishers. YouTube, Facebook, Instagram, Twitter, SoundCloud, Google Maps, TED, Twitch and many more. See `/plugins/domains` folder. In addition, we cover many domains by whitelisting media through the generic publishing protocols: [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards) and microformats. For the rest of URLs, you'll include have metadata and thumbnail images from those protocols. Use it to create your own URL previews.
 
-HTTP APIs are available in [oEmbed](https://iframely.com/docs/oembed-api) or [Iframely API](https://iframely.com/docs/iframely-api) formats. To make it simple to understand, Iframely format mimics the `<head>` section of the page with its `meta` and `links` elements.
+Iframely's [whitelist file](https://iframely.com/qa/whitelist.json) is fetched from our central database. The changes are synced automatically to your instance by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
 
-In response to `url` request, APIs returns you the embeds and meta for a requested web page. Below are data samples from [hosted API](https://iframely.com), just to show you the format:
+## Breaking changes in version 2.0.0
 
-- [>> Here’s API call for Coub video](http://iframe.ly/ACcM3Y.json)
-- [>> Same one, but as oEmbed](http://iframe.ly/ACcM3Y.oembed)
+The minimum version of the Node required for Iframely starting from version 2.0.0 is Node 14. Please see [migration steps](https://github.com/itteco/iframely/issues/350) from earlier versions.
 
-Iframely can also be used as Node.js library (that's how it is used in our [cloud API](https://iframely.com)). 
+## API endpoints
 
-Requires Node version 7 and up. 
+To make use of the data, you need to connect to APIs over HTTP. There are two endpoints available. One in [oEmbed](https://iframely.com/docs/oembed-api) and one in [Iframely API](https://iframely.com/docs/iframely-api) format. The oEmbed endpoint is just an adapter from Iframely to oEmbed spec. 
 
+Iframely format mimics the `<head>` section of the page. It has `meta` field for data and `links` array for media. 
+
+Both endpoints accept `&url=` input and provide JSON response. Below are some open responses from our [cloud API](https://iframely.com), so you can see the format:
+
+- [>> Iframely API call for Coub video](https://iframe.ly/ACcM3Y.json)
+- [>> Same one, but as oEmbed](https://iframe.ly/ACcM3Y.oembed)
+
+You can use Iframely can as Node.js library. That's how we use it in the cloud. However, documentation on it [is lacking](https://github.com/itteco/iframely/issues/186).
 
 ## Not included as compared to Cloud API
 
-Hosted [cloud APIs](https://iframely.com) add optional iFrame renders and number of widgets such as cards, GIF support, player events, AMP, and others. Our [more/less](https://iframely.com/docs/more-less) toggle for per-URL customizations, predictive height mechanism for non-iFrame embeds, lazy-loading, type-based whitelist and fallbacks as well as number of other customizations is only available in the cloud. 
+Hosted [cloud APIs](https://iframely.com) can optionally return Iframely.com-powered iFrame renders in the `html` field. iFrames deliver all hosted widgets such as cards for URL previews, GIF support, player events, AMP, and others. Our [per-URL customization](https://iframely.com/docs/options), predictive sizing mechanism for JavaScript-based embeds to minimize the layout shift, lazy-loading, type-based media whitelist and the number of other configurations are only available in the cloud. 
 
-This open-source version provides the web parsers only, though hosted API uses data from parsers as-is. The API endpoints between the version should match format pretty closely, though there might be minor discrepancies.
+This open-source version provides the web parsers only. Iframely cloud use data from those parsers as-is in production. Though the format of API endpoints between the cloud and self-hosted version should match, there might be minor discrepancies.
 
-There's also a bunch of domain parsers that are not included in self-hosted version. Those are the parsers that we consider vulnarable for changes on publisher's origin servers and so requiring quicker turnaround time for any updates and fixes.
+Finally, there's a number of domain plugins not included in self-hosted version. We seem to have stopped adding new publishers to the open-source. It looks like many of our later providers need quicker turnaround time for updates and fixes. You can extend the self-hosted version with private plugins too.
 
 
 ## Get started:
@@ -47,14 +54,10 @@ We put our best effort to maintain Iframely and all its domain parsers. Please, 
 
 Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
 
-Please submit your PR against `develop` branch. This is where everything gets merged before being released into `master`.
-
-If you see an error in our domains whitelist (you can [debug URLs here](http://iframely.com/debug)), please ping us and we'll fix it in no time.
+Please submit your PR against `develop` branch. This is where everything gets merged before we release it into `master`.
 
 
 ## License & Authors
 
-MIT License. (c) 2012-2019 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau)
-
-Please, check the [contributors list](https://github.com/itteco/iframely/graphs/contributors) to get to know awesome folks that also helped a lot.
+MIT License. (c) 2012-2022 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).
 

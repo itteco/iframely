@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/www\.cbc\.ca\/player\//i,
@@ -16,8 +16,8 @@ module.exports = {
 
         var player = {
                 href: twitter.player.value,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html,
+                rel: [CONFIG.R.player],
                 'max-width': 1064
             };
 

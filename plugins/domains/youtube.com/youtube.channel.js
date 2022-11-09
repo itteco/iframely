@@ -1,6 +1,6 @@
-const sysUtils = require('../../../logging')
+import log from '../../../logging.js'
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?youtube\.com\/(channel)\/([a-zA-Z0-9_-]+)/i,
@@ -67,7 +67,7 @@ module.exports = {
                     return cb(error);
                 }
 
-                if (data.items && data.items.length > 0) {
+                if (data && data.items && data.items.length > 0) {
 
                     var entry = data.items[0];
 
@@ -83,13 +83,18 @@ module.exports = {
                         youtube_channel_gdata: gdata
                     });
 
-                } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
+                } else if (data && (data.items && data.items.length == 0 || data.error && data.error.code == 404)) {
                     cb({responseStatusCode: 404});
                 } else {
-                    sysUtils.log('YoutTube channel fallback for ' + url , data);
+                    /* Can be `data.pageInfo && data.pageInfo.totalResults === 0` 
+                     * as if no channel found, but it actually exists.
+                     * Ex.: https://www.youtube.com/c/Figmadesign
+                     */
+                    log('YoutTube channel fallback for ' + url , data);
                     cb({
-                        responseStatusCode: 408,
-                        message: 'Could not connect to YouTube API'
+                        message: 'YouTube channel not found via data API...'
+                        // But no response code. Let's fallback to default parsers
+                        // was: responseStatusCode: 408
                     });
                 }
             }
@@ -129,6 +134,7 @@ module.exports = {
     },
         "https://www.youtube.com/channel/UCSZ69a-0I1RRdNssyttBFcA",
         "https://www.youtube.com/user/kvn/",
-        "https://www.youtube.com/c/SpaceX"
+        "https://www.youtube.com/c/SpaceX",
+        // "https://www.youtube.com/c/Figmadesign"
     ]
 };

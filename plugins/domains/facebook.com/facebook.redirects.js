@@ -1,6 +1,6 @@
-var URL = require("url");
+import * as URL from "url";
 
-module.exports = {
+export default {
 
     re: [        
         /^https?:\/\/m\.facebook\.com\/story\.php/i,
@@ -10,6 +10,8 @@ module.exports = {
         /^https?:\/\/www\.facebook\.com\/plugins\/(?:video|post)\.php\?href=/i,
         /^https?:\/\/www\.facebook\.com\/plugins\/comment_embed\.php\?href=/i         
     ],
+
+    listed: false, // do not show up in iframe.ly/domains.json
 
     getData: function(url, meta, cb) {
 

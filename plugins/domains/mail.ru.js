@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/my\.mail\.ru\/\/?[a-z\.]+\/[a-zA-Z0-9\._\-]+\/video\/([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)\.html/i
@@ -22,7 +22,7 @@ module.exports = {
             return {
                     href: "https://my.mail.ru/video/embed/" + video_id[1],
                     accept: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.ssl, CONFIG.R.html5],
+                    rel: CONFIG.R.player,
                     "aspect-ratio": 626 / 367,
                     autoplay: "autoplay=1"
                 };

@@ -1,7 +1,4 @@
-var cheerio = require('cheerio');
-var entities = require('entities');
-
-module.exports = {
+export default {
 
     getLink: function(oembed, whitelistRecord, url) {
 
@@ -40,13 +37,10 @@ module.exports = {
             rels.push(CONFIG.R['3d']);
         }
 
-
         if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
             rels.push(CONFIG.R.inline);
         }
-        if (whitelistRecord.isAllowed('oembed.rich', "html5")) {
-            rels.push(CONFIG.R.html5);
-        }
+
         rels.push ("allow"); // Otherwise, rich->players get denied by oembed:video whitelist record.
 
         var widget = {
@@ -54,24 +48,11 @@ module.exports = {
             type: CONFIG.T.text_html
         };
 
-        // Allow encoded entities if they start from $lt;
-        var html = oembed.html5 || oembed.html; 
-        if (/^&lt;$/i.test(html)) {
-            html = entities.decodeHTML(html);
-        }
+        var iframe = oembed.getIframe();
 
+        if (iframe && iframe.src && !whitelistRecord.isAllowed('oembed.rich', "inline")) {
 
-        var $container = cheerio('<div>');
-        try {
-            $container.html(html);
-        } catch (ex) {}
-
-        var $iframe = $container.find('iframe');
-
-        // If embed code contains <iframe>, return its src.
-        if ($iframe.length == 1 && !whitelistRecord.isAllowed('oembed.rich', "inline")) {
-
-            widget.href = $iframe.attr('src');
+            widget.href = iframe.src;
 
             if (whitelistRecord.isAllowed('oembed.rich', 'ssl')) {
                 widget.href = widget.href.replace(/^http:\/\//i, '//');
@@ -84,18 +65,12 @@ module.exports = {
                 widget.href = widget.href.replace(/^http:\/\//i, '//');
             }
 
-            if ($iframe.attr('scrolling') === 'no') {
+            if (iframe.scrolling === 'no') {
                 widget.scrolling = 'no';
             }
         
         } else { 
-            widget.html = html; // Will render in an iframe, unless "inline" is in rels.
-        }
-
-
-        if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
-            // Output exact HTML from oEmbed.
-            widget.html = html;
+            widget.html = oembed.html; // Will render in an iframe, unless "inline" is in rels.
         }
 
         if (widget.html && whitelistRecord.isAllowed('oembed.rich', "ssl")) {
@@ -106,30 +81,34 @@ module.exports = {
         if (whitelistRecord.isAllowed('oembed.rich', 'responsive') && oembed.width && oembed.height) {
 
             // Fixed height case: <iframe width="100%" height="675"...
-            if ($iframe.length == 1 && $iframe.attr('width') === '100%' && (!$iframe.attr('height') || $iframe.attr('height').match(/\d+/))) {
-
-                widget.height = oembed.height || $iframe.attr('height');
-
+            if (iframe && iframe.src && iframe.width === '100%' && (!iframe.height || Numnber.isInteger(iframe.height))) {
+                widget.height = iframe.height || oembed.height;
             } else {
                 widget['aspect-ratio'] = oembed.width / oembed.height;
             }
         } else if (whitelistRecord.isAllowed('oembed.rich', 'horizontal')) {
-                widget.height = oembed.height || $iframe.attr('height');
+            widget.height = (iframe && iframe.height) || oembed.height;
 
-                if (whitelistRecord.isAllowed('oembed.rich', "resizable")) {
-                    rels.push(CONFIG.R.resizable);
-                }
+            if (whitelistRecord.isAllowed('oembed.rich', "resizable")) {
+                rels.push(CONFIG.R.resizable);
+            }
+        } else if (whitelistRecord.isAllowed('oembed.rich', 'inline') /* && not responsive or horizontal*/) {
+            widget.height = oembed.height;
         } else {
             widget.width = oembed.width;
-            widget.height = oembed.height
+            widget.height = oembed.height;
         }
 
-        if ($iframe.length == 1 && $iframe.attr('allow')) {
-            widget.rel = widget.rel.concat($iframe.attr('allow').replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
-        }        
+        if (iframe && iframe.src && iframe.allow) {
+            widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
+        }
+
+        if (widget.href && whitelistRecord.isAllowed('oembed.rich', "accept") && widget.type === CONFIG.T.text_html) {
+            widget.accept = widget.type;
+            delete widget.type;
+        }
 
         return widget;
-
     },
 
 

@@ -1,7 +1,7 @@
-module.exports = {
+export default {
 
-	// avoid wordpress pages
-	lowestPriority: true,
+    // avoid wordpress pages
+    lowestPriority: true,
 
     getMeta: function(oembed) {
         return {

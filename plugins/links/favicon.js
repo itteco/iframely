@@ -1,6 +1,6 @@
-module.exports = {
+export default {
 
-    getLink: function(meta) {
+    getLink: function(url, meta) {
 
         function findIcons(links, filter) {
             var key, l;
@@ -24,13 +24,15 @@ module.exports = {
                             href = link;
                         }
 
-                        links.push({
-                            href: href,
-                            rel: key.split(' ').concat('icon'),
-                            type: link.type || CONFIG.T.image,
-                            width: m && parseInt(m[1]),
-                            height: m && parseInt(m[2])
-                        });
+                        if (href !== url && href !== meta.canonical && (!meta.og || meta.og.canonical !== url)) {
+                            links.push({
+                                href: href,
+                                rel: key.split(' ').concat('icon'),
+                                type: link.type || CONFIG.T.image,
+                                width: m && parseInt(m[1]),
+                                height: m && parseInt(m[2])
+                            });
+                        }
                     });
                 }
             }

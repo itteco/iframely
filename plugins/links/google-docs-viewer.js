@@ -1,6 +1,6 @@
-const utils = require('../../lib/utils');
+import * as utils from '../../lib/utils.js';
 
-module.exports = {
+export default {
 
     getLink: function(url, __nonHtmlContentData, options) {
 
@@ -22,14 +22,18 @@ module.exports = {
                 return {
                     href: src,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
-                    "aspect-ratio": 1 / Math.sqrt(2) // standard sqrt(2) aspect for A4 and other standard A* format papers (except North America, of course)
+                    rel: [CONFIG.R.reader, CONFIG.R.file],
+                    "aspect-ratio": CONFIG.DOC_ASPECT_RATIO
                 }
 
             } else {
                 return {
                     message: 'PDF files that are over 10Mb are not supported by Google Docs Viewer'
                 }
+            }
+        } else if (/application\/pdf|text\/rtf/.test(__nonHtmlContentData.type)) {
+            return {
+                message: 'PDFs are not supported per your media settings'
             }
         }
     }

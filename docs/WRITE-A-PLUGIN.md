@@ -54,7 +54,7 @@ different kind of objects (hashes). Each method has a number of params, called *
 `getLink` uses **meta** and **oembed** params, so they are method's **requirements**.
 
 Iframely engine know that by parsing module code and provides that parameters when method is called.
-If some requirements are not available, method will not be called. This means all defined method params ara mandatory requirements.
+If some requirements are not available, method will not be called. This means all defined method params are mandatory requirements.
 Here is the list of all available default requirements:
 
  - **urlMatch** - variable got after matching page URI against **re** RegExpes attribute of plugin. This is available only if domain plugin which has **re** attribute is used.
@@ -125,7 +125,7 @@ See available attributes names to check if similar name exists at [/meta-mapping
 
 See example [/generic/meta/video.js](https://github.com/itteco/iframely/blob/master/plugins/generic/meta/video.js):
 
-    module.exports = {
+    export default {
         getMeta: function(meta) {
 
             // This prevents non useful errors loging with "undefined".
@@ -150,13 +150,13 @@ But `og:title` usually better and contains only article title without site name.
 
 If you want to mark you plugin as worst source of meta (like html `<title>` tag), use `lowestPriority: true`:
 
-    module.exports = {
+    export default {
         lowestPriority: true
     }
 
 If you want to mark your plugin as good source of meta (like og:title), use `highestPriority: true`:
 
-    module.exports = {
+    export default {
         highestPriority: true
     }
 
@@ -220,7 +220,7 @@ Feeds:
  * `getUrls(cb)` - this function allows to provide async method to load urls from any custom source. `cb(error, urls)` - waits for error or urls array.
 
 Testing directives:
- * `skipMethods` - array of non mandatory plugin methods. If method will not return data - it will be test warting, not error. Exceptions will raise error as usual.
+ * `skipMethods` - array of non mandatory plugin methods. If method will not return data - it will be test warning, not error. Exceptions will raise error as usual.
  * `skipMixins` - same as previous, but with mixin methods.
 
 If you have test urls but there are no test feeds, specify following to prevent test warnings:

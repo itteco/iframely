@@ -1,6 +1,6 @@
-var decodeHTML5 = require('entities').decodeHTML5;
+import { decodeHTML5 } from 'entities';
 
-module.exports = {
+export default {
 
     provides: "schemaFileObject",
 
@@ -34,7 +34,7 @@ module.exports = {
         if (schemaFileObject.embedURL || schemaFileObject.embedUrl) {
 
             var file = {
-                rel: [CONFIG.R.file, CONFIG.R.html5],
+                rel: [CONFIG.R.file],
                 href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
                 accept: CONFIG.T.text_html
             };
@@ -48,7 +48,7 @@ module.exports = {
                 // use default aspect
 
             } else if (urlMatch[1] === "forms" && schemaFileObject.height) {
-                file.height = schemaFileObject.height && (schemaFileObject.height + 65);
+                file.height = schemaFileObject.height && (schemaFileObject.height + 65 + 48);
 
                 if (file.height > 1500) {
                     file.message = "If there's an extra vertical space, it is used up on next step (after \"Next\" is clicked in the form).";
@@ -60,14 +60,14 @@ module.exports = {
                 file.rel.push (CONFIG.R.resizable);
 
             } else if (urlMatch[1] === "forms" || urlMatch[1] === "document" || urlMatch[1] === "file") {
-                file["aspect-ratio"] = 1 / Math.sqrt(2); // A4 portrait
+                file["aspect-ratio"] = CONFIG.DOC_ASPECT_RATIO;
                 // "App" to prevent Google Forms be presented as Player through Twitter-player mixin as Player prevails on Readers
                 file.rel.push (urlMatch[1] === "forms" ? CONFIG.R.app : CONFIG.R.reader);
 
             /// } else if (urlMatch[1] === "file" && schemaFileObject.playerType) {
 
             } else if (urlMatch[1] === "spreadsheets" ) {
-                file["aspect-ratio"] = Math.sqrt(2); // A4 landscape
+                file["aspect-ratio"] = 1 / CONFIG.DOC_ASPECT_RATIO;
                 file.rel.push (CONFIG.R.reader);
 
             } else if (urlMatch[1] === "drawings" ) {
@@ -80,36 +80,19 @@ module.exports = {
                 file.rel.push (CONFIG.R.slideshow);
                 file['aspect-ratio'] = 16/9;
                 file['padding-bottom'] = 30;
-            }
 
-            return file;
-        } else if (/usp=embed/.test(schemaFileObject.url) && /icon_\d+_(audio|image)_favicon\.ico$/.test(schemaFileObject.faviconUrl)) {
-
-            var file = {
-                rel: [CONFIG.R.file, CONFIG.R.html5],
-                href: schemaFileObject.url.replace(/\/view(?:\?.+)?$/i, '/preview'),
-                accept: CONFIG.T.text_html
-            };
-
-            var type = schemaFileObject.faviconUrl.match(/icon_\d+_(\w+)_favicon\.ico$/)[1]
-            
-            if (type === 'audio') {
-                file.rel.push(CONFIG.R.player);
-                file.rel.push(CONFIG.R.audio);
-                file.height = 60;
-            } else if (type === 'image') {
-                file.rel.push(CONFIG.R.image);
-                file['aspect-ratio'] = 640/480; // unfortunatelly, no way of known image size
+                if (/\/preview(?:\?.+)$/.test(file.href)) {
+                    file.href = file.href.replace(/\/preview(?:\?.+)$/, '/embed');
+                }
             }
 
             return file;
 
-        } else {
+        } else if (!/^https?:\/\/drive/.test(schemaFileObject.url)){
             return {
-                message: 'No preview available for this file.'
+                message: 'Google has no preview available for this document.'
             }
         }
-
     },
 
     getData: function(meta, url, urlMatch, cheerio, decode, options, cb) {
@@ -119,7 +102,7 @@ module.exports = {
         if (urlMatch[1] === "forms" && /\/closedform(?:\?.*)?$/.test(url)) {
             return cb ({
                 responseStatusCode: 410,
-                message: `The form ${meta['html-title'] || ''} is no longer accepting responses.`
+                message: `This Google form is no longer accepting responses.`
             });
         } else if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
@@ -164,6 +147,16 @@ module.exports = {
                     embedUrl: url
                 }  
             });
+        } else if (/\/pubchart(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
+            return cb({
+                responseStatusCode: 415,
+                message: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
+            })            
+        } else if (!meta.og) {
+            return cb({
+                responseStatusCode: 415,
+                message: 'Google Docs could not load the file. Perhaps it is too large.'
+            })
         } else {
             return cb(null, null);
         }
@@ -177,10 +170,8 @@ module.exports = {
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vRKtFs55r6ow0rVvoGJLlDyqxD_455wR6_eZ42z8izYGT_UM6hNW0ruFhn26m_SzsoT4AQxZZA968Lp/pubhtml?gid=1443541234&single=true&widget=true&headers=false",
         "https://docs.google.com/spreadsheets/u/1/d/1_tsspyfiH8ZVAOmoCbGJ3gvzGU5zLUb-PEG0-RyjP5E/edit#gid=1926296709",
         "https://docs.google.com/document/d/e/2PACX-1vSeGAfeYcpPAGLX4h0krdMR8HBuCxf3M0H0MlyeQ9GYQzJsJ2KTfZ_iSopp5dUwX3JVOfCpAoEyoXdh/pub",
-        "https://drive.google.com/file/d/1H4K6WkWjycH253U35VVUE8oaTJea_dmp/view",
         "https://drive.google.com/open?id=1rKcaLuY0WzhPqQFCGy_4aIJblnEziy7-",
-        "https://drive.google.com/file/d/17cEEjFg-xJGnKfwQHDPF9mBNsBY8KTsc/preview",
-        "https://drive.google.com/file/d/15rfX_NentPMEgJQ_io6qhctScmpahU00/view",
+        "https://docs.google.com/presentation/d/e/2PACX-1vQmrymNWFltfprLl9IX-irRcmvjsL1ahOKAt8YTzuWTdcWyIH2EX6wyUmmJ4ftG3dICaTZ9DCpqXiht/pub?start=false&loop=false&delayms=3000",
         {
             skipMixins: [
                 "og-image", "og-title", "og-description"

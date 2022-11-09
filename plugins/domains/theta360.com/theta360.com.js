@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /https:\/\/theta360\.com\/(?:spheres|s)(?:\/\w+)?\/[\w-]+/i,
 
@@ -26,8 +26,6 @@ module.exports = {
 
     tests: [
         {
-            page: 'https://theta360.com/en/gallery/',
-            selector: '.library .item a',
             skipMixins: [
                 "og-description"
             ]

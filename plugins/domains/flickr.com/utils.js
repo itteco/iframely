@@ -1,12 +1,10 @@
-(function() {
-
-    var async = require('async');
-
     var API_URI = 'https://api.flickr.com/services/rest';
 
-    exports.notPlugin = true;
+    export const notPlugin = true;
 
-    exports.getPhotoSizes = function(photo_id, request, api_key, cb) {
+    // TODO: is this used anywhere?
+
+    export function getPhotoSizes(photo_id, request, api_key, cb) {
         request({
                 uri: API_URI,
                 qs: {
@@ -23,5 +21,3 @@
                 }
             }, cb);
     };
-
-})();

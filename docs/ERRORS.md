@@ -21,7 +21,7 @@ The error statuses that you may encounter are these:
 
  - `415` is for unsupported media type. At the moment, ISO2022 encoding is not supported.
 
- - `410`, gone - is for domains that were blacklisted by Iframely. Most likely, due to inadequate content. 
+ - `410`, gone - is for domains that were ignored by Iframely. Most likely, due to inadequate content. 
 
  - `417`, last but not least, the "expectation failed". It is if you asked us to return it for URLs that do not match your media requirements.
 

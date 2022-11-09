@@ -1,24 +1,21 @@
-module.exports = {
+export default {
 
     mixins: [
         "oembed-thumbnail",
         "oembed-author",
         "oembed-site",
-        "oembed-title"
+        "oembed-title",
+        "oembed-iframe"
     ],
 
-    getLink: function(oembed, whitelistRecord) {
+    getLink: function(iframe, oembed, whitelistRecord) {
 
-        var iframe = oembed.getIframe();
-
-        if (iframe && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video', 'autoplay')) {
-
-            var href = iframe.src;
+        if (iframe.src && whitelistRecord.isAllowed && whitelistRecord.isAllowed('oembed.video', 'autoplay')) {
 
             var links = [{
-                href: href + (href.indexOf('?') > -1 ? '&' : '?') + 'autoplay=0',
+                href: iframe.replaceQuerystring({autoplay:0}),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.oembed, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
                 autoplay: "autoplay=1",
                 'aspect-ratio': oembed.width / oembed.height
             }];

@@ -1,6 +1,7 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
 
-module.exports = {
+
+export default {
 
     highestPriority: true,
 
@@ -22,7 +23,8 @@ module.exports = {
                 category: ld.product.category,
                 availability: ld.product.availability,
                 title: ld.product.name,
-                description: description
+                description: description,
+                medium: 'product'
             };
         }
     }

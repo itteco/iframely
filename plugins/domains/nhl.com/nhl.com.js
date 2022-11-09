@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /https?:\/\/(?:www\.)?nhl\.com(\/\w+\/)video\/(?:embed\/)?([a-zA-Z0-9\-]+\/t\-\d+\/c\-\d+)/i,
@@ -10,12 +10,11 @@ module.exports = {
     getLinks: function(urlMatch, url, meta) {
 
         return {
-            href: "https://www.nhl.com" + urlMatch[1] + "video/embed/" + urlMatch[2] + "?autostart=false",
+            href: "https://www.nhl.com" + urlMatch[1] + "video/embed/" + urlMatch[2],
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player,  CONFIG.R.html5],
+            rel: CONFIG.R.player,
             "aspect-ratio": 540 / 310,
-            "max-width": 1280,
-            autoplay: 'autostart=true'
+            "max-width": 1280
         }
     },
 

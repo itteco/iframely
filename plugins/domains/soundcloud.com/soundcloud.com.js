@@ -1,16 +1,13 @@
-const $ = require('cheerio');
-const querystring = require('querystring');
-const URL = require("url");
+export default {
 
-module.exports = {
-
-    provides: ['__allow_soundcloud_meta', 'sound', 'iframe'],
+    provides: ['__allow_soundcloud_meta', 'sound'],
 
     mixins: [
         "oembed-title",
         "oembed-site",
         "oembed-author",
         "oembed-description",
+        "oembed-iframe",
         // do not link to meta as it disables support for direct player urls redirects from w.soundcloud.com
         "domain-icon"
     ],
@@ -21,10 +18,9 @@ module.exports = {
 
         if (iframe.src && sound.count !== 0) {
 
-            var href = iframe.src;
-            var params = URL.parse(href, true).query;
+            var params = Object.assign(iframe.query);
 
-            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player') || options.getProviderOptions(CONFIG.O.less))) {
+            if (options.getRequestOptions('players.horizontal', options.getProviderOptions('soundcloud.old_player'))) {
                 params.visual = false;
             }
             if (options.getRequestOptions('soundcloud.hide_comments') !== undefined) {
@@ -37,7 +33,7 @@ module.exports = {
                 params.color = options.getProviderOptions('soundcloud.color');
             }
 
-            href = href.replace(/\?.+/, '') + querystring.stringify(params).replace(/^(.)/, '?$1');
+            var href = iframe.assignQuerystring(params);
             var height = options.getRequestOptions('soundcloud.height', options.getProviderOptions('players.horizontal') === false ? 0 : (/visual=false/.test(href) ? 166 : iframe.height));
             // Fallback to old values.
             if (height === 'auto') {
@@ -80,7 +76,7 @@ module.exports = {
             links.push({
                 href: href,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                rel: [CONFIG.R.player, CONFIG.R.audio],
                 autoplay: "auto_play=true",
                 media: height === 0 ? {
                     'aspect-ratio': 1, // the artwork is always 500x500
@@ -109,17 +105,16 @@ module.exports = {
         if (
             /* Don't request meta for w.soundcloud.com widget redirects, html parser gets 401 there. */
             !/w\.soundcloud\.com/i.test(url)
-            && (
+            && ((
                 /* Skip the placeholder thumbnail in oEmbed - use user picture in og image instead. */
                 !oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)
                 
                 /* Also, check meta and try to exclude user profiles with 0 tracks. */
                 || /api\.soundcloud\.com(%2F|\/)users(%2F|\/)/i.test(oembed.html)
-            )
+            ) || !oembed.description)
         ) {
             return {
-                __allow_soundcloud_meta: true,
-                iframe: oembed.getIframe()
+                __allow_soundcloud_meta: true
             }
             
         } else {
@@ -132,8 +127,7 @@ module.exports = {
                         width: oembed.thumbnail_width,
                         height: oembed.thumbnail_height
                     }
-                },
-                iframe: oembed.getIframe()
+                }
             }
         }
     },

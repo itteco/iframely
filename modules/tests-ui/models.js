@@ -1,25 +1,15 @@
-(function() {
+    import moment from 'moment';
+    import mongoose from 'mongoose';
+    import CONFIG from '../../config.loader.js';
 
-    if (!CONFIG.tests) {
-        return;
+    mongoose.set('useUnifiedTopology', true);
+    mongoose.set('useCreateIndex', true);
+    mongoose.set('useNewUrlParser', true);
+    if (global.Promise) {
+        mongoose.Promise = global.Promise;
     }
 
-    var moment = require('moment');
-
-    var mongoose, db;
-
-    // DB connect.
-    try {
-        mongoose = require('mongoose');
-        if (global.Promise) {
-            mongoose.Promise = global.Promise;
-        }
-        db = mongoose.createConnection(CONFIG.tests.mongodb);
-    } catch (ex) {
-        console.error("Plugins testing framework will not work. Can't connect to mongodb.");
-        console.error(ex.stack);
-        return;
-    }
+    const db = mongoose.createConnection(CONFIG.tests.mongodb);
 
     var Schema = mongoose.Schema;
 
@@ -166,9 +156,7 @@
         return moment(this.created_at).format("DD-MM-YY HH:mm");
     };
 
-    exports.PluginTest = db.model('PluginTest', PluginTestSchema);
-    exports.PageTestLog = db.model('PageTestLog', PageTestLogSchema);
-    exports.TestUrlsSet = db.model('TestUrlsSet', TestUrlsSetSchema);
-    exports.TestingProgress = db.model('TestingProgress', TestingProgressSchema);
-
-})();
+    export const PluginTest = db.model('PluginTest', PluginTestSchema);
+    export const PageTestLog = db.model('PageTestLog', PageTestLogSchema);
+    export const TestUrlsSet = db.model('TestUrlsSet', TestUrlsSetSchema);
+    export const TestingProgress = db.model('TestingProgress', TestingProgressSchema);

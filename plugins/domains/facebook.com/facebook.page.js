@@ -1,7 +1,7 @@
-module.exports = {
+export default {
 
     re: [
-        /^https?:\/\/(www|m)\.facebook\.com\/[^\/]+\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
+        /^https?:\/\/(www|m)\.facebook\.com\/([^\/\?]+(?<!\.php))\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
         /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
     ],
 
@@ -80,16 +80,21 @@ module.exports = {
 
             return {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl],
                 html: html,
                 options: opts,
                 height: height
             };        
+        } else if (oembed.html) {
+            // Ex.: https://www.facebook.com/pages/Art-Friend-the-Curve/199296263568281
+            return {
+                message: "Unowned Facebook Pages are not supported."
+            }
         }
     },
 
-    getData: function(oembedError, meta) {
-        if (meta.ld && meta.ld.person) {
+    getData: function(oembedError, url, meta) {
+        if ((!meta.ld || meta.ld.person) && !/^https?:\/\/(?:www\.)?facebook\.com\/login\?next=/i.test(url)) {
             return {
                 message: "Facebook profile pages of individual users are not embeddable."
             };
@@ -98,8 +103,8 @@ module.exports = {
 
     tests: [
         "https://www.facebook.com/facebook",
-        "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
-        "https://www.facebook.com/pg/RhulFencing/about/",
+        // "https://www.facebook.com/hlaskyjanalasaka?fref=nf", // no longer owned
+        "https://www.facebook.com/pg/RhulFencing/",
         "https://www.facebook.com/caboreytours/",
         {
             noFeeds: true,

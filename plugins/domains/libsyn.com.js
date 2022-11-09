@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/[a-zA-Z0-9\.]+\.libsyn(?:pro)?\.com\//,
 
@@ -6,15 +6,20 @@ module.exports = {
         "*"
     ],
 
-    getLink: function(twitter, options) {
+    getLink: function(iframe, meta, options) {
 
-        if (twitter.player && twitter.player.value && /^https?:\/\/html5\-player\.libsyn\.com\/embed\/episode\/id\/\d+/i.test(twitter.player.value)) {
+        const re = /^(?:https:)?\/\/(?:html5\-)?play(?:er)?\.libsyn\.com\/embed\/episode\/id\/\d+/i;
+        const isVideo = meta.twitter && meta.twitter.stream && /\.mp4$/i.test(meta.twitter.stream.value);
 
-            var is_video = twitter.stream && twitter.stream.value && /\.mp4$/i.test(twitter.stream.value);
+        if (re.test(iframe.src)) {
+            
+            var href = iframe.src.match(re)[0];
+            var player = {
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
+                type: CONFIG.T.text_html
+            };            
 
-            var href = twitter.player.value.match(/^https?:\/\/html5\-player\.libsyn\.com\/embed\/episode\/id\/\d+/i)[0];            
-
-            if (!is_video) {
+            if (!isVideo) {
 
                 if (!options.getRequestOptions('players.horizontal', true)) {
                     href += '/theme/standard';
@@ -23,26 +28,24 @@ module.exports = {
 
                     if (options.getRequestOptions('libsyn.playlist', false)) {
                         href += '/height/400';
-                        href += '/direction/backward/render-playlist/yes';
+                        href += '/render-playlist/yes';
+                        href += `/direction/${options.getRequestOptions('libsyn.direction', 'backward')}/`;
+                        player.rel.push(CONFIG.R.resizable);
                     } else {
-                        href += '/height/90';
+                        href += `/height/96`;
                     }
 
                     if (options.getRequestOptions('libsyn.hide_artwork', false)) {
                         href += '/thumbnail/no';
                     }
 
-                    href += '/custom-color/' + options.getProviderOptions('libsyn.color', '87A93A');
+                    href += '/custom-color/' + options.getProviderOptions('libsyn.color', '88AA3C');
                 }
             }
 
-            var player = {
-                href: href,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                type: CONFIG.T.text_html
-            };
+            player.href = href;
 
-            if (is_video) {
+            if (isVideo) {
                 player['aspect-ratio'] = 16/9;
                 player['padding-bottom'] = 90;
             } else {
@@ -77,8 +80,8 @@ module.exports = {
                         }
                     };
 
-                player.height = player.href.match(/height\/(\d+)/)[1];
-                player.scrolling = 'no';
+                    player.height = player.href.match(/height\/(\d+)/)[1];
+                    player.scrolling = 'no';
                 }
             }
                 
@@ -87,12 +90,8 @@ module.exports = {
     },
 
     tests: [
-        "http://3manbreak.libsyn.com/10-build-a-bear-for-bradley-beal-december-1-of-3",
-        "http://directory.libsyn.com/episode/index/id/3252958",
-        // "http://mohrstories.libsyn.com/podcast/mor-stories-267-john-dimaggio", // broken
-        "http://mumiapodcast.libsyn.com/message-for-red-emmas-book-fair-saturday-9-26-2015-baltimore",
-        "http://3manbreak.libsyn.com/10-build-a-bear-for-bradley-beal-december-1-of-3",
-        "http://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs",
-        "http://bitcoinmagazine.btc.libsynpro.com/weekly-bits-7-the-gift-of-bitcoin-giving"
+        "https://directory.libsyn.com/episode/index/id/3252958",
+        "https://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs",
+        "https://thefeed.libsyn.com/202-podcasting-workflows-hardware-tips-and-numbers"
     ]
 };

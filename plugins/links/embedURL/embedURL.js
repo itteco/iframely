@@ -1,81 +1,75 @@
-const decodeHTML5 = require('entities').decodeHTML5;
-const utils = require('../../../lib/utils');
+import { decodeHTML5 } from 'entities';
+import * as utils from '../../../lib/utils.js';
 
-module.exports = {
+export default {
 
     provides: 'schemaVideoObject',
 
-    getData: function(cheerio, decode, __allowEmbedURL) {
+    getData: function(url, cheerio, decode, __allowEmbedURL) {
 
         /* Let's try to find ld+json in the body first. */
         var $script = cheerio('script[type="application/ld+json"]:contains("VideoObject")').first(); // embedURL can be embedurl, embedUrl, etc.
 
         if ($script.length === 1) {
             try {
-                var json = utils.parseJSONSource($script.text());
+                var ld = utils.parseLDSource($script.html(), decode, url);
 
-                if (json['@type']) {
-                    ld = {};
-                    ld[json['@type'].toLowerCase()] = json;
-
-                    if (__allowEmbedURL !== 'skip_ld') {
-                        return {
-                            ld: ld
-                        }
-                    } else if (ld.videoobject || ld.mediaobject) {
-                        var videoObject = ld.videoobject || ld.mediaobject,
-                            href = videoObject.embedURL || videoObject.embedUrl || videoObject.embedurl;
-
-                        if (href) {
-                            return {
-                                schemaVideoObject: ld.videoobject || ld.mediaobject
-                            }
-                        } // else check microformats, ex.: cbssports
+                if (ld && __allowEmbedURL !== 'skip_ld') {
+                    return {
+                        ld: ld
                     }
+                } else if (ld && (ld.videoobject || ld.mediaobject)) {
+                    const videoObject = ld.videoobject || ld.mediaobject,
+                        href = videoObject.embedURL || videoObject.embedUrl || videoObject.embedurl || videoObject.contentURL || videoobject.contentUrl || videoobject.contenturl;
+
+                    if (href) {
+                        return {
+                            schemaVideoObject: ld.videoobject || ld.mediaobject
+                        }
+                    } // else check microformats, ex.: cbssports
                 }
 
             } catch (ex) {
                 // broken json, c'est la vie
                 // let's try microformats instead
             }
-        } 
+        }
 
         /* Else, the ld above didn't return any results. Let's try microformats. */
+        var videoObjectSchema = 'Object';
 
-            var videoObjectSchema = 'Object';
+        var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
 
-            var $scope = cheerio('[itemscope][itemtype*="' + videoObjectSchema + '"]');
+        if ($scope.length) {
 
-            if ($scope.length) {
+            var $aScope = cheerio($scope);
 
-                var $aScope = cheerio($scope);
+            var result = {};
 
-                var result = {};
+            $aScope.find('[itemprop]').each(function() {
+                var $el = cheerio(this);
 
-                $aScope.find('[itemprop]').each(function() {
-                    var $el = cheerio(this);
+                var scope = $el.attr('itemscope');
+                if (typeof scope !== 'undefined') {
+                    return;
+                }
 
-                    var scope = $el.attr('itemscope');
-                    if (typeof scope !== 'undefined') {
-                        return;
-                    }
+                var $parentScope = $el.parents('[itemscope]');
+                if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
+                    return;
+                }
 
-                    var $parentScope = $el.parents('[itemscope]');
-                    if (!($parentScope.attr('itemtype').indexOf(videoObjectSchema) > -1)) {
-                        return;
-                    }
+                var key = $el.attr('itemprop');
+                if (key) {
+                    var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
+                    result[key] = value;
+                }
+            });
 
-                    var key = $el.attr('itemprop');
-                    if (key) {
-                        var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
-                        result[key] = value;
-                    }
-                });
-
-                return {
-                    schemaVideoObject: result
-                };
-            }
+            return {
+                schemaVideoObject: result
+            };
+        }
         /* End of microformats. */
     },
 
@@ -100,12 +94,9 @@ module.exports = {
             var player = {
                 href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
                 rel: [CONFIG.R.player],
-                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, CONFIG.T.flash, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
+                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
             };
 
-            if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.html5)) {
-                player.rel.push(CONFIG.R.html5);
-            }
             if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.autoplay)) {
                 player.rel.push(CONFIG.R.autoplay);
             }

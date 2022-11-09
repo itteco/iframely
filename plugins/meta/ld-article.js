@@ -1,38 +1,39 @@
-const cheerio = require('cheerio');
+import cheerio from 'cheerio';
 
-module.exports = {
+
+export default {
 
     getMeta: function(ld) {
-		function clean(field) {
-			if (field) {
-				var $container = cheerio('<div>');
-				try {
-					$container.html(field);
-				} catch (ex) {
-					return undefined;
-				}
-				return $container.text();
-			}
-		}
-    	if (ld.newsarticle) {
+        function clean(field) {
+            if (field) {
+                var $container = cheerio('<div>');
+                try {
+                    $container.html(field);
+                } catch (ex) {
+                    return undefined;
+                }
+                return $container.text();
+            }
+        }
 
-	        return {
-	        	title: clean(ld.newsarticle.headline),
-	        	category: clean(ld.newsarticle.articlesection),
+        if (ld.newsarticle) {
+            return {
+                title: clean(ld.newsarticle.headline),
+                category: clean(ld.newsarticle.articlesection),
                 description: clean(ld.newsarticle.description)
-	        }
-    	}
+            }
+        }
     },
 
     getLink: function(ld) {
 
-    	if (ld.newsarticle && ld.newsarticle.thumbnailurl) {
-	        return {
-	        	href: ld.newsarticle.thumbnailurl,
-	        	type: CONFIG.T.image,
-	        	rel: CONFIG.R.thumbnail
-	        }
-    	}
+        if (ld.newsarticle && ld.newsarticle.thumbnailurl) {
+            return {
+                href: ld.newsarticle.thumbnailurl,
+                type: CONFIG.T.image,
+                rel: CONFIG.R.thumbnail
+            }
+        }
     }
 
     // ex: 

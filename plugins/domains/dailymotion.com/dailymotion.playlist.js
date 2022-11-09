@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     /**
      * Endpoint `http://www.dailymotion.com/services/oembed`
      * does not provide oembed results for playlist url currently
@@ -21,7 +21,7 @@ module.exports = {
         return {
             href: playlistUrl,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.iframely]
+            rel: [CONFIG.R.player, CONFIG.R.iframely]
         };
     },
 

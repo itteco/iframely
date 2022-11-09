@@ -1,6 +1,6 @@
 // Custom Google Maps
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/(?:www\.)?google\.(?:com?\.)?[a-z]+\/maps\/d\/(?:edit|embed|viewer)\?(?:[^&]+&)*(mid)=([a-zA-Z0-9\.\-_]+)/i,
@@ -21,11 +21,9 @@ module.exports = {
     getLink: function(urlMatch) {
 
         return {
-            href: "https://www.google.com/maps/" + (urlMatch[1] === 'pb' ? '' : "d/" )+ "embed?" 
-                    + urlMatch[1] + "=" + urlMatch[2] + "&source=iframely", // &for is added to allow direct links to embeds. 
-                                                                            // otherwise, won't pass Iframely's validation
+            href: `https://www.google.com/maps/${urlMatch[1] === 'pb' ? '' : "d/" }embed?${urlMatch[1]}=${urlMatch[2]}`,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: [CONFIG.R.app, CONFIG.R.iframely],
             "aspect-ratio": 640 / 480
         };
     },

@@ -1,16 +1,19 @@
-module.exports = {
+import timelinePlugin from './twitter.timelines.js';
+import statusPlugin from './twitter.status.js';
 
-    re: require('./twitter.timelines').re.concat(require('./twitter.status').re),
+export default {
 
-    provides: ["meta"],
+    re: [...timelinePlugin.re, ...statusPlugin.re],
+
+    provides: ["twitter_og"],
 
     getData: function(url, __statusCode, cb) {
-        if (__statusCode === 429 || __statusCode === 400) {
-            return cb(null, {meta: {}})
-        } else {
+        // if (__statusCode === 429 || __statusCode === 404 || __statusCode === 403 || __statusCode === 400) {
+            return cb(null, {twitter_og: {}})
+        /* } else {
             return cb ({
                 responseStatusCode: __statusCode
             });
-        }
+        } */
     }
 };

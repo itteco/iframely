@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/pastebin\.com\/(?!search)([a-zA-Z0-9]+)/i
@@ -16,9 +16,9 @@ module.exports = {
         }
 
         return {
-            href: "https://pastebin.com/embed_js/"+ urlMatch[1],
-            type: CONFIG.T.javascript,  
-            rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl]  // not inline
+            html: `<script src="https://pastebin.com/embed_js/${urlMatch[1]}"></script>`,
+            type: CONFIG.T.text_html,  
+            rel: [CONFIG.R.reader, CONFIG.R.ssl]  // not inline
         }
     },
 

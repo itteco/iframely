@@ -1,10 +1,9 @@
-module.exports = {
+export default {
 
     // also used for hosted simplecasts
     re: [
         /^https?:\/\/[a-zA-Z0-9\-_]+\.simplecast\.com\/episodes\/[a-zA-Z0-9\-]+/i,
-        /^https?:\/\/embed\.simplecast\.com\/[a-zA-Z0-9\-]+/i,
-        /^https?:\/\/simplecast\.com\/s\/[a-zA-Z0-9\-]+/i
+        /^https?:\/\/simplecast\.com\/s\/[a-zA-Z0-9\-]+/i,
     ],
 
     mixins: ["*"],
@@ -32,15 +31,14 @@ module.exports = {
             return {
                 href: href,
                 accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.oembed],
                 height: /embed\.|player\./i.test(href) ? 200 : twitter.player.height || 200, // twitter.player.height is sometimes 180 as in oEmbed, but that's not enough
                 options: opts
             };
         }
     },
 
-    tests: [
-        "https://embed.simplecast.com/c0e95371",        
+    tests: [    
         "https://tgd.simplecast.com/episodes/dan-blackman-and-robyn-kanner-the-power-7fe152f4"
         /*
         http://bikeshed.fm/54

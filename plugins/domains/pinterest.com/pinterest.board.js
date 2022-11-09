@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\/([a-zA-Z0-9%\-]+)\/?(?:$|\?|#)/i,
 
@@ -14,12 +14,12 @@ module.exports = {
             (meta.twitter && meta.twitter.app && meta.twitter.app.url && /\/board\//i.test(meta.twitter.app.url.iphone))) {
 
             var height = options.getRequestOptions('pinterest.height', options.maxHeight || 600);
-            var width = options.getRequestOptions('pinterest.width', options.maxWidth || 600);
+            var width = options.getRequestOptions('pinterest.width', options.getRequestOptions('maxwidth', 600));
             var pinWidth = options.getRequestOptions('pinterest.pinWidth', 120);
 
             return {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 template: "pinterest.widget",
                 template_context: {
                     url: og.url || url,
@@ -46,7 +46,7 @@ module.exports = {
                         placeholder: 'ex.: 600, in px'
                     }
                 },
-                width: width,
+                'max-width': width, // inline HTML should come only with height now
                 height: height + 120
             };
         }

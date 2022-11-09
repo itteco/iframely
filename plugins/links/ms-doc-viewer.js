@@ -1,19 +1,19 @@
 // https://support.office.com/en-gb/article/View-Office-documents-online-1cc2ea26-0f7b-41f7-8e0e-6461a104544e?ui=en-US&rs=en-GB&ad=GB
 
-module.exports = {
+export default {
 
     getLink: function(url, __nonHtmlContentData, options) {
 
         if (!options.getProviderOptions('disableDocViewers', false)
             && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)
             && (!__nonHtmlContentData.content_length || __nonHtmlContentData.content_length < 10 * 1024 * 1024)
-            &&  !__nonHtmlContentData['set-cookie']) {
+            ) {
 
             var result = {
                 href: "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(url),
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.file, CONFIG.R.ssl, CONFIG.R.html5],
-                "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/i.test(__nonHtmlContentData.type) ?  4/3 : 1 / Math.sqrt(2)
+                rel: [CONFIG.R.reader, CONFIG.R.file],
+                "aspect-ratio": /presentation|ms\-powerpoint|ms\-excel|ms\-office/i.test(__nonHtmlContentData.type) ?  4/3 : CONFIG.DOC_ASPECT_RATIO
             }
 
             if (/^https?:\/\/[a-zA-Z0-9\-\_]+\.googleapis\.com\//i.test(url) || options.getProviderOptions('disableMSDocViewer', false)) {
@@ -25,11 +25,20 @@ module.exports = {
 
             return result;
         } 
-        // checked if viewer could not be used
+        
+        // `__nonHtmlContentData['set-cookie']` message used to be 'File server sets cookie and is not supported'
+        // But it doesn't seem to be relevant any longer as of Jan 7, 2022
         if (/application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type) 
-            && (__nonHtmlContentData.content_length > 10 * 1024 * 1024 || __nonHtmlContentData['set-cookie'])) {
+            && __nonHtmlContentData.content_length > 10 * 1024 * 1024) {
             return {
-                message: __nonHtmlContentData.content_length > 10 * 1024 * 1024 ? 'Office file is bigger than 10Mb and is not supported' : 'File server sets cookie and is not supported'
+                message: 'Office file is bigger than 10Mb and is not supported'
+            }
+        }
+
+        if (options.getProviderOptions('disableDocViewers', false) 
+            && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)) {
+            return {
+                message: 'Office files are not supported per your media settings'
             }
         }
     }

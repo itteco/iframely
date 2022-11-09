@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/[a-z0-9-]+\.bandcamp\.com\/(album|track)\/(\w+)/i,
@@ -45,12 +45,12 @@ module.exports = {
             if (options.getProviderOptions('bandcamp.get_params')) {
                 return {
                     href: href + options.getProviderOptions('bandcamp.get_params') + (track ? '/track=' + track : '') + '/',
-                    rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                    rel: [CONFIG.R.player, CONFIG.R.audio],
                     type: CONFIG.T.text_html,
                     media: album ? options.getProviderOptions('bandcamp.media').album : options.getProviderOptions('bandcamp.media').track
                 }
             } else {
-                var horizontal = options.getProviderOptions('players.horizontal', options.getProviderOptions('bandcamp.small_player', options.getProviderOptions(CONFIG.O.less)));
+                var horizontal = options.getProviderOptions('players.horizontal', options.getProviderOptions('bandcamp.small_player', false));
                 var opts = {
                     layout: {
                         label: 'Layout',
@@ -104,7 +104,7 @@ module.exports = {
 
                 var player = {
                     href: href,
-                    rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.html5],
+                    rel: [CONFIG.R.player, CONFIG.R.audio],
                     type: CONFIG.T.text_html,
                     options: opts
                 };

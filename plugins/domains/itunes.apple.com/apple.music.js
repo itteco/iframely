@@ -1,7 +1,7 @@
-const URL = require('url');
-const _ = require('underscore');
+import * as URL from 'url';
+import * as _ from 'underscore';
 
-module.exports = {
+export default {
 
     re: [
         /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
@@ -17,7 +17,7 @@ module.exports = {
 
     getMeta: function () {
         return {
-            media: 'player' // avoid promo card on media=reader
+            medium: 'audio' // avoid promo card on media=reader
         }
     },
 
@@ -25,6 +25,7 @@ module.exports = {
 
         var canonical = meta.canonical || (meta.og && meta.og.url) || url;
         var isTrack =  /\?i=\d+/.test(canonical) || urlMatch[4] !== undefined;
+        var isMusicPost =meta.og && meta.og.type === 'music.post';
 
         var at = null;
         if (options.redirectsHistory) {
@@ -43,9 +44,15 @@ module.exports = {
         return {
             href: src,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, CONFIG.R.html5],
-            height: isTrack ? 150 : 450,
-            'max-width': 700
+            rel: isMusicPost 
+                ? CONFIG.R.player : 
+                    isTrack ? [CONFIG.R.player, CONFIG.R.audio] : [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, 'resizable'],
+            media: isMusicPost
+                ? {
+                    'aspect-ratio': 16/9 // Apple gives it as 350px fixed-height, but it's wrong.
+                } : {
+                    height: isTrack ? 150 : 450
+                }
         };
     },
 
@@ -67,6 +74,7 @@ module.exports = {
         'https://itunes.apple.com/album/1457610711?app=itunes&ls=1',
         'https://music.apple.com/jp/album/back-to-the-80s/1458246986',
         'https://music.apple.com/us/album/gypsy-woman-shes-homeless-basement-boy-strip-to-the-bone-mix/1434891258?i=1434891369',
-        'https://music.apple.com/fr/post/sa.01cb7f20-f25e-11e6-b1a9-afb0a09d5237'
+        'https://music.apple.com/fr/post/sa.01cb7f20-f25e-11e6-b1a9-afb0a09d5237',
+        'https://music.apple.com/it/post/sa.82ca58c0-41d5-11ea-a9de-158fbdf307c6'
     ]
 };

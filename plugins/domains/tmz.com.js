@@ -1,11 +1,12 @@
-module.exports = {
+export default {
 
-    re: /^https?:\/\/www\.tmz\.com\/videos\/([a-zA-Z0-9_]+)/,
+    re: /^https?:\/\/www\.tmz\.com\/(?:videos|watch)\/([a-zA-Z0-9_]+)/,
 
     mixins: [
         "*"
     ],
 
+    // It's here mostly for tests
     getLinks: function(schemaVideoObject) {
 
         var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
@@ -13,7 +14,7 @@ module.exports = {
         if (href) {
             return {
                 href: href,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: CONFIG.R.player,
                 type: CONFIG.T.text_html,
                 "aspect-ratio": 16/9,
                 "padding-bottom": 10

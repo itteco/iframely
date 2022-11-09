@@ -1,6 +1,6 @@
-module.exports = {
+export default {
 
-	lowestPriority: true,
+    lowestPriority: true,
 
     getMeta: function(meta) {
 

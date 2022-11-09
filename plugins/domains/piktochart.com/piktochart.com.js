@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
     re: /^https?:\/\/(?:magic|create)\.piktochart\.com\/output\/(\d+\-[\-a-zA-Z-0-9_]+)/i,
 
@@ -13,7 +13,7 @@ module.exports = {
                 id: urlMatch[1]
             },
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
+            rel: [CONFIG.R.reader, CONFIG.R.ssl],
         };
     },
 
