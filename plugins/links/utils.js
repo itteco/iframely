@@ -87,6 +87,15 @@ export default {
         }
 
         var rels = key.split(/\W+/);
+        // Unique values.
+        rels = [...new Set(rels)];
+        // Filter empty.
+        rels = rels.filter(i => i);
+
+        // Default rel `app`.
+        if (rels.length === 1 && rels[0] === CONFIG.R.iframely) {
+            rels.push(CONFIG.R.app);
+        }
 
         if (!rels.some(rel => CONFIG.REL_GROUPS && CONFIG.REL_GROUPS.includes(rel))) {
             if (whitelistRecord.isAllowed('iframely.app') && /iframely/i.test(key)) {
@@ -105,7 +114,8 @@ export default {
         var ALLOWED_TYPES = Object.values(CONFIG.T);
 
         value = value.filter(
-            v => v.type && ALLOWED_TYPES.indexOf(v.type) > -1
+            // Allow empty value for `text/html`.
+            v => !v.type || v.type && ALLOWED_TYPES.indexOf(v.type) > -1
         );
 
         // Apply whitelist except for thumbnails.
