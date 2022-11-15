@@ -1,5 +1,3 @@
-import * as _ from 'underscore';
-
 export default {
 
     notPlugin: true,
@@ -47,7 +45,7 @@ export default {
                     }
 
                     if (!hasMedia) {
-                        _.extend(link, media);
+                        Object.assign(link, media);
                     }
 
                     i++;
