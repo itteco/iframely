@@ -80,7 +80,7 @@ export default {
         }
     },
 
-    parseMetaLinks: function(key, value, whitelistRecord) {
+    parseMetaLinks: function(key, value, whitelistRecord, appname) {
 
         if (typeof value !== "object" || typeof value === "string") {
             return [];
@@ -93,7 +93,8 @@ export default {
         rels = rels.filter(i => i);
 
         // Default rel `app`.
-        if (rels.length === 1 && rels[0] === CONFIG.R.iframely) {
+        if (rels.length === 1 
+            && (rels[0] === CONFIG.R.iframely || rels[0] === appname)) {
             rels.push(CONFIG.R.app);
         }
 

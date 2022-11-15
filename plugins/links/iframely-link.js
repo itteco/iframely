@@ -17,7 +17,7 @@ export default {
 
         for (const [key, value] of Object.entries(meta)) {
             if (key.indexOf(appname) === 0 || !ignoreIframely && key.indexOf('iframely') === 0) {
-                links = links.concat(utils.parseMetaLinks(key, value, whitelistRecord));
+                links = links.concat(utils.parseMetaLinks(key, value, whitelistRecord, appname));
             }
         }
 
