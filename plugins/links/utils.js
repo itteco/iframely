@@ -90,14 +90,10 @@ export default {
         // Filter empty.
         rels = rels.filter(i => i);
 
-        // Default rel `app`.
-        if (rels.length === 1 
-            && (rels[0] === CONFIG.R.iframely || rels[0] === appname)) {
-            rels.push(CONFIG.R.app);
-        }
-
         if (!rels.some(rel => CONFIG.REL_GROUPS && CONFIG.REL_GROUPS.includes(rel))) {
-            if (whitelistRecord.isAllowed('iframely.app') && /iframely/i.test(key)) {
+            if (whitelistRecord.isAllowed('iframely.app') 
+                && /iframely/i.test(key)
+                || (appname && key.indexOf(appname) === 0)) {
                 // Allow <link rel="iframely" ....
                 // With default rel of "app"
                 rels.push(CONFIG.R.app);
