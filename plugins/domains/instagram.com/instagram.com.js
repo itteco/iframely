@@ -73,11 +73,13 @@ export default {
             });
         }
 
+        var isReel = /\/reel\//i.test(url); // Reels don't work without a caption
+
         if (ipOG.image) {
             links.push({
                 href: ipOG.image,
                 type: CONFIG.T.image,
-                rel: ipOG.video ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
+                rel: ipOG.video || isReel ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
                 // No media - let's validate image as it may be expired.
             });
         }        
@@ -96,7 +98,10 @@ export default {
             var html = oembed.html;
             var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if (!captioned && options.getRequestOptions('instagram.showcaption', false)) {
+            if (!captioned && (
+                options.getRequestOptions('instagram.showcaption', false)
+                || isReel // Reels don't work without a caption
+                )) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
@@ -134,6 +139,11 @@ export default {
                     }
                 }
             };
+
+            if (isReel) {
+                delete app.options;
+                app.message = "Instagram Reels don't display without a caption";
+            }
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
                 // sizes for placeholder are hardcoded anyway, no need to link them to the image sizes
@@ -179,6 +189,7 @@ export default {
         "https://www.instagram.com/p/HbBy-ExIyF/",
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
+        "https://www.instagram.com/reel/ClBZ3v2stzp/",
         {
             skipMixins: ["oembed-title", "fb-error"],
             skipMethods: ['getData']
