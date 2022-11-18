@@ -98,10 +98,7 @@ export default {
             var html = oembed.html;
             var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if (!captioned && (
-                options.getRequestOptions('instagram.showcaption', false)
-                || isReel // Reels don't work without a caption
-                )) {
+            if (!captioned && options.getRequestOptions('instagram.showcaption', false)) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
@@ -111,7 +108,12 @@ export default {
 
             captioned = /data\-instgrm\-captioned/i.test(html);
 
-            html = html.replace(/src="\/\/www\.instagram\.com\/embed\.js"/, 'src="https://www.instagram.com/embed.js"');
+            // Reels don't work without a caption
+            if (!captioned && isReel) {
+                html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
+            }
+
+            html = html.replace(/src="\/\/platform\.instagram\.com\/en_US\/embeds\.js"/, 'src="https://www.instagram.com/embed.js"');
 
             if (/instagram.com\/tv\//i.test(html)) {
                 // html has /tv/ links in it - but those actually don't work as of 8/27/2018
