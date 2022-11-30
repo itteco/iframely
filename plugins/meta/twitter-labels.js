@@ -20,9 +20,9 @@ export default {
                     labels.currency = twitter["data"+i];
 
                 } else if (twitter["label"+i] && (twitter["label"+i].replace(/\.\s/g, ' ')).indexOf('.') === -1) { 
-                    // TODO: Not sure if "." is still should not be allowed, need examples,
-                    // but allow "Est. reading time" for the time being.
-                    labels["label" + j + "-" + twitter["label"+i]] = twitter["data"+i];
+                    // "Result code 500 label must not contain '.'"...
+                    // but allow "Est reading time" for the time being.
+                    labels["label" + j + "-" + twitter["label"+i].replace(/\.\s/g, ' ')] = twitter["data"+i];
                     j++;
                 }
 
