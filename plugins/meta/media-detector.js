@@ -35,6 +35,11 @@ export default {
                 medium: 'article'
             }
 
+        } else if (meta.medium) {
+            return {
+                medium: meta.medium
+            }
+
         // With lowestPririty, let the fallback be "link". It will be overridden by other plugins if needed.
         } else if (meta.og || meta.twitter || meta.ld || meta.dc
             /* homepage */  || /^https:\/\/[^\/]+\/?$/.test(url) && meta.description) {
