@@ -67,6 +67,14 @@
         "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
     },
     {
+        "name": "Instagram profile",
+        "templates": [
+            "(?:www\\.)?(instagram\\.com/)([a-zA-Z0-9_\\-\\.]+)/?(?:\\?.+)?$"
+        ],
+        "url": "https://www.{1}{2}/",
+        "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&&url={url}"
+    },    
+    {
         "name": "Dailymotion",
         "templates": [
             "dailymotion\\.com/video/.+",
