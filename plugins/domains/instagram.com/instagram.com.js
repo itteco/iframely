@@ -20,7 +20,7 @@ export default {
     mixins: [
         "oembed-site",
         "oembed-author",
-        // "og-image", // it's the same as size L
+        // "og-image",
         "domain-icon",
         "fb-error"
     ],
@@ -28,8 +28,9 @@ export default {
     provides: ['ipOG', '__allowInstagramMeta'],
 
     getMeta: function (oembed, urlMatch, ipOG) {
-        var title = ipOG.title ? ipOG.title.match(/([^•\":“]+)/i)[0]: '';
-        var description = oembed.title;
+
+        var title = ipOG.title;
+        var description = ipOG.description || oembed.title;
 
         if (!description || !title || /login/i.test(title)) {
             var $container = cheerio('<div>');
@@ -69,7 +70,7 @@ export default {
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-                // No media - let's validate image as it may be expired.
+                // No media - let's validate image as it may have expired.
             });
         }
 
@@ -166,7 +167,7 @@ export default {
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
         var result = {};
         options.followHTTPRedirect = true;
-        options.exposeStatusCode = true;        
+        options.exposeStatusCode = true;
 
         if (!options.getProviderOptions('instagram.meta', true)) {
             result.ipOG = {};
