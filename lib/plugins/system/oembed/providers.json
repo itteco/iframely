@@ -915,5 +915,13 @@
             "airtable\\.com/*/*"
         ],
         "endpoint": "https://airtable.com/integration/oembed"
+    },
+    {
+        "name": "Pinterest pins",
+        "templates": [
+            "(?:\\w{2,3}\\.)?pinterest(?:\\.com?)?\\.\\w{2,3}/pin/(?:[^\\/]+\\-)?(\\d+)"
+        ],
+        "url": "https://www.pinterest.com/pin/{1}",
+        "endpoint": "https://www.pinterest.com/oembed.json?url={url}&ref=iframely"
     }
 ]
