@@ -32,7 +32,7 @@ export default {
 
             var player = {
                 href: iframe.src,
-                accept: CONFIG.T.text_html,
+                type: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.ssl],
                 options: {}
             };
