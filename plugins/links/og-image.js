@@ -1,7 +1,4 @@
-import * as _ from "underscore";
-
 export function getImageLinks(image, rel) {
-
     var link = {
         href: image.url || image,
         type: image.type && /^image\//i.test(image.type) ? image.type : CONFIG.T.image,
@@ -20,16 +17,18 @@ export function getImageLinks(image, rel) {
     }
 }
 
+export function getImageLinksFunc(el, index) {
+    return getImageLinks(el);
+}
+
 export default {
 
     getLinks: function(og) {
 
         if (og.image && og.image instanceof Array) {
-
-            return _.flatten(og.image.map(getImageLinks));
+            return og.image.map(getImageLinksFunc).flat();
 
         } else if (og.image) {
-
             return getImageLinks(og.image);
         }
     }

@@ -1,5 +1,3 @@
-import * as _ from 'underscore';
-
 export default {
 
     notPlugin: true,
@@ -47,7 +45,7 @@ export default {
                     }
 
                     if (!hasMedia) {
-                        _.extend(link, media);
+                        Object.assign(link, media);
                     }
 
                     i++;
@@ -80,16 +78,22 @@ export default {
         }
     },
 
-    parseMetaLinks: function(key, value, whitelistRecord) {
+    parseMetaLinks: function(key, value, whitelistRecord, appname) {
 
         if (typeof value !== "object" || typeof value === "string") {
             return [];
         }
 
         var rels = key.split(/\W+/);
+        // Unique values.
+        rels = [...new Set(rels)];
+        // Filter empty.
+        rels = rels.filter(i => i);
 
         if (!rels.some(rel => CONFIG.REL_GROUPS && CONFIG.REL_GROUPS.includes(rel))) {
-            if (whitelistRecord.isAllowed('iframely.app') && /iframely/i.test(key)) {
+            if (whitelistRecord.isAllowed('iframely.app') 
+                && /iframely/i.test(key)
+                || (appname && key.indexOf(appname) === 0)) {
                 // Allow <link rel="iframely" ....
                 // With default rel of "app"
                 rels.push(CONFIG.R.app);
@@ -105,7 +109,8 @@ export default {
         var ALLOWED_TYPES = Object.values(CONFIG.T);
 
         value = value.filter(
-            v => v.type && ALLOWED_TYPES.indexOf(v.type) > -1
+            // Allow empty value for `text/html`.
+            v => !v.type || v.type && ALLOWED_TYPES.indexOf(v.type) > -1
         );
 
         // Apply whitelist except for thumbnails.

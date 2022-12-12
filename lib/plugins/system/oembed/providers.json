@@ -67,6 +67,14 @@
         "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
     },
     {
+        "name": "Instagram profile",
+        "templates": [
+            "(?:www\\.)?(instagram\\.com/)([a-zA-Z0-9_\\-\\.]+)/?(?:\\?.+)?$"
+        ],
+        "url": "https://www.{1}{2}/",
+        "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&&url={url}"
+    },    
+    {
         "name": "Dailymotion",
         "templates": [
             "dailymotion\\.com/video/.+",
@@ -229,8 +237,17 @@
         "templates": [
             "(?:www|t)?\\.tiktok\\.com/@[^\\/]+\/video\/\\d+",
             "(?:www|t)?\\.tiktok\\.com/(?:i18n\/)?share\/video\/\\d+",
-            "m\\.tiktok\\.com/v/\\d+"
+            "m\\.tiktok\\.com/v/\\d+",
+            "tiktok.com\/@.*"
         ],
+        "endpoint": "https://www.tiktok.com/oembed"
+    },
+    {
+        "name": "TikTok US",
+        "templates": [
+            "\\w{2}\\.(tiktok\\.com/@[^\\/]+\/video\/\\d+)"
+        ],
+        "url": "https://www.{1}",
         "endpoint": "https://www.tiktok.com/oembed"
     },
     {
@@ -892,5 +909,19 @@
             ".*\\.paperform\\.co/.*"
         ],
         "endpoint": "https://paperform.co/services/oembed?url={url}"
+    }, {
+        "name": "Airtable",
+        "templates": [
+            "airtable\\.com/*/*"
+        ],
+        "endpoint": "https://airtable.com/integration/oembed"
+    },
+    {
+        "name": "Pinterest pins",
+        "templates": [
+            "(?:\\w{2,3}\\.)?pinterest(?:\\.com?)?\\.\\w{2,3}/pin/(?:[^\\/]+\\-)?(\\d+)"
+        ],
+        "url": "https://www.pinterest.com/pin/{1}",
+        "endpoint": "https://www.pinterest.com/oembed.json?url={url}&ref=iframely"
     }
 ]

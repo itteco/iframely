@@ -7,13 +7,18 @@ export default {
 
     mixins: [
         "canonical",
-        "author",
         "oembed-site",
         "oembed-title",
         "keywords",
         "twitter-description",
         "domain-icon"
     ],
+
+    getMeta: function(twitter) {
+        return {
+            author: twitter.creator && twitter.creator.replace(/^@/, '')
+        }
+    },
 
     getLinks: function(url, urlMatch, oembed, twitter, og, options) {
 
@@ -103,6 +108,6 @@ export default {
         "https://giphy.com/videos/kehlani-open-passionate-kBMPSpmc4vbIc3h7Zo",
         "https://giphy.com/gifs/dancing-happy-seinfeld-BlVnrxJgTGsUw", // this one was broken and excluded via `!twitter.image.url`
         "https://giphy.com/stickers/cindysuenkeys-26AHtOSUIDsTJO7cs",
-        "https://giphy.com/clips/LAS73aYc2HuOBn5w70"
+        "https://giphy.com/gifs/cbf-messi-neymar-seleo-brasileira-JfxTdqnGXbRRHpsrdS"
     ]
 };

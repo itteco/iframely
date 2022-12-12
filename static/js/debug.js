@@ -10,7 +10,7 @@ function linkify(text) {
 $.fn.renderObject = function(o) {
 
     function trimString(v) {
-        var MAX = 600;
+        var MAX = 10000;
         if (typeof v === "string" && v.length > MAX) {
             return v.substring(0, MAX) + '... (truncated)';
         } else {
