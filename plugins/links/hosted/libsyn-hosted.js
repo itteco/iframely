@@ -14,8 +14,7 @@ export default {
 
             return {
                 __promoUri: {                    
-                    url: `https://play.libsyn.com/embed/episode/id/${id}/`,
-                    rel: 'No rel=promo is required' // this field is just for debugging here. Not required
+                    url: `https://play.libsyn.com/embed/episode/id/${id}/`
                 }
             };
 
