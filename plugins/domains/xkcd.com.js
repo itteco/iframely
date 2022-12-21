@@ -36,7 +36,8 @@ export default {
     },
 
     tests: [{
-        pageWithFeed: 'http://xkcd.com/'
+        pageWithFeed: 'https://xkcd.com/',
+        skipMixins: ["og-image-rel-image"]
     },
         "http://xkcd.com/1392/", // Large image present.
         "http://xkcd.com/731/",
