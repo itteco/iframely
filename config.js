@@ -164,6 +164,7 @@
             encrypted: 'encrypted-media',
 
             profile: 'profile',
+            map: 'map',
 
             maxwidth: 'maxwidth'
         },
