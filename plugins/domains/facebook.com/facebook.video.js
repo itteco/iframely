@@ -52,7 +52,6 @@ export default {
     tests: [
         "http://www.facebook.com/video/video.php?v=4253262701205&set=vb.1574932468&type=2",
         "http://www.facebook.com/photo.php?v=4253262701205&set=vb.1574932468&type=2&theater",
-        "https://www.facebook.com/video.php?v=4392385966850",
         "https://business.facebook.com/KMPHFOX26/videos/10154356403004012/",
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
