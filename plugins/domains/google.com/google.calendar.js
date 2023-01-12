@@ -1,7 +1,7 @@
 export default {
 
     re: [
-        /https?:\/\/(?:www|calendar)\.google\.com\/calendar\/embed\/?\?([^\/]+)/i
+        /https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?([^\/]+)/i
     ],
 
     mixins: ['*'],
@@ -18,6 +18,7 @@ export default {
     tests: [{
         noFeeds: true
     },
-        'https://calendar.google.com/calendar/embed?src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com&ctz=America/Toronto'
+        'https://calendar.google.com/calendar/embed?src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com&ctz=America/Toronto',
+        'https://calendar.google.com/calendar/u/0/embed?src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com&ctz=America/Toronto'
     ]
 };    
