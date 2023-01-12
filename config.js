@@ -362,7 +362,9 @@
         providerOptions: {
             "readability": {},
             "twitter.status": {}
-        }
+        },
+
+        LOG_DATE_FORMAT: "\\[YY-MM-DD HH:mm:ss\\]:"
     };
 
     // Providers config loader.
