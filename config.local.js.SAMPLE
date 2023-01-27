@@ -82,8 +82,10 @@ export default {
     /*
     // Redis cache options.
     REDIS_OPTIONS: {
-        host: '127.0.0.1',
-        port: 6379
+        socket: {
+            host: '127.0.0.1',
+            port: 6379
+        }
     },
     */
 
@@ -180,7 +182,7 @@ export default {
         }
      }],
 
-    /* Configure use of HTTP proxies, headders as needed. 
+    /* Configure use of HTTP proxies, headers as needed. 
        You don't have to specify all options per regex - just what you need to override
     */
     /*
@@ -320,7 +322,7 @@ export default {
     */
 
     // The list of regexs to be ignored. Iframely will return 417
-    // At minimum, keep your localhosts blacklisted to avoid SSRF
+    // At minimum, keep your localhosts ignored to avoid SSRF
     IGNORE_DOMAINS_RE: [
         /^https?:\/\/127\.0\.0\.1/i,
         /^https?:\/\/localhost/i,

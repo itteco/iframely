@@ -20,7 +20,7 @@ export default {
     mixins: [
         "oembed-site",
         "oembed-author",
-        // "og-image", // it's the same as size L
+        // "og-image",
         "domain-icon",
         "fb-error"
     ],
@@ -28,8 +28,9 @@ export default {
     provides: ['ipOG', '__allowInstagramMeta'],
 
     getMeta: function (oembed, urlMatch, ipOG) {
-        var title = ipOG.title ? ipOG.title.match(/([^•\":“]+)/i)[0]: '';
-        var description = oembed.title;
+
+        var title = ipOG.title;
+        var description = ipOG.description || oembed.title;
 
         if (!description || !title || /login/i.test(title)) {
             var $container = cheerio('<div>');
@@ -69,15 +70,17 @@ export default {
                 href: oembed.thumbnail_url,
                 type: CONFIG.T.image,
                 rel: CONFIG.R.thumbnail
-                // No media - let's validate image as it may be expired.
+                // No media - let's validate image as it may have expired.
             });
         }
+
+        var isReel = /\/reel\//i.test(url); // Reels don't work without a caption
 
         if (ipOG.image) {
             links.push({
                 href: ipOG.image,
                 type: CONFIG.T.image,
-                rel: ipOG.video ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
+                rel: ipOG.video || isReel ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
                 // No media - let's validate image as it may be expired.
             });
         }        
@@ -85,14 +88,8 @@ export default {
         if (ipOG.video) {
             links.push({
                 href: ipOG.video.url,
-                type: ipOG.video.type || CONFIG.T.maybe_text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
-                "aspect-ratio": ipOG.video.width / ipOG.video.height
-            });
-            links.push({
-                href: ipOG.video.secure_url,
-                type: ipOG.video.type || CONFIG.T.maybe_text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html,
+                rel: CONFIG.R.player,
                 "aspect-ratio": ipOG.video.width / ipOG.video.height
             });
         }
@@ -102,17 +99,22 @@ export default {
             var html = oembed.html;
             var captioned = /data\-instgrm\-captioned/i.test(html);
 
-            if (!captioned && (options.getRequestOptions('instagram.showcaption', false) || options.getProviderOptions(CONFIG.O.more, false))) {
+            if (!captioned && options.getRequestOptions('instagram.showcaption', false)) {
                 html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
             }
 
-            if (captioned && (!options.getRequestOptions('instagram.showcaption', true) || options.getProviderOptions(CONFIG.O.less, false))) {
+            if (captioned && !options.getRequestOptions('instagram.showcaption', true)) {
                 html = html.replace("data-instgrm-captioned ", "");
             }
 
             captioned = /data\-instgrm\-captioned/i.test(html);
 
-            html = html.replace(/src="\/\/www\.instagram\.com\/embed\.js"/, 'src="https://www.instagram.com/embed.js"');
+            // Reels don't work without a caption
+            if (!captioned && isReel) {
+                html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
+            }
+
+            html = html.replace(/src="\/\/platform\.instagram\.com\/en_US\/embeds\.js"/, 'src="https://www.instagram.com/embed.js"');
 
             if (/instagram.com\/tv\//i.test(html)) {
                 // html has /tv/ links in it - but those actually don't work as of 8/27/2018
@@ -128,7 +130,7 @@ export default {
             var app = {
                 html: html,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5, CONFIG.R.inline],
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 // sizing is from Instagram placeholder to avoid double height changes
                 'max-width': 660,                
                 'aspect-ratio': 200/63,
@@ -140,6 +142,11 @@ export default {
                     }
                 }
             };
+
+            if (isReel) {
+                delete app.options;
+                app.message = "Instagram Reels don't display without a caption";
+            }
 
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
                 // sizes for placeholder are hardcoded anyway, no need to link them to the image sizes
@@ -160,9 +167,9 @@ export default {
         // But let private posts (>10 digits) redirect and then fail with 404 (oembed-error) and a message.
         var result = {};
         options.followHTTPRedirect = true;
-        options.exposeStatusCode = true;        
+        options.exposeStatusCode = true;
 
-        if (!options.getRequestOptions('instagram.meta', true)) {
+        if (!options.getProviderOptions('instagram.meta', true)) {
             result.ipOG = {};
         } else {
             result.__allowInstagramMeta = true;
@@ -185,6 +192,7 @@ export default {
         "https://www.instagram.com/p/HbBy-ExIyF/",
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
+        "https://www.instagram.com/reel/ClBZ3v2stzp/",
         {
             skipMixins: ["oembed-title", "fb-error"],
             skipMethods: ['getData']

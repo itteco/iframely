@@ -25,8 +25,10 @@ export default {
             || (meta.al && meta.al.android && meta.al.android.url && !/\/profile\//.test(meta.al.android.url) && /blockquote/.test(oembed.html))
             || (meta['html-title'] && /security check required/i.test(meta['html-title']) && /blockquote/.test(oembed.html)) ) {
 
-            var html = oembed.html,
-                height = oembed.height;
+            var html = oembed.html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
+                    'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); 
+
+            var height = oembed.height;
 
             html = options.getRequestOptions('facebook.show_posts', false)
                 ? html.replace(/data\-show\-posts=\"(?:false|0)?\"/i, 'data-show-posts="true"')
@@ -80,7 +82,7 @@ export default {
 
             return {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+                rel: [CONFIG.R.app, CONFIG.R.ssl],
                 html: html,
                 options: opts,
                 height: height
@@ -93,8 +95,8 @@ export default {
         }
     },
 
-    getData: function(oembedError, meta) {
-        if (!meta.ld || meta.ld.person) {
+    getData: function(oembedError, url, meta) {
+        if ((!meta.ld || meta.ld.person) && !/^https?:\/\/(?:www\.)?facebook\.com\/login\?next=/i.test(url)) {
             return {
                 message: "Facebook profile pages of individual users are not embeddable."
             };
@@ -103,7 +105,7 @@ export default {
 
     tests: [
         "https://www.facebook.com/facebook",
-        "https://www.facebook.com/hlaskyjanalasaka?fref=nf",
+        // "https://www.facebook.com/hlaskyjanalasaka?fref=nf", // no longer owned
         "https://www.facebook.com/pg/RhulFencing/",
         "https://www.facebook.com/caboreytours/",
         {

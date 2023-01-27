@@ -1,6 +1,6 @@
-    import * as _ from 'underscore';
     import * as path from 'path';
     import * as fs from 'fs';
+    import * as yaml_config from 'node-yaml-config';
 
     import { fileURLToPath } from 'url';
     import { dirname } from 'path';
@@ -20,8 +20,7 @@
         use_http2: true,
         DEBUG: false,
 
-        SPDY_AGENT_DEFAULT_PORT: 443,
-        WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
+        WHITELIST_URL: 'https://iframely.com/qa/domains.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         WHITELIST_WILDCARD: {},
@@ -30,7 +29,7 @@
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
         API_REQUEST_CACHE_TTL: 30 * 24 * 60 * 60,
-        IMAGE_META_CACHE_TTL: 7 *24 * 60 * 60,
+        IMAGE_META_CACHE_TTL: 7 * 24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
         CACHE_TTL_PAGE_404: 10 * 60,
@@ -164,7 +163,10 @@
             '3d': '3d',
             encrypted: 'encrypted-media',
 
-            profile: 'profile'
+            profile: 'profile',
+            map: 'map',
+
+            maxwidth: 'maxwidth'
         },
 
         FEATURES: [ // feature policy: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy#Directives
@@ -174,16 +176,6 @@
             'oversized-images', 'payment', 'picture-in-picture', 'publickey-credentials-get', 'screen-wake-lock',
             'speaker', 'sync-xhr', 'usb', 'vr', 'vr / xr', 'wake-lock', 'web-share', 'xr-spatial-tracking'
         ],
-
-        // Option names
-        O: {
-            // compact & full - deprecated
-            compact: "iframely.less",
-            full: "iframely.more",
-            // use O.more & O.less instead
-            more: "iframely.more",
-            less: "iframely.less"
-        },
 
         // Option labels:
         L: {
@@ -347,14 +339,6 @@
             ]
         },
 
-        REL_OPTIONS: {
-            all: ["ssl"],
-            player: ["responsive", "autoplay"],
-            video: ["responsive", "autoplay"],
-            link: ["reader"],
-            rich: ["reader"]
-        },
-
         // whitelist rel to iframely rel.
         REL_MAP: {
             "article": "reader",
@@ -370,7 +354,7 @@
             "iframely"
         ],
 
-        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|ooyala|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable|captivate|mdstrm)\.\w+\//i,
+        KNOWN_VIDEO_SOURCES: /(youtube|youtu|youtube\-nocookie|vimeo|dailymotion|theplatform|jwplatform|jwplayer|cnevids|newsinc|podbean|simplecast|libsyn|wistia|podiant|art19|kaltura|mtvnservices|brightcove|bcove|soundcloud|giphy|viddler|flowplayer|vidible|bandzoogle|podigee|smugmug|facebook|vid|ultimedia|mixcloud|vidyard|youplay|streamable|captivate|mdstrm)\.\w+\//i,
 
         OEMBED_RELS_PRIORITY: ["app", "player", "survey", "image", "reader"],
         OEMBED_RELS_MEDIA_PRIORITY: ["player", "survey", "image", "reader", "app"],
@@ -378,7 +362,9 @@
         providerOptions: {
             "readability": {},
             "twitter.status": {}
-        }
+        },
+
+        LOG_DATE_FORMAT: "\\[YY-MM-DD HH:mm:ss\\]:"
     };
 
     // Providers config loader.
@@ -386,7 +372,7 @@
     if (fs.existsSync(local_config_path)) {
         var local = await import(local_config_path);
         local = local && local.default;
-        _.extend(config, local);
+        Object.assign(config, local);
     }
 
 
@@ -397,19 +383,39 @@
 
     local_config_path = path.resolve(__dirname, "config.local.js");
 
+    var local;
+
     // Try config by NODE_ENV.
     if (fs.existsSync(env_config_path)) {
-        var local = await import(env_config_path);
+        local = await import(env_config_path);
         local = local && local.default;
 
     } else if (fs.existsSync(local_config_path)) {
         // Else - try local config.
-        var local = await import(local_config_path);
+        local = await import(local_config_path);
         local = local && local.default;
     }
 
-    _.extend(config, local);
+    Object.assign(config, local);
 
+    env_config_path = path.resolve(
+        __dirname,
+        "config." + (process.env.NODE_ENV || "local") + ".yml"
+    );
+
+    local_config_path = path.resolve(__dirname, "config.local.yml");
+
+    // Try config by NODE_ENV.
+    if (fs.existsSync(env_config_path)) {
+        local = yaml_config.load(env_config_path);
+    } else if (fs.existsSync(local_config_path)) {
+        // Else - try local config.
+        local = yaml_config.load(local_config_path);
+    } else {
+        local = null;
+    }
+
+    Object.assign(config, local);
 
     if (!config.baseStaticUrl) {
         config.baseStaticUrl = config.baseAppUrl + config.relativeStaticUrl;

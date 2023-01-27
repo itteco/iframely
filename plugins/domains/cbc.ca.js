@@ -16,8 +16,8 @@ export default {
 
         var player = {
                 href: twitter.player.value,
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                accept: CONFIG.T.text_html,
+                rel: [CONFIG.R.player],
                 'max-width': 1064
             };
 
@@ -31,12 +31,8 @@ export default {
         return player;
     },
 
-    tests: [{
-        page: "http://www.cbc.ca/player/play/2558388650",
-        selector: ".medialist-item>a"
-    },
-        "http://www.cbc.ca/player/play/2558388650",
-        "http://www.cbc.ca/player/play/2695081582",
-        "http://www.cbc.ca/player/play/2695940101"
+    tests: [
+        "https://www.cbc.ca/player/play/2558388650",
+        "https://www.cbc.ca/player/play/2158162499673"
     ]
 };

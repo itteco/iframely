@@ -20,12 +20,14 @@ export default {
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
             // && try skip profile pictures for posts
-            && (options.getRequestOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
-                || meta.og && meta.og.video  // videos
+            && (options.getProviderOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
+                || meta.og && meta.og.video 
+                || meta.twitter && meta.twitter.player  // videos
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.image  // images
                 || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.sharedcontent
                 || /\.png\?/.test(thumbnail) // profile pictures are jpegs
                 || /safe_image\.php\?/.test(thumbnail) // URL cards
+                || /\?url=/.test(thumbnail) // URL cards
                 )) {
 
             return {

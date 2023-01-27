@@ -37,13 +37,10 @@ export default {
             rels.push(CONFIG.R['3d']);
         }
 
-
         if (whitelistRecord.isAllowed('oembed.rich', "inline")) {
             rels.push(CONFIG.R.inline);
         }
-        if (whitelistRecord.isAllowed('oembed.rich', "html5")) {
-            rels.push(CONFIG.R.html5);
-        }
+
         rels.push ("allow"); // Otherwise, rich->players get denied by oembed:video whitelist record.
 
         var widget = {
@@ -104,7 +101,12 @@ export default {
 
         if (iframe && iframe.src && iframe.allow) {
             widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
-        }        
+        }
+
+        if (widget.href && whitelistRecord.isAllowed('oembed.rich', "accept") && widget.type === CONFIG.T.text_html) {
+            widget.accept = widget.type;
+            delete widget.type;
+        }
 
         return widget;
     },

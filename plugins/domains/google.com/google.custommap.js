@@ -21,11 +21,9 @@ export default {
     getLink: function(urlMatch) {
 
         return {
-            href: "https://www.google.com/maps/" + (urlMatch[1] === 'pb' ? '' : "d/" )+ "embed?" 
-                    + urlMatch[1] + "=" + urlMatch[2] + "&source=iframely", // &for is added to allow direct links to embeds. 
-                                                                            // otherwise, won't pass Iframely's validation
+            href: `https://www.google.com/maps/${urlMatch[1] === 'pb' ? '' : "d/" }embed?${urlMatch[1]}=${urlMatch[2]}`,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.html5],
+            rel: [CONFIG.R.app, CONFIG.R.map, CONFIG.R.iframely],
             "aspect-ratio": 640 / 480
         };
     },

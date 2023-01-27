@@ -30,7 +30,7 @@ export default {
     getLink: function (gannettVideo) {
         return {
             href: 'https://uw-media.' + gannettVideo.domain +'.com/embed/video/' + gannettVideo.id + '/?placement=snow-embed',
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             accept: CONFIG.T.text_html, // let validators check it, including ssl            
             'aspect-ratio': 16/9,
             scrolling: 'no',

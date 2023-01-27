@@ -30,15 +30,22 @@ export default {
         if (iframe && oembed.height) {
 
             let src = iframe.src;
-            let lang_slug = src && tedLangs.language && tedLangs.language.value && `/lang/${tedLangs.language.value}`;
+            let lang_slug = src 
+                            && tedLangs.language && tedLangs.language.value 
+                            && tedLangs.language.value !== '-' // clearing language from within URL itself via `&_language=-` option
+                                ? `/lang/${tedLangs.language.value}`
+                                : '';
+
             if (lang_slug && src.indexOf(lang_slug) === -1) {
                 src = src.replace(/\/talks\//, `/talks${lang_slug}/`);
+            } else if (lang_slug === '') {
+                src = src.replace(/\/lang\/\w{2}/, '');
             }
 
             let link = {
                 href: src,
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.player, CONFIG.R.html5, CONFIG.R.oembed],
+                rel: [CONFIG.R.player, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height
             };
 
@@ -80,7 +87,6 @@ export default {
                         query.language 
                             || options.getProviderOptions('locale') && options.getProviderOptions('locale').replace(/(\_|\-)\w+$/i, '')
                         ) || '';
-
         if (!availableLanguages[language]) {
             /** oEmbed request fails with 404 if language isn't valid... */
             language = '';
@@ -152,11 +158,12 @@ export default {
     tests: [{
         page: "https://www.ted.com/talks",
         selector: "#browse-results a"
-    }, {skipMethods: ['getData']}, {skipMixins: ['embedurl']},
+    }, {skipMethods: ['getData']}, {skipMixins: ['embedurl', 'og-title']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
         "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration",
         "https://www.ted.com/talks/lera_boroditsky_how_language_shapes_the_way_we_think",
+        "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau?language=fr", // test with &&_language=-
 
         // Should work, but let's skip from tests not to avoid all oembed-* mixins
         // "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",

@@ -36,7 +36,7 @@ export default {
         }, {
             // if something is undefined - let getLinks fail to fall back to default parsers
             href: dailymailVideo.plugins['social-share'].embedUrl, // no SSL
-            rel: [CONFIG.R.player, CONFIG.R.html5],
+            rel: CONFIG.R.player,
             type: CONFIG.T.text_html,             
             "aspect-ratio": 484 / 282, // taken from mp4 aspect
             "padding-bottom": 50 + 50 + 50,

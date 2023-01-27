@@ -44,8 +44,12 @@ export default {
                 "HEADS UP: Facebook & Instagram now require your own access_token configured. " 
                 + " See https://github.com/itteco/iframely/issues/284";
         } else if (isVideo && error === 404) {
-            result.message = "This video cannot be embedded."; 
-            // And fallback to generic
+            result.message = "This video cannot be embedded.";
+            result.fallback = "generic";
+        } else if (fbError.error_subcode == 2207046) {
+            // Instagram's post with disabled embedding
+            result.message = "Owner has disabled embedding of this post";
+            result.fallback = "generic";
         } else if ((fbError.error_user_msg || fbError.message) && error !== 404) {
             result.message = fbError.error_user_msg || fbError.message;
         }

@@ -201,8 +201,7 @@ export default {
 
         return [{
             href: embed_url,
-            rel:  CONFIG.R.app,
-            type: CONFIG.T.text_html,
+            rel:  [CONFIG.R.app, CONFIG.R.map],
             "aspect-ratio": embed_width / embed_height
         }
         // Unfortunatelly, the do not provide StaticMaps any longer. Maybe one day. 

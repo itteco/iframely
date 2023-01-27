@@ -10,7 +10,7 @@ export default {
     getLink: function(urlMatch) {
         return {
             href: `https://dbdiagram.io/embed/${urlMatch[1]}`,
-            rel: [CONFIG.R.app, CONFIG.R.html5, CONFIG.R.iframely],
+            rel: [CONFIG.R.app, CONFIG.R.iframely],
             type: CONFIG.T.text_html,
             'aspect-ratio': 16/9
         };

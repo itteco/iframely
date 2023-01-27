@@ -25,7 +25,7 @@ export default {
             // No hash
             return cb(null, {
                 type: CONFIG.T.text_html,
-                rel: [CONFIG.R.reader, CONFIG.R.html5, CONFIG.R.ssl],
+                rel: [CONFIG.R.reader, CONFIG.R.ssl],
                 html: '<script type="text/javascript" src="https://gist.github.com/' + gistId +'.js"></script>'
             });
         }
@@ -70,7 +70,7 @@ export default {
 
                     return cb(null, {
                         type: CONFIG.T.text_html,
-                        rel: [CONFIG.R.reader, CONFIG.R.ssl, CONFIG.R.html5],
+                        rel: [CONFIG.R.reader, CONFIG.R.ssl],
                         html: '<script type="text/javascript" src="' + scriptUrl + '"></script>'
                     });
                 }

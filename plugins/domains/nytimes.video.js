@@ -15,7 +15,7 @@ export default {
             return {
                 href: "https://www.nytimes.com/video/players/offsite/index.html?videoId=" + urlMatch[1],
                 accept: CONFIG.T.text_html, // may return X-Frame-Options, check it.
-                rel: [CONFIG.R.player, CONFIG.R.html5],
+                rel: CONFIG.R.player,
                 "aspect-ratio": 16/9,
                 "padding-bottom": 71 + 1
             }

@@ -70,7 +70,7 @@ export default {
                     return cb(error);
                 }
 
-                if (data.items && data.items.length > 0) {
+                if (data && data.items && data.items.length > 0) {
 
                     var entry = data.items[0];
 
@@ -127,7 +127,7 @@ export default {
                         });
                     }
 
-                } else if (data.items && data.items.length == 0 || data.error && data.error.code == 404) {
+                } else if (data && data.items && data.items.length == 0 || data && data.error && data.error.code == 404) {
                     cb({responseStatusCode: 404});
                 } else {
                     log('YoutTube fallback for ' + urlMatch[1], data);
@@ -164,8 +164,8 @@ export default {
             var start = url.match(/(?:t|start)=(\d+(?:m\d+)?(?:s)?m?)/i);
             var end = url.match(/(?:stop|end)=(\d+(?:m\d+)?(?:s)?m?)/i);
 
-            start = options.getRequestOptions('players.start', (start && start[1]) || '');
-            end = options.getRequestOptions('players.end', (end && end[1]) || '');
+            start = options.getRequestOptions('_start', (start && start[1]) || '');
+            end = options.getRequestOptions('_end', (end && end[1]) || '');
 
             var parseTime = function (t) {
                 if (typeof t === 'array') {
@@ -197,11 +197,6 @@ export default {
         } catch (ex) {/* and ignore */}
         // End of time extractions
 
-        if (options.getProviderOptions('players.playerjs', false) || options.getProviderOptions('players.autopause', false)) {
-            params.enablejsapi = 1;
-            params.playsinline = 1;
-        }
-
         if (options.getProviderOptions('locale', false)) {
             params.hl = options.getProviderOptions('locale', 'en-US').replace('_', '-');
         }
@@ -216,7 +211,7 @@ export default {
 
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
-        var rels = [CONFIG.R.player, CONFIG.R.html5];
+        var rels = [CONFIG.R.player];
 
         if (youtube_video_gdata.playerHtml) { // maybe still widescreen. plus detect 'allow' from html
             var $container = cheerio('<div>');
