@@ -1,6 +1,6 @@
 {
     "name": "iframely",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "type": "module",
     "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
     "keywords": [
