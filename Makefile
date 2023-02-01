@@ -6,8 +6,8 @@ EXPOSEPORT	:= 8061
 PUBLISHPORT := ${EXPOSEPORT}
 
 build:
-	git checkout master
-	git pull --rebase upstream master
+	git checkout main 
+	git pull --rebase upstream main
 	git branch -f tag-${VERSION}
 	git checkout tag-${VERSION}
 	docker \
