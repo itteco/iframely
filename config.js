@@ -53,7 +53,7 @@
 
         MAX_REDIRECTS: 5,
 
-        RESPONSE_TIMEOUT: 5 * 1000,
+        RESPONSE_TIMEOUT: 15 * 1000,
 
         SHUTDOWN_TIMEOUT: 6 * 1000,
 
