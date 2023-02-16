@@ -95,9 +95,14 @@ export default {
         var html = twitter_oembed.html;
 
         // Apply config
+
         var locale = options.getProviderOptions('locale');
-        if (locale && /^\w{2}(?:\_|\-)\w{2,3}$/.test(locale)) {
-            html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+(?:\_|\-)\w+")?/, '<blockquote class="twitter-tweet" data-lang="' + locale.replace('-', '_') + '"');
+        var locale_RE = /^\w{2,3}(?:(?:\_|\-)\w{2,3})?$/i;
+        if (locale && locale_RE.test(locale)) {
+            if (!/^zh\-/i.test(locale)) {
+                locale = locale.replace(/\-.+$/i, '');
+            }
+            html = html.replace(/<blockquote class="twitter\-tweet"( data\-lang="\w+(?:(?:\_|\-)\w+)?")?/, '<blockquote class="twitter-tweet" data-lang="' + locale + '"');
         }
         
         if (options.getProviderOptions('twitter.center', true) && !/\s?align=\"center\"/.test(html)) {

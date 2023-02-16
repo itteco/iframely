@@ -20,7 +20,7 @@
         use_http2: true,
         DEBUG: false,
 
-        WHITELIST_URL: 'https://iframely.com/qa/whitelist.json',
+        WHITELIST_URL: 'https://iframely.com/qa/domains.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
 
         WHITELIST_WILDCARD: {},
@@ -53,7 +53,7 @@
 
         MAX_REDIRECTS: 5,
 
-        RESPONSE_TIMEOUT: 5 * 1000,
+        RESPONSE_TIMEOUT: 15 * 1000,
 
         SHUTDOWN_TIMEOUT: 6 * 1000,
 
@@ -164,6 +164,7 @@
             encrypted: 'encrypted-media',
 
             profile: 'profile',
+            map: 'map',
 
             maxwidth: 'maxwidth'
         },
@@ -361,7 +362,9 @@
         providerOptions: {
             "readability": {},
             "twitter.status": {}
-        }
+        },
+
+        LOG_DATE_FORMAT: "\\[YY-MM-DD HH:mm:ss\\]:"
     };
 
     // Providers config loader.

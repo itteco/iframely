@@ -23,7 +23,7 @@ export default {
         return {
             href: `https://www.google.com/maps/${urlMatch[1] === 'pb' ? '' : "d/" }embed?${urlMatch[1]}=${urlMatch[2]}`,
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.app, CONFIG.R.iframely],
+            rel: [CONFIG.R.app, CONFIG.R.map, CONFIG.R.iframely],
             "aspect-ratio": 640 / 480
         };
     },

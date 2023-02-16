@@ -110,6 +110,10 @@ function processInitialErrors(uri, next) {
 
 export default function(app) {
 
+    app.get('/health_check', function(req, res, next) {
+        res.sendStatus(200);
+    });
+
     app.get('/iframely', function(req, res, next) {
 
         var uri = prepareUri(req.query.uri || req.query.url);

@@ -13,7 +13,11 @@ export default function log() {
         }
     }
 
-    args.splice(0, 0, "--", moment().utc().format("\\[YY-MM-DD HH:mm:ss\\]:") + process.pid);
+    if (CONFIG.LOG_DATE_FORMAT) {
+        args.splice(0, 0, "--", moment().utc().format(CONFIG.LOG_DATE_FORMAT) + process.pid);
+    } else {
+        args.splice(0, 0, "--", "pid:" + process.pid);
+    }
 
     console.log.apply(console, args);
 };

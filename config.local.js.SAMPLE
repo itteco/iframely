@@ -322,7 +322,7 @@ export default {
     */
 
     // The list of regexs to be ignored. Iframely will return 417
-    // At minimum, keep your localhosts blacklisted to avoid SSRF
+    // At minimum, keep your localhosts ignored to avoid SSRF
     IGNORE_DOMAINS_RE: [
         /^https?:\/\/127\.0\.0\.1/i,
         /^https?:\/\/localhost/i,

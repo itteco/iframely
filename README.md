@@ -6,7 +6,7 @@ Iframely takes your URL and returns its metadata. If supported on the URL, we'll
 
 This package includes specific domain parsers for most popular publishers. YouTube, Facebook, Instagram, Twitter, SoundCloud, Google Maps, TED, Twitch and many more. See `/plugins/domains` folder. In addition, we cover many domains by whitelisting media through the generic publishing protocols: [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards) and microformats. For the rest of URLs, you'll include have metadata and thumbnail images from those protocols. Use it to create your own URL previews.
 
-Iframely's [whitelist file](https://iframely.com/qa/whitelist.json) is fetched from our central database. The changes are synced automatically to your instance by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
+Iframely's [whitelist file](https://iframely.com/qa/domains.json) is fetched from our central database. The changes are synced automatically to your instance by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
 
 ## Breaking changes in version 2.0.0
 
