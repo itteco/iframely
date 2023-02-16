@@ -20,7 +20,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "@adobe/fetch": "^3.3.0",
+        "@adobe/fetch": "^4.0.3",
         "async": "^3.2.4",
         "cheerio": "^0.22.0",
         "chokidar": "^3.5.2",
