@@ -923,5 +923,12 @@
         ],
         "url": "https://www.pinterest.com/pin/{1}",
         "endpoint": "https://www.pinterest.com/oembed.json?url={url}&ref=iframely"
+    },
+    {
+        "name": "Mightycause",
+        "templates": [
+            "mightycause.com/story/*"
+        ],
+        "endpoint": "https://www.mightycause.com/1/oembed"
     }
 ]
