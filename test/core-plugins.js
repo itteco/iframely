@@ -53,7 +53,7 @@ describe('Core plugins', function() {
         var error, data;
         
         before(function(done) {
-            iframely("http://www.bbc.com/news/science-environment-23767323", 'meta', findWhitelistRecordFor, function(_error, _data) {
+            iframely("https://iframely.com", 'meta', findWhitelistRecordFor, function(_error, _data) {
                 error = _error;
                 data = _data;
                 done();
@@ -72,7 +72,7 @@ describe('Core plugins', function() {
             assert.property(data, 'og');
             assert.property(data, 'twitter');
             assert.property(data, 'canonical');
-            assert.property(data, 'alternate');
+            assert.property(data, 'charset');
             done();
         });
     });
