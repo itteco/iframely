@@ -1,11 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@adobe/helix-fetch': ^3.1.0
+  '@adobe/fetch': ^4.0.3
   async: ^3.2.4
   chai: ^4.3.0
   cheerio: ^0.22.0
   chokidar: ^3.5.2
+  cookie: ^0.5.0
   dom-serializer: ^2.0.0
   domutils: ^3.0.1
   ejs: ^3.1.8
@@ -37,10 +38,11 @@ specifiers:
   underscore: ^1.13.4
 
 dependencies:
-  '@adobe/helix-fetch': 3.1.2
+  '@adobe/fetch': 4.0.6
   async: 3.2.4
   cheerio: 0.22.0
   chokidar: 3.5.3
+  cookie: 0.5.0
   dom-serializer: 2.0.0
   domutils: 3.0.1
   ejs: 3.1.8
@@ -76,14 +78,13 @@ devDependencies:
 
 packages:
 
-  /@adobe/helix-fetch/3.1.2:
-    resolution: {integrity: sha512-09ImUUrHAyeJpDRBZbSPLI8cz1rVwmNmwWDpBsK+f+eiwzYGqcbN+P6pPyme3i+j1ONZSGL9SAuDXXg8fUTpYA==}
-    engines: {node: '>=12.0'}
-    deprecated: 'WARNING: This project has been renamed to @adobe/fetch. Install using @adobe/fetch instead.'
+  /@adobe/fetch/4.0.6:
+    resolution: {integrity: sha512-ZAs/NgnIpuCAuY+bZ8HCAvDUi2HQtXiPmD67i0EIvMAsxFu8fc5eBQDCIIY1syZ1ynGM3SU7i2Wp4vd1ezT68Q==}
+    engines: {node: '>=14.16'}
     dependencies:
       debug: 4.3.4
-      http-cache-semantics: 4.1.0
-      lru-cache: 7.13.2
+      http-cache-semantics: 4.1.1
+      lru-cache: 8.0.4
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -1113,8 +1114,8 @@ packages:
       entities: 3.0.1
     dev: false
 
-  /http-cache-semantics/4.1.0:
-    resolution: {integrity: sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==}
+  /http-cache-semantics/4.1.1:
+    resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
     dev: false
 
   /http-errors/1.8.1:
@@ -1388,9 +1389,9 @@ packages:
     dependencies:
       yallist: 4.0.0
 
-  /lru-cache/7.13.2:
-    resolution: {integrity: sha512-VJL3nIpA79TodY/ctmZEfhASgqekbT574/c4j3jn4bKXbSCnTTCH/KltZyvL2GlV+tGSMtsWyem8DCX7qKTMBA==}
-    engines: {node: '>=12'}
+  /lru-cache/8.0.4:
+    resolution: {integrity: sha512-E9FF6+Oc/uFLqZCuZwRKUzgFt5Raih6LfxknOSAVTjNkrCZkBf7DQCwJxZQgd9l4eHjIJDGR+E+1QKD1RhThPw==}
+    engines: {node: '>=16.14'}
     dev: false
 
   /media-typer/0.3.0:
