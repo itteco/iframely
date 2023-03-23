@@ -24,8 +24,7 @@ export default {
                 hide_media:  hide_media, 
                 hide_thread: true, //  hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
                 omit_script: omit_script,
-                url: encodeURIComponent(urlMatch[0]),
-                format: 'json'
+                url: urlMatch[0]
             },
             json: true,
             cache_key: 'twitter:oembed:' + urlMatch[1],
