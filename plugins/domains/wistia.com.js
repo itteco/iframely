@@ -1,12 +1,12 @@
 export default {
 
-    re: /^https?:\/\/([a-zA-Z0-9]+).wistia\.com\/medias\/([_a-zA-Z0-9]+)/i,
+    re: /^https?:\/\/([a-zA-Z0-9\-]+).wistia\.com\/medias\/([_a-zA-Z0-9]+)/i,    
 
     mixins: [
         "oembed-site",
         "oembed-title",
         "oembed-thumbnail",
-        "oembed-duration",
+        "oembed-duration"
     ],
 
     getMeta: function(oembed) {
