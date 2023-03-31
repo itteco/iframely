@@ -5,7 +5,7 @@ export default {
         function findIcons(links, filter) {
             var key, l;
 
-            for(key in meta) {
+            for (key in meta) {
 
                 if (filter(key)) {
 
@@ -25,13 +25,17 @@ export default {
                         }
 
                         if (href !== url && href !== meta.canonical && (!meta.og || meta.og.canonical !== url)) {
-                            links.push({
+                            var result = {
                                 href: href,
-                                rel: key.split(' ').concat('icon'),
+                                rel: [...key.split(' '), 'icon'],
                                 type: link.type || CONFIG.T.image,
                                 width: m && parseInt(m[1]),
                                 height: m && parseInt(m[2])
-                            });
+                            };
+                            if (link.color) {
+                                result.color = link.color;
+                            }
+                            links.push(result);
                         }
                     });
                 }
@@ -51,7 +55,7 @@ export default {
         });
 
         // Push default icon if no icons at all.
-        if (links.length == 0) {
+        if (links.length == 0 && meta?.length > 0) {
             links.push({
                 href: '/favicon.ico',
                 type: CONFIG.T.image,
