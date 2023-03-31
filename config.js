@@ -83,7 +83,7 @@
             image: "image",
             image_icon: "image/icon",
             image_png: "image/png",
-            image_svg: "image/svg",
+            image_svg: "image/svg+xml",
             image_gif: "image/gif",
             image_webp: "image/webp",
             video_mp4: "video/mp4",
