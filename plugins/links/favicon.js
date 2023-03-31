@@ -55,7 +55,7 @@ export default {
         });
 
         // Push default icon if no icons at all.
-        if (links.length == 0 && meta?.length > 0) {
+        if (links.length == 0 && Object.keys(meta).length > 0) {
             links.push({
                 href: '/favicon.ico',
                 type: CONFIG.T.image,
