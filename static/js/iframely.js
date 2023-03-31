@@ -300,7 +300,8 @@
         },
         "image": {
             test: function(data) {
-                return /^image(\/[\w\.-]+)?$/i.test(data.type)
+                return (/^image(\/[\w\.-]+)?$/i.test(data.type)
+                        || data.type === 'image/svg+xml')
                     && data.href;
             },
             generate: function(data) {

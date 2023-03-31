@@ -17,7 +17,7 @@ export default {
 
                     l.forEach(function(link) {
 
-                        var m = link.sizes && link.sizes.match(/^(\d+)x(\d+)$/i);
+                        var m = link.sizes?.match(/^(\d+)x(\d+)$/i);
 
                         var href = link.href;
                         if (typeof link === "string") {
@@ -42,7 +42,7 @@ export default {
 
         // Filter not 'shortcut icon'.
         findIcons(links, function(key) {
-            return /icon/i.test(key) && key != 'shortcut icon' && !/ss-svg-icons/i.test(key);
+            return /icon/i.test(key) && key != 'shortcut icon';
         });
 
         // Use 'shortcut icon' if no other.
