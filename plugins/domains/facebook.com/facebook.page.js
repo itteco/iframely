@@ -1,3 +1,5 @@
+const WATCH_RE = /^https?:\/\/www\.facebook\.com\/watch\/?\?(?:.+&)?v=(\d+)/i;
+
 export default {
 
     re: [
@@ -16,6 +18,8 @@ export default {
     ],
 
     getLinks: function(oembed, url, meta, options) {
+
+        if (WATCH_RE.test(URL)) return; // Sometimes, for live videos it seems, HTML parser does not redirect to /user/video/ID and leave at /watch/?v=
 
         var html = oembed.html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
                 'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); 
@@ -82,6 +86,8 @@ export default {
     },
 
     getData: function(oembedError, url, meta, options) {
+
+        if (WATCH_RE.test(URL)) return;
 
         // Detect individual profiles (returns oEmbedError 400 as of Feb 4, 2023)
         // But fb://profile/ links are also used for pages like https://www.facebook.com/RhulFencing/, albeit no oEmbedError
