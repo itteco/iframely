@@ -336,7 +336,8 @@
     {
         "name": "Wistia",
         "templates": [
-            ".*\\.wistia.com/medias/.*"
+            ".*\\.wistia.com/medias/.*",            
+            "fast.wistia.net/embed/iframe/.*"
         ],
         "endpoint": "http://fast.wistia.com/oembed.{format}"
     },
