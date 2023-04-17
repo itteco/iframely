@@ -102,6 +102,11 @@ export default {
             }
         }
 
+        if (!/iframely/i.test(key) && appname && key.indexOf(appname) === 0) {
+            // Allow url = canonical and other validations
+            rels.push(CONFIG.R.iframely);
+        }
+
         if (!(value instanceof Array)) {
             value = [value];
         }
