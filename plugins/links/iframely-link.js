@@ -17,7 +17,14 @@ export default {
 
         for (const [key, value] of Object.entries(meta)) {
             if (key.indexOf(appname) === 0 || !ignoreIframely && key.indexOf(CONFIG.R.iframely) === 0) {
-                links = links.concat(utils.parseMetaLinks(key, value, whitelistRecord, ignoreIframely && appname));
+                links = links.concat(
+                    utils.parseMetaLinks(
+                        key, 
+                        typeof(value) === 'string' ? {href: value} : value, // If link has no `media` and no `type` attributes, HTMLMetaHandler assigns the value=href;
+                        whitelistRecord, 
+                        ignoreIframely && appname
+                    )
+                );
             }
         }
 
