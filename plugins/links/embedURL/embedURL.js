@@ -1,11 +1,10 @@
 import { decodeHTML5 } from 'entities';
-import * as utils from '../../../lib/utils.js';
 
 export default {
 
     provides: 'schemaVideoObject',
 
-    getData: function(url, cheerio, decode, __allowEmbedURL) {
+    getData: function(url, cheerio, decode, __allowEmbedURL, utils) {
 
         /* Let's try to find ld+json in the body first. */
         var $script = cheerio('script[type="application/ld+json"]:contains("VideoObject")').first(); // embedURL can be embedurl, embedUrl, etc.

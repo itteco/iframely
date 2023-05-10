@@ -1,7 +1,5 @@
 // use this mixin for domain plugins where you do not want to pull out htmlparser but do need an icon or logo
-import { cache } from '../../lib/cache.js';
 import * as async from 'async';
-import log from '../../logging.js';
 
 export default {
 
@@ -11,7 +9,7 @@ export default {
         return domain_icons;
     },
 
-    getData: function(url, iframelyRun, options, cb) {
+    getData: function(url, iframelyRun, cache, log, options, cb) {
 
         // find domain and protocol
         var domain, protocol;

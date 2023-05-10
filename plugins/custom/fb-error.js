@@ -1,8 +1,6 @@
-import log from '../../logging.js';
-
 export default {
 
-    getLink: function(oembedError, url, cb) {
+    getLink: function(oembedError, url, log, cb) {
 
         // https://developers.facebook.com/docs/graph-api/using-graph-api/error-handling/
         // Though the errors we actually need are not in the doc...

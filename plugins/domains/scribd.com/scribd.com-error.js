@@ -1,9 +1,8 @@
 import * as URL from "url";
-import scribd_com from './scribd.com.js';
 
 export default {
 
-    re: scribd_com.re,
+    re: 'scribd.com',
 
     provides: ["scribdData"],
 

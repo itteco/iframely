@@ -1,5 +1,3 @@
-import * as utils from '../../../lib/utils.js';
-
 export default {
 
     re: [
@@ -24,7 +22,7 @@ export default {
     },
 
     //HTML parser will 404 if BC account or player does not exist.
-    getLinks: function(url, iframe, options, cb) {
+    getLinks: function(url, iframe, utils, options, cb) {
 
         var player = {
             type: CONFIG.T.text_html,

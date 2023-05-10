@@ -1,5 +1,4 @@
 import * as URL from "url";
-import * as utils from '../../../lib/utils.js';
 
 export default {
 
@@ -9,7 +8,7 @@ export default {
         "*"
     ],
 
-    getLink: function(url, options) {
+    getLink: function(url, utils, options) {
         var urlObj = URL.parse(url, true);
 
         var ll = urlObj.query.ll;

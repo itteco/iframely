@@ -1,10 +1,8 @@
 import cheerio from 'cheerio';
 
-import tumblr_api from './tumblr.api.js';
-
 export default {
 
-    re: tumblr_api.re,
+    re: 'tumblr.api',
 
     getMeta: function (tumblr_post) {
         if (tumblr_post.type == "text") {

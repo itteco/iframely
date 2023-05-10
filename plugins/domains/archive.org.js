@@ -1,5 +1,3 @@
-import * as utils from '../../lib/utils.js';
-
 export default {
 
     re: [
@@ -16,7 +14,7 @@ export default {
         }
     },
 
-    getLink: function(url, twitter, options, cb) {
+    getLink: function(url, twitter, utils, options, cb) {
 
         if (twitter.card === 'player' && twitter.player) {
 

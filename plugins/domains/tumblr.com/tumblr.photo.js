@@ -1,12 +1,8 @@
-import * as _ from 'underscore';
 import cheerio from 'cheerio';
-
-
-import tumblr_api from './tumblr.api.js';
 
 export default {
 
-    re: tumblr_api.re,
+    re: 'tumblr.api',
 
     getLinks: function(tumblr_post) {
 
@@ -38,7 +34,7 @@ export default {
             addImage(title, photo.original_size, CONFIG.R.image);
             var originalWidth = photo.original_size.width;
 
-            var image = _.find(photo.alt_sizes, function(image) {
+            var image = photo.alt_sizes?.find(function(image) {
                 if (image.width <= originalWidth * 0.75 && image.width <= 400) {
                     return true;
                 }

@@ -1,4 +1,3 @@
-import log from '../../../logging.js';
 import * as entities from 'entities';
 
 export default {
@@ -9,7 +8,7 @@ export default {
 
     mixins: ['domain-icon'],
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(urlMatch, request, log, options, cb) {
 
         var hide_media = options.getProviderOptions("twitter.hide_media");
         var omit_script = options.getProviderOptions("twitter.omit_script");
