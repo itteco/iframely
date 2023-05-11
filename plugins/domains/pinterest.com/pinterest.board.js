@@ -7,11 +7,9 @@ export default {
     ],
 
     // https://developers.pinterest.com/tools/widget-builder/?type=board
-    getLink: function(url, meta, options) {
-        var og = meta.og;
+    getLink: function(url, iframe, options) {
 
-        if (/pinboard/.test(og.type) || // this check sometimes when Pinterest misses cache hits: og.type is 'website' in those cases
-            (meta.twitter && meta.twitter.app && meta.twitter.app.url && /\/board\//i.test(meta.twitter.app.url.iphone))) {
+        if (iframe.query?.grid) {
 
             var height = options.getRequestOptions('pinterest.height', options.maxHeight || 600);
             var width = options.getRequestOptions('pinterest.width', options.getRequestOptions('maxwidth', 600));
@@ -22,7 +20,7 @@ export default {
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 template: "pinterest.widget",
                 template_context: {
-                    url: og.url || url,
+                    url: url,
                     title: "Pinterest Board",
                     type: "embedBoard",
                     width: width,
