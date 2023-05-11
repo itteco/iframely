@@ -1,8 +1,6 @@
-import spotify_com from './spotify.com.js';
-
 export default {
 
-    re: spotify_com.re,
+    re: 'spotify.com',
 
     provides: ['meta'],
 

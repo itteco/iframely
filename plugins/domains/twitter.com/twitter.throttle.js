@@ -1,9 +1,6 @@
-import timelinePlugin from './twitter.timelines.js';
-import statusPlugin from './twitter.status.js';
-
 export default {
 
-    re: [...timelinePlugin.re, ...statusPlugin.re],
+    re: ['twitter.status', 'twitter.timelines'],
 
     provides: ["twitter_og"],
 

@@ -1,5 +1,3 @@
-import * as utils from '../../lib/utils.js';
-
 export default {
 
     mixins: [
@@ -30,7 +28,7 @@ export default {
 
     },
 
-    getLink: function(oembed, iframe, options, cb) {
+    getLink: function(oembed, iframe, utils, options, cb) {
 
         if (iframe.src && oembed.slide_image_baseurl && oembed.slide_image_baseurl_suffix) {
 

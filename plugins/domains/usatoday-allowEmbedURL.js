@@ -1,8 +1,6 @@
-import usatoday_com from './usatoday.com.js';
-
 export default {
 
-    re: usatoday_com.re,
+    re: 'usatoday.com',
 
     provides: '__allowEmbedURL',
 

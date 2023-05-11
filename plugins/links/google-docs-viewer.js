@@ -1,8 +1,6 @@
-import * as utils from '../../lib/utils.js';
-
 export default {
 
-    getLink: function(url, __nonHtmlContentData, options) {
+    getLink: function(url, __nonHtmlContentData, utils, options) {
 
         if (!options.getProviderOptions('disableDocViewers', false) &&
             /application\/pdf|text\/rtf/.test(__nonHtmlContentData.type)) {

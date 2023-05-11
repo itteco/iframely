@@ -1,6 +1,3 @@
-import facebook_post from './facebook.post.js';
-import facebook_video from './facebook.video.js';
-
 export default {
 
     provides: "__allowFBThumbnail",
@@ -10,7 +7,10 @@ export default {
     // then we grab meta and get og:image from there if it's not "security checked" for rate limits.
     // Similar to what we do in domain-icon: ignore if failed.
 
-    re: [].concat(facebook_post.re, facebook_video.re),
+    re: [
+        'facebook.post',
+        'facebook.video'
+    ],
 
     getLink: function(url, __allowFBThumbnail, options, meta) {
 

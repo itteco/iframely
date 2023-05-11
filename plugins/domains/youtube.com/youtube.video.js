@@ -1,8 +1,6 @@
 import cheerio from 'cheerio';
 
 import * as querystring from 'querystring';
-import * as _ from 'underscore';
-import log from '../../../logging.js'
 
 export default {
 
@@ -20,7 +18,7 @@ export default {
 
     provides: 'youtube_video_gdata',
 
-    getData: function(urlMatch, request, options, cb) {
+    getData: function(urlMatch, request, log, options, cb) {
 
         var api_key = options.getProviderOptions('youtube.api_key');
 

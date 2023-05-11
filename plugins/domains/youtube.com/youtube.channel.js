@@ -1,5 +1,3 @@
-import log from '../../../logging.js'
-
 export default {
 
     re: [
@@ -12,7 +10,7 @@ export default {
     provides: 'youtube_channel_gdata',
 
     // https://developers.google.com/youtube/v3/docs/channels/list
-    getData: function(url, urlMatch, request, options, cb) {
+    getData: function(url, urlMatch, request, log, options, cb) {
 
         var api_key = options.getProviderOptions('youtube.api_key');
 

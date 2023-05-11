@@ -1,5 +1,4 @@
 import * as URL from "url";
-import * as _ from 'underscore';
 import * as QueryString from "querystring";
 
 var TypeMap = {
@@ -71,7 +70,7 @@ export default {
 
         delete query.output;
 
-        var iframe_query = _.extend({},query,{ie: 'UTF8', output: 'embed'});
+        var iframe_query = Object.assign({},query,{ie: 'UTF8', output: 'embed'});
 
         if (!query.spn && query.sspn) {
             iframe_query.spn = query.sspn;

@@ -1,8 +1,6 @@
-import instagram_com from './instagram.com.js';
-
 export default {
 
-    re: instagram_com.re,
+    re: 'instagram.com',
 
     provides: 'ipOG',
 

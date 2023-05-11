@@ -1,5 +1,3 @@
-import * as utils from '../../lib/utils.js';
-
 export default {
 
     re: [
@@ -26,7 +24,7 @@ export default {
         }
     },
 
-    getLinks: function (meta, oembed, options, cb) {
+    getLinks: function (meta, oembed, utils, options, cb) {
 
         // When there is no project video, Kikstarter's oEmbed contains a summary card. 
         // Yet both go as oembed type "rich".

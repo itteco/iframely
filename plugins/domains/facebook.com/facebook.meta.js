@@ -1,8 +1,5 @@
 import * as entities from 'entities';
 
-import facebook_post from './facebook.post.js';
-import facebook_video from './facebook.video.js';
-
 export default {
 
     /**
@@ -12,7 +9,10 @@ export default {
      * as desribed on https://github.com/itteco/iframely/issues/284.
      */ 
 
-    re: [].concat(facebook_post.re, facebook_video.re),
+    re: [
+        'facebook.post',
+        'facebook.video'
+    ],
 
     mixins: [
         "domain-icon",

@@ -1,10 +1,8 @@
 import { decodeHTML5 } from 'entities';
-import dailymail_embeddedvideo from './dailymail.embeddedvideo.js';
-import dailymail_galleryvideo from './dailymail.galleryvideo.js';
 
 export default {
 
-    re: [].concat(dailymail_embeddedvideo.re, dailymail_galleryvideo.re),
+    re: ['dailymail.embeddedvideo', 'dailymail.galleryvideo'],
 
     provides: 'dailymailVideo',
 

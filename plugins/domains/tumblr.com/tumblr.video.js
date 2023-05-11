@@ -1,10 +1,8 @@
 import cheerio from 'cheerio';
 
-import tumblr_api from './tumblr.api.js';
-
 export default {
 
-    re: tumblr_api.re, 
+    re: 'tumblr.api', 
 
     getLink: function(tumblr_post) {
 
