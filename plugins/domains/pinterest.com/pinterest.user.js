@@ -3,12 +3,7 @@ export default {
     re: /^https?:\/\/(?:\w{2,3}\.)?pinterest(?:\.com?)?\.\w{2,3}\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\/?(?:$|\?|#)/i,
 
     mixins: [
-        "og-image",
-        "favicon",
-        "canonical",
-        "og-description",
-        "og-site",
-        "og-title"
+        "*"
     ],    
 
     getLink: function(url, iframe, options) {
