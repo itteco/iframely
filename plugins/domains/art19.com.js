@@ -1,3 +1,5 @@
+import * as URL from "url";
+
 export default {
 
     re: [
@@ -29,17 +31,26 @@ export default {
             delete params.type;
             delete params.stretch;
 
-            var theme = options.getRequestOptions('players.theme', 'light');                    
-            params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
+            if (options.redirectsHistory 
+                && /^https?:\/\/(?:www\.)?art19\.com\/shows\/[^\?]+\/embed\?/i.test(options.redirectsHistory[0])) {
 
-            opts.theme = {
-                label: CONFIG.L.theme,
-                value: theme,
-                values: {
-                    light: CONFIG.L.light,
-                    dark: CONFIG.L.dark
-                }
-            };
+                var original = URL.parse(options.redirectsHistory[0], true);
+                params = original.query;
+                
+            } else {
+                var theme = options.getRequestOptions('players.theme', 'light');                    
+                params.theme = theme === 'light' ? 'light-gray-blue' : 'dark-blue';
+
+                opts.theme = {
+                    label: CONFIG.L.theme,
+                    value: theme,
+                    values: {
+                        light: CONFIG.L.light,
+                        dark: CONFIG.L.dark
+                    }
+                };
+            }
+
         } else {
             params.type = 'artwork';
             params.stretch = true;
