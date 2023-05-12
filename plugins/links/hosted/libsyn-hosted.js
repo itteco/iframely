@@ -26,6 +26,5 @@ export default {
         "http://coloristpodcast.com/episode-005-terence-curren", // No oembed autodiscovery on canonical
         "http://whos-he-podcast.co.uk/whos-he-podcast-274",
         "http://heartfeldt.spinninpodcasts.com/heartfeldt-radio-76", // No oembed autodiscovery on canonical
-        "http://podcast.wh1t3rabbit.net/dtsr-episode-254-lowdown-and-dirty-ics"
     ]
 };

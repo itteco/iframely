@@ -24,8 +24,8 @@ export default {
     },
 
     tests: [{
-        page: "http://v.qq.com/index.html",
-        selector: "a.figure",
+        page: "https://v.qq.com/",
+        selector: ".video-banner-item a.poster-pic-container",
         getUrl: function(url) {
             return re.some((r) => r.test(url));
         }

@@ -64,10 +64,7 @@ export default {
         }
     },
 
-    tests: [ {
-        pageWithFeed: "http://codepen.io/popular/",
-        selector: ".cover-link"
-    },
+    tests: [
         "http://codepen.io/kevinjannis/pen/pyuix",
         "http://codepen.io/nosecreek/details/sprDl",
         "http://codepen.io/dudleystorey/pen/HrFBx",
