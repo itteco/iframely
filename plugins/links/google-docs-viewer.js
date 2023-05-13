@@ -60,6 +60,8 @@ export default {
             return cb(null, {
                 message: 'PDFs are not supported per your media settings'
             })
+        } else {
+            return cb();
         }
     }
 };
