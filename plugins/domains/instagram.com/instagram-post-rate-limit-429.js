@@ -6,7 +6,7 @@ export default {
 
     getData: function(url, __statusCode, options, cb) {
 
-        return __statusCode !== 429
+        return __statusCode !== 429 && __statusCode !== 403 &&__statusCode !== 508
 
             ? cb({
                 responseStatusCode: __statusCode,
