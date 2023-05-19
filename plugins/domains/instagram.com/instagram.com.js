@@ -44,7 +44,7 @@ export default {
                 if ($a.length == 1) {
                     title = $a.text();
                     title += /@/.test(title) ? '' : ` (@${oembed.author_name})`;
-                } else {
+                } else if (oembed.author_name) {
                     title = `Instagram (@${oembed.author_name})`;
                 }
             }
