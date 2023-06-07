@@ -3,7 +3,7 @@
         "name": "Facebook Post no query string",
         "templates": [
           "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/\\d{10,})",
-	  "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/pfbid([a-zA-Z0-9\\.\\-]+))",
+          "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/pfbid([a-zA-Z0-9\\.\\-]+))",
           "(?:www|m|business)\\.(facebook\\.com/notes/[^/]+/[^/]+/\\d{10,})",
           "(?:www|m|business)\\.(facebook\\.com/\\d+_\\d+)"
         ],
@@ -21,8 +21,8 @@
     },
     {
         "name": "Facebook Video",
-        "templates": [          
-          "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",          
+        "templates": [
+          "(?:www|business)\\.facebook\\.com/video/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/video/video\\.php\\?v=(\\d{5,})",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]v=(\\d{5,})(?:$|&)",
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
@@ -42,7 +42,7 @@
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
         "endpoint": "https://graph.facebook.com/v11.0/oembed_post"
-    },    
+    },
     {
         "name": "Facebook Page",
         "templates": [
@@ -74,7 +74,7 @@
         ],
         "url": "https://www.{1}{2}/",
         "endpoint": "https://graph.facebook.com/v11.0/instagram_oembed?format={format}&&url={url}"
-    },    
+    },
     {
         "name": "Dailymotion",
         "templates": [
@@ -105,7 +105,7 @@
             "giphy\\.com/(?:videos|clips)/(?:[a-zA-Z0-9_-]+\\-)?([a-zA-Z0-9]+)(?:\\?.+)?"
         ],
         "endpoint": "https://giphy.com/services/oembed"
-    },    
+    },
     {
         "name": "Flickr",
         "templates": [
@@ -121,7 +121,7 @@
         "templates": [
             "players.brightcove.net/.*"
         ],
-        "endpoint": "https://oembed.brightcove.com/"        
+        "endpoint": "https://oembed.brightcove.com/"
     },
     {
         "name": "Hulu",
@@ -201,7 +201,7 @@
             ".*\\.wordpress.com",
             "wp\\.me/.*"
         ],
-        "endpoint": "https://public-api.wordpress.com/oembed/?format={format}&for=iframely&url={url}"        
+        "endpoint": "https://public-api.wordpress.com/oembed/?format={format}&for=iframely&url={url}"
     },
     {
         "name": "Twitter Moments",
@@ -301,7 +301,7 @@
             "music\\.yandex\\.ru/album/(\\d+)/track/(\\d+)"
         ],
         "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}&track={2}"
-    },    
+    },
     {
         "name": "Yandex Music",
         "templates": [
@@ -315,7 +315,7 @@
             "music\\.yandex\\.ru/album/(\\d+)"
         ],
         "endpoint": "https://music.yandex.ru/handlers/oembed-{format}.jsx?album={1}"
-    },   
+    },
     {
         "name": "Mixcloud",
         "templates": [
@@ -337,7 +337,7 @@
     {
         "name": "Wistia",
         "templates": [
-            ".*\\.wistia.com/medias/.*",            
+            ".*\\.wistia.com/medias/.*",
             "fast.wistia.net/embed/iframe/.*"
         ],
         "endpoint": "http://fast.wistia.com/oembed.{format}"
@@ -358,8 +358,8 @@
             "polleverywhere\\.com/.*",
             "pollev\\.com/.*"
         ],
-        "endpoint": "https://www.polleverywhere.com/services/oembed.{format}"        
-    },    
+        "endpoint": "https://www.polleverywhere.com/services/oembed.{format}"
+    },
     {
         "name": "Meetup",
         "templates": [
@@ -374,7 +374,7 @@
             ".*\\.deviantart\\.com/gallery/.*"
         ],
         "endpoint": "https://backend.deviantart.com/oembed"
-    },    
+    },
     {
         "name": "Behance",
         "templates": [
@@ -453,7 +453,7 @@
         "name": "Reddit",
         "templates": [
             "(?:www\\.|m\\.|new\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/([a-zA-Z0-9]+)",
-            "(?:www\\.|m\\.|new\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/?"            
+            "(?:www\\.|m\\.|new\\.)?reddit\\.com/r/([^\/]+)/comments/([a-zA-Z0-9]+)/([a-zA-Z0-9_]+)/?"
         ],
         "endpoint": "https://www.reddit.com/oembed"
     },
@@ -469,7 +469,7 @@
         "name": "RTL XL",
         "templates": [
             "rtlxl\\.nl/?(?:\\?.+)?#!/?.+",
-            "rtlxl\\.nl/programma/",            
+            "rtlxl\\.nl/programma/",
             "rtl\\.nl/video/([a-zA-Z0-9-]+)"
         ],
         "endpoint": "http://xlapi.rtl.nl/version=1/fun=oembed"
@@ -496,7 +496,7 @@
             "art19\\.com/shows/([a-zA-Z0-9\\-_]+)/embed"
         ],
         "endpoint": "https://art19.com/oembed.json?url=https://art19.com/shows/{1}"
-    },    
+    },
     {
         "name": "Graphiq",
         "templates": [
@@ -507,7 +507,7 @@
     {
         "name": "Slidely",
         "templates": [
-            "slide\\.ly\/(?:\\w+\/)?view\/\\w+"            
+            "slide\\.ly\/(?:\\w+\/)?view\/\\w+"
         ],
         "endpoint": "http://slide.ly/oembed"
     },
@@ -519,29 +519,29 @@
         "endpoint": "http://embed.gettyimages.com/oembed"
     },
     {
-        "name": "ReverbNation",        
+        "name": "ReverbNation",
         "templates": [
             "reverbnation.com"
         ],
         "endpoint": "https://www.reverbnation.com/oembed"
     },
     {
-        "name": "CNEvids",        
-        "templates": [        
+        "name": "CNEvids",
+        "templates": [
             "player(?:\\-backend)?\\.cnevids\\.com/embed/[0-9a-zA-Z]+/[0-9a-zA-Z]+",
-            "player(?:\\-backend)?\\.cnevids\\.com/iframe/video/[0-9a-zA-Z]+"            
+            "player(?:\\-backend)?\\.cnevids\\.com/iframe/video/[0-9a-zA-Z]+"
         ],
         "endpoint": "https://player.cnevids.com/services/oembed"
     },
     {
         "name": "Web TV",
-        "templates": [        
-            "\\w+.web\\.tv/video/"            
+        "templates": [
+            "\\w+.web\\.tv/video/"
         ],
-        "endpoint": "http://web.tv/api/generalapi/oembed"        
+        "endpoint": "http://web.tv/api/generalapi/oembed"
     }, {
         "name": "Kickstarter",
-        "templates": [        
+        "templates": [
             "kickstarter.com/projects/[a-zA-Z0-9-]+/[a-zA-Z0-9-]+\\/?(?:\\?.*)?$"
         ],
         "endpoint": "https://www.kickstarter.com/services/oembed"
@@ -561,8 +561,8 @@
         "endpoint": "https://api.producthunt.com/widgets/oembed?url={url}"
     }, {
         "name": "Office Forms",
-        "templates": [        
-            "forms.office.com/.*"            
+        "templates": [
+            "forms.office.com/.*"
         ],
         "endpoint": "https://forms.office.com/formapi/api/embed"
     }, {
@@ -573,14 +573,14 @@
         "endpoint": "https://tapewrite.com/REST/oembed"
     }, {
         "name": "someecards",
-        "templates": [            
+        "templates": [
             "someecards.com/usercards/viewcard/.*",
             "someecards.com/\\w+\\-cards/.*"
         ],
         "endpoint": "https://www.someecards.com/v2/oembed"
     }, {
         "name": "Datawrapper",
-        "templates": [            
+        "templates": [
             "datawrapper.dwcdn.net/.*"
         ],
         "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
@@ -606,19 +606,19 @@
         "endpoint": "https://overflow.io/services/oembed"
     }, {
         "name": "Storied",
-        "templates": [        
+        "templates": [
             "(\\w+.storied\\.co/.*/)"
         ],
         "endpoint": "https://{1}oembed.json?format={format}"
     }, {
         "name": "Figma",
-        "templates": [        
+        "templates": [
             "(?:[\\w\\.-]+\\.)?figma.com/(file|proto)/.*"
         ],
         "endpoint": "https://www.figma.com/api/oembed"
     }, {
         "name": "Archilogic",
-        "templates": [        
+        "templates": [
             "viewer.archilogic.com/.*",
             "editor.archilogic.com/.*"
         ],
@@ -833,21 +833,21 @@
     {
         "name": "Opinary",
         "templates": [
-            "compass.pressekompass.net/*" 
+            "compass.pressekompass.net/*"
         ],
         "endpoint": "https://api.opinary.com/oembed"
     },
     {
         "name": "GRID",
         "templates": [
-            "grid.is/.+/.+" 
+            "grid.is/.+/.+"
         ],
         "endpoint": "https://grid.is/api/oembed"
     },
     {
         "name": "Anchor FM",
         "templates": [
-            "anchor.fm/[a-zA-Z0-9\\-]+/episodes/[^\\/]+\\-([a-zA-Z0-9]+)(?:$|\\?)" 
+            "anchor.fm/[a-zA-Z0-9\\-]+/episodes/[^\\/]+\\-([a-zA-Z0-9]+)(?:$|\\?)"
         ],
         "endpoint": "https://anchor.fm/api/v3/episodes/{1}/oembed?format={format}"
     },
@@ -861,7 +861,7 @@
     {
         "name": "Zoho Docs",
         "templates": [
-            "docs.zoho(?:public)?.com/*"  
+            "docs.zoho(?:public)?.com/*"
         ],
         "endpoint": "https://docs.zoho.com/services/oembed"
     },
@@ -869,7 +869,7 @@
         "name": "ShiftX",
         "templates": [
             "shiftx.com/processes/.+/view",
-            "shiftx.com/processes/.+/public/.+"            
+            "shiftx.com/processes/.+/public/.+"
         ],
         "endpoint": "https://shiftx.com/oembed"
     },
@@ -933,7 +933,7 @@
             "(?:\\w{2,3}\\.)?pinterest(?:\\.com?)?\\.\\w{2,3}\\/((?!pin)[a-zA-Z0-9%_]+|pinterest)\\/?(?:$|\\?|#)"
         ],
         "endpoint": "https://www.pinterest.com/oembed.json?url={url}&ref=iframely"
-    },    
+    },
     {
         "name": "Mightycause",
         "templates": [
