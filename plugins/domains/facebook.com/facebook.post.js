@@ -7,6 +7,7 @@ export default {
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\/?\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
+	/^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/pfbid([a-zA-Z0-9\.\-]+)/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos(?:\/[^\/]+)?\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/([^\/\?]+)\/[^\/]+\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
@@ -51,6 +52,7 @@ export default {
 
     tests: [
         "https://www.facebook.com/noven.roman/posts/555607674475258",
+	"https://www.facebook.com/noven.roman/posts/pfbid02r7N1GwTBDFDqW8cN51BjKeFFmNKGU9vBFpCfF2aV5CevoPy64gYZmCXESTB3XHqAl",
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
         "https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893",
