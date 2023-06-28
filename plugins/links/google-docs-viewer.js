@@ -42,7 +42,7 @@ export default {
                 }};
 
                 iframelyRun(url, options2, function(error, data) {
-                    if (!data || !data.links) {
+                    if (!data || !data.links || data.links.length === 1 && data.links[0].type === 'application/pdf') {
                         return cb({
                             message: "This AmazonS3 bucket does not provide content-length, needed for PDF validation"
                         });
