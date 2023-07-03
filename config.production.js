@@ -20,7 +20,7 @@ export default {
     RICH_LOG_ENABLED: false,
 
     // For embeds that require render, baseAppUrl will be used as the host.
-    baseAppUrl: "http://iframely.dothnews.com.br:8061", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
+    baseAppUrl: "https://iframely.dothnews.com.br", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
     relativeStaticUrl: "/r",
 
     // Or just skip built-in renders altogether
