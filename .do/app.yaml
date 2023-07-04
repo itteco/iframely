@@ -2,9 +2,9 @@ alerts:
 - rule: DEPLOYMENT_FAILED
 - rule: DOMAIN_FAILED
 domains:
-- domain: iframely1.dothnews.com.br
+- domain: iframely.dothnews.com.br
   type: PRIMARY
-- domain: iframely-dev1.dothnews.com.br
+- domain: iframely-dev.dothnews.com.br
   type: ALIAS
 envs:
 - key: NODE_ENV
