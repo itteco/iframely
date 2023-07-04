@@ -1,0 +1,45 @@
+alerts:
+- rule: DEPLOYMENT_FAILED
+- rule: DOMAIN_FAILED
+domains:
+- domain: iframely1.dothnews.com.br
+  type: PRIMARY
+- domain: iframely-dev1.dothnews.com.br
+  type: ALIAS
+envs:
+- key: NODE_ENV
+  scope: RUN_AND_BUILD_TIME
+  value: production
+ingress:
+  rules:
+  - component:
+      name: iframely
+    match:
+      path:
+        prefix: /
+name: iframely-app-plataform
+region: nyc
+services:
+- alerts:
+  - operator: GREATER_THAN
+    rule: CPU_UTILIZATION
+    value: 80
+    window: FIVE_MINUTES
+  - operator: GREATER_THAN
+    rule: RESTART_COUNT
+    value: 5
+    window: FIVE_MINUTES
+  - operator: GREATER_THAN
+    rule: MEM_UTILIZATION
+    value: 90
+    window: ONE_HOUR
+  dockerfile_path: Dockerfile
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: onovaes/iframely
+  http_port: 8061
+  instance_count: 1
+  instance_size_slug: basic-xxs
+  name: iframely
+  source_dir: /
