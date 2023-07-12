@@ -74,58 +74,7 @@ export default {
     // 0 = 'never expire' for memcached & node-cache to let cache engine decide itself when to evict the record
     // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
-    /*
-    // Redis mode (cluster or standard)
-    REDIS_MODE: 'standard',
-    */
-
-    /*
-    // Redis cache options.
-    REDIS_OPTIONS: {
-        socket: {
-            host: '127.0.0.1',
-            port: 6379
-        }
-    },
-    */
-
-    /*
-    // Redis cluster options.
-    REDIS_CLUSTER_OPTIONS: {
-        servers: [
-             {
-                 host: '10.0.0.10',
-                 port: 6379
-             },
-             // ...
-         ],
-    },
-    */
-
-    /*
-    // Memcached options. See https://github.com/3rd-Eden/node-memcached#server-locations
-    MEMCACHED_OPTIONS: {
-        locations: "127.0.0.1:11211"
-    }
-    */
-
-    /*
-    // Access-Control-Allow-Origin list.
-    allowedOrigins: [
-        "*",
-        "http://another_domain.com"
-    ],
-    */
-
-    /*
-    // Uncomment to enable plugin testing framework.
-    tests: {
-        mongodb: 'mongodb://localhost:27017/iframely-tests',
-        single_test_timeout: 10 * 1000,
-        plugin_test_period: 2 * 60 * 60 * 1000,
-        relaunch_script_period: 5 * 60 * 1000
-    },
-    */
+ 
 
     // If there's no response from remote server, the timeout will occur after
     RESPONSE_TIMEOUT: 5 * 1000, //ms
@@ -141,7 +90,7 @@ export default {
 
             // TODO: get your access Insagtam token as described 
             // on https://developers.facebook.com/docs/instagram/oembed/                
-            access_token: '52c181a66355b91521ee1da0f714e591',   // The simplest way is 
+            access_token: '',   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params
@@ -152,7 +101,7 @@ export default {
         params: {
             // TODO: get your access token as described 
             // on https://developers.facebook.com/docs/plugins/oembed                
-            access_token: '52c181a66355b91521ee1da0f714e591',   // The simplest way is 
+            access_token: '',   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params
@@ -174,7 +123,7 @@ export default {
         params: {
             // TODO: get your access token as described 
             // on https://developers.facebook.com/docs/plugins/oembed                
-            access_token: '52c181a66355b91521ee1da0f714e591',   // The simplest way is 
+            access_token: '',   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params, like skip script tag and fb-root div
