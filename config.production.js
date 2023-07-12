@@ -20,7 +20,7 @@ export default {
     RICH_LOG_ENABLED: false,
 
     // For embeds that require render, baseAppUrl will be used as the host.
-    baseAppUrl: "https://iframely.dothnews.com.br", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
+    baseAppUrl: "https://iframely-dev.dothnews.com.br", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
     relativeStaticUrl: "/r",
 
     // Or just skip built-in renders altogether
@@ -141,7 +141,7 @@ export default {
 
             // TODO: get your access Insagtam token as described 
             // on https://developers.facebook.com/docs/instagram/oembed/                
-            access_token: '',   // The simplest way is 
+            access_token: '1779418749038754',   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params
@@ -152,7 +152,7 @@ export default {
         params: {
             // TODO: get your access token as described 
             // on https://developers.facebook.com/docs/plugins/oembed                
-            access_token: '',   // The simplest way is 
+            access_token: '1779418749038754',   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params
