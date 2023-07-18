@@ -941,5 +941,120 @@
             "mightycause.com/story/*"
         ],
         "endpoint": "https://www.mightycause.com/1/oembed"
+    },
+    {
+        "name": "Kooapp",
+        "templates": [
+            "kooapp.com/koo/.*"
+        ],
+        "endpoint": "https://embed.kooapp.com/services/oembed"
+    },
+    {
+        "name": "Observable",
+        "templates": [
+            "observablehq.com/@*/*",
+            "observablehq.com/d/*",
+            "observablehq.com/embed/*"
+        ],
+        "endpoint": "https://api.observablehq.com/oembed"
+    },
+    {
+        "name": "Commaful",
+        "templates": [
+            "commaful.com/play/*"
+        ],
+        "endpoint": "https://commaful.com/api/oembed/"
+    },
+    {
+        "name": "Cueup DJ Booking",
+        "templates": [
+            "cueup.io/user/*/sounds/*"
+        ],
+        "endpoint": "https://gql.cueup.io/oembed"
+    },
+    {
+        "name": "Fader",
+        "templates": [
+            "app.getfader.com/projects/*"
+        ],
+        "endpoint": "https://app.getfader.com/api/oembed"
+    },
+    {
+        "name": "Gong",
+        "templates": [
+            "app.gong.io/call\\?id="
+        ],
+        "endpoint": "https://app.gong.io/oembed"
+    },
+    {
+        "name": "HASH",
+        "templates": [
+            "core.hash.ai/@*"
+        ],
+        "endpoint": "https://api.hash.ai/oembed"
+    },
+    {
+        "name": "Idomoo",
+        "templates": [
+            ".*\\.idomoo\\.com/.*"
+        ],
+        "endpoint": "https://oembed.idomoo.com/oembed"
+    },
+    {
+        "name": "Indaco",
+        "templates": [
+            "player.indacolive.com/player/.*"
+        ],
+        "endpoint": "https://player.indacolive.com/services/oembed"
+    },
+    {
+        "name": "Portfolium",
+        "templates": [
+            "portfolium.com/entry/*"
+        ],
+        "endpoint": "https://api.portfolium.com/oembed"
+    },
+    {
+        "name": "Saooti",
+        "templates": [
+            "octopus.saooti.com/main/pub/podcast/*"
+        ],
+        "endpoint": "https://octopus.saooti.com/oembed"
+    },
+    {
+        "name": "SocialExplorer",
+        "templates": [
+            "socialexplorer.com/*"
+        ],
+        "endpoint": "https://www.socialexplorer.com/services/oembed/"
+    },
+    {
+        "name": "Trinity Audio",
+        "templates": [
+            "trinitymedia.ai/player/*"
+        ],
+        "endpoint": "https://trinitymedia.ai/services/oembed"
+    },
+    {
+        "name": "tvcf",
+        "templates": [
+            "play.tvcf.co.kr/*",
+            "tvcf.co.kr/*"
+        ],
+        "endpoint": "https://play.tvcf.co.kr/rest/oembed"
+    },
+    {
+        "name": "wecandeo",
+        "templates": [
+            "play.wecandeo.com/video/v/*"
+        ],
+        "endpoint": "https://play.wecandeo.com/oembed/"
+    },
+    {
+        "name": "wizer.me",
+        "templates": [
+            "[a-z0-9-]+.wizer.me/learn/*"
+        ],
+        "endpoint": "https://app.wizer.me/api/oembed.{format}"
     }
 ]
