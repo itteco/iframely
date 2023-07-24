@@ -1056,5 +1056,19 @@
             "[a-z0-9-]+.wizer.me/learn/*"
         ],
         "endpoint": "https://app.wizer.me/api/oembed.{format}"
-    }
+    },
+    {
+        "name": "Casual.app",
+        "templates": [
+            "my.causal.app/models/*"
+        ],
+        "endpoint": "https://my.causal.app/api/oembed"
+    },
+    {
+        "name": "fwdeveryone",
+        "templates": [
+            "fwdeveryone.com/t/*"
+        ],
+        "endpoint": "https://api.fwdeveryone.com/oembed"
+    }        
 ]
