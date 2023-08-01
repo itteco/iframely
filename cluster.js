@@ -8,7 +8,8 @@ GracefulCluster.start({
     shutdownTimeout: CONFIG.SHUTDOWN_TIMEOUT,
     disableGraceful: CONFIG.DEBUG,
     restartOnTimeout: CONFIG.CLUSTER_WORKER_RESTART_ON_PERIOD,
-    restartOnMemory: CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED,
+    //restartOnMemory: CONFIG.CLUSTER_WORKER_RESTART_ON_MEMORY_USED,
+    restartOnMemory: 200,
     serverFunction: function() {
         import('./server.js');
     }
