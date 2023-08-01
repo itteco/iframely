@@ -74,7 +74,7 @@ export default {
     // 0 = 'never expire' for memcached & node-cache to let cache engine decide itself when to evict the record
     // 0 = 'no cache' for redis. Use high enough (e.g. 365*24*60*60*1000) ttl for similar 'never expire' approach instead
 
- 
+    CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 200 * 1024 * 1024, // 200Mb
 
     // If there's no response from remote server, the timeout will occur after
     RESPONSE_TIMEOUT: 5 * 1000, //ms
