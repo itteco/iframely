@@ -76,6 +76,8 @@ export default {
 
     CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 200 * 1024 * 1024, // 200Mb
 
+    CLUSTER_WORKER_RESTART_ON_PERIOD: 2 * 3600 * 1000, // 2 hours
+
     // If there's no response from remote server, the timeout will occur after
     RESPONSE_TIMEOUT: 5 * 1000, //ms
 
