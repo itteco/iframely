@@ -20,7 +20,7 @@ export default {
     RICH_LOG_ENABLED: false,
 
     // For embeds that require render, baseAppUrl will be used as the host.
-    baseAppUrl: "https://iframely.dothnews.com.br", // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
+    baseAppUrl: process.env.BASE_URL , // use "https://yourdomain.com/path" where you have Iframely in your reverse proxy
     relativeStaticUrl: "/r",
 
     // Or just skip built-in renders altogether
@@ -76,7 +76,7 @@ export default {
 
   
     CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
-    CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 200 * 1024 * 1024, // 120 MB.
+    CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 200 * 1024 * 1024, // 200MB.
 
 
     // If there's no response from remote server, the timeout will occur after
@@ -93,7 +93,7 @@ export default {
 
             // TODO: get your access Insagtam token as described 
             // on https://developers.facebook.com/docs/instagram/oembed/                
-            access_token: '',   // The simplest way is 
+            access_token: process.env.FB_ACCESS_TOKEN,   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params
@@ -104,7 +104,7 @@ export default {
         params: {
             // TODO: get your access token as described 
             // on https://developers.facebook.com/docs/plugins/oembed                
-            access_token: '',   // The simplest way is 
+            access_token: process.env.FB_ACCESS_TOKEN,   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params
@@ -126,7 +126,7 @@ export default {
         params: {
             // TODO: get your access token as described 
             // on https://developers.facebook.com/docs/plugins/oembed                
-            access_token: '',   // The simplest way is 
+            access_token: process.env.FB_ACCESS_TOKEN,   // The simplest way is 
                                 // to use `{app-id}|{app secret}` as access token
 
             // Add any other optional params, like skip script tag and fb-root div
