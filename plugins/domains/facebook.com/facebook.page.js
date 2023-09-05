@@ -4,7 +4,8 @@ export default {
 
     re: [
         /^https?:\/\/(www|m)\.facebook\.com\/([^\/\?]+(?<!\.php))\/?(?:about|photos|videos|events|timeline|photos_stream)?\/?(?:\?[^\/\?]+)?$/i,
-        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i
+        /^https?:\/\/(www|m)\.facebook\.com\/(?:pg|pages)\//i,
+        /^https?:\/\/(www|m)\.facebook\.com\/people\/[^\/]+\/\d+/i // for the "N/A" message only
     ],
 
     mixins: [
@@ -91,9 +92,8 @@ export default {
 
         // Detect individual profiles (returns oEmbedError 400 as of Feb 4, 2023)
         // But fb://profile/ links are also used for pages like https://www.facebook.com/RhulFencing/, albeit no oEmbedError
-        if (meta.ld && meta.ld.person
-            || (meta.al && meta.al.android 
-                && meta.al.android.url && /\/profile\//.test(meta.al.android.url))) {
+        if (meta.ld?.person
+            || meta.al?.android?.url && /\/profile\//.test(meta.al.android.url)) {
 
             return {
                 message: "Facebook profile pages of individual users are not embeddable."
