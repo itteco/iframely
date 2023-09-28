@@ -3,8 +3,8 @@ export default {
     // Embedded Like, Collection, and Moment Timelines are now retired.
     // https://twittercommunity.com/t/removing-support-for-embedded-like-collection-and-moment-timelines/150313
     re: [
-        /^https?:\/\/twitter\.com\/(\w+)\/lists?\/(\d+)/i,
-        /^https?:\/\/twitter\.com\/(\w+)(?:\/likes)?\/?(?:\?.*)?$/i,
+        /^https?:\/\/(?:twitter|x)\.com\/(\w+)\/lists?\/(\d+)/i,
+        /^https?:\/\/(?:twitter|x)\.com\/(\w+)(?:\/likes)?\/?(?:\?.*)?$/i,
     ],
 
     mixins: [

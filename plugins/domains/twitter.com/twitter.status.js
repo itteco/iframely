@@ -2,7 +2,7 @@ import * as entities from 'entities';
 
 export default {
 
-    re: [/^https?:\/\/twitter\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i],
+    re: [/^https?:\/\/(?:twitter|x)\.com\/(?:\w+)\/status(?:es)?\/(\d+)/i],
 
     provides: ['twitter_oembed', 'twitter_og', '__allowTwitterOg'],
 
@@ -23,7 +23,7 @@ export default {
                 hide_media:  hide_media, 
                 hide_thread: true, //  hide_thread - now handled in getLinks. This is the only reliable way to detect if a tweet has the thread
                 omit_script: omit_script,
-                url: urlMatch[0]
+                url: urlMatch[0].replace('x.com', 'twitter.com')
             },
             // json: true,  // Causes issues on 404 when it's not in JSON format, we need result code here. 
                             // When response is OK and is JSON, `fetchData` in fetch.js will see `application/json` and will convert to JSON on its own.
@@ -66,7 +66,7 @@ export default {
                     twitter_oembed: oembed
                 };
 
-                if (/pic\.twitter\.com/i.test(oembed.html) && options.getProviderOptions("twitter.thumbnail", false)) {
+                if (/pic\.(?:twitter|x)\.com/i.test(oembed.html) && options.getProviderOptions("twitter.thumbnail", false)) {
                     result.__allowTwitterOg = true;
                     options.followHTTPRedirect = true; // avoid core's re-directs. Use HTTP request redirects instead
                     options.exposeStatusCode = true;

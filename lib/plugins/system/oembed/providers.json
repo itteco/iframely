@@ -206,30 +206,30 @@
     {
         "name": "Twitter Moments",
         "templates": [
-            "twitter\\.com/i/moments/(\\d+)"
+            "(?:twitter|x)\\.com/i/moments/(\\d+)"
         ],
         "endpoint": "https://publish.twitter.com/oembed?i=moment&url={url}"
     },
     {
         "name": "Twitter Timelines",
         "templates": [
-            "twitter\\.com/(\\w+)/timelines/(\\d+)",
-            "twitter\\.com/(\\w+)/lists/(\\w+)",
-            "twitter\\.com/(\\w+)/likes"
+            "(?:twitter|x)\\.com/(\\w+)/timelines/(\\d+)",
+            "(?:twitter|x)\\.com/(\\w+)/lists/(\\w+)",
+            "\\.com/(\\w+)/likes"
         ],
         "endpoint": "https://publish.twitter.com/oembed?i=timeline&url={url}"
     },
     {
         "name": "Twitter Users",
         "templates": [
-            "(twitter\\.com/\\w+)/?(?:\\?.*)?$$"
+            "((?:twitter|x)\\.com/\\w+)/?(?:\\?.*)?$$"
         ],
         "endpoint": "https://publish.twitter.com/oembed?i=user&url=https://{1}"
     },
     {
         "name": "Twitter Statuses",
         "templates": [
-            "twitter\\.com/\\w+/status(?:es)?/\\d+"
+            "(?:twitter|x)\\.com/\\w+/status(?:es)?/\\d+"
         ],
         "endpoint": "https://publish.twitter.com/oembed"
     },
