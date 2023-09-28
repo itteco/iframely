@@ -58,7 +58,7 @@ export default {
                     return cb('Object expected in Twitter API (statuses/oembed.json), got: ' + oembed);
                 }
 
-                oembed.title = oembed.author_name + ' on Twitter';
+                oembed.title = oembed.author_name + ' on Twitter / X';
                 oembed["min-width"] = options.getProviderOptions("twitter.min-width");
                 oembed["max-width"] = options.getProviderOptions("twitter.max-width");
 
