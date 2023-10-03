@@ -27,8 +27,14 @@ export default {
         if (!error && 
                 (!oembedError.body // Connection issue like ERR_HTTP2_STREAM_ERROR
                     || fbError.is_transient) // Unexpected transient error
-                ) {            
+                ) {
+
             error = 408;
+        }
+
+        if (fbError.code === 2 /* downtime */ && fbError.is_transient && options.cache_ttl === 0) {
+            // handle error elsewhere, e.g. fall back to generic parsers
+            error = null;
         }
 
         const isVideo = /(?:videos?|watch)/i.test(url);
