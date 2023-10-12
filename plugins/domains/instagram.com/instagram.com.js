@@ -80,8 +80,11 @@ export default {
             links.push({
                 href: ipOG.image,
                 type: CONFIG.T.image,
-                rel: ipOG.video || isReel ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail]
+                rel: ipOG.video || isReel ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
                 // No media - let's validate image as it may be expired.
+
+                // Remove below error when and if it's fixed. Validators will remove the link
+                error: 'Unfortunatelly Instagram\'s OG image is cropped as of 2023-10-11'                 
             });
         }        
 
