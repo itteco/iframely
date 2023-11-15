@@ -207,6 +207,14 @@ export default {
             delete params.cc_load_policy;
         }
 
+        // https://developers.google.com/youtube/player_parameters#controls
+        var controls = options.getRequestOptions('youtube.controls', params.controls);
+        if (controls == 0) {
+            params.controls = '0';
+        } else if (params.controls) {
+            delete params.controls;
+        }
+
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
         var rels = [CONFIG.R.player];
