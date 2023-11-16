@@ -1071,5 +1071,12 @@
             "fwdeveryone.com/t/*"
         ],
         "endpoint": "https://api.fwdeveryone.com/oembed"
-    }        
+    },
+    {
+        "name": "Redivis",
+        "templates": [
+            "redivis.com/datasets/*"
+        ],
+        "endpoint": "https://redivis.com/services/oembed"
+    }
 ]
