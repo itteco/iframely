@@ -982,7 +982,8 @@
     {
         "name": "Gong",
         "templates": [
-            "app.gong.io/call\\?id="
+            "app.gong.io/call",
+            ".*\\.app\\.gong\\.io/call",
         ],
         "endpoint": "https://app.gong.io/oembed"
     },
