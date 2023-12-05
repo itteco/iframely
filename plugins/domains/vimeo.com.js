@@ -43,6 +43,14 @@ export default {
             texttrack = '';
         }
 
+        // https://developers.google.com/youtube/player_parameters#controls
+        var controls = options.getRequestOptions('vimeo.controls', params.controls);
+        if (controls == 0) {
+            params.controls = false;
+        } else if (params.controls) {
+            delete params.controls;
+        }
+
         var links = [];
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
