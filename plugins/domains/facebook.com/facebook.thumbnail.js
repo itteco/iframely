@@ -14,21 +14,30 @@ export default {
 
     getLink: function(url, __allowFBThumbnail, options, meta) {
 
-        var thumbnail = meta.twitter && meta.twitter.image
-                        || meta.og && meta.og.image
-                        || meta.ld && meta.ld.socialmediaposting.image && meta.ld.socialmediaposting.image.contenturl;
+        var thumbnail = meta.twitter?.image
+                        || meta.og?.image
+                        || meta.ld?.socialmediaposting?.image?.contenturl;
+
+        if (thumbnail?.url || thumbnail?.src) {
+            thumbnail = thumbnail.url || thumbnail.src;
+        }
 
         if (meta['html-title'] && !/security check required/i.test(meta['html-title']) && thumbnail
-            // && try skip profile pictures for posts
-            && (options.getProviderOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
-                || meta.og && meta.og.video 
-                || meta.twitter && meta.twitter.player  // videos
-                || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.image  // images
-                || meta.ld && meta.ld.socialmediaposting && meta.ld.socialmediaposting.sharedcontent
-                || /\.png\?/.test(thumbnail) // profile pictures are jpegs
-                || /safe_image\.php\?/.test(thumbnail) // URL cards
-                || /\?url=/.test(thumbnail) // URL cards
-                )) {
+            /** Check for profile pictures is no longer required - 
+             * FB does not give them for posts without a picture as of Jan 8, 2024
+             *        
+             * // && try skip profile pictures for posts
+             * && (options.getProviderOptions('facebook.thumbnail') === 'any' //x Explicitely allowed for an account.
+             *   || meta.og?.video
+             *   || meta.twitter?.player  // videos
+             *   || meta.ld?.socialmediaposting?.image  // images
+             *   || meta.ld?.socialmediaposting?.sharedcontent
+             *   || /\.png\?/.test(thumbnail) // profile pictures are jpegs
+             *   || /safe_image\.php\?/.test(thumbnail) // URL cards
+             *   || /\?url=/.test(thumbnail) // URL cards
+             *   )
+             */
+            ) {
 
             return {
                 href: thumbnail,
