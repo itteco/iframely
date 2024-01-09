@@ -16,7 +16,9 @@ export default {
 
         var thumbnail = meta.twitter?.image
                         || meta.og?.image
-                        || meta.ld?.socialmediaposting?.image?.contenturl;
+                        || meta.ld?.socialmediaposting?.image?.contenturl
+                        || meta.ld?.socialmediaposting?.image && Array.isArray(meta.ld.socialmediaposting.image) // This one is for photos
+                            && meta.ld.socialmediaposting.image.length === 1 && meta.ld.socialmediaposting.image[0].contenturl; 
 
         if (thumbnail?.url || thumbnail?.src) {
             thumbnail = thumbnail.url || thumbnail.src;
