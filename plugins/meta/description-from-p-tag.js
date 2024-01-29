@@ -10,10 +10,13 @@ export default {
         var description;
         cheerio("body p").each(function() {
             var $p = cheerio(this);
-
-            if (!$p.parents("noscript, header,#header,[role='banner']").length) {
-                description = decodeHTML5(decode($p.text()));
-                return false;
+            if ($p.children("label, input, button, div").length === 0 && !$p.parents("noscript, header,#header,[role='banner']").length) {
+                var someText = decodeHTML5(decode($p.text()));
+                var requiredLimit = Number.isInteger(__allowPTagDescription) ? __allowPTagDescription : 64;
+                if (someText.length > requiredLimit) {
+                    description = someText;
+                    return false;
+                }
             }
         });
 
@@ -28,7 +31,7 @@ export default {
         if (options.getProviderOptions('app.allowPTagDescription', CONFIG.providerOptions?.readability?.allowPTagDescription)
             && !meta.description && !meta.twitter?.description && !meta.og?.description) {
             return {
-                __allowPTagDescription: true
+                __allowPTagDescription: options.getProviderOptions('app.allowPTagDescription') || true
             }            
         }
     }
