@@ -67,7 +67,7 @@ export default {
         skipMethods: ["getMeta"]
     },
         "https://appsumo.wistia.com/medias/fudkgyoejs",
-        "https://shluchim.wistia.com/medias/l0mkqobjda",
+        "https://cirata.wistia.com/medias/9mnslih4pz",
         "https://signalophthalmic.wistia.com/medias/hfqfnxk3yb"
     ]
 };
