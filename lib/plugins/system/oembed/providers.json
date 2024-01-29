@@ -28,8 +28,8 @@
           "(?:www|business)\\.facebook\\.com/video\\.php.*[\\?&]id=(\\d{5,})(?:$|&)",
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\.*[\\?&]v=(\\d{5,})",
           "(?:www|business)\\.facebook\\.com/[a-zA-Z0-9.]+/videos/.+",
-          "(?:www|m|business)\\.(facebook\\.com/watch/?\\?(?:.+&)?v=\\d+)",
-          "(?:www|m|business)\\.(facebook)\\.com/reel/\\d+"          
+          "(?:www|m|business)\\.facebook\\.com/watch/?\\?(?:.+&)?v=\\d+",
+          "(?:www|m|business)\\.facebook\\.com/reel/\\d+"          
         ],
         "endpoint": "https://graph.facebook.com/v18.0/oembed_video"
     },
