@@ -21,6 +21,7 @@ export default {
         "oembed-site",
         "oembed-author",
         // "og-image",
+        "canonical",
         "domain-icon",
         "fb-error"
     ],
@@ -84,7 +85,7 @@ export default {
                 // No media - let's validate image as it may be expired.
 
                 // Remove below error when and if it's fixed. Validators will remove the link
-                error: 'Unfortunatelly Instagram\'s OG image is cropped as of 2023-10-11'                 
+                error: 'Unfortunatelly Instagram\'s OG image is cropped as of 2023-10-11 and as of 2024-02-02'
             });
         }        
 
@@ -111,11 +112,6 @@ export default {
             }
 
             captioned = /data\-instgrm\-captioned/i.test(html);
-
-            // Reels don't work without a caption
-            if (!captioned && isReel) {
-                html = html.replace(" data-instgrm-version=", " data-instgrm-captioned data-instgrm-version=");
-            }
 
             html = html.replace(/src="\/\/platform\.instagram\.com\/en_US\/embeds\.js"/, 'src="https://www.instagram.com/embed.js"');
 
@@ -146,16 +142,10 @@ export default {
                 }
             };
 
-            if (isReel) {
-                delete app.options;
-                app.message = "Instagram Reels don't display without a caption";
-            }
-
             if (oembed.thumbnail_width && oembed.thumbnail_height) {
                 // sizes for placeholder are hardcoded anyway, no need to link them to the image sizes
                 app['aspect-ratio'] = 100 / (2 *(19 + 12.5)); // was: oembed.thumbnail_width / oembed.thumbnail_height;
                 app['padding-bottom'] = 284;//  was: 206;
-
             }
 
             links.push(app);
@@ -196,6 +186,7 @@ export default {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         "https://www.instagram.com/reel/ClBZ3v2stzp/",
+        "https://www.instagram.com/nssmagazine/reel/CrVt-Wvs74O/",
         {
             skipMixins: ["oembed-title", "fb-error"],
             skipMethods: ['getData']
