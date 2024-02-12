@@ -834,7 +834,7 @@
         "name": "Opinary",
         "templates": [
             "compass.pressekompass.net/*",
-            "midgard.opinary.com/*"
+            "compass.opinary.com/*"
         ],
         "endpoint": "https://api.opinary.com/oembed"
     },
