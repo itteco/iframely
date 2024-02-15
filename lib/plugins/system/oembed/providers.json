@@ -686,7 +686,7 @@
         "templates": [
             "(?:www\\.)?canva.com/design/"
         ],
-        "endpoint": "https://www.canva.com/_oembed"
+        "endpoint": "https://api.canva.com/_spi/presentation/_oembed"
     },
     {
         "name": "Microsoft Streams",
