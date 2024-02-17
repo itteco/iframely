@@ -31,7 +31,7 @@ export default {
         }
 
         const FALLBACK_ICONS = [{
-            href: CONFIG.FALLBACK_ICONS && CONFIG.FALLBACK_ICONS[domain] || `${domainUri}/favicon.ico`,
+            href: CONFIG.FALLBACK_ICONS && CONFIG.FALLBACK_ICONS[domain.replace('www.', '')] || `${domainUri}/favicon.ico`,
             type: CONFIG.T.image,
             rel: [CONFIG.R.icon, CONFIG.R.iframely] // It will be validated as image.
         }];
