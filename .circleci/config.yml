@@ -40,7 +40,7 @@ commands:
 jobs:
   deploy:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:18
     steps:
       - build
       - test
