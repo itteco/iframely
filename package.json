@@ -54,11 +54,14 @@
         "mocha": "10.3.0",
         "mock-http-server": "^1.0.0",
         "mongoose": "5.13.20",
-        "supertest": "^4.0.2"
+        "supertest": "6.3.4"
     },
     "resolutions": {
         "jslint/glob/minimatch": "3.0.5",
-        "redis-clustr/redis": "3.1.1"
+        "mock-http-server/body-parser/qs": "6.7.3",
+        "redis-clustr/redis": "3.1.1",
+        "request/http-signature/jsprim/json-schema": "0.4.0",
+        "request/qs": "6.7.3"
     },
     "iframely-proxy-plugins": true,
     "main": "./lib/core.js",
