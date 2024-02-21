@@ -25,7 +25,7 @@
         "aws-serverless-express": "^3.3.6",
         "cheerio": "1.0.0-rc.12",
         "chokidar": "^3.3.1",
-        "ejs": "^3.1.6",
+        "ejs": "3.1.9",
         "entities": "1.1.1",
         "express": "^4.16.3",
         "globby": "^12.0.2",
@@ -51,7 +51,7 @@
     "devDependencies": {
         "chai": "^4.3.0",
         "feedparser": "2.2.0",
-        "mocha": "^9.2.0",
+        "mocha": "10.3.0",
         "mock-http-server": "^1.0.0",
         "mongoose": "^5.13.7",
         "supertest": "^4.0.2"
