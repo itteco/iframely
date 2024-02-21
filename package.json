@@ -21,7 +21,7 @@
     "license": "MIT",
     "dependencies": {
         "@adobe/fetch": "^4.1.1",
-        "async": "2.4.1",
+        "async": "2.6.4",
         "aws-serverless-express": "^3.3.6",
         "cheerio": "1.0.0-rc.12",
         "chokidar": "^3.3.1",
