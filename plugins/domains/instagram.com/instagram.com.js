@@ -21,7 +21,7 @@ export default {
         "oembed-site",
         "oembed-author",
         // "og-image",
-        "canonical",
+        // "canonical",
         "domain-icon",
         "fb-error"
     ],
