@@ -58,7 +58,8 @@ export default {
 
         return {
             title: title,
-            description: description
+            description: description,
+            canonical: `https://www.instagram.com/p/${urlMatch[1]}`
         }
     },
 
