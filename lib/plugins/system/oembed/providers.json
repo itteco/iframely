@@ -1078,5 +1078,13 @@
             "redivis.com/datasets/*"
         ],
         "endpoint": "https://redivis.com/services/oembed"
+    },
+    {
+        "name": "Flippingbook",
+        "templates": [
+            "online.flippingbook.com/view/*",
+            "online.flippingbook.com/view/*/*"
+        ],
+        "endpoint": "https://online.flippingbook.com/oembed"
     }
 ]
