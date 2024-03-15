@@ -81,7 +81,7 @@ export default {
         return cb(null, {
             oembedLinks: ['json', 'xml'].map(function (format) {
                 return {
-                    href: `https://www.documentcloud.org/api/oembed.${format}?url=${uri}`,
+                    href: `https://api.www.documentcloud.org/api/oembed.${format}?url=${encodeURIComponent(uri)}`,
                     rel: 'alternate',
                     type: `application/${format}+oembed`
                 }
