@@ -28,20 +28,13 @@
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
+        CACHE_ERROR_TTL: 10 * 60,   // 10 min - cache for error responses.
         API_REQUEST_CACHE_TTL: 30 * 24 * 60 * 60,
         IMAGE_META_CACHE_TTL: 7 * 24 * 60 * 60,
 
         CACHE_TTL_PAGE_TIMEOUT: 10 * 60,
         CACHE_TTL_PAGE_404: 10 * 60,
         CACHE_TTL_PAGE_OTHER_ERROR: 1 * 60,
-
-        // Do not cache response in htmlparser with these status codes.
-        TEMP_HTTP_ERROR_CODES: [
-            408, 
-            418, 
-            429
-            // 5xx included in logic.
-        ],
 
         HTTP2_RETRY_CODES_LIST: [
             'ECONNRESET',
