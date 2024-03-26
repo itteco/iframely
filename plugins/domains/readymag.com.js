@@ -1,12 +1,11 @@
 export default {
 
     re: [
-        /^https?:\/\/readymag\.com\/\w+\/(\d+)/i
+        /^https?:\/\/readymag\.com\/\w+\/(\d+)/i,
+        /^https?:\/\/readymag|website\.com\/\w+\/(\d+)/i
     ],
 
-    mixins: [
-        "*"
-    ],
+    mixins: ["*"],
 
     getLink: function(url, urlMatch) {
 
@@ -21,6 +20,8 @@ export default {
     },
 
     tests: [
-        "https://readymag.com/rbphotography/57005/"
+        "https://readymag.com/rbphotography/57005/",
+        "https://readymag.website/rbphotography/57005/",
+        "https://readymag.website/rbphotography/57005/11/",
     ]
 };
