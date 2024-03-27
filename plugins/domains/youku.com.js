@@ -9,6 +9,7 @@ export default {
     mixins: ["*"],
 
     getLink: function (urlMatch) {
+
         return {
             href: "https://player.youku.com/embed/"+ urlMatch[1],
             type: CONFIG.T.text_html,

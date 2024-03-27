@@ -4,9 +4,7 @@ export default {
         /^https?:\/\/archive\.org\/details\/([^\/]+)\/?\??/i
     ],
 
-    mixins: [
-        "*"
-    ],
+    mixins: ["*"],
 
     getMeta: function(og) {
         return {

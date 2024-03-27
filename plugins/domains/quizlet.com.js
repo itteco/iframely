@@ -4,9 +4,7 @@ export default {
         /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/([^\/]+)\/?/i
     ],
 
-    mixins: [
-        "*"
-    ],
+    mixins: ["*"],
 
     getLinks: function(urlMatch, options) {
 
