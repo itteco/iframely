@@ -2,7 +2,7 @@ export default {
 
     re: [
         /^https?:\/\/readymag\.com\/\w+\/(\d+)/i,
-        /^https?:\/\/readymag|website\.com\/\w+\/(\d+)/i
+        /^https?:\/\/readymag\.website\/\w+\/(\d+)/i
     ],
 
     mixins: ["*"],

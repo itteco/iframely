@@ -10,7 +10,7 @@ export default {
 
     getMeta: function(og) {
         return {
-            title: og.title && og.title.replace(' : Free Download &amp; Streaming : Internet Archive', '')
+            title: og.title && og.title.replace(/\s?:\s?Free\sDownload.+$/i, '')
         }
     },
 
@@ -67,9 +67,7 @@ export default {
                 utils.getImageMetadata(img, options, function(error, data) {
 
                     if (error || data.error || !(data.width && data.height)) {
-
                         return cb('Error getting Archive.org image:' +  (error || data.error));
-
                     }
 
                     links.push({
@@ -80,16 +78,24 @@ export default {
                         height: data.height
                     });
 
-                    if (!isPhoto) {
-                        var aspect = 2 * data.width / data.height;
+                    if (urlMatch) {
+                        if (isPhoto) {
+                            links.push({
+                                href: `https://archive.org/embed/${urlMatch[1]}`,
+                                type: CONFIG.T.text_html,
+                                rel: CONFIG.R.image,
+                                "aspect-ratio": data.width / data.height,
+                            });
 
-                        links.push({
-                            href: 'https://archive.org/stream/' + urlMatch[1] + '?ui=embed',
-                            type: CONFIG.T.text_html,
-                            rel: CONFIG.R.reader,
-                            "aspect-ratio": aspect,
-                            //"padding-bottom": 40 + 15 // padding no longer needed
-                        });
+                        } else {
+                            links.push({
+                                href: `https://archive.org/stream/${urlMatch[1]}?ui=embed`,
+                                type: CONFIG.T.text_html,
+                                rel: CONFIG.R.reader,
+                                "aspect-ratio": 2 * data.width / data.height,
+                                "padding-bottom": 40 + 15
+                            });
+                        }
                     }
 
                     return cb(null, links);
