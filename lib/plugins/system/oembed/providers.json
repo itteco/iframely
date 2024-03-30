@@ -1086,5 +1086,13 @@
             "online.flippingbook.com/view/*/*"
         ],
         "endpoint": "https://online.flippingbook.com/oembed"
+    },
+    {
+        "name": "Apester",
+        "templates": [
+            "(?:renderer|preview).apester.com/(?:interaction|v\\d+|media)/([a-z0-9]+)"
+        ],
+        "endpoint": "https://display.apester.com/oembed/",
+        "url": "https://renderer.apester.com/v2/{1}"
     }
 ]
