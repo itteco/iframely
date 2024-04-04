@@ -191,8 +191,7 @@ export default {
             options: opts
         };
 
-        if ((/https:\/\/t\.co\//i.test(twitter_oembed.html) && !/pic\.twitter\.com\//i.test(twitter_oembed.html)) // there's a link and a card inside the tweet
-            || (twitter_og.image && !(twitter_og.image.user_generated || /\/profile_images\//i.test(twitter_og.image)))) { // user_generated is string = 'true' for pics
+        if (/https:\/\/t\.co\//i.test(twitter_oembed.html) || /pic\.twitter\.com\//i.test(twitter_oembed.html)) {
             app['aspect-ratio'] = 1;
         }
 
@@ -220,6 +219,6 @@ export default {
 
     tests: [
         "https://twitter.com/Tackk/status/610432299486814208/video/1",
-        "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"  // og-image
+        "https://twitter.com/RockoPeppe/status/582323285825736704?lang=en"
     ]
 };
