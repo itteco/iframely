@@ -145,7 +145,7 @@ export default {
 
     tests: [
         "https://twitter.com/potus",
-        "https://twitter.com/TwitterDev/",
+        "https://twitter.com/XDevelopers",
         // "https://twitter.com/TwitterDev/lists/national-parks",
         "https://twitter.com/i/lists/211796334",
         "https://twitter.com/elonmusk/likes",
