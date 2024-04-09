@@ -261,13 +261,6 @@
         "endpoint": "https://oembed.tidal.com/"
     },
     {
-        "name": "GfyCat",
-        "templates": [
-            "gfycat\\.com/.+"
-        ],
-        "endpoint": "https://api.gfycat.com/v1/oembed?url={url}"
-    },
-    {
         "name": "dotSUB",
         "templates": [
             "dotsub\\.com/view/.+"
