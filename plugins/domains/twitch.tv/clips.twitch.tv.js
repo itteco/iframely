@@ -32,8 +32,9 @@ export default {
     },
 
     tests: [{skipMethods: ['getData']},
-        "https://clips.twitch.tv/UgliestBenevolentAnteaterM4xHeh",
-        "https://www.twitch.tv/tfue/clip/AgileCallousOpossumBudBlast",
-        "https://www.twitch.tv/tfue/clip/ArtsyEnticingQueleaBrainSlug-kVfsJZyhxv2ggfmm"
+        "https://clips.twitch.tv/RacySweetJackalBlargNaut-Aurg1DNlYiUgIhJd",
+        "https://clips.twitch.tv/CourageousRichPeafowlYouDontSay-opqgmVBfJExmluP9",
+        "https://www.twitch.tv/uhsnow/clip/BlitheHedonisticQuailWutFace-0LqwKOVTwqmrSA_e?filter=clips&range=all&sort=time",
+        "https://www.twitch.tv/uhsnow/clip/MuddyWimpyTeaNinjaGrumpy-X4CarF7QdWbStXJO",
     ]
 };
