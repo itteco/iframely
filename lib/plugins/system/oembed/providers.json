@@ -576,7 +576,7 @@
         "templates": [
             "datawrapper.dwcdn.net/.*"
         ],
-        "endpoint": "https://app.datawrapper.de/api/plugin/oembed"
+        "endpoint": "https://api.datawrapper.de/v3/oembed"
     }, {
         "name": "Tableau Public",
         "templates": [
