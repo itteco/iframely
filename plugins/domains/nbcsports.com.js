@@ -1,28 +1,36 @@
 export default {
 
+    provides: '__allowEmbedURL',
+
     re: [
-        /^https?:\/\/www\.nbcsports\.com\/videos?\/[a-zA-Z0-9-]+/i
+        /^https?:\/\/www\.nbcsports\.com\/watch?\/[a-zA-Z0-9-]+/i
     ],
 
     mixins: [
         "*"
     ],
 
-    getLink: function(twitter, whitelistRecord) {
+    getData: function(__allowEmbedURL) {        
+        return {
+            schemaVideoObject: ld.VideoObject
+        };
+    },
 
-        if (twitter.player && whitelistRecord.isAllowed('twitter.player')) {
+    getLink: function(ld, schemaVideoObject) {
+
+        if (ld.VideoObject) {
+
             return {
-                href: twitter.player.value,
+                href: schemaVideoObject.contenturl,
                 rel: CONFIG.R.player,
-                accept: CONFIG.T.text_html,
+                accept: CONFIG.T.video_mp4,
                 "aspect-ratio": 16/9,
-                autoplay: 'autoPlay=true'
-            }
+            };
         }
     },
 
     tests: [
-        "https://www.nbcsports.com/video/redskins-team-beat-wild-card-matchup-vs-packers",
-        "https://www.nbcsports.com/video/alex-morgan-scores-opening-12-seconds-vs-costa-rica"
+        "https://www.nbcsports.com/watch/golf/golf-channel-podcast/scottie-scheffler-rory-mcilroy-among-popular-2024-masters-tournament-picks",
+        "https://www.nbcsports.com/watch/nfl/profootballtalk/arrest-warrant-issued-for-rashee-rice-who-faces-eight-charges-for-crash"
     ]
 };
