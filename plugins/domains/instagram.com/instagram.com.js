@@ -186,7 +186,7 @@ export default {
         "https://www.instagram.com/p/HbBy-ExIyF/",
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
-        "https://www.instagram.com/reel/ClBZ3v2stzp/",
+        "https://www.instagram.com/reel/CtHaSoDLrWJ/",
         "https://www.instagram.com/nssmagazine/reel/CrVt-Wvs74O/",
         {
             skipMixins: ["oembed-title", "fb-error"],
