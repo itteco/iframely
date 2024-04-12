@@ -26,7 +26,7 @@ export default {
     },
 
     tests: [
-        "https://soundcloud.com/bloomberg-business/first-word-asia-nov-16-2015/s-WxWfd",
+        "https://soundcloud.com/bloomberg-business/first-word-asia-nov-16-2015/s-WxWfd", // should be 404
         "https://soundcloud.com/fadermedia/young-l-loud-pockets-hudson"
     ]
 };
