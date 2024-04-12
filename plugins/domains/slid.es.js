@@ -39,7 +39,7 @@ export default {
     tests: [{skipMethods: ["getData"]},
         "http://slides.com/timkindberg/ui-router",
         "https://slides.com/thedatacentral/the-data-central",
-        "https://apollo-academy.slides.com/jbsaurine/gpe?token=hYf8nobC",
+        "https://slides.com/sunilos/javaio#/2",
         "https://slides.com/webmax/angular-status-13"
 
         // But exclude http://blog.slides.com/post/84828911898/slides-turns-one-year-old from Tumblr tests
