@@ -308,7 +308,7 @@ export default {
         noFeeds: true
     },
         "http://www.youtube.com/watch?v=etDRmrB9Css",
-        "http://www.youtube.com/embed/EIOF1qeV7bo"
+        "http://www.youtube.com/embed/Q_uaI28LGJk"
         // embeds disabled - https://www.youtube.com/watch?v=e58FeKOgsU8
     ]
 };
