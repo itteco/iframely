@@ -80,7 +80,7 @@ export default {
 
     tests: [{
         page: "https://gist.github.com/discover",
-        selector: "a.link-overlay"
+        selector: ".d-inline-block span:nth-child(1) a:nth-child(2)"
     }, {
         skipMixins: ["og-image", "og-site"]
     },

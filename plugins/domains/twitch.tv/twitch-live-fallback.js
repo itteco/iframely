@@ -41,6 +41,6 @@ export default {
     },
         "https://www.twitch.tv/ninja",
         "https://www.twitch.tv/videos/520219960",
-        "https://www.twitch.tv/videos/835838163"
+        "https://www.twitch.tv/videos/2118598830"
     ]
 };
