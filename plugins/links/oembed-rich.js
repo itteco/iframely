@@ -100,7 +100,7 @@ export default {
         }
 
         if (iframe && iframe.src && iframe.allow) {
-            widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?;\s?\*?/g));
+            widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?(?:;|,)\s?\*?/g));
         }
 
         if (iframe && iframe.src && iframe.onmousewheel === '') {
