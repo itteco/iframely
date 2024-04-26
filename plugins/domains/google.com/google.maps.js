@@ -149,7 +149,7 @@ export default {
 
         if (!options.getProviderOptions('google.maps_key')) {
             return cb ({
-                responseStatusCode: 415,
+                // responseStatusCode: 415, // No error, fall back to generic parsers instead
                 message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/get-api-key' target='_blank'>Get one</a> and add it to the provider options."
             });
         }
