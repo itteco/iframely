@@ -69,8 +69,8 @@ export default {
     },
 
     tests: [{
-        page: "http://www.slideshare.net/popular/today",
-        selector: "a.iso_slideshow_link"
+        page: "https://www.slideshare.net/explore",
+        selector: ".slideshow-card a.bg-img-container"
     }, {skipMethods: ["getData"]},
         "https://www.slideshare.net/DataReportal/digital-2020-global-digital-overview-january-2020-v01-226017535",
         "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562"
