@@ -4,7 +4,7 @@ export default {
     // https://twittercommunity.com/t/removing-support-for-embedded-like-collection-and-moment-timelines/150313
     re: [
         /^https?:\/\/(?:twitter|x)\.com\/(\w+)\/lists?\/(\d+)/i,
-        /^https?:\/\/(?:twitter|x)\.com\/(\w+)(?:\/likes)?\/?(?:\?.*)?$/i,
+        /^https?:\/\/(?:twitter|x)\.com\/(\w+)\/?(?:\?.*)?$/i,
     ],
 
     mixins: [
@@ -146,9 +146,7 @@ export default {
     tests: [
         "https://twitter.com/potus",
         "https://twitter.com/XDevelopers",
-        // "https://twitter.com/TwitterDev/lists/national-parks",
         "https://twitter.com/i/lists/211796334",
-        "https://twitter.com/elonmusk/likes",
         {skipMixins: ["domain-icon", "oembed-error"]}, {skipMethods: ["getData"]}
     ]
 };
