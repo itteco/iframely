@@ -14,7 +14,7 @@ export default {
 
         return {
             href: 'https://quizlet.com/' + urlMatch[1]+ '/' + mode + '/embed',
-            accept: CONFIG.T.text_html,
+            type: CONFIG.T.text_html,
             rel: [CONFIG.R.survey, CONFIG.R.resizable],
             height: 500,
             options: {
