@@ -1,4 +1,5 @@
 import { getProviderOptionsQuery } from '../api/utils.js';
+import escape from '../../lib/escape'
 
 export default function(app) {
 
@@ -11,11 +12,11 @@ export default function(app) {
         }
 
         res.render('debug',{
-            uri: req.query.uri,
+            uri: escape(req.query.uri),
             mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin],
             refresh: !!{"on":1, "true":1}[req.query.refresh],
             DEBUG: DEBUG,
-            QUERY: getProviderOptionsQuery(req.query)
+            QUERY: getProviderOptionsQuery(escape(req.query))
         });
     });
 };

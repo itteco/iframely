@@ -46,7 +46,8 @@
         "sax": "1.2.2",
         "semver": "^6.3.0",
         "send": "0.16.1",
-        "underscore": "^1.13.1"
+        "underscore": "^1.13.1",
+        "validator": "^13.11.0"
     },
     "devDependencies": {
         "chai": "5.1.0",

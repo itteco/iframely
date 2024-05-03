@@ -28,10 +28,10 @@
                 return res.redirect('/tests');
             }
 
-            exec('sh ./test-plugins.sh ' + req.params.plugin, function (error, stdout, stderr) {
-                console.log(stdout);
-                res.redirect('/tests#' + req.params.plugin);
-            });
+            // exec('sh ./test-plugins.sh ' + req.params.plugin, function (error, stdout, stderr) {
+            //     console.log(stdout);
+            //     res.redirect('/tests#' + req.params.plugin);
+            // });
         });
 
         app.get('/tests', function(req, res, next){
