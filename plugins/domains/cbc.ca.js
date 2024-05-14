@@ -32,7 +32,9 @@ export default {
     },
 
     tests: [
-        "https://www.cbc.ca/player/play/2558388650",
-        "https://www.cbc.ca/player/play/2158162499673"
+        "https://www.cbc.ca/player/play/2278399043559",
+        "https://www.cbc.ca/player/play/2158162499673",
+        "https://www.cbc.ca/player/play/video/9.4224083",
+        "https://www.cbc.ca/player/play/video/9.4225542"
     ]
 };
