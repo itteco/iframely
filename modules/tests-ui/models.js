@@ -2,6 +2,7 @@
     import mongoose from 'mongoose';
     import CONFIG from '../../config.loader.js';
 
+    mongoose.set('strictQuery', false);
 
     if (global.Promise) {
         mongoose.Promise = global.Promise;
