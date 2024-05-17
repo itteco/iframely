@@ -7,8 +7,8 @@ export default {
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/login\.php/i,
         /^https?:\/\/(m|\w{2}\-\w{2})\.facebook\.com/i,
         /^https?:\/\/(?:touch\.|www\.)?facebook\.com\/l\.php\?u=/i,
-        /^https?:\/\/www\.facebook\.com\/plugins\/(?:video|post)\.php\?href=/i,
-        /^https?:\/\/www\.facebook\.com\/plugins\/comment_embed\.php\?href=/i         
+        /^https?:\/\/www\.facebook\.com\/plugins\/(?:video|post)\.php\?.*href=/i,
+        /^https?:\/\/www\.facebook\.com\/plugins\/comment_embed\.php\?href=/i
     ],
 
     listed: false, // do not show up in iframe.ly/domains.json
