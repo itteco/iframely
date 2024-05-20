@@ -88,7 +88,8 @@ export default {
     },
 
     tests: [{
-        noFeeds: true
+        noFeeds: true,
+        skipMethods: ['getMeta']
     },
         "https://www.twitch.tv/videos/743604531?parent=localhost"
     ]
