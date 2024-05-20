@@ -36,7 +36,7 @@
         "jslint": "^0.12.1",
         "jsontoxml": "^1.0.1",
         "memcached": "2.2.2",
-        "moment": "^2.29.4",
+        "moment": "^2.30.1",
         "node-cache": "^1.1.0",
         "node-yaml-config": "^1.0.0",
         "parse-iso-duration": "^1.1.0",
