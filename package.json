@@ -42,7 +42,7 @@
         "parse-iso-duration": "^1.1.0",
         "probe-image-size": "^7.2.3",
         "readabilitySAX": "1.6.1",
-        "redis": "^4.6.5",
+        "redis": "^4.6.14",
         "redis-clustr": "1.7.0",
         "request": "^2.88.2",
         "sax": "^1.2.4",

@@ -72,8 +72,8 @@ dependencies:
     specifier: 1.6.1
     version: 1.6.1
   redis:
-    specifier: ^4.6.5
-    version: 4.6.5
+    specifier: ^4.6.14
+    version: 4.6.14
   redis-clustr:
     specifier: 1.7.0
     version: 1.7.0
@@ -706,16 +706,16 @@ packages:
     dev: true
     optional: true
 
-  /@redis/bloom@1.2.0(@redis/client@1.5.6):
+  /@redis/bloom@1.2.0(@redis/client@1.5.16):
     resolution: {integrity: sha512-HG2DFjYKbpNmVXsa0keLHp/3leGJz1mjh09f2RLGGLQZzSHpkmZWuwJbAvo3QcRY8p80m5+ZdXZdYOSBLlp7Cg==}
     peerDependencies:
       '@redis/client': ^1.0.0
     dependencies:
-      '@redis/client': 1.5.6
+      '@redis/client': 1.5.16
     dev: false
 
-  /@redis/client@1.5.6:
-    resolution: {integrity: sha512-dFD1S6je+A47Lj22jN/upVU2fj4huR7S9APd7/ziUXsIXDL+11GPYti4Suv5y8FuXaN+0ZG4JF+y1houEJ7ToA==}
+  /@redis/client@1.5.16:
+    resolution: {integrity: sha512-X1a3xQ5kEMvTib5fBrHKh6Y+pXbeKXqziYuxOUo1ojQNECg4M5Etd1qqyhMap+lFUOAh8S7UYevgJHOm4A+NOg==}
     engines: {node: '>=14'}
     dependencies:
       cluster-key-slot: 1.1.2
@@ -723,36 +723,36 @@ packages:
       yallist: 4.0.0
     dev: false
 
-  /@redis/graph@1.1.0(@redis/client@1.5.6):
-    resolution: {integrity: sha512-16yZWngxyXPd+MJxeSr0dqh2AIOi8j9yXKcKCwVaKDbH3HTuETpDVPcLujhFYVPtYrngSco31BUcSa9TH31Gqg==}
+  /@redis/graph@1.1.1(@redis/client@1.5.16):
+    resolution: {integrity: sha512-FEMTcTHZozZciLRl6GiiIB4zGm5z5F3F6a6FZCyrfxdKOhFlGkiAqlexWMBzCi4DcRoyiOsuLfW+cjlGWyExOw==}
     peerDependencies:
       '@redis/client': ^1.0.0
     dependencies:
-      '@redis/client': 1.5.6
+      '@redis/client': 1.5.16
     dev: false
 
-  /@redis/json@1.0.4(@redis/client@1.5.6):
-    resolution: {integrity: sha512-LUZE2Gdrhg0Rx7AN+cZkb1e6HjoSKaeeW8rYnt89Tly13GBI5eP4CwDVr+MY8BAYfCg4/N15OUrtLoona9uSgw==}
+  /@redis/json@1.0.6(@redis/client@1.5.16):
+    resolution: {integrity: sha512-rcZO3bfQbm2zPRpqo82XbW8zg4G/w4W3tI7X8Mqleq9goQjAGLL7q/1n1ZX4dXEAmORVZ4s1+uKLaUOg7LrUhw==}
     peerDependencies:
       '@redis/client': ^1.0.0
     dependencies:
-      '@redis/client': 1.5.6
+      '@redis/client': 1.5.16
     dev: false
 
-  /@redis/search@1.1.2(@redis/client@1.5.6):
-    resolution: {integrity: sha512-/cMfstG/fOh/SsE+4/BQGeuH/JJloeWuH+qJzM8dbxuWvdWibWAOAHHCZTMPhV3xIlH4/cUEIA8OV5QnYpaVoA==}
+  /@redis/search@1.1.6(@redis/client@1.5.16):
+    resolution: {integrity: sha512-mZXCxbTYKBQ3M2lZnEddwEAks0Kc7nauire8q20oA0oA/LoA+E/b5Y5KZn232ztPb1FkIGqo12vh3Lf+Vw5iTw==}
     peerDependencies:
       '@redis/client': ^1.0.0
     dependencies:
-      '@redis/client': 1.5.6
+      '@redis/client': 1.5.16
     dev: false
 
-  /@redis/time-series@1.0.4(@redis/client@1.5.6):
-    resolution: {integrity: sha512-ThUIgo2U/g7cCuZavucQTQzA9g9JbDDY2f64u3AbAoz/8vE2lt2U37LamDUVChhaDA3IRT9R6VvJwqnUfTJzng==}
+  /@redis/time-series@1.0.5(@redis/client@1.5.16):
+    resolution: {integrity: sha512-IFjIgTusQym2B5IZJG3XKr5llka7ey84fw/NOYqESP5WUfQs9zz1ww/9+qoz4ka/S6KcGBodzlCeZ5UImKbscg==}
     peerDependencies:
       '@redis/client': ^1.0.0
     dependencies:
-      '@redis/client': 1.5.6
+      '@redis/client': 1.5.16
     dev: false
 
   /@smithy/abort-controller@3.0.0:
@@ -2943,15 +2943,15 @@ packages:
       redis-parser: 2.6.0
     dev: false
 
-  /redis@4.6.5:
-    resolution: {integrity: sha512-O0OWA36gDQbswOdUuAhRL6mTZpHFN525HlgZgDaVNgCJIAZR3ya06NTESb0R+TUZ+BFaDpz6NnnVvoMx9meUFg==}
+  /redis@4.6.14:
+    resolution: {integrity: sha512-GrNg/e33HtsQwNXL7kJT+iNFPSwE1IPmd7wzV3j4f2z0EYxZfZE7FVTmUysgAtqQQtg5NXF5SNLR9OdO/UHOfw==}
     dependencies:
-      '@redis/bloom': 1.2.0(@redis/client@1.5.6)
-      '@redis/client': 1.5.6
-      '@redis/graph': 1.1.0(@redis/client@1.5.6)
-      '@redis/json': 1.0.4(@redis/client@1.5.6)
-      '@redis/search': 1.1.2(@redis/client@1.5.6)
-      '@redis/time-series': 1.0.4(@redis/client@1.5.6)
+      '@redis/bloom': 1.2.0(@redis/client@1.5.16)
+      '@redis/client': 1.5.16
+      '@redis/graph': 1.1.1(@redis/client@1.5.16)
+      '@redis/json': 1.0.6(@redis/client@1.5.16)
+      '@redis/search': 1.1.6(@redis/client@1.5.16)
+      '@redis/time-series': 1.0.5(@redis/client@1.5.16)
     dev: false
 
   /request@2.88.2:
