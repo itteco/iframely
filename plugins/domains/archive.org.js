@@ -108,18 +108,23 @@ export default {
 
     },
 
-    tests: [{
-        page: "https://archive.org/details/audio_tech?&sort=-downloads&page=2",
-        selector: ".item-ttl>a"
-    },
+    tests: [
+        // player
         "https://archive.org/details/Podcast8.23GoethesIronicMephistopheles1700s1800s",
-        "https://archive.org/details/TheInternetArchivistsFinalCutBoostedSound",
         "https://archive.org/details/um2000-09-01.shnf",
+        "https://archive.org/details/MLKDream",
+        "https://archive.org/details/movie-time-jodorowskys-dune-2013",
+
+        "https://archive.org/details/TheInternetArchivistsFinalCutBoostedSound",
         "https://archive.org/details/ChronoTrigger_456",
         "https://archive.org/details/YourFami1948",
-        "https://archive.org/details/MLKDream",
-        "https://archive.org/details/galaxymagazine-1950-10",
-        "https://archive.org/details/mma_selfportrait_with_a_straw_hat_obverse_the_potato_peeler_436532",
+        // reader
         "https://archive.org/details/IbnIshaq-SiratuRasulAllah-translatorA.Guillaume",
+        "https://archive.org/details/galaxymagazine-1950-10",
+        "https://archive.org/details/wessextales0000thom_z1o2/page/n9/mode/2up",
+        // image
+        "https://archive.org/details/mma_selfportrait_with_a_straw_hat_obverse_the_potato_peeler_436532",
+        "https://archive.org/details/propix.SIL08-09434-a",
+        "https://archive.org/details/harley-davidson-x440-crash-guard"
     ]
 };
