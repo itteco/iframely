@@ -8,6 +8,8 @@ export default {
 
         if (/\?/i.test(url)) {
             var query = URL.parse(url, true).query;
+            var query_ = query['_'];
+
             // validate and apply boolean 
             for (const key in query) {
                 if (query[key] === "true") {
@@ -18,6 +20,14 @@ export default {
                     try {
                         query[key] = parseInt(query[key]);
                     } catch (ex) {}
+                }
+
+                // Put all _... parameters into a "_" object
+                if (key.startsWith('_') && !query_) {
+                    if (!query['_']) {
+                        query['_'] = {}
+                    }
+                    query._[key.replace("_", "")] = query[key]
                 }
             }
             return {
