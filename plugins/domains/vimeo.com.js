@@ -26,8 +26,12 @@ export default {
 
     getLink: function(oembed, options) {
         var iframe = oembed.getIframe();
+        const query = options.getQueryOptions();
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
+        if (query) {
+            params = {...params, ...query};
+        }
 
         if (options.getProviderOptions('players.showinfo', false)) {
             params.title = 1;
@@ -43,7 +47,7 @@ export default {
             texttrack = '';
         }
 
-        // https://developers.google.com/youtube/player_parameters#controls
+        // https://developer.vimeo.com/api/oembed/videos
         var controls = options.getRequestOptions('vimeo.controls', params.controls);
         if (controls == 0) {
             params.controls = false;

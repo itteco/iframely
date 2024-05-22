@@ -8,6 +8,8 @@ export default {
 
         if (/\?/i.test(url)) {
             var query = URL.parse(url, true).query;
+            var query_ = query['_'];
+
             // validate and apply boolean 
             for (const key in query) {
                 if (query[key] === "true") {
