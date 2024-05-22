@@ -21,14 +21,6 @@ export default {
                         query[key] = parseInt(query[key]);
                     } catch (ex) {}
                 }
-
-                // Put all _... parameters into a "_" object
-                if (key.startsWith('_') && !query_) {
-                    if (!query['_']) {
-                        query['_'] = {}
-                    }
-                    query._[key.replace("_", "")] = query[key]
-                }
             }
             return {
                 query: query
