@@ -14,8 +14,7 @@ export default {
         "oembed-duration",
         "oembed-site",
         "oembed-description",
-        "domain-icon",
-        "query"
+        "domain-icon"
     ],
 
     getMeta: function(oembed) {
@@ -25,12 +24,13 @@ export default {
         };
     },
 
-    getLink: function(oembed, query, options) {
+    getLink: function(oembed, options) {
         var iframe = oembed.getIframe();
+        const query = options.getQueryOptions();
 
         var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
-        if (query._) {
-            params = {...params, ...query._};
+        if (query) {
+            params = {...params, ...query};
         }
 
         if (options.getProviderOptions('players.showinfo', false)) {
