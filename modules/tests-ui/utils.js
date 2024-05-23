@@ -325,12 +325,15 @@ export function fetchUrlsByPageOnFeed(pageWithFeed, otpions, cb) {
 
                 feeds = alternate.filter(function(o) {
                     return o.href && (o.type == "application/atom+xml" || o.type == "application/rss+xml");
-                });
+                }).map(i => i.href);
+            } else if (meta['rss-feed']) {
+                // Used on `ted.com`.
+                feeds = [meta['rss-feed']];
             }
 
             if (feeds && feeds.length > 0) {
 
-                cb(null, feeds[0].href, otpions);
+                cb(null, feeds[0], otpions);
 
             } else {
                 cb("No feeds found on " + pageWithFeed);

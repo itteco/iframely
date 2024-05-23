@@ -2,9 +2,8 @@
     import mongoose from 'mongoose';
     import CONFIG from '../../config.loader.js';
 
-    mongoose.set('useUnifiedTopology', true);
-    mongoose.set('useCreateIndex', true);
-    mongoose.set('useNewUrlParser', true);
+    mongoose.set('strictQuery', false);
+
     if (global.Promise) {
         mongoose.Promise = global.Promise;
     }
