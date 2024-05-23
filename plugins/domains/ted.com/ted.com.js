@@ -156,8 +156,7 @@ export default {
     },
 
     tests: [{
-        page: "https://www.ted.com/talks",
-        selector: "[data-testid='TalkGrid Talk Item']"
+        pageWithFeed: "https://www.ted.com"
     }, {skipMethods: ['getData']}, {skipMixins: ['embedurl', 'og-title']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
