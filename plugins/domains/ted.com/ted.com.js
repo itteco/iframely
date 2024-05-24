@@ -160,7 +160,7 @@ export default {
     },
 
     tests: [{
-        pageWithFeed: "https://www.ted.com/talks"
+        pageWithFeed: "https://www.ted.com"
     },
         {skipMethods: ['getData']}, {skipMixins: ['embedurl', 'og-title']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
