@@ -15,8 +15,10 @@ export default {
     ],
 
     getMeta: function(twitter) {
-        return {
-            author: twitter.creator && twitter.creator.replace(/^@/, '')
+        if (typeof twitter.creator === "string") {
+            return {
+                author: twitter.creator.replace(/^@/, '')
+            }
         }
     },
 
@@ -102,8 +104,8 @@ export default {
     }, {
         skipMethods: ["getData"]
     },
-        "http://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
-        "http://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E",
+        "https://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
+        "https://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E",
         "https://giphy.com/gifs/nfl-super-bowl-nfl-sb-U7zS2FJTC8xclBzGVu",
         "https://giphy.com/videos/kehlani-open-passionate-kBMPSpmc4vbIc3h7Zo",
         "https://giphy.com/gifs/dancing-happy-seinfeld-BlVnrxJgTGsUw", // this one was broken and excluded via `!twitter.image.url`
