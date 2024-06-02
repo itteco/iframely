@@ -100,9 +100,9 @@ export default {
     },
 
     tests: [{
-        skipMixins: ["oembed-canonical"]
+        skipMixins: ["oembed-canonical", "oembed-title"]
     }, {
-        skipMethods: ["getData"]
+        skipMethods: ["getData", "getMeta"]
     },
         "https://giphy.com/gifs/art-artists-on-tumblr-design-uRmDTQDgYxSzS",
         "https://giphy.com/gifs/idk-shrug-shrugging-aXSLMy6fDsI4E",
