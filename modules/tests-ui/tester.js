@@ -614,7 +614,11 @@ function testAll(cb) {
                     function loadPluginTests(cb) {
                         PluginTest.find({
                             obsolete: false
-                        }, {}, {}, cb);
+                        })
+                        .then(data => {
+                            cb(null, data);
+                        })
+                        .catch(cb);
                     },
 
                     function filterAndSort(pluginTests, cb) {
