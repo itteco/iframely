@@ -70,7 +70,10 @@ export default {
 
     tests: [{
         page: "https://www.slideshare.net/explore",
-        selector: ".slideshow-card a.bg-img-container"
+        selector: ".slideshow-card a.bg-img-container",
+        getUrl: function(url) {
+            return /^https:\/\/www\.slideshare\.net\/[^\/]+\/[^\/]+\-\d+/i.test(url);
+        }        
     }, {skipMethods: ["getData"]},
         "https://www.slideshare.net/DataReportal/digital-2020-global-digital-overview-january-2020-v01-226017535",
         "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562"
