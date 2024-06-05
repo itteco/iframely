@@ -136,7 +136,11 @@ export function loadPluginTests(cb) {
                 sort:{
                     _id: 1
                 }
-            }, cb);
+            })
+                .then(data => {
+                    cb(null, data);
+                })
+                .catch(cb);
         },
 
         function loadTestSets(_pluginTests, cb) {
@@ -156,7 +160,11 @@ export function loadPluginTests(cb) {
                             sort: {
                                 created_at: -1
                             }
-                        }, cb);
+                        })
+                            .then(data => {
+                                cb(null, data);
+                            })
+                            .catch(cb);
                     },
 
                     function(_testUrlSet, cb) {
@@ -164,7 +172,11 @@ export function loadPluginTests(cb) {
                         if (testUrlSet) {
                             PageTestLog.find({
                                 test_set: testUrlSet._id
-                            }, cb)
+                            })
+                                .then(data => {
+                                    cb(null, data);
+                                })
+                                .catch(cb);
                         } else {
                             cb(null, null);
                         }
