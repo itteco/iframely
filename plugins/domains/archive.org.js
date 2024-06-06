@@ -125,6 +125,6 @@ export default {
         // image
         "https://archive.org/details/mma_selfportrait_with_a_straw_hat_obverse_the_potato_peeler_436532",
         "https://archive.org/details/propix.SIL08-09434-a",
-        "https://archive.org/details/harley-davidson-x440-crash-guard"
+        "https://archive.org/details/mma_albert_einstein_270714"
     ]
 };

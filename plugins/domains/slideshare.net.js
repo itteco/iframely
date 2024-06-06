@@ -44,7 +44,7 @@ export default {
                         }, {
                             href: iframe.src,
                             type: CONFIG.T.text_html,
-                            rel: [aspect > 1 ? CONFIG.R.player : CONFIG.R.reader, CONFIG.R.slideshow],
+                            rel: aspect > 1 ? [CONFIG.R.player, CONFIG.R.slideshow] : CONFIG.R.reader,
                             "aspect-ratio": aspect,
                             "padding-bottom": 58
                         }
@@ -59,23 +59,23 @@ export default {
     },
 
     getData: function(url, oembedError) {
-
         if (/^https?:\/\/(?:www\.)?slideshare\.net\/secret\//i.test(url) /* && oembedError */) {
             return {
                 message: 'This content has been marked as private by the uploader.'
             }
         }
-
     },
 
     tests: [{
         page: "https://www.slideshare.net/explore",
         selector: ".slideshow-card a.bg-img-container",
         getUrl: function(url) {
-            return /^https:\/\/www\.slideshare\.net\/[^\/]+\/[^\/]+\-\d+/i.test(url);
-        }        
+            return /^https:\/\/\w+\.slideshare\.net\/[^\/]+\/[^\/]+\-\d+/i.test(url);
+        }
     }, {skipMethods: ["getData"]},
         "https://www.slideshare.net/DataReportal/digital-2020-global-digital-overview-january-2020-v01-226017535",
-        "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562"
+        "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562",
+        "https://www.slideshare.net/DILGNaga/participatory-situational-analysispptx",
+        "https://www.slideshare.net/cbo/dynamic-scoring-at-cbo-53071719"
     ]
 };

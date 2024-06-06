@@ -192,7 +192,7 @@
     {
         "name": "SlideShare",
         "templates": [
-            "\\w+\\.slideshare\\.net/.+/.*"
+            "\\w+\\.slideshare\\.net/(?!slideshow).+/.*"
         ],
         "endpoint": "https://www.slideshare.net/api/oembed/2"
     },
