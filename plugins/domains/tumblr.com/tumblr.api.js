@@ -68,6 +68,13 @@ export default {
             return;
         }
 
+        console.log('-- tumblr.api', {
+            uri: "https://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
+            qs: {
+                api_key: consumer_key,
+                id: urlMatch[3]
+            }});
+
         request({
             uri: "https://api.tumblr.com/v2/blog/" + urlMatch[1] + "/posts",
             qs: {
