@@ -114,9 +114,14 @@ export default {
 
         var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl;
         if (contentURL) {
+            var accept = ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
+            if (whitelistRecord.isAllowed('html-meta.embedURL', 'accept')) {
+                accept.push(CONFIG.T.text_html);
+            }
+            
             links.push({
                 href: contentURL,
-                accept: ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl], // detects and validates mime type
+                accept: accept, // detects and validates mime type
                 rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
                 'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
             });
