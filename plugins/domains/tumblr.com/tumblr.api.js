@@ -77,8 +77,6 @@ export default {
             json: true,
             prepareResult: function (error, response, body, cb) {
 
-                console.log('-- tumblr api', body)
-
                 if (error || body.errors) {
                     return cb(error || body.errors || 'There was a Tumblr API error');
                 }
