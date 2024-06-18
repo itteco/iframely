@@ -13,7 +13,7 @@
         app.get('/tests/run/:plugin', function(req, res, next) {
 
             if (req.params.plugin == "all") {
-                PluginTest.update({}, {
+                PluginTest.updateMany({}, {
                     $set: {
                         last_test_started_at: null
                     }
@@ -22,9 +22,12 @@
                     multi: true
                 }, function(error) {
                     if (error) {
-                        console.error('Error restarting all tests', error);
+                        
                     }
-                });
+                })
+                    .catch(error => {
+                        console.error('Error restarting all tests', error);
+                    });
                 return res.redirect('/tests');
             }
 
@@ -45,7 +48,11 @@
             async.waterfall([
 
                 function loadProgress(cb) {
-                    TestingProgress.findById(1, cb);
+                    TestingProgress.findById(1)
+                        .then(data => {
+                            cb(null, data);
+                        })
+                        .catch(cb);
                 },
 
                 function loadPluginTests(_progress, cb) {

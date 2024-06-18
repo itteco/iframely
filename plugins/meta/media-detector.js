@@ -10,8 +10,14 @@ export default {
             
             return {
                 medium: 'video'
-            }           
+            }
         }
+
+        if (meta.og && (/music\.song/i.test(meta.og.type) || meta.og.audio)) {
+            return {
+                medium: 'audio'
+            }           
+        }        
 
         var has_thumbnail = (meta.og && meta.og.image) || (meta.twitter && meta.twitter.image);
 

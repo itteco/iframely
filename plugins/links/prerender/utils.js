@@ -10,7 +10,7 @@ export default {
             || meta.og && !meta.og.title && title && meta.og.site_name === title; // e.g. Medium
 
         return maybeApp
-            || meta['prerender-status-code'] 
+            || meta['prerender-status-code'] && !meta.og && !meta.twitter && !meta.ld
             || /{{.+}}/.test(title) // eg. https://uwaterloo.ca/canadian-design-workshop/
     }
 };

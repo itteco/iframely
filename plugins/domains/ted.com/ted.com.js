@@ -2,7 +2,7 @@ import * as URL from 'url';
 
 export default {
 
-    re: /^https?:\/\/(?:www\.)?ted\.com\/talks\//i,
+    re: /^https?:\/\/(?:www\.)?ted\.com\/(?:talks|dubbing)\//i,
 
     provides: [
         "oembedLinks",
@@ -99,10 +99,14 @@ export default {
             oembedLang = Object.keys(availableLanguages)[0];
         }
 
+        // https://blog.ted.com/announcing-ai-adapted-multilingual-ted-talks/
+        // /dubbing/ URIs return 404 in TED's oEmbed as of May 24, 2024
+        const uri = (meta.canonical || url).replace(/\/dubbing\//i, "/talks/"); 
+
         let data = {
             oembedLinks: [{
                 href: 'https://www.ted.com/services/v1/oembed.json?url=' 
-                    + encodeURIComponent(meta.canonical || url)
+                    + encodeURIComponent(uri)
                     + (oembedLang !== '' ? '&language=' + oembedLang : ''),
                 rel: 'alternate',
                 type: 'application/json+oembed'
@@ -157,12 +161,14 @@ export default {
 
     tests: [{
         pageWithFeed: "https://www.ted.com"
-    }, {skipMethods: ['getData']}, {skipMixins: ['embedurl', 'og-title']},
+    },
+        {skipMethods: ['getData']}, {skipMixins: ['embedurl', 'og-title']},
         "https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city",
         "https://www.ted.com/talks/neha_narula_the_future_of_money?language=zh-TW",
         "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration",
         "https://www.ted.com/talks/lera_boroditsky_how_language_shapes_the_way_we_think",
         "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau?language=fr", // test with &&_language=-
+        "https://www.ted.com/dubbing/lera_boroditsky_how_language_shapes_the_way_we_think?language=en&audio=en",        
 
         // Should work, but let's skip from tests not to avoid all oembed-* mixins
         // "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",

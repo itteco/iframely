@@ -7,10 +7,8 @@ function getVideoLinks(video, whitelistRecord) {
     var height = whitelistRecord.isAllowed('og.video', 'rotate') ?  video.width : video.height;
     var accept = ['video/*', 'audio/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
 
-    if (whitelistRecord.isAllowed('og.video', 'html5')) {
-        accept.push (CONFIG.T.text_html);
-    } else if (!whitelistRecord.isDefault) {
-        accept.push (CONFIG.T.text_html);
+    if (!whitelistRecord.isDefault) {
+        accept.push(CONFIG.T.text_html);
     }
 
     var players = [];

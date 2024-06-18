@@ -2,12 +2,6 @@
     import mongoose from 'mongoose';
     import CONFIG from '../../config.loader.js';
 
-    mongoose.set('strictQuery', false);
-
-    if (global.Promise) {
-        mongoose.Promise = global.Promise;
-    }
-
     const db = mongoose.createConnection(CONFIG.tests.mongodb);
 
     var Schema = mongoose.Schema;
@@ -38,7 +32,7 @@
 
     TestingProgressSchema.methods.getPercent = function() {
 
-        if (this.total_plugins_count == this.total_plugins_count) {
+        if (this.tested_plugins_count === this.total_plugins_count) {
             return 100;
         } else if (this.total_plugins_count && this.total_plugins_count > 0) {
             var p = this.tested_plugins_count / this.total_plugins_count;
