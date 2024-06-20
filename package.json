@@ -60,9 +60,10 @@
     "iframely-proxy-plugins": true,
     "main": "./lib/core.js",
     "scripts": {
-        "test": "npm run test-core-plugins && npm run test-e2e",
+        "test": "npm run test-core-plugins && npm run test-e2e && npm run custom_plugins",
         "test-core-plugins": "mocha --exit test/core-plugins.js",
-        "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js"
+        "test-e2e": "NODE_ENV=test PORT=8080 mocha --exit test/e2e.js",
+        "custom_plugins": "NODE_ENV=test_with_custom_plugins PORT=8080 mocha --exit test/custom_plugins.js"
     },
     "engines": {
         "node": ">=14.0"
