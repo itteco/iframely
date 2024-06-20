@@ -21,4 +21,4 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Running tests
-        run: npm run test-core-plugins
+        run: npm test

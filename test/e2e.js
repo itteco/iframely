@@ -12,7 +12,7 @@ describe('meta endpoint', function() {
   var TARGET_MOCKED_SERVER_PORT = 9000;
   var TARGET_MOCKED_SERVER_BASEURL = 'http://127.0.0.1:' + TARGET_MOCKED_SERVER_PORT;
 
-  var targetMockedServer = new ServerMock({ host: 'localhost', port: TARGET_MOCKED_SERVER_PORT });
+  var targetMockedServer = new ServerMock({ host: '127.0.0.1', port: TARGET_MOCKED_SERVER_PORT });
   var server;
 
   beforeEach(function(done) {

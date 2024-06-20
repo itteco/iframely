@@ -28,7 +28,7 @@ export default {
                 && !CONFIG.KNOWN_VIDEO_SOURCES.test(url)) {
 
                 if (/^\/\//.test(video_src)) {
-                    video_src = 'http:' + video_src;
+                    video_src = 'https:' + video_src;
                 }
                 return {
                     video_src: video_src
