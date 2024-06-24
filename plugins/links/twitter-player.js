@@ -22,6 +22,10 @@ export default {
                 player.autoplay = whitelistRecord.twitter['player-autoplay'];
             }
 
+            if (!whitelistRecord.isAllowed('twitter.player', 'iframely')) {
+                player.rel.push(CONFIG.R.iframely); // Allows player = canonical
+            }
+
             return player;
         }
     }
