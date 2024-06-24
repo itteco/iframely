@@ -169,6 +169,13 @@
         "endpoint": "https://www.youtube.com/oembed?format={format}&url={url}"
     },
     {
+        "name": "YouTube Shorts",
+        "templates": [
+            "www\\.youtube\\.com/shorts/([a-zA-Z0-9_-]+)"
+        ],
+        "endpoint": "https://www.youtube.com/oembed"
+    },    
+    {
         "name": "YouTube Playlist",
         "templates": [
             "www\\.youtube\\.com/playlist"
