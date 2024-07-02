@@ -358,7 +358,15 @@
             "twitter.status": {}
         },
 
-        LOG_DATE_FORMAT: "\\[YY-MM-DD HH:mm:ss\\]:"
+        LOG_DATE_FORMAT: "\\[YY-MM-DD HH:mm:ss\\]:",
+
+        ERRORS_TO_RETRY: [
+            'ECONN',
+            'EAI_AGAIN',
+            'ENET',
+            'HPE_INVALID_',
+            'ERR_SSL_'
+        ]
     };
 
     // Providers config loader.
