@@ -90,12 +90,12 @@ export default {
         // Filter empty.
         rels = rels.filter(i => i);
 
-        var isAllowedApp = whitelistRecord.isAllowed('html-meta.iframely') // New check.
+        var isAllowed = whitelistRecord.isAllowed('html-meta.iframely') // New check.
                         || whitelistRecord.isAllowed('iframely.app');   // Old check
 
         // If no additional rels specified, try add 'app'.
         if (!rels.some(rel => CONFIG.REL_GROUPS && CONFIG.REL_GROUPS.includes(rel))) {
-            if (isAllowedApp
+            if (isAllowed
                 && /iframely/i.test(key)
                 || (appname && key.indexOf(appname) === 0)) {
                 // Allow <link rel="iframely" ....
@@ -127,7 +127,7 @@ export default {
             var tags = whitelistRecord.getQATags(rels);
             var isAllowedByRels = tags.indexOf('allow') > -1;
 
-            if (!isAllowedApp && !isAllowedByRels) {
+            if (!isAllowed && !isAllowedByRels) {
                 return [];
             }
 
