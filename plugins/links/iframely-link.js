@@ -16,7 +16,7 @@ export default {
         }
 
         for (const [key, value] of Object.entries(meta)) {
-            if (key.indexOf(appname) === 0 || !ignoreIframely && key.indexOf(CONFIG.R.iframely) === 0) {
+            if (key.indexOf(appname) === 0 || (!ignoreIframely && key.indexOf(CONFIG.R.iframely) === 0)) {
                 links = links.concat(
                     utils.parseMetaLinks(
                         key, 

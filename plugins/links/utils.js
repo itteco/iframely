@@ -90,8 +90,12 @@ export default {
         // Filter empty.
         rels = rels.filter(i => i);
 
+        var isAllowedApp = whitelistRecord.isAllowed('html-meta.iframely') // New check.
+                        || whitelistRecord.isAllowed('iframely.app');   // Old check
+
+        // If no additional rels specified, try add 'app'.
         if (!rels.some(rel => CONFIG.REL_GROUPS && CONFIG.REL_GROUPS.includes(rel))) {
-            if (whitelistRecord.isAllowed('iframely.app') 
+            if (isAllowedApp
                 && /iframely/i.test(key)
                 || (appname && key.indexOf(appname) === 0)) {
                 // Allow <link rel="iframely" ....
@@ -121,8 +125,15 @@ export default {
         // Apply whitelist except for thumbnails.
         if (rels.indexOf(CONFIG.R.thumbnail) === -1 && rels.indexOf(CONFIG.R.icon) === -1 && rels.indexOf(CONFIG.R.logo) === -1) {
             var tags = whitelistRecord.getQATags(rels);
-            if (tags.indexOf('allow') === -1) {
+            var isAllowedByRels = tags.indexOf('allow') > -1;
+
+            if (!isAllowedApp && !isAllowedByRels) {
                 return [];
+            }
+
+            // Add resizable rel.
+            if (rels.indexOf(CONFIG.R.resizable) === -1 && whitelistRecord.isAllowed('html-meta.iframely', CONFIG.R.resizable)) {
+                rels.push(CONFIG.R.resizable);
             }
         }
 
