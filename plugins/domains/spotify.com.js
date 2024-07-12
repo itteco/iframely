@@ -14,13 +14,14 @@ export default {
 
     getMeta: function(meta) {
         return {
-            date: meta.music && meta.music.release_date,
-            author: meta.twitter && meta.twitter.audio && meta.twitter.audio.artist_name,
-            author_url: meta.music && meta.music.musician,
-            duration: meta.music && meta.music.duration,
-            description: meta.og && meta.og.description,
-            canonical: meta.og && meta.og.url,
-            site: meta.og && meta.og.site_name || 'Spotify'
+            title: meta.og?.title || meta.twitter?.title, //oembed.title is subpar for audiobooks
+            date: meta.music?.release_date,
+            author: meta.twitter?.audio?.artist_name,
+            author_url: meta.music?.musician,
+            duration: meta.music?.duration,
+            description: meta.og?.description || meta.twitter?.description,
+            canonical: meta.og?.url,
+            site: meta.og?.site_name || 'Spotify'
         }
     },
 
@@ -95,7 +96,7 @@ export default {
         }
     },    
 
-    tests: [{noFeeds: true}, {skipMethods: ["getData"], skipMixins: ["oembed-iframe", "oembed-thumbnail", "og-image"]},
+    tests: [{noFeeds: true}, {skipMethods: ["getData"], skipMixins: ["oembed-iframe", "oembed-thumbnail", "og-image", "oembed-title"]},
         "https://open.spotify.com/playlist/44CgBWWr6nlpy7bdZS8ZmN",
         "http://open.spotify.com/track/6ol4ZSifr7r3Lb2a9L5ZAB",
         "https://open.spotify.com/playlist/4SsKyjaGlrHJbRCQwpeUsz",
