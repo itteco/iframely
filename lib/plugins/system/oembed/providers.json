@@ -1094,5 +1094,12 @@
         ],
         "endpoint": "https://display.apester.com/oembed/",
         "url": "https://renderer.apester.com/v2/{1}"
-    }
+    },
+    {
+        "name": "Bitchute",
+        "templates": [
+            "bitchute.com/video/*"
+        ],
+        "endpoint": "https://api.bitchute.com/oembed/"
+    }    
 ]
