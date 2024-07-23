@@ -12,6 +12,8 @@ export default {
         'facebook.video'
     ],
 
+    mixins: ['meta-fallback'],
+
     getLink: function(url, __allowFBThumbnail, options, meta) {
 
         var thumbnail = meta.twitter?.image
@@ -58,6 +60,8 @@ export default {
             && options.getProviderOptions('facebook.thumbnail', true) && !/comment_id=/.test(oembed.html)) {
 
             options.followHTTPRedirect = true; // avoid security re-directs of URLs if any
+            options.exposeStatusCode = true;
+            options.provider = 'Facebook';
 
             return {
                 __allowFBThumbnail: true
@@ -67,6 +71,7 @@ export default {
 
     tests: [{
         noFeeds: true,
-        skipMethods: ['getData', 'getLink']
+        skipMethods: ['getData', 'getLink'],
+        skipMixins: ['meta-fallback']
     }]
 };
