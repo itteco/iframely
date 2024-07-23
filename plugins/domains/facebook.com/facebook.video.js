@@ -17,12 +17,6 @@ export default {
 
     getLink: function(url, oembed, options) {
 
-        if (/^https:\/\/(?:www\.)?instagram\.com/i.test(oembed.author_url)) {
-            return {
-                message: "This video can't be embedded because it may contain content owned by someone else."
-            }
-        }
-
         var html = oembed.html.replace(/connect\.facebook\.net\/\w{2}_\w{2}\/sdk\.js/i, 
                 'connect.facebook.net/' + options.getProviderOptions('locale', 'en_US').replace('-', '_') + '/sdk.js'); 
 
