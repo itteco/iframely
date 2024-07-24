@@ -2,6 +2,11 @@ export default {
 
     provides: 'meta',
 
+    re: [
+        'facebook.post',
+        'facebook.video'
+    ],
+
     getData: function(url, __statusCode, options, cb) {
 
         return __statusCode !== 429 && __statusCode !== 403 &&__statusCode !== 508
@@ -12,7 +17,7 @@ export default {
 
             : cb(null, {
                 meta: {},
-                message: `${options.provider || 'Publisher'} is rate-limiting. Meta disabled.`
+                message: `Facebook is rate-limiting. Meta disabled.`
             })
     }
 };

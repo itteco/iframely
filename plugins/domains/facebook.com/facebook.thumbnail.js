@@ -12,7 +12,7 @@ export default {
         'facebook.video'
     ],
 
-    mixins: ['meta-fallback'],
+    mixins: ['facebook.meta-fallback'],
 
     getLink: function(url, __allowFBThumbnail, options, meta) {
 
@@ -72,6 +72,6 @@ export default {
     tests: [{
         noFeeds: true,
         skipMethods: ['getData', 'getLink'],
-        skipMixins: ['meta-fallback']
+        skipMixins: ['facebook.meta-fallback']
     }]
 };
