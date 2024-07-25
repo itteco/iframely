@@ -56,6 +56,7 @@ export default {
         "https://www.facebook.com/sugarandsoulco/videos/1484037581637646/?pnref=story",
         "https://www.facebook.com/watch/?v=235613163792499",
         "https://www.facebook.com/ScottishDailyExpress/videos/former-scottish-conservative-leader-ruth-davidson-opens-up-about-ivf-struggle-wi/1281761502607093/",
+        "https://www.facebook.com/reel/805139411583688",
         {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
 };
