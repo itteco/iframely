@@ -13,13 +13,17 @@ export default {
     ],
 
     getMeta: function(meta) {
+        var description = meta.og?.description || meta.twitter?.description;
+        if (description) {
+            description = description.replace('Podcast · [object Object] · ', '');
+        }
         return {
             title: meta.og?.title || meta.twitter?.title, //oembed.title is subpar for audiobooks
             date: meta.music?.release_date,
             author: meta.twitter?.audio?.artist_name,
             author_url: meta.music?.musician,
             duration: meta.music?.duration,
-            description: meta.og?.description || meta.twitter?.description,
+            description: description,
             canonical: meta.og?.url,
             site: meta.og?.site_name || 'Spotify'
         }
