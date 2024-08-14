@@ -8,11 +8,6 @@ export default {
 
     re: /^https?:\/\/www\.youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/i,
 
-    // The issue with EU consent redirect needs to be bypassed 
-    // by avoiding htmlparser-dependent plugins and mixins.
-
-    notPlugin: !CONFIG.providerOptions?.youtube?.fix_shorts_in_eu,
-
     mixins: [
         "domain-icon",
         "oembed-title",
