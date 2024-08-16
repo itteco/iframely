@@ -1,16 +1,16 @@
 export default {
 
     re: [
-        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?(.+)$/i
+        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?(?:.+)$/i
     ],
 
     mixins: ['*'],
 
-    getLink: function(urlMatch) {
+    getLink: function(url) {
         return {
-            href: 'https://www.google.com/calendar/embed?' + urlMatch[1] + '&via=iframely',
+            href: url,
             type: CONFIG.T.text_html,
-            rel: CONFIG.R.reader,
+            rel: [CONFIG.R.iframely, CONFIG.R.reader],
             "aspect-ratio": 800 / 600
         }
     },
