@@ -1,7 +1,7 @@
 export default {
 
     re: [
-        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?(?:.+)$/i
+        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/embed\/?\?(?:.+)$/i
     ],
 
     mixins: ['*'],
