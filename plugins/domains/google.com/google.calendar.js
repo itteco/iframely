@@ -1,14 +1,14 @@
 export default {
 
     re: [
-        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/embed\/?\?(?:.+)$/i
+        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?(?:.+)$/i
     ],
 
     mixins: ['*'],
 
     getLink: function(url) {
         return {
-            href: url,
+            href: url.replace(/\/u\/\d+\//, '/'),
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.iframely, CONFIG.R.reader],
             "aspect-ratio": 800 / 600
