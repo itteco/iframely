@@ -7,7 +7,6 @@ PUBLISHPORT := ${EXPOSEPORT}
 
 build:
 	git checkout main 
-	git pull --rebase upstream main
 	git branch -f tag-${VERSION}
 	git checkout tag-${VERSION}
 	docker \
