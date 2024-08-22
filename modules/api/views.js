@@ -133,7 +133,7 @@ export default function(app) {
                     debug: getBooleanParam(req, 'debug'),
                     returnProviderOptionsUsage: getBooleanParam(req, 'debug'),
                     mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
-                    forceParams: req.query.meta === "true" ? ["meta", "oembed"] : null,
+                    forceParams: req.query.meta === "true" ? CONFIG.DEBUG_CONTEXTS : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
                     readability: getBooleanParam(req, 'readability'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
