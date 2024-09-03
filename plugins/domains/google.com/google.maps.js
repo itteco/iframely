@@ -48,12 +48,9 @@ export default {
         "*",
     ],
 
-    getMeta: function(gmap) {
-        if (!/^place_id:/.test(gmap.q)) {
-            return {
-                title: (gmap.q && decodeURIComponent(gmap.q).replace (/\+/g, ' ').replace (/%20/g, ' ')) || gmap.center || "Google Maps",
-                site: "Google Maps"
-            }
+    getMeta: function() {
+        return {
+            site: "Google Maps"
         }
     },
 

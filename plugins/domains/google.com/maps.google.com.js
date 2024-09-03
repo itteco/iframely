@@ -24,6 +24,12 @@ export default {
         '*'
     ],
 
+    getMeta: function() {
+        return {
+            site: 'Google Maps'
+        }
+    },
+
     getLink: function(url, options) {
         url = URL.parse(url,true);
 
