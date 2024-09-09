@@ -172,6 +172,12 @@
         }
 
         $.support.cors = true;
+
+        if (!$.iframely.defaults.endpoint) {
+            console.warn('Set "$.iframely.defaults.endpoint" to make requests, e.g. "https://yourdomain.com/iframely".')
+            return;
+        }
+
         $.ajax({
             crossDomain: true,
             url: $.iframely.defaults.endpoint,
@@ -191,9 +197,7 @@
         });
     };
 
-    $.iframely.defaults = {
-        endpoint: "//iframely.com/iframely"
-    };
+    $.iframely.defaults = {};
 
     $.iframely.get = function(endpoint, query, cb) {
         $.ajax({
