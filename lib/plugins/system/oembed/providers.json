@@ -394,7 +394,7 @@
     {
         "name": "Spotify",
         "templates": [
-            "(?:open|embed|play)\\.spotify\\.com/(?:embed/)?([^\\?]*)\\??.*"
+            "(?:open|embed|play)\\.spotify\\.(?:link|com)/(?:embed/)?([^\\?]*)\\??.*"
         ],
         "url": "https://open.spotify.com/{1}",
         "endpoint": "https://open.spotify.com/oembed?url={url}&format={format}"
@@ -708,13 +708,6 @@
             "play.adpaths.com/experience/.*"
         ],
         "endpoint": "https://play.adpaths.com/oembed"
-    },
-    {
-        "name": "Avocode",
-        "templates": [
-            "app.avocode.com/view/.*"
-        ],
-        "endpoint": "https://stage-embed.avocode.com/api/oembed"
     },
     {
         "name": "DTube",
@@ -1101,5 +1094,51 @@
             "bitchute.com/video/*"
         ],
         "endpoint": "https://api.bitchute.com/oembed/"
-    }    
+    },
+    {
+        "name": "Nebula",
+        "templates": [
+            "nebula.tv/videos/*"
+        ],
+        "endpoint": "https://nebula.tv/api/oembed?url={url}"
+    },
+    {
+        "name": "SharedFile",
+        "templates": [
+            "shared-file-kappa.vercel.app/file/*"
+        ],
+        "endpoint": "https://shared-file-kappa.vercel.app/file/api/oembed?url={url}"
+    },
+    {
+        "name": "Insight Timer",
+        "templates": [
+            "insighttimer.com/*"
+        ],
+        "endpoint": "https://widgets.insighttimer.com/services/oembed?url={url}&maxwidth=300&maxheight=300"
+    },
+    {
+        "name": "Hopvue",
+        "templates": [
+            "(?:www|portal\\.)?hopvue.com/*"
+        ],
+        "endpoint": "https://portal.hopvue.com/api/oembed/?url={url}"
+    },
+    {
+        "name": "Tonic Audio",
+        "templates": [
+            "tnic.io/take/*",
+            "tnic.io/song/*",
+            "tonicaudio.com/song/*",
+            "tonicaudio.com/take/*"
+        ],
+        "endpoint": "https://tonicaudio.com/oembed"
+    },
+    {
+        "name": "Piggy",
+        "templates": [
+            "piggy.to/@*/*",
+            "piggy.to/view/*"
+        ],
+        "endpoint": "https://piggy.to/oembed"
+    }
 ]
