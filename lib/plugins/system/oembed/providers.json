@@ -394,7 +394,7 @@
     {
         "name": "Spotify",
         "templates": [
-            "(?:open|embed|play)\\.spotify\\.(?:link|com)/(?:embed/)?([^\\?]*)\\??.*",
+            "(?:open|embed|play)\\.spotify\\.com/(?:embed/)?([^\\?]*)\\??.*",
             "spotify\\.link/.*"
         ],
         "url": "https://open.spotify.com/{1}",
