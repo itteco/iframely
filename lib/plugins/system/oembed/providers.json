@@ -394,7 +394,8 @@
     {
         "name": "Spotify",
         "templates": [
-            "(?:open|embed|play)\\.spotify\\.(?:link|com)/(?:embed/)?([^\\?]*)\\??.*"
+            "(?:open|embed|play)\\.spotify\\.(?:link|com)/(?:embed/)?([^\\?]*)\\??.*",
+            "spotify\\.link/.*"
         ],
         "url": "https://open.spotify.com/{1}",
         "endpoint": "https://open.spotify.com/oembed?url={url}&format={format}"
@@ -1100,28 +1101,28 @@
         "templates": [
             "nebula.tv/videos/*"
         ],
-        "endpoint": "https://nebula.tv/api/oembed?url={url}"
+        "endpoint": "https://nebula.tv/api/oembed"
     },
     {
         "name": "SharedFile",
         "templates": [
             "shared-file-kappa.vercel.app/file/*"
         ],
-        "endpoint": "https://shared-file-kappa.vercel.app/file/api/oembed?url={url}"
+        "endpoint": "https://shared-file-kappa.vercel.app/file/api/oembed"
     },
     {
         "name": "Insight Timer",
         "templates": [
             "insighttimer.com/*"
         ],
-        "endpoint": "https://widgets.insighttimer.com/services/oembed?url={url}&maxwidth=300&maxheight=300"
+        "endpoint": "https://widgets.insighttimer.com/services/oembed"
     },
     {
         "name": "Hopvue",
         "templates": [
             "(?:www|portal\\.)?hopvue.com/*"
         ],
-        "endpoint": "https://portal.hopvue.com/api/oembed/?url={url}"
+        "endpoint": "https://portal.hopvue.com/api/oembed/"
     },
     {
         "name": "Tonic Audio",
