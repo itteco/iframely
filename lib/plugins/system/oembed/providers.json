@@ -1141,5 +1141,12 @@
             "piggy.to/view/*"
         ],
         "endpoint": "https://piggy.to/oembed"
+    },   
+    {
+        "name": "NDLA",
+        "templates": [
+            "ndla.no/*"
+        ],
+        "endpoint": "https://ndla.no/oembed"
     }
 ]
