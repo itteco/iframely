@@ -123,7 +123,8 @@ export default {
         "https://www.facebook.com/caboreytours/",
         {
             noFeeds: true,
-            skipMethods: ['getData']
+            skipMethods: ['getData'],
+            skipMixins: ['og-image']
         }
     ]
 };
