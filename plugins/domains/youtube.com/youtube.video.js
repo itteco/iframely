@@ -1,5 +1,4 @@
 import cheerio from 'cheerio';
-
 import * as querystring from 'querystring';
 
 export default {
@@ -216,6 +215,21 @@ export default {
             delete params.controls;
         }
 
+        // Support for direct links to YouTube clip embeds
+        if (/\/embed\/[^\?]+\?.*clip=.+clipt=.+/i.test(url)) {
+            var uri = url;
+            if (/&amp;/i.test(uri)) {
+                uri = url.replace(/&amp;/g, '&');
+            }
+
+            var query = querystring.parse(uri.match(/\?(.+)$/)[1]);
+
+            if (query.clip && query.clipt) {
+                params.clip = query.clip;
+                params.clipt = query.clipt;
+            }
+        }
+
         // Detect widescreen videos. YouTube API used to have issues with returing proper aspect-ratio.
         var widescreen = youtube_video_gdata.hd || (youtube_video_gdata.thumbnails && youtube_video_gdata.thumbnails.maxres != null);
         var rels = [CONFIG.R.player];
@@ -229,7 +243,7 @@ export default {
             var $iframe = $container.find('iframe');
 
             if (!widescreen && $iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
-                widescreen =  $iframe.attr('width') /  $iframe.attr('height') > 1.35;
+                widescreen =  $iframe.attr('width') / $iframe.attr('height') > 1.35;
             }
             if ($iframe.attr('allow')) {
                 rels = rels.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
@@ -287,7 +301,7 @@ export default {
                     width: youtube_video_gdata.thumbnails[def].width, 
                     height: youtube_video_gdata.thumbnails[def].height
                 });
-            }            
+            }
         });
 
         // But allow bigger image (with black stripes, sigh) for HD w/o maxresdefault to avoid 'tiny-only' thumbnail
@@ -308,8 +322,9 @@ export default {
     tests: [{
         noFeeds: true
     },
-        "http://www.youtube.com/watch?v=etDRmrB9Css",
-        "http://www.youtube.com/embed/Q_uaI28LGJk"
+        "http://www.youtube.com/watch?v=etDRmrB9Css", // 4:3
+        "https://www.youtube.com/embed/mDFBTdToRmw?rel=0",
+        "https://www.youtube.com/embed/yJpJ8REjvqo?si=-2PKj71d6RhnnCFU&amp;clip=UgkxvYwD1omSQWCDuoWYo6hHJjQzcLGbJqYi&amp;clipt=EPjgJhjg4ig" // sic! with &amp; - as the code is manually copied from YouTube
         // embeds disabled - https://www.youtube.com/watch?v=e58FeKOgsU8
     ]
 };
