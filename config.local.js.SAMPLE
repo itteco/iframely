@@ -256,7 +256,7 @@ export default {
         youtube: {
             // api_key: "INSERT YOUR VALUE",
             // parts: [ "snippet", "player" ], // list of fields you want to use in the request, in most cases you only need those two
-            get_params: "?rel=0&showinfo=1"     // https://developers.google.com/youtube/player_parameters,
+            get_params: "?rel=0&showinfo=1",     // https://developers.google.com/youtube/player_parameters,
             fix_shorts_in_eu: true              // Avoid consent redirect for EU servers
         },
         vimeo: {

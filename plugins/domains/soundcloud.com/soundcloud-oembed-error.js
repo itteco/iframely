@@ -2,17 +2,18 @@ export default {
 
     provides: ['__allow_soundcloud_meta', 'iframe'],
 
-    getData: function(oembedError, twitter, options, cb) {
-        if (oembedError === 403 && !options.getProviderOptions('soundcloud.disable_private', false) && twitter.player) {
+    getData: function(oembedError, twitter, options, plugins, cb) {
+        var disable_private = options.getProviderOptions('soundcloud.disable_private', false)
+        if (oembedError === 403 && !disable_private && twitter.player) {
             return cb(null, {
                 __allow_soundcloud_meta: true,
-                iframe: {
-                    src: twitter.player.value,
+                iframe: plugins['oembed'].getIframe({
+                    src: twitter.player.value?.replace('origin=twitter', 'origin=iframely'),
                     height: twitter.player.height
-                },
+                }),
                 message: "Contact support to disable private Soundcloud audio."
             });
-        } else if (oembedError === 403 && options.getProviderOptions('soundcloud.disable_private', false)) {
+        } else if (oembedError === 403 && disable_private) {
             return cb({
                 responseError: oembedError
             });
