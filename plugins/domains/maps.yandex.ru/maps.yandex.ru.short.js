@@ -3,7 +3,7 @@ export default {
     re: /^https:\/\/yandex\.ru\/maps\/-\//,
 
     mixins: [
-        "*"
+        // "*" //Captcha :\
     ],
 
     getLink: function(url) {
