@@ -22,7 +22,7 @@ export default {
 
 
         // or DailyMotion, e.g. Liberation, Le Point, L'Express
-        urlMatch = video_src.match(/^(?:https?:)?\/\/(?:www\.)?dailymotion\.com\/(?:swf|embed)?\/?video\/([_a-zA-Z0-9\-]+)/i)
+        urlMatch = video_src.match(/^(?:https?:)?\/\/(?:www\.)?dailymotion\.com\/(?:swf|embed|crawler)?\/?video\/([_a-zA-Z0-9\-]+)/i)
                 || video_src.match(/^(?:https?:)?\/\/(?:www\.)?dailymotion\.com\/swf\/([_a-zA-Z0-9\-]+)/i)
                 || video_src.match(/^(?:https?:)?\/\/dai.ly\/([_a-zA-Z0-9\-]+)/i) // e.g. Libération.fr
                 || video_src.match(/^https?:\/\/(?:geo\.)?dailymotion\.com\/player\.html\?video=([a-zA-Z0-9]+)/i);
