@@ -1104,13 +1104,6 @@
         "endpoint": "https://nebula.tv/api/oembed"
     },
     {
-        "name": "SharedFile",
-        "templates": [
-            "shared-file-kappa.vercel.app/file/*"
-        ],
-        "endpoint": "https://shared-file-kappa.vercel.app/file/api/oembed"
-    },
-    {
         "name": "Insight Timer",
         "templates": [
             "insighttimer.com/*"
