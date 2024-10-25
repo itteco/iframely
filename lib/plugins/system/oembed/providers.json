@@ -1145,8 +1145,8 @@
     {
         "name": "Everviz",
         "templates": [
-            "app.everviz.com/show/([a-zA-Z0-9]+)",
-            "app.everviz.com/embed/([a-zA-Z0-9]+)"
+            "app.everviz.com/show/([a-zA-Z0-9_\\-]+)",
+            "app.everviz.com/embed/([a-zA-Z0-9_\\-]+)"
         ],
         "endpoint": "https://api.everviz.com/oembed",
         "url": "https://app.everviz.com/embed/{1}/"
