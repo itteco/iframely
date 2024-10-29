@@ -10,13 +10,14 @@ export default {
         "oembed-thumbnail",
         "domain-icon",
         "og-description",
+        "og-image",
         "canonical",
         "oembed-iframe",
         "video"
     ],
 
     getLink: function (url, iframe, options) {
-        var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', '').replace(/^\?/, ''));
+        var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', 'mute=true').replace(/^\?/, ''));
 
         if (iframe.src && iframe.height) {
             var player = {
@@ -24,8 +25,7 @@ export default {
                 type: CONFIG.T.text_html,
                 "rel": [CONFIG.R.player, CONFIG.R.oembed],
                 "aspect-ratio": iframe.width / iframe.height,
-                scrolling: 'no',
-                autoplay: "autoplay=1"
+                autoplay: "mute=false"
             };
 
             // Do not replace direct link to custom players
@@ -70,7 +70,7 @@ export default {
             
         }
     }, {
-        skipMixins: ["video", "og-description", "canonical"],
+        skipMixins: ["video", "og-description", "og-image", "canonical"],
         skipMethods: ["getData"]
     },
         "https://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
