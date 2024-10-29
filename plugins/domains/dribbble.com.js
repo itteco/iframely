@@ -45,7 +45,7 @@ export default {
                 links.push({
                     href: twitter.player.value,
                     type: CONFIG.T.text_html,
-                    rel: [CONFIG.R.player, CONFIG.R.gifv],
+                    rel: CONFIG.R.player,
                     'aspect-ratio': twitter.player.width / twitter.player.height,
                 })
             }
