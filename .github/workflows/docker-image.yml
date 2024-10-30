@@ -12,15 +12,35 @@ jobs:
     build-main:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
-              name: Checkout repository
+            - name: Set up QEMU
+              uses: docker/setup-qemu-action@v3
 
-            - uses: pmorelli92/github-container-registry-build-push@2.2.1
-              name: Build and Publish latest service image
+            - name: Set up Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Login to Github Container Registry
+              uses: docker/login-action@v3
               with:
-                github-push-secret: ${{secrets.GITHUB_TOKEN}}
-                docker-image-name: iframely
-                docker-image-tag: latest
-                dockerfile-path: Dockerfile
-                build-context: .
-                build-only: false
+                registry: ghcr.io
+                username: ${{ github.repository_owner }}
+                password: ${{ github.token }}
+
+            - name: Generate Docker tags
+              uses: docker/metadata-action@v5
+              id: metadata
+              with:
+                images: ghcr.io/${{ github.repository }}
+                tags: |
+                  type=sha,format=long,prefix=
+                flavor: |
+                  latest=true
+
+            - name: Build and push
+              uses: docker/build-push-action@v5
+              with:
+                platforms: linux/amd64,linux/arm64
+                push: true
+                tags: ${{ steps.metadata.outputs.tags }}
+                labels: ${{ steps.metadata.outputs.labels }}
+                cache-from: type=gha
+                cache-to: type=gha,mode=max
