@@ -68,12 +68,11 @@ export default {
                     return cb(error);
                 }
 
-                if (data && data.items && data.items.length > 0) {
-
+                if (data?.items?.length > 0) {
                     var entry = data.items[0];
 
                     var duration = 0;
-                    var durationStr = entry.contentDetails && entry.contentDetails.duration;
+                    var durationStr = entry.contentDetails?.duration;
                     if (durationStr) {
                         var m = durationStr.match(/(\d+)S/);
                         if (m) {
@@ -91,22 +90,24 @@ export default {
 
                     var gdata = {
                         id: urlMatch[1],
-                        title: entry.snippet && entry.snippet.title,
-                        uploaded: entry.snippet && entry.snippet.publishedAt,
-                        uploader: entry.snippet && entry.snippet.channelTitle,
-                        channelId: entry.snippet && entry.snippet.channelId,
-                        description: entry.snippet && entry.snippet.description,
-                        likeCount: entry.statistics && entry.statistics.likeCount,
-                        dislikeCount: entry.statistics && entry.statistics.dislikeCount,
-                        viewCount: entry.statistics && entry.statistics.viewCount,
+                        title: entry.snippet?.title,
+                        uploaded: entry.snippet?.publishedAt,
+                        uploader: entry.snippet?.channelTitle,
+                        channelId: entry.snippet?.channelId,
+                        description: entry.snippet?.description,
+                        likeCount: entry.statistics?.likeCount,
+                        dislikeCount: entry.statistics?.dislikeCount,
+                        viewCount: entry.statistics?.viewCount,
 
-                        hd: entry.contentDetails && entry.contentDetails.definition === "hd",
-                        playerHtml: entry.player && entry.player.embedHtml,
+                        hd: entry.contentDetails?.definition === "hd",
+                        playerHtml: entry.player?.embedHtml,
                         embeddable: entry.status ? entry.status.embeddable : true,
-                        uploadStatus: entry.status && entry.status.uploadStatus
+                        uploadStatus: entry.status?.uploadStatus,
+                        status: entry.status,
+                        ytRating: entry.contentDetails?.contentRating?.ytRating
                     };
 
-                    if (entry.snippet && entry.snippet.thumbnails) {
+                    if (entry.snippet?.thumbnails) {
                         gdata.thumbnails = entry.snippet.thumbnails;
                     }
 
@@ -117,7 +118,7 @@ export default {
                     if (gdata.uploadStatus === "rejected") {
                         cb({
                             responseStatusCode: 410,
-                            message: "The video has been removed. Reason: " + (entry.status && entry.status.rejectionReason || 'not given')
+                            message: "The video has been removed. Reason: " + (entry.status?.rejectionReason || 'not given')
                         });
                     } else {
                         cb(null, {
@@ -146,6 +147,7 @@ export default {
             likes: youtube_video_gdata.likeCount,
             dislikes: youtube_video_gdata.dislikeCount,
             views: youtube_video_gdata.viewCount,
+            rating: youtube_video_gdata.ytRating === 'ytAgeRestricted' ? 'age-restricted': null,
             site: "YouTube",
             canonical: "https://www.youtube.com/watch?v=" + youtube_video_gdata.id,
             author_url: "https://www.youtube.com/" + (youtube_video_gdata.channelId  ? "channel/" + youtube_video_gdata.channelId : "user/" + youtube_video_gdata.uploader)
@@ -254,7 +256,7 @@ export default {
         var links = [];
         var aspect = widescreen ? 16 / 9 : 4 / 3;
 
-        if (youtube_video_gdata.embeddable) {
+        if (youtube_video_gdata.embeddable && youtube_video_gdata.ytRating !== 'ytAgeRestricted') {
 
             var qs = querystring.stringify(params);
             if (qs !== '') {qs = '?' + qs}
@@ -284,6 +286,8 @@ export default {
                     }
                 }
             }); 
+        } else if (youtube_video_gdata.ytRating === 'ytAgeRestricted') {
+            links.push({message: "This video is age-restricted and only available on YouTube"});
         } else {
             links.push({message: (youtube_video_gdata.uploader || "Uploader of this video") +  " disabled embedding on other sites."});
         }
