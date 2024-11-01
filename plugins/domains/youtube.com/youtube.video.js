@@ -204,7 +204,7 @@ export default {
         // https://developers.google.com/youtube/player_parameters#cc_load_policy
         var cc_load_policy = options.getRequestOptions('youtube.cc_load_policy', params.cc_load_policy);
         if (cc_load_policy) {
-            params.cc_load_policy = '1';
+            params.cc_load_policy = 1;
         } else if (params.cc_load_policy) {
             delete params.cc_load_policy;
         }
@@ -212,10 +212,22 @@ export default {
         // https://developers.google.com/youtube/player_parameters#controls
         var controls = options.getRequestOptions('youtube.controls', params.controls);
         if (controls == 0) {
-            params.controls = '0';
+            params.controls = 0;
         } else if (params.controls) {
             delete params.controls;
         }
+
+        // https://developers.google.com/youtube/player_parameters#loop
+        var loop = options.getRequestOptions('youtube.loop', params.loop);
+        if (loop) {
+            params.loop = 1;
+            // 'To loop a single video, set the loop parameter value to 1 and set the playlist parameter value to the same video ID'
+            if (!params.playlist) {
+                params.playlist = youtube_video_gdata.id;
+            }
+        } else if (params.loop) {
+            delete params.loop;
+        }        
 
         // Support for direct links to YouTube clip embeds
         if (/\/embed\/[^\?]+\?.*clip=.+clipt=.+/i.test(url)) {
