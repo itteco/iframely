@@ -14,11 +14,11 @@ export default {
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
     // https://www.documentcloud.org/help/api#oembed
 
-    getMeta: function(oembed, options) {
-        var title = options.getRequestOptions('documentcloud.title');
-        if (title && oembed.title) {
+    getMeta: function(og, options) {
+        var allowTitle = options.getRequestOptions('documentcloud.allowTitle');
+        if (allowTitle && og.title) {
             return {
-                title: oembed.title
+                title: og.title
             }
         }
     },
@@ -39,7 +39,7 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
-                var title = !!options.getRequestOptions('documentcloud.title', true);
+                var allowTitle = !!options.getRequestOptions('documentcloud.allowTitle');
 
                 try {
                     var iframe = oembed.getIframe();
@@ -61,9 +61,9 @@ export default {
                             label: CONFIG.L.page,
                             value: parseInt (page)
                         },
-                        title: {
+                        allowTitle: {
                             label: 'Show Title',
-                            value: title
+                            value: allowTitle
                         }
                     }
                 } catch (ex) {}
