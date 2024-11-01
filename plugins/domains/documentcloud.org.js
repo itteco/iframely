@@ -7,13 +7,21 @@ export default {
         "oembed-site",
         "canonical",
         "author",
-        "og-title",
         "og-image",
         "og-description"
     ],
 
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
     // https://www.documentcloud.org/help/api#oembed
+
+    getMeta: function(oembed, options) {
+        var title = options.getRequestOptions('documentcloud.title');
+        if (title && oembed.title) {
+            return {
+                title: oembed.title
+            }
+        }
+    },
 
     getLink: function(url, oembed, options) {
 
@@ -31,6 +39,7 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
+                var title = !!options.getRequestOptions('documentcloud.title', true);
 
                 try {
                     var iframe = oembed.getIframe();
@@ -51,6 +60,10 @@ export default {
                         page: {
                             label: CONFIG.L.page,
                             value: parseInt (page)
+                        },
+                        title: {
+                            label: 'Show Title',
+                            value: title
                         }
                     }
                 } catch (ex) {}
@@ -94,7 +107,6 @@ export default {
             'og-description',
             'author',
             'canonical',
-            'og-title',
             'og-image'
         ]},
         'https://www.documentcloud.org/documents/73991-day-three-documents',
