@@ -12,8 +12,6 @@ export default {
         'facebook.video'
     ],
 
-    mixins: ['facebook.meta-fallback'],
-
     getLink: function(url, __allowFBThumbnail, options, meta) {
 
         var thumbnail = meta.twitter?.image
@@ -77,6 +75,5 @@ export default {
     tests: [{
         noFeeds: true,
         skipMethods: ['getData', 'getLink'],
-        skipMixins: ['facebook.meta-fallback']
     }]
 };
