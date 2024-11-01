@@ -2,7 +2,8 @@ export default {
 
     provides: ['__allow_soundcloud_meta', 'iframe'],
 
-    getData: function(oembedError, twitter, options, plugins, cb) {
+    getData: function(__oembedError, twitter, options, plugins, cb) {
+        var oembedError = __oembedError;
         var disable_private = options.getProviderOptions('soundcloud.disable_private', false)
         if (oembedError === 403 && !disable_private && twitter.player) {
             return cb(null, {
