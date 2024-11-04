@@ -7,14 +7,13 @@ export default {
         "oembed-site",
         "canonical",
         "author",
-        "og-image",
         "og-title",
+        "og-image",
         "og-description"
     ],
 
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
     // https://www.documentcloud.org/help/api#oembed
-
 
     getLink: function(url, oembed, options) {
 
@@ -100,8 +99,8 @@ export default {
             'og-description',
             'author',
             'canonical',
-            'og-image',
-            'og-title'
+            'og-title',
+            'og-image'
         ]},
         'https://www.documentcloud.org/documents/73991-day-three-documents',
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265',
