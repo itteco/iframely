@@ -8,20 +8,13 @@ export default {
         "canonical",
         "author",
         "og-image",
+        "og-title",
         "og-description"
     ],
 
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
     // https://www.documentcloud.org/help/api#oembed
 
-    getMeta: function(og, options) {
-        var allowTitle = options.getRequestOptions('documentcloud.allowTitle');
-        if (allowTitle && og.title) {
-            return {
-                title: og.title
-            }
-        }
-    },
 
     getLink: function(url, oembed, options) {
 
@@ -39,7 +32,7 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
-                var allowTitle = !!options.getRequestOptions('documentcloud.allowTitle');
+                var title = options.getRequestOptions('documentcloud.title', false);
 
                 try {
                     var iframe = oembed.getIframe();
@@ -61,9 +54,9 @@ export default {
                             label: CONFIG.L.page,
                             value: parseInt (page)
                         },
-                        allowTitle: {
-                            label: 'Show Title',
-                            value: allowTitle
+                        title: {
+                            label: 'Show title',
+                            value: title
                         }
                     }
                 } catch (ex) {}
@@ -107,7 +100,8 @@ export default {
             'og-description',
             'author',
             'canonical',
-            'og-image'
+            'og-image',
+            'og-title'
         ]},
         'https://www.documentcloud.org/documents/73991-day-three-documents',
         'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265',
