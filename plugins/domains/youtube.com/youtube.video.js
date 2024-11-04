@@ -11,7 +11,8 @@ export default {
         /^https?:\/\/www\.youtube\.com\/live\/([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/www\.youtube\.com\/v\/([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/www\.youtube\.com\/user\/[a-zA-Z0-9_-]+\/?\?v=([a-zA-Z0-9_-]+)/i,
-        /^https?:\/\/www\.youtube-nocookie\.com\/(?:v|embed)\/([a-zA-Z0-9_-]+)/i
+        /^https?:\/\/www\.youtube-nocookie\.com\/(?:v|embed)\/([a-zA-Z0-9_-]+)/i,
+        /^https?:\/\/www\.youtube\.com\/shorts\/([a-zA-Z0-9_-]+)/i
     ],
 
     mixins: ["domain-icon"],
@@ -104,7 +105,8 @@ export default {
                         embeddable: entry.status ? entry.status.embeddable : true,
                         uploadStatus: entry.status?.uploadStatus,
                         status: entry.status,
-                        ytRating: entry.contentDetails?.contentRating?.ytRating
+                        ytRating: entry.contentDetails?.contentRating?.ytRating,
+                        isShort: /\/shorts\//i.test(urlMatch[0])
                     };
 
                     if (entry.snippet?.thumbnails) {
@@ -266,7 +268,7 @@ export default {
         // End of widescreen & allow check
 
         var links = [];
-        var aspect = widescreen ? 16 / 9 : 4 / 3;
+        var aspect = youtube_video_gdata.isShort ? 9 / 16 : (widescreen ? 16 / 9 : 4 / 3);
 
         if (youtube_video_gdata.embeddable && youtube_video_gdata.ytRating !== 'ytAgeRestricted') {
 
