@@ -38,6 +38,10 @@ export default {
                     var iframe = oembed.getIframe();
                     var href = iframe.src;
 
+                    var uri = new URL(href);
+                    uri.searchParams.append("title", title ? '1': '0');
+                    href = uri.toString();
+
                     if (page && page !== '1') {
                         if (href) {
                             href += '#document/p' + page;
