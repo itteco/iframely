@@ -32,15 +32,17 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
-                var title = options.getRequestOptions('documentcloud.title', false);
+                var title = !!options.getRequestOptions('documentcloud.title', false);
 
                 try {
                     var iframe = oembed.getIframe();
                     var href = iframe.src;
 
-                    var uri = new URL(href);
-                    uri.searchParams.append("title", title ? '1': '0');
-                    href = uri.toString();
+                    if (title) {
+                        var uri = new URL(href);
+                        uri.searchParams.append("title", '1');
+                        href = uri.toString();
+                    }
 
                     if (page && page !== '1') {
                         if (href) {
