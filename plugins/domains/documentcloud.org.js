@@ -36,13 +36,7 @@ export default {
 
                 try {
                     var iframe = oembed.getIframe();
-                    var href = iframe.src;
-
-                    if (title) {
-                        var uri = new URL(href);
-                        uri.searchParams.append("title", '1');
-                        href = uri.toString();
-                    }
+                    var href = title ? iframe.replaceQuerystring({ title: 1 }) : iframe.src;
 
                     if (page && page !== '1') {
                         if (href) {
@@ -116,6 +110,7 @@ export default {
         // 'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html',
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html',
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal',
+        "https://www.documentcloud.org/documents/1995734-freddie-gray-charging-documents.html?_title=1",
         // 'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html',
         "https://www.documentcloud.org/documents/20059068-the-mueller-report#document/p17/a2001254",
         "https://www.documentcloud.org/documents/20059068-the-mueller-report",
