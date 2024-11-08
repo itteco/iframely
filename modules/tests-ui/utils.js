@@ -1,6 +1,6 @@
 import * as _ from 'underscore';
 import FeedParser from 'feedparser';
-import request from 'request';
+import got from 'got';
 import * as async from 'async';
 import * as url from 'url';
 import { PageTestLog, TestUrlsSet, PluginTest } from './models.js';
@@ -50,35 +50,32 @@ export function sendQANotification(logEntry, data) {
             message += " - " + errors;
         }
 
-        request({
-            uri: CONFIG.SLACK_WEBHOOK_FOR_QA,
-            method: 'POST',
-            json: true,
-            body: {
-                "parse": "none",
-                "channel": CONFIG.SLACK_CHANNEL_FOR_QA,
-                "username": SLACK_USERNAME,
-                "text": previewMessage,
-                "blocks": [
+        got.post(CONFIG.SLACK_WEBHOOK_FOR_QA, {
+            json: {
+                parse: "none",
+                channel: CONFIG.SLACK_CHANNEL_FOR_QA,
+                username: SLACK_USERNAME,
+                text: previewMessage,
+                blocks: [
                     {
-                        "type": "section",
-                        "text": {
-                            "type": "mrkdwn",
-                            "text": message  // Message: [domain.com] Failed - errors.
+                        type: "section",
+                        text: {
+                            type: "mrkdwn",
+                            text: message
                         }
                     }
                 ],
-                "attachments": [
+                attachments: [
                     {
-                        "blocks": [{
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "verbatim": true,
-                                "text": "`<" + (CONFIG.QA_BASE_URL || baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|debug>` " + logEntry.url.replace(/^https?:\/\//, '')    // Debug link.
+                        blocks: [{
+                            type: "section",
+                            text: {
+                                type: "mrkdwn",
+                                verbatim: true,
+                                text: "`<" + (CONFIG.QA_BASE_URL || baseAppUrl) + "/debug?uri=" + encodeURIComponent(logEntry.url) + "|debug>` " + logEntry.url.replace(/^https?:\/\//, '')
                             }
                         }],
-                        "color": COLORS[data.color]
+                        color: COLORS[data.color]
                     }
                 ]
             }
@@ -272,43 +269,43 @@ export function fetchFeedUrls(feedUrl, options, cb) {
         cb(error, urls);
     };
 
-    request({
-        uri: feedUrl,
-        agentOptions: {
+
+    got.stream(feedUrl, {
+        https: {
             rejectUnauthorized: false
         }
     })
-        .pipe(new FeedParser({addmeta: false}))
-        .on('error', function(error) {
-            _cb(error);
-        })
-        .on('readable', function () {
-            var stream = this, item;
-            while (item = stream.read()) {
+    .pipe(new FeedParser({ addmeta: false }))
+    .on('error', function(error) {
+        _cb(error);
+    })
+    .on('readable', function () {
+        var stream = this, item;
+        while (item = stream.read()) {
 
-                if (urls.length < MAX_FEED_URLS) {
+            if (urls.length < MAX_FEED_URLS) {
 
-                    var url = item.origlink || item.link;
+                var url = item.origlink || item.link;
 
-                    if (options.getUrl) {
-                        url = options.getUrl(url);
-                    }
+                if (options.getUrl) {
+                    url = options.getUrl(url);
+                }
 
-                    if (!url) {
-                        return;
-                    }
+                if (!url) {
+                    return;
+                }
 
-                    urls.push(url);
+                urls.push(url);
 
-                    if (MAX_FEED_URLS == urls.length) {
-                        _cb();
-                    }
+                if (MAX_FEED_URLS === urls.length) {
+                    _cb();
                 }
             }
-        })
-        .on('end', function() {
-            _cb();
-        });
+        }
+    })
+    .on('end', function() {
+        _cb();
+    });
 };
 
 export function fetchUrlsByPageOnFeed(pageWithFeed, otpions, cb) {
