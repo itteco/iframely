@@ -30,6 +30,7 @@
         "ejs": "3.1.10",
         "entities": "1.1.2",
         "express": "^4.19.0",
+        "got": "^14.4.4",
         "graceful-cluster": "^0.0.5",
         "htmlparser2": "^7.2.0",
         "iconv-lite": "^0.6.3",
@@ -44,7 +45,6 @@
         "readabilitySAX": "1.6.1",
         "redis": "^4.6.14",
         "redis-clustr": "1.7.0",
-        "request": "^2.88.2",
         "sax": "^1.2.4",
         "send": "^0.18.0",
         "underscore": "^1.13.6"
