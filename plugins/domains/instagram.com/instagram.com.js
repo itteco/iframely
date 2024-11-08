@@ -169,10 +169,6 @@ export default {
             result.__allowInstagramMeta = true;
         }
 
-        if (urlMatch[1] && urlMatch[1].length > 30) {
-            result.message = 'This Instagram post is private.'; // IDs longer than 30 is for private posts as of March 11, 2020
-        }
-
         if (!options.redirectsHistory && (/^https?:\/\/instagram\.com\//i.test(url) || /^http:\/\/www\.instagram\.com\//i.test(url))) {
             result.redirect = url.replace(/^http:\/\//, 'https://').replace(/^https:\/\/instagram\.com\//i, 'https://www.instagram.com');
         }
