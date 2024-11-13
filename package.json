@@ -66,6 +66,6 @@
         "custom_plugins": "NODE_ENV=test_with_custom_plugins PORT=8080 mocha --exit test/custom_plugins.js"
     },
     "engines": {
-        "node": ">=14.0"
+        "node": ">=18.0"
     }
 }
