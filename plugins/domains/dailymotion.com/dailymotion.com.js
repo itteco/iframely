@@ -1,5 +1,5 @@
 import * as querystring from 'querystring';
-import request from 'request';
+import got from 'got';
 
 export default {
 
@@ -53,21 +53,17 @@ export default {
 
     tests: [{
         getUrls: function(cb) {
-            request({
-                url: 'https://api.dailymotion.com/videos',
-                json: true
-            }, function(error, body, data) {
-                if (error) {
-                    return cb(error);
-                }
+            got('https://api.dailymotion.com/videos', { responseType: 'json' })
+            .then(response => {
+                const data = response.body;
                 if (!data || !data.list) {
                     return cb('No videos list in API data');
                 }
                 cb(null, data.list.slice(0, 10).map(function(item) {
                     return 'https://www.dailymotion.com/video/' + item.id;
                 }));
-            });
-            
+            })
+            .catch(error => cb(error));
         }
     }, {
         skipMixins: ["video", "og-description", "og-image", "canonical"],
