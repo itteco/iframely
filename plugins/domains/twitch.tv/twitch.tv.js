@@ -5,7 +5,7 @@ export default {
     re: [
         /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/[a-zA-Z0-9_]+\/v\/(\d+)/i,
         /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/(?:[a-zA-Z0-9_]+\/)?videos?\/(\d+)/i,
-        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)(?:\?parent=.*)?$/i,
+        /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/([a-zA-Z0-9_]+)(?:\?_?parent=.*)?$/i,
         /^https?:\/\/clips.twitch\.tv\/([^\?\/]+)(?:\?[^\?]+)?$/i,
         /^https?:\/\/www\.twitch\.tv\/\w+\/clip\/([^\?\/]+)/i        
     ],
