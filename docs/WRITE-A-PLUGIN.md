@@ -190,14 +190,9 @@ Example:
         },
         {
             geturls: function(cb) {
-                var request = require('request');
-                request({
-                    url: 'https://api.domain.com/items',
-                    json: true
-                }, function(error, body, data) {
-                    if (error) {
-                        return cb(error);
-                    }
+                got('https://api.domain.com/items', { responseType: 'json' })
+                .then(response => {
+                    const data = response.body;
                     if (!data || !data.urls) {
                         return cb('No urls in API data');
                     }

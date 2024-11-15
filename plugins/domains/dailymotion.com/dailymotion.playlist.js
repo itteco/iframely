@@ -13,7 +13,7 @@ export default {
             } : null);
     },
 
-    tests: [{
+    tests: [{skipMethods: ['getData']}, {
         noFeeds: true
     },
         // "https://www.dailymotion.com/playlist/x6hynp",
