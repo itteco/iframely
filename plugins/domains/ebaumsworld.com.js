@@ -19,10 +19,10 @@ export default {
     },
 
     tests: [{
-        page: "http://www.ebaumsworld.com/videos/",
+        page: "https://www.ebaumsworld.com/videos/",
         selector: ".title a"
     },
-        "http://www.ebaumsworld.com/video/watch/81387150/",
-        "http://gaming.ebaumsworld.com/videos/when-gta-v-online-spirals-way-out-of-control/85583669/"
+        "https://www.ebaumsworld.com/video/watch/81387150/",
+        "https://gaming.ebaumsworld.com/videos/when-gta-v-online-spirals-way-out-of-control/85583669/"
     ]
 };
