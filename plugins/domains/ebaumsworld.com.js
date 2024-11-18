@@ -12,7 +12,7 @@ export default {
         // https://www.ebaumsworld.com/media/embed/81387150
         return {
             href: "https://www.ebaumsworld.com/media/embed/" + urlMatch[1],
-            accept: CONFIG.T.text_html,
+            type: CONFIG.T.text_html,
             rel: [CONFIG.R.player, CONFIG.R.autoplay],
             "aspect-ratio": 567 / 345
         };
