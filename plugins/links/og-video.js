@@ -13,7 +13,7 @@ function getVideoLinks(video, whitelistRecord) {
 
     var players = [];
 
-    if (!whitelistRecord.isDefault || /\.(mp4|m4v|m3u8|mp3)/i.test(video.url || video) || /^video\//i.test(video.type)) {
+    if (!whitelistRecord.isDefault || /\.?(mp4|m4v|m3u8|mp3)/i.test(video.url || video) || /^video\//i.test(video.type)) {
         players.push({
             href: video.url || video,
             accept: accept,
