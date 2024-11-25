@@ -1,7 +1,7 @@
 export default {
 
     re: [
-        /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i,
+        /^https?:\/\/players\.brightcove\.net\/\d+\/[a-zA-Z0-9-]+_[a-zA-Z0-9]+\/index\.html\?videoId=\d+/i,
         // Avoid oembed error on experiences such as https://players.brightcove.net/6057277732001/experience_5fdc1e38e57a07002222f857/share.html
         // Аuto-discovery on expeience pages is for a single video and isn't right either. So let oEmbed fail there for now.
 
