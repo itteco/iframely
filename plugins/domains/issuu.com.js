@@ -35,9 +35,10 @@ export default {
     },
 
     tests: [
-        "http://issuu.com/redbulletin.com/docs/the_red_bulletin_stratos_special_us",
-        "http://issuu.com/ukrainian_defense_review/docs/udr_02_2013_english",
-        "http://issuu.com/kathamagazine/docs/julyaug2014/c/s8fjq65"
+        "https://issuu.com/redbulletin.com/docs/the_red_bulletin_stratos_special_us",
+        "https://issuu.com/ukrainian_defense_review/docs/udr_02_2013_english",
+        "https://issuu.com/visitfaroeislands/docs/tg25-uk-web_compressed",
+        "https://issuu.com/cbmicheals/docs/wwii_hero_franklin_micheals",
+        "https://issuu.com/photoedmagazine/docs/photoed-w24_colour_for_issuu_print_replica"
     ]
-
 };
