@@ -1,6 +1,4 @@
-import * as _ from "underscore";
-
-var rel = [CONFIG.R.image, CONFIG.R.og];
+const rel = [CONFIG.R.image, CONFIG.R.og];
 
 function getImageLinks(image) {
     return [{
@@ -24,7 +22,7 @@ export default {
 
         if (og.image instanceof Array) {
 
-            return _.flatten(og.image.map(getImageLinks));
+            return og.image.map(getImageLinks).flat();
 
         } else if (og.image) {
 

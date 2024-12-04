@@ -1,4 +1,3 @@
-import * as _ from "underscore";
 import utils from './utils.js';
 
 function getVideoLinks(video, whitelistRecord) {
@@ -57,12 +56,13 @@ export default {
 
             if (og.video instanceof Array) {
 
-                return utils.mergeMediaSize(_.flatten(og.video.map(function(video) {
-                    return getVideoLinks(video, whitelistRecord);
-                })));
+                return utils.mergeMediaSize(
+                    og.video.map(function(video) {
+                        return getVideoLinks(video, whitelistRecord);
+                    }).flat()
+                );
 
             } else if (og.video) {
-
                 return getVideoLinks(og.video, whitelistRecord);
             }
         }
