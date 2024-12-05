@@ -82,8 +82,13 @@ export default {
     },
 
     tests: [{skipMixins:['oembed-error']},
-        "http://players.brightcove.net/pages/v1/index.html?accountId=5660549837001&playerId=default&videoId=6303785895001&mode=iframe"
-        // But sometimes thumbnail aspect is actually incorrect while oembed default is correct:
-        // https://players.brightcove.net/5132998173001/default_default/index.html?videoId=5795255604001
+        "http://players.brightcove.net/pages/v1/index.html?accountId=5660549837001&playerId=default&videoId=6303785895001&mode=iframe",
+        "https://players.brightcove.net/18140073001/65fa926a-0fe0-4031-8cbf-9db35cecf64a_default/index.html?videoId=6364938310112",
+        "https://players.brightcove.net/18140073001/default_default/index.html?videoId=6364938310112",
+        "https://players.brightcove.net/77374810001/o4XU32Njq_default/index.html?videoId=5489016803001",
+
+        // But sometimes thumbnail aspect is actually incorrect while oembed default is correct (1920x1061):
+        "https://players.brightcove.net/665003303001/6tKQRAx7lu_default/index.html?videoId=6360308130112",
+        "https://players.brightcove.net/665003303001/default_default/index.html?videoId=6360308130112"
     ]
 };    
