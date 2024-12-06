@@ -2,6 +2,10 @@ import { cacheMiddleware, NotFound } from './utils.js';
 import CONFIG from './config.loader.js';
 global.CONFIG = CONFIG;
 
+import maxListenersExceededWarning from 'max-listeners-exceeded-warning';
+
+maxListenersExceededWarning();
+
 console.log("");
 console.log("Starting Iframely...");
 console.log("Base URL for embeds that require hosted renders:", CONFIG.baseAppUrl);
