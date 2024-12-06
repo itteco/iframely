@@ -1,5 +1,3 @@
-import * as _ from "underscore";
-
 function getStreamLinks(twitter, stream, whitelistRecord) {
 
     var player = {
@@ -44,13 +42,11 @@ export default {
             var stream = twitter.player.stream;
 
             if (stream instanceof Array) {
-
-                return _.flatten(stream.map(function(s) {
+                return stream.map(function(s) {
                     return getStreamLinks(twitter, s, whitelistRecord);
-                }));
+                }).flat();
 
             } else if (stream) {
-
                 return getStreamLinks(twitter, stream, whitelistRecord);
             }
         }

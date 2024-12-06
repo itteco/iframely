@@ -1,5 +1,4 @@
 import * as URL from 'url';
-import * as _ from 'underscore';
 
 export default {
 
@@ -27,7 +26,7 @@ export default {
 
         var at = null;
         if (options.redirectsHistory) {
-            var original_url = _.find(options.redirectsHistory, function(u) {
+            var original_url = options.redirectsHistory.find(function(u) {
                 return u.indexOf('at=') > -1;
             });
             var query = original_url && URL.parse(original_url, true).query;
