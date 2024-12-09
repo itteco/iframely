@@ -106,6 +106,11 @@ function processInitialErrors(uri, next) {
         next(new utils.HttpError(400, "local domains not supported"));
         return true;
     }
+
+    if (/^(https?:\/\/)?\./i.test(uri)) {
+        next(new utils.HttpError(400, "file paths are not accepted"));
+        return true;
+    }
 }
 
 export default function(app) {
