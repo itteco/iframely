@@ -107,7 +107,7 @@ function processInitialErrors(uri, next) {
         return true;
     }
 
-    if (/^(https?:\/\/)?\./i.test(uri)) {
+    if (/^(https?:\/\/)?(\.|\/|~)/i.test(uri)) {
         next(new utils.HttpError(400, "file paths are not accepted"));
         return true;
     }
