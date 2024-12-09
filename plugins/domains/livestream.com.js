@@ -40,9 +40,10 @@ export default {
     },    
 
     tests: [
-        "https://livestream.com/accounts/242049/events/1978582",
+        "https://livestream.com/accounts/11707815/events/4299357",
         "https://livestream.com/ironman/events/7777204/videos/163920520",
         "https://livestream.com/accounts/18968940/events/6670218/videos/145352362",
-        "https://livestream.com/accounts/2842659/events/7598907/videos/243464169?t=1712502526260",
+        "https://livestream.com/accounts/26021522/events/8730585/videos/214364915",
+        "https://livestream.com/accounts/771055/live/videos/253665646"
     ]
 };
