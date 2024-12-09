@@ -39,7 +39,12 @@ export default {
     },
 
     tests: [    
-        "https://tgd.simplecast.com/episodes/dan-blackman-and-robyn-kanner-the-power-7fe152f4"
+        "https://tgd.simplecast.com/episodes/dan-blackman-and-robyn-kanner-the-power-7fe152f4",
+        "https://i4ctrouble.simplecast.com/episodes/ep-168-a-goodbye-for-now-cZRPJJkH",
+        "https://web3-with-a16z.simplecast.com/episodes/prediction-markets-information-aggregation-mechanisms",
+        "https://a-satellite-view.simplecast.com/episodes/theyre-off-to-a-cataclysmically-bad-start-for-all-the-world-to-see",
+        "https://the-smerconish-podcast.simplecast.com/episodes/todays-poll-question-should-joe-have-pardoned-hunter",
+
         /*
         http://bikeshed.fm/54
         http://bikeshed.fm/57
