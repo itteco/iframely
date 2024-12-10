@@ -1,5 +1,3 @@
-import * as _ from 'underscore';
-
 export default {
 
     provides: 'self',
@@ -19,7 +17,7 @@ export default {
             promoUri = 'http:' + promoUri;
         }
 
-        var options2 = _.extend({}, options, {debug: false, mixAllWithDomainPlugin: false});
+        var options2 = {...options, ...{debug: false, mixAllWithDomainPlugin: false}};
         delete options2.promoUri;
         delete options2.jar;
 
@@ -51,7 +49,7 @@ export default {
 
         var hasGoodLinks = false;
         var links = promo.links.filter(function(link) {
-            var match = _.intersection(link.rel, CONFIG.PROMO_RELS);
+            var match = CONFIG.PROMO_RELS.filter(rel => link.rel.indexOf(rel) > -1);
             if (match.length > 1 || (match.length > 0 && match.indexOf(CONFIG.R.thumbnail) === -1)) {
                 // Detect if has something except thumbnail.
                 hasGoodLinks = true;
@@ -79,7 +77,7 @@ export default {
                     delete link[attr];
                 }
             });
-            if (!_.isEmpty(m)) {
+            if (Object.keys(m).length > 0) {
                 link.media = m;
             }
             if (typeof __promoUri === "string") {
