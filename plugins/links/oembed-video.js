@@ -71,8 +71,7 @@ export default {
     },
 
     getMeta: function(oembed, whitelistRecord) {
-
-        if (!whitelistRecord.isAllowed('oembed.video') && (oembed.type === "video" || oembed.type === "audio")) {
+        if (whitelistRecord.isAllowed('oembed.video') && (oembed.type === "video" || oembed.type === "audio")) {
             return {
                 medium: oembed.type
             };
