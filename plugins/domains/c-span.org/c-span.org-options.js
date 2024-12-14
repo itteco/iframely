@@ -4,5 +4,6 @@ export default {
 
     getData: function(url, options) {
         options.exposeStatusCode = true;
+        options.followHTTPRedirect=true
     }
 };
