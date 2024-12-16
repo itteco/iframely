@@ -22,7 +22,8 @@ export default {
 
                 let wlr = whitelistRecord;
                 if (whitelistRecord.isDefault
-                    && !Array.isArray(value) && value.href) {
+                    && !Array.isArray(value) && value.href
+                    && (!value.type || value.type === CONFIG.T.text_html)) {
                     wlr = options.getWhitelistRecord(value.href, {exclusiveRel: 'html-meta'});
                 }
 
