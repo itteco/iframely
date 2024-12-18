@@ -3,7 +3,7 @@ name: Docker Image CI
 on:
     push:
         branches:
-            - 'patch-2'
+            - main
 
     release:
         types: [published]
