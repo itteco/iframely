@@ -18,7 +18,7 @@ RUN yarn install --pure-lockfile --production
 
 COPY . /iframely
 
-RUN chown -R iframely /iframely/config.local.js
+RUN chown -R iframely /iframely/config.local.js || touch /iframely/config.local.js
 
 USER iframely
 
