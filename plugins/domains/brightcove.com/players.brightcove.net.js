@@ -83,8 +83,9 @@ export default {
 
     tests: [{skipMixins:['oembed-error']},
         "http://players.brightcove.net/pages/v1/index.html?accountId=5660549837001&playerId=default&videoId=6303785895001&mode=iframe",
-        "https://players.brightcove.net/18140073001/65fa926a-0fe0-4031-8cbf-9db35cecf64a_default/index.html?videoId=6364938310112",
-        "https://players.brightcove.net/18140073001/default_default/index.html?videoId=6364938310112",
+        "https://players.brightcove.net/1143621176001/YJXhO2osU_default/index.html?videoId=6354029086112",
+        "https://players.brightcove.net/6009760719001/JdT1E0JgZp_default/index.html?videoId=6034127509001",
+        "https://players.brightcove.net/6009760719001/default_default/index.html?videoId=6034127509001",
         "https://players.brightcove.net/77374810001/o4XU32Njq_default/index.html?videoId=5489016803001",
 
         // But sometimes thumbnail aspect is actually incorrect while oembed default is correct (1920x1061):
