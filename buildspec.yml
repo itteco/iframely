@@ -1,20 +1,15 @@
 version: 0.2
 env:
   variables:
-    PRX_ECR_CONFIG_PARAMETERS: "IframelyEcrImageTag"
     PRX_SPIRE_ECR_PKG_PARAMETERS: WEB_SERVER=/prx/stag/Spire/The_World-Iframely/pkg/docker-image-tag
+    PRX_BUILD_AARCH64: "true"
   parameter-store:
     DOCKERHUB_USERNAME: /prx/DOCKERHUB_USERNAME
     DOCKERHUB_PASSWORD: /prx/DOCKERHUB_PASSWORD
   exported-variables:
-    - PRX_ECR_CONFIG_PARAMETERS
-    - PRX_ECR_IMAGE
     - PRX_SPIRE_ECR_PKG_PARAMETERS
     - WEB_SERVER
 phases:
-  install:
-    runtime-versions:
-      docker: 18
   pre_build:
     commands:
       - echo Logging in to Docker Hub...
