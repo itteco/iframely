@@ -1,12 +1,12 @@
 export default {
 
     re: [
-        /^https?:\/\/sverigesradio\.se\/sida\/(artikel)\.aspx\?programid=\d+&artikel=(\d+)/i,
-        /^https?:\/\/sverigesradio\.se\/(artikel)\/(\d+)\/?(?:\?.+)?$/i,
-        /^https?:\/\/sverigesradio\.se\/(artikel)\/([^\/]+)(?:\?.+)?$/i,
-        /^https?:\/\/sverigesradio\.se\/embed\/(publication|episode)\/(\d+)/i,
-        /^https?:\/\/sverigesradio\.se\/(avsnitt)\/(\d+)\/?(?:\?.+)?$/i,
-        /^https?:\/\/sverigesradio\.se\/(avsnitt)\/([^\/]+)(?:\?.+)?$/i,
+        /^https?:\/\/(?:www\.)?sverigesradio\.se\/sida\/(artikel)\.aspx\?programid=\d+&artikel=(\d+)/i,
+        /^https?:\/\/(?:www\.)?sverigesradio\.se\/(artikel)\/(\d+)\/?(?:\?.+)?$/i,
+        /^https?:\/\/(?:www\.)?sverigesradio\.se\/(artikel)\/([^\/]+)(?:\?.+)?$/i,
+        /^https?:\/\/(?:www\.)?sverigesradio\.se\/embed\/(publication|episode)\/(\d+)/i,
+        /^https?:\/\/(?:www\.)?sverigesradio\.se\/(avsnitt)\/(\d+)\/?(?:\?.+)?$/i,
+        /^https?:\/\/(?:www\.)?sverigesradio\.se\/(avsnitt)\/([^\/]+)(?:\?.+)?$/i,
     ],
 
     provides: 'sveriges',
