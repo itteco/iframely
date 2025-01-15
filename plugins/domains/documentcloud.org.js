@@ -1,6 +1,6 @@
 export default {
 
-    re: /^https?:\/\/(?:www)?\.?documentcloud\.org\/documents?\/\d+/i,
+    re: /^https?:\/\/(?:www|embed)?\.?documentcloud\.org\/documents?\/\d+/i,
 
     mixins: [
         "domain-icon",
@@ -97,6 +97,7 @@ export default {
 
     tests: [{skipMethods: ['getData']},
         {skipMixins: [
+            'domain-icon',
             'og-description',
             'author',
             'canonical',
@@ -110,6 +111,7 @@ export default {
         // 'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html',
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html',
         'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal',
+        'https://embed.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/?embed=1',
         // 'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html',
         "https://www.documentcloud.org/documents/20059068-the-mueller-report#document/p17/a2001254",
         "https://www.documentcloud.org/documents/20059068-the-mueller-report",
