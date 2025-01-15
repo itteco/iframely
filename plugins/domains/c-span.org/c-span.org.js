@@ -18,7 +18,7 @@ export default {
     },
 
     getData: function(url, __statusCode, options, cb) {
-        if (__statusCode === 403) {
+        if (__statusCode === 403 || __statusCode === 202) {
             // Ignore...
             return cb(null, null);
 
