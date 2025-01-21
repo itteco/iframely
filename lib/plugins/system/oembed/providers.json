@@ -1150,5 +1150,12 @@
         ],
         "endpoint": "https://api.everviz.com/oembed",
         "url": "https://app.everviz.com/embed/{1}/"
-    }
+    },
+    {
+        "name": "Adilo",
+        "templates": [
+            "adilo.bigcommand.com/watch/*"
+        ],
+        "endpoint": "https://adilo.bigcommand.com/web/oembed"
+    }    
 ]
