@@ -1154,7 +1154,8 @@
     {
         "name": "Adilo",
         "templates": [
-            "adilo.bigcommand.com/watch/*"
+            "adilo.bigcommand.com/watch/*",
+            "adilo.bigcommand.com/video/*"            
         ],
         "endpoint": "https://adilo.bigcommand.com/web/oembed"
     }    
