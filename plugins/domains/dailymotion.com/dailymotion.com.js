@@ -66,7 +66,7 @@ export default {
             .catch(error => cb(error));
         }
     }, {
-        skipMixins: ["video", "og-description", "og-image", "canonical"],
+        skipMixins: ["video", "og-description", "og-image", "canonical", "oembed-thumbnail"],
         skipMethods: ["getData"]
     },
         "https://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
