@@ -84,7 +84,7 @@ export default {
             return [];
         }
 
-        var rels = key.split(/\W+/);
+        var rels = key.split(/[^w\-]+/);
         // Unique values.
         rels = [...new Set(rels)];
         // Filter empty.
