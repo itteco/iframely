@@ -242,6 +242,14 @@
         "endpoint": "https://publish.twitter.com/oembed"
     },
     {
+        "name": "TikTok photomode",
+        "templates": [
+            "www\\.tiktok\\.com/(@[^\\/]+)\/photo\/(\\d+)"
+        ],
+        "url": "https://www.tiktok.com/{1}/video/{2}",
+        "endpoint": "https://www.tiktok.com/oembed"
+    },
+    {
         "name": "TikTok",
         "templates": [
             "(?:www|t)?\\.tiktok\\.com/@[^\\/]+\/video\/\\d+",
