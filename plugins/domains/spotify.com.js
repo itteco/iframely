@@ -31,9 +31,12 @@ export default {
 
     getLink: function(iframe, options) {
 
+        const COMPACT_PLAYER_HEIGHT = 152;
+        const NORMAL_PLAYER_HEIGHT = 352;
+
         if (iframe.src) {
 
-            var horizontal_player = options.getRequestOptions('players.horizontal', false);
+            var compact_player = options.getRequestOptions('spotify.compact', options.getRequestOptions('players.horizontal', true));
 
             var player = {
                 href: iframe.src,
@@ -50,32 +53,31 @@ export default {
                     value: include_playlist
                 };
                 player.media = {
-                    height: !include_playlist ? 80 : (iframe.height || 400)
+                    height: !include_playlist ? COMPACT_PLAYER_HEIGHT : (iframe.height || NORMAL_PLAYER_HEIGHT)
                 };
 
-            } else if (/episode/.test(iframe.src)) {
-                var isVideo = !!iframe.width; // 100% width for audio episodes is not set in `iframe`
-                if (!isVideo) player.rel.push(CONFIG.R.audio);
-                player.media = isVideo && iframe.height
-                                ? {'aspect-ratio' : iframe.width / iframe.height}
-                                : {height: iframe.height || 152}
+            } else if (/episode/.test(iframe.src) && /* isVideo */ !!iframe.width) { // 100% width for audio episodes is not set in `iframe`
+                player.media = iframe.height
+                    ? {'aspect-ratio' : iframe.width / iframe.height}
+                    : {height: COMPACT_PLAYER_HEIGHT}
 
-            // else /track/ or /show/
+            // else /track/ or /show or audio /episode (the once without 100% width)
             } else { 
                 player.rel.push(CONFIG.R.audio);
-                player.options.horizontal = {
+                player.options.compact = {
                     label: CONFIG.L.horizontal,
-                    value: horizontal_player === true
+                    value: compact_player === true
                 };
 
-                player.media = {
-                    height: horizontal_player ? 80: 152
+                player.media = compact_player ? {
+                    height:  COMPACT_PLAYER_HEIGHT,
+                } : {
+                    height: NORMAL_PLAYER_HEIGHT
                 };
             }
 
             return player;
         }
-
     },
 
     getData: function (url, options, cb) {
