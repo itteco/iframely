@@ -1,16 +1,18 @@
 export default {
 
     re: [
-        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/([^\/]+)\/?/i
+        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(\d+)\/[^\/]+\/?/i,
+        /^https?:\/\/quizlet\.com\/(?:\w{2}\/)?(?:flashcards|match|learn|spell|test)\/[^\/]+\-(\d+)\/?(?:\?.+)?$/i
     ],
 
     mixins: [
         "*"
     ],
 
-    getLinks: function(urlMatch, options) {
+    getLinks: function(url, urlMatch, options) {
+        const TYPE_RE = /\/(flashcards|match|learn|spell|test)\//i;
 
-        var mode = options.getRequestOptions('quizlet.mode', /^flashcards|match|learn|spell|test$/i.test(urlMatch[2]) ? urlMatch[2] : 'flashcards');
+        var mode = options.getRequestOptions('quizlet.mode', TYPE_RE.test(url) ? url.match(TYPE_RE)[1] : 'flashcards');
 
         return {
             href: 'https://quizlet.com/' + urlMatch[1]+ '/' + mode + '/embed',
@@ -41,7 +43,7 @@ export default {
         "https://quizlet.com/43729824/scatter",
         "https://quizlet.com/43729824/gravity",
         "https://quizlet.com/43729824/test",
-        "https://quizlet.com/ca/385594556/math-flash-cards/"
+        "https://quizlet.com/ca/385594556/math-flash-cards/",
+        "https://quizlet.com/test/conceptual-physics-final-review-part-1-43729824"
     ]
-
 };
