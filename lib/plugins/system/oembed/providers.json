@@ -1018,13 +1018,6 @@
         "endpoint": "https://api.portfolium.com/oembed"
     },
     {
-        "name": "Saooti",
-        "templates": [
-            "octopus.saooti.com/main/pub/podcast/*"
-        ],
-        "endpoint": "https://octopus.saooti.com/oembed"
-    },
-    {
         "name": "SocialExplorer",
         "templates": [
             "socialexplorer.com/*"
