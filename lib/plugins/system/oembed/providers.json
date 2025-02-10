@@ -1166,5 +1166,13 @@
             "adilo.bigcommand.com/video/*"            
         ],
         "endpoint": "https://adilo.bigcommand.com/web/oembed"
-    }    
+    },
+    {
+        "name": "Quizizz",
+        "templates": [
+            "quizizz.com/admin/quiz/([a-z0-9]+)/"
+        ],
+        "endpoint": "https://quizizz.com/oembed",
+        "url": "https://quizizz.com/embed/quiz/{1}"
+    }
 ]
