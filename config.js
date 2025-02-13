@@ -55,6 +55,7 @@
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
 
         ACCEPT_LANGUAGE_SUFFIX: ';q=0.9,en;q=0.7,*;q=0.5',
+        DEFAULT_ACCEPT_LANGUAGE: 'en,*',
 
         SKIP_IFRAMELY_RENDERS: false,
         DEFAULT_ASPECT_RATIO: 16 / 9,
