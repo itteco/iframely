@@ -16,10 +16,10 @@ export default {
         "favicon",
         "oembed-author",
         "oembed-canonical",
-        "og-description",
+        "oembed-description",
         "keywords",
         "oembed-site",
-        "og-title",
+        "oembed-title",
         "embedurl",
         'embedurl-meta'
     ],
