@@ -140,13 +140,6 @@
         "endpoint": "https://www.scribd.com/services/oembed?format={format}&url={url}"
     },
     {
-        "name": "Viddler",
-        "templates": [
-            ".*\\.viddler\\.com/v/.*"
-        ],
-        "endpoint": "https://www.viddler.com/oembed"
-    },
-    {
         "name": "Vimeo",
         "templates": [
             "(www\\.)?vimeo\\.com/.*",
