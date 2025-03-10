@@ -67,10 +67,10 @@ export default {
     },
 
     tests: [{
-        page: "https://www.slideshare.net/explore",
-        selector: ".slideshow-card a.bg-img-container",
+        page: "https://www.slideshare.net/DataReportal",
+        selector: ".slideshow-card>a",
         getUrl: function(url) {
-            return /^https:\/\/\w+\.slideshare\.net\/[^\/]+\/[^\/]+\-\d+/i.test(url);
+            return /^https:\/\/\w+\.slideshare\.net\/[^\/]+\/[^\/]+\-\d+/i.test(url) && url;
         }
     }, {skipMethods: ["getData"]},
         "https://www.slideshare.net/DataReportal/digital-2020-global-digital-overview-january-2020-v01-226017535",
