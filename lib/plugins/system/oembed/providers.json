@@ -1160,5 +1160,12 @@
         ],
         "endpoint": "https://quizizz.com/oembed",
         "url": "https://quizizz.com/embed/quiz/{1}"
+    },
+    {
+        "name": "run.ply.io",
+        "templates": [
+            "run.ply.io/run/*"
+        ],
+        "endpoint": "https://app-server.ply.io/api/oembed"
     }
 ]
