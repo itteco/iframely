@@ -17,22 +17,22 @@ export default {
     ],
 
     getLink: function (url, iframe, options) {
-        var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', 'mute=true').replace(/^\?/, ''));
+        var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', '').replace(/^\?/, ''));
 
         if (iframe.src && iframe.height) {
             var player = {
                 href: iframe.replaceQuerystring(playlistParams),
                 type: CONFIG.T.text_html,
-                "rel": [CONFIG.R.player, CONFIG.R.oembed],
+                "rel": [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.oembed],
                 "aspect-ratio": iframe.width / iframe.height,
-                autoplay: "mute=false"
+                // autoplay: "mute=false" // obsolete now, autoplay muted is still autoplay, and requires our cover.
             };
 
             // Do not replace direct link to custom players
             if (options.redirectsHistory
                 && /^https?:\/\/(?:geo\.)?dailymotion\.com\/player\/[a-zA-Z0-9]+\.html\?video=([a-zA-Z0-9]+)/i.test(options.redirectsHistory[0])) {
                 player.href = options.redirectsHistory[0];
-                delete player.autoplay;
+                player.rel = player.rel.filter(value => value !== 'autoplay');
             }
 
             return player;
@@ -69,7 +69,7 @@ export default {
         skipMixins: ["video", "og-description", "og-image", "canonical", "oembed-thumbnail"],
         skipMethods: ["getData"]
     },
-        "https://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation#.Uaac62TF1XV",
+        "https://www.dailymotion.com/video/x10bix2_ircam-mani-feste-2013-du-29-mai-au-30-juin-2013_creation",
         "https://www.dailymotion.com/swf/video/xcv6dv_pixels-by-patrick-jean_creation",
         "https://www.dailymotion.com/embed/video/xcv6dv_pixels-by-patrick-jean_creation",
         "https://dailymotion.com/embed/video/x5yiamz?queue-enable=false"
