@@ -46,6 +46,8 @@ export default {
             ]
         },
         "https://polldaddy.com/poll/7451882/?s=twitter",
-        "http://polldaddy.com/poll/9113163/"
+        "http://polldaddy.com/poll/9113163/",
+        "https://poll.fm/15096510",
+        "http://poll.fm/15188921"
     ]
 };

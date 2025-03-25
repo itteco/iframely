@@ -51,8 +51,9 @@ export default {
     },
 
     tests: [
-        "https://www.facebook.com/noven.roman/posts/555607674475258",
-        "https://www.facebook.com/noven.roman/posts/pfbid02r7N1GwTBDFDqW8cN51BjKeFFmNKGU9vBFpCfF2aV5CevoPy64gYZmCXESTB3XHqAl",
+        "https://www.facebook.com/4/posts/10116391663711321",
+        "https://www.facebook.com/zuck/posts/10116325482244511",
+        "https://www.facebook.com/zuck/posts/pfbid0p7zmJ1SoeJieavzRAy9mYxJ9i1m28PRDzFC2NCFHe6RMsD7LbuGEu7WtG9ZckUoJl",
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
         "https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893",
