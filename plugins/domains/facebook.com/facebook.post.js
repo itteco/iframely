@@ -51,7 +51,8 @@ export default {
     },
 
     tests: [
-        "https://www.facebook.com/100008770218331/posts/3551827818452857",
+        "https://www.facebook.com/4/posts/10116391663711321",
+        "https://www.facebook.com/zuck/posts/10116325482244511",
         "https://www.facebook.com/zuck/posts/pfbid0p7zmJ1SoeJieavzRAy9mYxJ9i1m28PRDzFC2NCFHe6RMsD7LbuGEu7WtG9ZckUoJl",
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
