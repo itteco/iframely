@@ -35,9 +35,17 @@ export default {
 
             var file = {
                 rel: [CONFIG.R.file],
-                href: schemaFileObject.embedURL || schemaFileObject.embedUrl,
-                accept: CONFIG.T.text_html
+                href: schemaFileObject.embedURL || schemaFileObject.embedUrl                
             };
+
+            if (schemaFileObject.type) {
+                file.type = schemaFileObject.type;
+            } else if (urlMatch[1] === "forms" && !schemaFileObject.height) {
+                // form requires a login, validation will redirect to login page with x-frame-options
+                file.type = CONFIG.T.text_html;
+            } else {
+                file.accept = CONFIG.T.text_html;
+            }
 
             if (schemaFileObject.playerType) {
 
@@ -141,18 +149,19 @@ export default {
             return cb(null, {
                 schemaFileObject: result
             });
-        } else if (/\/(pub|pubhtml|viewform|mobilebasic|htmlview)(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
+
+        } else if (/\/(pub|pubhtml|mobilebasic|htmlview)(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
             return cb(null, {
                 schemaFileObject: {
                     embedUrl: url
-                }  
+                }
             });
         } else if (/\/pubchart(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
             return cb({
                 responseStatusCode: 415,
                 message: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
             })            
-        } else if (!meta.og) {
+        } else if (!meta.og && /docs\.google\.com/.test(url) && !options.getRequestOptions('google.enable_private')) {
             return cb({
                 responseStatusCode: 415,
                 message: 'Google Docs could not load the file. Perhaps it is too large.'
