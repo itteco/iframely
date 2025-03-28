@@ -24,7 +24,7 @@ export default {
         'embedurl-meta'
     ],
 
-    getLink: function(oembed, tedLangs) {
+    getLink: function(oembed, whitelistRecord, tedLangs) {
         const iframe = oembed.getIframe();
 
         if (iframe && oembed.height) {
@@ -48,6 +48,10 @@ export default {
                 rel: [CONFIG.R.player, CONFIG.R.oembed],
                 "aspect-ratio": oembed.width / oembed.height
             };
+
+            if (whitelistRecord.isAllowed('oembed.video', 'autoplay')) {
+                link.rel.push(CONFIG.R.autoplay);
+            }            
 
             if (tedLangs.language) {
                 link.options = tedLangs;
