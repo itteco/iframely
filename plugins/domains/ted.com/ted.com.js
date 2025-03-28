@@ -49,7 +49,7 @@ export default {
                 "aspect-ratio": oembed.width / oembed.height
             };
 
-            if (whitelistRecord.isAllowed('oembed.video', 'autoplay')) {
+            if (whitelistRecord.isAllowed('oembed.video', 'autoplay') && lang_slug !== '') {
                 link.rel.push(CONFIG.R.autoplay);
             }            
 
