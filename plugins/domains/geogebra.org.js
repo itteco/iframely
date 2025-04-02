@@ -11,21 +11,23 @@ export default {
         "*"
     ],
 
-    getData: function(urlMatch, options, cb) {
+    getLink: function(urlMatch) {
         /** https://wiki.geogebra.org/en/Embedding_in_Webpages */
 
         if (!/^\d+$/.test(urlMatch[1])) {
-            cb (null, {__promoUri: {url: 'https://www.geogebra.org/material/iframe/id/' + urlMatch[1]} });
-        } else {
-            cb(null, null)
+            return {
+                href: 'https://www.geogebra.org/material/iframe/id/' + urlMatch[1],
+                accept: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.iframely],
+                'aspect-ratio': 800 / 600
+            }
         }
     },
 
     tests: [
         {noFeeds: true},
         {skipMethods: ['getData']},
-        "http://www.geogebra.org/m/141300",
-        "https://www.geogebra.org/m/wn2U6Hj6#material/ysf5TjUB",
+        "https://www.geogebra.org/m/141300",
         "https://www.geogebra.org/classic/hs52mgmq",
         "https://www.geogebra.org/graphing/pse7krdf"
     ]
