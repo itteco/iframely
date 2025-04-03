@@ -80,6 +80,7 @@
             video_mp4: "video/mp4",
             video_ogg: "video/ogg",
             video_webm: "video/webm",
+            video_iso: "video/iso.segment",
             stream_apple_mpegurl: "application/vnd.apple.mpegurl",
             stream_x_mpegurl: "application/x-mpegURL",
             audio_mp3: "audio/mp3",
