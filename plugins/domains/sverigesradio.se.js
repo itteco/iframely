@@ -11,30 +11,7 @@ export default {
 
     provides: 'sveriges',
 
-    mixins: [
-        // oEmbed returns "non-starting" player too - https://sverigesradio.se/avsnitt/1966906
-        "twitter-title",
-        "twitter-description",
-        "twitter-site",
-        "twitter-image",
-        "ld-newsarticle-logo",
-        "ld-author",
-        "ld-date",
-        "canonical",
-        "keywords",
-        "media-detector",
-        "theme-color",
-        "favicon",
-    ],
-
-    /* Not needed
-    getMeta: function(sverigies) {
-        return {
-            title: sveriges.title,
-            description: sveriges.description
-        }
-    },
-    */
+    mixins: ["*"],
 
     getLink: function(sveriges) {
 
