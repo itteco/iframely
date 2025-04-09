@@ -12,23 +12,19 @@ export default {
 
         if ($script.length === 1) {
             try {
-                var ld = utils.parseLDSource($script.html(), decode, url);
-
+                const ld = utils.parseLDSource($script.html(), decode, url);
                 if (ld && __allowEmbedURL !== 'skip_ld') {
                     return {
                         ld: ld
                     }
-                } else if (ld && (ld.videoobject || ld.mediaobject)) {
-                    const videoObject = ld.videoobject || ld.mediaobject,
-                        href = videoObject.embedURL || videoObject.embedUrl || videoObject.embedurl || videoObject.contentURL || videoobject.contentUrl || videoobject.contenturl;
-
-                    if (href) {
+                } else if (ld) {
+                    const json = utils.findMainLdObjectWithVideo(ld);
+                    if (json) {
                         return {
-                            schemaVideoObject: ld.videoobject || ld.mediaobject
+                            schemaVideoObject: json
                         }
                     } // else check microformats, ex.: cbssports
                 }
-
             } catch (ex) {
                 // broken json, c'est la vie
                 // let's try microformats instead

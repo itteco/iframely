@@ -8,28 +8,11 @@ export default {
         'video_src'
     ],
 
-    getData: function(ld, whitelistRecord, url) {
+    getData: function(ld, whitelistRecord, utils, url) {
 
-        var json = ld.videoobject || ld.mediaobject;
-
-        /*
-        || (ld.newsarticle && (ld.newsarticle.video || ld.newsarticle.videoobject)) 
-        || (ld.tvepisode && (ld.tvepisode.video || ld.tvepisode.videoobject))
-        || (ld.movie && (ld.movie.video || ld.movie.videoobject))
-        || (ld.tvclip && (ld.tvclip.video || ld.tvclip.videoobject));
-        */
-        if (!json) { // try to find video attached to main object
-            var mainObjWithVideo = ld && Object.values(ld).find((obj) => obj.video || obj.videoobject);
-            if (mainObjWithVideo) {
-                json = mainObjWithVideo.video || mainObjWithVideo.videoobject;
-            }
-        }
+        var json = utils.findMainLdObjectWithVideo(ld);
 
         if (json) {
-
-            if (Array.isArray(json) && json.length === 1) {
-                json = json[0];
-            }
 
             var video_src = json.embedurl || json.embedUrl || json.embedURL || json.contenturl || json.contentUrl || json.contentURL;
 
@@ -73,13 +56,7 @@ export default {
     }
 
     /*
-    http://video.eurosport.com/football/who-will-nelson-the-hornbill-pick-to-win-in-france-v-romania_vid809882/video.shtml
-    http://video.eurosport.fr/football/coupe-de-france/2015-2016/video-granville-bourg-en-bresse-les-temps-forts_vid471598/video.shtml
-    http://video.eurosport.de/tennis/australian-open/2017/australian-open-2017-boris-becker-spricht-klartext-3-grunde-fur-das-aus-von-zverev-gegen-federer_vid954898/video.shtml
-    http://video.eurosport.co.uk/cycling/tour-de-france/2016/science-of-cycling-the-echelon-how-to-deal-with-a-crosswind_vid817450/video.shtml
-    http://www.hgtv.com/videos/small-home-in-tucson-arizona-0210527
-    http://www.travelchannel.com/videos/exorcism-of-roland-doe-0203807
-    https://www.parismatch.com/People/Delon-Belmondo-duel-au-sommet-pour-Paris-Match-1630358?jwsource=cl
+    https://www.autonews.fr/actualite/nouvelle-alpine-a110s-notre-video-exclusive-sur-circuit-86133
 
     Movie:
     https://www.fandango.com/movie-trailer/x-men-days-of-future-past/159281?autoplay=true&mpxId=2458744940
