@@ -90,7 +90,7 @@ export default {
             });
         }        
 
-        if (ipOG.video) {
+        if (ipOG.video && ipOG.video.width && ipOG.video.height) {
             links.push({
                 href: ipOG.video.url,
                 accept: CONFIG.T.text_html,
@@ -132,9 +132,9 @@ export default {
                 type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.inline],
                 // sizing is from Instagram placeholder to avoid double height changes
-                'max-width': 660,                
-                'aspect-ratio': 200/63,
-                'padding-bottom': 200,
+                'max-width': 660,
+                'aspect-ratio': 100 / (2 *(19 + 12.5)), // was: oembed.thumbnail_width / oembed.thumbnail_height, but sizes for placeholder are hardcoded anyway, no need to link them to the image sizes
+                'padding-bottom': 284,
                 options: {
                     showcaption: {
                         label: 'Show author\'s text caption',
@@ -142,12 +142,6 @@ export default {
                     }
                 }
             };
-
-            if (oembed.thumbnail_width && oembed.thumbnail_height) {
-                // sizes for placeholder are hardcoded anyway, no need to link them to the image sizes
-                app['aspect-ratio'] = 100 / (2 *(19 + 12.5)); // was: oembed.thumbnail_width / oembed.thumbnail_height;
-                app['padding-bottom'] = 284;//  was: 206;
-            }
 
             links.push(app);
         }
@@ -185,7 +179,7 @@ export default {
         "https://www.instagram.com/reel/CtHaSoDLrWJ/",
         "https://www.instagram.com/nssmagazine/reel/CrVt-Wvs74O/",
         {
-            skipMixins: ["oembed-title", "fb-error"],
+            skipMixins: ["oembed-title", "fb-error", "oembed-author"],
             skipMethods: ['getData']
         }
     ]
