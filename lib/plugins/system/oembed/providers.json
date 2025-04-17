@@ -1167,5 +1167,12 @@
             "wakelet.com/wake/*"
         ],
         "endpoint": "https://wakelet.com/api/oembed"
+    },
+    {
+        "name": "Wolframcloud",
+        "templates": [
+            "wolframcloud.com/obj/*"
+        ],
+        "endpoint": "https://www.wolframcloud.com/oembed"
     }
 ]
