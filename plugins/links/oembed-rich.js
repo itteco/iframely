@@ -107,7 +107,9 @@ export default {
             widget.rel.push('nowheel');
         }
 
-        if (widget.href && whitelistRecord.isAllowed('oembed.rich', "accept") && widget.type === CONFIG.T.text_html) {
+        if (widget.href && widget.type === CONFIG.T.text_html 
+            && (whitelistRecord.isAllowed('oembed.rich', "accept")
+                || /^http:\/\/([^\/]+)\//i.test(widget.href))) {
             widget.accept = widget.type;
             delete widget.type;
         }
