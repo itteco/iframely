@@ -23,7 +23,14 @@ export default {
             }
 
             if (whitelistRecord.isAllowed('twitter.player', 'iframely')) {
-                player.rel.push(CONFIG.R.iframely); // Allows player = canonical
+                // Allow player = canonical
+                player.rel.push(CONFIG.R.iframely);
+
+                // Also skip type validation.
+                // Ex.: https://www.billoreilly.com/video?chartID=330&pid=37561
+                //      https://video.tv.adobe.com/v/3424206
+                player.type = CONFIG.T.text_html;
+                delete player.accept;
             }
 
             return player;
