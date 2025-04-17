@@ -1160,5 +1160,12 @@
             "run.ply.io/run/*"
         ],
         "endpoint": "https://app-server.ply.io/api/oembed"
+    },
+    {
+        "name": "Wakelet",
+        "templates": [
+            "wakelet.com/wake/*"
+        ],
+        "endpoint": "https://wakelet.com/api/oembed"
     }
 ]
