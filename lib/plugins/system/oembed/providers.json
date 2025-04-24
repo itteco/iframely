@@ -657,12 +657,19 @@
         ],
         "endpoint": "https://codesandbox.io/oembed"
     }, {
-        "name": "NAVERTV",
+        "name": "Naver TV",
         "templates": [
             "tv.naver.com/.*"
         ],
         "endpoint": "https://tv.naver.com/oembed"
     }, {
+        "name": "Naver Audiobooks",
+        "templates": [
+            "audioclip.naver.com/audiobooks/.*"
+        ],
+        "endpoint": "https://audioclip.naver.com/oembed"
+    },
+    {
         "name": "Verse",
         "templates": [
             "verse.com/.*"
@@ -682,13 +689,6 @@
             "(?:www\\.)?canva.com/design/"
         ],
         "endpoint": "https://api.canva.com/_spi/presentation/_oembed"
-    },
-    {
-        "name": "Microsoft Streams",
-        "templates": [
-            "[a-zA-Z0-9-]+.microsoftstream.com/.*"
-        ],
-        "endpoint": "https://web.microsoftstream.com/oembed"
     },
     {
         "name": "Powr.io",
