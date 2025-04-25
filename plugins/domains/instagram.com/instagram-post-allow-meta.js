@@ -4,10 +4,11 @@ export default {
 
     provides: 'ipOG',
 
-    getData: function(__allowInstagramMeta, meta, cb) {
+    getData: function(__allowInstagramMeta, url, meta, cb) {
         if (!meta.og && !meta.twitter && !meta.ld 
             && !meta.title && !meta.description 
-            && meta['html-title'] === 'Instagram') {
+            && meta['html-title'] === 'Instagram'
+            && !/\/embed/.test(url)) { // post and reel /embed as in https://www.instagram.com/p/HbBy-ExIyF/embed
             return cb({responseStatusCode: 404})
 
         } else if (
