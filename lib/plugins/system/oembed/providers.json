@@ -1174,5 +1174,12 @@
             "wolframcloud.com/obj/*"
         ],
         "endpoint": "https://www.wolframcloud.com/oembed"
+    },
+    {
+        "name": "Polymer",
+        "templates": [
+            "app.polymersearch.com/*/*"
+        ],
+        "endpoint": "https://app.polymersearch.com/api/oembed"
     }
 ]
