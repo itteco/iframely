@@ -931,13 +931,6 @@
         "endpoint": "https://www.mightycause.com/1/oembed"
     },
     {
-        "name": "Kooapp",
-        "templates": [
-            "kooapp.com/koo/.*"
-        ],
-        "endpoint": "https://embed.kooapp.com/services/oembed"
-    },
-    {
         "name": "Observable",
         "templates": [
             "observablehq.com/@*/*",
