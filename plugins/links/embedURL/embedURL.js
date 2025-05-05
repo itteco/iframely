@@ -98,8 +98,10 @@ export default {
             }
 
             if (whitelistRecord.isAllowed('html-meta.embedURL', 'responsive') || !schemaVideoObject.height) {
-                player["aspect-ratio"] = schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO;
-                player.scrolling = 'no';
+                if (schemaVideoObject.width && schemaVideoObject.height) {
+                    player["aspect-ratio"] = schemaVideoObject.width / schemaVideoObject.height;
+                    player.scrolling = 'no';
+                }
             } else {
                 player.width = schemaVideoObject.width;
                 player.height = schemaVideoObject.height;
