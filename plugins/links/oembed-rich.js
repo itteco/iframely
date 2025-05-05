@@ -65,7 +65,7 @@ export default {
                 widget.href = widget.href.replace(/^http:\/\//i, '//');
             }
 
-            if (iframe.scrolling === 'no') {
+            if (iframe.scrolling === 'no' && !whitelistRecord.isAllowed('oembed.rich', "resizable")) {
                 widget.scrolling = 'no';
             }
         
