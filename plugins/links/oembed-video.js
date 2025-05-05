@@ -40,6 +40,11 @@ export default {
         } else { 
             player.html = oembed.html; // will render in an iframe
             player.type = CONFIG.T.text_html;
+
+            if (whitelistRecord.isAllowed('oembed.video', 'ssl')) {
+                player.html = player.html.replace(/http:\/\//g, 'https://');
+                player.rel.push(CONFIG.R.ssl);
+            }
         }
 
         if (whitelistRecord.isAllowed('oembed.video', 'responsive') && oembed.width && oembed.height) {

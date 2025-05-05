@@ -75,6 +75,7 @@ export default {
 
         if (widget.html && whitelistRecord.isAllowed('oembed.rich', "ssl")) {
             // For pure HTML, the only way to detect SSL is to take it from Whitelist.
+            widget.html = widget.html.replace(/http:\/\//g, 'https://');
             widget.rel.push(CONFIG.R.ssl);
         }
 
