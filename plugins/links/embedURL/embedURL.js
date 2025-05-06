@@ -82,34 +82,6 @@ export default {
             });
         }
 
-        if (!whitelistRecord.isAllowed('html-meta.embedURL')) {return links;}
-
-        var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
-
-        if (href) {
-            var player = {
-                href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
-                rel: [CONFIG.R.player],
-                accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
-            };
-
-            if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.autoplay)) {
-                player.rel.push(CONFIG.R.autoplay);
-            }
-
-            if (whitelistRecord.isAllowed('html-meta.embedURL', 'responsive') || !schemaVideoObject.height) {
-                if (schemaVideoObject.width && schemaVideoObject.height) {
-                    player["aspect-ratio"] = schemaVideoObject.width / schemaVideoObject.height;
-                    player.scrolling = 'no';
-                }
-            } else {
-                player.width = schemaVideoObject.width;
-                player.height = schemaVideoObject.height;
-            }
-
-            links.push(player);
-        }
-
         var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl;
         if (contentURL) {
             var accept = ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
@@ -123,9 +95,37 @@ export default {
                 rel: CONFIG.R.player, // HTML5 will come from mp4, if that's the case
                 'aspect-ratio': schemaVideoObject.height ? schemaVideoObject.width / schemaVideoObject.height : CONFIG.DEFAULT_ASPECT_RATIO
             });
+        }        
+
+        if (whitelistRecord.isAllowed('html-meta.embedURL')) {
+
+            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
+
+            if (href) {
+                var player = {
+                    href: whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.ssl) ? href.replace(/^http:\/\//i, '//') : href,
+                    rel: [CONFIG.R.player],
+                    accept: whitelistRecord.isDefault ? ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl] : [CONFIG.T.text_html, 'video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl]
+                };
+
+                if (whitelistRecord.isAllowed('html-meta.embedURL', CONFIG.R.autoplay)) {
+                    player.rel.push(CONFIG.R.autoplay);
+                }
+
+                if (whitelistRecord.isAllowed('html-meta.embedURL', 'responsive') || !schemaVideoObject.height) {
+                    if (schemaVideoObject.width && schemaVideoObject.height) {
+                        player["aspect-ratio"] = schemaVideoObject.width / schemaVideoObject.height;
+                        player.scrolling = 'no';
+                    }
+                } else {
+                    player.width = schemaVideoObject.width;
+                    player.height = schemaVideoObject.height;
+                }
+
+                links.push(player);
+            }
         }
 
         return links;
     }
-
 };
