@@ -6,6 +6,12 @@ export default {
             return;
         }
 
+        // Some oembed rich publishers have WordPress /blogs. Allow rich media and ignore WP blogs.
+        var isWordpress = /wp\-embedded\-content/.test(oembed.html);
+        if (isWordpress) {
+            return;
+        }
+
         var rels = [CONFIG.R.oembed];
 
         if (whitelistRecord.isAllowed('oembed.rich', "reader")) {
