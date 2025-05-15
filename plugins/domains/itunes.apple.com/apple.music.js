@@ -3,9 +3,7 @@ import * as URL from 'url';
 export default {
 
     re: [
-        /^https?:\/\/music\.apple\.com\/(\w{2})\/(album)(?:\/[^\/]+)?\/id(\d+)\?i=(\d+)?/i,
-        /^https?:\/\/music\.apple\.com\/(\w{2})\/(album|playlist|post)(?:\/[^\/]+)?\/(?:id)?(?:pl\.)?(\w+)/i,
-        /^https?:\/\/music\.apple\.com\/()(album)\/(?:id)?(\d+)\??/i
+        /^https?:\/\/music\.apple\.com\/\w{2}\/(album|playlist|post|)/i
     ],
 
     highestPriority: true,
@@ -14,41 +12,31 @@ export default {
 
     getMeta: function () {
         return {
-            medium: 'audio' // avoid promo card on media=reader
+            medium: 'audio'
         }
     },
 
-    getLink: function(urlMatch, url, meta, options) {
+    getLink: function(iframe, og) {
 
-        var canonical = meta.canonical || (meta.og && meta.og.url) || url;
-        var isTrack =  /\?i=\d+/.test(canonical) || urlMatch[4] !== undefined;
-        var isMusicPost =meta.og && meta.og.type === 'music.post';
-
-        var at = null;
-        if (options.redirectsHistory) {
-            var original_url = options.redirectsHistory.find(function(u) {
-                return u.indexOf('at=') > -1;
-            });
-            var query = original_url && URL.parse(original_url, true).query;
-            at = query && query.at ? query.at : null;
-        }
-
-        var src = canonical.replace(/^https?:\/\/music\.apple\.com/, 'https://embed.music.apple.com');
-        if (at) {
-            src += (/\?/.test(src) ? '&' : '?') + 'at=' + at;
-        }
+        var isVideo = /^video/i.test(og.type);
+        var isPlaylist = !/\?i=\d+/.test(iframe.src);
 
         return {
-            href: src,
+            href: iframe.src,
             type: CONFIG.T.text_html,
-            rel: isMusicPost 
-                ? CONFIG.R.player : 
-                    isTrack ? [CONFIG.R.player, CONFIG.R.audio] : [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, 'resizable'],
-            media: isMusicPost
+
+            rel: isVideo 
+                ? CONFIG.R.player 
+                : isPlaylist 
+                        ? [CONFIG.R.player, CONFIG.R.audio, CONFIG.R.playlist, CONFIG.R.resizable] 
+                        : [CONFIG.R.player, CONFIG.R.audio],
+
+            media: isVideo
                 ? {
-                    'aspect-ratio': 16/9 // Apple gives it as 350px fixed-height, but it's wrong.
-                } : {
-                    height: isTrack ? 150 : 450
+                    'aspect-ratio': 16 / 9
+                } 
+                : {
+                    height: iframe.height
                 }
         };
     },
@@ -70,5 +58,6 @@ export default {
         'https://music.apple.com/it/post/sa.82ca58c0-41d5-11ea-a9de-158fbdf307c6',
         'https://geo.itunes.apple.com/us/album/reaching-for-indigo/id1264016548?app=music',
         'https://geo.itunes.apple.com/us/album/call-me-by-your-name-original-motion-picture-soundtrack/id1300430864?app=music',
+        'https://music.apple.com/es/music-video/just-the-way-you-are/576670472'
     ]
 };
