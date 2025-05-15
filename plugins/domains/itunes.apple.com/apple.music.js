@@ -3,7 +3,7 @@ import * as URL from 'url';
 export default {
 
     re: [
-        /^https?:\/\/music\.apple\.com\/\w{2}\/(album|playlist|post|)/i
+        /^https?:\/\/music\.apple\.com\/\w{2}\/(album|playlist|music\-video)/i
     ],
 
     highestPriority: true,
@@ -54,8 +54,6 @@ export default {
         'https://itunes.apple.com/us/album/eartha/1450438412?i=1450438420',
         'https://music.apple.com/jp/album/back-to-the-80s/1458246986',
         'https://music.apple.com/us/album/gypsy-woman-shes-homeless-basement-boy-strip-to-the-bone-mix/1434891258?i=1434891369',
-        'https://music.apple.com/fr/post/sa.01cb7f20-f25e-11e6-b1a9-afb0a09d5237',
-        'https://music.apple.com/it/post/sa.82ca58c0-41d5-11ea-a9de-158fbdf307c6',
         'https://geo.itunes.apple.com/us/album/reaching-for-indigo/id1264016548?app=music',
         'https://geo.itunes.apple.com/us/album/call-me-by-your-name-original-motion-picture-soundtrack/id1300430864?app=music',
         'https://music.apple.com/es/music-video/just-the-way-you-are/576670472'
