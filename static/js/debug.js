@@ -463,10 +463,6 @@ $(document).ready(function(){
 
     processUrl();
 
-    $('.s-uri').click(function() {
-        $(this).select();
-    })
-
     $('[type="checkbox"]').change(function() {
         $('form').submit();
     });
