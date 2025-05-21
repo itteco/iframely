@@ -23,6 +23,9 @@ export default {
     },
 
     tests: [
-        "https://pastebin.com/ZjTA1Q4Z"
+        "https://pastebin.com/ZjTA1Q4Z",
+        "https://pastebin.com/VFbNag7T",
+        "https://pastebin.com/WE7bjsat",
+        "https://pastebin.com/xG0rWi9J"
     ]
 };
