@@ -28,12 +28,16 @@ export default {
         var iframe = oembed.getIframe();
         const query = options.getQueryOptions();
 
-        var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
-        if (query) {
-            params = {...params, ...query};
-        }
+        var get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
+        var params = options.getProviderOptions('vimeo') || {};
 
-        if (options.getProviderOptions('players.showinfo', false)) {
+        delete params.get_params;
+        delete params.disable_private;
+        delete params.show_info;
+
+        params = {...get_params, ...params, ...query};
+
+        if (options.getProviderOptions('vimeo.showinfo', options.getProviderOptions('players.showinfo', false))) {
             params.title = 1;
             params.byline = 1;
         }
@@ -45,6 +49,7 @@ export default {
             params.texttrack = texttrack;
         } else {
             texttrack = '';
+            delete params.texttrack;
         }
 
         // https://developer.vimeo.com/api/oembed/videos
@@ -59,7 +64,7 @@ export default {
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
             links.push({
-                href: iframe.replaceQuerystring(params),
+                href: iframe.replaceQuerystring(iframe.digitizeParams(params)),
                 type: CONFIG.T.text_html,
                 rel: CONFIG.R.player,
                 "aspect-ratio": oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
