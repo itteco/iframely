@@ -26,13 +26,12 @@ export default {
 
     getLink: function(oembed, options) {
         const iframe = oembed.getIframe();
-        const query = options.getQueryOptions();
 
         const get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
         var providerOptions = options.getProviderOptions('_vimeo') || {};
         delete providerOptions.show_info;
 
-        const params = {...get_params, ...providerOptions, ...query};
+        const params = {...get_params, ...providerOptions};
 
         if (!options.getProviderOptions('_vimeo.showinfo', options.getProviderOptions('players.showinfo', true))) {
             params.title = 0;
@@ -78,7 +77,7 @@ export default {
         }
 
         if (!oembed.thumbnail_url) {
-            links.push({message: 'Contact support to ' + (options.getProviderOptions('vimeo.disable_private', false) ? 'enable' : 'disable')+ ' Vimeos with site restrictions.'});
+            links.push({message: 'This Vimeo video has site restrictions.'});
         } else {
 
             var thumbnail = {
