@@ -25,21 +25,19 @@ export default {
     },
 
     getLink: function(oembed, options) {
-        var iframe = oembed.getIframe();
+        const iframe = oembed.getIframe();
         const query = options.getQueryOptions();
 
-        var get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
-        var params = options.getProviderOptions('vimeo') || {};
+        const get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
+        var providerOptions = options.getProviderOptions('_vimeo') || {};
+        delete providerOptions.show_info;
 
-        delete params.get_params;
-        delete params.disable_private;
-        delete params.show_info;
+        const params = {...get_params, ...providerOptions, ...query};
 
-        params = {...get_params, ...params, ...query};
-
-        if (options.getProviderOptions('vimeo.showinfo', options.getProviderOptions('players.showinfo', false))) {
-            params.title = 1;
-            params.byline = 1;
+        if (!options.getProviderOptions('_vimeo.showinfo', options.getProviderOptions('players.showinfo', true))) {
+            params.title = 0;
+            params.byline = 0;
+            params.portrait = 0;
         }
 
         // Captions support:
@@ -53,7 +51,7 @@ export default {
         }
 
         // https://developer.vimeo.com/api/oembed/videos
-        var controls = options.getRequestOptions('vimeo.controls', params.controls);
+        var controls = options.getRequestOptions('_vimeo.controls', params.controls);
         if (controls == 0) {
             params.controls = false;
         } else if (params.controls) {
@@ -64,7 +62,7 @@ export default {
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
             links.push({
-                href: iframe.replaceQuerystring(iframe.digitizeParams(params)),
+                href: iframe.replaceQuerystring(options.digitize(params)),
                 type: CONFIG.T.text_html,
                 rel: CONFIG.R.player,
                 "aspect-ratio": oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
