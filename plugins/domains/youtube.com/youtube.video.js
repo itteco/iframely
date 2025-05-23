@@ -158,7 +158,10 @@ export default {
 
     getLinks: function(url, youtube_video_gdata, options) {
 
-        var params = querystring.parse(options.getProviderOptions('youtube.get_params', '').replace(/^\?/, ''));
+        var get_params = querystring.parse(options.getProviderOptions('youtube.get_params', '').replace(/^\?/, ''));
+        var queryOptions = options.getProviderOptions('_youtube');
+
+        var params = {...get_params, ...queryOptions};
 
         /** Extract ?t=12m15s, ?t=123, ?start=123, ?stop=123, ?end=123
         */
@@ -204,7 +207,7 @@ export default {
         }
 
         // https://developers.google.com/youtube/player_parameters#cc_load_policy
-        var cc_load_policy = options.getRequestOptions('youtube.cc_load_policy', params.cc_load_policy);
+        var cc_load_policy = options.getRequestOptions('_youtube.cc_load_policy', options.getProviderOptions('youtube.cc_load_policy', params.cc_load_policy));
         if (cc_load_policy) {
             params.cc_load_policy = 1;
         } else if (params.cc_load_policy) {
@@ -272,7 +275,7 @@ export default {
 
         if (youtube_video_gdata.embeddable && youtube_video_gdata.ytRating !== 'ytAgeRestricted') {
 
-            var qs = querystring.stringify(params);
+            var qs = querystring.stringify(options.digitize(params));
             if (qs !== '') {qs = '?' + qs}
 
             var domain = /^https?:\/\/www\.youtube-nocookie\.com\//i.test(url) || options.getProviderOptions('youtube.nocookie', false) ? 'youtube-nocookie' : 'youtube';
