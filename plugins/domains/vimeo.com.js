@@ -29,7 +29,7 @@ export default {
 
         const get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
         var providerOptions = options.getProviderOptions('_vimeo') || {};
-        delete providerOptions.show_info;
+        delete providerOptions.showinfo;
 
         const params = {...get_params, ...providerOptions};
 
