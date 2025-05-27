@@ -37,6 +37,7 @@ export default {
             params.title = 0;
             params.byline = 0;
             params.portrait = 0;
+            params.badge = 0;
         }
 
         // Captions support:
