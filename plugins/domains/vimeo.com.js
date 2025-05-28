@@ -25,17 +25,19 @@ export default {
     },
 
     getLink: function(oembed, options) {
-        var iframe = oembed.getIframe();
-        const query = options.getQueryOptions();
+        const iframe = oembed.getIframe();
 
-        var params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
-        if (query) {
-            params = {...params, ...query};
-        }
+        const get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
+        var providerOptions = options.getProviderOptions('_vimeo') || {};
+        delete providerOptions.showinfo;
 
-        if (options.getProviderOptions('players.showinfo', false)) {
-            params.title = 1;
-            params.byline = 1;
+        const params = {...get_params, ...providerOptions};
+
+        if (!options.getProviderOptions('_vimeo.showinfo', options.getProviderOptions('players.showinfo', true))) {
+            params.title = 0;
+            params.byline = 0;
+            params.portrait = 0;
+            params.badge = 0;
         }
 
         // Captions support:
@@ -45,10 +47,11 @@ export default {
             params.texttrack = texttrack;
         } else {
             texttrack = '';
+            delete params.texttrack;
         }
 
         // https://developer.vimeo.com/api/oembed/videos
-        var controls = options.getRequestOptions('vimeo.controls', params.controls);
+        var controls = options.getRequestOptions('_vimeo.controls', params.controls);
         if (controls == 0) {
             params.controls = false;
         } else if (params.controls) {
@@ -59,7 +62,7 @@ export default {
 
         if (oembed.thumbnail_url || !options.getProviderOptions('vimeo.disable_private', false)) {
             links.push({
-                href: iframe.replaceQuerystring(params),
+                href: iframe.replaceQuerystring(options.digitize(params)),
                 type: CONFIG.T.text_html,
                 rel: CONFIG.R.player,
                 "aspect-ratio": oembed.width / oembed.height, // ex. portrait https://vimeo.com/216098214
@@ -75,7 +78,7 @@ export default {
         }
 
         if (!oembed.thumbnail_url) {
-            links.push({message: 'Contact support to ' + (options.getProviderOptions('vimeo.disable_private', false) ? 'enable' : 'disable')+ ' Vimeos with site restrictions.'});
+            links.push({message: 'This Vimeo video has site restrictions.'});
         } else {
 
             var thumbnail = {
