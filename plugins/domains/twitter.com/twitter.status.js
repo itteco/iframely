@@ -42,13 +42,20 @@ export default {
                     return cb({
                         responseStatusCode: 404,
                         message: 'The tweet is no longer available.'
-                    })
+                    });
 
                 } else if (response.statusCode === 403) {
-                    return cb({
-                        responseStatusCode: 404,
-                        message: 'It looks this Twitter account has been suspended.'
-                    })
+                    if (/not\sauthorized/i.test(oembed.error)) { // ex. https://x.com/zoolininfts/status/1928051687077314857
+                        return cb({
+                            responseStatusCode: 403,
+                            message: 'Permission error, perhaps the content is age-restricted on Twitter.'
+                        });
+                    } else {
+                        return cb({
+                            responseStatusCode: 404,
+                            message: 'It looks this Twitter account has been suspended.'
+                        });
+                    }
 
                 } else if (response.statusCode !== 200) {
                     return cb('Non-200 response from Twitter API (statuses/oembed.json: ' + response.statusCode);
