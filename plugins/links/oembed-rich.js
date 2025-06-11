@@ -110,6 +110,10 @@ export default {
             widget.rel = widget.rel.concat(iframe.allow.replace(/autoplay;?\s?\*?/ig, '').split(/\s?\*?(?:;|,)\s?\*?/g));
         }
 
+        if (iframe && iframe.allowfullscreen === '' && widget.rel.indexOf('fullscreen') === -1) { // ex.: Supademo
+            widget.rel.push('fullscreen');
+        }        
+
         if (iframe && iframe.src && iframe.onmousewheel === '') {
             widget.rel.push('nowheel');
         }
