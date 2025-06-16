@@ -1174,5 +1174,12 @@
             "app.polymersearch.com/*/*"
         ],
         "endpoint": "https://app.polymersearch.com/api/oembed"
+    },
+    {
+        "name": "Postd.io",
+        "templates": [
+            "postd.io/post/*"
+        ],
+        "endpoint": "https://postd.io/api/services/oembed"
     }
 ]
