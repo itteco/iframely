@@ -96,18 +96,6 @@ export default {
             links.push(thumbnail);
         }
 
-        // Also let's try and add a bigger image.
-        if (/* options.getProviderOptions('images.loadSize') !== false */
-            CONFIG.providerOptions && CONFIG.providerOptions.images
-            && CONFIG.providerOptions.images.loadSize !== false
-            && /\-d_\d{2,4}(?:x\d{2,4})?(?:\.jpg)?$/.test(oembed.thumbnail_url)) {
-            links.push({
-                href:oembed.thumbnail_url.replace(/\-d_\d{2,4}(?:x\d{2,4})?((?:\.jpg)?)$/, `-d?f=webp`),
-                type: CONFIG.T.image_webp,
-                rel: CONFIG.R.thumbnail
-            });
-        }
-
         return links;
     },
 
