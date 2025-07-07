@@ -51,7 +51,7 @@ export default {
     },
 
     tests: [
-        "https://www.facebook.com/4/posts/10116391663711321",
+        "https://www.facebook.com/4/posts/10116513907628531",
         "https://www.facebook.com/zuck/posts/10116325482244511",
         "https://www.facebook.com/zuck/posts/pfbid0p7zmJ1SoeJieavzRAy9mYxJ9i1m28PRDzFC2NCFHe6RMsD7LbuGEu7WtG9ZckUoJl",
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
