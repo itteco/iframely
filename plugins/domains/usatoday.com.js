@@ -62,7 +62,7 @@ export default {
         "http://www.usatoday.com/videos/sports/2016/12/20/behind-scenes:-michael-phelps-cover-shoot/95645660/",
         "http://www.usatoday.com/videos/news/2017/01/07/what-know-ft.-lauderdale-airport-shooter/96291014/",
         */
-        "http://www.desertsun.com/media/cinematic/video/92390930/police-chief-quit-ignoring-red-flags/",
+        "https://www.desertsun.com/videos/news/nation/california/2025/06/30/juniper-fire-spreads-rapidly-near-perris/84422397007/",
         "https://www.cincinnati.com/videos/sports/high-school/high-school-sports/2020/08/19/watch-enquirer-writers-break-down-ohio-high-school-girls-soccer-scene-2020/5607979002/",
         // "http://www.guampdn.com/videos/news/nation/2015/08/18/31948487/",
         "http://www.courier-journal.com/videos/sports/college/kentucky/2015/08/17/31862551/",
