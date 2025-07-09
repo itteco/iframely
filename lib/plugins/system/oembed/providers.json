@@ -276,14 +276,6 @@
         "endpoint": "https://dotsub.com/services/oembed"
     },
     {
-        "name": "Animoto",
-        "templates": [
-            "animoto\\.com/play/.+"
-        ],
-        "endpoint": "https://animoto.com/oembeds/create.{format}?automated=true&options=start_hq&url={url}"
-
-    },
-    {
         "name": "Dipdive",
         "templates": [
             "\\w+\\.dipdive\\.com/media/.*"
