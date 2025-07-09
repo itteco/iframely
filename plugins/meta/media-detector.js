@@ -23,7 +23,7 @@ export default {
 
         if (has_thumbnail && meta.og 
             && !/\/(?:videos?|player|embed)\//i.test(url) && !/https?:\/\/videos?\./i.test(url)
-            && (/article|blog|news|post|noticia/i.test(url) 
+            && (/article|blog|news|noticia/i.test(url) 
                 || (/\/(\d{4})\/(\d{2})\/(\d{2})/).test(url) 
                 || /article|post/i.test(meta.og.type) && (!meta.ld || meta.article)
                 || (
