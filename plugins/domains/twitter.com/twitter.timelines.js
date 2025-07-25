@@ -28,7 +28,7 @@ export default {
     getLink: function(url, oembed, twitter_og, options) {
 
         var links = [];
-        var enable_timeline = options.getRequestOptions('twitter.timeline', true);
+        var enable_timeline = options.getRequestOptions('twitter.timeline', false);
 
         if (oembed.html && enable_timeline) {
             var html = oembed.html;
