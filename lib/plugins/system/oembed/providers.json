@@ -533,13 +533,6 @@
         ],
         "endpoint": "https://www.kickstarter.com/services/oembed"
     }, {
-        "name": "ProductHunt",
-        "templates": [
-            "(?:www\\.)producthunt\\.com/(?:posts|products)/([^/#]+)"
-        ],
-        "endpoint": "https://api.producthunt.com/widgets/oembed",
-        "url": "https://producthunt.com/posts/{1}"
-    }, {
         "name": "ProductHunt Comments",
         "templates": [
             "(?:www\\.)producthunt\\.com/(?:posts|products)/[^#]+#comments?\\-(\\d+)"
