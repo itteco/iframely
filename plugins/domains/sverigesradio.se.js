@@ -70,7 +70,7 @@ export default {
     },
 
     tests: [{skipMixins: ['keywords']},
-        "https://sverigesradio.se/artikel/5448335",
+        "https://sverigesradio.se/artikel/5448332",
         "https://sverigesradio.se/artikel/6573606",
         "https://sverigesradio.se/play/artikel/8936167",
         "https://sverigesradio.se/artikel/professorn-om-rymdbilden-det-ar-hisnande",
