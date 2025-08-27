@@ -705,13 +705,6 @@
         "endpoint": "https://www.kidoju.com/api/oembed"
     },
     {
-        "name": "VeeR VR",
-        "templates": [
-            "veer.tv/videos/.*"
-        ],
-        "endpoint": "https://api.veer.tv/oembed"
-    },
-    {
         "name": "Screen9",
         "templates": [
             "\\w+\\.screen9\\.tv/.*",
