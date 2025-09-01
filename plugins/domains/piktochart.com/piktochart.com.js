@@ -14,6 +14,7 @@ export default {
             },
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.reader, CONFIG.R.ssl],
+            height: 300
         };
     },
 
