@@ -13,8 +13,7 @@ export default {
                 id: urlMatch[1]
             },
             type: CONFIG.T.text_html,
-            rel: [CONFIG.R.reader, CONFIG.R.ssl],
-            height: 300
+            rel: [CONFIG.R.reader, CONFIG.R.ssl]
         };
     },
 
