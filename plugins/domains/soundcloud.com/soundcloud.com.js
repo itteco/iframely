@@ -1,3 +1,5 @@
+import * as URL from 'url';
+
 export default {
 
     provides: ['__allow_soundcloud_meta', 'sound'],
@@ -28,8 +30,15 @@ export default {
             }
             if (options.getRequestOptions('soundcloud.hide_artwork') !== undefined) {
                 params.show_artwork = !options.getRequestOptions('soundcloud.hide_artwork');
-            }            
-            if (options.getProviderOptions('soundcloud.color')) {
+            }
+            if (options.redirectsHistory && /^https:\/\/w\.soundcloud\.com\/player\//.test(options.redirectsHistory[0])) {
+                var original = URL.parse(options.redirectsHistory[0], true).query?.color;
+                var color = original && decodeURIComponent(original);
+                if (color && !options.getProviderOptions('app.disable_url_options', false)) {
+                    params.color = color; // overide with provider options below, if any
+                }
+            }
+            if (options.getRequestOptions('soundcloud.color')) {
                 params.color = options.getProviderOptions('soundcloud.color');
             }
 
