@@ -21,7 +21,7 @@ export default {
         "https://magic.piktochart.com/output/16505417-projet-immigration-copy",
         "https://magic.piktochart.com/output/14330224-descripciones-fisicas",
 
-        "https://create.piktochart.com/output/38d889d24156-youtube-pitch-deck",
+        "https://create.piktochart.com/output/986319273bed-trump-tariffs",
         "https://create.piktochart.com/output/04c845534560-buenas-practicas-en-la-elaboracion-de-alimentos-en-el-hogar"
     ]
 };
