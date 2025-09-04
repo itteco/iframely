@@ -727,13 +727,6 @@
         "endpoint": "https://namchey.com/api/oembed"
     },
     {
-        "name": "FITE",
-        "templates": [
-            "(?:www\\.)?fite.tv/watch/.*"
-        ],
-        "endpoint": "https://www.fite.tv/oembed"
-    },
-    {
         "name": "GloriaTV",
         "templates": [
             "gloria.tv/.*"
