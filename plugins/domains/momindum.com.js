@@ -17,7 +17,8 @@ export default {
     },
 
     tests: [
-        "https://api.momindum.com/watch/uD3ia9PaDspTqG0A-XUJKWix70GEd-1dHPge8cngPAU"
+        "https://api.momindum.com/watch/uD3ia9PaDspTqG0A-XUJKWix70GEd-1dHPge8cngPAU",
+        "https://api.momindum.com/watch/uD3ia9PaDspzdy0B4HJHQFj95WdKjvYFDNFCH76lQDA",
+        "https://api.momindum.com/watch/uD3ia9PaDspTqG0A-XUJKTvgo5T8a8XIrVEEa9va3OY"
     ]
-
 };
