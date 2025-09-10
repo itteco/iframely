@@ -37,13 +37,13 @@ export default {
     },
 
     tests: [
-        "http://quizlet.com/43729824/conceptual-physics-final-review-part-1-flash-cards/",
+        "https://quizlet.com/43729824/conceptual-physics-final-review-part-1-flash-cards/",
         "https://quizlet.com/74274924/flashcards",
-        "https://quizlet.com/141059966/learn",
         "https://quizlet.com/43729824/scatter",
         "https://quizlet.com/43729824/gravity",
-        "https://quizlet.com/43729824/test",
         "https://quizlet.com/ca/385594556/math-flash-cards/",
-        "https://quizlet.com/test/conceptual-physics-final-review-part-1-43729824"
+        // "https://quizlet.com/test/conceptual-physics-final-review-part-1-43729824" redirect to login
+        // "https://quizlet.com/141059966/learn" redirect to login
+        // "https://quizlet.com/43729824/test" redirect to login
     ]
 };
