@@ -1152,5 +1152,12 @@
             "postd.io/post/*"
         ],
         "endpoint": "https://postd.io/api/services/oembed"
-    }
+    },
+    {
+        "name": "Imajize",
+        "templates": [
+            "embed.imajize.com/*"
+        ],
+        "endpoint": "https://app.imajize.com/api/oembed.json"
+    }    
 ]
