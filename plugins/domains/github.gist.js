@@ -3,9 +3,7 @@ export default {
     re: /^https?:\/\/gist\.github\.com\/(?:[\w\.\-]+\/)?(\w+)(?:#([\w\.\-]+))?/i,
 
     mixins: [
-        "og-site",
-        "og-image",
-        "domain-icon"
+        "*"
     ],
 
     getMeta: function(meta) {
@@ -36,9 +34,6 @@ export default {
         request({
                 uri: 'https://api.github.com/gists/' + gistId,
                 json: true,
-                headers: {
-                    'User-Agent': 'iframely/gist'
-                },
                 jar: false,
                 prepareResult: function (error, response, body, cb) {
 
