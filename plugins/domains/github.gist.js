@@ -39,21 +39,21 @@ export default {
 
                     var fileName, scriptUrl, i, fileNames;
 
-                    if (error) { return cb(error); }
-                    if (response.statusCode !== 200) { return cb(body.message || "HTTP " + response.statusCode); }
+                    if (!error && response.statusCode == 200 && body?.files) {
 
-                    fileNames = body.files && Object.keys(body.files) || [];
+                        fileNames = body.files && Object.keys(body.files) || [];
 
-                    // Find a file with a matching hash...
-                    for(i = 0; i < fileNames.length; i++) {
-                        // File permalinks use #file-readme-txt style format
+                        // Find a file with a matching hash...
+                        for(i = 0; i < fileNames.length; i++) {
+                            // File permalinks use #file-readme-txt style format
 
-                        var p = 'file-' + fileNames[i].toLowerCase();
-                        p = p.replace(/\./g, '-').replace(/[^\w\-]+/g,'');
+                            var p = 'file-' + fileNames[i].toLowerCase();
+                            p = p.replace(/\./g, '-').replace(/[^\w\-]+/g,'');
 
-                        if (p === filePermalink) {
-                            fileName = fileNames[i];
-                            break;
+                            if (p === filePermalink) {
+                                fileName = fileNames[i];
+                                break;
+                            }
                         }
                     }
 
