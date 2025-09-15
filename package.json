@@ -35,6 +35,7 @@
         "htmlparser2": "^7.2.0",
         "iconv-lite": "^0.6.3",
         "jslint": "^0.12.1",
+        "json5": "^2.2.3",
         "jsontoxml": "^1.0.1",
         "memcached": "2.2.2",
         "moment": "^2.30.1",
