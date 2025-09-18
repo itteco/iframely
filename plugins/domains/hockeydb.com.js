@@ -30,7 +30,8 @@ export default {
     },
 
     tests: [
-        "http://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=89716",
-        "http://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=73254"
+        "https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=89716",
+        "https://www.hockeydb.com/ihdb/stats/pdisplay.php?pid=73254",
+        "https://hockeydb.com/ihdb/stats/pdisplay.php?pid=4910"
     ]
 };
