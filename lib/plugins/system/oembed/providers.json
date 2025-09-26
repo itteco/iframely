@@ -1159,5 +1159,12 @@
             "embed.imajize.com/*"
         ],
         "endpoint": "https://app.imajize.com/api/oembed.json"
-    }    
+    },
+    {
+        "name": "Apple Podcasts",
+        "templates": [
+            "podcasts.apple.com/(?:\\w+/)?podcast/*"
+        ],
+        "endpoint": "https://podcasts.apple.com/api/oembed"
+    }
 ]
