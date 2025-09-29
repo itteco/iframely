@@ -167,7 +167,8 @@ export default {
         pageWithFeed: "https://www.ted.com",
 
         getUrl: function(url) {
-            if (/^https?:\/\/[a-z0-9.-]+\/?$|^https:\/\/shows\.acast\.com\/.*/ig.test(url)) {
+            if (/^https?:\/\/[a-z0-9.-]+\/?$/ig.test(url) 
+            || /^https:\/\/shows\.acast\.com\/.*/ig.test(url)) {
                 // Skip domain without path like "https://audiocollective.ted.com/"
                 return;
             }
