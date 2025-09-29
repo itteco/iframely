@@ -68,6 +68,6 @@ export default {
     },
         "https://appsumo.wistia.com/medias/fudkgyoejs",
         "https://cirata.wistia.com/medias/9mnslih4pz",
-        "https://signalophthalmic.wistia.com/medias/hfqfnxk3yb"
+        "https://signalophthalmic.wistia.com/medias/dykayg99fv"
     ]
 };
