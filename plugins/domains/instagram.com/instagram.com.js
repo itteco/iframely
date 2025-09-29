@@ -79,16 +79,21 @@ export default {
         var isReel = /\/reel\//i.test(url); // Reels don't work without a caption
 
         if (ipOG.image) {
-            links.push({
+            var og_image = {
                 href: ipOG.image,
                 type: CONFIG.T.image,
-                rel: ipOG.video || isReel ? CONFIG.R.thumbnail : [CONFIG.R.image, CONFIG.R.thumbnail],
+                rel: CONFIG.R.thumbnail
                 // No media - let's validate image as it may be expired.
+            }
 
+            if (oembed.thumbnail_url && !oembed.is_fallback) {
                 // Remove below error when and if it's fixed. Validators will remove the link
-                error: oembed.is_fallback ? null : 'Unfortunatelly Instagram\'s OG image is cropped as of 2023-10-11 and as of 2024-02-02'
-            });
-        }        
+                og_image.error = 'Unfortunatelly Instagram\'s OG image is cropped';
+            } else if (!oembed.thumbnail_url) {
+                og_image.message = "Unfortunatelly, Instagram removed full images on October 1, 2025";
+            }
+            links.push(og_image);
+        }
 
         if (ipOG.video && ipOG.video.width && ipOG.video.height) {
             links.push({
@@ -176,7 +181,6 @@ export default {
         "https://www.instagram.com/p/HbBy-ExIyF/",
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
-        "https://www.instagram.com/reel/CtHaSoDLrWJ/",
         "https://www.instagram.com/nssmagazine/reel/CrVt-Wvs74O/",
         {
             skipMixins: ["oembed-title", "fb-error", "oembed-author"],
