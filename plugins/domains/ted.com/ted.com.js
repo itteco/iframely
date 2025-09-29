@@ -170,6 +170,7 @@ export default {
             if (/^https?:\/\/[a-z0-9.-]+\/?$/ig.test(url) 
             || /^https:\/\/shows\.acast\.com\/.*/ig.test(url)) {
                 // Skip domain without path like "https://audiocollective.ted.com/"
+                // Skip domain like shows.acast.com/ttd/episodes/tid159494tid
                 return;
             }
             return url;
