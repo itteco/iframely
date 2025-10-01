@@ -1,6 +1,6 @@
 export default {
 
-    re: /^https:\/\/yandex\.ru\/maps\/-\//,
+    re: /^https:\/\/yandex\.(ru|com)\/maps\/-\//,
 
     mixins: [
         // "*" //Captcha :\
@@ -16,6 +16,7 @@ export default {
     },
 
     tests: [
-        "https://yandex.ru/maps/-/CWS~5QYp"
+        "https://yandex.ru/maps/-/CWS~5QYp",
+        "https://yandex.com/maps/-/CLu~B4po"
     ]
 };

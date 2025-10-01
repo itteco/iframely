@@ -167,8 +167,10 @@ export default {
         pageWithFeed: "https://www.ted.com",
 
         getUrl: function(url) {
-            if (/^https?:\/\/[a-z0-9.-]+\/?$/ig.test(url)) {
+            if (/^https?:\/\/[a-z0-9.-]+\/?$/ig.test(url) 
+            || /^https:\/\/shows\.acast\.com\/.*/ig.test(url)) {
                 // Skip domain without path like "https://audiocollective.ted.com/"
+                // Skip domain like shows.acast.com/ttd/episodes/tid159494tid
                 return;
             }
             return url;
@@ -180,7 +182,9 @@ export default {
         "https://www.ted.com/talks/lucy_cooke_3_bizarre_and_delightful_ancient_theories_about_bird_migration",
         "https://www.ted.com/talks/lera_boroditsky_how_language_shapes_the_way_we_think",
         "https://www.ted.com/talks/madhumita_murgia_comment_le_stress_affecte_votre_cerveau?language=fr", // test with &&_language=-
-        "https://www.ted.com/dubbing/lera_boroditsky_how_language_shapes_the_way_we_think?language=en&audio=en",        
+        "https://www.ted.com/dubbing/lera_boroditsky_how_language_shapes_the_way_we_think?language=en&audio=en",
+        "https://www.ted.com/dubbing/chris_anderson_it_s_time_for_infectious_generosity_here_s_how?audio=en&language=en",
+        "https://www.ted.com/dubbing/anjan_sundaram_meet_our_planet_s_hidden_defenders?audio=fr&language=en"       
 
         // Should work, but let's skip from tests not to avoid all oembed-* mixins
         // "https://www.ted.com/talks/su_santidad_el_papa_francisco_nuestro_imperativo_moral_para_actuar_sobre_el_cambio_climatico_y_3_pasos_que_podemos_dar",
