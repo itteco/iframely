@@ -805,6 +805,14 @@
         "endpoint": "https://grid.is/api/oembed"
     },
     {
+        "name": "Calculator Studio",
+        "templates": [
+            "app.calculatorstudio.co/@(.+)"
+        ],
+        "url": "https://grid.is/@{1}",
+        "endpoint": "https://app.calculatorstudio.co/api/oembed"
+    },    
+    {
         "name": "Anchor FM",
         "templates": [
             "anchor.fm/[a-zA-Z0-9\\-]+/episodes/[^\\/]+\\-([a-zA-Z0-9]+)(?:$|\\?)"
