@@ -861,25 +861,22 @@
             "iorad.com/player/*"
         ],
         "endpoint": "https://www.iorad.com/api/oembed"
-    }, {
-        "name": "Dropbox Capture",
-        "templates": [
-            "capture.dropbox.com/*"
-        ],
-        "endpoint": "https://www.dropbox.com/capture/oembed?format={format}&url={url}"
-    }, {
+    }, 
+    {
         "name": "Miro",
         "templates": [
             "miro.com/app/board/*"
         ],
         "endpoint": "https://miro.com/api/v1/oembed?format={format}&url={url}"
-    }, {
+    }, 
+    {
         "name": "Paperform",
         "templates": [
             ".*\\.paperform\\.co/.*"
         ],
         "endpoint": "https://paperform.co/services/oembed?url={url}"
-    }, {
+    }, 
+    {
         "name": "Airtable",
         "templates": [
             "airtable\\.com/*/*"
@@ -960,13 +957,6 @@
             ".*\\.idomoo\\.com/.*"
         ],
         "endpoint": "https://oembed.idomoo.com/oembed"
-    },
-    {
-        "name": "Indaco",
-        "templates": [
-            "player.indacolive.com/player/.*"
-        ],
-        "endpoint": "https://player.indacolive.com/services/oembed"
     },
     {
         "name": "Portfolium",
