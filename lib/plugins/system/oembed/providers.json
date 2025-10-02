@@ -959,13 +959,6 @@
         "endpoint": "https://oembed.idomoo.com/oembed"
     },
     {
-        "name": "Indaco",
-        "templates": [
-            "player.indacolive.com/player/.*"
-        ],
-        "endpoint": "https://player.indacolive.com/services/oembed"
-    },
-    {
         "name": "Portfolium",
         "templates": [
             "portfolium.com/entry/*"
