@@ -4,6 +4,8 @@ export default {
 
     provides: ['twitter_og'],
 
+    listed: true,
+
     getData: function(__allowTwitterOg, meta) {
 
         return {
