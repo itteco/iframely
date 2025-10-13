@@ -22,6 +22,6 @@ export default {
         "https://magic.piktochart.com/output/14330224-descripciones-fisicas",
 
         "https://create.piktochart.com/output/986319273bed-trump-tariffs",
-        "https://create.piktochart.com/output/04c845534560-buenas-practicas-en-la-elaboracion-de-alimentos-en-el-hogar"
+        "https://create.piktochart.com/output/4407f4418cb3-setmana-del-govern-obert-2024"
     ]
 };
