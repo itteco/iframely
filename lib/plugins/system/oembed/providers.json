@@ -1002,7 +1002,7 @@
         "endpoint": "https://app.wizer.me/api/oembed.{format}"
     },
     {
-        "name": "Casual.app",
+        "name": "Causal.app",
         "templates": [
             "my.causal.app/models/*"
         ],
