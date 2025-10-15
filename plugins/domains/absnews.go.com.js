@@ -19,8 +19,8 @@ export default {
     tests: [{
         noFeeds: true
     },
-        "http://abcnews.go.com/GMA/video/subway-prank-college-humor-vitamin-water-mess-nyc-19893934",
-        "http://abcnews.go.com/Nightline/video/bob-drag-queen-surprises-year-dressed-bob-drag-43209383",
-        "http://abcnews.go.com/GMA/Wellness/video/increasing-number-children-killed-flu-epidemic-53193259"
+        "https://abcnews.go.com/GMA/News/video/trump-hamas-disarm-disarm-126540156",
+        "https://abcnews.go.com/Nightline/video/bob-drag-queen-surprises-year-dressed-bob-drag-43209383",
+        "https://abcnews.go.com/GMA/Wellness/video/increasing-number-children-killed-flu-epidemic-53193259"
     ]
 };
