@@ -6,7 +6,7 @@ export default {
 
     provides: ['appUriData', 'whenPrerender'],
 
-    getData: function(url, __appFlag, iframelyRun, options, meta, cb) {
+    getData: function(url, __allowJSRender, iframelyRun, options, meta, cb) {
 
         if (CONFIG.PRERENDER && CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
 

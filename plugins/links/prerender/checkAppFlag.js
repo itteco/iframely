@@ -2,7 +2,9 @@ import utils from './utils.js';
 
 export default {
 
-    provides: '__appFlag',
+    provides: '__allowJSRender',
+
+    listed: true,
 
     getData: function(meta, url, options, cb) {
 
@@ -12,7 +14,7 @@ export default {
 
         if (utils.maybeApp(meta)) {
             return cb(null, {
-                __appFlag: true,
+                __allowJSRender: true,
                 message: "This looks like JS app with no prerender. If you are the owner, please run templates on the server for <a href=\"https://iframely.com/docs/about\">Iframely robot</a>."
             });
         } else {

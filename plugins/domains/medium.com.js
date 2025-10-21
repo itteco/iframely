@@ -6,7 +6,7 @@ export default {
         "*"
     ],
 
-    provides: ['__appFlag'],
+    provides: ['__allowJSRender'],
 
     getLinks: function(og, url) {
 
@@ -30,7 +30,7 @@ export default {
     getData: function(meta, options) {
         if (!meta.og) {
             return {
-                __appFlag: true
+                __allowJSRender: true
             }
         }
     },
