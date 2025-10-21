@@ -6,7 +6,7 @@ export default {
 
     provides: ['appUriData', 'whenReact'],
 
-    getData: function(url, __appFlag, iframelyRun, options, cb) {
+    getData: function(url, __allowJSRender, iframelyRun, options, cb) {
 
         if (options.user_agent === CONFIG.FB_USER_AGENT) {
             return cb();
