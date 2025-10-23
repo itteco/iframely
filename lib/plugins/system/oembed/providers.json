@@ -2,22 +2,23 @@
     {
         "name": "Facebook Post no query string",
         "templates": [
-          "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/\\d{10,})",
-          "(?:www|m|business)\\.(facebook\\.com/[a-zA-Z0-9\\.\\-]+/(?:posts|activity)/pfbid([a-zA-Z0-9\\.\\-]+))",
+          "(?:www|m|business)\\.(facebook\\.com/[^/]+/(?:posts|activity)/\\d{10,})",
+          "(?:www|m|business)\\.(facebook\\.com/posts/[^/]+/\\d{10,})",
+          "(?:www|m|business)\\.(facebook\\.com/[^/]+/(?:posts|activity)/pfbid([a-zA-Z0-9\\.\\-]+))",
           "(?:www|m|business)\\.(facebook\\.com/notes/[^/]+/[^/]+/\\d{10,})",
           "(?:www|m|business)\\.(facebook\\.com/\\d+_\\d+)"
         ],
         "url": "https://www.{1}",
-        "endpoint": "https://graph.facebook.com/v18.0/oembed_post"
+        "endpoint": "https://graph.facebook.com/v24.0/oembed_post"
     },
     {
         "name": "Facebook Video no query string",
         "templates": [
-            "(?:www|business)\\.(facebook\\.com/[a-zA-Z0-9.]+/videos/\\d+)",
+            "(?:www|business)\\.(facebook\\.com/[^/]+/videos/\\d+)",
             "(?:www|m|business)\\.(facebook\\.com/watch/?\\?v=\\d+)"
         ],
         "url": "https://www.{1}",
-        "endpoint": "https://graph.facebook.com/v18.0/oembed_video"
+        "endpoint": "https://graph.facebook.com/v24.0/oembed_video"
     },
     {
         "name": "Facebook Video",
@@ -31,7 +32,7 @@
           "(?:www|m|business)\\.facebook\\.com/watch/?\\?(?:.+&)?v=\\d+",
           "(?:www|m|business)\\.facebook\\.com/reel/\\d+"          
         ],
-        "endpoint": "https://graph.facebook.com/v18.0/oembed_video"
+        "endpoint": "https://graph.facebook.com/v24.0/oembed_video"
     },
     {
         "name": "Facebook Post",
@@ -39,10 +40,10 @@
           "(?:www|m|business)\\.facebook\\.com/(permalink|story)\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo\\.php\\?[^/]+(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/photo/?\\?",
-          "(?:www|m|business)\\.facebook\\.com/([a-zA-Z0-9\\.\\-]+)/(?:photos/)?[^\\/]+/(\\d{10,})",
+          "(?:www|m|business)\\.facebook\\.com/[^/]+/(?:photos/)?[^\\/]+/(\\d{10,})",
           "(?:www|m|business)\\.facebook\\.com/media/set/\\?set=[^/]+(\\d{10,})"
         ],
-        "endpoint": "https://graph.facebook.com/v18.0/oembed_post"
+        "endpoint": "https://graph.facebook.com/v24.0/oembed_post"
     },
     {
         "name": "Facebook Page",
@@ -50,7 +51,7 @@
             "(?:www|m)\\.facebook\\.com/(?:pg|pages)/",
             "(?:www|m)\\.facebook\\.com/[^/]+/?(?:about|photos|videos|events|timeline|photos_stream)?/?(?:\\?[^/\\?]+)?$"
         ],
-        "endpoint": "https://graph.facebook.com/v18.0/oembed_page"
+        "endpoint": "https://graph.facebook.com/v24.0/oembed_page"
     },
     {
         "name": "Instagram",
@@ -58,7 +59,7 @@
             "(?:www\\.)?(instagram\\.com/(?:p|tv|reel)/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
-        "endpoint": "https://graph.facebook.com/v18.0/instagram_oembed?format={format}&url=https://www.{1}/"
+        "endpoint": "https://graph.facebook.com/v24.0/instagram_oembed?format={format}&url=https://www.{1}/"
     },
     {
         "name": "Instagram user page",
@@ -66,7 +67,7 @@
             "(?:www\\.)?(instagram\\.com/)[a-zA-Z0-9_\\-\\.]+/((?:p|tv|reel)/[a-zA-Z0-9_-]+)",
             "(instagr\\.am/)[a-zA-Z0-9_\\-\\.]+/(p/[a-zA-Z0-9_-]+)"
         ],
-        "endpoint": "https://graph.facebook.com/v18.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
+        "endpoint": "https://graph.facebook.com/v24.0/instagram_oembed?format={format}&url=https://www.{1}{2}"
     },
     {
         "name": "Instagram profile",
@@ -74,7 +75,7 @@
             "(?:www\\.)?(instagram\\.com/)([a-zA-Z0-9_\\-\\.]+)/?(?:\\?.+)?$"
         ],
         "url": "https://www.{1}{2}/",
-        "endpoint": "https://graph.facebook.com/v18.0/instagram_oembed?format={format}&&url={url}"
+        "endpoint": "https://graph.facebook.com/v24.0/instagram_oembed?format={format}&&url={url}"
     },
     {
         "name": "Dailymotion",

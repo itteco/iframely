@@ -6,11 +6,12 @@ export default {
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/(permalink|story)\.php\?[^\/]+(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\/?\?(?:[^\?]+)?fbid=(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/(posts|activity)\/pfbid([a-zA-Z0-9\.\-]+)/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/([a-zA-Z0-9\.\-]+)\/photos(?:\/[^\/]+)?\/(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/([^\/\?]+)\/[^\/]+\/(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/(posts|activity)\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/posts\/[^\/]+\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/(posts|activity)\/pfbid([a-zA-Z0-9\.\-]+)/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/photos(?:\/[^\/]+)?\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/[^\/\?]+\/[^\/]+\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/media\/set\/\?set=[^\/]+(\d{10,})/i,
     ],
 
     mixins: ["fb-error"],
