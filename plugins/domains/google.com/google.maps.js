@@ -149,6 +149,8 @@ export default {
                 // responseStatusCode: 415, // No error, fall back to generic parsers instead
                 message: "Google requires your own key for Maps Embeds API. <a href='https://developers.google.com/maps/documentation/embed/get-api-key' target='_blank'>Get one</a> and add it to the provider options."
             });
+        } else if (options.getProviderOptions('google.follow_http_redirect', false)) {
+            options.followHTTPRedirect = true;
         }
 
         var gmap = {};
