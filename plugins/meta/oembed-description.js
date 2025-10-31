@@ -5,7 +5,7 @@ export default {
 
     getMeta: function(oembed) {
         if (oembed.description) {
-            var $p = cheerio('<p>');
+            var $p = cheerio.load('<p></p>')('p');
             try {
                 $p.html(oembed.description);
                 return {
