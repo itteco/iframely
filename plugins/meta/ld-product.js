@@ -10,6 +10,7 @@ export default {
         if (ld.product) {
             var description = ld.product.description;
             if (description) {
+                // TODO: fix using cheerio
                 var $container = cheerio('<div>');
                 try {
                     $container.html(description);

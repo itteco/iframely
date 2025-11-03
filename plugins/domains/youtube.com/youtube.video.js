@@ -254,6 +254,7 @@ export default {
         var rels = [CONFIG.R.player];
 
         if (youtube_video_gdata.playerHtml) { // maybe still widescreen. plus detect 'allow' from html
+            // TODO: fix using cheerio
             var $container = cheerio('<div>');
             try {
                 $container.html(youtube_video_gdata.playerHtml);

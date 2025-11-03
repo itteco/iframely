@@ -6,6 +6,7 @@ export default {
     getMeta: function(ld) {
         function clean(field) {
             if (field) {
+                // TODO: fix using cheerio
                 var $container = cheerio('<div>');
                 try {
                     $container.html(field);

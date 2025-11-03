@@ -17,6 +17,8 @@ export default {
             var video_src = json.embedurl || json.embedUrl || json.embedURL || json.contenturl || json.contentUrl || json.contentURL;
 
             if (/^<iframe.*<\/iframe>$/i.test(video_src)) {
+                
+                // TODO: fix using cheerio
                 var $container = cheerio('<div>');
                 try {
                     $container.html(video_src);

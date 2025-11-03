@@ -120,11 +120,10 @@ export default {
 
         if ($scope.length) {
 
-            var $aScope = cheerio($scope);
-
             var result = {};
 
-            $aScope.find('[itemprop]').each(function() {
+            // TODO: test cheerio usage
+            $scope.find('[itemprop]').each(function() {
                 var $el = cheerio(this);
 
                 var scope = $el.attr('itemscope');

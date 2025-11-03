@@ -26,6 +26,7 @@ export default {
         tumblr_post.photos.forEach(function(photo) {
 
             var title = photo.caption || tumblr_post.caption;
+            // TODO: fix using cheerio
             title = cheerio('<div>').html(title).text();
             if (title && title.length > 160) {
                 title = title.split(/[.,!?]/)[0];
