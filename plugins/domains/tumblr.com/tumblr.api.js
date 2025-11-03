@@ -12,8 +12,7 @@ export default {
 
     getMeta: function(tumblr_post) {
 
-        // TODO: fix using cheerio
-        var caption = tumblr_post.caption ? cheerio('<div>').html(tumblr_post.caption).text() : "";
+        var caption = tumblr_post.caption ? cheerio.load(tumblr_post.caption).text() : "";
         if (caption && caption.length > 160) {
             caption = caption.split(/[.,!?]/)[0];
         }
@@ -28,8 +27,7 @@ export default {
             shortlink: tumblr_post.short_url,
             date: tumblr_post.date,
             duration: tumblr_post.duration,
-            // TODO: fix using cheerio
-            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? cheerio('<div>').html(tumblr_post.body).find('p').first().text() : null
+            description: tumblr_post.body && /<p/.test(tumblr_post.body) ? cheerio.load(tumblr_post.body)('p').first().text() : null
         };
     },
 
