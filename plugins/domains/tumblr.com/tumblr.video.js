@@ -24,12 +24,9 @@ export default {
 
             var p = tumblr_post.player instanceof Array ? tumblr_post.player[0] : tumblr_post.player;
 
-            // TODO: fix using cheerio
-            var $c = cheerio('<div>').append(p.embed_code);
-            var $iframe = $c.find('iframe');
+            var $iframe = cheerio.load(p.embed_code)('iframe');
 
             if ($iframe.length) {
-
                 return {
                     __promoUri: {
                         url: $iframe.attr('src'),
