@@ -254,19 +254,18 @@ export default {
         var rels = [CONFIG.R.player];
 
         if (youtube_video_gdata.playerHtml) { // maybe still widescreen. plus detect 'allow' from html
-            // TODO: fix using cheerio
-            var $container = cheerio('<div>');
+            var $iframe = null;
             try {
-                $container.html(youtube_video_gdata.playerHtml);
+                $iframe = cheerio.load(youtube_video_gdata.playerHtml)('iframe');
             } catch (ex) {}
 
-            var $iframe = $container.find('iframe');
-
-            if (!widescreen && $iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
-                widescreen =  $iframe.attr('width') / $iframe.attr('height') > 1.35;
-            }
-            if ($iframe.attr('allow')) {
-                rels = rels.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+            if ($iframe && $iframe.length) {
+                if (!widescreen && $iframe.length == 1 && $iframe.attr('width') && $iframe.attr('height') && $iframe.attr('height') > 0) {
+                    widescreen =  $iframe.attr('width') / $iframe.attr('height') > 1.35;
+                }
+                if ($iframe.attr('allow')) {
+                    rels = rels.concat($iframe.attr('allow').replace(/autoplay;?\s?/ig, '').split(/\s?;\s?/g));
+                }
             }
         }
         // End of widescreen & allow check
