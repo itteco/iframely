@@ -6,14 +6,11 @@ export default {
     getMeta: function(ld) {
         function clean(field) {
             if (field) {
-                // TODO: fix using cheerio
-                var $container = cheerio('<div>');
                 try {
-                    $container.html(field);
+                    return cheerio.load(field).text();
                 } catch (ex) {
                     return undefined;
                 }
-                return $container.text();
             }
         }
 

@@ -18,14 +18,12 @@ export default {
 
             if (/^<iframe.*<\/iframe>$/i.test(video_src)) {
                 
-                // TODO: fix using cheerio
-                var $container = cheerio('<div>');
+                var $iframe = null;
                 try {
-                    $container.html(video_src);
+                    $iframe = cheerio.load(video_src)('iframe');
                 } catch (ex) {}
 
-                var $iframe = $container.find('iframe');
-                if ($iframe.length == 1 && $iframe.attr('src')) {
+                if ($iframe && $iframe.length == 1 && $iframe.attr('src')) {
 
                     json.embedurl = $iframe.attr('src');
                     video_src = $iframe.attr('src'); // For KNOWN check below.
