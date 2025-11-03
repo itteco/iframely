@@ -122,7 +122,6 @@ export default {
 
             var result = {};
 
-            // TODO: test cheerio usage
             $scope.find('[itemprop]').each(function() {
                 var $el = cheerio(this);
 
