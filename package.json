@@ -51,7 +51,7 @@
         "underscore": "^1.13.6"
     },
     "devDependencies": {
-        "chai": "^4.3.7",
+        "chai": "^6.2.0",
         "feedparser": "2.2.10",
         "mock-http-server": "^1.4.5",
         "mongoose": "^8.19.2",
