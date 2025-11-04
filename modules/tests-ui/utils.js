@@ -500,7 +500,7 @@ function findUsedMethods(options, debugData, result) {
 
             if (options.findByData) {
                 try {
-                    good = _.intersection(_.keys(l), options.findByData).length > 0;
+                    good = _.intersection(Object.keys(l), options.findByData).length > 0;
                 } catch(ex) {
                     good = false;
                 }

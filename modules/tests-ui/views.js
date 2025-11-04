@@ -97,7 +97,7 @@
                         }
                     }
 
-                    var testedUrls = _.keys(pluginTest.last_page_logs_dict);
+                    var testedUrls = Object.keys(pluginTest.last_page_logs_dict);
 
                     var logs = _.values(pluginTest.last_page_logs_dict);
 
@@ -134,7 +134,7 @@
                 good.items = pluginTests.filter(function(p) { return !p.hasError; });
                 bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
-                _.keys(stats).forEach(function(key) {
+                Object.keys(stats).forEach(function(key) {
                     averageTime[key] = Math.round(totalTime[key] / (totalCount[key] || 1));
                     averageOkTime[key] = Math.round(totalOkTime[key] / (totalOkCount[key] || 1));
                 });
@@ -147,7 +147,7 @@
                     totalCount: totalCount,
                     averageOkTime: averageOkTime,
                     totalOkCount: totalOkCount,
-                    statsKeys: _.keys(stats),
+                    statsKeys: Object.keys(stats),
                     format: function(d) {
                         if (!d) {
                             return "–";

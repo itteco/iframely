@@ -241,7 +241,7 @@ function showEmbeds($embeds, data, filterByRel) {
             .addClass("table table-bordered")
             .append('<thead><tr>' + (DEBUG ? '<th>plugin</th><th>requirements</th>' : '') + '<th>key</th><th>value</th></tr></thead>');
 
-        var metaKeys = _.keys(data.meta);
+        var metaKeys = Object.keys(data.meta);
         metaKeys.sort();
         metaKeys.forEach(function(key) {
             if (key == "_sources") {
@@ -259,7 +259,7 @@ function showEmbeds($embeds, data, filterByRel) {
         $embeds.prepend($meta);
         $embeds.prepend('<h4>Unified meta</h4>');
 
-        var pluginsList = _.keys(usedPlugins);
+        var pluginsList = Object.keys(usedPlugins);
         var $textarea = $('<textarea>')
             .hide()
             .attr('rows', pluginsList.length + 2)

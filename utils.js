@@ -122,7 +122,7 @@
 
         var newQuery = {};
 
-        var keys = _.keys(query);
+        var keys = Object.keys(query);
         keys.sort();
         keys.forEach(function(key) {
             newQuery[key] = query[key];
