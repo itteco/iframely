@@ -331,7 +331,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
             urls = urls || [];
 
-            urls = _.flatten(urls);
+            urls = urls.flat();
 
             var errors = urls.filter(function(url) {
                 return url && url.error;
