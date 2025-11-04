@@ -92,7 +92,7 @@ function getTestsSummary(cb) {
                 return;
             }
 
-            var logs = _.values(pluginTest.last_page_logs_dict);
+            var logs = Object.values(pluginTest.last_page_logs_dict);
 
             var allTimeout = _.all(logs, function(log) {
                 return log.hasTimeout();

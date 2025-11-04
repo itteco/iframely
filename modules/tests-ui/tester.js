@@ -567,7 +567,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 function testAll(cb) {
 
     // Get all plugins with tests.
-    var pluginsList = _.values(plugins).filter(function(plugin) {
+    var pluginsList = Object.values(plugins).filter(function(plugin) {
 
         if (plugin.module.tests && plugin.module.tests.noTest) {
             return false;
