@@ -192,7 +192,7 @@ export function loadPluginTests(cb) {
 
         function loadLogs(sets, cb) {
 
-            var pluginTestsDict = _.object(pluginTests.map(function(p) { return [p._id, p]; }));
+            var pluginTestsDict = Object.fromEntries(pluginTests.map(function(p) { return [p._id, p]; }));
 
             async.eachSeries(sets.filter(function(s) {return s;}), function(s, cb) {
 

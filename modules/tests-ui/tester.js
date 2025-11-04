@@ -272,7 +272,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                 cb(null, [tests]);
 
-            } else if (_.isArray(tests)) {
+            } else if (Array.isArray(tests)) {
 
                 async.map(tests.filter(function(x) {return x;}), function(url, cb) {
 
