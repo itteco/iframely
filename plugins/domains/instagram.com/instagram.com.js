@@ -29,37 +29,10 @@ export default {
     provides: ['ipOG', '__allowInstagramMeta'],
 
     getMeta: function (oembed, urlMatch, ipOG) {
-
-        var title = ipOG.title;
-        var description = ipOG.description || oembed.title;
-
-        if (!description || !title || /login/i.test(title)) {
-            var $container = cheerio('<div>');
-            try {
-                $container.html(decodeHTML5(oembed.html));
-            } catch (ex) {}
-
-            if (!title || /login/i.test(title)) {
-                var $a = $container.find(`p a[href*="${oembed.author_name}"], p a[href*="${urlMatch[1]}"]`);
-
-                if ($a.length == 1) {
-                    title = $a.text();
-                    title += /@/.test(title) ? '' : (oembed.author_name ? ` (@${oembed.author_name})` : '');
-                } else if (oembed.author_name) {
-                    title = `Instagram (@${oembed.author_name})`;
-                }
-            }
-
-            if (!description) {
-                var $a = $container.find(`p a[href*="${urlMatch[1]}"]`);
-                description = $a.text();
-            }
-        }
-
         return {
-            title: title,
-            description: description,
-            canonical: `https://www.instagram.com/p/${urlMatch[1]}`
+            title: ipOG.title,
+            description: ipOG.description,
+            canonical: ipOG.url || `https://www.instagram.com/p/${urlMatch[1]}`
         }
     },
 
