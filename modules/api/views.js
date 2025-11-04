@@ -173,13 +173,13 @@ export default function(app) {
                         && link.type === CONFIG.T.text_html;
                 });
                 if (render_link) {
-                    cache.set(getRenderLinkCacheKey(uri, req), _.extend({
+                    cache.set(getRenderLinkCacheKey(uri, req), Object.assign({
                         title: result.meta.title
                     }, render_link)); // Copy to keep removed fields.
 
                     var parsedUrl = url.parse(CONFIG.baseAppUrl + "/render", true);
                     // Add _ options params.
-                    _.extend(parsedUrl.query, getProviderOptionsQuery(req.query));
+                    Object.assign(parsedUrl.query, getProviderOptionsQuery(req.query));
                     parsedUrl.query.uri = uri;
 
                     render_link.href = url.format(parsedUrl);;
@@ -192,7 +192,7 @@ export default function(app) {
                             && link.type === CONFIG.T.text_html;
                     });
                     if (render_link) {
-                        cache.set(getRenderLinkCacheKey(uri, req), _.extend({
+                        cache.set(getRenderLinkCacheKey(uri, req), Object.assign({
                             title: result.meta.title
                         }, render_link)); // Copy to keep removed fields.
                     }

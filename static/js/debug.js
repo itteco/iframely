@@ -75,7 +75,7 @@ function findDebugInfo(link, data) {
         });
 
         if (goodLinks.length) {
-            result = _.extend({}, dataItem);
+            result = Object.assign({}, dataItem);
             result.data = goodLinks[0];
             return true;
         }
