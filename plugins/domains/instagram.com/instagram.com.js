@@ -1,7 +1,3 @@
-import cheerio from 'cheerio';
-
-import { decodeHTML5 } from 'entities';
-
 export default {
 
     /**
@@ -63,7 +59,7 @@ export default {
                 // Remove below error when and if it's fixed. Validators will remove the link
                 og_image.error = 'Unfortunatelly Instagram\'s OG image is cropped';
             } else if (!oembed.thumbnail_url) {
-                og_image.message = "Unfortunatelly, Instagram removed full images on October 1, 2025";
+                og_image.message = "Unfortunatelly, Instagram removed full images on November 3, 2025";
             }
             links.push(og_image);
         }
