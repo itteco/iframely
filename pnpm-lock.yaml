@@ -68,9 +68,6 @@ importers:
       memcached:
         specifier: 2.2.2
         version: 2.2.2
-      mocha:
-        specifier: ^11.7.4
-        version: 11.7.4
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -111,6 +108,9 @@ importers:
       feedparser:
         specifier: 2.2.10
         version: 2.2.10
+      mocha:
+        specifier: ^11.7.4
+        version: 11.7.4
       mock-http-server:
         specifier: ^1.4.5
         version: 1.4.5

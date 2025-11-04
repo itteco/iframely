@@ -38,7 +38,6 @@
         "json5": "^2.2.3",
         "jsontoxml": "^1.0.1",
         "memcached": "2.2.2",
-        "mocha": "^11.7.4",
         "moment": "^2.30.1",
         "node-cache": "^1.1.0",
         "node-yaml-config": "^1.0.0",
@@ -54,6 +53,7 @@
     "devDependencies": {
         "chai": "^6.2.0",
         "feedparser": "2.2.10",
+        "mocha": "^11.7.4",
         "mock-http-server": "^1.4.5",
         "mongoose": "^8.19.2",
         "supertest": "^7.1.4"
