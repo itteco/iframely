@@ -166,7 +166,7 @@ export default function(app) {
             }
 
             if (!CONFIG.SKIP_IFRAMELY_RENDERS) {
-                var render_link = _.find(result.links, function(link) {
+                var render_link = result.links.find(function(link) {
                     return link.html
                         && !link.href
                         && link.rel.indexOf(CONFIG.R.inline) === -1
@@ -186,7 +186,7 @@ export default function(app) {
                     delete render_link.html;
                 } else {
                     // Cache non inline link to later render for older consumers.
-                    render_link = _.find(result.links, function(link) {
+                    render_link = result.links.find(function(link) {
                         return link.html
                             && link.rel.indexOf(CONFIG.R.inline) > -1
                             && link.type === CONFIG.T.text_html;
@@ -339,7 +339,7 @@ export default function(app) {
                             return cb(error);
                         }
 
-                        var render_link = result && _.find(result.links, function(link) {
+                        var render_link = result.links.find(function(link) {
                             return link.html
                                 && link.rel.indexOf(CONFIG.R.inline) === -1
                                 && link.type === CONFIG.T.text_html;
@@ -347,7 +347,7 @@ export default function(app) {
 
                         if (!render_link) {
                             // Cache non inline link to later render for older consumers.
-                            render_link = _.find(result.links, function(link) {
+                            render_link = result.links.find(function(link) {
                                 return link.html
                                     && link.rel.indexOf(CONFIG.R.inline) > -1
                                     && link.type === CONFIG.T.text_html;

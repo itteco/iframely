@@ -451,7 +451,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         if (errors) {
                             logEntry.errors_list = logEntry.errors || [];
                             errors.forEach(function(m) {
-                                var inMandatory = _.find(allMandatoryMethods, function(mandatoryMethod) {
+                                var inMandatory = allMandatoryMethods.find(function(mandatoryMethod) {
                                     return m.indexOf(mandatoryMethod) > -1;
                                 });
 
@@ -466,7 +466,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         if (unusedMethods.mandatory.length > 0) {
                             logEntry.errors_list = logEntry.errors_list || [];
                             unusedMethods.mandatory.forEach(function(m) {
-                                var inError = _.find(errors, function(error) {
+                                var inError = errors.find(function(error) {
                                     return error.indexOf(m) > -1;
                                 });
                                 if (inError) {
@@ -481,7 +481,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         if (unusedMethods.skipped.length > 0) {
                             logEntry.warnings = logEntry.warnings || [];
                             unusedMethods.skipped.forEach(function(m) {
-                                var inError = _.find(errors, function(error) {
+                                var inError = errors.find(function(error) {
                                     return error.indexOf(m) > -1;
                                 });
                                 if (inError) {

@@ -54,7 +54,7 @@ function findDebugInfo(link, data) {
 
     var result;
 
-    _.find(data.allData, function(dataItem) {
+    data.allData.find(function(dataItem) {
 
         if (dataItem.method.name.indexOf('getLink') === -1) {
             return;
