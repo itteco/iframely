@@ -101,7 +101,7 @@
 
                     var logs = Object.values(pluginTest.last_page_logs_dict);
 
-                    var allTimeout = _.all(logs, function(log) {
+                    var allTimeout = logs.every(function(log) {
                         return log.hasTimeout();
                     });
                     if (allTimeout) {
