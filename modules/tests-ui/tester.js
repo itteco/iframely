@@ -10,12 +10,12 @@ if (!CONFIG.tests) {
 process.title = "iframely-tests";
 
 import * as async from 'async';
-import * as _ from 'underscore';
 import * as models from './models.js';
 import * as utils from './utils.js';
 import { run as iframely } from '../../lib/core.js';
 import * as whitelist from '../../lib/whitelist.js';
 import * as pluginLoader from '../../lib/loader/pluginLoader.js';
+import { difference } from '../../utils.js';
 var plugins = pluginLoader._plugins;
 
 var testOnePlugin = false;
@@ -106,7 +106,7 @@ function createNewPluginTests(providersIds, cb) {
 
         function(ids, cb) {
 
-            var newIds = _.difference(providersIds, ids);
+            var newIds = difference(providersIds, ids);
 
             async.eachSeries(newIds, function(id, cb) {
 

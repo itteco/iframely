@@ -1,9 +1,9 @@
     import * as async from 'async';
     import moment from 'moment';
-    import * as _ from 'underscore';
     import { exec as exec } from 'child_process';
     import * as models from './models.js';
     import * as utils from './utils.js';
+    import { difference } from '../../utils.js';
 
     var PluginTest = models.PluginTest;
     var TestingProgress = models.TestingProgress;
@@ -113,7 +113,7 @@
                     }
 
                     pluginTest.failedUrls = logs.length - pluginTest.passedUrls;
-                    pluginTest.pendingUrls = _.difference(pluginTest.last_urls_set.urls, testedUrls).length;
+                    pluginTest.pendingUrls = difference(pluginTest.last_urls_set.urls, testedUrls).length;
                     pluginTest.hasError = pluginTest.failedUrls > 0;
                     // TODO: do something with this?
                     pluginTest.hasGeneralError = pluginTest.error || pluginTest.last_urls_set.hasError();

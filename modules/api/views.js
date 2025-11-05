@@ -1,6 +1,5 @@
 import * as iframelyCore from '../../lib/core.js';
 import * as utils from '../../utils.js';
-import * as _ from 'underscore';
 import * as async from 'async';
 import { cache } from '../../lib/cache.js';
 import * as iframelyUtils from '../../lib/utils.js';
@@ -231,7 +230,7 @@ export default function(app) {
                 });
 
                 var other = links.filter(function(link) {
-                    return _.intersection(link.rel, CONFIG.REL_GROUPS).length == 0
+                    return utils.intersection(link.rel, CONFIG.REL_GROUPS).length == 0
                 });
                 if (other.length) {
                     groups.other = other;

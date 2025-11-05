@@ -98,9 +98,6 @@ importers:
       send:
         specifier: ^1.2.0
         version: 1.2.0
-      underscore:
-        specifier: ^1.13.6
-        version: 1.13.6
     devDependencies:
       chai:
         specifier: ^6.2.0

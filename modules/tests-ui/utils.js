@@ -1,4 +1,3 @@
-import * as _ from 'underscore';
 import FeedParser from 'feedparser';
 import got from 'got';
 import * as async from 'async';
@@ -8,6 +7,7 @@ import { findWhitelistRecordFor } from '../../lib/whitelist.js';
 import { getPluginData as iframelyGetPluginData } from '../../lib/core.js';
 import * as pluginLoader from '../../lib/loader/pluginLoader.js';
 import * as pluginUtils from '../../lib/loader/utils.js';
+import { difference, intersection, union } from '../../utils.js';
 
 var plugins = pluginLoader._plugins,
     pluginsList = pluginLoader._pluginsList,
@@ -226,8 +226,8 @@ export function getPluginUnusedMethods(pluginId, debugData) {
 
     return {
         allMandatoryMethods: pluginMethods.mandatory,
-        mandatory: _.difference(pluginMethods.mandatory, usedMethods),
-        skipped: _.difference(pluginMethods.skipped, usedMethods)
+        mandatory: difference(pluginMethods.mandatory, usedMethods),
+        skipped: difference(pluginMethods.skipped, usedMethods)
     };
 };
 
@@ -435,9 +435,9 @@ function findAllPluginMethods(pluginId, plugins, result, skipped) {
     var skipMethods = [];
     var tests = plugin.module.tests;
     tests && tests.forEach && tests.forEach(function(test) {
-        skipMixins = _.union(skipMixins, test.skipMixins, globalSkipMixins);
+        skipMixins = union(skipMixins, test.skipMixins, globalSkipMixins);
         if (test.skipMethods) {
-            skipMethods = _.union(skipMethods, test.skipMethods);
+            skipMethods = union(skipMethods, test.skipMethods);
         }
     });
 
@@ -500,7 +500,7 @@ function findUsedMethods(options, debugData, result) {
 
             if (options.findByData) {
                 try {
-                    good = _.intersection(Object.keys(l), options.findByData).length > 0;
+                    good = intersection(Object.keys(l), options.findByData).length > 0;
                 } catch(ex) {
                     good = false;
                 }
@@ -525,7 +525,7 @@ function findUsedMethods(options, debugData, result) {
 
                 // Find parent data source.
 
-                var findSourceForRequirements = _.difference(params, DEFAULT_PARAMS);
+                var findSourceForRequirements = difference(params, DEFAULT_PARAMS);
 
                 if (findSourceForRequirements.length > 0) {
                     findUsedMethods({
