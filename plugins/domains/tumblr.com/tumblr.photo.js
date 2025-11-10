@@ -1,4 +1,4 @@
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
 export default {
 
@@ -26,7 +26,7 @@ export default {
         tumblr_post.photos.forEach(function(photo) {
 
             var title = photo.caption || tumblr_post.caption;
-            title = cheerio('<div>').html(title).text();
+            title = cheerio.load(title).text();
             if (title && title.length > 160) {
                 title = title.split(/[.,!?]/)[0];
             }

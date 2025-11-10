@@ -1,9 +1,9 @@
     import * as async from 'async';
     import moment from 'moment';
-    import * as _ from 'underscore';
     import { exec as exec } from 'child_process';
     import * as models from './models.js';
     import * as utils from './utils.js';
+    import { difference } from '../../utils.js';
 
     var PluginTest = models.PluginTest;
     var TestingProgress = models.TestingProgress;
@@ -97,11 +97,11 @@
                         }
                     }
 
-                    var testedUrls = _.keys(pluginTest.last_page_logs_dict);
+                    var testedUrls = Object.keys(pluginTest.last_page_logs_dict);
 
-                    var logs = _.values(pluginTest.last_page_logs_dict);
+                    var logs = Object.values(pluginTest.last_page_logs_dict);
 
-                    var allTimeout = _.all(logs, function(log) {
+                    var allTimeout = logs.every(function(log) {
                         return log.hasTimeout();
                     });
                     if (allTimeout) {
@@ -113,7 +113,7 @@
                     }
 
                     pluginTest.failedUrls = logs.length - pluginTest.passedUrls;
-                    pluginTest.pendingUrls = _.difference(pluginTest.last_urls_set.urls, testedUrls).length;
+                    pluginTest.pendingUrls = difference(pluginTest.last_urls_set.urls, testedUrls).length;
                     pluginTest.hasError = pluginTest.failedUrls > 0;
                     // TODO: do something with this?
                     pluginTest.hasGeneralError = pluginTest.error || pluginTest.last_urls_set.hasError();
@@ -134,7 +134,7 @@
                 good.items = pluginTests.filter(function(p) { return !p.hasError; });
                 bad.items = pluginTests.filter(function(p) { return p.hasError; });
 
-                _.keys(stats).forEach(function(key) {
+                Object.keys(stats).forEach(function(key) {
                     averageTime[key] = Math.round(totalTime[key] / (totalCount[key] || 1));
                     averageOkTime[key] = Math.round(totalOkTime[key] / (totalOkCount[key] || 1));
                 });
@@ -147,7 +147,7 @@
                     totalCount: totalCount,
                     averageOkTime: averageOkTime,
                     totalOkCount: totalOkCount,
-                    statsKeys: _.keys(stats),
+                    statsKeys: Object.keys(stats),
                     format: function(d) {
                         if (!d) {
                             return "–";

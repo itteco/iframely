@@ -1,15 +1,13 @@
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
 
 export default {
 
     getMeta: function(oembed) {
         if (oembed.description) {
-            var $p = cheerio('<p>');
             try {
-                $p.html(oembed.description);
                 return {
-                    description: $p.text()
+                    description: cheerio.load(oembed.description).text()
                 };
             } catch (ex) {}
         }
