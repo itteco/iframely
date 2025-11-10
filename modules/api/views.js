@@ -1,6 +1,5 @@
 import * as iframelyCore from '../../lib/core.js';
 import * as utils from '../../utils.js';
-import * as _ from 'underscore';
 import * as async from 'async';
 import { cache } from '../../lib/cache.js';
 import * as iframelyUtils from '../../lib/utils.js';
@@ -166,33 +165,33 @@ export default function(app) {
             }
 
             if (!CONFIG.SKIP_IFRAMELY_RENDERS) {
-                var render_link = _.find(result.links, function(link) {
+                var render_link = result.links.find(function(link) {
                     return link.html
                         && !link.href
                         && link.rel.indexOf(CONFIG.R.inline) === -1
                         && link.type === CONFIG.T.text_html;
                 });
                 if (render_link) {
-                    cache.set(getRenderLinkCacheKey(uri, req), _.extend({
+                    cache.set(getRenderLinkCacheKey(uri, req), Object.assign({
                         title: result.meta.title
                     }, render_link)); // Copy to keep removed fields.
 
                     var parsedUrl = url.parse(CONFIG.baseAppUrl + "/render", true);
                     // Add _ options params.
-                    _.extend(parsedUrl.query, getProviderOptionsQuery(req.query));
+                    Object.assign(parsedUrl.query, getProviderOptionsQuery(req.query));
                     parsedUrl.query.uri = uri;
 
                     render_link.href = url.format(parsedUrl);;
                     delete render_link.html;
                 } else {
                     // Cache non inline link to later render for older consumers.
-                    render_link = _.find(result.links, function(link) {
+                    render_link = result.links.find(function(link) {
                         return link.html
                             && link.rel.indexOf(CONFIG.R.inline) > -1
                             && link.type === CONFIG.T.text_html;
                     });
                     if (render_link) {
-                        cache.set(getRenderLinkCacheKey(uri, req), _.extend({
+                        cache.set(getRenderLinkCacheKey(uri, req), Object.assign({
                             title: result.meta.title
                         }, render_link)); // Copy to keep removed fields.
                     }
@@ -231,7 +230,7 @@ export default function(app) {
                 });
 
                 var other = links.filter(function(link) {
-                    return _.intersection(link.rel, CONFIG.REL_GROUPS).length == 0
+                    return utils.intersection(link.rel, CONFIG.REL_GROUPS).length == 0
                 });
                 if (other.length) {
                     groups.other = other;
@@ -339,7 +338,7 @@ export default function(app) {
                             return cb(error);
                         }
 
-                        var render_link = result && _.find(result.links, function(link) {
+                        var render_link = result.links.find(function(link) {
                             return link.html
                                 && link.rel.indexOf(CONFIG.R.inline) === -1
                                 && link.type === CONFIG.T.text_html;
@@ -347,7 +346,7 @@ export default function(app) {
 
                         if (!render_link) {
                             // Cache non inline link to later render for older consumers.
-                            render_link = _.find(result.links, function(link) {
+                            render_link = result.links.find(function(link) {
                                 return link.html
                                     && link.rel.indexOf(CONFIG.R.inline) > -1
                                     && link.type === CONFIG.T.text_html;

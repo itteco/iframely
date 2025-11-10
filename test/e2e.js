@@ -1,7 +1,7 @@
 'use strict';
 import request from 'supertest';
 import ServerMock from 'mock-http-server';
-import chai from 'chai';
+import { expect } from 'chai';
 import async from 'async';
 import app from '../app.js';
 
@@ -42,7 +42,7 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.body.meta).to.exist;
+          expect(res.body.meta).to.exist;
           done(err);
         });
   });
@@ -60,8 +60,8 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(404);
-          chai.expect(res.body).to.deep.equal({
+          expect(res.statusCode).to.equal(404);
+          expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
               code: 404,
@@ -85,8 +85,8 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(417);
-          chai.expect(res.body).to.deep.equal({
+          expect(res.statusCode).to.equal(417);
+          expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
               code: 417,
@@ -110,8 +110,8 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(403);
-          chai.expect(res.body).to.deep.equal({
+          expect(res.statusCode).to.equal(403);
+          expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
               code: 403,
@@ -135,8 +135,8 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(403);
-          chai.expect(res.body).to.deep.equal({
+          expect(res.statusCode).to.equal(403);
+          expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
               code: 403,
@@ -164,8 +164,8 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(408);
-          chai.expect(res.body).to.deep.equal({
+          expect(res.statusCode).to.equal(408);
+          expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
               code: 408,
@@ -191,8 +191,8 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          chai.expect(res.statusCode).to.equal(417);
-          chai.expect(res.body).to.deep.equal({
+          expect(res.statusCode).to.equal(417);
+          expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
               code: 417,
@@ -220,8 +220,8 @@ describe('meta endpoint', function() {
     var endpoint = '/iframely?url=' + url;
 
     function runExpectations(res) {
-      chai.expect(res.statusCode).to.equal(403);
-      chai.expect(res.body).to.deep.equal({
+      expect(res.statusCode).to.equal(403);
+      expect(res.body).to.deep.equal({
         error: {
           source: 'iframely',
           code: 403,

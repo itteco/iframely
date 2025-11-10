@@ -1,4 +1,4 @@
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
 
 export default {
@@ -17,13 +17,13 @@ export default {
             var video_src = json.embedurl || json.embedUrl || json.embedURL || json.contenturl || json.contentUrl || json.contentURL;
 
             if (/^<iframe.*<\/iframe>$/i.test(video_src)) {
-                var $container = cheerio('<div>');
+                
+                var $iframe = null;
                 try {
-                    $container.html(video_src);
+                    $iframe = cheerio.load(video_src)('iframe');
                 } catch (ex) {}
 
-                var $iframe = $container.find('iframe');
-                if ($iframe.length == 1 && $iframe.attr('src')) {
+                if ($iframe && $iframe.length == 1 && $iframe.attr('src')) {
 
                     json.embedurl = $iframe.attr('src');
                     video_src = $iframe.attr('src'); // For KNOWN check below.

@@ -1,7 +1,7 @@
 'use strict';
 import request from 'supertest';
 import ServerMock from 'mock-http-server';
-import chai from 'chai';
+import { expect } from 'chai';
 import app from '../app.js';
 
 describe('custom plugins', function() {
@@ -42,7 +42,7 @@ describe('custom plugins', function() {
       request(BASE_IFRAMELY_SERVER_URL)
           .get('/iframely?url=' + url)
           .end(function(err, res) {
-            chai.expect(res.body.meta.description).to.equal('custom description for test.com domain');
+            expect(res.body.meta.description).to.equal('custom description for test.com domain');
             done(err);
           });
   });
@@ -63,7 +63,7 @@ describe('custom plugins', function() {
      request(BASE_IFRAMELY_SERVER_URL)
          .get('/iframely?url=' + url)
          .end(function(err, res) {
-           chai.expect(res.body.meta.description).to.equal('my description');
+           expect(res.body.meta.description).to.equal('my description');
            done(err);
          });
   });
@@ -84,7 +84,7 @@ describe('custom plugins', function() {
       request(BASE_IFRAMELY_SERVER_URL)
           .get('/iframely?url=' + url)
           .end(function(err, res) {
-            chai.expect(res.body.meta.title).to.equal('TITLE FROM CUSTOM-PLUGIN');
+            expect(res.body.meta.title).to.equal('TITLE FROM CUSTOM-PLUGIN');
             done(err);
           });
   });
