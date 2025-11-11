@@ -14,7 +14,8 @@ export default {
         "oembed-duration",
         "oembed-site",
         "oembed-description",
-        "domain-icon"
+        "domain-icon",
+        "query"
     ],
 
     getMeta: function(oembed) {
@@ -24,14 +25,17 @@ export default {
         };
     },
 
-    getLink: function(oembed, options) {
+    getLink: function(oembed, query, url, options) {
         const iframe = oembed.getIframe();
 
         const get_params = querystring.parse(options.getProviderOptions('vimeo.get_params', '').replace(/^\?/, ''));
         var providerOptions = options.getProviderOptions('_vimeo') || {};
         delete providerOptions.showinfo;
 
-        const params = {...get_params, ...providerOptions};
+        const queryOptions = /^https?:\/\/player\.vimeo\.com\/video\/(\d+)/i.test(url) 
+                            && options.getProviderOptions('vimeo.allow_url_options', false) ? query : {};
+
+        const params = {...get_params, ...providerOptions, ...queryOptions};
 
         if (!options.getProviderOptions('_vimeo.showinfo', options.getProviderOptions('players.showinfo', true))) {
             params.title = 0;
@@ -107,6 +111,7 @@ export default {
         "https://vimeo.com/141567420",
         "https://vimeo.com/76979871", // Captions
         "https://vimeo.com/216098214", // Portrait
+        "https://player.vimeo.com/video/65836516?&autoplay=1&loop=1",
         {
             skipMixins: ["oembed-description"],
             skipMethods: ["getData"]
