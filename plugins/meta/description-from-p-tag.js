@@ -5,7 +5,7 @@ export default {
     lowestPriority: true,
     provides: '__allowPTagDescription',
 
-    getMeta: function(cheerio, decode, __allowPTagDescription) {
+    getMeta: function(__allowPTagDescription, cheerio, decode) {
         // Get the text from the first <p> tag that's not in a header
         var description;
         cheerio("body p").each(function() {

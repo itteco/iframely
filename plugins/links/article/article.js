@@ -1,9 +1,16 @@
 export default {
 
-    getData: function(readability, meta, __is_general_article, utils) {
+    provides: 'articlebody',
 
+    getData: function(__readabilityEnabled, readability, meta, utils) {
         return {
-            safe_html: utils.encodeText(meta.charset, readability.getHTML())
+            articlebody: utils.encodeText(meta.charset, readability.getHTML())
+        }
+    },
+
+    getVars: function(articlebody) {
+        return {
+            articlebody: articlebody
         };
     }
 };
