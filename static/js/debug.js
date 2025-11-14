@@ -385,7 +385,7 @@ function processUrl() {
         // Render context.
         var contexts = data.allData && data.allData
             .filter(function(d) {
-                return d.method.name === 'getData';
+                return d.method.name === 'getData' || d.method.name === 'getVars';
             })
             .map(function(d) {
                 return d.data;

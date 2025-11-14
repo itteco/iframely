@@ -4,7 +4,7 @@ export default {
 
     provides: 'schemaVideoObject',
 
-    getData: function(url, cheerio, decode, __allowEmbedURL, utils) {
+    getData: function(url, __allowEmbedURL, cheerio, decode, utils) {
 
         /* Let's try to find ld+json in the body first. */
         const ldSelector = 'script[type="application/ld+json"]:contains("VideoObject"), script[type="application/ld&#x2B;json"]:contains("VideoObject")'

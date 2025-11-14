@@ -223,8 +223,8 @@ export default {
             // dnt: true,                
             cache_ttl: 100 * 365 * 24 * 3600 // 100 Years.
         },
-        readability: {
-            enabled: false
+        app: {
+            // allow_readability: true
             // allowPTagDescription: true  // to enable description fallback to first paragraph
         },
         images: {
