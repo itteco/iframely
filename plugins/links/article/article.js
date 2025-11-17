@@ -12,7 +12,7 @@ export default {
 
         if (articleText) {
             return {
-                articlebody: __readabilityEnabled === 'html' ? articleHtml : articleText
+                articlebody: __readabilityEnabled === 'html' ? articleHtml : articleText.replace(/\.([^\.\d\s\n\r\'\"\”\)\]])/g, '. $1')
             }
         }
     },
