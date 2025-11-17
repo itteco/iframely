@@ -8,10 +8,11 @@ export default {
 
         const articleHtml = utils.encodeText(meta.charset, readability.getHTML());
         const $p = cheerio.load(articleHtml)('p');
+        const articleText = $p.text();
 
-        if ($p.text()) {
+        if (articleText) {
             return {
-                articlebody: articleHtml
+                articlebody: __readabilityEnabled === 'html' ? articleHtml : articleText.replace(/\.([^\.\d\s\n\r\'\"\”\)\]])/g, '. $1')
             }
         }
     },
