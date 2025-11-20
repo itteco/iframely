@@ -46,14 +46,6 @@
         "endpoint": "https://graph.facebook.com/v24.0/oembed_post"
     },
     {
-        "name": "Facebook Page",
-        "templates": [
-            "(?:www|m)\\.facebook\\.com/(?:pg|pages)/",
-            "(?:www|m)\\.facebook\\.com/[^/]+/?(?:about|photos|videos|events|timeline|photos_stream)?/?(?:\\?[^/\\?]+)?$"
-        ],
-        "endpoint": "https://graph.facebook.com/v24.0/oembed_page"
-    },
-    {
         "name": "Instagram",
         "templates": [
             "(?:www\\.)?(instagram\\.com/(?:p|tv|reel)/([a-zA-Z0-9_-]+))",
