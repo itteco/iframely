@@ -52,7 +52,7 @@
     "devDependencies": {
         "chai": "^6.2.0",
         "feedparser": "2.2.10",
-        "mocha": "^11.7.4",
+        "mocha": "^11.7.5",
         "mock-http-server": "^1.4.5",
         "mongoose": "^8.19.2",
         "supertest": "^7.1.4"
