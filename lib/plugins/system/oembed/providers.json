@@ -111,13 +111,6 @@
         "endpoint": "https://www.flickr.com/services/oembed/?format={format}&url={url}"
     },
     {
-        "name": "Brightcove",
-        "templates": [
-            "players.brightcove.net/.*"
-        ],
-        "endpoint": "https://oembed.brightcove.com/"
-    },
-    {
         "name": "Hulu",
         "templates": [
             "(www\\.)?hulu\\.com/watch/.*"
