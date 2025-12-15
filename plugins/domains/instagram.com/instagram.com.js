@@ -59,7 +59,7 @@ export default {
                 // Remove below error when and if it's fixed. Validators will remove the link
                 og_image.error = 'Unfortunatelly Instagram\'s OG image is cropped';
             } else if (!oembed.thumbnail_url) {
-                og_image.message = "Unfortunatelly, Instagram removed full images on November 3, 2025";
+                // og_image.message = "Unfortunatelly, Instagram removed full images on November 3, 2025"; // images seem to be OK as of Dec 12, 2025
             }
             links.push(og_image);
         }
