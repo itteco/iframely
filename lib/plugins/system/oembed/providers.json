@@ -636,7 +636,8 @@
     }, {
         "name": "Naver Audiobooks",
         "templates": [
-            "audioclip.naver.com/audiobooks/.*"
+            "audioclip.naver.com/audiobooks/.*",
+            "audioclip.naver.com/channels/.*"
         ],
         "endpoint": "https://audioclip.naver.com/oembed"
     },
