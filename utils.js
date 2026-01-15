@@ -10,6 +10,8 @@
     import * as whitelist from './lib/whitelist.js';
     import * as pluginLoader from './lib/loader/pluginLoader.js';
 
+    import * as domains from './lib/domains.js';
+
     import { fileURLToPath } from 'url';
     import { dirname } from 'path';
 
