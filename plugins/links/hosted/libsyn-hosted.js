@@ -22,8 +22,7 @@ export default {
     },
 
     tests: [
-        "http://trendfollowingradio.com/episode-1-the-trend-following-manifesto-with-michael-covel",
-        "http://coloristpodcast.com/episode-005-terence-curren", // No oembed autodiscovery on canonical
-        "http://whos-he-podcast.co.uk/whos-he-podcast-274"
+        "https://trendfollowingradio.com/episode-1-the-trend-following-manifesto-with-michael-covel",
+        "https://whos-he-podcast.co.uk/whos-he-podcast-274"
     ]
 };

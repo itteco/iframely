@@ -92,6 +92,7 @@ export default {
     tests: [
         "https://directory.libsyn.com/episode/index/id/3252958",
         "https://lowcarbmd.libsyn.com/episode-20-in-defense-of-docs",
-        "https://thefeed.libsyn.com/202-podcasting-workflows-hardware-tips-and-numbers"
+        "https://thefeed.libsyn.com/202-podcasting-workflows-hardware-tips-and-numbers",
+        "https://offthecusppodcast.libsyn.com/522-the-co-host-compatibility-test"
     ]
 };
