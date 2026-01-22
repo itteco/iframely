@@ -35,6 +35,6 @@ export default {
         "https://clips.twitch.tv/RacySweetJackalBlargNaut-Aurg1DNlYiUgIhJd",
         "https://clips.twitch.tv/CourageousRichPeafowlYouDontSay-opqgmVBfJExmluP9",
         "https://www.twitch.tv/uhsnow/clip/BlitheHedonisticQuailWutFace-0LqwKOVTwqmrSA_e?filter=clips&range=all&sort=time",
-        "https://www.twitch.tv/uhsnow/clip/MuddyWimpyTeaNinjaGrumpy-X4CarF7QdWbStXJO",
+        "https://www.twitch.tv/sliggytv/clip/SmoothBoxyCurlewOSsloth-m1exZeUdrO46iNQB",
     ]
 };
