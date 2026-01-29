@@ -48,11 +48,18 @@
     {
         "name": "Instagram",
         "templates": [
-            "(?:www\\.)?(instagram\\.com/(?:p|tv|reel)/([a-zA-Z0-9_-]+))",
+            "(?:www\\.)?(instagram\\.com/(?:p|tv)/([a-zA-Z0-9_-]+))",
             "(instagr\\.am/p/([a-zA-Z0-9_-]+))"
         ],
         "endpoint": "https://graph.facebook.com/v24.0/instagram_oembed?format={format}&url=https://www.{1}/"
     },
+    {
+        "name": "Instagram Reels",
+        "templates": [
+            "(?:www\\.)?instagram\\.com/reels?/([a-zA-Z0-9_-]+)"
+        ],
+        "endpoint": "https://graph.facebook.com/v24.0/instagram_oembed?format={format}&url=https://www.instagram.com/reel/{1}/"
+    },    
     {
         "name": "Instagram user page",
         "templates": [

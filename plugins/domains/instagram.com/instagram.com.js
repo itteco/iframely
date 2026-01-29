@@ -8,7 +8,7 @@ export default {
      */     
 
     re: [
-        /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv|reel)\/([a-zA-Z0-9_-]+)\/?/i,
+        /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv|reels?)\/([a-zA-Z0-9_-]+)\/?/i,
         /^https?:\/\/instagr\.am\/(?:[a-zA-Z0-9_\-\.]+\/)?p\/([a-zA-Z0-9_-]+)/i,
         /^https?:\/\/www\.instagram\.com\/(?:[a-zA-Z0-9_\-\.]+\/)?(?:p|tv)\/([a-zA-Z0-9_-]+)$/i
     ],
@@ -151,6 +151,7 @@ export default {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         "https://www.instagram.com/nssmagazine/reel/CrVt-Wvs74O/",
+        "https://www.instagram.com/reels/DP6BIPTDXuc/",
         {
             skipMixins: ["oembed-title", "fb-error", "oembed-author"],
             skipMethods: ['getData']
