@@ -2,8 +2,7 @@ export default {
 
     re: [
         /^https?:\/\/v\.youku\.com\/v_show\/id_([a-z0-9=_]{3,})\.html/i,
-        /^https?:\/\/news\.youku\.com\/(\w{3,})/i,
-        /^https?:\/\/v\.youku\.com\/video\/?/i
+        /^https?:\/\/news\.youku\.com\/(\w{3,})/i
     ],
 
     mixins: ["*"],
@@ -19,6 +18,7 @@ export default {
     },
 
     tests: [{
+        // https://v.youku.com/video* redirects to https://v.youku.com/v_show/id*
         page: "https://www.youku.com/ku/lexue",
         selector: ".hscroll_wrapper_3CJzY .hscroll_content_fdYOj a"
     },
