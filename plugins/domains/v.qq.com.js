@@ -31,6 +31,6 @@ export default {
         "https://v.qq.com/page/z/5/3/z01698x4h53.html",
         "https://v.qq.com/page/o/p/p/o0196h1eppp.html",
         "https://v.qq.com/boke/page/a/0/5/a031175aee5.html",
-        "http://v.qq.com/boke/page/f/3/p/f0188kmbq3p.html"
+        "https://v.qq.com/boke/page/f/3/p/f0188kmbq3p.html"
     ]
 };
