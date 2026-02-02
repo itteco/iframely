@@ -2,7 +2,8 @@ export default {
 
     re: [
         /^https?:\/\/v\.youku\.com\/v_show\/id_([a-z0-9=_]{3,})\.html/i,
-        /^https?:\/\/news\.youku\.com\/(\w{3,})/i
+        /^https?:\/\/news\.youku\.com\/(\w{3,})/i,
+        /^https?:\/\/v\.youku\.com\/video\/?/i
     ],
 
     mixins: ["*"],
