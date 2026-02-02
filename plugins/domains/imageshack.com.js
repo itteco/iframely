@@ -7,8 +7,8 @@ export default {
     ],
 
     tests: [{
-        page: "https://imageshack.com/discover",
-        selector: "a.hero"
+        page: "https://imageshack.com/user/lynnseyography",
+        selector: "a.hero-wrapper"
     },
         "https://imageshack.com/i/eyn2zNjEj",
         "https://imageshack.com/i/p5PixlVVj",
