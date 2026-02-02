@@ -142,9 +142,11 @@ export default {
     },
 
     tests: [{skipMethods: ["getData"]}, {skipMixins: ["oembed-description"]},
-        "https://soundcloud.com/user-847444",
+        "https://m.soundcloud.com/user-847444",
+        "https://m.soundcloud.com/erik-satie",
+
         "https://m.soundcloud.com/claude-debussy/clair-de-lune",
-        // user profile with no tracks: https://soundcloud.com/mata-klol    
+        // user profile with no tracks: https://soundcloud.com/mata-klol
 
         // The following URLs redirect to this plugin and should also work.
         "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/282055227%3Fsecret_token%3Ds-Ct4TV&color=00cc11&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false",
