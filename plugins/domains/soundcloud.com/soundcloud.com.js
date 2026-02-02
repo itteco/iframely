@@ -118,9 +118,13 @@ export default {
                 /* Skip the placeholder thumbnail in oEmbed - use user picture in og image instead. */
                 !oembed.thumbnail_url || /\/images\/fb_placeholder\.png/.test(oembed.thumbnail_url)
                 
-                /* Also, check meta and try to exclude user profiles with 0 tracks. */
-                || /api\.soundcloud\.com(%2F|\/)users(%2F|\/)/i.test(oembed.html)
-            ) || !oembed.description)
+                // Previously: Also, check meta and try to exclude user profiles with 0 tracks.
+                // 2026-02-06: SoundCloud now returns 403 on user profiles, there is no way to detect 0 tracks.
+                // || /api\.soundcloud\.com(%2F|\/)users(%2F|\/)/i.test(oembed.html)
+
+            ) || !oembed.description 
+                && !/^https:\/\/soundcloud\.com\/[^\/]+\/?(?:\?.+)?$/i.test(url) // Exclude user accounts with no description. All user accounts now return 403
+                )
         ) {
             return {
                 __allow_soundcloud_meta: true
@@ -142,11 +146,11 @@ export default {
     },
 
     tests: [{skipMethods: ["getData"]}, {skipMixins: ["oembed-description"]},
-        "https://m.soundcloud.com/user-847444",
+        "https://soundcloud.com/user-847444",
         "https://m.soundcloud.com/erik-satie",
 
         "https://m.soundcloud.com/claude-debussy/clair-de-lune",
-        // user profile with no tracks: https://soundcloud.com/mata-klol
+        "https://soundcloud.com/mata-klol", // user profile with no tracks
 
         // The following URLs redirect to this plugin and should also work.
         "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/282055227%3Fsecret_token%3Ds-Ct4TV&color=00cc11&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false",
