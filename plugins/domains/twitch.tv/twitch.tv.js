@@ -91,6 +91,8 @@ export default {
         noFeeds: true,
         skipMethods: ['getMeta']
     },
-        "https://www.twitch.tv/videos/743604531?parent=localhost"
+        "https://www.twitch.tv/videos/2687468093?parent=localhost",
+        "https://www.twitch.tv/videos/2687577687?parent=localhost",
+        "https://www.twitch.tv/videos/2686634881?parent=localhost"
     ]
 };
