@@ -47,11 +47,9 @@ export default {
         return links;
     },
 
-    tests: [{
-        pageWithFeed: "https://lincolnmotorco.tumblr.com/"
-    },
+    tests: [
         "https://fewthistle.tumblr.com/post/58045916432",
-        "https://butts-bouncing-on-the-beltway.tumblr.com/post/804116029629399040",
-        "https://tuulikki.tumblr.com/post/806272596495794176/what-is-the-sex-is-just-rock-climbing"
+        "https://lincolnmotorco.tumblr.com/post/159272549438/the-1961-continental-convertible-photographed-at",
+        "https://the-wolf-and-moon.tumblr.com/post/622353448279621632/ngc-2170-angel-nebula"
     ]
 };
