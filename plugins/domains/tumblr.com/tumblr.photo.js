@@ -48,8 +48,10 @@ export default {
     },
 
     tests: [{
-        pageWithFeed: "http://lincolnmotorco.tumblr.com/"
+        pageWithFeed: "https://lincolnmotorco.tumblr.com/"
     },
-        "http://fewthistle.tumblr.com/post/58045916432"
+        "https://fewthistle.tumblr.com/post/58045916432",
+        "https://butts-bouncing-on-the-beltway.tumblr.com/post/804116029629399040",
+        "https://tuulikki.tumblr.com/post/806272596495794176/what-is-the-sex-is-just-rock-climbing"
     ]
 };
