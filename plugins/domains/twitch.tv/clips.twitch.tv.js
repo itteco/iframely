@@ -32,9 +32,9 @@ export default {
     },
 
     tests: [{skipMethods: ['getData']},
-        "https://clips.twitch.tv/RacySweetJackalBlargNaut-Aurg1DNlYiUgIhJd",
-        "https://clips.twitch.tv/CourageousRichPeafowlYouDontSay-opqgmVBfJExmluP9",
-        "https://www.twitch.tv/uhsnow/clip/BlitheHedonisticQuailWutFace-0LqwKOVTwqmrSA_e?filter=clips&range=all&sort=time",
-        "https://www.twitch.tv/sliggytv/clip/SmoothBoxyCurlewOSsloth-m1exZeUdrO46iNQB",
+        "https://clips.twitch.tv/RacySweetJackalBlargNaut-Aurg1DNlYiUgIhJd?parent=localhost",
+        "https://clips.twitch.tv/CourageousRichPeafowlYouDontSay-opqgmVBfJExmluP9?parent=localhost",
+        "https://www.twitch.tv/uhsnow/clip/BlitheHedonisticQuailWutFace-0LqwKOVTwqmrSA_e?parent=localhost",
+        "https://www.twitch.tv/sliggytv/clip/SmoothBoxyCurlewOSsloth-m1exZeUdrO46iNQB?parent=localhost",
     ]
 };

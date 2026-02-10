@@ -7,7 +7,7 @@ export default {
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\.php\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/photo\/?\?(?:[^\?]+)?fbid=(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/(posts|activity)\/(\d{10,})/i,
-        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/posts\/[^\/]+\/(\d{10,})/i,
+        /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/posts\/[^\/]+\/(\d{10,})/i, // Facebook still does not recognize it in oEmbed as of Feb 10, 2026
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/(posts|activity)\/pfbid([a-zA-Z0-9\.\-]+)/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/[^\/]+\/photos(?:\/[^\/]+)?\/(\d{10,})/i,
         /^https?:\/\/(?:www|m|business)\.facebook\.com\/notes\/[^\/\?]+\/[^\/]+\/(\d{10,})/i,
@@ -58,7 +58,9 @@ export default {
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
         "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
         "https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893",
-        "https://www.facebook.com/141700922567987_3903702929701082",
+        // "https://www.facebook.com/141700922567987_3903702929701082",  // Redirects to the unrecognized URL
+        "https://www.facebook.com/Asda/posts/pfbid02dPKr6XHAY8Ga6MyWNyM3XAEF9YG4WNWhxRUoUU3qJ5nDY7RpXkULPmZVGkHWQB3Ll",
+        // "https://www.facebook.com/Asda/posts/weve-been-named-the-cheapest-major-online-supermarket-in-may-by-which-the-third-/3903702929701082/", // Facebook still does not recognize it in oEmbed as of Feb 10, 2026
         "https://www.facebook.com/docmonkeyorthoanimal/photos/105294651313771/",
         {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
