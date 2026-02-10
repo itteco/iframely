@@ -17,6 +17,8 @@ export default {
     },
 
     tests: [
-        "http://www.vbox7.com/play:86abb51a7d?pos=src"
+        "https://vbox7.com/play:dacbe546dd",
+        "https://www.vbox7.com/play:bc53a41285",
+        "https://www.vbox7.com/play:3008fee68a"
     ]
 };

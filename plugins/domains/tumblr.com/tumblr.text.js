@@ -31,6 +31,7 @@ export default {
     },
 
     tests: [{skipMethods: ["getData"]},
-        "http://blog.slides.com/post/84828911898/slides-turns-one-year-old"
+        "https://blog.slides.com/post/84828911898/slides-turns-one-year-old",
+        "https://butts-bouncing-on-the-beltway.tumblr.com/post/804116029629399040"
     ]
 };

@@ -37,6 +37,8 @@ export default {
 
     tests: [
         "http://fewthistle.tumblr.com/post/58045916432",
-        "https://nasa.tumblr.com/post/186150527809/pew-pew-pew-imagine-slow-motion-fireworks-that"
+        "https://nasa.tumblr.com/post/186150527809/pew-pew-pew-imagine-slow-motion-fireworks-that",
+        "https://tuulikki.tumblr.com/post/806272596495794176/what-is-the-sex-is-just-rock-climbing",
+        "https://lincolnmotorco.tumblr.com/post/159272549438/the-1961-continental-convertible-photographed-at"
     ]
 };

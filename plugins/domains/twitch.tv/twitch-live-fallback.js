@@ -39,8 +39,8 @@ export default {
     tests: [{
         noFeeds: true, skipMethods: ["getData"]
     },
-        "https://www.twitch.tv/ninja",
-        "https://www.twitch.tv/videos/520219960",
-        "https://www.twitch.tv/videos/2686933296"
+        "https://www.twitch.tv/ninja?parent=localhost",
+        "https://www.twitch.tv/videos/520219960?parent=localhost",
+        "https://www.twitch.tv/videos/2686933296?parent=localhost"
     ]
 };
