@@ -47,9 +47,9 @@ export default {
         return links;
     },
 
-    tests: [{
-        pageWithFeed: "http://lincolnmotorco.tumblr.com/"
-    },
-        "http://fewthistle.tumblr.com/post/58045916432"
+    tests: [
+        "https://fewthistle.tumblr.com/post/58045916432",
+        "https://lincolnmotorco.tumblr.com/post/159272549438/the-1961-continental-convertible-photographed-at",
+        "https://the-wolf-and-moon.tumblr.com/post/622353448279621632/ngc-2170-angel-nebula"
     ]
 };
