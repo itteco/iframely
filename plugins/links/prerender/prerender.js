@@ -8,7 +8,8 @@ export default {
 
     getData: function(url, __allowJSRender, iframelyRun, options, meta, cb) {
 
-        if (CONFIG.PRERENDER && CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT) {
+        if (CONFIG.PRERENDER && CONFIG.PRERENDER_URL && options.user_agent === CONFIG.FB_USER_AGENT
+            && !url.startsWith(CONFIG.PRERENDER_URL)) {
 
             var prerenderUrl = CONFIG.PRERENDER_URL + encodeURIComponent(url);
             var options2 = {...options, ...{
