@@ -1,4 +1,5 @@
 import moment from 'moment';
+import CONFIG from './config.loader.js';
 
 export default function log() {
     var args = Array.prototype.slice.apply(arguments);
