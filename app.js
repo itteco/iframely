@@ -45,8 +45,7 @@ app.use(cacheMiddleware);
 
 import apiViews from './modules/api/views.js';
 import debugViews from './modules/debug/views.js';
-import { initializeWhitelistLoader } from './lib/whitelist.js';
-initializeWhitelistLoader();
+
 apiViews(app);
 debugViews(app);
 
