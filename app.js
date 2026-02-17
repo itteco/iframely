@@ -45,6 +45,7 @@ app.use(cacheMiddleware);
 
 import apiViews from './modules/api/views.js';
 import debugViews from './modules/debug/views.js';
+
 apiViews(app);
 debugViews(app);
 
