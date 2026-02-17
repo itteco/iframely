@@ -20,7 +20,7 @@
         use_http2: true,
         DEBUG: false,
 
-        WHITELIST_AUTO_LOAD: true,  // Whitelist is always loaded by lib init. Otherwise use `initializeWhitelistLoader();`.
+        WHITELIST_LOAD_ON_INIT: true,   // Whitelist is always loaded by lib init. Otherwise use `initializeWhitelistLoader();`.
         WHITELIST_DIR: './whitelist',   // Set `null` to disable loading from file.
         WHITELIST_URL: 'https://iframely.com/qa/domains.json',
         WHITELIST_URL_RELOAD_PERIOD: 60 * 60 * 1000,  // will reload WL every hour, if no local files are found in /whitelist folder
