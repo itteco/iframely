@@ -13,6 +13,27 @@
 │ More info           │ https://github.com/advisories/GHSA-7h2j-956f-4vf2      │
 └─────────────────────┴────────────────────────────────────────────────────────┘
 ┌─────────────────────┬────────────────────────────────────────────────────────┐
+│ high                │ minimatch has a ReDoS via repeated wildcards with      │
+│                     │ non-matching literal in pattern                        │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Package             │ minimatch                                              │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Vulnerable versions │ <10.2.1                                                │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Patched versions    │ >=10.2.1                                               │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ Paths               │ .>mocha>glob>minimatch                                 │
+│                     │                                                        │
+│                     │ .>mocha>minimatch                                      │
+│                     │                                                        │
+│                     │ .>ejs>jake>filelist>minimatch                          │
+│                     │                                                        │
+│                     │ ... Found 4 paths, run `pnpm why minimatch` for more   │
+│                     │ information                                            │
+├─────────────────────┼────────────────────────────────────────────────────────┤
+│ More info           │ https://github.com/advisories/GHSA-3ppc-4f35-3m26      │
+└─────────────────────┴────────────────────────────────────────────────────────┘
+┌─────────────────────┬────────────────────────────────────────────────────────┐
 │ moderate            │ Undici has an unbounded decompression chain in HTTP    │
 │                     │ responses on Node.js Fetch API via Content-Encoding    │
 │                     │ leads to resource exhaustion                           │
@@ -55,5 +76,5 @@
 ├─────────────────────┼────────────────────────────────────────────────────────┤
 │ More info           │ https://github.com/advisories/GHSA-w7fw-mjwx-w883      │
 └─────────────────────┴────────────────────────────────────────────────────────┘
-4 vulnerabilities found
-Severity: 2 low | 1 moderate | 1 high
+8 vulnerabilities found
+Severity: 2 low | 1 moderate | 5 high
