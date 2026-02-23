@@ -151,7 +151,7 @@ export default {
         "https://www.instagram.com/p/a_v1-9gTHx/",
         "https://www.instagram.com/p/-111keHybD/",
         "https://www.instagram.com/nssmagazine/reel/CrVt-Wvs74O/",
-        "https://www.instagram.com/reels/DP6BIPTDXuc/",
+        "https://www.instagram.com/reels/DU_HtZukaC-/",
         {
             skipMixins: ["oembed-title", "fb-error", "oembed-author"],
             skipMethods: ['getData']
