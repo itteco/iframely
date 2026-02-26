@@ -20,21 +20,23 @@ export default {
 
                 const value = typeof(v) === 'string' ? {href: v} : v; // If link has no `media` and no `type` attributes, HTMLMetaHandler assigns the value=href;
 
-                let wlr = whitelistRecord;
-                if (whitelistRecord.isDefault
-                    && !Array.isArray(value) && value.href && /^(?:https?:)?\/\//.test(value.href)
-                    && (!value.type || value.type === CONFIG.T.text_html)) {
-                    wlr = options.getWhitelistRecord(value.href, {exclusiveRel: 'html-meta'});
-                }
+                if (value.href) { // else it's not a link, it is Iframely-optimized meta fields ("iframely:title", etc.)
+                    let wlr = whitelistRecord;
+                    if (whitelistRecord.isDefault
+                        && !Array.isArray(value) && value.href && /^(?:https?:)?\/\//.test(value.href)
+                        && (!value.type || value.type === CONFIG.T.text_html)) {
+                        wlr = options.getWhitelistRecord(value.href, {exclusiveRel: 'html-meta'});
+                    }
 
-                links = links.concat(
-                    utils.parseMetaLinks(
-                        key, 
-                        value,
-                        wlr, 
-                        ignoreIframely && appname
-                    )
-                );
+                    links = links.concat(
+                        utils.parseMetaLinks(
+                            key, 
+                            value,
+                            wlr, 
+                            ignoreIframely && appname
+                        )
+                    );
+                }
             }
         }
 
