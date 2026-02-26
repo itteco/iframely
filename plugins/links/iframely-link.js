@@ -17,20 +17,8 @@ export default {
 
         for (const [key, v] of Object.entries(meta)) {
             if (key.indexOf(appname) === 0 || (!ignoreIframely && key.indexOf(CONFIG.R.iframely) === 0)) {
-                
-                let value;
-                if (typeof v === 'string') {
-                    // If link has no `media` and no `type` attributes, HTMLMetaHandler assigns the value=href;
-                    value = {
-                        href: v
-                    };
-                } else if (v.href) {
-                    // Ready link data.
-                    value = v;
-                } else {
-                    // Non link. Skip.
-                    continue
-                }
+
+                const value = typeof(v) === 'string' ? {href: v} : v; // If link has no `media` and no `type` attributes, HTMLMetaHandler assigns the value=href;
 
                 let wlr = whitelistRecord;
                 if (whitelistRecord.isDefault
