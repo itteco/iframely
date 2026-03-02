@@ -12,7 +12,7 @@ export default {
     ],
 
     getLink: function(urlMatch) {
-        /** https://wiki.geogebra.org/en/Embedding_in_Webpages */
+        /** https://geogebra.github.io/docs/reference/en/Material_Embedding_(Iframe)/ */
 
         if (!/^\d+$/.test(urlMatch[1])) {
             return {
