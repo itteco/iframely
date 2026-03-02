@@ -12,12 +12,12 @@ export default {
     ],
 
     getLink: function(urlMatch) {
-        /** https://wiki.geogebra.org/en/Embedding_in_Webpages */
+        /** https://geogebra.github.io/docs/reference/en/Material_Embedding_(Iframe)/ */
 
         if (!/^\d+$/.test(urlMatch[1])) {
             return {
                 href: 'https://www.geogebra.org/material/iframe/id/' + urlMatch[1],
-                accept: CONFIG.T.text_html,
+                type: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.iframely],
                 'aspect-ratio': 800 / 600
             }
