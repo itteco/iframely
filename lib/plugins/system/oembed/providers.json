@@ -939,13 +939,6 @@
         "endpoint": "https://app.gong.io/oembed"
     },
     {
-        "name": "HASH",
-        "templates": [
-            "core.hash.ai/@*"
-        ],
-        "endpoint": "https://api.hash.ai/oembed"
-    },
-    {
         "name": "Idomoo",
         "templates": [
             ".*\\.idomoo\\.com/.*"
