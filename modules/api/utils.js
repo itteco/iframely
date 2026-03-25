@@ -1,4 +1,4 @@
-import { fetchData } from "../../lib/fetch";
+import { fetchData } from "../../lib/fetch.js";
 
 var _RE = /^_.+/;
 
