@@ -70,8 +70,8 @@ function getSigHeaders(url, cb) {
         json: true
     })
     .then(result => {
-        console.log('-- got sig headers ', result)
-        cb(null, result);
+        console.log('-- got sig headers ', result.data)
+        cb(null, result.data);
     })
     .catch(cb);;
 }
@@ -563,7 +563,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         readability: true,
                         disableHttp2: disableHttp2,
                         getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                        getSigHeaders: getSigHeadersFunction()
+                        getSigHeaders: getSigHeadersFunction(),
+                        sig: !!CONFIG.SIG_API
                     }, callback);
                 }, CONFIG.tests.pause_between_tests || 0);
             }
