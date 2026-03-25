@@ -1,3 +1,5 @@
+import { fetchData } from "../../lib/fetch";
+
 var _RE = /^_.+/;
 
 export function getProviderOptionsQuery(query) {
@@ -54,4 +56,24 @@ export function getProviderOptionsFromQuery(query) {
     }
 
     return providerOptions;
+}
+
+function getSigHeaders(url, cb) {
+    const sigUrl = new URL(CONFIG.SIG_API);
+    sigUrl.searchParams.append('url', url);
+    fetchData({
+        uri: sigUrl,
+        json: true
+    })
+    .then(result => {
+        console.log('-- got sig headers ', result.data)
+        cb(null, result.data);
+    })
+    .catch(cb);;
+}
+
+export function getSigHeadersFunction() {
+    if (CONFIG.SIG_API) {
+        return getSigHeaders;
+    }
 }

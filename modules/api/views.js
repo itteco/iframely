@@ -144,7 +144,9 @@ export default function(app) {
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
                     promoUri: req.query.promoUri,
                     refresh: getBooleanParam(req, 'refresh'),
-                    providerOptions: getProviderOptionsFromQuery(req.query)
+                    providerOptions: getProviderOptionsFromQuery(req.query),
+                    getSigHeaders: apiUtils.getSigHeadersFunction(),
+                    sig: !!CONFIG.SIG_API
                 }, cb);
             }
 

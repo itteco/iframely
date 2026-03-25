@@ -16,7 +16,7 @@ import { run as iframely } from '../../lib/core.js';
 import * as whitelist from '../../lib/whitelist.js';
 import * as pluginLoader from '../../lib/loader/pluginLoader.js';
 import { difference } from '../../utils.js';
-import { fetchData } from '../../lib/fetch.js';
+import { getSigHeadersFunction } from '../api/utils.js';
 
 var plugins = pluginLoader._plugins;
 
@@ -59,26 +59,6 @@ function log() {
 function cerror() {
     if (CONFIG.DEBUG) {
         console.error.apply(console, arguments);
-    }
-}
-
-function getSigHeaders(url, cb) {
-    const sigUrl = new URL(CONFIG.SIG_API);
-    sigUrl.searchParams.append('url', url);
-    fetchData({
-        uri: sigUrl,
-        json: true
-    })
-    .then(result => {
-        console.log('-- got sig headers ', result.data)
-        cb(null, result.data);
-    })
-    .catch(cb);;
-}
-
-function getSigHeadersFunction() {
-    if (CONFIG.SIG_API) {
-        return getSigHeaders;
     }
 }
 
