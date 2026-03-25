@@ -16,6 +16,8 @@ import { run as iframely } from '../../lib/core.js';
 import * as whitelist from '../../lib/whitelist.js';
 import * as pluginLoader from '../../lib/loader/pluginLoader.js';
 import { difference } from '../../utils.js';
+import { fetchData } from '../../lib/fetch.js';
+
 var plugins = pluginLoader._plugins;
 
 var testOnePlugin = false;
@@ -57,6 +59,26 @@ function log() {
 function cerror() {
     if (CONFIG.DEBUG) {
         console.error.apply(console, arguments);
+    }
+}
+
+function getSigHeaders(url, cb) {
+    const sigUrl = new URL(CONFIG.SIG_API);
+    sigUrl.searchParams.append('url', url);
+    fetchData({
+        uri: sigUrl,
+        json: true
+    })
+    .then(result => {
+        console.log('-- got sig headers ', result)
+        cb(null, result);
+    })
+    .catch(cb);;
+}
+
+function getSigHeadersFunction() {
+    if (CONFIG.SIG_API) {
+        return getSigHeaders;
     }
 }
 
@@ -540,7 +562,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         refresh: true,
                         readability: true,
                         disableHttp2: disableHttp2,
-                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                        getSigHeaders: getSigHeadersFunction()
                     }, callback);
                 }, CONFIG.tests.pause_between_tests || 0);
             }
