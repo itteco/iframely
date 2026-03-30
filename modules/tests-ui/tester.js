@@ -16,6 +16,8 @@ import { run as iframely } from '../../lib/core.js';
 import * as whitelist from '../../lib/whitelist.js';
 import * as pluginLoader from '../../lib/loader/pluginLoader.js';
 import { difference } from '../../utils.js';
+import { getSigHeadersFunction } from '../api/utils.js';
+
 var plugins = pluginLoader._plugins;
 
 var testOnePlugin = false;
@@ -540,7 +542,9 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                         refresh: true,
                         readability: true,
                         disableHttp2: disableHttp2,
-                        getWhitelistRecord: whitelist.findWhitelistRecordFor
+                        getWhitelistRecord: whitelist.findWhitelistRecordFor,
+                        getSigHeaders: getSigHeadersFunction(),
+                        sig: !!CONFIG.SIG_API
                     }, callback);
                 }, CONFIG.tests.pause_between_tests || 0);
             }
