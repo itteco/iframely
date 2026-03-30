@@ -66,7 +66,6 @@ function getSigHeaders(url, cb) {
         json: true
     })
     .then(result => {
-        console.log('-- got sig headers ', result.data)
         cb(null, result.data);
     })
     .catch(cb);;
