@@ -8,7 +8,6 @@ export default {
         "oembed-title",
         "oembed-site",
         "oembed-description",
-        // "og-video",
         'domain-icon'
     ],
 
@@ -35,12 +34,10 @@ export default {
     },
 
     tests: [
-        /*
         "https://issuu.com/redbulletin.com/docs/the_red_bulletin_stratos_special_us",
         "https://issuu.com/_dca/docs/edicio_n_diario_de_centro_ame_rica_02_de_junio_de_20",
         "https://issuu.com/visitfaroeislands/docs/tg25-uk-web_compressed",
         "https://issuu.com/cbmicheals/docs/wwii_hero_franklin_micheals",
         "https://issuu.com/photoedmagazine/docs/photoed-w24_colour_for_issuu_print_replica"
-        */
     ]
 };
