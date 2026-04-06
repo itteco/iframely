@@ -32,13 +32,11 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
-                // documentcloud.title: false (default) = show title, true = hide title
-                var hideTitle = options.getRequestOptions('documentcloud.title', false);
+                var showTitle = options.getRequestOptions('documentcloud.title', true);
 
                 try {
                     var iframe = oembed.getIframe();
-                    // Embed expects title=1 to show, title=0 to hide (default is 1)
-                    var href = hideTitle ? iframe.replaceQuerystring({ title: 0}) : iframe.src;
+                    var href = !showTitle ? iframe.replaceQuerystring({ title: 0 }) : iframe.src;
 
                     if (page && page !== '1') {
                         if (href) {
@@ -57,8 +55,8 @@ export default {
                             value: parseInt (page)
                         },
                         title: {
-                            label: 'Hide title',
-                            value: hideTitle
+                            label: 'Show title',
+                            value: showTitle
                         }
                     }
                 } catch (ex) {}
