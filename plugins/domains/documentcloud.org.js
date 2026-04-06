@@ -41,12 +41,8 @@ export default {
 
                 try {
                     var iframe = oembed.getIframe();
-                    var href = !hideTitle ? iframe.replaceQuerystring({ title: 1 }) : iframe.src;
-
-                    // Remove title attribute from HTML if hiding
-                    if (hideTitle) {
-                        html = html.replace(/\s+title="[^"]*"/g, '');
-                    }
+                    // title=1 shows title (default since Jan 2025), title=0 hides it explicitly
+                    var href = iframe.replaceQuerystring({ title: hideTitle ? 0 : 1 });
 
                     if (page && page !== '1') {
                         if (href) {
