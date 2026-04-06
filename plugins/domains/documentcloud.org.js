@@ -104,7 +104,8 @@ export default {
             'author',
             'canonical',
             'og-title',
-            'og-image'
+            'og-image',
+            'oembed-title'
         ]},
         "https://www.documentcloud.org/documents/73991-day-three-documents",
         "https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265",
