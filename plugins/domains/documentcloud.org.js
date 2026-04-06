@@ -33,7 +33,7 @@ export default {
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
                 // documentcloud.title: false (default) = show title, true = hide title
-                var hideTitle = !!options.getRequestOptions('documentcloud.title', false);
+                var hideTitle = options.getRequestOptions('documentcloud.title', false);
 
                 try {
                     var iframe = oembed.getIframe();
