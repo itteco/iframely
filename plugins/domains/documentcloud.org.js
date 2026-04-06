@@ -2,6 +2,9 @@ export default {
 
     re: /^https?:\/\/(?:www|embed)?\.?documentcloud\.org\/documents?\/\d+/i,
 
+    // Removed "oembed-title" mixin after January 2025 API update
+    // DocumentCloud now includes title in oEmbed response by default
+    // Title is controlled via documentcloud.title option for iframe viewer (false=show, true=hide)
     mixins: [
         "domain-icon",
         "oembed-site",
@@ -10,9 +13,6 @@ export default {
         "og-title",
         "og-image",
         "og-description"
-        // Removed "oembed-title" after January 2025 API update
-        // DocumentCloud now includes title in oEmbed response by default
-        // Title can be controlled via documentcloud.title option for iframe viewer
     ],
 
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
@@ -34,14 +34,12 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
-                // Title is now always in oEmbed HTML (since Jan 2025 API update)
-                // documentcloud.title = false (default) -> show title
-                // documentcloud.title = true -> hide title
+                // documentcloud.title: false (default) = show title, true = hide title
                 var hideTitle = !!options.getRequestOptions('documentcloud.title', false);
 
                 try {
                     var iframe = oembed.getIframe();
-                    // title=1 shows title (default since Jan 2025), title=0 hides it explicitly
+                    // Embed expects title=1 to show, title=0 to hide (default is 1)
                     var href = iframe.replaceQuerystring({ title: hideTitle ? 0 : 1 });
 
                     if (page && page !== '1') {
@@ -110,14 +108,14 @@ export default {
             'og-title',
             'og-image'
         ]},
-        'https://www.documentcloud.org/documents/73991-day-three-documents',
-        'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265',
-        // 'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/annotations/486265.html',
-        // 'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html',
-        'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html',
-        'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal',
-        'https://embed.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/?embed=1',
-        // 'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html',
+        "https://www.documentcloud.org/documents/73991-day-three-documents",
+        "https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265",
+        "https://embed.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8",
+        "https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html",
+        "https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html",
+        "https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal",
+        "https://embed.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/?embed=1",
+        "https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html",
         "https://www.documentcloud.org/documents/20059068-the-mueller-report#document/p17/a2001254",
         "https://www.documentcloud.org/documents/20059068-the-mueller-report",
         {
