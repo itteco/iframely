@@ -32,11 +32,11 @@ export default {
 
             if (!/DC\-note/.test(html) && !/DC\-embed(?:\-page)?/.test(html)) {
                 var page = options.getRequestOptions('documentcloud.page', '1');
-                var title = !!options.getRequestOptions('documentcloud.title', false);
+                var showTitle = options.getRequestOptions('documentcloud.title', true);
 
                 try {
                     var iframe = oembed.getIframe();
-                    var href = title ? iframe.replaceQuerystring({ title: 1 }) : iframe.src;
+                    var href = !showTitle ? iframe.replaceQuerystring({ title: 0 }) : iframe.src;
 
                     if (page && page !== '1') {
                         if (href) {
@@ -56,7 +56,7 @@ export default {
                         },
                         title: {
                             label: 'Show title',
-                            value: title
+                            value: showTitle
                         }
                     }
                 } catch (ex) {}
@@ -105,14 +105,14 @@ export default {
             'og-image',
             'oembed-title'
         ]},
-        'https://www.documentcloud.org/documents/73991-day-three-documents',
-        'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265',
-        // 'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/annotations/486265.html',
-        // 'https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html',
-        'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html',
-        'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal',
-        'https://embed.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/?embed=1',
-        // 'https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html',
+        "https://www.documentcloud.org/documents/73991-day-three-documents",
+        "https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8.html#document/p2/a486265",
+        "https://embed.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8",
+        "https://www.documentcloud.org/documents/5766398-ASRS-Reports-for-737-max8/pages/2.html",
+        "https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal.html",
+        "https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal",
+        "https://embed.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/?embed=1",
+        "https://www.documentcloud.org/documents/7203159-Joaqu%C3%ADn-El-Chapo-Guzm%C3%A1n-Appeal/pages/2.html",
         "https://www.documentcloud.org/documents/20059068-the-mueller-report#document/p17/a2001254",
         "https://www.documentcloud.org/documents/20059068-the-mueller-report",
         {
