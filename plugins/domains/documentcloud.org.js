@@ -38,7 +38,7 @@ export default {
                 try {
                     var iframe = oembed.getIframe();
                     // Embed expects title=1 to show, title=0 to hide (default is 1)
-                    var href = iframe.replaceQuerystring({ title: hideTitle ? 0 : 1 });
+                    var href = iframe.replaceQuerystring({ title: hideTitle ? 1 : 0 });
 
                     if (page && page !== '1') {
                         if (href) {
