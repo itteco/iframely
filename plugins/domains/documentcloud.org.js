@@ -2,9 +2,6 @@ export default {
 
     re: /^https?:\/\/(?:www|embed)?\.?documentcloud\.org\/documents?\/\d+/i,
 
-    // Removed "oembed-title" mixin after January 2025 API update
-    // DocumentCloud now includes title in oEmbed response by default
-    // Title is controlled via documentcloud.title option for iframe viewer (false=show, true=hide)
     mixins: [
         "domain-icon",
         "oembed-site",
@@ -12,7 +9,8 @@ export default {
         "author",
         "og-title",
         "og-image",
-        "og-description"
+        "og-description",
+        "oembed-title"
     ],
 
     // plugin is required to add aspect-ratio and with this fix embeds when used inside iFrame
