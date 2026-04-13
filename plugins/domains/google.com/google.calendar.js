@@ -1,7 +1,8 @@
 export default {
 
     re: [
-        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?(?:.+)$/i
+        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?embed\/?\?(?:.+)$/i,
+        /^https?:\/\/(?:www|calendar)\.google\.com\/calendar\/(?:u\/\d+\/)?newembed\/?\?(?:.+)$/i
     ],
 
     mixins: ['*'],
@@ -18,7 +19,12 @@ export default {
     tests: [{
         noFeeds: true
     },
-        'https://calendar.google.com/calendar/embed?ctz=America/Toronto&src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com',
-        'https://calendar.google.com/calendar/u/0/embed?ctz=America/Toronto&src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com'
+        "https://calendar.google.com/calendar/embed?ctz=America/Toronto&src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com",
+        "https://calendar.google.com/calendar/embed?src=studio.prolight@gmail.com&ctz=Europe/Moscow",
+        "https://calendar.google.com/calendar/u/0/embed?ctz=America/Toronto&src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com",
+        "https://calendar.google.com/calendar/u/0/embed?src=en.dutch%23holiday@group.v.calendar.google.com&ctz=Europe/Amsterdam",
+
+        "https://calendar.google.com/calendar/newembed?ctz=America/Toronto&src=92600p5mb857b0t0jq0f6l8vpg%40group.calendar.google.com",
+        "https://calendar.google.com/calendar/u/0/newembed?ctz=America/Toronto&src=92600p5mb857b0t0jq0f6l8vpg@group.calendar.google.com"
     ]
 };    
