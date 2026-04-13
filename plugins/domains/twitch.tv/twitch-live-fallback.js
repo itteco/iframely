@@ -41,6 +41,6 @@ export default {
     },
         "https://www.twitch.tv/ninja?parent=localhost",
         "https://www.twitch.tv/videos/520219960?parent=localhost",
-        "https://www.twitch.tv/videos/2686933296?parent=localhost"
+        "https://www.twitch.tv/videos/518899202?parent=localhost"
     ]
 };
