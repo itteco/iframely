@@ -1,8 +1,6 @@
-import * as oembedUtils from '../../lib/plugins/system/oembed/oembedUtils.js';
-
 export default {
 
-    getData: function(url, meta, __noOembedLinks, options, cb) {
+    getData: function(url, meta, oembedUtils, __noOembedLinks, options, cb) {
 
         return cb(
             meta.robots
