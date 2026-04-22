@@ -45,6 +45,7 @@ export default {
     tests: [{
         noFeeds: true
     },
-        "https://www.dailymail.co.uk/video/news/video-2895505/SVB-members-sets-bank-culture-apart-others.html"
+        "https://www.dailymail.co.uk/video/news/video-2895505/SVB-members-sets-bank-culture-apart-others.html",
+        "https://www.dailymail.com/video/news/video-3639123/Trump-says-expects-bomb-Iran-ceasefire-deal-ends.html"
     ]
 };
