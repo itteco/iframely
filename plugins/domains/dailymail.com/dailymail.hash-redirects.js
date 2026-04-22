@@ -20,11 +20,8 @@ export default {
         }
     },
 
-    getData: function(urlMatch, options) {
+    getData: function(options) {
         options.exposeStatusCode = true;
-        if (/dailymail\.co\.uk/.test(urlMatch[0])) {
-            options.followHTTPRedirect = false;
-        }
     },
 
     tests: [{skipMethods: ['getData', 'getLink']},
