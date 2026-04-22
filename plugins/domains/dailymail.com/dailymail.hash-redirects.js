@@ -22,6 +22,7 @@ export default {
 
     getData: function(options) {
         options.exposeStatusCode = true;
+        options.followHTTPRedirect = false;
     },
 
     tests: [{skipMethods: ['getData', 'getLink']},
