@@ -14,6 +14,21 @@ export function getProviderOptionsQuery(query) {
     return providerOptionsQuery;
 }
 
+const HTML_ESCAPE_MAP = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+};
+
+function escapeHTML(value) {
+    if (typeof value !== "string") {
+        return value;
+    }
+    return value.replace(/[&<>"']/g, char => HTML_ESCAPE_MAP[char]);
+}
+
 function normalizeValue(value) {
     if (value === 'true') {
         return true;
@@ -27,7 +42,12 @@ function normalizeValue(value) {
     if (/^(\d+)?\.\d+$/.test(value)) {
         return parseFloat(value);
     }
-    return value;
+    if (typeof value === 'string') {
+        // Escape string value in case it will be used in html.
+        return escapeHTML(value);
+    }
+    // Return nothing if unknown type or array.
+    return;
 }
 
 export function getProviderOptionsFromQuery(query) {
@@ -45,7 +65,9 @@ export function getProviderOptionsFromQuery(query) {
     for(var key in query) {
         if (key.length > 1 && _RE.test(key)) {
             var value = normalizeValue(query[key]);
-            providerOptions[key] = value;
+            if (typeof value !== 'undefined') {
+                providerOptions[key] = value;
+            }
         }
     }
 
