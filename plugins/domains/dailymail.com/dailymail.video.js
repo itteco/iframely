@@ -36,7 +36,7 @@ export default {
             href: dailymailVideo.plugins['social-share'].embedUrl, // no SSL
             rel: CONFIG.R.player,
             accept: CONFIG.T.text_html,             
-            "aspect-ratio": 484 / 282, // taken from mp4 aspect
+            "aspect-ratio": 698 / 423, // taken from native embed
             "padding-bottom": 50 + 50 + 50,
             scrolling: 'no'
         }];
@@ -45,6 +45,7 @@ export default {
     tests: [{
         noFeeds: true
     },
-        "https://www.dailymail.co.uk/video/news/video-2895505/SVB-members-sets-bank-culture-apart-others.html"
+        "https://www.dailymail.com/video/news/video-2895505/SVB-members-sets-bank-culture-apart-others.html",
+        "https://www.dailymail.com/video/news/video-3639123/Trump-says-expects-bomb-Iran-ceasefire-deal-ends.html",
     ]
 };
