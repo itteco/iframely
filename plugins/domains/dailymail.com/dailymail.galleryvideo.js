@@ -1,7 +1,7 @@
 export default {
 
     re: [        
-        /^https?:\/\/www\.dailymail\.co\.uk\/video\/\w+\/video\-(\d+)\//i
+        /^https?:\/\/www\.dailymail\.com\/video\/\w+\/video\-(\d+)\//i
     ],
 
     provides: 'dailymailVideoID',
@@ -20,6 +20,7 @@ export default {
     tests: [{
         noFeeds: true
     },
-        "https://www.dailymail.co.uk/video/news/video-1284607/Heart-rending-scenes-child-marriage-ceremonies-India.html"
+        "https://www.dailymail.com/video/news/video-1284607/Heart-rending-scenes-child-marriage-ceremonies-India.html",
+        "https://www.dailymail.com/video/royals/video-3639009/Video-Celebrations-late-Queens-100th-birthday.html"
     ]
 };
