@@ -36,7 +36,7 @@ export default {
             href: dailymailVideo.plugins['social-share'].embedUrl, // no SSL
             rel: CONFIG.R.player,
             accept: CONFIG.T.text_html,             
-            "aspect-ratio": 698 / 573, // taken from native embed
+            "aspect-ratio": 698 / 423, // taken from native embed
             "padding-bottom": 50 + 50 + 50,
             scrolling: 'no'
         }];
