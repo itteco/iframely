@@ -326,6 +326,7 @@ function processUrl() {
     var query = {
         debug: true,
         group: false,
+        dataMode: $('[name="dataMode"]').is(":checked"),
         mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked"),
         refresh: $('[name="refresh"]').is(":checked")
     };
