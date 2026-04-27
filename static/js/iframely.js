@@ -151,6 +151,7 @@
             uri: !options.url ? uri : undefined,
             url: options.url ? uri : undefined,
             debug: options.debug,
+            dataMode: options.dataMode,
             mixAllWithDomainPlugin: options.mixAllWithDomainPlugin,
             refresh: options.refresh,
             meta: options.meta,
