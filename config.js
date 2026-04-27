@@ -367,6 +367,12 @@
             'ENET',
             'HPE_INVALID_',
             'ERR_SSL_'
+        ],
+
+        GET_VARS_ALIASES: [
+            'signals',
+            'policy',
+            'sources'
         ]
     };
 
