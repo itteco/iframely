@@ -252,6 +252,19 @@ function showEmbeds($embeds, data, filterByRel) {
 
             $meta.append('<tr>' + (DEBUG ? ('<td>' + pluginId + '</td><td></td>') : '') + '<td><strong>' + key + '</strong></td><td>' + linkify(data.meta[key]) + '</td></tr>')
         });
+        // Render "vars".
+        if (data.vars) {
+            metaKeys = Object.keys(data.vars);
+            metaKeys.forEach(function(key) {
+                if (key == "_sources") {
+                    return;
+                }
+                var pluginId = data.vars._sources && data.vars._sources[key] || '';
+                usedPlugins[pluginId] = true;
+
+                $meta.append('<tr>' + (DEBUG ? ('<td>' + pluginId + '</td><td></td>') : '') + '<td>vars: <strong>' + key + '</strong></td><td><pre>' + JSON.stringify(data.vars[key], null, 4) + '</pre></td></tr>')
+            });
+        }
         if (DEBUG && data.vary && data.vary.join) {
             $meta.append('<tr><td></td><td></td><td><strong>vary</strong></td><td>' + data.vary.join('<br>') + '</td></tr>')
         }
