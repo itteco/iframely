@@ -21,6 +21,9 @@ export default {
 
     getData: function(url, urlMatch, cb, options) {
         var isCanonical = /^https?:\/\/www\.dailymotion\.com\/playlist\//i.test(url);
+        if (isCanonical) {
+            options.exposeStatusCode = true; // fallback for playlists - now 404s
+        }
         cb(!options.redirectsHistory && !isCanonical
             ? {
                 redirect: `https://www.dailymotion.com/playlist/${urlMatch[1]}`
@@ -38,5 +41,10 @@ export default {
 
         "https://geo.dailymotion.com/player.html?playlist=x6hynp",
         "https://geo.dailymotion.com/player.html?playlist=x6scov"
+
+        // Non-existing playlists return HTTP 404:
+        // https://www.dailymotion.com/playlist/xINVALID999
+        // https://www.dailymotion.com/embed/playlist/xINVALID999
+        // https://geo.dailymotion.com/player.html?playlist=xINVALID999
     ]
 };
