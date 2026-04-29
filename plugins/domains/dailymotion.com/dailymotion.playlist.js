@@ -1,3 +1,5 @@
+import got from 'got';
+
 export default {
 
     // Dailymotion oEmbed returns empty body for all playlist URLs.
@@ -21,13 +23,24 @@ export default {
 
     getData: function(url, urlMatch, cb, options) {
         var isCanonical = /^https?:\/\/www\.dailymotion\.com\/playlist\//i.test(url);
-        if (isCanonical) {
-            options.exposeStatusCode = true; // fallback for playlists - now 404s
+
+        if (!options.redirectsHistory && !isCanonical) {
+            return cb({ redirect: `https://www.dailymotion.com/playlist/${urlMatch[1]}` });
         }
-        cb(!options.redirectsHistory && !isCanonical
-            ? {
-                redirect: `https://www.dailymotion.com/playlist/${urlMatch[1]}`
-            } : null);
+
+        if (isCanonical) {
+            got(`https://geo.dailymotion.com/playlist/${urlMatch[1]}.json?legacy=true&parallelCalls=1`, { responseType: 'json' })
+                .then(response => {
+                    if (response.body && response.body.error && response.body.error.type === 'not_found') {
+                        cb({ responseStatusCode: 404 });
+                    } else {
+                        cb(null);
+                    }
+                })
+                .catch(() => cb(null));
+        } else {
+            cb(null);
+        }
     },
 
     tests: [{skipMethods: ['getData']}, {
@@ -42,9 +55,10 @@ export default {
         "https://geo.dailymotion.com/player.html?playlist=x6hynp",
         "https://geo.dailymotion.com/player.html?playlist=x6scov"
 
-        // Non-existing playlists return HTTP 404:
-        // https://www.dailymotion.com/playlist/xINVALID999
-        // https://www.dailymotion.com/embed/playlist/xINVALID999
-        // https://geo.dailymotion.com/player.html?playlist=xINVALID999
+        /* Non-existing playlists return HTTP 404:
+        "https://www.dailymotion.com/playlist/xINVALID999",
+        "https://www.dailymotion.com/embed/playlist/xINVALID999",
+        "https://geo.dailymotion.com/player.html?playlist=xINVALID999"
+        */
     ]
 };
