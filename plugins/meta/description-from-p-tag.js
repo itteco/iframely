@@ -1,4 +1,4 @@
-import { decodeHTML5 } from 'entities';
+import { decodeHTMLStrict } from 'entities';
 
 export default {
 
@@ -11,7 +11,7 @@ export default {
         cheerio("body p").each(function() {
             var $p = cheerio(this);
             if ($p.children("label, input, button, div, script, span").length === 0 && !$p.parents("noscript, header,#header,[role='banner']").length) {
-                var someText = decodeHTML5(decode($p.text()));
+                var someText = decodeHTMLStrict(decode($p.text()));
                 var requiredLimit = Number.isInteger(__allowPTagDescription) ? __allowPTagDescription : 64;
                 if (someText.length > requiredLimit) {
                     description = someText;
