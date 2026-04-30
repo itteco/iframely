@@ -369,11 +369,11 @@
             'ERR_SSL_'
         ],
 
-        GET_VARS_ALIASES: [
-            'signals',
-            'policy',
-            'sources'
-        ]
+        GET_VARS_METHODS: {
+            'getSignals': 'signals',
+            'getPolicy': 'policy',
+            'getSources': 'sources'
+        }
     };
 
     // Providers config loader.
