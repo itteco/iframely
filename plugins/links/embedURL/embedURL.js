@@ -1,4 +1,4 @@
-import { decodeHTML5 } from 'entities';
+import { decodeHTMLStrict } from 'entities';
 
 export default {
 
@@ -55,7 +55,7 @@ export default {
 
                 var key = $el.attr('itemprop');
                 if (key) {
-                    var value = decodeHTML5(decode($el.attr('content') || $el.attr('href')));
+                    var value = decodeHTMLStrict(decode($el.attr('content') || $el.attr('href')));
                     result[key] = value;
                 }
             });
