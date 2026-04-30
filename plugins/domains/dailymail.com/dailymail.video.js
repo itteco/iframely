@@ -1,4 +1,4 @@
-import { decodeHTML5 } from 'entities';
+import { decodeHTMLStrict } from 'entities';
 
 export default {
 
@@ -13,15 +13,15 @@ export default {
 
         if ($player.length == 1) {
             return {
-                dailymailVideo: JSON.parse(decodeHTML5($player.attr('data-opts')))
+                dailymailVideo: JSON.parse(decodeHTMLStrict($player.attr('data-opts')))
             }
         }
     },
 
     getMeta: function(dailymailVideo, decode) {
         return {
-            title: decodeHTML5(decode(dailymailVideo.title)),
-            description: decodeHTML5(decode(dailymailVideo.descr))
+            title: decodeHTMLStrict(decode(dailymailVideo.title)),
+            description: decodeHTMLStrict(decode(dailymailVideo.descr))
         }
     },
 
