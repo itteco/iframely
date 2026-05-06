@@ -365,7 +365,8 @@
     {
         "name": "Behance",
         "templates": [
-            "www\\.behance\\.net/gallery/.*"
+            "www\\.behance\\.net/gallery/.*",
+            "www\\.behance\\.net/[0-9a-zA-Z.\\-_]+/services/\\d+/"
         ],
         "endpoint": "https://www.behance.net/services/oembed"
     },
