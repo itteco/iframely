@@ -1090,6 +1090,15 @@
         "endpoint": "https://adilo.bigcommand.com/web/oembed"
     },
     {
+        "name": "Wayground",
+        "templates": [
+            "(?:quizizz|wayground)\\.com/admin/quiz/([a-z0-9]+)/",
+            "wayground\\.com/embed/quiz/([a-z0-9]+)"
+        ],
+        "url": "https://wayground.com/embed/quiz/{1}",
+        "endpoint": "https://wayground.com/oembed"
+    },
+    {
         "name": "run.ply.io",
         "templates": [
             "run.ply.io/run/*"
