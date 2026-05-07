@@ -306,6 +306,16 @@ function findAllRels(data) {
     return _.intersection(result, REL_GROUPS);
 }
 
+function getTimingData(data) {
+    var result = {};
+    data.allData.forEach(function(pluginResult) {
+        if (pluginResult.time) {
+            result[pluginResult.method.pluginId] = pluginResult.time
+        }
+    });
+    return {timings: result};
+}
+
 function processUrl() {
     var uri = $.trim($('.s-uri').focus().val());
 
@@ -318,6 +328,7 @@ function processUrl() {
     var $resultTabs = $('.s-result-div').hide();
 
     var $result = $('.s-debug-result');
+    var $timingResult = $('.s-timing-result');
     var $context = $('.s-debug-context');
     var $response = $('.s-json');
     var $embeds = $('.s-embeds');
@@ -350,7 +361,8 @@ function processUrl() {
 
         if (error) {
             $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error + ' - ' +jqXHR.responseText);
-            $result.renderObject(data);
+            $result.hide();
+            $timingResult.hide();
             return;
         }
 
@@ -382,7 +394,11 @@ function processUrl() {
         });
 
         // Render all debug data.
+        $result.show();
         $result.renderObject(data);
+
+        $timingResult.show();
+        $timingResult.renderObject(getTimingData(data));
 
         var clearData = $.extend(true, {}, data);
         delete clearData.allData;
