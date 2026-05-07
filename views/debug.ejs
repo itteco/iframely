@@ -47,6 +47,11 @@
                     <% if (DEBUG) { %>
                     <div class="control-group">
                         <div class="controls">
+                            <% if (DATA_DEBUG_ENABLED) { %>
+                            <label class="checkbox">
+                                <input type="checkbox" name="dataMode" <% if (dataMode) { %>checked="checked"<% } %>> Data mode <a href="/debug?uri=<%= encodeURIComponent(uri) || '' %>&dataMode=<%= !!!dataMode %>" target="_blank">or open in new window with opposite value</a>
+                            </label>
+                            <% } %>
                             <label class="checkbox">
                                 <input type="checkbox" name="mixAllWithDomainPlugin" <% if (mixAllWithDomainPlugin) { %>checked="checked"<% } %>> Debug with all plugins (disable specific mixins and mixin all available plugins) <a href="/debug?uri=<%= encodeURIComponent(uri) || '' %>&mixAllWithDomainPlugin=<%= !!!mixAllWithDomainPlugin %>" target="_blank">or open in new window with opposite value</a>
                             </label>

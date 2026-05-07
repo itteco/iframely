@@ -367,7 +367,13 @@
             'ENET',
             'HPE_INVALID_',
             'ERR_SSL_'
-        ]
+        ],
+
+        GET_VARS_METHODS: {
+            'getSignals': 'signals',
+            'getPolicy': 'policy',
+            'getSources': 'sources'
+        }
     };
 
     // Providers config loader.
