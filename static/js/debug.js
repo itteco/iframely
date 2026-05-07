@@ -361,8 +361,6 @@ function processUrl() {
 
         if (error) {
             $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error + ' - ' +jqXHR.responseText);
-            $result.hide();
-            $timingResult.hide();
             return;
         }
 
@@ -394,10 +392,9 @@ function processUrl() {
         });
 
         // Render all debug data.
-        $result.show();
         $result.renderObject(data);
 
-        $timingResult.show();
+        // Render timing data.
         $timingResult.renderObject(getTimingData(data));
 
         var clearData = $.extend(true, {}, data);
