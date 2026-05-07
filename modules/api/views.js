@@ -137,6 +137,7 @@ export default function(app) {
                     debug: getBooleanParam(req, 'debug'),
                     returnProviderOptionsUsage: getBooleanParam(req, 'debug'),
                     mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
+                    dataMode: getBooleanParam(req, 'dataMode'),
                     forceParams: req.query.meta === "true" ? CONFIG.DEBUG_CONTEXTS : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
                     readability: getBooleanParam(req, 'readability'),
