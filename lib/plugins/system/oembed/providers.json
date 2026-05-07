@@ -365,7 +365,8 @@
     {
         "name": "Behance",
         "templates": [
-            "www\\.behance\\.net/gallery/.*"
+            "www\\.behance\\.net/gallery/.*",
+            "www\\.behance\\.net/[0-9a-zA-Z.\\-_]+/services/\\d+/"
         ],
         "endpoint": "https://www.behance.net/services/oembed"
     },
@@ -1089,12 +1090,13 @@
         "endpoint": "https://adilo.bigcommand.com/web/oembed"
     },
     {
-        "name": "Quizizz",
+        "name": "Wayground",
         "templates": [
-            "quizizz.com/admin/quiz/([a-z0-9]+)/"
+            "(?:quizizz|wayground)\\.com/admin/(quiz)/([a-z0-9]+)/",
+            "(?:quizizz|wayground)\\.com/embed/(quiz|presentation)/([a-z0-9]+)"
         ],
-        "endpoint": "https://quizizz.com/oembed",
-        "url": "https://quizizz.com/embed/quiz/{1}"
+        "url": "https://wayground.com/embed/{1}/{2}",
+        "endpoint": "https://wayground.com/oembed"
     },
     {
         "name": "run.ply.io",
