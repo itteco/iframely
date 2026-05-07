@@ -1092,10 +1092,10 @@
     {
         "name": "Wayground",
         "templates": [
-            "(?:quizizz|wayground)\\.com/admin/quiz/([a-z0-9]+)/",
-            "wayground\\.com/embed/quiz/([a-z0-9]+)"
+            "(?:quizizz|wayground)\\.com/admin/(quiz)/([a-z0-9]+)/",
+            "(?:quizizz|wayground)\\.com/embed/(quiz|presentation)/([a-z0-9]+)"
         ],
-        "url": "https://wayground.com/embed/quiz/{1}",
+        "url": "https://wayground.com/embed/{1}/{2}",
         "endpoint": "https://wayground.com/oembed"
     },
     {
