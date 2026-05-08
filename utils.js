@@ -358,3 +358,39 @@
         }
         return [...new Set(merged)];
     }
+
+    const HTML_ESCAPE_MAP = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    };
+    
+    function escapeHTML(value) {
+        if (typeof value !== "string") {
+            return value;
+        }
+        return value.replace(/[&<>"']/g, char => HTML_ESCAPE_MAP[char]);
+    }
+    
+    export function normalizeQueryOptionValue(value) {
+        if (value === 'true') {
+            return true;
+        }
+        if (value === 'false') {
+            return false;
+        }
+        if (/^\d+$/.test(value)) {
+            return parseInt(value);
+        }
+        if (/^(\d+)?\.\d+$/.test(value)) {
+            return parseFloat(value);
+        }
+        if (typeof value === 'string') {
+            // Escape string value in case it will be used in html.
+            return escapeHTML(value);
+        }
+        // Return nothing if unknown type or array.
+        return;
+    }

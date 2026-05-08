@@ -1,4 +1,5 @@
 import { fetchData } from "../../lib/fetch.js";
+import { normalizeQueryOptionValue } from "../../utils.js";
 
 var _RE = /^_.+/;
 
@@ -12,42 +13,6 @@ export function getProviderOptionsQuery(query) {
     }
 
     return providerOptionsQuery;
-}
-
-const HTML_ESCAPE_MAP = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-};
-
-function escapeHTML(value) {
-    if (typeof value !== "string") {
-        return value;
-    }
-    return value.replace(/[&<>"']/g, char => HTML_ESCAPE_MAP[char]);
-}
-
-function normalizeValue(value) {
-    if (value === 'true') {
-        return true;
-    }
-    if (value === 'false') {
-        return false;
-    }
-    if (/^\d+$/.test(value)) {
-        return parseInt(value);
-    }
-    if (/^(\d+)?\.\d+$/.test(value)) {
-        return parseFloat(value);
-    }
-    if (typeof value === 'string') {
-        // Escape string value in case it will be used in html.
-        return escapeHTML(value);
-    }
-    // Return nothing if unknown type or array.
-    return;
 }
 
 export function getProviderOptionsFromQuery(query) {
@@ -64,7 +29,7 @@ export function getProviderOptionsFromQuery(query) {
 
     for(var key in query) {
         if (key.length > 1 && _RE.test(key)) {
-            var value = normalizeValue(query[key]);
+            var value = normalizeQueryOptionValue(query[key]);
             if (typeof value !== 'undefined') {
                 providerOptions[key] = value;
             }
@@ -72,7 +37,7 @@ export function getProviderOptionsFromQuery(query) {
     }
 
     // Move `query.maxwidth` to `providerOptions.maxwidth`.
-    var maxWidth = normalizeValue(query['maxwidth']);
+    var maxWidth = normalizeQueryOptionValue(query['maxwidth']);
     if (maxWidth) {
         providerOptions.maxwidth = maxWidth;
     }
