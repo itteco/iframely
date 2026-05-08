@@ -1,3 +1,6 @@
+const TWITTER_LIMIT_MIN = 1;
+const TWITTER_LIMIT_MAX = 20;
+
 export default {
 
     // Embedded Like, Collection, and Moment Timelines are now retired.
@@ -79,17 +82,23 @@ export default {
 
             var limit = options.getRequestOptions('twitter.limit', 
                 (/data\-(?:tweet\-)?limit=\"(\d+)\"/i.test(html) && html.match(/data\-(?:tweet\-)?limit=\"(\d+)\"/i)[1])
-                || 20);
+                || TWITTER_LIMIT_MAX);
+            
+            limit = parseInt(limit);
+            // Check limit type and range.
+            if (!Number.isInteger(limit) || limit < TWITTER_LIMIT_MIN || limit > TWITTER_LIMIT_MAX) {
+                limit = TWITTER_LIMIT_MAX;
+            }
 
             if (/data\-(?:tweet\-)?limit=\"(\d+)\"/.test(html)) {
                 html = html.replace(/data\-(?:tweet\-)?limit=\"\d+\"/, '');
             }
 
             if (height) {
-                limit = 20; // `data-height` works only if there's no `data-limit`. Let's give it priority.
+                limit = TWITTER_LIMIT_MAX; // `data-height` works only if there's no `data-limit`. Let's give it priority.
             }
 
-            if (limit !== 20) {
+            if (limit !== TWITTER_LIMIT_MAX) {
                 html = html.replace(/href="/, 'data-tweet-limit="' + limit + '" href="');
             }
 
@@ -111,8 +120,8 @@ export default {
                         label: 'Include up to 20 tweets',
                         value: limit,
                         range: {
-                            max: 20,
-                            min: 1
+                            max: TWITTER_LIMIT_MAX,
+                            min: TWITTER_LIMIT_MIN
                         }
                     },
                     theme: {
