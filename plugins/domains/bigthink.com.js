@@ -26,8 +26,11 @@ export default {
     },
 
     tests: [
-        "http://bigthink.com/videos/bre-pettis-on-makerbot-3-d-printing",
-        "http://bigthink.com/videos/vivek-wadhwa-every-industry-will-be-disrupted",
-        "https://bigthink.com/the-present/neil-degrasse-tyson-life-on-europa-jupiters-icy-moon/"
+        "https://bigthink.com/videos/bre-pettis-on-makerbot-3-d-printing",
+        "https://bigthink.com/videos/vivek-wadhwa-every-industry-will-be-disrupted",
+        "https://bigthink.com/the-present/neil-degrasse-tyson-life-on-europa-jupiters-icy-moon/",
+        "https://bigthink.com/the-present/how-can-cognitive-science-inform-the-future-of-education/",
+        "https://bigthink.com/the-present/systemic-racism-in-schools/",
+        "https://bigthink.com/series/the-big-think-interview/tiago-forte",
     ]
 };
