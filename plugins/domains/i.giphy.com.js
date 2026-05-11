@@ -17,7 +17,7 @@ export default {
         noFeeds: true,
         skipMethods: ["getData"]
     },
-        "http://i.giphy.com/10rNBP8yt1LUnm.gif",
+        "https://i.giphy.com/10rNBP8yt1LUnm.gif",
         "https://media.giphy.com/media/3o6Zt09XtyqOJWVgRO/source.gif",
         "https://media3.giphy.com/media/puOukoEvH4uAw/giphy.gif?cid=4bf119fc5b9ed43565707a736f134885",
         "https://media.giphy.com/media/2tSodgDfwCjIMCBY8h/200w_d.gif",

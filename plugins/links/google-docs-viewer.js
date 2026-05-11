@@ -7,8 +7,8 @@ export default {
 
             if (__nonHtmlContentData.content_length < 10 * 1024 * 1024) {
                 // Skip files that are over 10Mb, 
-                // ex - http://topchoice.com.mt/pdf/TOPCHOICE-AD.pdf 
-                // ex - http://zwinnalodz.eu/wp-content/uploads/2016/02/The-Lean-Startup-.pdf
+                // ex - https://topchoice.com.mt/pdf/TOPCHOICE-AD.pdf 
+                // ex - https://zwinnalodz.eu/wp-content/uploads/2016/02/The-Lean-Startup-.pdf
                 // (Though Google seems to have the limit of 25Mb - that is still too much for general Iframely use)
 
                 var src = "https://docs.google.com/viewer?embedded=true&url=" + encodeURIComponent(url);

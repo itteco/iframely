@@ -82,7 +82,7 @@ describe('Core plugins', function() {
         var error, data;
 
         before(function(done) {
-            iframely("http://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city", 'oembed', findWhitelistRecordFor, function(_error, _data) {
+            iframely("https://www.ted.com/talks/kent_larson_brilliant_designs_to_fit_more_people_in_every_city", 'oembed', findWhitelistRecordFor, function(_error, _data) {
                 error = _error;
                 data = _data;
                 done();
@@ -102,7 +102,7 @@ describe('Core plugins', function() {
 
     describe('image size', function() {
         it('has correct size and type', function(done) {
-            utils.getImageMetadata("http://www.google.com/logos/2013/dia_dos_namorados_2013-1529005-hp.jpg", function(error, data) {
+            utils.getImageMetadata("https://www.google.com/logos/2013/dia_dos_namorados_2013-1529005-hp.jpg", function(error, data) {
                 assert.equal(data.width, 400);
                 assert.equal(data.height, 211);
                 assert.equal(data.content_length, 33572);

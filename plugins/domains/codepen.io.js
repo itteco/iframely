@@ -65,9 +65,9 @@ export default {
     },
 
     tests: [
-        "http://codepen.io/kevinjannis/pen/pyuix",
-        "http://codepen.io/nosecreek/details/sprDl",
-        "http://codepen.io/dudleystorey/pen/HrFBx",
+        "https://codepen.io/kevinjannis/pen/pyuix",
+        "https://codepen.io/nosecreek/details/sprDl",
+        "https://codepen.io/dudleystorey/pen/HrFBx",
         "https://codepen.io/pen/vwOyvW"
     ]
 

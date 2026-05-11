@@ -105,7 +105,7 @@ export default {
 
 
     tests: [{
-        feed: "http://vimeo.com/channels/bestofstaffpicks/videos/rss"
+        feed: "https://vimeo.com/channels/bestofstaffpicks/videos/rss"
     },
         "https://vimeo.com/65836516",
         "https://vimeo.com/141567420",

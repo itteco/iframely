@@ -22,5 +22,5 @@ export default {
         cb(null);
     }
 
-    // ex. http://www.espn1530.com/media/play/27017084/
+    // ex. https://www.espn1530.com/media/play/27017084/
 };

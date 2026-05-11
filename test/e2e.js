@@ -187,7 +187,7 @@ describe('meta endpoint', function() {
       }
     });
 
-    var url = 'http://blacklisted.com/test-timeout';
+    var url = 'https://blacklisted.com/test-timeout';
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {

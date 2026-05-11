@@ -39,9 +39,9 @@ export default {
         pageWithFeed: 'https://xkcd.com/',
         skipMixins: ["og-image-rel-image"]
     },
-        "http://xkcd.com/1392/", // Large image present.
-        "http://xkcd.com/731/",
-        "http://www.xkcd.com/1709/",
+        "https://xkcd.com/1392/", // Large image present.
+        "https://xkcd.com/731/",
+        "https://www.xkcd.com/1709/",
         "https://xkcd.com/162/"
     ]
 };

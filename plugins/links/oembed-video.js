@@ -91,7 +91,7 @@ export default {
     // tests are only applicable with the whitelist, otherwise will throw errors on Test UI
     /*
     tests: [
-        "http://sports.pixnet.net/album/video/183041064", 
+        "https://sports.pixnet.net/album/video/183041064", 
     ]
     */
 };

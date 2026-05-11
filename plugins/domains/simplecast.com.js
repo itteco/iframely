@@ -46,10 +46,10 @@ export default {
         "https://the-smerconish-podcast.simplecast.com/episodes/todays-poll-question-should-joe-have-pardoned-hunter",
 
         /*
-        http://bikeshed.fm/54
-        http://bikeshed.fm/57
+        https://bikeshed.fm/54
+        https://bikeshed.fm/57
         https://podcast.emojiwrap.com/episodes/17-no-time-for-hands-openhands-with
-        http://podcast.thegadgetflow.com/mark-campbell-inventurex
+        https://podcast.thegadgetflow.com/mark-campbell-inventurex
         */        
     ]
 };

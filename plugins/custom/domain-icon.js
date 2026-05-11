@@ -19,7 +19,7 @@ export default {
             domain = m[2];
             protocol = m[1];
         } else {
-            // prevent self recursion for root domains like http://domain.com.
+            // prevent self recursion for root domains like https://domain.com.
             return cb();
         }
 
