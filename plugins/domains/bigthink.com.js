@@ -4,21 +4,16 @@ export default {
         "*"
     ],
 
-    getData: function(ld, cheerio, cb) {
-        var $el = cheerio('head script[src*="cdn.jwplayer.com"]');
-        var player_re = /jwplayer.com\/libraries\/(\w+)\.js/i;
-        var media_re = /jwplayer.com\/v\d+\/media\/(\w+)\/poster\.jpg$/i;
+    getData: function(cheerio, cb) {
+        var $el = cheerio('mux-player[src*="cdn.jwplayer.com/manifests/"]');
+        var media_re = /cdn\.jwplayer\.com\/manifests\/(\w+)\.m3u8$/i;
 
-        if ($el.length > 0 
-            && player_re.test($el.attr('src'))
-            && ld.article && ld.article.image 
-            && media_re.test(ld.article.image.url)) {
+        var src = $el.attr('src');
+        var match = src && src.match(media_re);
 
-            var player_id = $el.attr('src').match(player_re)[1];
-            var media_id = ld.article.image.url.match(media_re)[1];
-
-            cb (null, {
-                __promoUri: `https://content.jwplatform.com/players/${media_id}-${player_id}.html`
+        if (match) {
+            cb(null, {
+                __promoUri: `https://content.jwplatform.com/players/${match[1]}.html`
             });
         } else {
             cb(null);
