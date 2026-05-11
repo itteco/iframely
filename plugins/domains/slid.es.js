@@ -20,7 +20,7 @@ export default {
     getLink: function(urlMatch, query) {
         if (urlMatch[1] !== 'blog.') {
             return {
-                href: `${urlMatch[0].replace('http://', '//')}/embed` + (query.token ? `?token=${query.token}` : ''),
+                href: `${urlMatch[0].replace('https://', '//')}/embed` + (query.token ? `?token=${query.token}` : ''),
                 accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.player, CONFIG.R.slideshow],
                 'aspect-ratio': 960/700,
@@ -37,7 +37,7 @@ export default {
     },
 
     tests: [{skipMethods: ["getData"]},
-        "http://slides.com/timkindberg/ui-router",
+        "https://slides.com/timkindberg/ui-router",
         "https://slides.com/thedatacentral/the-data-central",
         "https://slides.com/sunilos/javaio#/2",
         "https://slides.com/webmax/angular-status-13"
