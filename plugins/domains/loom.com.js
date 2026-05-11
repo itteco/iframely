@@ -42,6 +42,7 @@ export default {
             href: iframe.replaceQuerystring(q),
             type: CONFIG.T.text_html, // Validator fails because we receive x-frame-options. It actually works fine.
             rel: CONFIG.R.player,
+            autoplay: "autoplay=1",
             'aspect-ratio': width / height,
             options: {
                 hideinfo: {
