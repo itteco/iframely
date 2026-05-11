@@ -54,8 +54,8 @@ export default {
         noFeeds: true,
         skipMixins: ["og-title", "og-description"]
     },
-        "http://pinterest.com/bcij/",
-        "http://pinterest.com/franktofineart/",
+        "https://pinterest.com/bcij/",
+        "https://pinterest.com/franktofineart/",
         "https://www.pinterest.com/pinterest/"
     ]
 };

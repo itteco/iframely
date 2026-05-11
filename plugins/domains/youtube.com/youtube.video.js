@@ -343,7 +343,7 @@ export default {
     tests: [{
         noFeeds: true
     },
-        "http://www.youtube.com/watch?v=etDRmrB9Css", // 4:3
+        "https://www.youtube.com/watch?v=etDRmrB9Css", // 4:3
         "https://www.youtube.com/embed/mDFBTdToRmw?rel=0",
         "https://www.youtube.com/embed/yJpJ8REjvqo?si=-2PKj71d6RhnnCFU&amp;clip=UgkxvYwD1omSQWCDuoWYo6hHJjQzcLGbJqYi&amp;clipt=EPjgJhjg4ig" // sic! with &amp; - as the code is manually copied from YouTube
         // embeds disabled - https://www.youtube.com/watch?v=e58FeKOgsU8

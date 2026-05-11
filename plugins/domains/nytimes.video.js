@@ -23,11 +23,11 @@ export default {
     },
 
     tests: [
-        "http://www.nytimes.com/video/movies/100000002478606/anatomy-of-a-scene-gravity.html?smid=nytimesarts",
-        "http://www.nytimes.com/video/nyregion/100000003880254/a-complicated-love-story.html?playlistId=1194811622241",
-        "http://www.nytimes.com/video/realestate/100000003852081/block-by-block-hoboken.html?playlistId=1194811622241",
-        "http://www.nytimes.com/video/world/middleeast/100000004055530/turkey-footage-shows-plane-blast.html",
-        "http://www.nytimes.com/video/us/100000004255656/the-terminator-and-the-washing-machine.html?smid=tw-share",
-        "http://www.nytimes.com/video/t-magazine/100000004528545/on-set-natalie-portman.html?smid=pl-share"
+        "https://www.nytimes.com/video/movies/100000002478606/anatomy-of-a-scene-gravity.html?smid=nytimesarts",
+        "https://www.nytimes.com/video/nyregion/100000003880254/a-complicated-love-story.html?playlistId=1194811622241",
+        "https://www.nytimes.com/video/realestate/100000003852081/block-by-block-hoboken.html?playlistId=1194811622241",
+        "https://www.nytimes.com/video/world/middleeast/100000004055530/turkey-footage-shows-plane-blast.html",
+        "https://www.nytimes.com/video/us/100000004255656/the-terminator-and-the-washing-machine.html?smid=tw-share",
+        "https://www.nytimes.com/video/t-magazine/100000004528545/on-set-natalie-portman.html?smid=pl-share"
     ]
 };

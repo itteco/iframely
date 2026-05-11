@@ -20,7 +20,7 @@ export default {
                 category: article.section,
                 keywords: k
             };
-            // example - http://www.entrepreneur.com/article/237644
+            // example - https://www.entrepreneur.com/article/237644
             // https://open.bufferapp.com/customer-development-interviews-using-twitter/
         }
     }

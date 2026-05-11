@@ -34,6 +34,6 @@ export default {
 
     tests: [
         "https://player.cnevids.com/embed/5670377e94c05f43e9000000/51097beb8ef9aff9f5000008",
-        "http://player-backend.cnevids.com/iframe/video/54c5640161646d294c080000"
+        "https://player-backend.cnevids.com/iframe/video/54c5640161646d294c080000"
     ]
 };

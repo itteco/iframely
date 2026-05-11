@@ -10,7 +10,7 @@ export default {
             type: CONFIG.T.text_html,
             rel: [CONFIG.R.app, CONFIG.R.ssl],
             html:'<script type="text/javascript" src="https://www.hockeydb.com/em/?pid=' + urlMatch[1] + '"></script>',
-            // href: 'http://www.hockeydb.com/em/?pid=' + urlMatch[1],
+            // href: 'https://www.hockeydb.com/em/?pid=' + urlMatch[1],
             'max-width': 604,
             height: 414
         }];

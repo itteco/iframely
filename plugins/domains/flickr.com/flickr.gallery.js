@@ -51,10 +51,10 @@ export default {
     tests: [
         {
             // Flickr sets feed.
-            page: "http://www.flickr.com/photos/jup3nep/sets/",
+            page: "https://www.flickr.com/photos/jup3nep/sets/",
             selector: "a.photo-list-album"
         },
-        "http://www.flickr.com/photos/jup3nep/sets/72157603856136177/",
+        "https://www.flickr.com/photos/jup3nep/sets/72157603856136177/",
         "https://www.flickr.com/photos/marshal-banana/albums/72157661935064149",
         "https://www.flickr.com/photos/mediacult/albums/72157703180229901",
         {

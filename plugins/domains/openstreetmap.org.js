@@ -20,7 +20,7 @@ function sinh(x) {
     return (Math.exp(x) - Math.exp(-x)) / 2;
 }
 
-// See: http://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Lon..2Flat._to_bbox
+// See: https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Lon..2Flat._to_bbox
 function getTileNumber(lat, lon, zoom) {
     var n = Math.pow(2, zoom);
     var xtile = Math.floor((lon + 180) / 360 * n);
@@ -208,7 +208,7 @@ export default {
         // https://help.openstreetmap.org/questions/26293/error-on-image-stream-using-ojwdevopenstreetmaporg
         /*
         , {
-            href: "http://ojw.dev.openstreetmap.org/StaticMap/?"+QueryString.stringify(thumb_query),
+            href: "https://ojw.dev.openstreetmap.org/StaticMap/?"+QueryString.stringify(thumb_query),
             rel:  CONFIG.R.thumbnail,
             type: CONFIG.T.image_png,
             width:  thumb_width,

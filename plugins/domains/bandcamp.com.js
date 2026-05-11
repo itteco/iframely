@@ -142,10 +142,10 @@ export default {
             "og-description"
         ]
     },
-        "http://music.zackhemsey.com/album/ronin",
-        "http://music.zackhemsey.com/track/dont-get-in-my-way",
+        "https://music.zackhemsey.com/album/ronin",
+        "https://music.zackhemsey.com/track/dont-get-in-my-way",
         "https://decembersongs.bandcamp.com/album/an-east-nashville-christmas",
-        "http://sonsofoflaherty.bandcamp.com/album/misc-songs",
-        "http://badsheeps.bandcamp.com/album/bad-sheeps" // doesn't have twitter player when not published
+        "https://sonsofoflaherty.bandcamp.com/album/misc-songs",
+        "https://badsheeps.bandcamp.com/album/bad-sheeps" // doesn't have twitter player when not published
     ]
 };

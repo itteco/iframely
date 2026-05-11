@@ -6,7 +6,7 @@ export default {
         Example:
             "ICBM": "42.88, -78.88",
             "geo.position": "42.88;-78.88",
-        Sample: http://qik.com/video/52767028
+        Sample: https://qik.com/video/52767028
         */
         var geo = meta.icbm || meta["geo.position"];
 
