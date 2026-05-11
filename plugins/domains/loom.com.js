@@ -38,7 +38,7 @@ export default {
             });
         }
 
-        return [{
+        return {
             href: iframe.replaceQuerystring(q),
             type: CONFIG.T.text_html, // Validator fails because we receive x-frame-options. It actually works fine.
             rel: CONFIG.R.player,
@@ -50,7 +50,7 @@ export default {
                     label: "Hide player attribution info"
                 }
             }
-        }];
+        };
 
     },
 
