@@ -111,6 +111,7 @@ export default {
         "https://vimeo.com/141567420",
         "https://vimeo.com/742007267", // Captions
         "https://vimeo.com/1191143901", // Portrait
+        "https://player.vimeo.com/video/228044649", // Portrait
         "https://player.vimeo.com/video/65836516?&autoplay=1&loop=1",
         {
             skipMixins: ["oembed-description"],
