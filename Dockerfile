@@ -12,9 +12,11 @@ RUN apk add g++ make python3
 # You should overwrite this on the CLI with `-e NODE_ENV=production`.
 ENV NODE_ENV=local
 
+RUN corepack enable
+
 ## Utilize docker layer cache
-COPY package.json yarn.lock /iframely/
-RUN yarn install --pure-lockfile --production
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /iframely/
+RUN pnpm install --frozen-lockfile --prod
 
 COPY . /iframely
 
