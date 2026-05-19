@@ -715,13 +715,6 @@
         "endpoint": "https://namchey.com/api/oembed"
     },
     {
-        "name": "GloriaTV",
-        "templates": [
-            "gloria.tv/.*"
-        ],
-        "endpoint": "https://gloria.tv/oembed/"
-    },
-    {
         "name": "Fontself",
         "templates": [
             "catapult.fontself.com/.*"
