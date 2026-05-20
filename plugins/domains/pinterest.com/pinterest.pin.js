@@ -7,12 +7,11 @@ export default {
         "*"
     ],
 
-    // https://developers.pinterest.com/tools/widget-builder/?type=pin&terse=true&size=large
+    // https://developers.pinterest.com/docs/web-features/widgets/
     getLink: function(urlMatch, iframe, options) {
 
         if (iframe.query?.id) {
 
-            // https://developers.pinterest.com/tools/widget-builder/?type=pin
             var hide_description = options.getRequestOptions('pinterest.hide_description', false);
 
             return {
@@ -37,7 +36,7 @@ export default {
                     }
                 },
                 */
-                'aspect-ratio': iframe.width && iframe.height ? iframe.width / iframe.height: 1/1,
+                'aspect-ratio': iframe.width && iframe.height ? iframe.width / iframe.height : 1/1,
                 'padding-bottom': 96,
                 'max-width': 600
             };

@@ -6,6 +6,7 @@ export default {
         "*"
     ],    
 
+    // https://developers.pinterest.com/docs/web-features/widgets/
     getLink: function(url, iframe, options) {
 
         if (iframe.query?.grid) {
@@ -54,8 +55,8 @@ export default {
         noFeeds: true,
         skipMixins: ["og-title", "og-description"]
     },
-        "http://pinterest.com/bcij/",
-        "http://pinterest.com/franktofineart/",
+        "https://pinterest.com/bcij/",
+        "https://pinterest.com/franktofineart/",
         "https://www.pinterest.com/pinterest/"
     ]
 };

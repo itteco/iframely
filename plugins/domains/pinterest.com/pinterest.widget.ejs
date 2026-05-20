@@ -1,9 +1,9 @@
 <a data-pin-do="<%= type %>"
    href="<%= url %>"
    <% if (pinWidth) { %>data-pin-scale-width="<%= pinWidth %>"<% } %>
-   <% if (pinWidth) { %>data-pin-scale-height="<%= height %>"<% } %>
-   <% if (pinWidth) { %>data-pin-board-width="<%= width %>"<% } %>
+   <% if (height) { %>data-pin-scale-height="<%= height %>"<% } %>
+   <% if (width) { %>data-pin-board-width="<%= width %>"<% } %>
    <% if (type === 'embedPin') { %> data-pin-width="large" <% } %>
    <% if (type === 'embedPin' && hideDescription ) { %> data-pin-terse="true" <% } %>
 ></a>
-<script async type="text/javascript" src="https://assets.pinterest.com/js/pinit.js"></script>
+<script async defer type="text/javascript" src="https://assets.pinterest.com/js/pinit.js"></script>
