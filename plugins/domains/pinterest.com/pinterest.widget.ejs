@@ -1,8 +1,9 @@
 <a data-pin-do="<%= type %>"
    href="<%= url %>"
-   <% if (pinWidth) { %>data-pin-scale-width="<%= pinWidth %>"<% } %>
-   <% if (height) { %>data-pin-scale-height="<%= height %>"<% } %>
-   <% if (width) { %>data-pin-board-width="<%= width %>"<% } %>
+   <% if (pinWidth) { %>data-pin-scale-width="<%= pinWidth %>"
+      <% if (height) { %>data-pin-scale-height="<%= height %>"<% } %>
+      <% if (width) { %>data-pin-board-width="<%= width %>"<% } %>
+   <% } %>
    <% if (type === 'embedPin') { %> data-pin-width="large" <% } %>
    <% if (type === 'embedPin' && hideDescription ) { %> data-pin-terse="true" <% } %>
 ></a>
