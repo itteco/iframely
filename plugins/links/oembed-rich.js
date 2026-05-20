@@ -131,7 +131,7 @@ export default {
 
     /** Tests are only applicable with the whitelist, otherwise will throw errors on Test UI.
      * tests: [
-     *   "http://list.ly/list/303-alternatives-to-twitter-bootstrap-html5-css3-responsive-framework" //Oembed rich reader
+     *   "https://youscribe.com/catalogue/documents/savoirs/religions/divine-worship-vs-demonic-cult-3275973" //Oembed rich reader
      * ]
      */
 
