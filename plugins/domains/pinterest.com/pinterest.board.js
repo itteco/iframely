@@ -6,7 +6,7 @@ export default {
         "*"
     ],
 
-    // https://developers.pinterest.com/tools/widget-builder/?type=board
+    // https://developers.pinterest.com/docs/web-features/widgets/
     getLink: function(url, iframe, options) {
 
         if (iframe.query?.grid) {
@@ -54,8 +54,8 @@ export default {
         // No Test Feed here not to violate "scrapping" restrictions of Pinterest
         noFeeds: true
     },
-        "http://pinterest.com/bcij/art-mosaics/",
-        "http://pinterest.com/bcij/aging-gracefully/",
+        "https://pinterest.com/bcij/art-mosaics/",
+        "https://pinterest.com/bcij/aging-gracefully/",
         "https://www.pinterest.com/pinterest/official-news/",
         "https://www.pinterest.com/mimimememe/office-humor-work-jokes/"
     ]
