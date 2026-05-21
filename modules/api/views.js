@@ -302,10 +302,18 @@ export default function(app) {
 
             var htmlArray = (html || "").match(/.{1,8191}/g) || "";
 
+            // Emitted raw inside a <script> in readerjs.ejs. JSON.stringify does
+            // not escape "<", so a value containing "</script>" would break out of
+            // the script element (XSS). Escape "<" to its < JS escape, which
+            // is inert in HTML but decodes back to "<" in JS.
+            function jsonForScript(value) {
+                return JSON.stringify(value).replace(/</g, '\\u003c');
+            }
+
             var context = {
-                embedCode: JSON.stringify(htmlArray),
+                embedCode: jsonForScript(htmlArray),
                 widgetId: JSON.stringify(1),
-                uri: JSON.stringify(uri)
+                uri: jsonForScript(uri)
             };
 
             res.renderCached("readerjs.ejs", context, {
