@@ -4,10 +4,9 @@ export default {
 
     provides: 'articlebody', // if not yet provided from LD articlebody
 
-    getData: function(__readabilityEnabled, readability, meta, utils) {
+    getData: function(__readabilityEnabled, $readability, articleHtml, meta, utils) {
 
-        const articleHtml = utils.encodeText(meta.charset, readability.getHTML());
-        const $p = cheerio.load(articleHtml)('p');
+        const $p = $readability('p');
         const articleText = $p.text();
 
         if (articleText) {
