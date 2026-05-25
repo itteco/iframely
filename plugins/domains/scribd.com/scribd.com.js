@@ -29,7 +29,7 @@ export default {
 
             return {
                 href: iframe.assignQuerystring(params),
-                accept: CONFIG.T.text_html,
+                type: CONFIG.T.text_html,
                 rel: slideshow ? [CONFIG.R.player, CONFIG.R.slideshow, CONFIG.R.oembed] : [CONFIG.R.reader, CONFIG.R.oembed],
                 'aspect-ratio': iframe['data-aspect-ratio'],
                 'padding-bottom': 45, // toolbar
