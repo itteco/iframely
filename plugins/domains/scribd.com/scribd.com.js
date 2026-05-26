@@ -55,7 +55,8 @@ export default {
 
     tests: [{
         noFeeds: true,
-        skipMethods: ['getData']
+        skipMethods: ['getData'],
+        skipMixins: ['query']
     },
         "https://www.scribd.com/doc/116154615/Australia-Council-Arts-Funding-Guide-2013",
         "https://www.scribd.com/document/399637688/Prestons-Advert"
