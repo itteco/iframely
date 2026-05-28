@@ -1,0 +1,14 @@
+diff --git a/readabilitySAX.js b/readabilitySAX.js
+index d3b6d3bf37e64224c7241d8c38e2f078d0ff0ce1..1b3c64e2c73da9866d1ff8ac0fc3416e0e1432f9 100644
+--- a/readabilitySAX.js
++++ b/readabilitySAX.js
+@@ -213,6 +213,9 @@ Readability.prototype._convertLinks = function(path){
+ 	if(!this._url) return path;
+ 	if(!path) return this._url.full;
+ 
++	// Fragment-only references resolve to the current page URL + fragment
++	if(path.charAt(0) === '#') return this._url.full + path;
++
+ 	var path_split = path.split("/");
+ 
+ 	//special cases

@@ -20,6 +20,11 @@ overrides:
   underscore@<=1.13.7: '>=1.13.8'
   undici@>=7.0.0 <7.24.0: '>=7.24.0'
 
+patchedDependencies:
+  readabilitySAX@1.6.1:
+    hash: 13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757
+    path: patches/readabilitySAX@1.6.1.patch
+
 importers:
 
   .:
@@ -95,7 +100,7 @@ importers:
         version: 7.2.3
       readabilitySAX:
         specifier: 1.6.1
-        version: 1.6.1
+        version: 1.6.1(patch_hash=13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757)
       redis:
         specifier: ^4.6.14
         version: 4.6.14
@@ -2338,7 +2343,7 @@ snapshots:
       iconv-lite: 0.7.0
       unpipe: 1.0.0
 
-  readabilitySAX@1.6.1:
+  readabilitySAX@1.6.1(patch_hash=13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757):
     dependencies:
       entities: 0.5.0
       htmlparser2: 3.0.5
