@@ -36,6 +36,7 @@
         "jslint": "^0.12.1",
         "json5": "^2.2.3",
         "jsontoxml": "^1.0.1",
+        "marked": "^18.0.4",
         "memcached": "2.2.2",
         "moment": "^2.30.1",
         "node-cache": "^1.1.0",
@@ -46,7 +47,8 @@
         "redis": "^4.6.14",
         "redis-clustr": "1.7.0",
         "sax": "^1.2.4",
-        "send": "^1.2.0"
+        "send": "^1.2.0",
+        "turndown": "^7.2.4"
     },
     "devDependencies": {
         "chai": "^6.2.0",
