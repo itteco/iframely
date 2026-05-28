@@ -31,7 +31,7 @@ export default {
     getLink: function(url, oembed, twitter_og, options) {
 
         var links = [];
-        var enable_timeline = options.getRequestOptions('twitter.timeline', true);
+        var enable_timeline = options.getRequestOptions('twitter.timeline', false);
 
         if (oembed.html && enable_timeline) {
             var html = oembed.html;
@@ -176,6 +176,6 @@ export default {
         "https://twitter.com/potus",
         "https://twitter.com/XDevelopers",
         "https://twitter.com/i/lists/211796334",
-        {skipMixins: ["domain-icon", "oembed-error"]}, {skipMethods: ["getData"]}
+        {skipMixins: ["domain-icon", "oembed-error"]}, {skipMethods: ["getData", "getLink"]}
     ]
 };
