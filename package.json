@@ -68,5 +68,10 @@
     },
     "engines": {
         "node": ">=20.19.3"
+    },
+    "pnpm": {
+        "patchedDependencies": {
+            "readabilitySAX@1.6.1": "patches/readabilitySAX@1.6.1.patch"
+        }
     }
 }
