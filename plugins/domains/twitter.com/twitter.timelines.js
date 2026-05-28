@@ -176,6 +176,6 @@ export default {
         "https://twitter.com/potus",
         "https://twitter.com/XDevelopers",
         "https://twitter.com/i/lists/211796334",
-        {skipMixins: ["domain-icon", "oembed-error"]}, {skipMethods: ["getData"]}
+        {skipMixins: ["domain-icon", "oembed-error"]}, {skipMethods: ["getData", "getLink"]}
     ]
 };
