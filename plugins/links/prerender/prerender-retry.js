@@ -9,7 +9,6 @@ export default {
 
             cb({
                 retry: {
-                    refresh: true, // Refresh meta.
                     prerender: true
                 }
             });
