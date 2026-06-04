@@ -159,15 +159,16 @@ export default function(app) {
             }
 
             if (result.safe_html) {
-                var readerJsUrl = new URL('/reader.js', CONFIG.baseAppUrl);
-                readerJsUrl.searchParams.set('uri', uri);
+                var readerJsParams = new url.URLSearchParams({
+                    uri: uri
+                });
                 if (req.query.dataMode) {
-                    readerJsUrl.searchParams.set('dataMode', req.query.dataMode);
+                    readerJsParams.set('dataMode', req.query.dataMode);
                 }
 
                 cache.set('html:' + version + ':' + uri, result.safe_html);
                 result.links.unshift({
-                    href: readerJsUrl.toString(),
+                    href: CONFIG.baseAppUrl + '/reader.js?' + readerJsParams.toString(),
                     type: CONFIG.T.javascript,
                     rel: [CONFIG.R.reader, CONFIG.R.inline]
                 });
