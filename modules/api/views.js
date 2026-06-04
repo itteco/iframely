@@ -140,6 +140,7 @@ export default function(app) {
                     dataMode: getBooleanParam(req, 'dataMode'),
                     forceParams: req.query.meta === "true" ? CONFIG.DEBUG_CONTEXTS : null,
                     whitelist: getBooleanParam(req, 'whitelist'),
+                    // TOOD: obsolete?
                     readability: getBooleanParam(req, 'readability'),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     maxWidth: getIntParam(req, 'maxwidth') || getIntParam(req, 'max-width'),
@@ -158,9 +159,15 @@ export default function(app) {
             }
 
             if (result.safe_html) {
+                var readerJsUrl = new URL('/reader.js', CONFIG.baseAppUrl);
+                readerJsUrl.searchParams.set('uri', uri);
+                if (req.query.dataMode) {
+                    readerJsUrl.searchParams.set('dataMode', req.query.dataMode);
+                }
+
                 cache.set('html:' + version + ':' + uri, result.safe_html);
                 result.links.unshift({
-                    href: CONFIG.baseAppUrl + "/reader.js?uri=" + encodeURIComponent(uri),
+                    href: readerJsUrl.toString(),
                     type: CONFIG.T.javascript,
                     rel: [CONFIG.R.reader, CONFIG.R.inline]
                 });
@@ -280,7 +287,9 @@ export default function(app) {
                     iframelyCore.run(uri, {
                         v: '1.3',
                         getWhitelistRecord: whitelist.findWhitelistRecordFor,
-                        readability: true
+                        // TOOD: obsolete?
+                        readability: true,
+                        dataMode: getBooleanParam(req, 'dataMode'),
                     }, function(error, data) {
 
                         if (!data || !data.safe_html) {
