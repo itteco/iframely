@@ -2,7 +2,7 @@ export default {
 
     notPlugin: true,
 
-    maybeApp: function(meta) {
+    maybeSPA: function(meta) {
 
         const title = (meta.og && meta.og.title) || (meta.twitter && meta.twitter.title) || meta.title || meta['html-title'];
         const maybeApp = 
