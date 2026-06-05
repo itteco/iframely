@@ -2,24 +2,21 @@ import utils from './utils.js';
 
 export default {
 
-    provides: '__allowJSRender',
+    notPlugin: !CONFIG.PRERENDER_URL,
 
-    listed: true,
+    getData: function(meta, cb) {
 
-    getData: function(meta, url, options, cb) {
+        if (utils.maybeSPA(meta)) {
 
-        if (CONFIG.PRERENDER_URL && url.startsWith(CONFIG.PRERENDER_URL)) {
-            return cb();
-        }
-
-        if (utils.maybeApp(meta)) {
-            return cb(null, {
-                __allowJSRender: true,
+            return cb({
+                retry: {
+                    prerender: true
+                },
                 message: "This looks like JS app with no prerender. If you are the owner, please run templates on the server for <a href=\"https://iframely.com/docs/about\">Iframely robot</a>."
             });
+
         } else {
             return cb();
         }
-
     }
 };

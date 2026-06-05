@@ -18,11 +18,11 @@
                 $cont.parent().trigger('iframely.loaded');
             }
 
-            var $container = $('[data-used!=true][iframely-container-for$="' + encodeURIComponent(iframely.uri) + '"]:first');
+            var $container = $('[data-used!=true][iframely-container-for*="' + encodeURIComponent(iframely.uri) + '"]:first');
 
             if ($container.length == 0) {
 
-                var $script = $('script[data-used!=true][src$="' + encodeURIComponent(iframely.uri) + '"]:first');
+                var $script = $('script[data-used!=true][src*="' + encodeURIComponent(iframely.uri) + '"]:first');
                 $script.attr('data-used', true);
 
                 var $container = $('<div>');
