@@ -25,7 +25,7 @@ export default {
     },
         "https://www.espn.com/video/clip/_/id/18883925",
         "https://www.espn.com.ar/video/clip?id=10100188",
-        "https://www.espn.com/video/clip/_/id/48428314",
+        "https://www.espn.com/video/clip/_/id/48638688",
         "https://www.espn.com/watch/player/_/id/27394219/country/us/redirected/true#bucketId=1",
         "https://www.espn.ph/video/clip?id=48351638",
         "https://espndeportes.espn.com/video/clip/_/id/15544320",
