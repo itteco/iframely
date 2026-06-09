@@ -1139,5 +1139,12 @@
             "podcasts.apple.com/(?:\\w+/)?podcast/*"
         ],
         "endpoint": "https://podcasts.apple.com/api/oembed"
+    },
+    {
+        "name": "steller.co",
+        "templates": [
+            "steller.co/s/*"
+        ],
+        "endpoint": "https://steller.co/embeds/oembed"
     }
 ]
