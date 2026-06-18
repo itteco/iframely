@@ -372,7 +372,7 @@
         GET_VARS_METHODS: {
             'getSignals': 'signals',
             'getPolicy': 'policy',
-            'getSources': 'sources'
+            'getContent': 'content',
         }
     };
 
