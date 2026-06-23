@@ -4,7 +4,6 @@ overrides:
   brace-expansion@>=4.0.0 <5.0.6: '>=5.0.6'
   diff@>=6.0.0 <8.0.3: '>=8.0.3'
   glob@>=10.2.0 <10.5.0: '>=10.5.0'
-  js-yaml@>=4.0.0 <4.1.1: '>=4.1.1'
   minimatch@>=10.0.0 <10.2.3: '>=10.2.3'
   multiparty@<=4.2.3: '>=4.3.0'
   path-to-regexp@>=8.0.0 <8.4.0: '>=8.4.0'
@@ -12,6 +11,8 @@ overrides:
   redis@>=2.6.0 <3.1.1: '>=3.1.1'
   serialize-javascript@<7.0.5: '>=7.0.5'
   underscore@<=1.13.7: '>=1.13.8'
-  undici@>=7.0.0 <7.24.0: '>=7.24.0'
+  form-data@>=4.0.0 <4.0.6: ">=4.0.6"
+  js-yaml@<=4.1.1: ">=4.2.0"
+  undici@>=7.0.0 <7.28.0: ">=7.28.0"
 patchedDependencies:
   readabilitySAX@1.6.1: patches/readabilitySAX@1.6.1.patch
