@@ -20,7 +20,7 @@ export default {
 
                 const value = typeof(v) === 'string' ? {href: v} : v; // If link has no `media` and no `type` attributes, HTMLMetaHandler assigns the value=href;
 
-                if (value.href) { // else it's not a link, it is Iframely-optimized meta fields ("iframely:title", etc.)
+                if (value && value.href) { // else it's not a link, it is Iframely-optimized meta fields ("iframely:title", etc.)
                     let wlr = whitelistRecord;
                     if (whitelistRecord.isDefault
                         && !Array.isArray(value) && value.href && /^(?:https?:)?\/\//.test(value.href)
