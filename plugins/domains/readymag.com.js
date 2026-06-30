@@ -22,5 +22,7 @@ export default {
         "https://readymag.com/rbphotography/57005/",
         "https://readymag.website/rbphotography/57005/",
         "https://readymag.website/rbphotography/57005/11/",
+        "https://readymag.com/designs/2818584/",
+        "https://readymag.com/designs/3290418/",
     ]
 };
