@@ -11,7 +11,7 @@ export default {
 
         return {
                 href: url.replace('readymag.com/', 'readymag.website/'),
-                type: CONFIG.T.text_html,
+                accept: CONFIG.T.text_html,
                 rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.iframely],
                 'aspect-ratio': 4/3
             };
