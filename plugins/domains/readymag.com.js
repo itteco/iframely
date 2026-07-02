@@ -7,13 +7,12 @@ export default {
 
     mixins: ["*"],
 
-    getLink: function(url, urlMatch) {
+    getLink: function(url) {
 
         return {
-                html:   '<a class="rm-mag-embed" href="' + url + '" data-uri="' + urlMatch[1] + '"  data-width="responsive"  target="_blank"></a>' + 
-                        '<script async src="https://readymag.com/specials/assets/embed_init.js" id="readymag-embed-init"></script>',
-                type: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl], // not inline due to ID in script tag
+                href: url.replace('readymag.com/', 'readymag.website/'),
+                accept: CONFIG.T.text_html,
+                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.iframely],
                 'aspect-ratio': 4/3
             };
 
@@ -23,5 +22,7 @@ export default {
         "https://readymag.com/rbphotography/57005/",
         "https://readymag.website/rbphotography/57005/",
         "https://readymag.website/rbphotography/57005/11/",
+        "https://readymag.com/designs/2818584/",
+        "https://readymag.com/designs/3290418/",
     ]
 };
