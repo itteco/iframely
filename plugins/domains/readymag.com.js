@@ -1,28 +1,24 @@
 export default {
 
     re: [
-        /^https?:\/\/readymag\.com\/\w+\/(\d+)/i,
-        /^https?:\/\/readymag\.website\/\w+\/(\d+)/i
+        /^https:\/\/readymag\.website\/\w+\/\d+/i
     ],
 
     mixins: ["*"],
 
     getLink: function(url) {
-
         return {
-                href: url.replace('readymag.com/', 'readymag.website/'),
-                accept: CONFIG.T.text_html,
-                rel: [CONFIG.R.app, CONFIG.R.ssl, CONFIG.R.iframely],
-                'aspect-ratio': 4/3
-            };
-
+            // https://help.readymag.com/hc/en-us/articles/4417292690587-Embedding-project-as-iframe
+            href: url,
+            accept: CONFIG.T.text_html, // Headers can prevent iFrame'ing
+            rel: [CONFIG.R.app, CONFIG.R.iframely],
+            'aspect-ratio': 4/3
+        };
     },
 
     tests: [
         "https://readymag.com/rbphotography/57005/",
         "https://readymag.website/rbphotography/57005/",
-        "https://readymag.website/rbphotography/57005/11/",
-        "https://readymag.com/designs/2818584/",
-        "https://readymag.com/designs/3290418/",
+        "https://readymag.website/rbphotography/57005/11/"
     ]
 };
