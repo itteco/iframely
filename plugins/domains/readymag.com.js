@@ -1,12 +1,15 @@
 export default {
 
     re: [
-        /^https:\/\/readymag\.website\/\w+\/\d+/i
+        /^https:\/\/readymag\.website\/[\w-]+\/[\w-]+/i
     ],
 
     mixins: ["*"],
 
-    getLink: function(url) {
+    getLink: function(url, headers) {
+        if (headers && headers['x-frame-options'] && /^(deny|sameorigin)$/i.test(headers['x-frame-options'])) {
+            return {message: 'Enable embedding in your Readymag settings first'};
+        }
         return {
             // https://help.readymag.com/hc/en-us/articles/4417292690587-Embedding-project-as-iframe
             href: url,
