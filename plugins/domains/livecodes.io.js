@@ -1,13 +1,5 @@
 export default {
-  re: /^https?:\/\/(?:[a-z0-9-]+\.)?livecodes\.io\/(?:index\.html)?(?:\?[^#]*)?(?:#.*)?$/i,
-
-  mixins: [
-    "oembed-title",
-    "oembed-site",
-    "oembed-thumbnail",
-    "oembed-iframe",
-    "domain-icon",
-  ],
+  mixins: ["*"],
 
   getLink: function (oembed, iframe, options) {
     const params = Object.assign({}, iframe.query);
