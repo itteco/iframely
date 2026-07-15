@@ -591,13 +591,6 @@
         ],
         "endpoint": "https://www.figma.com/api/oembed"
     }, {
-        "name": "Archilogic",
-        "templates": [
-            "viewer.archilogic.com/.*",
-            "editor.archilogic.com/.*"
-        ],
-        "endpoint": "https://spaces.archilogic.com/oembed"
-    }, {
         "name": "Deezer",
         "templates": [
             "(?:www\\.)?deezer.com/(?:\\w+/)?(track|playlist|album)/(\\d+)"
