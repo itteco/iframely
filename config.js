@@ -136,6 +136,7 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
+            ld: "ld",
 
             icon: "icon",
             logo: "logo",
