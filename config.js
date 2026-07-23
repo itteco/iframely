@@ -374,7 +374,23 @@
             'getSignals': 'signals',
             'getPolicy': 'policy',
             'getContent': 'content',
-        }
+        },
+
+        // Used to (re-)group LD+JSON into buckets
+        LD_TYPE_ALIASES: {
+            article: [
+                'Article',
+                //'BlogPosting',
+                'LiveBlogPosting',
+                'SocialMediaPosting',
+                'Report'
+            ],
+
+            image: [
+                'ImageObject',
+                'Photograph'
+            ]
+        }       
     };
 
     // Providers config loader.
