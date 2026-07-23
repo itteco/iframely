@@ -380,17 +380,16 @@
         LD_TYPE_ALIASES: {
             article: [
                 'Article',
-                //'BlogPosting',
+                'BlogPosting',
                 'LiveBlogPosting',
                 'SocialMediaPosting',
-                'Report'
             ],
 
             image: [
                 'ImageObject',
                 'Photograph'
             ]
-        }       
+        }
     };
 
     // Providers config loader.
