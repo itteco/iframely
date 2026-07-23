@@ -290,21 +290,6 @@ export default {
         */
     },
 
-    // optionally group JSON+LD into buckets so it is easier to operate
-    /*
-    LD_TYPE_GROUPS: {
-        article: [
-            'Article',
-            'NewsArticle',
-            'ReportageNewsArticle',
-            'AnalysisNewsArticle',
-            'AskPublicNewsArticle',
-            'BackgroundNewsArticle',
-            'OpinionNewsArticle'
-        ]
-    }
-    */
-
     // WHITELIST_WILDCARD, if present, will be added to whitelist as record for top level domain: "*"
     // with it, you can define what parsers do when they run accross unknown publisher.
     // If absent or empty, all generic media parsers will be disabled except for known domains
