@@ -136,6 +136,7 @@
             og: "og",
             twitter: "twitter",
             oembed: "oembed",
+            ld: "ld",
 
             icon: "icon",
             logo: "logo",
@@ -373,6 +374,18 @@
             'getSignals': 'signals',
             'getPolicy': 'policy',
             'getContent': 'content',
+        },
+
+        // Used to (re-)group LD+JSON into buckets
+        LD_TYPE_ALIASES: {
+            article: [
+                'Article'
+            ],
+
+            image: [
+                'ImageObject',
+                'Photograph'
+            ]
         }
     };
 

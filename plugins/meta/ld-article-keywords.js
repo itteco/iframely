@@ -2,9 +2,9 @@ export default {
 
     getMeta: function(ld) {
 
-        if (ld.newsarticle && ld.newsarticle.keywords && ld.newsarticle.keywords instanceof Array) {
+        if (ld.article?.keywords && ld.article.keywords instanceof Array) {
             return {
-                keywords: ld.newsarticle.keywords.join(', ')
+                keywords: ld.article.keywords.join(', ')
             }
         }
     }
