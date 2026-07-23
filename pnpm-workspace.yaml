@@ -13,5 +13,8 @@ overrides:
   underscore@<=1.13.7: '>=1.13.8'
   form-data@>=4.0.0 <4.0.6: ">=4.0.6"
   js-yaml@<=4.1.1: ">=4.2.0"
+  brace-expansion@<1.1.16: ^1.1.16
+  brace-expansion@>=2.0.0 <2.1.2: ^2.1.2
+  brace-expansion@>=3.0.0 <5.0.7: ^5.0.7
 patchedDependencies:
   readabilitySAX@1.6.1: patches/readabilitySAX@1.6.1.patch
