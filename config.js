@@ -379,10 +379,7 @@
         // Used to (re-)group LD+JSON into buckets
         LD_TYPE_ALIASES: {
             article: [
-                'Article',
-                'BlogPosting',
-                'LiveBlogPosting',
-                'SocialMediaPosting',
+                'Article'
             ],
 
             image: [
