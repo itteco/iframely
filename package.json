@@ -29,7 +29,7 @@
         "ejs": "3.1.10",
         "entities": "1.1.2",
         "express": "^5.1.0",
-        "got": "^14.4.4",
+        "got": "^14.4.5",
         "graceful-cluster": "^0.0.5",
         "htmlparser2": "^7.2.0",
         "iconv-lite": "^0.6.3",
@@ -54,7 +54,7 @@
         "feedparser": "2.2.10",
         "mocha": "^11.7.5",
         "mock-http-server": "^1.4.5",
-        "mongoose": "^8.22.1",
+        "mongoose": "^8.24.1",
         "supertest": "^7.1.4"
     },
     "iframely-proxy-plugins": true,
