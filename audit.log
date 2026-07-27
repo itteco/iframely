@@ -1,48 +1,23 @@
 ┌─────────────────────┬────────────────────────────────────────────────────────┐
-│ moderate            │ js-yaml: YAML merge-key chains can force quadratic CPU │
-│                     │ consumption in js-yaml                                 │
+│ high                │ brace-expansion: DoS via unbounded expansion length    │
+│                     │ causing an out-of-memory process crash                 │
 ├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Package             │ js-yaml                                                │
+│ Package             │ brace-expansion                                        │
 ├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Vulnerable versions │ >=5.0.0 <=5.1.0                                        │
+│ Vulnerable versions │ <=5.0.7                                                │
 ├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Patched versions    │ >=5.1.1                                                │
+│ Patched versions    │ >=5.0.8                                                │
 ├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Paths               │ .>node-yaml-config>js-yaml                             │
+│ Paths               │ .>ejs>jake>filelist>minimatch>brace-expansion          │
 │                     │                                                        │
-│                     │ .>mocha>js-yaml                                        │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ More info           │ https://github.com/advisories/GHSA-g796-fgmg-93mv      │
-└─────────────────────┴────────────────────────────────────────────────────────┘
-┌─────────────────────┬────────────────────────────────────────────────────────┐
-│ moderate            │ js-yaml: Quadratic-complexity (O(n^2)) DoS via !!omap  │
-│                     │ tag in YAML11_SCHEMA                                   │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Package             │ js-yaml                                                │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Vulnerable versions │ >=5.0.0 <=5.2.0                                        │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Patched versions    │ >=5.2.1                                                │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Paths               │ .>node-yaml-config>js-yaml                             │
+│                     │ .>mocha>minimatch>brace-expansion                      │
 │                     │                                                        │
-│                     │ .>mocha>js-yaml                                        │
+│                     │ .>ejs>jake>minimatch>brace-expansion                   │
+│                     │                                                        │
+│                     │ ... Found 4 paths, run `pnpm why brace-expansion` for  │
+│                     │ more information                                       │
 ├─────────────────────┼────────────────────────────────────────────────────────┤
-│ More info           │ https://github.com/advisories/GHSA-724g-mxrg-4qvm      │
+│ More info           │ https://github.com/advisories/GHSA-mh99-v99m-4gvg      │
 └─────────────────────┴────────────────────────────────────────────────────────┘
-┌─────────────────────┬────────────────────────────────────────────────────────┐
-│ low                 │ body-parser vulnerable to denial of service when       │
-│                     │ invalid limit value silently disables size enforcement │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Package             │ body-parser                                            │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Vulnerable versions │ >=2.0.0 <2.3.0                                         │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Patched versions    │ >=2.3.0                                                │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ Paths               │ .>mock-http-server>body-parser                         │
-├─────────────────────┼────────────────────────────────────────────────────────┤
-│ More info           │ https://github.com/advisories/GHSA-v422-hmwv-36x6      │
-└─────────────────────┴────────────────────────────────────────────────────────┘
-3 vulnerabilities found
-Severity: 1 low | 2 moderate
+1 vulnerabilities found
+Severity: 1 high
