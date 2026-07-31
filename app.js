@@ -59,6 +59,13 @@ app.use(errorHandler);
 
 
 function logErrors(err, req, res, next) {
+  // Optional Sentry (instrument.js sets the global only when the
+  // linked module is present AND config has SENTRY_DSN — plain
+  // open-source installs never see it).
+  if (global.__Sentry) {
+    global.__Sentry.captureException(err);
+  }
+
   if (CONFIG.RICH_LOG_ENABLED) {
     console.error(err.stack);
   } else {

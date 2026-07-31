@@ -115,6 +115,11 @@ function processInitialErrors(uri, next) {
 export default function(app) {
 
     app.get('/health_check', function(req, res, next) {
+        // 503 while draining (graceful shutdown, see server.js)
+        // so the LB ejects this worker before connections close.
+        if (global.__draining) {
+            return res.sendStatus(503);
+        }
         res.sendStatus(200);
     });
 

@@ -1,3 +1,6 @@
+// Optional Sentry — covers the cluster MASTER; workers re-import via
+// server.js (module cache dedups). No-op on open-source installs.
+import './instrument.js';
 import { GracefulCluster } from 'graceful-cluster';
 import * as sysUtils from './utils.js';
 

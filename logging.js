@@ -1,6 +1,16 @@
 import moment from 'moment';
 import CONFIG from './config.loader.js';
 
+// Host-injectable logging sink. When iframely is used as a library
+// inside another application, the host may call setLogger(l) with a
+// logger object ({info, warn, error}) to route every iframely log
+// line into its own logging pipeline. Standalone installs never call
+// setLogger and keep the classic prefixed console output below.
+let sink = null;
+export function setLogger(l) {
+    sink = l;
+}
+
 export default function log() {
     var args = Array.prototype.slice.apply(arguments);
 
@@ -12,6 +22,11 @@ export default function log() {
         if (remote_addr) {
             args.splice(0, 0, remote_addr, '-');
         }
+    }
+
+    if (sink) {
+        sink.info.apply(sink, args);
+        return;
     }
 
     if (CONFIG.LOG_DATE_FORMAT) {
