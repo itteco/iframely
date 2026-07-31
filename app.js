@@ -1,4 +1,4 @@
-import { cacheMiddleware, NotFound } from './utils.js';
+import { cacheMiddleware, NotFound, HttpError } from './utils.js';
 import CONFIG from './config.loader.js';
 global.CONFIG = CONFIG;
 
@@ -62,7 +62,13 @@ function logErrors(err, req, res, next) {
   // Optional Sentry (instrument.js sets the global only when the
   // linked module is present AND config has SENTRY_DSN — plain
   // open-source installs never see it).
-  if (global.__Sentry) {
+  // Expected outcomes are NOT app errors: NotFound and client-class
+  // HttpErrors (404 target pages, 408 fetch timeouts, 417 processing
+  // rejections) mean the REQUESTED URL failed, not iframely — only
+  // 5xx HttpErrors and raw exceptions reach Sentry.
+  if (global.__Sentry
+      && !(err instanceof NotFound)
+      && !(err instanceof HttpError && err.code < 500)) {
     global.__Sentry.captureException(err);
   }
 
