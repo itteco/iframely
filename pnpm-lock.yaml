@@ -7,7 +7,6 @@ settings:
 overrides:
   '@isaacs/brace-expansion@<=5.0.0': '>=5.0.1'
   body-parser@<1.20.3: '>=1.20.3'
-  brace-expansion@>=4.0.0 <5.0.6: '>=5.0.6'
   diff@>=6.0.0 <8.0.3: '>=8.0.3'
   glob@>=10.2.0 <10.5.0: '>=10.5.0'
   minimatch@>=10.0.0 <10.2.3: '>=10.2.3'
@@ -19,9 +18,10 @@ overrides:
   underscore@<=1.13.7: '>=1.13.8'
   form-data@>=4.0.0 <4.0.6: '>=4.0.6'
   js-yaml@<=4.1.1: '>=4.2.0'
-  brace-expansion@<1.1.16: ^1.1.16
-  brace-expansion@>=2.0.0 <2.1.2: ^2.1.2
-  brace-expansion@>=3.0.0 <5.0.7: ^5.0.7
+  brace-expansion@<1.1.18: ^1.1.18
+  brace-expansion@>=2.0.0 <2.1.4: ^2.1.4
+  brace-expansion@>=3.0.0 <5.0.9: ^5.0.9
+  undici@>=7.0.0 <7.29.0: ^7.29.0
 
 patchedDependencies:
   readabilitySAX@1.6.1: 13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757
@@ -98,7 +98,7 @@ importers:
         version: 1.1.0
       probe-image-size:
         specifier: ^7.2.3
-        version: 7.2.3
+        version: 7.2.3(supports-color@8.1.1)
       readabilitySAX:
         specifier: 1.6.1
         version: 1.6.1(patch_hash=13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757)
@@ -113,7 +113,7 @@ importers:
         version: 1.2.4
       send:
         specifier: ^1.2.0
-        version: 1.2.0
+        version: 1.2.0(supports-color@8.1.1)
     devDependencies:
       chai:
         specifier: ^6.2.0
@@ -126,10 +126,10 @@ importers:
         version: 11.7.5
       mock-http-server:
         specifier: ^1.4.5
-        version: 1.4.5
+        version: 1.4.5(supports-color@8.1.1)
       mongoose:
         specifier: ^8.24.1
-        version: 8.24.1
+        version: 8.24.1(supports-color@8.1.1)
       supertest:
         specifier: ^7.1.4
         version: 7.1.4(supports-color@8.1.1)
@@ -246,14 +246,14 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  brace-expansion@1.1.16:
-    resolution: {integrity: sha512-IDw48K2/2kRkg9LdJxurvq3lV3aBgq0REY89duEqFRthjlPdXHKMj7EnQOXVckxzgisinf3nHfrcE2FufFLXMw==}
+  brace-expansion@1.1.18:
+    resolution: {integrity: sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==}
 
-  brace-expansion@2.1.2:
-    resolution: {integrity: sha512-w5JZcKgdhDOgOwm8H+KgbosopHMuGcl6qbulwjtz3SM7I7P3yW1eAjzMPLrIE+NQ9vjgANKHWeMHnrT0OXW1oA==}
+  brace-expansion@2.1.4:
+    resolution: {integrity: sha512-hGfVzPxthbf3+2yjg/RBs60cB0FhqBS/zvdV/4wn4/BmN0bNMMHPc4V/BbFieqf1TKAGGAHnY4eSjajCl0f2Xg==}
 
-  brace-expansion@5.0.8:
-    resolution: {integrity: sha512-JZyDyq3D4AUifKTPOB7DELf6XsB3WdPuNxCtob1vFXPsSXhdAiHBWJ/tJ8HAc9aH84BK+5JFZLNkJKx3G9kzQg==}
+  brace-expansion@5.0.9:
+    resolution: {integrity: sha512-ScQ4IuvIEF1TMlP7Zt+vjJ//9zlPb2SDcxWxM3bk8s6t6GGdJ7KO1dCcTidOPJKePW30LE/2cT7wCyPho9/Wxg==}
     engines: {node: 20 || >=22}
 
   browser-stdout@1.3.1:
@@ -1301,8 +1301,8 @@ packages:
   underscore@1.13.8:
     resolution: {integrity: sha512-DXtD3ZtEQzc7M8m4cXotyHR+FAS18C64asBYY5vqZexfYryNNnDc02W4hKg3rdQuqOYas1jkseX0+nZXjTXnvQ==}
 
-  undici@7.28.0:
-    resolution: {integrity: sha512-cRZYrTDwWznlnRiPjggAGxZXanty6M8RV1ff8Wm4LWXBp7/IG8v5DnOm74DtUBp9OONpK75YlPnIjQqX0dBDtA==}
+  undici@7.29.0:
+    resolution: {integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==}
     engines: {node: '>=20.18.1'}
 
   unpipe@1.0.0:
@@ -1461,11 +1461,11 @@ snapshots:
 
   balanced-match@4.0.4: {}
 
-  body-parser@2.3.0:
+  body-parser@2.3.0(supports-color@8.1.1):
     dependencies:
       bytes: 3.1.2
       content-type: 2.0.0
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       http-errors: 2.0.1
       iconv-lite: 0.7.3
       on-finished: 2.4.1
@@ -1477,16 +1477,16 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  brace-expansion@1.1.16:
+  brace-expansion@1.1.18:
     dependencies:
       balanced-match: 1.0.2
       concat-map: 0.0.1
 
-  brace-expansion@2.1.2:
+  brace-expansion@2.1.4:
     dependencies:
       balanced-match: 1.0.2
 
-  brace-expansion@5.0.8:
+  brace-expansion@5.0.9:
     dependencies:
       balanced-match: 4.0.4
 
@@ -1549,7 +1549,7 @@ snapshots:
       parse5: 7.3.0
       parse5-htmlparser2-tree-adapter: 7.1.0
       parse5-parser-stream: 7.1.2
-      undici: 7.28.0
+      undici: 7.29.0
       whatwg-mimetype: 4.0.0
 
   chokidar@4.0.3:
@@ -1578,10 +1578,10 @@ snapshots:
 
   concat-map@0.0.1: {}
 
-  connect@3.7.0:
+  connect@3.7.0(supports-color@8.1.1):
     dependencies:
-      debug: 2.6.9
-      finalhandler: 1.1.2
+      debug: 2.6.9(supports-color@8.1.1)
+      finalhandler: 1.1.2(supports-color@8.1.1)
       parseurl: 1.3.3
       utils-merge: 1.0.1
     transitivePeerDependencies:
@@ -1617,13 +1617,17 @@ snapshots:
 
   css-what@6.2.2: {}
 
-  debug@2.6.9:
+  debug@2.6.9(supports-color@8.1.1):
     dependencies:
       ms: 2.0.0
+    optionalDependencies:
+      supports-color: 8.1.1
 
-  debug@3.2.7:
+  debug@3.2.7(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 8.1.1
 
   debug@4.4.0(supports-color@8.1.1):
     dependencies:
@@ -1631,9 +1635,11 @@ snapshots:
     optionalDependencies:
       supports-color: 8.1.1
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 8.1.1
 
   decamelize@4.0.0: {}
 
@@ -1769,7 +1775,7 @@ snapshots:
   express@5.1.0(supports-color@8.1.1):
     dependencies:
       accepts: 2.0.0
-      body-parser: 2.3.0
+      body-parser: 2.3.0(supports-color@8.1.1)
       content-disposition: 1.0.0
       content-type: 1.0.5
       cookie: 0.7.2
@@ -1790,8 +1796,8 @@ snapshots:
       qs: 6.15.2
       range-parser: 1.2.1
       router: 2.2.0(supports-color@8.1.1)
-      send: 1.2.0
-      serve-static: 2.2.0
+      send: 1.2.0(supports-color@8.1.1)
+      serve-static: 2.2.0(supports-color@8.1.1)
       statuses: 2.0.1
       type-is: 2.0.1
       vary: 1.1.2
@@ -1816,9 +1822,9 @@ snapshots:
     dependencies:
       minimatch: 5.1.9
 
-  finalhandler@1.1.2:
+  finalhandler@1.1.2(supports-color@8.1.1):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@8.1.1)
       encodeurl: 1.0.2
       escape-html: 1.0.3
       on-finished: 2.3.0
@@ -2142,19 +2148,19 @@ snapshots:
 
   minimatch@10.2.4:
     dependencies:
-      brace-expansion: 5.0.8
+      brace-expansion: 5.0.9
 
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.16
+      brace-expansion: 1.1.18
 
   minimatch@5.1.9:
     dependencies:
-      brace-expansion: 2.1.2
+      brace-expansion: 2.1.4
 
   minimatch@9.0.9:
     dependencies:
-      brace-expansion: 2.1.2
+      brace-expansion: 2.1.4
 
   minipass@7.1.2: {}
 
@@ -2184,10 +2190,10 @@ snapshots:
       yargs-parser: 21.1.1
       yargs-unparser: 2.0.0
 
-  mock-http-server@1.4.5:
+  mock-http-server@1.4.5(supports-color@8.1.1):
     dependencies:
-      body-parser: 2.3.0
-      connect: 3.7.0
+      body-parser: 2.3.0(supports-color@8.1.1)
+      connect: 3.7.0(supports-color@8.1.1)
       multiparty: 4.3.0
       underscore: 1.13.8
     transitivePeerDependencies:
@@ -2206,13 +2212,13 @@ snapshots:
       bson: 6.10.4
       mongodb-connection-string-url: 3.0.2
 
-  mongoose@8.24.1:
+  mongoose@8.24.1(supports-color@8.1.1):
     dependencies:
       bson: 6.10.4
       kareem: 2.6.3
       mongodb: 6.20.0
       mpath: 0.9.0
-      mquery: 5.0.0
+      mquery: 5.0.0(supports-color@8.1.1)
       ms: 2.1.3
       sift: 17.1.3
     transitivePeerDependencies:
@@ -2227,9 +2233,9 @@ snapshots:
 
   mpath@0.9.0: {}
 
-  mquery@5.0.0:
+  mquery@5.0.0(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -2245,9 +2251,9 @@ snapshots:
       safe-buffer: 5.2.1
       uid-safe: 2.1.5
 
-  needle@2.9.1:
+  needle@2.9.1(supports-color@8.1.1):
     dependencies:
-      debug: 3.2.7
+      debug: 3.2.7(supports-color@8.1.1)
       iconv-lite: 0.4.24
       sax: 1.2.4
     transitivePeerDependencies:
@@ -2343,11 +2349,11 @@ snapshots:
 
   picocolors@1.1.1: {}
 
-  probe-image-size@7.2.3:
+  probe-image-size@7.2.3(supports-color@8.1.1):
     dependencies:
       lodash.merge: 4.6.2
-      needle: 2.9.1
-      stream-parser: 0.3.1
+      needle: 2.9.1(supports-color@8.1.1)
+      stream-parser: 0.3.1(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -2458,7 +2464,7 @@ snapshots:
 
   sax@1.2.4: {}
 
-  send@1.2.0:
+  send@1.2.0(supports-color@8.1.1):
     dependencies:
       debug: 4.4.0(supports-color@8.1.1)
       encodeurl: 2.0.0
@@ -2476,12 +2482,12 @@ snapshots:
 
   serialize-javascript@7.0.5: {}
 
-  serve-static@2.2.0:
+  serve-static@2.2.0(supports-color@8.1.1):
     dependencies:
       encodeurl: 2.0.0
       escape-html: 1.0.3
       parseurl: 1.3.3
-      send: 1.2.0
+      send: 1.2.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -2529,9 +2535,9 @@ snapshots:
 
   statuses@2.0.2: {}
 
-  stream-parser@0.3.1:
+  stream-parser@0.3.1(supports-color@8.1.1):
     dependencies:
-      debug: 2.6.9
+      debug: 2.6.9(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -2608,7 +2614,7 @@ snapshots:
 
   underscore@1.13.8: {}
 
-  undici@7.28.0: {}
+  undici@7.29.0: {}
 
   unpipe@1.0.0: {}
 
