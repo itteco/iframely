@@ -1,4 +1,4 @@
-import { cacheMiddleware, NotFound } from './utils.js';
+import { cacheMiddleware, NotFound, HttpError } from './utils.js';
 import CONFIG from './config.loader.js';
 global.CONFIG = CONFIG;
 
@@ -57,12 +57,12 @@ if (CONFIG.tests) {
 app.use(logErrors);
 app.use(errorHandler);
 
-
 function logErrors(err, req, res, next) {
-  // Optional Sentry (instrument.js sets the global only when the
-  // linked module is present AND config has SENTRY_DSN — plain
-  // open-source installs never see it).
-  if (global.__Sentry) {
+  // Optional sentry when Iframely is used as a libary,
+  // initialized from outside of this package
+  if (global.__Sentry
+      && !(err instanceof NotFound)
+      && !(err instanceof HttpError && err.code < 500)) {
     global.__Sentry.captureException(err);
   }
 
