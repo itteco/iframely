@@ -57,15 +57,9 @@ if (CONFIG.tests) {
 app.use(logErrors);
 app.use(errorHandler);
 
-
 function logErrors(err, req, res, next) {
-  // Optional Sentry (instrument.js sets the global only when the
-  // linked module is present AND config has SENTRY_DSN — plain
-  // open-source installs never see it).
-  // Expected outcomes are NOT app errors: NotFound and client-class
-  // HttpErrors (404 target pages, 408 fetch timeouts, 417 processing
-  // rejections) mean the REQUESTED URL failed, not iframely — only
-  // 5xx HttpErrors and raw exceptions reach Sentry.
+  // Optional sentry when Iframely is used as a libary,
+  // initialized from outside of this package
   if (global.__Sentry
       && !(err instanceof NotFound)
       && !(err instanceof HttpError && err.code < 500)) {
