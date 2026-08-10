@@ -69,7 +69,7 @@
         T: {
             text_html: "text/html",
             text_markdown: "text/markdown",
-            text_plain: "'text/plain'",
+            text_plain: "text/plain",
             maybe_text_html: "maybe_text_html",            
             javascript: "application/javascript",
             application_pdf: "application/pdf",
