@@ -68,8 +68,11 @@
 
         T: {
             text_html: "text/html",
+            text_markdown: "text/markdown",
+            text_plain: "'text/plain'",
             maybe_text_html: "maybe_text_html",            
             javascript: "application/javascript",
+            application_pdf: "application/pdf",
             safe_html: "text/x-safe-html",
             image_jpeg: "image/jpeg",
             flash: "application/x-shockwave-flash", // Adobe Flash Player is no longer supported
