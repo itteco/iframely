@@ -1,13 +1,14 @@
 export default {
 
-    highestPriority: true,
-
-    getMeta: function(url, meta) {
+    getMeta: function(url, meta, options) {
 
         var canonical = (meta.canonical && meta.canonical.href || meta.canonical) || (meta.og && meta.og.url) || (meta.twitter && meta.twitter.url);
 
-        if (canonical && typeof canonical === 'string' && /^https?:\/\//i.test(canonical)) {
+        if ((!canonical || /^https?:\/\//i.test(canonical)) && !options.dataMode) {
+            canonical = url;
+        }
 
+        if (typeof canonical === 'string') {
             return {
                 canonical: canonical
             };
