@@ -2,7 +2,7 @@
 
 export default {
 
-    getLink: function(url, __nonHtmlContentData, options) {
+    getLink: function(__nonDataMode, url, __nonHtmlContentData, options) {
 
         if (!options.getProviderOptions('disableDocViewers', false)
             && /application\/vnd\.openxmlformats\-officedocument|ms\-powerpoint|msword|ms\-excel|ms\-office/.test(__nonHtmlContentData.type)

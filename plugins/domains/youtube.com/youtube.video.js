@@ -23,8 +23,8 @@ export default {
 
         var api_key = options.getProviderOptions('youtube.api_key');
 
-        if (!api_key) {
-            return cb (new Error ("No youtube.api_key configured"));
+        if (!api_key || options.dataMode) {
+            return cb('YouTube Data API is disabled');
         }
 
         var parts = options.getProviderOptions('youtube.parts') || [

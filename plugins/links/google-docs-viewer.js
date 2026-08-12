@@ -1,6 +1,6 @@
 export default {
 
-    getLink: function(url, __nonHtmlContentData, utils, headers, options, iframelyRun, cb) {
+    getLink: function(__nonDataMode, url, __nonHtmlContentData, utils, headers, options, iframelyRun, cb) {
 
         if (!options.getProviderOptions('disableDocViewers', false) &&
             /application\/pdf|text\/rtf/.test(__nonHtmlContentData.type)) {

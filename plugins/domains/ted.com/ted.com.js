@@ -7,7 +7,8 @@ export default {
     provides: [
         "oembedLinks",
         "tedLangs",
-        "__allowEmbedURL"
+        "__allowEmbedURL",
+        "__isYouTube"
     ],    
 
     mixins: [
