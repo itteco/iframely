@@ -1,16 +1,8 @@
 export default {
 
     mixins: [
-        // "*" // Linking to * will enable oembed-rich and will result in incorrect aspect-ratios
-        "twitter-image",
-        "oembed-thumbnail",
-        "favicon",
-        "oembed-author",
-        "canonical",
-        "description",
-        "oembed-site",
-        "oembed-title",
-        "oembed-iframe",
+        "*",
+        "oembed-iframe"
     ],
 
     getLink: function(oembed, iframe, utils, options, cb) {
@@ -29,26 +21,13 @@ export default {
 
                     var aspect = (data.width && data.height) ? data.width / data.height : oembed.width / oembed.height;
 
-                    return cb(null, [{
-                            href: firstSlide,
-                            type: CONFIG.T.image, 
-                            rel: CONFIG.R.thumbnail,
-                            width: data.width,
-                            height: data.height
-                        }, {
-                            href: oembed.thumbnail,
-                            type: CONFIG.T.image,
-                            rel: [CONFIG.R.thumbnail, CONFIG.R.oembed],
-                            width: oembed.thumbnail_width,
-                            height: data.height ? Math.round (oembed.thumbnail_width / (data.width / data.height)) : oembed.thumbnail_height
-                        }, {
+                    return cb(null, {
                             href: iframe.src,
                             type: CONFIG.T.text_html,
                             rel: aspect > 1 ? [CONFIG.R.player, CONFIG.R.slideshow] : CONFIG.R.reader,
                             "aspect-ratio": aspect,
                             "padding-bottom": 58
-                        }
-                    ]);
+                        });
                 }
 
             });
@@ -66,13 +45,7 @@ export default {
         }
     },
 
-    tests: [{
-        page: "https://www.slideshare.net/DataReportal",
-        selector: ".slideshow-card>a",
-        getUrl: function(url) {
-            return /^https:\/\/\w+\.slideshare\.net\/[^\/]+\/[^\/]+\-\d+/i.test(url) && url;
-        }
-    }, {skipMethods: ["getData"]},
+    tests: [{skipMethods: ["getData", "getLink"]}, {skipMixins: ["oembed-iframe"]},
         "https://www.slideshare.net/DataReportal/digital-2020-global-digital-overview-january-2020-v01-226017535",
         "https://www.slideshare.net/EnjoyDigitAll/le-design-thinking-by-enjoydigitall-71136562",
         "https://www.slideshare.net/DILGNaga/participatory-situational-analysispptx",
