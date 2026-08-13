@@ -1,16 +1,7 @@
 export default {
 
     mixins: [
-        // "*" // Linking to * will enable oembed-rich and will result in incorrect aspect-ratios
-        "twitter-image",
-        "oembed-thumbnail",
-        "favicon",
-        "oembed-author",
-        "canonical",
-        "description",
-        "oembed-site",
-        "oembed-title",
-        "oembed-iframe",
+        "*"
     ],
 
     getLink: function(oembed, iframe, utils, options, cb) {
