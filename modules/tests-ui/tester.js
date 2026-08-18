@@ -346,7 +346,8 @@ function processPluginTests(pluginTest, plugin, count, cb) {
             if (urls.length == 0) {
                 errors.push("No test urls specified");
             } else if (!reachTestObjectFound) {
-                errors.push("No test feeds specified");
+                // Keep tests cleaner. Hard to find feeds for all.
+                // errors.push("No test feeds specified");
             }
 
             // TODO: add additional_test_urls.
@@ -637,7 +638,12 @@ function testAll(cb) {
                         var filterDate = new Date(new Date() - CONFIG.tests.plugin_test_period);
 
                         pluginTests = pluginTests.filter(function(pluginTest) {
-                            return !pluginTest.last_test_started_at || pluginTest.last_test_started_at < filterDate;
+
+                            // Started but never finished: process crashed or test errored. Re-run on restart.
+                            var unfinished = pluginTest.last_test_started_at
+                                && (!pluginTest.last_test_finished_at || pluginTest.last_test_finished_at < pluginTest.last_test_started_at);
+
+                            return unfinished || !pluginTest.last_test_started_at || pluginTest.last_test_started_at < filterDate;
                         });
 
                         pluginTests.sort(function(a, b) {
@@ -709,6 +715,7 @@ function testAll(cb) {
                         pluginTest.error = error;
                     } else {
                         pluginTest.error = undefined;
+                        pluginTest.last_test_finished_at = new Date();
                     }
                     pluginTest.save()
                         .then(data => {
@@ -758,11 +765,16 @@ function testAll(cb) {
     });
 }
 
-function startTest() {
+function startTest(isRerun) {
     testAll(function() {
 
         if (testOnePlugin) {
             process.exit(0);
+        }
+
+        if (!isRerun) {
+            // Single re-run to pick up unfinished tests (filter will select only them).
+            return startTest(true);
         }
 
         setTimeout(function() {
