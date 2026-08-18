@@ -715,8 +715,9 @@ function testAll(cb) {
                         pluginTest.error = error;
                     } else {
                         pluginTest.error = undefined;
-                        pluginTest.last_test_finished_at = new Date();
                     }
+
+                    pluginTest.last_test_finished_at = new Date();
                     pluginTest.save()
                         .then(data => {
                             cb(null, data);
