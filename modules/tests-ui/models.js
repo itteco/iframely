@@ -54,6 +54,8 @@
             index: true
         },
 
+        last_test_finished_at: Date,
+
         // Special urls to test. Can be added manually or by tester when error occurs: to keep url in future sets.
         additional_test_urls: [String],
 

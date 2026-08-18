@@ -637,7 +637,12 @@ function testAll(cb) {
                         var filterDate = new Date(new Date() - CONFIG.tests.plugin_test_period);
 
                         pluginTests = pluginTests.filter(function(pluginTest) {
-                            return !pluginTest.last_test_started_at || pluginTest.last_test_started_at < filterDate;
+
+                            // Started but never finished: process crashed or test errored. Re-run on restart.
+                            var unfinished = pluginTest.last_test_started_at
+                                && (!pluginTest.last_test_finished_at || pluginTest.last_test_finished_at < pluginTest.last_test_started_at);
+
+                            return unfinished || !pluginTest.last_test_started_at || pluginTest.last_test_started_at < filterDate;
                         });
 
                         pluginTests.sort(function(a, b) {
@@ -709,6 +714,7 @@ function testAll(cb) {
                         pluginTest.error = error;
                     } else {
                         pluginTest.error = undefined;
+                        pluginTest.last_test_finished_at = new Date();
                     }
                     pluginTest.save()
                         .then(data => {
