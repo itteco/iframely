@@ -764,11 +764,16 @@ function testAll(cb) {
     });
 }
 
-function startTest() {
+function startTest(isRerun) {
     testAll(function() {
 
         if (testOnePlugin) {
             process.exit(0);
+        }
+
+        if (!isRerun) {
+            // Single re-run to pick up unfinished tests (filter will select only them).
+            return startTest(true);
         }
 
         setTimeout(function() {
