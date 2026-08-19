@@ -24,11 +24,12 @@ export default {
         noFeeds: true
     },
         "https://www.espn.com/video/clip/_/id/18883925",
-        "https://www.espn.com.ar/video/clip?id=10100188",
+        "https://www.espn.com.ar/video/clip?id=16686351",
         "https://www.espn.com/video/clip/_/id/48638688",
-        "https://www.espn.com/watch/player/_/id/27394219/country/us/redirected/true#bucketId=1",
-        "https://www.espn.ph/video/clip?id=48351638",
-        "https://espndeportes.espn.com/video/clip/_/id/15544320",
+        "https://www.espn.com/watch/player/_/id/49654032/country/us/redirected/true#bucketId=1",
+        "https://www.espn.com/watch/player/_/id/7927216f-bca9-4fd8-8dcd-c128912e792c",
+        "https://www.espn.ph/video/clip?id=49655248",
+        "https://espndeportes.espn.com/video/clip/_/id/16801116",
         "https://espndeportes.espn.com/video/clip/_/id/16463837",
         "https://espndeportes.espn.com/video/clip/_/id/13326426",
     ]
