@@ -50,6 +50,8 @@ var PageTestLog = models.PageTestLog;
 var TestUrlsSet = models.TestUrlsSet;
 var TestingProgress = models.TestingProgress;
 
+var OLD_LOGS_MONTH_TTL = 30 * 24 * 60 * 60 * 1000;
+
 function log() {
     if (CONFIG.DEBUG) {
         console.log.apply(console, arguments);
@@ -577,6 +579,24 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     cb(null, data);
                 })
                 .catch(cb);
+        },
+
+        function removeOldLogs(data, cb) {
+            // Logs of urls no longer in the current set.
+            PageTestLog.deleteMany({
+                plugin: plugin.id,
+                url: {
+                    $nin: testUrlsSet.urls
+                },
+                created_at: {
+                    // Remove only old.
+                    $lt: new Date(new Date() - OLD_LOGS_MONTH_TTL)
+                }
+            })
+                .then(data => {
+                    cb(null, data);
+                })
+                .catch(cb);
         }
 
     ], cb);
@@ -617,7 +637,26 @@ function testAll(cb) {
             ], cb);
         },
 
-        function loadPluginTests(data, cb) {
+        function cleanupObsoleteData(data, cb) {
+            PluginTest.find({obsolete: true}).distinct('_id')
+                .then(obsoleteIds => {
+                    if (obsoleteIds.length === 0) {
+                        return Promise.resolve();
+                    }
+                    // Keep recent data in case plugin comes back soon.
+                    var monthAgo = new Date(new Date() - OLD_LOGS_MONTH_TTL);
+                    return Promise.all([
+                        TestUrlsSet.deleteMany({plugin: {$in: obsoleteIds}, created_at: {$lt: monthAgo}}),
+                        PageTestLog.deleteMany({plugin: {$in: obsoleteIds}, created_at: {$lt: monthAgo}})
+                    ]);
+                })
+                .then(() => {
+                    cb();
+                })
+                .catch(cb);
+        },
+
+        function loadPluginTests(cb) {
 
             if (testOnePlugin) {
                 PluginTest.find({_id: testOnePlugin})
