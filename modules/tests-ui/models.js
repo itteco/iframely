@@ -92,6 +92,9 @@
         return this.errors_list && this.errors_list.length > 0;
     };
 
+    // Used in `loadPluginTests`, `loadTestSets`, `removeOldSets`.
+    TestUrlsSetSchema.index({plugin: 1, created_at: -1});
+
     var PageTestLogSchema = new Schema({
 
         url: {
@@ -150,6 +153,9 @@
     PageTestLogSchema.methods.created_at_format = function() {
         return moment(this.created_at).format("DD-MM-YY HH:mm");
     };
+
+    // Used in `checkPageTestLogChangeNotification`.
+    PageTestLogSchema.index({plugin: 1, url: 1, created_at: -1});
 
     export const PluginTest = db.model('PluginTest', PluginTestSchema);
     export const PageTestLog = db.model('PageTestLog', PageTestLogSchema);
