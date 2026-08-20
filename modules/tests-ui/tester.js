@@ -134,8 +134,8 @@ function checkPageTestLogChangeNotification(logEntry) {
 
     PageTestLog
         .find({
-            url: logEntry.url,
             plugin: logEntry.plugin,    
+            url: logEntry.url,
             created_at: {
                 $lt: logEntry.created_at
             }
@@ -145,6 +145,19 @@ function checkPageTestLogChangeNotification(logEntry) {
         .exec().then(previousLogEntry => {
 
             previousLogEntry = previousLogEntry && previousLogEntry.length && previousLogEntry[0];
+
+            if (previousLogEntry) {
+                // Keep only current and previous log per plugin+url, older ones are unused.
+                PageTestLog.deleteMany({
+                    plugin: logEntry.plugin,
+                    url: logEntry.url,
+                    created_at: {
+                        $lt: previousLogEntry.created_at
+                    }
+                }).catch(function(error) {
+                    cerror('Error removing old page test logs', error);
+                });
+            }
 
             /*
 
