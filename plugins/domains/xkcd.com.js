@@ -37,11 +37,19 @@ export default {
 
     tests: [{
         pageWithFeed: 'https://xkcd.com/',
-        skipMixins: ["og-image-rel-image"]
+
+        getUrl: function(url) {
+            if (/^https?:\/\/[a-z0-9.-]+\/?$/i.test(url)) {
+                // Skip domain like https://store.xkcd.com/
+                return;
+            }
+            return url;
+        }
     },
-        "http://xkcd.com/1392/", // Large image present.
-        "http://xkcd.com/731/",
-        "http://www.xkcd.com/1709/",
+        {skipMixins: ["og-image-rel-image"]},
+        "https://xkcd.com/1392/", // Large image present.
+        "https://xkcd.com/731/",
+        "https://www.xkcd.com/1709/",
         "https://xkcd.com/162/"
     ]
 };
