@@ -17,7 +17,7 @@ export default {
         if (ld.article) {
             return {
                 title: clean(ld.article.headline),
-                category: clean(ld.article.articlesection),
+                category: clean(ld.article.articleSection),
                 description: clean(ld.article.description)
             }
         }
