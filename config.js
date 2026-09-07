@@ -406,7 +406,8 @@
             articlebody: 'articleBody',
             datemodified: 'dateModified',
             datepublished: 'datePublished',
-            datecreated: 'dateCreated'
+            datecreated: 'dateCreated',
+            isaccessibleforfree: 'isAccessibleForFree'
         }
     };
 
