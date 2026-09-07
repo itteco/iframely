@@ -73,7 +73,7 @@ export default {
 
     getData: function(url, og, schemaVideoObject) {
 
-        var embedUrl = schemaVideoObject.embedUrl || schemaVideoObject.embedURL || schemaVideoObject.embedurl;
+        var embedUrl = schemaVideoObject.embedUrl;
 
         if (/\/videos?\/(\d+)/i.test(embedUrl)) {
             embedUrl = /\/videos?\/(\d+)/i.test(embedUrl)

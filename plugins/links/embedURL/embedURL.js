@@ -71,7 +71,7 @@ export default {
 
         var links = [];
         
-        var thumbnailURL = schemaVideoObject.thumbnail || schemaVideoObject.thumbnailURL || schemaVideoObject.thumbnailUrl || schemaVideoObject.thumbnailurl;
+        var thumbnailURL = schemaVideoObject.thumbnail || schemaVideoObject.thumbnailUrl;
         if (thumbnailURL) {
             links.push({
                 href: thumbnailURL,
@@ -80,7 +80,7 @@ export default {
             });
         }
 
-        var contentURL = schemaVideoObject.contentURL || schemaVideoObject.contentUrl || schemaVideoObject.contenturl;
+        var contentURL = schemaVideoObject.contentUrl;
         if (contentURL) {
             var accept = ['video/*', CONFIG.T.stream_apple_mpegurl, CONFIG.T.stream_x_mpegurl];
             if (whitelistRecord.isAllowed('html-meta.embedURL', 'accept')) {
@@ -97,7 +97,7 @@ export default {
 
         if (whitelistRecord.isAllowed('html-meta.embedURL')) {
 
-            var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
+            var href = schemaVideoObject.embedUrl;
 
             if (href) {
                 var player = {

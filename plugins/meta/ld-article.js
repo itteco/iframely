@@ -31,7 +31,7 @@ export default {
 
             images.forEach(image => {
                 links.push({
-                    href: image.contenturl || image.url,
+                    href: image.contentUrl || image.url,
                     type: CONFIG.T.image,
                     rel: [CONFIG.R.thumbnail, CONFIG.R.ld],
                     alt: image.caption || image.name

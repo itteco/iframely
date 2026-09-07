@@ -16,7 +16,7 @@ export default {
 
     getData: function (urlMatch, schemaVideoObject, meta) {
 
-        const img_src = schemaVideoObject.thumbnailurl || meta.twitter && meta.twitter.image || meta.og && meta.og.image;
+        const img_src = schemaVideoObject.thumbnailUrl || meta.twitter && meta.twitter.image || meta.og && meta.og.image;
         const contentUrl = schemaVideoObject.contentUrl;
 
         if (img_src 
