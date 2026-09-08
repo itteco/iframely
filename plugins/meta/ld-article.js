@@ -17,7 +17,7 @@ export default {
         if (ld.article) {
             return {
                 title: clean(ld.article.headline),
-                category: clean(ld.article.articlesection),
+                category: clean(ld.article.articleSection),
                 description: clean(ld.article.description)
             }
         }
@@ -31,7 +31,7 @@ export default {
 
             images.forEach(image => {
                 links.push({
-                    href: image.contenturl || image.url,
+                    href: image.contentUrl || image.url,
                     type: CONFIG.T.image,
                     rel: [CONFIG.R.thumbnail, CONFIG.R.ld],
                     alt: image.caption || image.name

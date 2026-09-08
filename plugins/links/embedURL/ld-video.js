@@ -14,7 +14,7 @@ export default {
 
         if (json) {
 
-            var video_src = json.embedurl || json.embedUrl || json.embedURL || json.contenturl || json.contentUrl || json.contentURL;
+            var video_src = json.embedUrl || json.contentUrl;
 
             if (/^<iframe.*<\/iframe>$/i.test(video_src)) {
                 
@@ -25,7 +25,7 @@ export default {
 
                 if ($iframe && $iframe.length == 1 && $iframe.attr('src')) {
 
-                    json.embedurl = $iframe.attr('src');
+                    json.embedUrl = $iframe.attr('src');
                     video_src = $iframe.attr('src'); // For KNOWN check below.
 
                     if (!json.width && $iframe.attr('width')) {

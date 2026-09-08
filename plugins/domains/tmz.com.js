@@ -9,7 +9,7 @@ export default {
     // It's here mostly for tests
     getLinks: function(schemaVideoObject) {
 
-        var href = schemaVideoObject.embedURL || schemaVideoObject.embedUrl || schemaVideoObject.embedurl;
+        var href = schemaVideoObject.embedUrl;
 
         if (href) {
             return {

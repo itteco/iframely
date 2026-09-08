@@ -12,7 +12,7 @@ export default {
 
         if (meta.ld && meta.ld.videoobject 
             && meta.twitter && meta.twitter.title === 'Twitch'
-            && /^https?:\/\/clips\.twitch\.tv\/embed\?clip=$/i.test(meta.ld.videoobject.embedurl)) {
+            && /^https?:\/\/clips\.twitch\.tv\/embed\?clip=$/i.test(meta.ld.videoobject.embedUrl)) {
 
             return cb({
                 responseStatusCode: 404

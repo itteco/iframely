@@ -18,7 +18,7 @@ export default {
             }
             return {
                 price: ld.product.price,
-                currency: ld.product.currency_code || ld.product.currency || ld.product.priceCurrency || ld.product.pricecurrency,
+                currency: ld.product.priceCurrency || ld.product.currency,
                 brand: (ld.product.brand && ld.product.brand.name) || ld.product.brand,
                 category: ld.product.category,
                 availability: ld.product.availability,

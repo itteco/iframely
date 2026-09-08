@@ -389,6 +389,25 @@
                 'ImageObject',
                 'Photograph'
             ]
+        },
+
+        // Used to unify field naming
+        LD_FIELD_ALIASES: {
+            articlesection: 'articleSection',
+            pricecurrency: 'priceCurrency',
+            embedurl: 'embedUrl',
+            embedURL: 'embedUrl',
+            thumbnailurl: 'thumbnailUrl',
+            thumbnailURL: 'thumbnailUrl',
+            contenturl: 'contentUrl',
+            contentURL: 'contentUrl',
+            ContentUrl: 'contentUrl', 
+            videoobject: 'videoObject',
+            articlebody: 'articleBody',
+            datemodified: 'dateModified',
+            datepublished: 'datePublished',
+            datecreated: 'dateCreated',
+            isaccessibleforfree: 'isAccessibleForFree'
         }
     };
 
