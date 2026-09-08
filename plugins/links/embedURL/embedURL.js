@@ -60,6 +60,9 @@ export default {
                 }
             });
 
+            // Microdata bypasses parseLDSource, so field names need the same camelCase normalization applied here.
+            utils.lowerCaseKeys(result, utils.camelCaseKeys);
+
             return {
                 schemaVideoObject: result
             };
