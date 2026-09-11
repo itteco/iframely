@@ -27,6 +27,12 @@
 
         WHITELIST_WILDCARD: {},
 
+        IGNORE_DOMAINS_RE: [
+            /^https?:\/\/\d+\.\d+\.\d+\.\d+/i, // Includes localhost and local network, AWS metadata services, etc.
+            /^https?:\/\/localhost/i,
+            /^https?:\/\/[^\/]+:\d+\/?/, // Blocks port-scan via DNS pointing to 127.0.0.1
+        ],
+
         // Default cache engine to prevent warning.
         CACHE_ENGINE: 'node-cache',
         CACHE_TTL: 24 * 60 * 60,
