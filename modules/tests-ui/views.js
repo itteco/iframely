@@ -1,6 +1,6 @@
     import * as async from 'async';
     import moment from 'moment';
-    import { execFile as execFile } from 'child_process';
+    import { execFile } from 'child_process';
     import * as models from './models.js';
     import * as utils from './utils.js';
     import { difference } from '../../utils.js';
@@ -31,7 +31,7 @@
                 return res.redirect('/tests');
             }
 
-            if (!/^[a-zA-Z0-9_-]+$/.test(req.params.plugin)) {
+            if (!/^[a-zA-Z0-9_.-]+$/.test(req.params.plugin)) {
                 return next(new Error("Invalid plugin name"));
             }
 
