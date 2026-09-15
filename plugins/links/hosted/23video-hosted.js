@@ -19,7 +19,6 @@ export default {
     tests: [
         "https://video.itu.dk/live/13796543",
         "https://video.ku.dk/video/11827941/visual-social-media-lab-farida-vis-anne",
-        "https://video.nextconf.eu/video/1880845/data-without-limits",
         "https://video.itu.dk/video/91172759/kandidat-i-softwaredesign-los",
         // "https://www.fftv.no/skipatruljen-s3e3-voss-resort", No oEmbed discovery tags
     ]

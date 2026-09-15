@@ -1,6 +1,6 @@
 export default {
 
-    re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/(\d+)/i,
+    re: /^https?:\/\/(?:web\.)?500px\.com\/photo\/([A-Za-z0-9]+)/i,
 
     mixins: ["*"],
 
@@ -32,7 +32,13 @@ export default {
     },
 
     tests: [{skipMethods:['getData']},
-        "https://web.500px.com/photo/13541787/Long-After-Sunset-In-The-Black-Mountains-by-Jim-Ross/",
-        "https://500px.com/photo/56891080/frozen-by-ryan-pendleton?ctx_page=1&from=user&user_id=116369"
+        "https://500px.com/photo/gqZ6Tykaj5",
+        "https://500px.com/photo/KM6Mo0Fnyb?ctx_page=1&from=user&user_id=116369",
+        "https://500px.com/photo/wnYCJJNvlcV",
+        "https://500px.com/photo/nUBJ99ZZFNv"
+
+        // old URL format:
+        // "https://web.500px.com/photo/13541787/Long-After-Sunset-In-The-Black-Mountains-by-Jim-Ross/",
+        // "https://500px.com/photo/56891080/frozen-by-ryan-pendleton?ctx_page=1&from=user&user_id=116369"
     ]
 };
