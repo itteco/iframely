@@ -74,8 +74,26 @@ Notes on how `responseError` is consumed:
 
 Notes:
 - A plugin cb error with a `.code` field is normalized to `{ responseStatusCode: <code> }`
-  ([core.js#L280](../lib/core.js#L280)) — e.g. oEmbed status codes (`oembedError`).
+  ([core.js#L280](../lib/core.js#L280)).
 - Known sources: `404` on DNS `ENOTFOUND`, `415` non-HTML, and non-200 statuses in
   [htmlparser.js](../lib/plugins/system/htmlparser/htmlparser.js),
   [nonHtmlContentData.js](../lib/plugins/system/htmlparser/nonHtmlContentData.js),
   [meta.js](../lib/plugins/system/meta/meta.js).
+
+### `oembedError`
+
+The oEmbed plugin ([oembed.js#L138](../lib/plugins/system/oembed/oembed.js#L138)) exposes an
+`oembedError` param (not a direct `cb(error)`) built from
+[`getOembed()`](../lib/plugins/system/oembed/oembedUtils.js#L128). Its value can be:
+
+- an **HTTP status number** (non-200 oEmbed endpoint, e.g. `401`, `403`, `404`, `500`);
+- a **network/runtime error object** (`@adobe/fetch` `FetchError` / system error, e.g.
+  `ERR_HTTP2_STREAM_ERROR`);
+- a **parse `Error`** (200 body that is not valid XML/JSON);
+- with `options.parseErrorBody = true`, an object `{ code: <status>, body: <parsed body or
+  { exception }> }`.
+
+`oembedError` becomes a `cb(error)` only indirectly: domain/custom error plugins read it and
+re-emit `{ responseError: <status> }` — e.g. [oembed-error.js](../plugins/custom/oembed-error.js#L4)
+(`oembedError < 500`), [soundcloud-oembed-error.js](../plugins/domains/soundcloud.com/soundcloud-oembed-error.js#L8),
+[scribd.com-error.js](../plugins/domains/scribd.com/scribd.com-error.js#L11).
