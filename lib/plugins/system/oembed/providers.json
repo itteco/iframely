@@ -311,7 +311,7 @@
             "www\\.mixcloud\\.com/(.+)"
         ],
         "url": "https://www.mixcloud.com/{1}",
-        "endpoint": "https://www.mixcloud.com/oembed/"
+        "endpoint": "https://app.mixcloud.com/oembed/"
     },
     {
         "name": "Coub",

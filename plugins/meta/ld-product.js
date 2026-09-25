@@ -23,8 +23,7 @@ export default {
                 category: ld.product.category,
                 availability: ld.product.availability,
                 title: ld.product.name,
-                description: description,
-                medium: 'product'
+                description: description
             };
         }
     }
