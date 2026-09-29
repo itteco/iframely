@@ -15,6 +15,6 @@ overrides:
   brace-expansion@<1.1.18: ^1.1.18
   brace-expansion@>=2.0.0 <2.1.4: ^2.1.4
   brace-expansion@>=3.0.0 <5.0.9: ^5.0.9
-  undici@>=7.0.0 <7.29.0: ^7.29.0
+  undici@>=7.0.0 <7.29.1: ^7.29.1
 patchedDependencies:
   readabilitySAX@1.6.1: patches/readabilitySAX@1.6.1.patch
