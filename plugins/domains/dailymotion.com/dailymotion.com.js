@@ -1,5 +1,4 @@
-import * as querystring from 'querystring';
-import got from 'got';
+// import got from 'got'; // was required for tests
 
 export default {
 
@@ -16,16 +15,30 @@ export default {
         "video"
     ],
 
+    // Dailymotion now requires Player ID that requires a partner account
+    // https://developers.dailymotion.com/changelog/api-player-id-required-in-embed-urls
+    // https://developers.dailymotion.com/docs/getting-started-with-the-web-sdk
     getLink: function (url, iframe, options) {
-        var playlistParams = querystring.parse(options.getProviderOptions('dailymotion.get_params', '').replace(/^\?/, ''));
+        const playerMatch = iframe.src?.match(/^https:\/\/geo\.dailymotion\.com\/player\/([a-zA-Z0-9\-_]+)\.html/i)
 
+        if (!playerMatch) {
+            const playerId = options.getRequestOptions('dailymotion.player');
+            if (playerId && /^[a-zA-Z0-9\-_]+$/.test(playerId)) {
+                iframe.src = iframe.src.replace(/\/player\.html/i, `/player/${playerId}.html`);
+            } else {
+                return {
+                    message: 'Dailymotion now requires partner player ID https://developers.dailymotion.com/changelog/api-player-id-required-in-embed-urls'
+                }
+            }
+        }
+        
         if (iframe.src && iframe.height) {
             var player = {
-                href: iframe.replaceQuerystring(playlistParams),
+                href: iframe.src,
                 type: CONFIG.T.text_html,
                 "rel": [CONFIG.R.player, CONFIG.R.autoplay, CONFIG.R.oembed],
                 "aspect-ratio": iframe.width / iframe.height,
-                // autoplay: "mute=false" // obsolete now, autoplay muted is still autoplay, and requires our cover.
+                autoplay: "mute=false"
             };
 
             // Do not replace direct link to custom players
@@ -51,6 +64,7 @@ export default {
         }
     },
 
+    /* Tests will fail without Player ID
     tests: [{
         getUrls: function(cb) {
             got('https://api.dailymotion.com/videos', { responseType: 'json' })
@@ -74,4 +88,5 @@ export default {
         "https://www.dailymotion.com/embed/video/xcv6dv_pixels-by-patrick-jean_creation",
         "https://dailymotion.com/embed/video/x5yiamz?queue-enable=false"
     ]
+    */
 };
