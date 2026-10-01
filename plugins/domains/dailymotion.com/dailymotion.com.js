@@ -19,14 +19,12 @@ export default {
     // https://developers.dailymotion.com/changelog/api-player-id-required-in-embed-urls
     // https://developers.dailymotion.com/docs/getting-started-with-the-web-sdk
     getLink: function (url, iframe, options) {
-        const playerMatch = iframe.src?.match(/^https:\/\/geo\.dailymotion\.com\/player\/([a-zA-Z\-_]+)\.html/i)
+        const playerMatch = iframe.src?.match(/^https:\/\/geo\.dailymotion\.com\/player\/([a-zA-Z0-9\-_]+)\.html/i)
 
         if (!playerMatch) {
             const playerId = options.getRequestOptions('dailymotion.player');
-            if (playerId) {
-                console.log(21, iframe.src.replace(/\/player\.html/i, `/player/${playerId}.html`))
+            if (playerId && /^[a-zA-Z0-9\-_]+$/.test(playerId)) {
                 iframe.src = iframe.src.replace(/\/player\.html/i, `/player/${playerId}.html`);
-                console.log(22, iframe.src)
             } else {
                 return {
                     message: 'Dailymotion now requires partner player ID https://developers.dailymotion.com/changelog/api-player-id-required-in-embed-urls'
