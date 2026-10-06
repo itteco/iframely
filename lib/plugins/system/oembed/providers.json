@@ -628,12 +628,6 @@
             "codesandbox.io/.*"
         ],
         "endpoint": "https://codesandbox.io/oembed"
-    }, {
-        "name": "Naver TV",
-        "templates": [
-            "tv.naver.com/.*"
-        ],
-        "endpoint": "https://tv.naver.com/oembed"
     },
     {
         "name": "Verse",
