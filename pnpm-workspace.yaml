@@ -16,5 +16,13 @@ overrides:
   brace-expansion@>=2.0.0 <2.1.4: ^2.1.4
   brace-expansion@>=3.0.0 <5.0.9: ^5.0.9
   undici@>=7.0.0 <7.29.1: ^7.29.1
+  brace-expansion@<1.1.21: ^1.1.21
+  brace-expansion@>=2.0.0 <2.1.7: ^2.1.7
+  brace-expansion@>=4.0.0 <5.0.12: ^5.0.12
+  http-cache-semantics@<=4.2.0: ^4.3.0
+  js-yaml@>=5.0.0 <=5.4.0: ^5.4.1
+  moment@>=2.29.2 <2.31.0: ^2.31.0
+  probe-image-size@<=7.3.0: ^7.4.0
+  proxy-addr@>=1.1.0 <2.0.8: ^2.0.8
 patchedDependencies:
   readabilitySAX@1.6.1: patches/readabilitySAX@1.6.1.patch

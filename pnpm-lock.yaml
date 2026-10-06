@@ -22,6 +22,14 @@ overrides:
   brace-expansion@>=2.0.0 <2.1.4: ^2.1.4
   brace-expansion@>=3.0.0 <5.0.9: ^5.0.9
   undici@>=7.0.0 <7.29.1: ^7.29.1
+  brace-expansion@<1.1.21: ^1.1.21
+  brace-expansion@>=2.0.0 <2.1.7: ^2.1.7
+  brace-expansion@>=4.0.0 <5.0.12: ^5.0.12
+  http-cache-semantics@<=4.2.0: ^4.3.0
+  js-yaml@>=5.0.0 <=5.4.0: ^5.4.1
+  moment@>=2.29.2 <2.31.0: ^2.31.0
+  probe-image-size@<=7.3.0: ^7.4.0
+  proxy-addr@>=1.1.0 <2.0.8: ^2.0.8
 
 patchedDependencies:
   readabilitySAX@1.6.1: 13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757
@@ -85,8 +93,8 @@ importers:
         specifier: 2.2.2
         version: 2.2.2
       moment:
-        specifier: ^2.30.1
-        version: 2.30.1
+        specifier: ^2.31.0
+        version: 2.31.0
       node-cache:
         specifier: ^1.1.0
         version: 1.1.0
@@ -97,8 +105,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0
       probe-image-size:
-        specifier: ^7.2.3
-        version: 7.2.3(supports-color@8.1.1)
+        specifier: ^7.4.0
+        version: 7.4.0(supports-color@8.1.1)
       readabilitySAX:
         specifier: 1.6.1
         version: 1.6.1(patch_hash=13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757)
@@ -246,14 +254,14 @@ packages:
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
-  brace-expansion@1.1.18:
-    resolution: {integrity: sha512-Edep/X9fGqVNmzKBVsDYIOtD+z1tuezV70LBjdCst9Tqu76lsnvRiZ6oTic1n+/BIwX6QDGAO94PN4N2SADvtw==}
+  brace-expansion@1.1.21:
+    resolution: {integrity: sha512-9zeA+KLZNNzglF2TPKRQEDyx6Yby7daAkuy8MiPzpXPsYDWi/DRM8jmwUDxokQjYqBpv5DgPiwD4h4ZZSy1Ujw==}
 
-  brace-expansion@2.1.4:
-    resolution: {integrity: sha512-hGfVzPxthbf3+2yjg/RBs60cB0FhqBS/zvdV/4wn4/BmN0bNMMHPc4V/BbFieqf1TKAGGAHnY4eSjajCl0f2Xg==}
+  brace-expansion@2.1.7:
+    resolution: {integrity: sha512-uZbew1NqdmPDTMJ8ah1y+b+9QEJrfkXFk3RcTQw3X0jW/xRUvFKsg1CfQdSYGdTbXZWExtU3J3ccxtnfw1Fi0g==}
 
-  brace-expansion@5.0.9:
-    resolution: {integrity: sha512-ScQ4IuvIEF1TMlP7Zt+vjJ//9zlPb2SDcxWxM3bk8s6t6GGdJ7KO1dCcTidOPJKePW30LE/2cT7wCyPho9/Wxg==}
+  brace-expansion@5.0.12:
+    resolution: {integrity: sha512-YovQ3rzhaLMIrDjNDMkNS01tea93qhEhG5xy8f6+R0l+dw3Ki+5sCoIoI942iuLZTHWogWktgwVDhU09iNEimQ==}
     engines: {node: 20 || >=22}
 
   browser-stdout@1.3.1:
@@ -695,8 +703,8 @@ packages:
   htmlparser2@7.2.0:
     resolution: {integrity: sha512-H7MImA4MS6cw7nbyURtLPO1Tms7C5H602LRETv95z1MxO/7CP7rDVROehUYeYBUYEON94NXXDEPmZuq+hX4sog==}
 
-  http-cache-semantics@4.1.1:
-    resolution: {integrity: sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==}
+  http-cache-semantics@4.3.0:
+    resolution: {integrity: sha512-M5t5LlJpS1UHMjvwRQVdFHvPISGeLAxNcrWuJkeGh0KxsqCHZ1O3NXZU/8x7cD0BDcGW8kapxMKTvwlqrNkHkA==}
 
   http-errors@2.0.0:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
@@ -928,8 +936,8 @@ packages:
   mock-http-server@1.4.5:
     resolution: {integrity: sha512-7WZx7RJmMQEvTxJTOJt9U6+gLFl0JFaPHLSsAngfLaOgr3UH+ci7PW8049quyXwZGI4mh3W8oAch6w406ccyRQ==}
 
-  moment@2.30.1:
-    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+  moment@2.31.0:
+    resolution: {integrity: sha512-0acOTfMiWOheYS4eoWb80yYMb/JLvVv9SHbs2PehaDzfUG0Bw855SKyk0IKTnPGa5+U2bmi3W68l1+sGLX/pvw==}
 
   mongodb-connection-string-url@3.0.2:
     resolution: {integrity: sha512-rMO7CGo/9BFwyZABcKAWL8UJwH/Kc2x0g72uhDWzG48URRax5TCIcJ7Rc3RZqffZzO/Gwff/jyKwCU9TN8gehA==}
@@ -1091,8 +1099,8 @@ packages:
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
-  probe-image-size@7.2.3:
-    resolution: {integrity: sha512-HubhG4Rb2UH8YtV4ba0Vp5bQ7L78RTONYu/ujmCu5nBI8wGv24s4E9xSKBi0N1MowRpxk76pFCpJtW0KPzOK0w==}
+  probe-image-size@7.4.0:
+    resolution: {integrity: sha512-cdEprVtZxV+awMde9X+4jILBFYh4CARxVrQaMl4wY4YcPWbul9jntXrIW95NInBDyJwcVUP3U0T6yukN8rMBaQ==}
 
   process-nextick-args@1.0.7:
     resolution: {integrity: sha512-yN0WQmuCX63LP/TMvAg31nvT6m4vDqJEiiv2CAZqWOGNWutc9DfDk1NPYYmKUFmaVM2UwDowH4u5AHWYP/jxKw==}
@@ -1100,8 +1108,8 @@ packages:
   process-nextick-args@2.0.1:
     resolution: {integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==}
 
-  proxy-addr@2.0.7:
-    resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
+  proxy-addr@2.0.8:
+    resolution: {integrity: sha512-5nnx0yGyVUcY6t9RnWcARWtwT9F1D8O9rt08htPvnd49W1IgZtmLkhu9WfMzQj1cFxjHIO6connUNVW5k7AVyQ==}
     engines: {node: '>= 0.10'}
 
   punycode@2.3.0:
@@ -1371,7 +1379,7 @@ snapshots:
   '@adobe/fetch@4.1.11(supports-color@8.1.1)':
     dependencies:
       debug: 4.4.0(supports-color@8.1.1)
-      http-cache-semantics: 4.1.1
+      http-cache-semantics: 4.3.0
       lru-cache: 7.18.3
     transitivePeerDependencies:
       - supports-color
@@ -1473,16 +1481,16 @@ snapshots:
 
   boolbase@1.0.0: {}
 
-  brace-expansion@1.1.18:
+  brace-expansion@1.1.21:
     dependencies:
       balanced-match: 1.0.2
       concat-map: 0.0.1
 
-  brace-expansion@2.1.4:
+  brace-expansion@2.1.7:
     dependencies:
       balanced-match: 1.0.2
 
-  brace-expansion@5.0.9:
+  brace-expansion@5.0.12:
     dependencies:
       balanced-match: 4.0.4
 
@@ -1500,7 +1508,7 @@ snapshots:
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       get-stream: 9.0.1
-      http-cache-semantics: 4.1.1
+      http-cache-semantics: 4.3.0
       keyv: 4.5.4
       mimic-response: 4.0.0
       normalize-url: 8.0.1
@@ -1788,7 +1796,7 @@ snapshots:
       on-finished: 2.4.1
       once: 1.4.0
       parseurl: 1.3.3
-      proxy-addr: 2.0.7
+      proxy-addr: 2.0.8
       qs: 6.16.0
       range-parser: 1.2.1
       router: 2.2.0(supports-color@8.1.1)
@@ -1978,7 +1986,7 @@ snapshots:
       domutils: 2.8.0
       entities: 3.0.1
 
-  http-cache-semantics@4.1.1: {}
+  http-cache-semantics@4.3.0: {}
 
   http-errors@2.0.0:
     dependencies:
@@ -2140,19 +2148,19 @@ snapshots:
 
   minimatch@10.2.4:
     dependencies:
-      brace-expansion: 5.0.9
+      brace-expansion: 5.0.12
 
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.18
+      brace-expansion: 1.1.21
 
   minimatch@5.1.9:
     dependencies:
-      brace-expansion: 2.1.4
+      brace-expansion: 2.1.7
 
   minimatch@9.0.9:
     dependencies:
-      brace-expansion: 2.1.4
+      brace-expansion: 2.1.7
 
   minipass@7.1.2: {}
 
@@ -2191,7 +2199,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  moment@2.30.1: {}
+  moment@2.31.0: {}
 
   mongodb-connection-string-url@3.0.2:
     dependencies:
@@ -2341,7 +2349,7 @@ snapshots:
 
   picocolors@1.1.1: {}
 
-  probe-image-size@7.2.3(supports-color@8.1.1):
+  probe-image-size@7.4.0(supports-color@8.1.1):
     dependencies:
       lodash.merge: 4.6.2
       needle: 2.9.1(supports-color@8.1.1)
@@ -2353,7 +2361,7 @@ snapshots:
 
   process-nextick-args@2.0.1: {}
 
-  proxy-addr@2.0.7:
+  proxy-addr@2.0.8:
     dependencies:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
