@@ -25,4 +25,5 @@ overrides:
   probe-image-size@<=7.3.0: ^7.4.0
   proxy-addr@>=1.1.0 <2.0.8: ^2.0.8
 patchedDependencies:
+  '@adobe/fetch': patches/@adobe__fetch.patch
   readabilitySAX@1.6.1: patches/readabilitySAX@1.6.1.patch
