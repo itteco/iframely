@@ -1,0 +1,21 @@
+diff --git a/src/core/request.js b/src/core/request.js
+index 6f7120e3e383ed44b4fe63861109f365579d7425..19de7a26bc712e172b78efb4de4ef97ad8f269e3 100644
+--- a/src/core/request.js
++++ b/src/core/request.js
+@@ -160,7 +160,16 @@ const determineProtocol = async (ctx, url, signal) => {
+   const rejectUnauthorized = !((_rejectUnauthorized === false
+     || h1Opts.rejectUnauthorized === false
+     || h2Opts.rejectUnauthorized === false));
++  // PATCH: forward DNS/socket options from context to the ALPN negotiation socket
++  const socketOptions = {};
++  ['lookup', 'family', 'autoSelectFamily', 'autoSelectFamilyAttemptTimeout'].forEach((name) => {
++    const value = h2Opts[name] !== undefined ? h2Opts[name] : h1Opts[name];
++    if (value !== undefined) {
++      socketOptions[name] = value;
++    }
++  });
+   const connectOptions = {
++    ...socketOptions,
+     servername: url.hostname, // enable SNI (Server Name Indication) extension
+     ALPNProtocols: ctx.alpnProtocols,
+     signal, // optional abort signal

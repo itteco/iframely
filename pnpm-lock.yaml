@@ -32,6 +32,7 @@ overrides:
   proxy-addr@>=1.1.0 <2.0.8: ^2.0.8
 
 patchedDependencies:
+  '@adobe/fetch': fe94317880319fddf09a3d0f8eda551d5a2a205441bf5a7d634005239702b38d
   readabilitySAX@1.6.1: 13d40f78c0537e2538fd3a338f5ead833d968e2a80882e92f1eb3580b599c757
 
 importers:
@@ -40,7 +41,7 @@ importers:
     dependencies:
       '@adobe/fetch':
         specifier: ^4.1.11
-        version: 4.1.11(supports-color@8.1.1)
+        version: 4.1.11(patch_hash=fe94317880319fddf09a3d0f8eda551d5a2a205441bf5a7d634005239702b38d)(supports-color@8.1.1)
       async:
         specifier: ^3.2.4
         version: 3.2.4
@@ -1376,7 +1377,7 @@ packages:
 
 snapshots:
 
-  '@adobe/fetch@4.1.11(supports-color@8.1.1)':
+  '@adobe/fetch@4.1.11(patch_hash=fe94317880319fddf09a3d0f8eda551d5a2a205441bf5a7d634005239702b38d)(supports-color@8.1.1)':
     dependencies:
       debug: 4.4.0(supports-color@8.1.1)
       http-cache-semantics: 4.3.0
