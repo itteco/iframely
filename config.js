@@ -49,7 +49,7 @@
             'ESOCKETTIMEDOUT'
         ],
 
-        CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
+        CLUSTER_WORKER_RESTART_ON_PERIOD: 30 * 60 * 1000, // 30 minutes.
         CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 250 * 1024 * 1024, // 250 MB.
 
         MAX_REDIRECTS: 5,
