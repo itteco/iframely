@@ -1,14 +1,13 @@
 {
     "name": "iframely",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "type": "module",
-    "description": "oEmbed/2 gateway endpoint. Get embed data for various http links through one self-hosted API",
+    "description": "Self-hosted URL engine behind Iframely. Turns links into metadata, previews and embeds using oEmbed, Open Graph, Twitter Cards and domain parsers.",
     "keywords": [
-        "oembed",
-        "embed",
-        "open graph",
-        "og",
-        "twitter cards"
+        "oembed", "embed",
+        "open graph", "og", "twitter cards", "open-graph",
+        "link-preview", "url-metadata", "unfurl", "iframely", 
+        "JSON-LD", "ld+json", "microformats", "microdata"
     ],
     "homepage": "http://iframely.com",
     "repository": {

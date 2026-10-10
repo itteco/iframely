@@ -1,62 +1,56 @@
-# Iframely API for Responsive Web Embeds and URL Meta
+# Iframely URL engine for previews and embeds
 
-This is the self-hosted version of [Iframely](https://iframely.com)'s APIs and HTML parsers. 
+This is the engine behind the [Iframely](https://iframely.com) service. Give it a URL and it returns the metadata: title, description, thumbnails, author, canonical URL. If allowed, and if the provider supports it, you also get embed HTML for videos, posts, maps, slideshows, etc.
 
-Iframely takes your URL and returns its metadata. If supported on the URL, we'll add HTML of rich media embeds. Think layers, posts, slideshows, surveys, infographics, maps and more.
+This engine has powered Iframely in production since 2013. Use it if you’d like to self-host rather than rely on the cloud version.
 
-This package includes specific domain parsers for most popular publishers. YouTube, Facebook, Instagram, Twitter, SoundCloud, Google Maps, TED, Twitch and many more. See `/plugins/domains` folder. In addition, we cover many domains by whitelisting media through the generic publishing protocols: [oEmbed](http://oembed.com/), [Open Graph](http://ogp.me/), [Twitter Cards](https://dev.twitter.com/docs/cards) and microformats. For the rest of URLs, you'll include have metadata and thumbnail images from those protocols. Use it to create your own URL previews.
+## How it works
 
-Iframely's [whitelist file](https://iframely.com/qa/domains.json) is fetched from our central database. The changes are synced automatically to your instance by default. But you replace that with [your own whitelist](https://iframely.com/docs/whitelist-format) file. There should be over 1500 domains covered by the central whitelist. 
+Iframely uses two kinds of parsers.
 
-## Breaking changes in version 2.0.0
+Custom domain plugins handle specific providers, from YouTube to Google Maps. You'll find them in the `/plugins/domains` folder.
 
-The minimum version of the Node required for Iframely starting from version 2.0.0 is Node 14. Please see [migration steps](https://github.com/itteco/iframely/issues/350) from earlier versions.
+Generic parsers read standard markup like oEmbed, Open Graph, Twitter Cards and JSON-LD.
 
-## API endpoints
+Domain plugins work for the providers they cover. For everything else, the generic parsers only return rich media embeds for providers on the allowlist. We maintain that list for both the open-source and cloud versions, and it's synced to your instance by default. If you'd rather curate your own, you can swap in [your own allowlist](https://iframely.com/docs/whitelist-format).
 
-To make use of the data, you need to connect to APIs over HTTP. There are two endpoints available. One in [oEmbed](https://iframely.com/docs/oembed-api) and one in [Iframely API](https://iframely.com/docs/iframely-api) format. The oEmbed endpoint is just an adapter from Iframely to oEmbed spec. 
+Any other URL still returns metadata and thumbnails, if available.
 
-Iframely format mimics the `<head>` section of the page. It has `meta` field for data and `links` array for media. 
+Some additional plugins are private and only used in the cloud. You can write your own for your instance.
 
-Both endpoints accept `&url=` input and provide JSON response. Below are some open responses from our [cloud API](https://iframely.com), so you can see the format:
+## API
 
-- [>> Iframely API call for Coub video](https://iframe.ly/ACcM3Y.json)
-- [>> Same one, but as oEmbed](https://iframe.ly/ACcM3Y.oembed)
+There are two endpoints. Both take `url` and return JSON:
 
-You can use Iframely can as Node.js library. That's how we use it in the cloud. However, documentation on it [is lacking](https://github.com/itteco/iframely/issues/186).
+- `{your.server}/iframely?url=` returns the [Iframely format](https://iframely.com/docs/iframely-api). It looks like the `<head>` of a page: `meta` for data, `links` for media.
+- `{your.server}/oembed?url=` returns a simplified [oEmbed](https://iframely.com/docs/oembed-api) version of the same data. It's an adapter, so the engine does the same work for both endpoints.
 
-## Not included as compared to Cloud API
+There's also a visual debugger at `{your.server}/debug`.
 
-Hosted [cloud APIs](https://iframely.com) can optionally return Iframely.com-powered iFrame renders in the `html` field. iFrames deliver all hosted widgets such as cards for URL previews, GIF support, player events, AMP, and others. Our [per-URL customization](https://iframely.com/docs/options), predictive sizing mechanism for JavaScript-based embeds to minimize the layout shift, lazy-loading, type-based media whitelist and the number of other configurations are only available in the cloud. 
+Sample responses from the cloud API: [Iframely format](https://iframe.ly/ACcM3Y.json) and [the same URL as oEmbed](https://iframe.ly/ACcM3Y.oembed).
 
-This open-source version provides the web parsers only. Iframely cloud use data from those parsers as-is in production. Though the format of API endpoints between the cloud and self-hosted version should match, there might be minor discrepancies.
+## Getting started
 
-Finally, there's a number of domain plugins not included in self-hosted version. We seem to have stopped adding new publishers to the open-source. It looks like many of our later providers need quicker turnaround time for updates and fixes. You can extend the self-hosted version with private plugins too.
+You'll need Node.js 20.19.3 or later.
 
+Start with the [install and configuration guide](https://iframely.com/docs/host). Then see [link rels and types](https://iframely.com/docs/links) and [meta semantics](https://iframely.com/docs/meta) for what comes back.
 
-## Get started:
+Coming from a version before 2.0.0? Here are the [migration steps](https://github.com/itteco/iframely/issues/350).
 
-To get started with the APIs: 
+## Open source vs. cloud
 
- - Your API endpoints will be at `{your.server}/iframely?url=` and `{your.server}/oembed?url=`
- - [How to install & configure](https://iframely.com/docs/host) your Iframely host.  
- - [API in Iframely format](https://iframely.com/docs/iframely-api)
- - [API in oEmbed format](https://iframely.com/docs/oembed-api)
- - [About Link Rels, Types and Media Queries](https://iframely.com/docs/links) in Iframely format (players, thumbnails, app, reader, survey, slideshow, etc)
- - [META semantics](https://iframely.com/docs/meta) Iframely API scrapes for you.
- - Visual debug tool included in the package is at `{your.server}/debug`
+The Iframely cloud Preview APIs run on the same parsers and the same allowlist, so responses match apart from minor differences. If you keep the default allowlist, coverage is almost the same, apart from the private plugins.
 
+The cloud also adds:
 
-## Contribute
+- Hosted iframe rendering in the `html` field: preview cards, GIF support, player events, AMP and more.
+- [Per-URL options](https://iframely.com/docs/options), predictive sizing to reduce layout shift, lazy-loading and media allowlists by type.
+- The [Data API](https://iframely.com/docs/data-api), for apps that process URLs automatically (assistants, search, AI). It builds on the preview data and adds entities, excerpts and full text where the provider allows it.
 
-We put our best effort to maintain Iframely and all its domain parsers. Please, feel free to [reach us on Twitter](http://twitter.com/iframely) or to [submit an issue](https://github.com/itteco/iframely/issues) if you have any suggestions. Our support email is support at iframely.com
+## Contributing
 
-Fork and pull-request, if you'd like to add more plugins and/or contribute fixes or improvements. By doing so, you make your work available under the same MIT license.
+Issues and pull requests are welcome. Please open PRs against `develop`. Everything lands there before it goes to `master`. Contributions are under the same MIT license. Questions: support@iframely.com.
 
-Please submit your PR against `develop` branch. This is where everything gets merged before we release it into `master`.
+## License
 
-
-## License & Authors
-
-MIT License. (c) 2012-2022 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://twitter.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).
-
+MIT License. © 2012–2026 Itteco Software Corp. [Nazar Leush](https://github.com/nleush), [Ivan Paramonau](https://github.com/iparamonau) and the [contributors](https://github.com/itteco/iframely/graphs/contributors).

@@ -28,9 +28,16 @@
         WHITELIST_WILDCARD: {},
 
         IGNORE_DOMAINS_RE: [
-            /^https?:\/\/\d+\.\d+\.\d+\.\d+/i, // Includes localhost and local network, AWS metadata services, etc.
             /^https?:\/\/localhost/i,
-            /^https?:\/\/[^\/]+:\d+\/?/, // Blocks port-scan via DNS pointing to 127.0.0.1
+            // Dotted-decimal, short & pure decimal/octal (127.0.0.1, 127.1, 2130706433, 017700000001)
+            /^https?:\/\/\d+(?:\.\d+){0,3}(?::\d+)?(?:[/?#]|$)/i,
+            // Hex, optionally dotted (0x7f000001, 0x7f.0.0.1)
+            /^https?:\/\/0x[0-9a-f]+(?:\.(?:0x[0-9a-f]+|\d+)){0,3}(?::\d+)?(?:[/?#]|$)/i,
+            // IPv6 literal — RFC 3986 requires IPv6 hosts in a URL to be wrapped in
+            // brackets, so any "[...]" right after the scheme is an IP literal, never
+            // a domain name (covers loopback [::1], IPv4-mapped [::ffff:127.0.0.1], etc).
+            // See: https://www.rfc-editor.org/rfc/rfc3986#section-3.2.2
+            /^https?:\/\/\[/i,
         ],
 
         // Default cache engine to prevent warning.
@@ -49,8 +56,8 @@
             'ESOCKETTIMEDOUT'
         ],
 
-        CLUSTER_WORKER_RESTART_ON_PERIOD: 8 * 3600 * 1000, // 8 hours.
-        CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 120 * 1024 * 1024, // 120 MB.
+        CLUSTER_WORKER_RESTART_ON_PERIOD: 30 * 60 * 1000, // 30 minutes.
+        CLUSTER_WORKER_RESTART_ON_MEMORY_USED: 250 * 1024 * 1024, // 250 MB.
 
         MAX_REDIRECTS: 5,
 
