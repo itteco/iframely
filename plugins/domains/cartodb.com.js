@@ -35,6 +35,7 @@ export default {
     },
         "https://rpa.carto.com/viz/9a23d690-6e00-4c87-8d06-608d8bf7ca18/embed_map",
         "https://samswey.carto.com/viz/e1005588-93d2-47b6-9a61-f4c0ed001163/embed_map",
-        "https://bloomberg.carto.com/u/eanders/viz/6913f4cc-bd05-11e4-a444-7054d21a95e5/public_map"
+        "https://rpa.carto.com/viz/f88c9e55-d216-46af-aac8-41de17fa655f/public_map",
+        "https://csis-enterprise.carto.com/u/csis/viz/4c461308-d73e-11e5-9a49-0e3ff518bd15/public_map"
     ]
 };
