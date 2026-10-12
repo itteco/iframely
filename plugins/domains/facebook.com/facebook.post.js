@@ -56,12 +56,14 @@ export default {
         "https://www.facebook.com/zuck/posts/10116325482244511",
         "https://www.facebook.com/zuck/posts/pfbid0p7zmJ1SoeJieavzRAy9mYxJ9i1m28PRDzFC2NCFHe6RMsD7LbuGEu7WtG9ZckUoJl",
         "https://www.facebook.com/logvynenko/posts/10151487164961783",
-        "https://www.facebook.com/chamvermeil/photos/a.398119066992522.1073741828.398102673660828/715129168624842/?type=1&theater",
+        "https://www.facebook.com/unicef/photos/a.10150563250124002/10159465029074002",
         "https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893",
-        // "https://www.facebook.com/141700922567987_3903702929701082",  // Redirects to the unrecognized URL
+        "https://www.facebook.com/photo?fbid=520457590222651&set=pcb.520457656889311",
         "https://www.facebook.com/Asda/posts/pfbid02dPKr6XHAY8Ga6MyWNyM3XAEF9YG4WNWhxRUoUU3qJ5nDY7RpXkULPmZVGkHWQB3Ll",
-        // "https://www.facebook.com/Asda/posts/weve-been-named-the-cheapest-major-online-supermarket-in-may-by-which-the-third-/3903702929701082/", // Facebook still does not recognize it in oEmbed as of Feb 10, 2026
         "https://www.facebook.com/docmonkeyorthoanimal/photos/105294651313771/",
+
+        // "https://www.facebook.com/141700922567987_3903702929701082",  // Redirects to the unrecognized URL
+        // "https://www.facebook.com/Asda/posts/weve-been-named-the-cheapest-major-online-supermarket-in-may-by-which-the-third-/3903702929701082/", // Facebook still does not recognize it in oEmbed as of Feb 10, 2026
         {noFeeds: true}, {skipMixins: ["fb-error"]}
     ]
 };
