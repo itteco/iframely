@@ -2,22 +2,26 @@ import { getProviderOptionsQuery } from '../api/utils.js';
 
 export default function(app) {
 
-    app.get('/debug', function(req, res, next) {
+    // Allow `/debug` on if `CONFIG.DEBUG`.
+    if (CONFIG.DEBUG) {
 
-        var DEBUG = CONFIG.DEBUG;
+        app.get('/debug', function(req, res, next) {
 
-        if ("debug" in req.query) {
-            DEBUG = {"on":1, "true":1}[req.query.debug];
-        }
+            var DEBUG = CONFIG.DEBUG;
 
-        res.render('debug', {
-            uri: req.query.uri,
-            mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin],
-            dataMode: !!{"on":1, "true":1}[req.query.dataMode],
-            refresh: !!{"on":1, "true":1}[req.query.refresh],
-            DEBUG: DEBUG,
-            DATA_DEBUG_ENABLED: CONFIG.DATA_DEBUG_ENABLED,
-            QUERY: getProviderOptionsQuery(req.query)
+            if ("debug" in req.query) {
+                DEBUG = {"on":1, "true":1}[req.query.debug];
+            }
+
+            res.render('debug', {
+                uri: req.query.uri,
+                mixAllWithDomainPlugin: !!{"on":1, "true":1}[req.query.mixAllWithDomainPlugin],
+                dataMode: !!{"on":1, "true":1}[req.query.dataMode],
+                refresh: !!{"on":1, "true":1}[req.query.refresh],
+                DEBUG: DEBUG,
+                DATA_DEBUG_ENABLED: CONFIG.DATA_DEBUG_ENABLED,
+                QUERY: getProviderOptionsQuery(req.query)
+            });
         });
-    });
+    }
 };

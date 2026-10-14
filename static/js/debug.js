@@ -1,8 +1,10 @@
 function linkify(text) {
+    // Escape-then-linkify: meta values come from the resolved page and may contain HTML.
+    var escaped = $('<div>').text(String(text)).html();
     if (typeof text === "string") {
-        return text.replace(/((https?:)?\/\/[^"\s]+)/gi, '<a target="_blank" href="$1">$1</a>');
+        return escaped.replace(/((https?:)?\/\/[^"\s]+)/gi, '<a target="_blank" href="$1">$1</a>');
     } else {
-        return text;
+        return escaped;
     }
 }
 
