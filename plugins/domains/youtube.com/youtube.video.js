@@ -315,14 +315,14 @@ export default {
                 && youtube_video_gdata.thumbnails[def].width
                 && youtube_video_gdata.thumbnails[def].height
                 && Math.round(10 * youtube_video_gdata.thumbnails[def].width / youtube_video_gdata.thumbnails[def].height) == Math.round(10 * aspect)) {
-                links.push(def !== 'fhd'? {
+                links.push(['fhd', 'uhd', 'qhd'].indexOf(def) === -1 ? {
                     href: youtube_video_gdata.thumbnails[def].url,
                     rel: CONFIG.R.thumbnail,
                     type: CONFIG.T.image_jpeg,
                     width: youtube_video_gdata.thumbnails[def].width, 
                     height: youtube_video_gdata.thumbnails[def].height
                 } : {
-                    // For FHD, need to validate that image exists
+                    // For FHD, UHD or QHD, need to validate that image exists
                     href: youtube_video_gdata.thumbnails[def].url,
                     rel: CONFIG.R.thumbnail,
                     type: CONFIG.T.image_jpeg
@@ -352,6 +352,8 @@ export default {
         "https://www.youtube.com/embed/mDFBTdToRmw?rel=0",
         "https://www.youtube.com/embed/yJpJ8REjvqo?si=-2PKj71d6RhnnCFU&amp;clip=UgkxvYwD1omSQWCDuoWYo6hHJjQzcLGbJqYi&amp;clipt=EPjgJhjg4ig", // sic! with &amp; - as the code is manually copied from YouTube
         // embeds disabled - https://www.youtube.com/watch?v=e58FeKOgsU8
-        "https://www.youtube.com/watch?v=iIhwVPXzyJs" // FHD
+        "https://www.youtube.com/watch?v=iIhwVPXzyJs", // FHD
+        "https://www.youtube.com/watch?v=CFou0Hx-KSY", // UHD
+        "https://www.youtube.com/watch?v=y-34-bAKgU8"  // QHD
     ]
 };
