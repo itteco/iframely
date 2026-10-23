@@ -55,7 +55,13 @@ function getIntParam(req, param) {
 
 function handleIframelyError(error, res, next) {
 
-    if (error.code) {
+    if (error.iframelyError) {
+
+        // TODO: detect origin code?
+
+        next(new utils.HttpError(417, "Processing error: " + error.iframelyError.code, JSON.stringify(error.iframelyError)));
+
+    } else if (error.code) {
 
         var responseCode = error.responseCode;
 
