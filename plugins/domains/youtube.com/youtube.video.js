@@ -69,6 +69,9 @@ export default {
                     return cb(error);
                 }
 
+                var noItemsFound = data?.items?.length === 0;
+                var apiNotFound = data?.error?.code === 404;
+
                 if (data?.items?.length > 0) {
                     var entry = data.items[0];
 
@@ -128,7 +131,7 @@ export default {
                         });
                     }
 
-                } else if (data && data.items && data.items.length == 0 || data && data.error && data.error.code == 404) {
+                } else if (noItemsFound || apiNotFound) {
                     cb({responseStatusCode: 404});
                 } else {
                     log('YoutTube fallback for ' + urlMatch[1], data);
