@@ -144,7 +144,7 @@ export default function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    v: '1.3',
+                    v: CONFIG.DEBUGGER_CORE_VERSION,
                     debug: getBooleanParam(req, 'debug'),
                     returnProviderOptionsUsage: getBooleanParam(req, 'debug'),
                     mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
@@ -297,7 +297,7 @@ export default function(app) {
                 cache.withCache('html:' + version + ':' + uri, function(cb) {
 
                     iframelyCore.run(uri, {
-                        v: '1.3',
+                        v: CONFIG.DEBUGGER_CORE_VERSION,
                         getWhitelistRecord: whitelist.findWhitelistRecordFor,
                         // TOOD: obsolete?
                         readability: true,
@@ -361,7 +361,7 @@ export default function(app) {
                 cache.withCache(getRenderLinkCacheKey(uri, req), function(cb) {
 
                     iframelyCore.run(uri, {
-                        v: '1.3',
+                        v: CONFIG.DEBUGGER_CORE_VERSION,
                         getWhitelistRecord: whitelist.findWhitelistRecordFor,
                         providerOptions: getProviderOptionsFromQuery(req.query)
                     }, function(error, result) {
@@ -465,7 +465,7 @@ export default function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    v: '1.3',
+                    v: CONFIG.DEBUGGER_CORE_VERSION,
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: getBooleanParam(req, 'ssl'),
                     filterNonHTML5: getBooleanParam(req, 'html5'),
