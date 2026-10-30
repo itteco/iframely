@@ -67,6 +67,8 @@
 
         VERSION: version,
 
+        DEBUGGER_CORE_VERSION: '2.7',
+
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
 
         SKIP_IFRAMELY_RENDERS: false,
@@ -421,7 +423,10 @@
             datepublished: 'datePublished',
             datecreated: 'dateCreated',
             isaccessibleforfree: 'isAccessibleForFree'
-        }
+        },
+
+        IFRAMELY_ERROR_ATTRIBUTES: ['code', 'title', 'detail', 'docs', 'retryable', 'retry_after', 'origin_status', 'origin_code'],
+        IFRAMELY_HTTP_CODE_PREFIX: 'iframely.http.'
     };
 
     // Providers config loader.

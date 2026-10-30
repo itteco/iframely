@@ -369,7 +369,15 @@ function processUrl() {
         $loader.hide();
 
         if (error) {
-            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error + ' - ' +jqXHR.responseText);
+            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error);
+
+            var $responsePre = $('<pre>');
+            try {
+                $responsePre.renderObject(JSON.parse(jqXHR.responseText));
+            } catch (e) {
+                $responsePre.text(jqXHR.responseText);
+            }
+            $status.append($responsePre);
             return;
         }
 
