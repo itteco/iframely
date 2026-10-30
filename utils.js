@@ -48,6 +48,30 @@
 
     HttpError.prototype.__proto__ = Error.prototype;
 
+    export function IframelyError(code, options, messages) {
+
+        Error.call(this); //super constructor
+        Error.captureStackTrace(this, this.constructor); //super helper method to include stack trace in error object
+
+        this.name = this.constructor.name; //set our function’s name as error name.
+
+        this.messages = messages; //additional messages
+
+        this.info = {};
+
+        if (options) {
+            CONFIG.IFRAMELY_ERROR_ATTRIBUTES.forEach(attr => {
+                if (attr in options) {
+                    this.info[attr] = options[attr];
+                }
+            });
+        }
+
+        this.code = code;
+    }
+
+    IframelyError.prototype.__proto__ = Error.prototype;
+
     import { readFile } from 'fs/promises';
     const json = JSON.parse(await readFile(new URL('./package.json', import.meta.url)));
     var version = json.version;
