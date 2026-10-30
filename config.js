@@ -425,7 +425,8 @@
             isaccessibleforfree: 'isAccessibleForFree'
         },
 
-        IFRAMELY_ERROR_ATTRIBUTES: ['code', 'title', 'detail', 'docs', 'retryable', 'retry_after', 'origin_status', 'origin_code']
+        IFRAMELY_ERROR_ATTRIBUTES: ['code', 'title', 'detail', 'docs', 'retryable', 'retry_after', 'origin_status', 'origin_code'],
+        IFRAMELY_HTTP_CODE_PREFIX: 'iframely.http.'
     };
 
     // Providers config loader.
