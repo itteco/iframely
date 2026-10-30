@@ -57,9 +57,7 @@ function handleIframelyError(error, res, next) {
 
     if (error.iframelyError) {
 
-        // TODO: detect origin code?
-
-        next(new utils.HttpError(417, "Processing error: " + error.iframelyError.code, JSON.stringify(error.iframelyError)));
+        next(new utils.IframelyError(error.iframelyError.code || 'server.internal.500', error.iframelyError), error.messages);
 
     } else if (error.code) {
 
