@@ -555,6 +555,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                 setTimeout(function() {
                     iframely(url, {
+                        // TODO: use from config?
                         v: '1.3',
                         debug: true,
                         refresh: true,
