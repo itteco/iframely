@@ -12,8 +12,10 @@ export default {
             && /* !iframelyTargeted */ !Object.keys(meta).some(key => key.indexOf('iframely') === 0)
             && !options.allowNoIndex
             ? {
-               responseStatusCode: 403,
-               message: "The robots directive of this page prevents Iframely from parsing it"
+                iframelyResponseError: {
+                    status: 403,
+                    detail: "The robots directive of this page prevented Iframely from parsing it"
+                }
             } : null);
     }
 

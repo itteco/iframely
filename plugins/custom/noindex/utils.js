@@ -8,7 +8,10 @@ export function checkRobots(noindexHeader, cb) {
         for(i = 0; i < NO_INDEX_TAGS.length; i++) {
             if (noindexHeader.indexOf(NO_INDEX_TAGS[i]) > -1) {
                 cb({
-                    responseStatusCode: 403
+                    iframelyResponseError: {
+                        status: 403,
+                        detail: "The robots directive of this page prevented Iframely from parsing it"
+                    }
                 });
                 return true;
             }

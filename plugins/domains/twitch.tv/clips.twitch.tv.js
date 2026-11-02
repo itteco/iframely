@@ -15,7 +15,7 @@ export default {
             && /^https?:\/\/clips\.twitch\.tv\/embed\?clip=$/i.test(meta.ld.videoobject.embedUrl)) {
 
             return cb({
-                responseStatusCode: 404
+                iframelyResponseError: 404
             });
 
         } else if ((!meta.ld || !meta.ld.videoobject) && urlMatch[1] !== 'embed') {

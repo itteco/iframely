@@ -75,8 +75,10 @@ export default {
 
     getData: function(oembed, cb) {
         return cb( oembed.type === "link" ? {
-            responseStatusCode: 403,
-            message: "This photo is private or unavailable."
+            iframelyResponseError: {
+                status: 403,
+                detail: "This photo is private or unavailable."
+            }
         } : null);
     },
 

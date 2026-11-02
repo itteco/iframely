@@ -107,8 +107,10 @@ export default {
         
         if (urlMatch[1] === "forms" && /\/closedform(?:\?.*)?$/.test(url)) {
             return cb ({
-                responseStatusCode: 410,
-                message: `This Google form is no longer accepting responses.`
+                iframelyResponseError: {
+                    status: 410,
+                    detail: `This Google form is no longer accepting responses.`
+                }
             });
         } else if (urlMatch[1] === "forms" && !/&embedded=true/i.test(url) && meta.og && !meta.og.embed && (!options.redirectsHistory || options.redirectsHistory.indexOf(embedded_url) == -1)) {
             return cb ({
@@ -154,13 +156,17 @@ export default {
             });
         } else if (/\/pubchart(\?[^\?\/]+)?(?:#.*)?$/i.test(url)) {
             return cb({
-                responseStatusCode: 415,
-                message: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
+                iframelyResponseError: {
+                    status: 415,
+                    detail: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
+                }
             })            
         } else if (!meta.og && /docs\.google\.com/.test(url) && !options.getRequestOptions('google.enable_private')) {
             return cb({
-                responseStatusCode: 415,
-                message: 'Google Docs could not load the file. Perhaps it is too large.'
+                iframelyResponseError: {
+                    status: 415,
+                    detail: 'Google Docs could not load the file. Perhaps it is too large.'
+                }
             })
         } else {
             return cb(null, null);

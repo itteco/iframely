@@ -11,8 +11,10 @@ export default {
     getLink: function(urlMatch, cb) {
 
         cb ({
-            responseStatusCode: 403,
-            message: "The page is private and requires a login."
+            iframelyResponseError: {
+                status: 403,
+                detail: "The page is private and requires a login."
+            }
         });
     }
 };    

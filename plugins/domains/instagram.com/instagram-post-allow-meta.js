@@ -9,13 +9,13 @@ export default {
             && !meta.title && !meta.description 
             && meta['html-title'] === 'Instagram'
             && !/\/embed/.test(url)) { // post and reel /embed as in https://www.instagram.com/p/HbBy-ExIyF/embed
-            return cb({responseStatusCode: 404})
+            return cb({iframelyResponseError: 404})
 
         } else if (
             // URL from instagram-profile
             /^https?:\/\/(?:www\.)?instagram\.com\/([a-zA-Z0-9\._]+)\/?(?:\?.*)?$/i.test(meta.og?.url)
             && meta.og?.type === 'profile') {
-            return cb({responseStatusCode: 403})
+            return cb({iframelyResponseError: 403})
 
         } else {
             return cb (null, {

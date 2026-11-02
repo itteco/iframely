@@ -122,8 +122,10 @@ export default {
 
                     if (gdata.uploadStatus === "rejected") {
                         cb({
-                            responseStatusCode: 410,
-                            message: "The video has been removed. Reason: " + (entry.status?.rejectionReason || 'not given')
+                            iframelyResponseError: {
+                                status: 410,
+                                detail: "The video has been removed. Reason: " + (entry.status?.rejectionReason || 'not given')
+                            }
                         });
                     } else {
                         cb(null, {
@@ -132,7 +134,7 @@ export default {
                     }
 
                 } else if (noItemsFound || apiNotFound) {
-                    cb({responseStatusCode: 404});
+                    cb({iframelyResponseError: 404});
                 } else {
                     log('YoutTube fallback for ' + urlMatch[1], data);
                     cb(null); // silence error for fallback to generic providers. data.error.code == 429 - too many requests; 400 - probably API key is invalid
