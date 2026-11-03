@@ -358,6 +358,7 @@ function processUrl() {
     // 1) Fetch data.
     var query = {
         debug: true,
+        apiVersion: DEBUGGER_CORE_VERSION,
         group: false,
         dataMode: $('[name="dataMode"]').is(":checked"),
         mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked"),

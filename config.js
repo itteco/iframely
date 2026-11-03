@@ -68,6 +68,8 @@
         VERSION: version,
 
         DEBUGGER_CORE_VERSION: '2.7',
+        API_CORE_VERSION: '1.3',
+        TESTER_CORE_VERSION: '1.3',
 
         FB_USER_AGENT: 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)',
 

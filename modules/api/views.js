@@ -53,6 +53,11 @@ function getIntParam(req, param) {
     return v && parseInt(v);
 }
 
+function getApiVersion(req) {
+    var v = req.query.apiVersion;
+    return (typeof v === 'string' && v) || CONFIG.API_CORE_VERSION;
+}
+
 function handleIframelyError(error, res, next) {
 
     if (error.iframelyError) {
@@ -142,7 +147,7 @@ export default function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    v: CONFIG.DEBUGGER_CORE_VERSION,
+                    v: getApiVersion(req),
                     debug: getBooleanParam(req, 'debug'),
                     returnProviderOptionsUsage: getBooleanParam(req, 'debug'),
                     mixAllWithDomainPlugin: getBooleanParam(req, 'mixAllWithDomainPlugin'),
@@ -295,7 +300,7 @@ export default function(app) {
                 cache.withCache('html:' + version + ':' + uri, function(cb) {
 
                     iframelyCore.run(uri, {
-                        v: CONFIG.DEBUGGER_CORE_VERSION,
+                        v: getApiVersion(req),
                         getWhitelistRecord: whitelist.findWhitelistRecordFor,
                         // TOOD: obsolete?
                         readability: true,
@@ -359,7 +364,7 @@ export default function(app) {
                 cache.withCache(getRenderLinkCacheKey(uri, req), function(cb) {
 
                     iframelyCore.run(uri, {
-                        v: CONFIG.DEBUGGER_CORE_VERSION,
+                        v: getApiVersion(req),
                         getWhitelistRecord: whitelist.findWhitelistRecordFor,
                         providerOptions: getProviderOptionsFromQuery(req.query)
                     }, function(error, result) {
@@ -463,7 +468,7 @@ export default function(app) {
             function(cb) {
 
                 iframelyCore.run(uri, {
-                    v: CONFIG.DEBUGGER_CORE_VERSION,
+                    v: getApiVersion(req),
                     getWhitelistRecord: whitelist.findWhitelistRecordFor,
                     filterNonSSL: getBooleanParam(req, 'ssl'),
                     filterNonHTML5: getBooleanParam(req, 'html5'),
