@@ -5,7 +5,7 @@ export default {
             ? {
                 iframelyResponseError: {
                     status: oembedError,
-                    detail: 'Publisher\'s oEmbed endpoint reported an error ' + oembedError
+                    detail: 'Publisher\'s oEmbed endpoint reported an error ' + oembedError + '.'
                 }
             } : null);
     }

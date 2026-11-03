@@ -85,7 +85,7 @@ export default {
                     return cb({
                         iframelyResponseError: {
                             status: 415, 
-                            detail: 'This Tumblr may contain sensitive media and is not supported'
+                            detail: 'This Tumblr may contain sensitive media and is not supported.'
                         }
                     });
                 }

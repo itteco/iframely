@@ -124,7 +124,7 @@ export default {
                         cb({
                             iframelyResponseError: {
                                 status: 410,
-                                detail: "The video has been removed. Reason: " + (entry.status?.rejectionReason || 'not given')
+                                detail: "The video has been removed. Reason: " + (entry.status?.rejectionReason || 'not given') + "."
                             }
                         });
                     } else {

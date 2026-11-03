@@ -68,13 +68,13 @@ export default {
             if (options.cache_ttl === 0) {
                 result = {
                     fallback: 'generic',
-                    message: "Facebook reports a downtime"
+                    message: "Facebook reports a downtime."
                 };
             } else {
                 result = {
                     iframelyResponseError: {
                         status: 408,
-                        detail: "Facebook reports a downtime"
+                        detail: "Facebook reports a downtime."
                     }
                 }
             }

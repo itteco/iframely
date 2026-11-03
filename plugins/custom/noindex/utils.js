@@ -11,7 +11,7 @@ export function checkRobots(noindexHeader, cb) {
                     iframelyResponseError: {
                         code: 'iframely.robots.disallowed',
                         status: 415,
-                        detail: "The robots directive of this page prevented Iframely from parsing it"
+                        detail: "The robots directive of this page prevented Iframely from parsing it."
                     }
                 });
                 return true;
