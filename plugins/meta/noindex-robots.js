@@ -12,8 +12,11 @@ export default {
             && /* !iframelyTargeted */ !Object.keys(meta).some(key => key.indexOf('iframely') === 0)
             && !options.allowNoIndex
             ? {
-               responseStatusCode: 403,
-               message: "The robots directive of this page prevents Iframely from parsing it"
+                iframelyResponseError: {
+                    code: 'iframely.robots.disallowed',
+                    status: 415,
+                    detail: "This page is not optimized for social sharing and its robots directive prevents Iframely from parsing it."
+                }
             } : null);
     }
 

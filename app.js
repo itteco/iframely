@@ -1,4 +1,4 @@
-import { cacheMiddleware, NotFound, HttpError } from './utils.js';
+import { cacheMiddleware, NotFound, HttpError, IframelyError } from './utils.js';
 import CONFIG from './config.loader.js';
 global.CONFIG = CONFIG;
 
@@ -75,17 +75,24 @@ function logErrors(err, req, res, next) {
   next(err);
 }
 
-function respondWithError(req, res, code, msg, messages) {
+function respondWithError(req, res, code, message, messages, iframely_error) {
+
   var err = {
     error: {
       source: 'iframely',
-      code: code,
-      message: msg
+      code: code
     }
   };
 
+  if (message) {
+    err.error.message = message;
+  }
   if (messages) {
     err.error.messages = messages;
+  }
+
+  if (iframely_error) {
+    err.error.iframely_error = iframely_error.info;
   }
 
   var ttl;
@@ -123,7 +130,15 @@ function respondWithError(req, res, code, msg, messages) {
 var proxyErrorCodes = [401, 403, 408];
 
 function errorHandler(err, req, res, next) {
-  if (err instanceof NotFound) {
+  if (err instanceof IframelyError) {
+    var message = err.info.title || err.info.detail || 'Server error';
+    if (err.info.status) {
+      message = "Requested page error: " + message
+    } else {
+      message = "Processing error: " + message;
+    }
+    respondWithError(req, res, err.info.status || 417, message, err.messages, err);
+  } else if (err instanceof NotFound) {
     respondWithError(req, res, 404, err.message, err.messages);
   } else {
     var code = err.code || 500;

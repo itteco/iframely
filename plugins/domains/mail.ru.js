@@ -30,7 +30,7 @@ export default {
     },
 
     getData: function(meta, cb) {
-        return cb(!meta.og ? {responseStatusCode: 404} : null);
+        return cb(!meta.og ? {iframelyResponseError: 404} : null);
     },
 
     tests: [

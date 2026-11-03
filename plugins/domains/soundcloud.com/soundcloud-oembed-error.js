@@ -16,11 +16,14 @@ export default {
             });
         } else if (oembedError === 403 && disable_private) {
             return cb({
-                responseError: oembedError
+                iframelyResponseError: {
+                    status: oembedError,
+                    detail: 'Private Soundcloud URLs are disabled for your account.'
+                }
             });
         } else if (oembedError === 404 && !twitter.title) {
             return cb({
-                responseError: 404
+                iframelyResponseError: 404
             });            
         } else {
             return cb(null, null); // fallback to generic parsers.

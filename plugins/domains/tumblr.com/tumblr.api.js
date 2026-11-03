@@ -82,7 +82,12 @@ export default {
                 }
 
                 if (!body.meta) {
-                    return cb({responseStatusCode: 415, message: 'This Tumblr may contain sensitive media and is not supported'});
+                    return cb({
+                        iframelyResponseError: {
+                            status: 415, 
+                            detail: 'This Tumblr may contain sensitive media and is not supported.'
+                        }
+                    });
                 }
 
                 if (body.meta.status != 200) {

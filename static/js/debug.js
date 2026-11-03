@@ -358,6 +358,7 @@ function processUrl() {
     // 1) Fetch data.
     var query = {
         debug: true,
+        apiVersion: DEBUGGER_CORE_VERSION,
         group: false,
         dataMode: $('[name="dataMode"]').is(":checked"),
         mixAllWithDomainPlugin: $('[name="mixAllWithDomainPlugin"]').is(":checked"),
@@ -369,7 +370,15 @@ function processUrl() {
         $loader.hide();
 
         if (error) {
-            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error + ' - ' +jqXHR.responseText);
+            $status.attr('class', 'alert alert-error').show().text(jqXHR.status + ' - ' + error);
+
+            var $responsePre = $('<pre>');
+            try {
+                $responsePre.renderObject(JSON.parse(jqXHR.responseText));
+            } catch (e) {
+                $responsePre.text(jqXHR.responseText);
+            }
+            $status.append($responsePre);
             return;
         }
 

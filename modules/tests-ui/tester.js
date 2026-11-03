@@ -432,12 +432,14 @@ function processPluginTests(pluginTest, plugin, count, cb) {
                     });
 
                     if (error) {
+                        var responseCode = error.responseCode || error.iframelyError?.status;
+                        var responseMessages = error.iframelyError?.detail || error.messages;
                         if (error.code === "timeout") {
                             logEntry.warnings = [error.code];
-                        } else if (error.responseCode === 404 || error.responseCode === 410) {
-                            logEntry.warnings = [error.responseCode];
-                        } else if (error.responseCode === 403 && error.messages) {
-                            logEntry.warnings = [error.responseCode].concat(error.messages);
+                        } else if (responseCode === 404 || responseCode === 410) {
+                            logEntry.warnings = [responseCode];
+                        } else if (responseCode === 403 && responseMessages) {
+                            logEntry.warnings = [responseCode].concat(responseMessages);
                         } else if (error.stack) {
                             logEntry.errors_list = [error.stack];
                         } else {
@@ -553,7 +555,7 @@ function processPluginTests(pluginTest, plugin, count, cb) {
 
                 setTimeout(function() {
                     iframely(url, {
-                        v: '1.3',
+                        v: CONFIG.TESTER_CORE_VERSION,
                         debug: true,
                         refresh: true,
                         readability: true,

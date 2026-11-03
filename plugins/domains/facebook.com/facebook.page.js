@@ -18,8 +18,10 @@ export default {
             });
         } else {
             return cb({
-                responseStatusCode: 415,
-                message: msg
+                iframelyResponseError: {
+                    status: 415,
+                    detail: msg
+                }
                 // and do not fall back to generic
             });
         }

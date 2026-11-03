@@ -28,7 +28,7 @@ export default {
             && /^https?:\/\/(?:www\.|go\.)?twitch\.tv\/(?:[a-zA-Z0-9_]+\/)?videos?\/(\d+)/i) {
 
             return cb({
-                responseStatusCode: 404
+                iframelyResponseError: 404
             });
 
         } else {

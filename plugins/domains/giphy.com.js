@@ -93,8 +93,10 @@ export default {
     getData: function (og, cb) {
         return cb (/^Private GIF$/i.test(og.title) 
             ? {
-                responseStatusCode: 403,
-                message: 'Sorry, the owner has set this GIF to private.'
+                iframelyResponseError: {
+                    status: 403,
+                    detail: "The owner has set this GIF to private."
+                }                
             } 
             : null)
     },

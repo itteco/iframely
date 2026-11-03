@@ -13,8 +13,10 @@ export default {
     getData: function(urlMatch, cb) {
 
         return cb({
-            responseStatusCode: 417,
-            message: 'This URL is not allowed on owner\'s request or by Iframely admins.'
+            iframelyResponseError: {
+                status: 415,
+                detail: 'This URL is not allowed on owner\'s request or by Iframely admins.',
+            }
         });
     }
 

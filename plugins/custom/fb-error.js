@@ -26,10 +26,12 @@ export default {
 
         if (error === 415) {
             result = {
-                responseError: 415,
-                message: CONFIG.FB_ERROR_MESSAGE || 
-                    "HEADS UP: Facebook & Instagram now require your own access_token configured. " 
-                    + " See https://github.com/itteco/iframely/issues/284"
+                iframelyResponseError: {
+                    status: 415,
+                    detail: CONFIG.FB_ERROR_MESSAGE || 
+                        "HEADS UP: Facebook & Instagram now require your own access_token configured. " 
+                        + " See https://github.com/itteco/iframely/issues/284"
+                }
             };
 
         // FB video with disabled embedding
@@ -66,12 +68,14 @@ export default {
             if (options.cache_ttl === 0) {
                 result = {
                     fallback: 'generic',
-                    message: "Facebook reports a downtime"
+                    message: "Facebook reports a downtime."
                 };
             } else {
                 result = {
-                    responseError: 408,
-                    message: "Facebook reports a downtime"
+                    iframelyResponseError: {
+                        status: 408,
+                        detail: "Facebook reports a downtime."
+                    }
                 }
             }
 

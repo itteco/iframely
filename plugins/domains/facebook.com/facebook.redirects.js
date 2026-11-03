@@ -36,23 +36,27 @@ export default {
         if (meta["html-title"] === "Facebook" || meta["html-title"] === "Leaving Facebook...") {
             // the content is not public
             return cb({
-                responseStatusCode: 403,
-                message: "The content isn't shared publicly or requires a login."
+                iframelyResponseError: {
+                    status: 403,
+                    detail: "The content isn't shared publicly or requires a login."
+                }
             });
         }
 
         if (/^https?:\/\/(?:www|m|business)\.facebook\.com\/login\.php/i.test(url)) {
             // redirect to login
             return cb({
-                responseStatusCode: 403,
-                message: "The content isn't shared publicly and requires special permission."
+                iframelyResponseError: {
+                    status: 403,
+                    detail: "The content isn't shared publicly and requires special permission."
+                }
             });
         }
 
         
         if (meta["html-title"] === "Content Not Found") {
             // for mobiles pages like https://m.facebook.com/story.php?story_fbid=654911224606798 fb doesn't return 404
-            return cb({responseStatusCode: 404});
+            return cb({iframelyResponseError: 404});
         }        
 
         cb(null);
