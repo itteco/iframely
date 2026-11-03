@@ -9,7 +9,8 @@ export function checkRobots(noindexHeader, cb) {
             if (noindexHeader.indexOf(NO_INDEX_TAGS[i]) > -1) {
                 cb({
                     iframelyResponseError: {
-                        status: 403,
+                        code: 'iframely.robots.disallowed',
+                        status: 415,
                         detail: "The robots directive of this page prevented Iframely from parsing it"
                     }
                 });

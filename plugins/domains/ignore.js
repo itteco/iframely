@@ -14,7 +14,7 @@ export default {
 
         return cb({
             iframelyResponseError: {
-                status: 417,
+                status: 415,
                 detail: 'This URL is not allowed on owner\'s request or by Iframely admins.',
             }
         });
