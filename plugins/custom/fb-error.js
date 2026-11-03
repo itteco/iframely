@@ -31,7 +31,7 @@ export default {
                     detail: CONFIG.FB_ERROR_MESSAGE || 
                         "HEADS UP: Facebook & Instagram now require your own access_token configured. " 
                         + " See https://github.com/itteco/iframely/issues/284"
-                    }
+                }
             };
 
         // FB video with disabled embedding
