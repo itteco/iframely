@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:26-alpine
 
 EXPOSE 8061
 
@@ -12,7 +12,7 @@ RUN apk add g++ make python3
 # You should overwrite this on the CLI with `-e NODE_ENV=production`.
 ENV NODE_ENV=local
 
-RUN corepack enable
+RUN npm install -g pnpm@12
 
 ## Utilize docker layer cache
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml /iframely/
