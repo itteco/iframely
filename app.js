@@ -131,7 +131,7 @@ var proxyErrorCodes = [401, 403, 408];
 
 function errorHandler(err, req, res, next) {
   if (err instanceof IframelyError) {
-    respondWithError(req, res, err.status || 417, err.title || err.detail, err.messages, err);
+    respondWithError(req, res, err.info.status || 417, err.info.title || err.info.detail, err.messages, err);
   } else if (err instanceof NotFound) {
     respondWithError(req, res, 404, err.message, err.messages);
   } else {
