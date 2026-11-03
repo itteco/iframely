@@ -191,12 +191,12 @@ describe('meta endpoint', function() {
     request(BASE_IFRAMELY_SERVER_URL)
         .get('/iframely?url=' + url)
         .end(function(err, res) {
-          expect(res.statusCode).to.equal(417);
+          expect(res.statusCode).to.equal(415);
           expect(res.body).to.deep.equal({
             error: {
               source: 'iframely',
-              code: 417,
-              message: 'Requested page error: 417',
+              code: 415,
+              message: 'Requested page error: 415',
               messages: [
                 "This URL is not allowed on owner's request or by Iframely admins."
               ]
