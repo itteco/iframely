@@ -158,7 +158,7 @@ export default {
             return cb({
                 iframelyResponseError: {
                     status: 415,
-                    detail: 'Google speadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
+                    detail: 'Google spreadsheet charts are fixed-size and cannot be supported. Try linking yours as an image.'
                 }
             })            
         } else if (!meta.og && /docs\.google\.com/.test(url) && !options.getRequestOptions('google.enable_private')) {
