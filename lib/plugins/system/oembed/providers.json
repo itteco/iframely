@@ -12,6 +12,14 @@
         "endpoint": "https://graph.facebook.com/v24.0/oembed_post"
     },
     {
+        "name": "Facebook fix for /NAME/posts/",
+        "templates": [
+          "(?:www|m|business)\\.facebook\\.com/([^/]+/posts/)[^/]+/(\\d{10,})"
+        ],
+        "url": "https://www.facebook.com/{1}{2}",
+        "endpoint": "https://graph.facebook.com/v24.0/oembed_post"
+    },    
+    {
         "name": "Facebook Video no query string",
         "templates": [
             "(?:www|business)\\.(facebook\\.com/[^/]+/videos/\\d+)",
