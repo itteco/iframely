@@ -6,7 +6,8 @@ export default {
         /^https?:\/\/(www|m)\.facebook\.com\/people\/[^\/]+\/\d+/i // for the "N/A" message only
     ],
 
-    getData: function(options, cb) {
+    getData: function(options, __noOembedLinks, cb) { 
+        // __noOembedLinks to prevent to interfere with posts like https://www.facebook.com/photo?fbid=3242822485762635&set=pcb.3242829905761893
 
         // https://developers.facebook.com/blog/post/2025/04/08/oembed-updates/
         const msg = 'Facebook has retired automated page embeds on November 3, 2025.';
