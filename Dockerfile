@@ -1,16 +1,9 @@
-FROM node:26-alpine
+ARG NODE_IMAGE_TAG=26-alpine
 
-EXPOSE 8061
+
+FROM node:$NODE_IMAGE_TAG AS builder
 
 WORKDIR /iframely
-
-# Create new non-root user
-RUN addgroup --system iframelygroup && adduser --system iframely -G iframelygroup
-RUN apk add g++ make python3
-
-# This will change the config to `config.<VALUE>.js` and the express server to change its behaviour.
-# You should overwrite this on the CLI with `-e NODE_ENV=production`.
-ENV NODE_ENV=local
 
 RUN npm install -g pnpm@12
 
@@ -21,8 +14,22 @@ RUN pnpm install --frozen-lockfile --prod
 
 COPY . /iframely
 
-RUN chown -R iframely /iframely/config.local.js || touch /iframely/config.local.js
+
+FROM node:$NODE_IMAGE_TAG
+
+# This will change the config to `config.<VALUE>.js` and the express server to change its behaviour.
+# You should overwrite this on the CLI with `-e NODE_ENV=production`.
+ENV NODE_ENV=local
+
+# Create new non-root user
+RUN addgroup --system iframelygroup && adduser --system iframely -G iframelygroup
+
+COPY --from=builder /iframely /iframely
+
+EXPOSE 8061
 
 USER iframely
+
+WORKDIR /iframely
 
 ENTRYPOINT [ "/iframely/docker/entrypoint.sh" ]
