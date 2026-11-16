@@ -18,8 +18,11 @@ export default {
 
     tests: [
         "https://video.itu.dk/live/13796543",
-        "https://video.ku.dk/video/11827941/visual-social-media-lab-farida-vis-anne",
         "https://video.itu.dk/video/91172759/kandidat-i-softwaredesign-los",
+        "https://video.pfa.dk/afkast-i-pfa-pension-3-kvartal-4",
+        "https://jyskebank.tv/energianalyse-uge-47-myndighedskrav"
+
+        // 421 error "https://video.ku.dk/video/11827941/visual-social-media-lab-farida-vis-anne",
         // "https://www.fftv.no/skipatruljen-s3e3-voss-resort", No oEmbed discovery tags
     ]
 };
