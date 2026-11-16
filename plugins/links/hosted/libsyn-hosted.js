@@ -22,7 +22,9 @@ export default {
     },
 
     tests: [
-        "https://trendfollowingradio.com/episode-1-the-trend-following-manifesto-with-michael-covel",
-        "https://whos-he-podcast.co.uk/whos-he-podcast-274"
+        "https://whos-he-podcast.co.uk/whos-he-at-the-movies-halloween-week-an-american-werewolf-in-london",
+        "https://whos-he-podcast.co.uk/whos-he-podcast-274",
+
+        // no twitter player "https://www.trendfollowing.com/2026/11/08/ep-1415-the-great-bend-over-with-michael-covel-on-trend-following-radio/",
     ]
 };
