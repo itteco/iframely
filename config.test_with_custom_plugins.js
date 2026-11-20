@@ -20,5 +20,5 @@ export default {
     IGNORE_DOMAINS_RE: /blacklisted.*/,
 
     // Mocked target servers in e2e tests run on localhost.
-    SSRF_ALLOWED_HOSTS: ['localhost']
+    ALLOWED_LOCAL_HOSTS: ['localhost']
   };
