@@ -10,7 +10,7 @@ describe('meta endpoint', function() {
   var BASE_IFRAMELY_SERVER_URL = 'http://localhost:' + process.env.PORT;
 
   var TARGET_MOCKED_SERVER_PORT = 9000;
-  var TARGET_MOCKED_SERVER_BASEURL = 'http://127.0.0.1:' + TARGET_MOCKED_SERVER_PORT;
+  var TARGET_MOCKED_SERVER_BASEURL = 'http://localhost:' + TARGET_MOCKED_SERVER_PORT;
 
   var targetMockedServer = new ServerMock({ host: '127.0.0.1', port: TARGET_MOCKED_SERVER_PORT });
   var server;
