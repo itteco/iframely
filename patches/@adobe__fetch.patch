@@ -1,5 +1,5 @@
 diff --git a/src/core/request.js b/src/core/request.js
-index 6f7120e3e383ed44b4fe63861109f365579d7425..19de7a26bc712e172b78efb4de4ef97ad8f269e3 100644
+index 6f7120e3e383ed44b4fe63861109f365579d7425..56a93b524fd33c8373d67fefae6297e8c86e6aa9 100644
 --- a/src/core/request.js
 +++ b/src/core/request.js
 @@ -160,7 +160,16 @@ const determineProtocol = async (ctx, url, signal) => {
@@ -19,3 +19,29 @@ index 6f7120e3e383ed44b4fe63861109f365579d7425..19de7a26bc712e172b78efb4de4ef97a
      servername: url.hostname, // enable SNI (Server Name Indication) extension
      ALPNProtocols: ctx.alpnProtocols,
      signal, // optional abort signal
+@@ -189,6 +198,12 @@ const sanitizeHeaders = (headers) => {
+ const request = async (ctx, uri, options) => {
+   const url = new URL(uri);
+ 
++  // PATCH: `beforeRequest(url)` context hook, called for every request incl. each followed redirect.
++  // Throw (or reject) to cancel the request before any connection is made.
++  if (ctx.beforeRequest) {
++    await ctx.beforeRequest(url);
++  }
++
+   const opts = { ...DEFAULT_OPTIONS, ...(options || {}) };
+ 
+   // sanitze method name
+@@ -316,9 +331,12 @@ const setupContext = (ctx) => {
+       alpnCacheTTL = ALPN_CACHE_TTL,
+       alpnCacheSize = ALPN_CACHE_SIZE,
+       userAgent = DEFAULT_USER_AGENT,
++      beforeRequest, // PATCH
+     },
+   } = ctx;
+ 
++  ctx.beforeRequest = beforeRequest; // PATCH
++
+   ctx.alpnProtocols = alpnProtocols;
+   ctx.alpnCache = new LRUCache({ max: alpnCacheSize, ttl: alpnCacheTTL });
+ 

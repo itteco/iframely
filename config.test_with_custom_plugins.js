@@ -17,5 +17,8 @@ export default {
 
     RESPONSE_TIMEOUT: 1 * 100, //ms
 
-    IGNORE_DOMAINS_RE: /blacklisted.*/
+    IGNORE_DOMAINS_RE: /blacklisted.*/,
+
+    // Mocked target servers in e2e tests run on localhost.
+    ALLOWED_LOCAL_HOSTS: ['localhost']
   };
