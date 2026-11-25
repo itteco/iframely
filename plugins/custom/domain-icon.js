@@ -82,11 +82,15 @@ export default {
                             // e.g. http ->https, then http urls will always miss icons.
 
                             icons = data.links.filter(function(link) {
-                                // Avoid passing rel thumbnail if it's the same as icon
-                                if (link.rel?.indexOf(CONFIG.R.thumbnail) > -1) {
-                                    link.rel = link.rel.filter(rel => rel !== CONFIG.R.thumbnail);
+                                if (link.rel?.indexOf(CONFIG.R.icon) === -1) {
+                                    return false;
+                                } else {
+                                    // Avoid passing rel thumbnail if it's the same as icon
+                                    if (link.rel?.indexOf(CONFIG.R.thumbnail) > -1) {
+                                        link.rel = link.rel.filter(rel => rel !== CONFIG.R.thumbnail);
+                                    }
+                                    return true;
                                 }
-                                return link.rel?.indexOf(CONFIG.R.icon) > -1;
                             });
                         } else {
                             log('[domain-icons] no icons for', domainUri);
