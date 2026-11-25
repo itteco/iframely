@@ -211,20 +211,25 @@ export default {
         links.push(app);
 
         if (twitter_og.image) {
-            const isProfilePic = /\/profile_images\//i.test(twitter_og.image.url || twitter_og.image.src || twitter_og.image);
+            const src = twitter_og.image.url || twitter_og.image.src || twitter_og.image;
+            const isIcon = /\/icon\-/i.test(src);
 
-            var thumbnail = {
-                href: twitter_og.image.url || twitter_og.image.src || twitter_og.image,
-                type: CONFIG.T.image,
-                rel: isProfilePic ? [CONFIG.R.thumbnail, CONFIG.R.profile] : CONFIG.R.thumbnail
-            };
+            if (!isIcon) {
+                const isProfilePic = /\/profile_images\//i.test(src);
 
-            if (twitter_og.video && twitter_og.video.width && twitter_og.video.height) {
-                thumbnail.width = twitter_og.video.width;
-                thumbnail.height = twitter_og.video.height;
+                var thumbnail = {
+                    href: src,
+                    type: CONFIG.T.image,
+                    rel: isProfilePic ? [CONFIG.R.thumbnail, CONFIG.R.profile] : CONFIG.R.thumbnail
+                };
+
+                if (twitter_og.video && twitter_og.video.width && twitter_og.video.height) {
+                    thumbnail.width = twitter_og.video.width;
+                    thumbnail.height = twitter_og.video.height;
+                }
+
+                links.push(thumbnail);
             }
-
-            links.push(thumbnail);
         }
 
         return links;
