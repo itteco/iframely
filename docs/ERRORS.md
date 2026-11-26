@@ -9,7 +9,7 @@ In addition, the body of the response will also include the error code and messa
 			"error": "Not Found"
 		}
 
-The URLs that resulted an error will not be applied towards your API usage and limits. Morever, you can configure API through [your settings](https://iframely.com/settings) to return error code if there was no media matching your desired charecteristics. Such URLs will also not affect our billing.
+The URLs that resulted an error will not be applied towards your API usage and limits. Moreover, you can configure API through [your settings](https://iframely.com/settings) to return error code if there was no media matching your desired characteristics. Such URLs will also not affect our billing.
 
 The error statuses that you may encounter are these:
 
